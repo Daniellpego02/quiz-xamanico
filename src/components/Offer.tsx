@@ -56,7 +56,7 @@ const VturbPlayer = React.memo(() => {
   useEffect(() => {
     if (!containerRef.current) return;
     
-    // Injeção direta do elemento com estilo FORÇADO para vertical
+    // Injeção direta do elemento com estilo FORÇADO para vertical e celular
     containerRef.current.innerHTML = `
       <vturb-smartplayer 
         id="vid-692d0662eb5ec5285cee0f8c" 
@@ -72,13 +72,13 @@ const VturbPlayer = React.memo(() => {
   }, []);
 
   return (
-    // AQUI ESTÁ A CORREÇÃO: max-w-[360px] (largura de celular)
+    // FIXADO: max-w-[360px] (largura de celular)
     <div className="relative w-full max-w-[360px] mx-auto group">
       
       {/* Glow Behind */}
       <div className="absolute -inset-1 bg-gradient-to-r from-[#FF9500] via-purple-600 to-[#FF9500] rounded-[2.5rem] blur opacity-30 group-hover:opacity-50 transition duration-1000 animate-pulse"></div>
       
-      {/* Player Container - AQUI ESTÁ A CORREÇÃO: aspect-[9/16] (vertical) */}
+      {/* Player Container - FIXADO: aspect-[9/16] (vertical) */}
       <div className="relative w-full aspect-[9/16] bg-black rounded-[2rem] overflow-hidden shadow-2xl border border-white/10 z-10">
         <div ref={containerRef} className="w-full h-full" />
       </div>
@@ -211,9 +211,8 @@ export const Offer: React.FC = () => {
         currency: 'BRL' 
       });
     }
-    // 👇 LINK DO CHECKOUT AQUI 👇
-    // window.location.href = "https://pay.hotmart.com/SEU_LINK_AQUI"; 
-    alert("Redirecionando para checkout seguro... (Configure o link no código)");
+    // LINK DO CHECKOUT INTEGRADO
+    window.location.href = "https://seguropagamentos.com.br/oferta-principal";
   };
 
   const faqs = [
