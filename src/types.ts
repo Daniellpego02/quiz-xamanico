@@ -1,5 +1,3 @@
-import React from 'react';
-
 export enum AppStep {
   HERO = 'HERO',
   QUIZ = 'QUIZ',
