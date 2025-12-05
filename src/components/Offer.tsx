@@ -49,25 +49,22 @@ const BonusCard = ({ icon, title, value, desc, delay }: { icon: React.ReactNode,
   </motion.div>
 );
 
-// --- COMPONENTE DO PLAYER (Cinema Mode) ---
+// --- COMPONENTE DO PLAYER (Cinema Mode - VERTICAL FIXED) ---
 const VturbPlayer = React.memo(() => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Using innerHTML string injection to create the custom element.
-    // This is the most robust way to prevent React from attaching internal properties 
-    // or attempting to serialize circular references on the Web Component.
     if (!containerRef.current) return;
     
+    // Injeção direta do elemento com estilo FORÇADO para vertical
     containerRef.current.innerHTML = `
       <vturb-smartplayer 
         id="vid-692d0662eb5ec5285cee0f8c" 
-        style="display:block; width:100%; height:100%;"
+        style="display:block; width:100%; height:100%; object-fit: cover;"
       ></vturb-smartplayer>
     `;
 
     return () => {
-        // Cleanup on unmount
         if (containerRef.current) {
             containerRef.current.innerHTML = '';
         }
@@ -75,17 +72,19 @@ const VturbPlayer = React.memo(() => {
   }, []);
 
   return (
-    <div className="relative w-full max-w-3xl mx-auto group">
-      {/* Glow Behind */}
-      <div className="absolute -inset-1 bg-gradient-to-r from-[#FF9500] via-purple-600 to-[#FF9500] rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-1000 animate-pulse"></div>
+    // AQUI ESTÁ A CORREÇÃO: max-w-[360px] (largura de celular)
+    <div className="relative w-full max-w-[360px] mx-auto group">
       
-      {/* Player Container */}
-      <div className="relative w-full aspect-video bg-black rounded-xl overflow-hidden shadow-2xl border border-white/10 z-10">
+      {/* Glow Behind */}
+      <div className="absolute -inset-1 bg-gradient-to-r from-[#FF9500] via-purple-600 to-[#FF9500] rounded-[2.5rem] blur opacity-30 group-hover:opacity-50 transition duration-1000 animate-pulse"></div>
+      
+      {/* Player Container - AQUI ESTÁ A CORREÇÃO: aspect-[9/16] (vertical) */}
+      <div className="relative w-full aspect-[9/16] bg-black rounded-[2rem] overflow-hidden shadow-2xl border border-white/10 z-10">
         <div ref={containerRef} className="w-full h-full" />
       </div>
 
       {/* "Sound On" Hint */}
-      <div className="absolute bottom-4 right-4 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden md:flex items-center gap-2 text-[10px] font-bold text-white bg-black/60 px-2 py-1 rounded-full backdrop-blur-sm">
+      <div className="absolute bottom-6 right-6 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden md:flex items-center gap-2 text-[10px] font-bold text-white bg-black/60 px-3 py-1.5 rounded-full backdrop-blur-md border border-white/10">
          <Play className="w-3 h-3 fill-white" /> LIGUE O SOM
       </div>
     </div>
