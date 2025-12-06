@@ -50,6 +50,6 @@ interface ImportMetaEnv {
 }
 
 interface ImportMeta {
-  readonly url: string;
+  url: string;
   readonly env: ImportMetaEnv;
 }

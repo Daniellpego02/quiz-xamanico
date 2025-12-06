@@ -1,9 +1,10 @@
-
 import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { AppStep } from './types';
 import { Hero } from './components/Hero';
 import { Quiz } from './components/Quiz';
+import { Authority } from './components/Authority';
+import { SocialProof } from './components/SocialProof';
 import { AnalysisLoading } from './components/AnalysisLoading';
 import { Offer } from './components/Offer';
 
@@ -11,7 +12,7 @@ function App() {
   const [currentStep, setCurrentStep] = useState<AppStep>(AppStep.HERO);
 
   useEffect(() => {
-    // Pixel init handled in HTML
+    // Inicialização do Pixel se necessário
   }, []);
 
   const goToStep = (step: AppStep) => {
@@ -24,8 +25,15 @@ function App() {
   };
 
   const handleQuizComplete = () => {
-    // MUDANÇA ESTRATÉGICA: Pula Authority/SocialProof isoladas e vai direto pro Loading
-    // A Authority e SocialProof agora estão embutidas na Offer (Long Form Sales Page)
+    // Agora vai para AUTORIDADE, criando conexão
+    goToStep(AppStep.AUTHORITY);
+  };
+
+  const handleAuthorityNext = () => {
+    goToStep(AppStep.SOCIAL_PROOF);
+  };
+
+  const handleSocialProofNext = () => {
     goToStep(AppStep.LOADING);
   };
 
@@ -39,6 +47,10 @@ function App() {
         return <Hero onStart={handleStartQuiz} />;
       case AppStep.QUIZ:
         return <Quiz onComplete={handleQuizComplete} />;
+      case AppStep.AUTHORITY:
+        return <Authority onNext={handleAuthorityNext} />;
+      case AppStep.SOCIAL_PROOF:
+        return <SocialProof onNext={handleSocialProofNext} />;
       case AppStep.LOADING:
         return <AnalysisLoading onComplete={handleLoadingComplete} />;
       case AppStep.OFFER:
