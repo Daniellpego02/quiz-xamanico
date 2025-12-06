@@ -12,10 +12,10 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const [userName, setUserName] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [isNavigating, setIsNavigating] = useState(false);
-  const [showTuningScreen, setShowTuningScreen] = useState(false); // Estado para a tela de "Sintonia"
+  const [showTuningScreen, setShowTuningScreen] = useState(false);
 
-  // Função para personalizar o texto com o nome do usuário
   const personalizeText = (text: string) => {
+    // Substitui {NAME} pelo nome da pessoa ou "você"
     return text.replace("{NAME}", userName ? userName.split(' ')[0] : "você");
   };
 
@@ -122,16 +122,12 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     if (!inputValue.trim()) return;
     
     setUserName(inputValue.trim());
-    
-    // ATIVA A TELA DE SINTONIA
     setShowTuningScreen(true);
     
-    // Pixel para início do quiz
     if (typeof window.fbq === 'function') {
       window.fbq('trackCustom', 'QuizStarted', { name_provided: true });
     }
 
-    // Aguarda 3 segundos na tela de sintonia antes de ir para a próxima
     setTimeout(() => {
         setShowTuningScreen(false);
         handleNext();
@@ -151,7 +147,6 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     }, 250);
   };
 
-  // TELA DE SINTONIA (INTERSTITIAL)
   if (showTuningScreen) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center px-6 relative z-20 text-center">
@@ -189,7 +184,6 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   return (
     <div className="min-h-screen flex flex-col max-w-lg mx-auto px-4 py-6 relative z-10">
       
-      {/* Barra de Progresso */}
       <div className="w-full bg-white/5 backdrop-blur-sm rounded-full h-3 mb-8 relative overflow-hidden border border-white/10 shadow-inner">
         <motion.div 
           className="bg-gradient-to-r from-orange-600 to-yellow-400 h-full rounded-full shadow-[0_0_15px_rgba(251,191,36,0.5)]"
@@ -208,7 +202,6 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           transition={{ duration: 0.3 }}
           className="flex-1 flex flex-col"
         >
-          {/* Header da Pergunta */}
           <div className="mb-6">
             <h3 className="text-orange-400 font-bold text-xs tracking-[0.2em] uppercase mb-3 flex items-center gap-2">
               <span className="bg-orange-500/10 w-6 h-6 rounded-full flex items-center justify-center text-[10px] border border-orange-500/30 text-orange-400">
@@ -221,7 +214,6 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             </h2>
           </div>
 
-          {/* Renderização baseada no tipo (Input vs Opções) */}
           {currentQuestion.type === 'input' ? (
             <form onSubmit={handleInputSubmit} className="space-y-4 mt-4">
               <div className="relative">

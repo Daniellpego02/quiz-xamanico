@@ -179,6 +179,7 @@ export const Offer: React.FC = () => {
         <div className="space-y-4 pt-6 border-t border-white/5">
            <ObjectionCard icon={<MessageCircle className="w-5 h-5 text-emerald-400" />} title="JÁ TENTEI TERAPIA" color="border-emerald-500" text="O Mapa foca na ENERGIA, não só na mente. É mais rápido e barato que sessões tradicionais." />
            <ObjectionCard icon={<HelpCircle className="w-5 h-5 text-purple-400" />} title="MEDO DE NÃO ENTENDER" color="border-purple-500" text="Linguagem simples para iniciantes. Zero 'tiques' religiosos." />
+           <ObjectionCard icon={<Star className="w-5 h-5 text-blue-400" />} title="SOU CÉTICO" color="border-blue-500" text="O Mapa é matemática pura (Numerologia). Não exige crença para funcionar." />
         </div>
 
         <div className="bg-gradient-to-b from-[#1a103c] to-[#0F0821] p-6 rounded-3xl border border-[#D4AF37]/30 text-center relative overflow-hidden">

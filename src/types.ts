@@ -18,12 +18,11 @@ export interface QuizQuestion {
   id: number;
   title: string;
   text: string;
-  type?: 'select' | 'input'; // Adicionado suporte para input de texto
-  placeholder?: string;      // Texto de exemplo para o input
-  options?: QuestionOption[]; // Opcional agora, pois input não tem opções
+  type?: 'select' | 'input'; // ESSENCIAL: Permite perguntas de digitar
+  placeholder?: string;      // ESSENCIAL: Texto de ajuda no campo
+  options?: QuestionOption[];
 }
 
-// Extend window for Facebook Pixel and custom elements
 declare global {
   interface Window {
     fbq: any;
