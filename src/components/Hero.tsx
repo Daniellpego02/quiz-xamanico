@@ -1,8 +1,7 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './Button';
-import { Lock, ArrowDown, Clock, Eye, Trophy } from 'lucide-react';
+import { Lock, Clock, Eye, Trophy } from 'lucide-react';
 
 interface HeroProps {
   onStart: () => void;
@@ -23,7 +22,6 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
       exit={{ opacity: 0 }}
       className="flex flex-col min-h-[100dvh] max-w-lg mx-auto relative overflow-hidden"
     >
-      {/* --- BANNER TOPO (Compacto) --- */}
       <motion.div 
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -37,13 +35,9 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
         </div>
       </motion.div>
 
-      {/* --- CONTEÚDO PRINCIPAL --- */}
       <div className="flex-1 flex flex-col items-center justify-center px-5 py-4 space-y-6 text-center relative z-10">
-        
-        {/* Ambient Glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-purple-600/20 rounded-full blur-[80px] pointer-events-none -z-10"></div>
 
-        {/* Badge Prova Social */}
         <motion.div 
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -54,7 +48,6 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           <span>+20.000 vidas transformadas</span>
         </motion.div>
 
-        {/* Headline (Focada em Curiosidade e Dor) */}
         <motion.div
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -68,7 +61,6 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           </p>
         </motion.div>
 
-        {/* CTA - TRAZIDO PARA CIMA (ABOVE THE FOLD) - MELHORIA CRÍTICA */}
         <motion.div 
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -84,7 +76,6 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           </p>
         </motion.div>
 
-        {/* Box de Dor (Agora abaixo do botão, como reforço) */}
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
