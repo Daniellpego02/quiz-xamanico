@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './Button';
-import { Trophy, Lock, ArrowDown, Clock } from 'lucide-react';
+import { Lock, ArrowDown, Clock, Eye, Trophy } from 'lucide-react';
 
 interface HeroProps {
   onStart: () => void;
@@ -20,84 +20,85 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="flex flex-col min-h-screen px-6 py-8 max-w-lg mx-auto text-center items-center justify-center space-y-8 md:space-y-10 relative"
+      className="flex flex-col min-h-[100dvh] max-w-lg mx-auto relative overflow-hidden"
     >
-      {/* Ambient Glow behind Hero */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-purple-600/20 rounded-full blur-[100px] pointer-events-none"></div>
-
-      {/* Badge */}
+      {/* --- BANNER TOPO (Compacto) --- */}
       <motion.div 
-        initial={{ y: -20, opacity: 0 }}
+        initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.2 }}
-        className="inline-flex items-center gap-2 bg-emerald-950/40 backdrop-blur-md text-emerald-400 px-4 py-1.5 rounded-full text-xs font-bold border border-emerald-500/30 shadow-[0_0_20px_rgba(16,185,129,0.15)] relative z-10"
+        className="w-full bg-gradient-to-r from-[#1a0b2e] via-[#2d1b4e] to-[#1a0b2e] border-b border-[#FF9500]/30 py-3 px-4 shadow-lg relative z-20"
       >
-        <Trophy className="w-3 h-3" />
-        <span>Mais de 20.000 vidas transformadas</span>
-      </motion.div>
-
-      {/* Headline */}
-      <motion.h1 
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 0.3, type: "spring" }}
-        className="relative z-10 text-3xl md:text-5xl font-serif font-black text-white leading-[1.1] drop-shadow-2xl"
-      >
-        O Que Está <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#FF9500] to-orange-600 underline decoration-orange-500/0">BLOQUEANDO</span> Sua Prosperidade?
-        {/* Glow effect for the keyword */}
-        <span className="absolute inset-0 blur-2xl bg-orange-500/10 -z-10"></span>
-      </motion.h1>
-
-      {/* Subheadline */}
-      <motion.p 
-         initial={{ opacity: 0 }}
-         animate={{ opacity: 1 }}
-         transition={{ delay: 0.35 }}
-         className="relative z-10 text-slate-200 text-lg md:text-xl font-medium drop-shadow-lg"
-      >
-        Teste gratuito de 1 minuto revela exatamente o que te impede de prosperar.
-      </motion.p>
-
-      {/* Glass Card for Pain Points */}
-      <motion.div 
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
-        className="relative z-10 w-full space-y-4 text-slate-300 text-base md:text-lg leading-relaxed text-left bg-white/5 backdrop-blur-xl p-6 rounded-2xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]"
-      >
-        <div className="flex gap-4 items-start">
-          <div className="bg-red-500/10 p-2.5 rounded-full shrink-0 border border-red-500/20 shadow-[0_0_15px_rgba(239,68,68,0.2)]">
-             <Lock className="w-5 h-5 text-red-400" />
-          </div>
-          <p className="text-sm md:text-base">
-            <span className="font-bold text-white tracking-wide">Atenção:</span> Você pode ter <span className="text-red-300 font-bold border-b border-red-500/30 pb-0.5">bloqueios energéticos invisíveis</span> que travam seu dinheiro e relacionamentos — sem você perceber.
+        <div className="flex items-center justify-center gap-3">
+          <Eye className="w-5 h-5 text-[#FF9500] animate-pulse" />
+          <p className="text-xs font-serif text-[#FF9500] tracking-wider uppercase">
+            Revelação Ancestral Liberada
           </p>
         </div>
       </motion.div>
 
-      {/* Urgency + CTA */}
-      <motion.div 
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.6 }}
-        className="w-full pt-4 pb-8 relative z-10"
-      >
-        <div className="flex items-center justify-center gap-2 text-orange-400 text-xs font-bold uppercase tracking-wider mb-4 animate-pulse">
-           <Clock className="w-3 h-3" /> Disponível por tempo limitado
-        </div>
+      {/* --- CONTEÚDO PRINCIPAL --- */}
+      <div className="flex-1 flex flex-col items-center justify-center px-5 py-4 space-y-6 text-center relative z-10">
         
-        <div className="relative group">
-          <div className="absolute -inset-1 bg-gradient-to-r from-orange-600 to-amber-600 rounded-xl blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200"></div>
-          <Button onClick={handleStartClick} pulse className="relative text-xl shadow-2xl">
+        {/* Ambient Glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-purple-600/20 rounded-full blur-[80px] pointer-events-none -z-10"></div>
+
+        {/* Badge Prova Social */}
+        <motion.div 
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.1 }}
+          className="inline-flex items-center gap-1.5 bg-emerald-950/40 backdrop-blur-md text-emerald-400 px-3 py-1 rounded-full text-[10px] font-bold border border-emerald-500/30"
+        >
+          <Trophy className="w-3 h-3" />
+          <span>+20.000 vidas transformadas</span>
+        </motion.div>
+
+        {/* Headline (Focada em Curiosidade e Dor) */}
+        <motion.div
+          initial={{ y: 10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          <h1 className="text-3xl md:text-4xl font-serif font-black text-white leading-[1.1] drop-shadow-2xl mb-2">
+            O Que Está <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#FF9500] to-orange-600 underline decoration-orange-500/0">TRAVANDO</span> Sua Vida Financeira?
+          </h1>
+          <p className="text-slate-300 text-sm md:text-base leading-relaxed max-w-xs mx-auto">
+            Faça o teste de 1 minuto e descubra o <strong>Bloqueio Oculto</strong> que impede sua prosperidade.
+          </p>
+        </motion.div>
+
+        {/* CTA - TRAZIDO PARA CIMA (ABOVE THE FOLD) */}
+        <motion.div 
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="w-full relative group"
+        >
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-orange-600 to-amber-600 rounded-xl blur opacity-40 group-hover:opacity-70 transition duration-1000 animate-pulse"></div>
+          <Button onClick={handleStartClick} pulse className="relative text-lg py-4 w-full shadow-[0_0_30px_rgba(255,149,0,0.3)] border-t border-white/20">
             FAZER O TESTE AGORA
           </Button>
-        </div>
-        
-        <div className="mt-6 flex flex-col items-center animate-bounce text-slate-500">
-            <span className="text-[10px] uppercase tracking-widest mb-1">Começar</span>
-            <ArrowDown className="w-4 h-4" />
-        </div>
-      </motion.div>
+          <p className="text-[10px] text-slate-500 mt-2 uppercase tracking-widest flex items-center justify-center gap-1">
+            <Clock className="w-3 h-3" /> Gratuito por tempo limitado
+          </p>
+        </motion.div>
+
+        {/* Box de Dor (Agora abaixo do botão, como reforço) */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="w-full bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/5 text-left flex gap-3 items-center mt-2"
+        >
+          <div className="bg-red-500/10 p-2 rounded-full shrink-0">
+             <Lock className="w-4 h-4 text-red-400" />
+          </div>
+          <p className="text-xs text-slate-300 leading-snug">
+            <strong>Atenção:</strong> Você pode ter bloqueios energéticos invisíveis agindo contra você agora mesmo.
+          </p>
+        </motion.div>
+
+      </div>
     </motion.div>
   );
 };
