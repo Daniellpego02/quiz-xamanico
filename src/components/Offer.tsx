@@ -1,9 +1,51 @@
+
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from './Button';
-import { Check, Shield, Lock, Clock, ChevronDown, BookOpen, Infinity, Headphones, HelpCircle, MessageCircle, Star, ArrowDown, Play } from 'lucide-react';
+import { Check, Shield, Lock, Clock, ChevronDown, BookOpen, Infinity, Headphones, HelpCircle, MessageCircle, Star, ArrowDown, Play, Award, ShieldCheck, MapPin, Heart, MoreHorizontal, Bookmark, Send } from 'lucide-react';
 
-// --- COMPONENTES AUXILIARES ---
+// --- COMPONENTES AUXILIARES INTEGRADOS ---
+
+const InstagramPost = () => (
+  <div className="bg-black/80 backdrop-blur-md border border-white/10 rounded-xl overflow-hidden mb-6 text-white text-sm font-sans shadow-xl max-w-sm mx-auto w-full">
+    <div className="flex items-center justify-between p-3 border-b border-white/5">
+      <div className="flex items-center gap-2">
+        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-500 via-red-500 to-purple-600 p-[2px]">
+          <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&q=80&w=150" className="w-full h-full rounded-full border-2 border-black object-cover" alt="xama" />
+        </div>
+        <span className="font-bold text-xs">xama_interior</span>
+      </div>
+      <MoreHorizontal className="w-4 h-4 text-gray-400" />
+    </div>
+    <div className="bg-white/5 p-3 text-gray-300 text-xs border-b border-white/5">
+       <span className="font-bold text-white">xama_interior</span> ✨ Depoimentos de quem já destravou sua prosperidade...
+    </div>
+    <div className="px-3 py-3 space-y-3">
+      <div className="flex gap-3">
+        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=150" className="w-8 h-8 rounded-full object-cover" alt="user" />
+        <div className="flex-1">
+           <div className="flex items-baseline gap-2">
+              <span className="font-bold text-xs text-white">neuro_titania</span>
+              <span className="text-gray-400 text-[10px]">2h</span>
+           </div>
+           <p className="text-xs text-slate-200">Ahhh incrível!! amei o meu mapa. Mudou minha visão de mundo.</p>
+        </div>
+        <Heart className="w-3 h-3 text-gray-500" />
+      </div>
+      <div className="flex gap-3">
+        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150" className="w-8 h-8 rounded-full object-cover" alt="user" />
+        <div className="flex-1">
+           <div className="flex items-baseline gap-2">
+              <span className="font-bold text-xs text-white">rafaelmoraes</span>
+              <span className="text-gray-400 text-[10px]">5h</span>
+           </div>
+           <p className="text-xs text-slate-200">Já tive um encontro com meu animal guia, só quero ter certeza mesma. Mapa xamânico ❤️🙌🏻🙏</p>
+        </div>
+        <Heart className="w-3 h-3 text-gray-500" />
+      </div>
+    </div>
+  </div>
+);
 
 const ObjectionCard = ({ icon, title, text, color, delay }: { icon: React.ReactNode, title: string, text: string, color: string, delay: number }) => (
   <motion.div 
@@ -91,7 +133,7 @@ const VturbPlayer = React.memo(() => {
   );
 }, () => true);
 
-// --- COMPONENTE PRINCIPAL ---
+// --- COMPONENTE PRINCIPAL DA OFERTA ---
 export const Offer: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState(15 * 60);
   const [activeAccordion, setActiveAccordion] = useState<number | null>(0);
@@ -132,31 +174,6 @@ export const Offer: React.FC = () => {
     }
   }, []);
 
-  // Intersection Observer
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasViewedObjections) {
-            if (typeof window.fbq === 'function') {
-              window.fbq('trackCustom', 'ViewedObjections');
-            }
-            setHasViewedObjections(true);
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    if (objectionsRef.current) {
-      observer.observe(objectionsRef.current);
-    }
-
-    return () => {
-      if (objectionsRef.current) observer.unobserve(objectionsRef.current);
-    };
-  }, [hasViewedObjections]);
-
   // Timer Logic
   useEffect(() => {
     const storedTime = localStorage.getItem('offerTimer');
@@ -166,7 +183,6 @@ export const Offer: React.FC = () => {
     if (storedTime) {
       const { targetTime } = JSON.parse(storedTime);
       const diff = Math.floor((targetTime - now) / 1000);
-      // If time expired or invalid, reset.
       if (diff <= 0) {
           const newTarget = now + (15 * 60 * 1000);
           localStorage.setItem('offerTimer', JSON.stringify({ targetTime: newTarget }));
@@ -216,14 +232,10 @@ export const Offer: React.FC = () => {
   };
 
   const faqs = [
-    { q: "Como funciona o Mapa Xamânico?", a: "O Mapa Xamânico é um PDF personalizado de 15-20 páginas criado especialmente para você usando Numerologia Cabalística. Inserimos seu nome completo e data de nascimento em cálculos ancestrais que revelam seus bloqueios energéticos, dons naturais e caminho de prosperidade." },
-    { q: "Quando vou receber meu mapa?", a: "ACESSO IMEDIATO! Após a confirmação do pagamento (que leva até 5 minutos), você recebe o link para download do seu PDF personalizado direto no email." },
-    { q: "Preciso ter conhecimento espiritual?", a: "NÃO! O Mapa foi criado tanto para iniciantes quanto para praticantes avançados. A linguagem é clara, intuitiva e acompanha explicações práticas para você aplicar no dia a dia." },
-    { q: "Como é feita a personalização?", a: "Usamos seu nome completo e data de nascimento para fazer cálculos numerológicos baseados na Kaballah. Cada nome e data gera um mapa único - literalmente impossível ter 2 mapas iguais." },
-    { q: "Posso pagar parcelado?", a: "SIM! Aceitamos cartão de crédito em até 12x de R$3,08 (total R$27). Também aceitamos PIX para pagamento à vista." },
-    { q: "E se eu não gostar?", a: "GARANTIA INCONDICIONAL DE 7 DIAS. Se por qualquer motivo você não ficar satisfeito, basta enviar um email e devolvemos 100% do seu dinheiro. Sem perguntas, sem burocracia." },
-    { q: "É seguro comprar online?", a: "TOTALMENTE SEGURO! Usamos a Hotmart, maior plataforma da América Latina, com criptografia SSL. Seus dados estão 100% protegidos." },
-    { q: "Tem suporte se eu tiver dúvidas?", a: "SIM! Nossa equipe responde em até 2 horas por email. Você nunca fica sozinho(a) nessa jornada." }
+    { q: "Como funciona o Mapa Xamânico?", a: "O Mapa Xamânico é um PDF personalizado de 15-20 páginas criado especialmente para você usando Numerologia Cabalística." },
+    { q: "Quando vou receber meu mapa?", a: "ACESSO IMEDIATO! Após a confirmação do pagamento, você recebe o link no email." },
+    { q: "Preciso ter conhecimento espiritual?", a: "NÃO! O Mapa foi criado tanto para iniciantes quanto para praticantes avançados." },
+    { q: "E se eu não gostar?", a: "GARANTIA INCONDICIONAL DE 7 DIAS. Devolvemos 100% do seu dinheiro." },
   ];
 
   return (
@@ -238,39 +250,6 @@ export const Offer: React.FC = () => {
         <Clock className="w-3 h-3 animate-pulse" /> OFERTA EXPIRA EM: <span className="font-mono text-base">{formatTime(timeLeft)}</span>
       </motion.div>
 
-      {/* Hero / Headline Section */}
-      <div className="relative pt-12 pb-6 px-4 text-center">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 bg-green-500/10 backdrop-blur-md text-green-400 px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold mb-6 border border-green-500/20 shadow-[0_0_20px_rgba(34,197,94,0.15)] uppercase tracking-wide"
-        >
-          <Check className="w-3 h-3" /> Análise Concluída com Sucesso
-        </motion.div>
-
-        <motion.h1 
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="text-3xl md:text-5xl font-serif font-black text-white mb-4 leading-none drop-shadow-2xl max-w-2xl mx-auto"
-        >
-          Seu Mapa Está Pronto! <br/>
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF9500] via-yellow-400 to-[#FF9500] filter drop-shadow-lg">
-            Acesse Agora:
-          </span>
-        </motion.h1>
-
-        <motion.p 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          className="text-slate-300 text-sm md:text-base max-w-md mx-auto leading-relaxed"
-        >
-          Descubra seus bloqueios e o plano prático para <span className="text-white font-bold decoration-[#FF9500] underline underline-offset-4 decoration-2">destravar sua vida</span> em 7 dias.
-        </motion.p>
-      </div>
-
       <div className="max-w-xl mx-auto px-4 space-y-16">
 
         {/* --- VSL SECTION --- */}
@@ -278,11 +257,20 @@ export const Offer: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="space-y-4"
+          className="space-y-4 pt-8 text-center"
         >
+           <div className="inline-flex items-center gap-2 bg-green-500/10 backdrop-blur-md text-green-400 px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold border border-green-500/20 shadow-lg uppercase tracking-wide mb-4">
+            <Check className="w-3 h-3" /> Análise Concluída com Sucesso
+           </div>
+           <h1 className="text-3xl md:text-4xl font-serif font-black text-white leading-none drop-shadow-2xl">
+            Seu Mapa Está Pronto! <br/>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF9500] via-yellow-400 to-[#FF9500]">
+              Acesse Agora:
+            </span>
+           </h1>
+
            <VturbPlayer />
            
-           {/* Viewers Count */}
            <div className="flex items-center justify-center gap-2 text-xs text-slate-400 font-medium">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -296,56 +284,57 @@ export const Offer: React.FC = () => {
         <motion.div 
           initial={{ scale: 0.95, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
           className="relative group"
         >
-          {/* Background Shimmer */}
           <div className="absolute -inset-1 bg-gradient-to-r from-yellow-600 via-[#FF9500] to-purple-800 rounded-[35px] blur opacity-75 animate-pulse group-hover:opacity-100 transition duration-1000"></div>
           
           <div className="relative bg-[#0a0a0a] rounded-[34px] p-1 h-full">
              <div className="bg-[#120a2e] rounded-[32px] p-6 md:p-8 text-center h-full border border-white/10 shadow-2xl overflow-hidden relative">
-                
-                {/* Mystic Texture BG */}
                 <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
-                <div className="absolute top-0 right-0 w-40 h-40 bg-[#FF9500]/10 rounded-full blur-[60px]"></div>
-
-                {/* Badge */}
-                <div className="relative z-10 inline-block bg-gradient-to-r from-[#FF9500] to-red-600 text-white font-bold text-[10px] md:text-xs px-4 py-1.5 rounded-full mb-6 shadow-lg tracking-widest uppercase border border-white/20">
-                  Desconto Exclusivo de 86%
-                </div>
-
-                <h2 className="relative z-10 text-2xl md:text-3xl font-serif font-black text-white mb-2 drop-shadow-md">
-                  ✨ Mapa Xamânico Completo
-                </h2>
                 
-                <div className="relative z-10 my-8 flex flex-col items-center justify-center">
-                  <span className="text-slate-500 text-sm line-through decoration-slate-600/50 mb-1">De R$ 197,00</span>
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-xl text-slate-300 font-light">Por</span>
-                    <span className="text-7xl font-black text-white tracking-tighter drop-shadow-[0_0_25px_rgba(255,149,0,0.4)]">
-                       <span className="text-3xl align-top mr-1">R$</span>27
-                    </span>
-                  </div>
-                  <span className="text-[#FF9500] text-xs font-bold uppercase tracking-wider mt-2 bg-[#FF9500]/10 px-3 py-1 rounded border border-[#FF9500]/20">
-                    Acesso Vitalício + 3 Bônus
-                  </span>
-                </div>
-
-                {/* MAIN CTA */}
                 <div className="relative z-10">
-                  <Button onClick={handleCheckout} pulse className="w-full text-lg md:text-xl shadow-[0_10px_40px_rgba(255,149,0,0.4)] hover:shadow-[0_15px_50px_rgba(255,149,0,0.6)]">
-                    🔥 QUERO MEU MAPA AGORA
-                  </Button>
-                  <p className="text-[10px] text-slate-400 flex items-center justify-center gap-1.5 mt-3 opacity-80">
-                    <Lock className="w-3 h-3 text-green-500" /> Pagamento 100% Seguro • Acesso em 5min
-                  </p>
+                    <div className="inline-block bg-gradient-to-r from-[#FF9500] to-red-600 text-white font-bold text-[10px] md:text-xs px-4 py-1.5 rounded-full mb-6 shadow-lg tracking-widest uppercase border border-white/20">
+                      Desconto Exclusivo de 86%
+                    </div>
+
+                    <h2 className="text-2xl md:text-3xl font-serif font-black text-white mb-2 drop-shadow-md">
+                      ✨ Mapa Xamânico Completo
+                    </h2>
+                    
+                    <div className="my-8 flex flex-col items-center justify-center">
+                      <span className="text-slate-500 text-sm line-through decoration-slate-600/50 mb-1">De R$ 197,00</span>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-xl text-slate-300 font-light">Por</span>
+                        <span className="text-7xl font-black text-white tracking-tighter drop-shadow-[0_0_25px_rgba(255,149,0,0.4)]">
+                           <span className="text-3xl align-top mr-1">R$</span>27
+                        </span>
+                      </div>
+                      <span className="text-[#FF9500] text-xs font-bold uppercase tracking-wider mt-2 bg-[#FF9500]/10 px-3 py-1 rounded border border-[#FF9500]/20">
+                        Acesso Vitalício + 3 Bônus
+                      </span>
+                    </div>
+
+                    <Button onClick={handleCheckout} pulse className="w-full text-lg md:text-xl shadow-[0_10px_40px_rgba(255,149,0,0.4)] hover:shadow-[0_15px_50px_rgba(255,149,0,0.6)]">
+                      🔥 QUERO MEU MAPA AGORA
+                    </Button>
+                    <p className="text-[10px] text-slate-400 flex items-center justify-center gap-1.5 mt-3 opacity-80">
+                      <Lock className="w-3 h-3 text-green-500" /> Pagamento 100% Seguro • Acesso em 5min
+                    </p>
                 </div>
              </div>
           </div>
         </motion.div>
 
-        {/* --- BONUSES STACK --- */}
+        {/* --- PROVA SOCIAL (INTEGRADA) --- */}
+        <div className="space-y-6">
+            <h3 className="text-center font-serif font-bold text-white text-lg">
+                Quem já fez, <span className="text-[#FF9500]">recomenda</span>:
+            </h3>
+            <InstagramPost />
+        </div>
+
+        {/* --- BÔNUS STACK --- */}
         <div className="space-y-6">
           <div className="text-center mb-6">
              <h3 className="font-serif font-bold text-white text-xl flex items-center justify-center gap-2">
@@ -354,35 +343,25 @@ export const Offer: React.FC = () => {
              <p className="text-slate-400 text-xs">Apenas para quem garantir o mapa hoje.</p>
           </div>
           
-          <BonusCard 
-            icon={<BookOpen className="w-6 h-6 text-[#FF9500]" />}
-            title="Guia Prático de Desbloqueio"
-            value="97"
-            desc="30 exercícios práticos para aplicar hoje mesmo e destravar seus bloqueios."
-            delay={0.1}
-          />
-          <BonusCard 
-            icon={<Headphones className="w-6 h-6 text-purple-400" />}
-            title="Meditação de Limpeza Xamânica"
-            value="147"
-            desc="Áudio de 20min com a voz da Anahí para limpeza energética profunda."
-            delay={0.2}
-          />
-          <BonusCard 
-            icon={<Infinity className="w-6 h-6 text-blue-400" />}
-            title="Acesso Vitalício + Atualizações"
-            value="53"
-            desc="Novas versões e atualizações do Mapa sem custo adicional."
-            delay={0.3}
-          />
+          <BonusCard icon={<BookOpen className="w-6 h-6 text-[#FF9500]" />} title="Guia Prático de Desbloqueio" value="97" desc="30 exercícios práticos para aplicar hoje mesmo." delay={0.1} />
+          <BonusCard icon={<Headphones className="w-6 h-6 text-purple-400" />} title="Meditação de Limpeza" value="147" desc="Áudio de 20min com a voz da Anahí." delay={0.2} />
+          <BonusCard icon={<Infinity className="w-6 h-6 text-blue-400" />} title="Acesso Vitalício" value="53" desc="Novas versões e atualizações do Mapa sem custo." delay={0.3} />
+        </div>
 
-          <motion.div 
-            whileInView={{ scale: [0.95, 1.05, 1] }}
-            className="bg-emerald-950/40 p-4 rounded-xl border border-emerald-500/20 text-center mt-6 backdrop-blur-sm"
-          >
-            <p className="text-sm font-bold text-white">VALOR TOTAL DOS BÔNUS: <span className="text-emerald-400 line-through decoration-white/50">R$ 297</span></p>
-            <p className="text-xs text-emerald-200/80 mt-1">Você leva tudo isso <strong className="text-emerald-300 uppercase">de graça</strong> agora.</p>
-          </motion.div>
+        {/* --- AUTORIDADE (INTEGRADA) --- */}
+        <div className="bg-white/5 backdrop-blur-md p-6 rounded-3xl border border-white/10 text-center relative overflow-hidden my-8">
+            <div className="w-24 h-24 mx-auto rounded-full border-2 border-[#FF9500] p-1 mb-4 relative z-10">
+                <img src="/expert.jpg" className="w-full h-full rounded-full object-cover" onError={(e) => e.currentTarget.src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=388&auto=format&fit=crop"} alt="Expert" />
+            </div>
+            <h3 className="font-serif font-bold text-white text-lg mb-2">Anahí Solara</h3>
+            <p className="text-xs text-[#FF9500] font-bold uppercase tracking-widest mb-4">Xamã & Terapeuta Holística</p>
+            <p className="text-sm text-slate-300 leading-relaxed mb-4">
+                "Há 12 anos ajudo pessoas a destravarem sua prosperidade. O Mapa não é só leitura, é um caminho prático de cura."
+            </p>
+            <div className="flex justify-center gap-2 text-[10px] text-slate-400">
+                <span className="flex items-center gap-1"><Award className="w-3 h-3" /> 12 Anos Exp.</span>
+                <span className="flex items-center gap-1"><ShieldCheck className="w-3 h-3" /> 20k Alunos</span>
+            </div>
         </div>
 
         {/* --- OBJECTIONS --- */}
@@ -390,64 +369,22 @@ export const Offer: React.FC = () => {
            <h3 className="text-2xl font-serif font-bold text-white text-center mb-8">
              Por que o Mapa Xamânico funciona?
            </h3>
-           
-           <ObjectionCard 
-             icon={<MessageCircle className="w-6 h-6 text-emerald-400" />} 
-             title="JÁ TENTEI TERAPIA E NÃO FUNCIONOU"
-             color="border-emerald-500"
-             delay={0.1}
-             text="Terapias tradicionais focam na mente. O Mapa Xamânico foca na ENERGIA. Enquanto sessões custam R$300, o Mapa entrega diagnóstico completo em minutos usando sabedoria ancestral."
-           />
-
-           <ObjectionCard 
-             icon={<HelpCircle className="w-6 h-6 text-purple-400" />} 
-             title="TENHO MEDO DE NÃO ENTENDER"
-             color="border-purple-500"
-             delay={0.2}
-             text="Fique tranquilo(a). O PDF foi desenhado para iniciantes, com linguagem simples e zero 'tiques' religiosos. Testado com +20 mil pessoas comuns que buscavam autoconhecimento."
-           />
-
-           <ObjectionCard 
-             icon={<Star className="w-6 h-6 text-blue-400" />} 
-             title="SOU INICIANTE / CÉTICO"
-             color="border-blue-500"
-             delay={0.3}
-             text="O Mapa é baseado em cálculos matemáticos (Numerologia Cabalística), não em crença cega. É uma ferramenta lógica e prática para identificar padrões. Funciona mesmo se você nunca meditou."
-           />
+           <ObjectionCard icon={<MessageCircle className="w-6 h-6 text-emerald-400" />} title="JÁ TENTEI TERAPIA" color="border-emerald-500" delay={0.1} text="Terapias tradicionais focam na mente. O Mapa foca na ENERGIA." />
+           <ObjectionCard icon={<HelpCircle className="w-6 h-6 text-purple-400" />} title="TENHO MEDO DE NÃO ENTENDER" color="border-purple-500" delay={0.2} text="Fique tranquilo(a). O PDF foi desenhado para iniciantes." />
         </div>
 
-        {/* CTA Intermediário */}
-        <div className="py-8 text-center">
-           <Button onClick={handleCheckout} className="w-full shadow-lg">
-              🔥 QUERO MEU MAPA AGORA
-           </Button>
-           <div className="flex justify-center mt-6 gap-4 grayscale opacity-50">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" className="h-5" alt="PayPal" />
-              <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Mastercard_2019_logo.svg" className="h-5" alt="Mastercard" />
-              <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" className="h-5" alt="Visa" />
-           </div>
-        </div>
-
-        {/* --- GUARANTEE --- */}
+        {/* --- GARANTIA --- */}
         <motion.div 
           whileInView={{ y: [20, 0], opacity: [0, 1] }}
           viewport={{ once: true }}
           className="relative bg-gradient-to-b from-[#1a103c] to-[#0F0821] p-8 rounded-3xl border border-[#D4AF37]/30 shadow-[0_0_40px_rgba(212,175,55,0.05)] text-center overflow-hidden group"
         >
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-50 group-hover:opacity-100 transition-opacity"></div>
-          
           <div className="bg-gradient-to-br from-[#D4AF37] to-yellow-700 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl text-white ring-4 ring-[#D4AF37]/20">
              <Shield className="w-10 h-10" />
           </div>
-          
           <h4 className="font-serif font-bold text-[#D4AF37] text-xl mb-4 tracking-wide uppercase">Garantia Incondicional</h4>
-          
           <p className="text-sm text-slate-300 leading-relaxed mb-6 font-light px-2">
-            Teste por <strong className="text-white">7 dias</strong>. Se você não sentir clareza, não gostar do design ou simplesmente mudar de ideia, devolvemos <strong className="text-white underline decoration-[#D4AF37]">100% do seu dinheiro</strong>.
-          </p>
-
-          <p className="text-xs text-slate-400 italic font-medium bg-white/5 inline-block px-4 py-2 rounded-lg">
-            Risco Zero. Ou você ama, ou é de graça.
+            Teste por <strong className="text-white">7 dias</strong>. Se você não sentir clareza, devolvemos <strong className="text-white underline decoration-[#D4AF37]">100% do seu dinheiro</strong>.
           </p>
         </motion.div>
 
@@ -460,12 +397,7 @@ export const Offer: React.FC = () => {
             {faqs.map((faq, idx) => (
               <div key={idx} className="border border-white/5 rounded-xl overflow-hidden bg-white/5 backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/10">
                 <button 
-                  onClick={() => {
-                    setActiveAccordion(activeAccordion === idx ? null : idx);
-                    if (activeAccordion !== idx && typeof window.fbq === 'function') {
-                      window.fbq('trackCustom', 'OpenedFAQ');
-                    }
-                  }}
+                  onClick={() => setActiveAccordion(activeAccordion === idx ? null : idx)}
                   className="w-full flex justify-between items-center p-5 text-left font-medium text-slate-200"
                 >
                   <span className="pr-4 text-sm md:text-base leading-snug">{faq.q}</span>
@@ -505,7 +437,6 @@ export const Offer: React.FC = () => {
       </div>
 
       {/* --- STICKY MOBILE BAR (Clean & High Conversion) --- */}
-      {/* Updated to use safe-area-inset-bottom for proper spacing on iPhone X+ */}
       <div className="fixed bottom-0 left-0 w-full bg-[#0a0a0a]/95 backdrop-blur-xl border-t border-[#FF9500]/30 p-3 z-50 md:hidden shadow-[0_-10px_40px_rgba(0,0,0,0.8)] pb-[env(safe-area-inset-bottom)]">
         <div className="flex items-center justify-between gap-3 max-w-lg mx-auto">
           <div className="flex flex-col">

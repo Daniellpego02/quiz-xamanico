@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './Button';
@@ -67,7 +68,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           </p>
         </motion.div>
 
-        {/* CTA - TRAZIDO PARA CIMA (ABOVE THE FOLD) */}
+        {/* CTA - TRAZIDO PARA CIMA (ABOVE THE FOLD) - MELHORIA CRÍTICA */}
         <motion.div 
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -90,11 +91,11 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           transition={{ delay: 0.5 }}
           className="w-full bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/5 text-left flex gap-3 items-center mt-2"
         >
-          <div className="bg-red-500/10 p-2 rounded-full shrink-0">
+          <div className="bg-red-500/10 p-2 rounded-full shrink-0 border border-red-500/20 shadow-[0_0_15px_rgba(239,68,68,0.2)]">
              <Lock className="w-4 h-4 text-red-400" />
           </div>
           <p className="text-xs text-slate-300 leading-snug">
-            <strong>Atenção:</strong> Você pode ter bloqueios energéticos invisíveis agindo contra você agora mesmo.
+            <strong>Atenção:</strong> Você pode ter <span className="text-red-300 font-bold border-b border-red-500/30 pb-0.5">bloqueios energéticos invisíveis</span> que travam seu dinheiro e relacionamentos — sem você perceber.
           </p>
         </motion.div>
 
