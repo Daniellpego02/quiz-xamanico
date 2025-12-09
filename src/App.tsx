@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import { AppStep } from './types';
+import { AppStep, QuizPath } from './types';
 import { Hero } from './components/Hero';
 import { Quiz } from './components/Quiz';
 import { Authority } from './components/Authority';
@@ -10,6 +10,7 @@ import { Offer } from './components/Offer';
 
 function App() {
   const [currentStep, setCurrentStep] = useState<AppStep>(AppStep.HERO);
+  const [quizPath, setQuizPath] = useState<QuizPath>('finance'); // Padrão
 
   useEffect(() => {
     // Inicialização do Pixel se necessário
@@ -24,9 +25,10 @@ function App() {
     goToStep(AppStep.QUIZ);
   };
 
-  const handleQuizComplete = () => {
-    // Agora vai para AUTORIDADE, criando conexão
-    goToStep(AppStep.AUTHORITY);
+  // Agora recebe o caminho escolhido
+  const handleQuizComplete = (path: QuizPath) => {
+    setQuizPath(path);
+    goToStep(AppStep.AUTHORITY); // Mantendo o ritual de conexão
   };
 
   const handleAuthorityNext = () => {
@@ -54,7 +56,7 @@ function App() {
       case AppStep.LOADING:
         return <AnalysisLoading onComplete={handleLoadingComplete} />;
       case AppStep.OFFER:
-        return <Offer />;
+        return <Offer quizPath={quizPath} />; // Passa o caminho para a oferta
       default:
         return <Hero onStart={handleStartQuiz} />;
     }

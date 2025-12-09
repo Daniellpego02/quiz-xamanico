@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { QuizQuestion } from '../types';
+import { QuizQuestion, QuizPath } from '../types';
 import { ChevronRight, Sparkles, Fingerprint } from 'lucide-react';
 
 interface QuizProps {
-  onComplete: () => void;
+  onComplete: (path: QuizPath) => void;
 }
 
 export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
@@ -13,13 +13,11 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const [inputValue, setInputValue] = useState("");
   const [isNavigating, setIsNavigating] = useState(false);
   const [showTuningScreen, setShowTuningScreen] = useState(false);
+  const [selectedPath, setSelectedPath] = useState<QuizPath>('finance');
+  const [activeQuestions, setActiveQuestions] = useState<QuizQuestion[]>([]);
 
-  const personalizeText = (text: string) => {
-    // Substitui {NAME} pelo nome da pessoa ou "você"
-    return text.replace("{NAME}", userName ? userName.split(' ')[0] : "você");
-  };
-
-  const questions: QuizQuestion[] = [
+  // Perguntas Iniciais (Comuns)
+  const initialQuestions: QuizQuestion[] = [
     {
       id: 0,
       title: "IDENTIFICAÇÃO",
@@ -29,92 +27,159 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     },
     {
       id: 1,
-      title: "SINTONIA",
-      text: "{NAME}, para calibrar a energia do seu mapa, selecione seu gênero:",
+      title: "O FOCO",
+      text: "{NAME}, para calibrar a energia do seu mapa, qual área você quer entender profundamente hoje?",
       options: [
-        { label: "Mulher", value: "female", icon: "👩" },
-        { label: "Homem", value: "male", icon: "👨" },
-        { label: "Prefiro não dizer", value: "other", icon: "👤" },
-      ]
-    },
-    {
-      id: 2,
-      title: "O SINTOMA",
-      text: "{NAME}, em qual área da sua vida você sente que existe um 'muro invisível' te impedindo de avançar?",
-      options: [
-        { label: "Financeiro (Dinheiro entra e some)", value: "finance", icon: "💸" },
-        { label: "Relacionamentos (Padrões repetitivos)", value: "relationships", icon: "💔" },
-        { label: "Saúde e Energia (Cansaço sem fim)", value: "health", icon: "😓" },
-        { label: "Propósito (Sinto-me perdido)", value: "purpose", icon: "🎯" },
-        { label: "Todas as áreas parecem travadas", value: "all", icon: "🌪️" },
-      ]
-    },
-    {
-      id: 3,
-      title: "O PADRÃO OCULTO",
-      text: "Você costuma sentir que carrega um peso nas costas que não parece ser seu, {NAME}?",
-      options: [
-        { label: "Sim! Sinto um peso constante", value: "heavy", icon: "🎒" },
-        { label: "Às vezes, principalmente com a família", value: "family", icon: "👨‍👩‍👧" },
-        { label: "Sinto que vivo pelos outros", value: "others", icon: "🎭" },
-        { label: "Não, me sinto leve", value: "no", icon: "🍃" },
-      ]
-    },
-    {
-      id: 4,
-      title: "HERANÇA INVISÍVEL",
-      text: "Olhando para sua história familiar, você percebe que está repetindo as mesmas dificuldades dos seus pais?",
-      options: [
-        { label: "Sim, parece uma maldição que se repete", value: "curse", icon: "🔄" },
-        { label: "Sim, principalmente no financeiro", value: "money_pattern", icon: "📉" },
-        { label: "Sim, tenho 'dedo podre' igual a eles", value: "love_pattern", icon: "💔" },
-        { label: "Nunca parei para pensar nisso", value: "unknown", icon: "🤔" },
-      ]
-    },
-    {
-      id: 5,
-      title: "A FRUSTRAÇÃO",
-      text: "{NAME}, seja sincero(a): você sente que seu esforço nunca gera o resultado que você merece?",
-      options: [
-        { label: "Exatamente! Corro e não saio do lugar", value: "stuck", icon: "🏃" },
-        { label: "Sinto que algo me puxa pra trás", value: "pull_back", icon: "⚓" },
-        { label: "Às vezes flui, mas logo trava", value: "flow_stop", icon: "🚧" },
-        { label: "Não, recebo o justo", value: "fair", icon: "⚖️" },
-      ]
-    },
-    {
-      id: 6,
-      title: "O SONHO",
-      text: "Se pudéssemos destravar UMA coisa hoje para mudar sua vida em 7 dias, o que seria?",
-      options: [
-        { label: "Ver dinheiro sobrando na conta", value: "money", icon: "💰" },
-        { label: "Atrair um amor leve e verdadeiro", value: "love", icon: "❤️" },
-        { label: "Ter clareza da minha missão", value: "mission", icon: "🌟" },
-        { label: "Paz de espírito absoluta", value: "peace", icon: "✨" },
-      ]
-    },
-    {
-      id: 7,
-      title: "A DECISÃO",
-      text: "Se eu te entregasse um Mapa revelando a origem desses bloqueios... Você estaria pronto(a) para essa verdade, {NAME}?",
-      options: [
-        { label: "SIM! Eu preciso dessa resposta AGORA", value: "ready_now", icon: "🔥" },
-        { label: "Sinto que é o meu momento", value: "my_time", icon: "✨" },
-        { label: "Tenho medo, mas quero mudar", value: "scared_but_ready", icon: "🫣" },
+        { label: "Vida Financeira e Prosperidade", value: "finance", icon: "💰", path: 'finance' },
+        { label: "Relacionamentos e Amor", value: "relationship", icon: "❤️", path: 'relationship' },
       ]
     }
   ];
 
-  const handleNext = () => {
-    if (currentIndex < questions.length - 1) {
-      setCurrentIndex(prev => prev + 1);
-      setIsNavigating(false);
-    } else {
-      if (typeof window.fbq === 'function') {
-        window.fbq('track', 'CompleteRegistration', { content_name: 'Quiz Completo' });
-      }
-      onComplete();
+  // Caminho FINANCEIRO (Texto atualizado conforme briefing)
+  const financeQuestions: QuizQuestion[] = [
+    {
+      id: 2,
+      title: "P2 — O Sintoma Financeiro Profundo",
+      text: "{NAME}, quando você pensa na sua vida financeira, o que descreve melhor seu momento atual?",
+      options: [
+        { label: "O dinheiro entra… mas desaparece.", value: "disappears", icon: "💸" },
+        { label: "Eu trabalho muito e recebo pouco em troca.", value: "work_hard", icon: "😓" },
+        { label: "Sei que poderia estar melhor, mas algo me trava.", value: "stuck", icon: "🚧" },
+        { label: "Sinto vergonha da minha situação financeira.", value: "shame", icon: "🫣" },
+      ]
+    },
+    {
+      id: 3,
+      title: "P3 — O Peso Invisível do Dinheiro",
+      text: "Você sente que vive com uma pressão financeira que só você entende?",
+      options: [
+        { label: "Sim, é um peso que me acompanha todos os dias.", value: "daily", icon: "🎒" },
+        { label: "Às vezes, especialmente quando surgem imprevistos.", value: "sometimes", icon: "📉" },
+        { label: "Sinto que carrego responsabilidades demais sozinho(a).", value: "alone", icon: "🏋️" },
+        { label: "Não, mas meu dinheiro nunca flui como deveria.", value: "stagnant", icon: "🛑" },
+      ]
+    },
+    {
+      id: 4,
+      title: "P4 — O Padrão Financeiro que se Repete",
+      text: "Olhe para a sua história: você percebe padrões financeiros que se repetem?",
+      options: [
+        { label: "Sim, parece que repito a vida dos meus pais.", value: "parents", icon: "🔄" },
+        { label: "Vivo ciclos de ‘avanço e queda’.", value: "cycles", icon: "🎢" },
+        { label: "Nunca me senti no controle do meu dinheiro.", value: "control", icon: "🎮" },
+        { label: "Não tinha pensado nisso, mas faz sentido.", value: "insight", icon: "💡" },
+      ]
+    },
+    {
+      id: 5,
+      title: "P5 — A Frustração do Esforço",
+      text: "{NAME}, você sente que seu esforço nunca reflete no seu bolso?",
+      options: [
+        { label: "Sim, é desesperador.", value: "desperate", icon: "😫" },
+        { label: "Parece que sempre que tento crescer, algo me puxa para trás.", value: "pull_back", icon: "⚓" },
+        { label: "Consigo avançar um pouco… depois tudo trava.", value: "stuck_again", icon: "🧱" },
+        { label: "Eu até recebo pelo que faço, mas queria mais.", value: "want_more", icon: "📈" },
+      ]
+    },
+    {
+      id: 6,
+      title: "P6 — O Desejo Financeiro Real",
+      text: "Se você pudesse destravar UMA coisa hoje para mudar sua vida financeira, qual seria?",
+      options: [
+        { label: "Ver dinheiro sobrando todo mês.", value: "surplus", icon: "💵" },
+        { label: "Parar de viver no modo sobrevivência.", value: "survival", icon: "🛡️" },
+        { label: "Ter liberdade para escolhas sem medo.", value: "freedom", icon: "🕊️" },
+        { label: "Construir algo meu, que realmente funcione.", value: "build", icon: "🏗️" },
+      ]
+    },
+    {
+      id: 7,
+      title: "P7 — A Permissão para Mudar",
+      text: "Se eu te mostrasse o que realmente está travando sua vida financeira… você estaria pronto(a) para essa verdade?",
+      options: [
+        { label: "Sim! Chega, eu quero virar essa página.", value: "ready", icon: "🔥" },
+        { label: "Acho que é o meu momento.", value: "time", icon: "✨" },
+        { label: "Tenho receio, mas preciso mudar.", value: "scared", icon: "🤜" },
+      ]
     }
+  ];
+
+  // Caminho RELACIONAMENTO (Texto atualizado conforme briefing)
+  const relationshipQuestions: QuizQuestion[] = [
+    {
+      id: 2,
+      title: "P2 — O Sintoma do Coração",
+      text: "{NAME}, ao pensar na sua vida amorosa, o que mais dói hoje?",
+      options: [
+        { label: "Sempre escolho errado.", value: "wrong", icon: "💔" },
+        { label: "Dou demais e recebo pouco.", value: "give", icon: "🤲" },
+        { label: "Tenho medo de me entregar e me machucar.", value: "fear", icon: "🛡️" },
+        { label: "Me sinto sozinho(a) mesmo estando com alguém.", value: "lonely", icon: "😔" },
+      ]
+    },
+    {
+      id: 3,
+      title: "P3 — O Ciclo Emocional",
+      text: "Você sente que vive padrões de relacionamento que se repetem?",
+      options: [
+        { label: "Sim, parece que sempre encontro a mesma dor.", value: "pattern", icon: "🔄" },
+        { label: "Escolho pessoas que não me escolhem.", value: "rejection", icon: "🚫" },
+        { label: "Carrego traumas que estragam minhas relações.", value: "trauma", icon: "🎒" },
+        { label: "Às vezes, flui… mas logo desmorona.", value: "collapse", icon: "🏚️" },
+      ]
+    },
+    {
+      id: 4,
+      title: "P4 — A Herança Emocional Familiar",
+      text: "Na sua família, você observou padrões parecidos no amor?",
+      options: [
+        { label: "Sim, relacionamentos complicados ou instáveis.", value: "complicated", icon: "⚡" },
+        { label: "Muita cobrança, brigas ou falta de afeto.", value: "cold", icon: "❄️" },
+        { label: "Histórias de abandono ou traição.", value: "betrayal", icon: "🥀" },
+        { label: "Nunca pensei nisso, mas faz sentido.", value: "insight", icon: "💡" },
+      ]
+    },
+    {
+      id: 5,
+      title: "P5 — O Medo Silencioso",
+      text: "O que mais te assusta nos relacionamentos?",
+      options: [
+        { label: "Ser rejeitado(a) novamente.", value: "rejected", icon: "🙅" },
+        { label: "Amar alguém que não me valoriza.", value: "unvalued", icon: "💎" },
+        { label: "Não conseguir construir algo sólido.", value: "solid", icon: "🧱" },
+        { label: "Repetir o passado e nunca viver algo leve.", value: "heavy", icon: "☁️" },
+      ]
+    },
+    {
+      id: 6,
+      title: "P6 — O Desejo Amoroso Real",
+      text: "Se você pudesse destravar UMA coisa no amor hoje, o que seria?",
+      options: [
+        { label: "Atrair alguém que realmente me escolha.", value: "chosen", icon: "👩‍❤️‍👨" },
+        { label: "Curar minhas feridas e parar de sofrer.", value: "heal", icon: "🩹" },
+        { label: "Sentir segurança emocional.", value: "safety", icon: "🛡️" },
+        { label: "Construir um relacionamento leve e recíproco.", value: "lightness", icon: "✨" },
+      ]
+    },
+    {
+      id: 7,
+      title: "P7 — A Permissão para o Amor",
+      text: "Se eu te mostrasse o que está bloqueando seus relacionamentos… você estaria pronto(a) para essa verdade?",
+      options: [
+        { label: "Sim! Estou cansado(a) de sofrer.", value: "ready", icon: "🔥" },
+        { label: "Acho que esse é o meu momento.", value: "time", icon: "✨" },
+        { label: "Tenho medo, mas quero mudar.", value: "scared", icon: "🦋" },
+      ]
+    }
+  ];
+
+  useEffect(() => {
+    setActiveQuestions(initialQuestions);
+  }, []);
+
+  const personalizeText = (text: string) => {
+    return text.replace("{NAME}", userName ? userName.split(' ')[0] : "você");
   };
 
   const handleInputSubmit = (e: React.FormEvent) => {
@@ -130,20 +195,43 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
 
     setTimeout(() => {
         setShowTuningScreen(false);
-        handleNext();
+        setCurrentIndex(prev => prev + 1);
     }, 3500);
   };
 
-  const handleOptionClick = () => {
+  const handleOptionClick = (option: any) => {
     if (isNavigating) return;
     setIsNavigating(true);
 
+    // LÓGICA DE RAMIFICAÇÃO (Pergunta 1)
+    // Criamos uma cópia mesclada de perguntas (`mergedQuestions`) e usamos ela
+    // para decidir se devemos avançar ou finalizar — evitando dependência
+    // do estado assíncrono `activeQuestions` dentro do closure.
+    let mergedQuestions = activeQuestions;
+    if (currentIndex === 1 && option.path) {
+      const newPath = option.path as QuizPath;
+      setSelectedPath(newPath);
+      const nextQuestions = newPath === 'finance' ? financeQuestions : relationshipQuestions;
+      mergedQuestions = [...activeQuestions, ...nextQuestions];
+      setActiveQuestions(mergedQuestions);
+    }
+
+    // Pixel
     if (typeof window.fbq === 'function') {
-      if (currentIndex === 3) window.fbq('trackCustom', 'QuizHalfway');
+      if (currentIndex === 4) window.fbq('trackCustom', 'QuizHalfway');
     }
 
     setTimeout(() => {
-      handleNext();
+      const length = mergedQuestions.length;
+      if (currentIndex < length - 1) {
+        setCurrentIndex(prev => prev + 1);
+        setIsNavigating(false);
+      } else {
+        if (typeof window.fbq === 'function') {
+          window.fbq('track', 'CompleteRegistration', { content_name: 'Quiz Completo', path: selectedPath });
+        }
+        onComplete(selectedPath);
+      }
     }, 250);
   };
 
@@ -159,31 +247,22 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             <Fingerprint className="w-24 h-24 text-[#FF9500] mx-auto mb-6 relative z-10 animate-pulse" />
         </motion.div>
         
-        <h2 className="text-2xl font-serif text-white mb-2">
-            Sintonizando Frequência...
-        </h2>
-        <p className="text-slate-300 text-lg">
-            Conectando à energia de <strong className="text-[#FF9500]">{userName}</strong>
-        </p>
-        
+        <h2 className="text-2xl font-serif text-white mb-2">Sintonizando Frequência...</h2>
+        <p className="text-slate-300 text-lg">Conectando à energia de <strong className="text-[#FF9500]">{userName}</strong></p>
         <div className="w-64 h-1 bg-white/10 rounded-full mt-8 overflow-hidden mx-auto">
-            <motion.div 
-                className="h-full bg-[#FF9500]"
-                initial={{ width: "0%" }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 3, ease: "easeInOut" }}
-            />
+            <motion.div className="h-full bg-[#FF9500]" initial={{ width: "0%" }} animate={{ width: "100%" }} transition={{ duration: 3, ease: "easeInOut" }} />
         </div>
       </div>
     );
   }
 
-  const progress = ((currentIndex + 1) / questions.length) * 100;
-  const currentQuestion = questions[currentIndex];
+  const currentQuestion = activeQuestions[currentIndex];
+  if (!currentQuestion) return null;
+
+  const progress = ((currentIndex + 1) / activeQuestions.length) * 100;
 
   return (
     <div className="min-h-screen flex flex-col max-w-lg mx-auto px-4 py-6 relative z-10">
-      
       <div className="w-full bg-white/5 backdrop-blur-sm rounded-full h-3 mb-8 relative overflow-hidden border border-white/10 shadow-inner">
         <motion.div 
           className="bg-gradient-to-r from-orange-600 to-yellow-400 h-full rounded-full shadow-[0_0_15px_rgba(251,191,36,0.5)]"
@@ -243,23 +322,17 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.1 }}
-                  onClick={handleOptionClick}
+                  onClick={() => handleOptionClick(option)}
                   disabled={isNavigating}
                   className={`w-full text-left p-5 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 hover:border-[#FF9500]/50 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,149,0,0.15)] transition-all active:scale-[0.98] group relative overflow-hidden ${isNavigating ? 'cursor-not-allowed opacity-80' : 'cursor-pointer'}`}
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-orange-500/0 via-orange-500/5 to-orange-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -translate-x-full group-hover:translate-x-full"></div>
-                  
                   <div className="flex items-center gap-4 relative z-10">
                     <span className="text-3xl filter drop-shadow-md">{option.icon}</span>
                     <div className="flex-1">
                       <span className="text-slate-200 font-medium group-hover:text-white transition-colors text-lg">
                         {option.label}
                       </span>
-                      {option.isNew && (
-                        <span className="ml-2 inline-block bg-blue-500/20 text-blue-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-blue-500/30 shadow-[0_0_10px_rgba(59,130,246,0.2)]">
-                          NOVO
-                        </span>
-                      )}
                     </div>
                     <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#FF9500] group-hover:text-white transition-colors">
                       <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-white" />

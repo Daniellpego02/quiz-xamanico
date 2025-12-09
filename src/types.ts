@@ -7,19 +7,22 @@ export enum AppStep {
   OFFER = 'OFFER',
 }
 
+export type QuizPath = 'finance' | 'relationship';
+
 export interface QuestionOption {
   label: string;
   value: string;
   icon?: string;
   isNew?: boolean;
+  path?: QuizPath; // Define qual caminho essa opção ativa
 }
 
 export interface QuizQuestion {
   id: number;
   title: string;
   text: string;
-  type?: 'select' | 'input'; // ESSENCIAL: Permite perguntas de digitar
-  placeholder?: string;      // ESSENCIAL: Texto de ajuda no campo
+  type?: 'select' | 'input';
+  placeholder?: string;
   options?: QuestionOption[];
 }
 

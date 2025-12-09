@@ -1,31 +1,74 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from './Button';
-import { Check, Shield, Lock, Clock, ChevronDown, BookOpen, Infinity, Headphones, HelpCircle, MessageCircle, Star, ArrowDown, Play } from 'lucide-react';
+import { Check, Shield, Lock, Clock, ChevronDown, BookOpen, Infinity, Headphones, HelpCircle, MessageCircle, Star, ArrowDown, Play, Award, ShieldCheck } from 'lucide-react';
+import { QuizPath } from '../types';
 
-const ObjectionCard = ({ icon, title, text, color }: { icon: React.ReactNode, title: string, text: string, color: string }) => (
-  <div className={`bg-white/5 backdrop-blur-xl p-5 rounded-2xl border-l-4 ${color} border-y border-r border-white/5 shadow-lg mb-4`}>
-    <h3 className="font-bold text-white text-sm flex items-center gap-2 mb-2 font-serif">{icon} {title}</h3>
-    <p className="text-xs text-slate-300 leading-relaxed font-light">{text}</p>
-  </div>
-);
-
-const BonusCard = ({ icon, title, value, desc }: { icon: React.ReactNode, title: string, value: string, desc: string }) => (
-  <div className="flex gap-4 bg-[#0F0821]/80 backdrop-blur-md p-5 rounded-2xl border border-white/10 items-start relative overflow-hidden group hover:border-[#FF9500]/30 transition-all duration-300">
-    <div className="absolute top-0 right-0 bg-gradient-to-bl from-[#FF9500] to-orange-700 text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl shadow-lg z-10">GRÁTIS</div>
-    <div className="bg-gradient-to-br from-white/10 to-transparent p-3 rounded-xl border border-white/5 shadow-inner backdrop-blur-sm shrink-0">
-      {icon}
-    </div>
-    <div className="flex-1 relative z-10">
-      <h4 className="font-bold text-white text-sm mb-1 group-hover:text-[#FF9500] transition-colors">{title}</h4>
-      <p className="text-xs text-slate-400 mb-2 flex items-center gap-2">
-         <span className="line-through decoration-red-500/70 decoration-1 opacity-70">R$ {value}</span>
-         <span className="text-green-400 font-bold bg-green-900/30 px-1.5 rounded text-[10px]">100% OFF</span>
-      </p>
-      <p className="text-xs text-slate-300 leading-snug font-light opacity-90">{desc}</p>
-    </div>
-  </div>
-);
+// Dicionário de Conteúdo Dinâmico
+const offerContent = {
+  finance: {
+    headline: "Bloqueio Financeiro Identificado: Aqui Está o Motivo Real da Sua Estagnação",
+    subheadline: "Assista ao vídeo abaixo para entender como desbloquear sua vida em 7 dias — no dinheiro, no amor e em todas as áreas que importam.",
+    painMechanism: "Reprogramação Financeira Emocional",
+    painPoints: [
+      "Dinheiro entra e some",
+      "Ciclos de avanço e queda",
+      "Medo de crescimento",
+      "Peso financeiro familiar"
+    ],
+    modules: [
+      "DIA 1 — O Diagnóstico da Raiz Financeira",
+      "DIA 2 — A Virada Mental",
+      "DIA 3 — Método do Dinheiro que Sobra",
+      "DIA 4 — Proteção Contra Autossabotagem",
+      "DIA 5 — Construindo Renda Real",
+      "DIA 6 — Plano do Crescimento Contínuo",
+      "DIA 7 — O Renascimento Financeiro"
+    ],
+    bonuses: [
+      { title: "Guia de Mentalidade de Riqueza", value: "97", desc: "Quebra instantânea de crenças limitantes." },
+      { title: "Meditação de Alinhamento", value: "147", desc: "Ativa foco, força e clareza financeira." },
+      { title: "Acesso Vitalício", value: "53", desc: "Aprenda no seu tempo." }
+    ],
+    objections: [
+      { title: "JÁ TENTEI DE TUDO", text: "Você tentou técnica. Aqui trabalhamos emoção + técnica, o que funciona." },
+      { title: "NÃO SEI SE VOU ENTENDER", text: "Linguagem simples, direta, zero complicação." },
+      { title: "TENHO MEDO DE INVESTIR", text: "Por isso existe garantia de 7 dias. Risco zero." }
+    ],
+    cta: "DESTRAVAR MINHAS FINANÇAS AGORA"
+  },
+  relationship: {
+    headline: "Bloqueio Relacional Identificado: Aqui Está o Motivo Real dos Seus Ciclos Emocionais",
+    subheadline: "Assista ao vídeo abaixo para entender como desbloquear sua vida em 7 dias — no dinheiro, no amor e em todas as áreas que importam.",
+    painMechanism: "Reprogramação Afetiva",
+    painPoints: [
+      "Medo de abandono",
+      "Atração por relações desequilibradas",
+      "Crenças de não merecimento",
+      "Ciclos familiares repetidos"
+    ],
+    modules: [
+      "DIA 1 — O Diagnóstico do Padrão Amoroso",
+      "DIA 2 — A Cura do Seu Valor",
+      "DIA 3 — Atração Consciente",
+      "DIA 4 — Reprogramando seu Afeto",
+      "DIA 5 — Relacionamentos Leves",
+      "DIA 6 — Blindagem Emocional",
+      "DIA 7 — A Nova Versão de Você no Amor"
+    ],
+    bonuses: [
+      { title: "Guia do Amor Recíproco", value: "97", desc: "O que procurar (e evitar) em qualquer relação." },
+      { title: "Meditação de Cura Emocional", value: "147", desc: "Transforma dores antigas em força emocional." },
+      { title: "Acesso Vitalício", value: "53", desc: "Para sempre seu." }
+    ],
+    objections: [
+      { title: "MEDO DE ME MACHUCAR", text: "Por isso o método começa pela cura interna e blindagem." },
+      { title: "E SE EU NÃO MUDAR?", text: "Você vai, porque agora entende a raiz do problema." },
+      { title: "JÁ TENTEI OUTRAS COISAS", text: "Aqui não é teoria — é transformação emocional prática." }
+    ],
+    cta: "CURAR MEU CORAÇÃO AGORA"
+  }
+};
 
 const VturbPlayer = React.memo(() => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -53,7 +96,12 @@ const VturbPlayer = React.memo(() => {
   );
 }, () => true);
 
-export const Offer: React.FC = () => {
+interface OfferProps {
+  quizPath?: QuizPath;
+}
+
+export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance' }) => {
+  const content = offerContent[quizPath] || offerContent.finance;
   const [timeLeft, setTimeLeft] = useState(15 * 60);
   const [activeAccordion, setActiveAccordion] = useState<number | null>(0);
   const [viewers, setViewers] = useState(342);
@@ -72,9 +120,9 @@ export const Offer: React.FC = () => {
       }, 500);
     }
     if (typeof window.fbq === 'function') {
-      window.fbq('track', 'ViewContent', { content_name: 'Oferta', value: 27, currency: 'BRL' });
+      window.fbq('track', 'ViewContent', { content_name: `Oferta ${quizPath}`, value: 37, currency: 'BRL' });
     }
-  }, []);
+  }, [quizPath]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -98,17 +146,10 @@ export const Offer: React.FC = () => {
 
   const handleCheckout = () => {
     if (typeof window.fbq === 'function') {
-      window.fbq('track', 'AddToCart', { content_name: 'Mapa Xamânico', value: 27, currency: 'BRL' });
+      window.fbq('track', 'AddToCart', { content_name: `Mapa Xamânico (${quizPath})`, value: 37, currency: 'BRL' });
     }
     window.location.href = "https://seguropagamentos.com.br/oferta-principal";
   };
-
-  const faqs = [
-    { q: "Como funciona o Mapa Xamânico?", a: "O Mapa Xamânico é um PDF personalizado de 15-20 páginas criado especialmente para você usando Numerologia Cabalística." },
-    { q: "Quando vou receber meu mapa?", a: "ACESSO IMEDIATO! Após a confirmação do pagamento, você recebe o link no email." },
-    { q: "Preciso ter conhecimento espiritual?", a: "NÃO! O Mapa foi criado tanto para iniciantes quanto para praticantes avançados." },
-    { q: "E se eu não gostar?", a: "GARANTIA INCONDICIONAL DE 7 DIAS. Devolvemos 100% do seu dinheiro." },
-  ];
 
   return (
     <div className="min-h-screen pb-40 relative z-10 overflow-hidden">
@@ -121,13 +162,13 @@ export const Offer: React.FC = () => {
 
         <div className="text-center space-y-4">
           <div className="inline-flex items-center gap-2 bg-green-500/10 backdrop-blur-md text-green-400 px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold border border-green-500/20 shadow-lg uppercase tracking-wide">
-            <Check className="w-3 h-3" /> Análise Concluída com Sucesso
+            <Check className="w-3 h-3" /> Análise Concluída
           </div>
-          <h1 className="text-3xl md:text-4xl font-serif font-black text-white leading-none drop-shadow-2xl">
-            ATENÇÃO: Bloqueio <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">Financeiro</span> Identificado
+          <h1 className="text-2xl md:text-3xl font-serif font-black text-white leading-tight drop-shadow-2xl">
+            {content.headline}
           </h1>
-          <p className="text-slate-300 text-sm max-w-sm mx-auto">
-            Assista ao vídeo abaixo para entender como destravar sua prosperidade em 7 dias.
+          <p className="text-slate-300 text-sm max-w-sm mx-auto leading-relaxed">
+            {content.subheadline}
           </p>
         </div>
 
@@ -142,24 +183,40 @@ export const Offer: React.FC = () => {
            </div>
         </div>
 
+        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-left space-y-4">
+            <h3 className="text-lg font-serif font-bold text-white flex items-center gap-2">
+                <Shield className="w-5 h-5 text-red-500" /> Padrão Oculto Identificado
+            </h3>
+            <p className="text-sm text-slate-300">
+                Identificamos sinais claros de <strong>{content.painMechanism}</strong> pendente:
+            </p>
+            <ul className="space-y-2">
+                {content.painPoints.map((point, idx) => (
+                    <li key={idx} className="flex items-start gap-3 text-sm text-slate-200">
+                        <span className="text-red-400 mt-1">✖</span> {point}
+                    </li>
+                ))}
+            </ul>
+        </div>
+
         <div className="bg-[#120a2e] rounded-[32px] p-6 text-center border border-white/10 shadow-2xl relative overflow-hidden group">
             <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
             <div className="absolute -inset-1 bg-gradient-to-r from-yellow-600 via-[#FF9500] to-purple-800 rounded-[35px] blur opacity-20 animate-pulse group-hover:opacity-40 transition duration-1000"></div>
             
             <div className="relative z-10">
                 <div className="inline-block bg-gradient-to-r from-[#FF9500] to-red-600 text-white font-bold text-[10px] px-3 py-1 rounded-full mb-4 shadow-lg uppercase">
-                  Oferta Única
+                  Oferta Exclusiva
                 </div>
-                <h2 className="text-2xl font-serif font-black text-white mb-1">Mapa Xamânico</h2>
+                <h2 className="text-2xl font-serif font-black text-white mb-1">Destravamento em 7 Dias</h2>
                 <div className="my-6">
                   <span className="text-slate-500 text-sm line-through block mb-1">De R$ 197,00</span>
                   <div className="flex items-center justify-center gap-1">
                     <span className="text-xl text-slate-300">Por</span>
-                    <span className="text-6xl font-black text-white tracking-tighter text-shadow-glow">R$27</span>
+                    <span className="text-6xl font-black text-white tracking-tighter text-shadow-glow">R$37</span>
                   </div>
                 </div>
                 <Button onClick={handleCheckout} pulse className="w-full text-lg shadow-xl mb-3">
-                  🔥 QUERO DESTRAVAR AGORA
+                  🔥 {content.cta}
                 </Button>
                 <p className="text-[10px] text-slate-400 flex items-center justify-center gap-1 opacity-80">
                   <Lock className="w-3 h-3 text-green-500" /> Compra Segura • Acesso Imediato
@@ -168,18 +225,42 @@ export const Offer: React.FC = () => {
         </div>
 
         <div className="space-y-4">
+            <h3 className="text-center font-serif font-bold text-white text-lg">O Programa Inclui:</h3>
+            <div className="grid gap-3">
+                {content.modules.map((mod, idx) => (
+                    <div key={idx} className="bg-white/5 p-3 rounded-xl border border-white/5 flex items-center gap-3 text-sm text-slate-200">
+                        <span className="bg-[#FF9500]/20 text-[#FF9500] text-xs font-bold px-2 py-1 rounded">Dia {idx + 1}</span>
+                        {mod.replace(/DIA \d+ — /, '')}
+                    </div>
+                ))}
+            </div>
+        </div>
+
+        <div className="space-y-4">
           <h3 className="font-serif font-bold text-white text-xl text-center mb-4">
-             <span className="text-[#FF9500]">🎁</span> Leve 3 Bônus Grátis
+             <span className="text-[#FF9500]">🎁</span> Bônus Exclusivos
           </h3>
-          <BonusCard icon={<BookOpen className="w-6 h-6 text-[#FF9500]" />} title="Guia de Desbloqueio" value="97" desc="30 exercícios práticos para destravar." />
-          <BonusCard icon={<Headphones className="w-6 h-6 text-purple-400" />} title="Meditação de Limpeza" value="147" desc="Áudio de 20min para limpeza profunda." />
-          <BonusCard icon={<Infinity className="w-6 h-6 text-blue-400" />} title="Acesso Vitalício" value="53" desc="Atualizações do Mapa sem custo." />
+          {content.bonuses.map((bonus, idx) => (
+             <div key={idx} className="flex gap-4 bg-[#0F0821]/80 backdrop-blur-md p-4 rounded-2xl border border-white/10 items-start">
+                <div className="bg-gradient-to-br from-white/10 to-transparent p-3 rounded-xl border border-white/5 shadow-inner shrink-0">
+                    <Star className="w-5 h-5 text-[#FF9500]" />
+                </div>
+                <div>
+                    <h4 className="font-bold text-white text-sm mb-1">{bonus.title}</h4>
+                    <p className="text-xs text-slate-300">{bonus.desc}</p>
+                    <span className="text-[10px] text-green-400 font-bold bg-green-900/30 px-1.5 rounded mt-1 inline-block">GRÁTIS (Era R${bonus.value})</span>
+                </div>
+             </div>
+          ))}
         </div>
 
         <div className="space-y-4 pt-6 border-t border-white/5">
-           <ObjectionCard icon={<MessageCircle className="w-5 h-5 text-emerald-400" />} title="JÁ TENTEI TERAPIA" color="border-emerald-500" text="O Mapa foca na ENERGIA, não só na mente. É mais rápido e barato que sessões tradicionais." />
-           <ObjectionCard icon={<HelpCircle className="w-5 h-5 text-purple-400" />} title="MEDO DE NÃO ENTENDER" color="border-purple-500" text="Linguagem simples para iniciantes. Zero 'tiques' religiosos." />
-           <ObjectionCard icon={<Star className="w-5 h-5 text-blue-400" />} title="SOU CÉTICO" color="border-blue-500" text="O Mapa é matemática pura (Numerologia). Não exige crença para funcionar." />
+           {content.objections.map((obj, idx) => (
+               <div key={idx} className={`bg-white/5 backdrop-blur-xl p-5 rounded-2xl border-l-4 border-purple-500 border-y border-r border-white/5 shadow-lg mb-4`}>
+                <h3 className="font-bold text-white text-sm flex items-center gap-2 mb-2 font-serif"><HelpCircle className="w-4 h-4" /> {obj.title}</h3>
+                <p className="text-xs text-slate-300 leading-relaxed font-light">{obj.text}</p>
+              </div>
+           ))}
         </div>
 
         <div className="bg-gradient-to-b from-[#1a103c] to-[#0F0821] p-6 rounded-3xl border border-[#D4AF37]/30 text-center relative overflow-hidden">
@@ -188,31 +269,13 @@ export const Offer: React.FC = () => {
           </div>
           <h4 className="font-serif font-bold text-[#D4AF37] text-lg mb-2 uppercase">Garantia de 7 Dias</h4>
           <p className="text-sm text-slate-300">
-            Se não gostar, devolvemos <strong className="text-white">100% do seu dinheiro</strong>. Sem perguntas.
+            Se não sentir a mudança, devolvemos <strong className="text-white">100% do seu dinheiro</strong>. Sem perguntas.
           </p>
-        </div>
-
-        <div className="space-y-3">
-            <h3 className="text-center font-serif font-bold text-white mb-4">Dúvidas Frequentes</h3>
-            {faqs.map((faq, idx) => (
-              <div key={idx} className="border border-white/5 rounded-xl bg-white/5 p-4">
-                <button onClick={() => setActiveAccordion(activeAccordion === idx ? null : idx)} className="w-full flex justify-between items-center text-left text-sm font-medium text-slate-200">
-                  {faq.q} <ChevronDown className={`w-4 h-4 transition-transform ${activeAccordion === idx ? 'rotate-180' : ''}`} />
-                </button>
-                <AnimatePresence>
-                  {activeAccordion === idx && (
-                    <motion.div initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} className="overflow-hidden">
-                      <p className="text-xs text-slate-400 mt-2 leading-relaxed">{faq.a}</p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
         </div>
 
         <div className="text-center pb-8">
            <Button onClick={handleCheckout} pulse className="w-full shadow-lg py-4">
-              🔥 DESTRAVAR MINHA VIDA
+              🔥 {content.cta}
            </Button>
         </div>
 
@@ -223,7 +286,7 @@ export const Offer: React.FC = () => {
           <div className="flex flex-col">
              <span className="text-slate-500 line-through text-[10px]">R$ 197</span>
              <div className="flex items-baseline gap-1">
-                <span className="font-black text-2xl text-white">R$ 27</span>
+                <span className="font-black text-2xl text-white">R$ 37</span>
                 <span className="text-[#FF9500] text-[10px] font-bold">HOJE</span>
              </div>
           </div>
