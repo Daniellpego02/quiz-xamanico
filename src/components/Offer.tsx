@@ -105,7 +105,7 @@ const VturbPlayer = React.memo(({ quizPath = 'finance' }: { quizPath?: QuizPath 
 
   return (
     <div className="relative w-full max-w-[360px] mx-auto group my-6">
-      <div className="absolute -inset-1 bg-gradient-to-r from-[#FF9500] via-purple-600 to-[#FF9500] rounded-[2.5rem] blur opacity-30 group-hover:opacity-50 transition duration-1000 animate-pulse"></div>
+      <div className={`absolute -inset-1 bg-gradient-to-r ${quizPath === 'relationship' ? 'from-purple-500 via-pink-500 to-purple-500' : 'from-[#FF9500] via-yellow-500 to-[#FF9500]'} rounded-[2.5rem] blur opacity-30 group-hover:opacity-50 transition duration-1000 animate-pulse`}></div>
       <div className="relative w-full aspect-[9/16] bg-black rounded-[2rem] overflow-hidden shadow-2xl border border-white/10 z-10">
         <div ref={containerRef} className="w-full h-full" />
       </div>
@@ -178,13 +178,13 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance' }) => {
   };
 
   return (
-    <div className="min-h-screen pb-40 relative z-10 overflow-hidden">
+    <div className="min-h-screen pb-24 md:pb-40 relative z-10 overflow-hidden">
       
       <motion.div initial={{ y: -50 }} animate={{ y: 0 }} className={`${quizPath === 'relationship' ? 'bg-purple-700' : 'bg-[#d20a0a]'} text-white text-xs font-bold text-center py-3 px-4 sticky top-0 z-50 shadow-xl flex items-center justify-center gap-2 uppercase tracking-widest`}>
         <Clock className="w-3 h-3 animate-pulse" /> {content.alertBanner || 'OFERTA EXPIRA EM:'} {content.alertBanner ? '' : <span className="font-mono text-base">{formatTime(timeLeft)}</span>}
       </motion.div>
 
-      <div className="max-w-xl mx-auto px-4 pt-8 space-y-12">
+      <div className="max-w-xl mx-auto px-4 pt-8 space-y-12 pb-safe">
 
         <div className="text-center space-y-4">
           <div className="inline-flex items-center gap-2 bg-green-500/10 backdrop-blur-md text-green-400 px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold border border-green-500/20 shadow-lg uppercase tracking-wide">
@@ -246,17 +246,17 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance' }) => {
 
         <div className="bg-[#120a2e] rounded-[32px] p-6 text-center border border-white/10 shadow-2xl relative overflow-hidden group">
             <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
-            <div className="absolute -inset-1 bg-gradient-to-r from-yellow-600 via-[#FF9500] to-purple-800 rounded-[35px] blur opacity-20 animate-pulse group-hover:opacity-40 transition duration-1000"></div>
+            <div className={`absolute -inset-1 bg-gradient-to-r ${quizPath === 'relationship' ? 'from-purple-600 via-pink-500 to-purple-600' : 'from-yellow-600 via-[#FF9500] to-amber-600'} rounded-[35px] blur opacity-20 animate-pulse group-hover:opacity-40 transition duration-1000`}></div>
             
             <div className="relative z-10">
-                <div className="inline-block bg-gradient-to-r from-[#FF9500] to-red-600 text-white font-bold text-[10px] px-3 py-1 rounded-full mb-4 shadow-lg uppercase">
+                <div className={`inline-block bg-gradient-to-r ${quizPath === 'relationship' ? 'from-purple-600 to-pink-600' : 'from-[#FF9500] to-red-600'} text-white font-bold text-[10px] px-3 py-1 rounded-full mb-4 shadow-lg uppercase`}>
                   Oferta Exclusiva
                 </div>
                 <h2 className="text-xl md:text-2xl font-serif font-black text-white mb-1 leading-tight">
                   {content.offerHeadline || 'Destravamento em 7 Dias'}
                 </h2>
                 <div className="my-6">
-                  <span className="text-slate-500 text-sm line-through block mb-1">De R$ 197,00</span>
+                  <span className="text-slate-400 text-sm line-through block mb-1">De R$ 197,00</span>
                   <div className="flex items-center justify-center gap-1">
                     <span className="text-xl text-slate-300">{quizPath === 'finance' ? 'por apenas' : 'Por'}</span>
                     <span className="text-6xl font-black text-white tracking-tighter text-shadow-glow">R$37</span>
@@ -293,11 +293,11 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance' }) => {
         </div>
 
         <div className="space-y-4">
-            <h3 className="text-center font-serif font-bold text-white text-lg">O Programa Inclui:</h3>
+            <h3 className="text-center font-serif font-bold text-white text-lg mb-4">📦 O Programa Inclui:</h3>
             <div className="grid gap-3">
                 {content.modules.map((mod, idx) => (
-                    <div key={idx} className="bg-white/5 p-3 rounded-xl border border-white/5 flex items-center gap-3 text-sm text-slate-200">
-                        <span className="bg-[#FF9500]/20 text-[#FF9500] text-xs font-bold px-2 py-1 rounded">Dia {idx + 1}</span>
+                    <div key={idx} className={`bg-white/5 p-3 rounded-xl border ${quizPath === 'relationship' ? 'border-purple-500/20' : 'border-orange-500/20'} flex items-center gap-3 text-sm text-slate-100 hover:bg-white/10 transition-colors`}>
+                        <span className={`${quizPath === 'relationship' ? 'bg-purple-500/20 text-purple-300' : 'bg-[#FF9500]/20 text-[#FF9500]'} text-xs font-bold px-2 py-1 rounded`}>Dia {idx + 1}</span>
                         {mod.replace(/DIA \d+ — /, '')}
                     </div>
                 ))}
@@ -306,7 +306,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance' }) => {
 
         <div className="space-y-4">
           <h3 className="font-serif font-bold text-white text-xl text-center mb-4">
-             <span className="text-[#FF9500]">🎁</span> Bônus Exclusivos
+             <span className={quizPath === 'relationship' ? 'text-purple-400' : 'text-[#FF9500]'}>🎁</span> Bônus Exclusivos
           </h3>
           {content.bonuses.map((bonus, idx) => (
              <div key={idx} className="flex gap-4 bg-[#0F0821]/80 backdrop-blur-md p-4 rounded-2xl border border-white/10 items-start">
