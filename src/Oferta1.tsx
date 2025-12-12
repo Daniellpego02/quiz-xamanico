@@ -78,6 +78,24 @@ export default function Oferta1() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // BuckPay script loading
+  useEffect(() => {
+    (window as any).buckpayOfferId = '17100636-c2a3-40a8-b636-9b8a741be2e5';
+    (window as any).buckpayUpsellUrl = 'https://www.mapaxamanicooficial.online/oferta2';
+    (window as any).buckpayDownsellUrl = null;
+    
+    const script = document.createElement('script');
+    script.src = 'https://www.seguropagamentos.com.br/upsell-downsell-script.js';
+    script.async = true;
+    document.body.appendChild(script);
+    
+    return () => {
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, []);
+
   const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
@@ -449,7 +467,7 @@ export default function Oferta1() {
             <button
               onClick={() => {
                 setShowExitIntent(false);
-                document.getElementById('buckpay-upsell-button')?.click();
+                window.location.href = 'https://checkout.mapaxamanicooficial.online/oferta-tres';
               }}
               className="w-full bg-gradient-to-r from-[#FF9500] to-orange-600 text-white font-bold text-lg py-4 px-6 rounded-xl shadow-2xl hover:brightness-110 transition-all mb-3"
             >
@@ -486,18 +504,6 @@ export default function Oferta1() {
           </button>
         </div>
       </div>
-
-      {/* BuckPay Script */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            var buckpayOfferId='17100636-c2a3-40a8-b636-9b8a741be2e5';
-            var buckpayUpsellUrl='https://www.mapaxamanicooficial.online/oferta1';
-            var buckpayDownsellUrl=null;
-          `
-        }}
-      />
-      <script src="https://www.seguropagamentos.com.br/upsell-downsell-script.js"></script>
     </div>
   );
 }
