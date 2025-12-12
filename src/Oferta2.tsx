@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Clock, Check, Shield, Eye, AlertTriangle, 
@@ -18,6 +18,7 @@ export default function Oferta2() {
   const [spotsLeft, setSpotsLeft] = useState(INITIAL_SPOTS);
   const [showExitIntent, setShowExitIntent] = useState(false);
   const [showStickyHeader, setShowStickyHeader] = useState(false);
+  const buckpayScriptRef = useRef<HTMLScriptElement | null>(null);
 
   // Countdown timer
   useEffect(() => {
@@ -87,11 +88,12 @@ export default function Oferta2() {
     const script = document.createElement('script');
     script.src = 'https://www.seguropagamentos.com.br/upsell-downsell-script.js';
     script.async = true;
+    buckpayScriptRef.current = script;
     document.body.appendChild(script);
     
     return () => {
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
+      if (buckpayScriptRef.current && document.body.contains(buckpayScriptRef.current)) {
+        document.body.removeChild(buckpayScriptRef.current);
       }
     };
   }, []);
