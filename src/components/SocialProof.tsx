@@ -7,24 +7,24 @@ interface SocialProofProps {
   onNext: () => void;
 }
 
-// Map of realistic profile images - Brazilian people matching name gender
-// Using randomuser.me for realistic Brazilian faces matching gender
+// Map of realistic profile images - Realistic people matching name gender
+// Using randomuser.me for diverse, realistic human faces matching gender
 const avatarImages: Record<string, string> = {
-  // Main profile - Brazilian woman
+  // Main profile - Woman
   "xama_interior": "https://randomuser.me/api/portraits/women/65.jpg", 
   
-  // Female testimonials - Brazilian women with diverse appearances
+  // Female testimonials - Women with diverse appearances
   "neuropsicopedagogafa_titania": "https://randomuser.me/api/portraits/women/44.jpg", // Professional woman
   "cristinabertyfit": "https://randomuser.me/api/portraits/women/68.jpg", // Fitness enthusiast woman
   "drysoriano": "https://randomuser.me/api/portraits/women/72.jpg", // Doctor/professional woman
   "julimma_2": "https://randomuser.me/api/portraits/women/21.jpg", // Young woman
   "aninhajalandiqueimasemcodimas": "https://randomuser.me/api/portraits/women/32.jpg", // Casual woman
-  "jasmine_awache": "https://randomuser.me/api/portraits/women/15.jpg", // Young Brazilian woman
+  "jasmine_awache": "https://randomuser.me/api/portraits/women/15.jpg", // Young woman
   "iavella": "https://randomuser.me/api/portraits/women/55.jpg", // Mature woman
   
-  // Male testimonials - Brazilian men with diverse appearances  
-  "rafaelmoraes": "https://randomuser.me/api/portraits/men/46.jpg", // Brazilian man
-  "rafaelgasta_": "https://randomuser.me/api/portraits/men/32.jpg", // Casual Brazilian man
+  // Male testimonials - Men with diverse appearances  
+  "rafaelmoraes": "https://randomuser.me/api/portraits/men/46.jpg", // Man
+  "rafaelgasta_": "https://randomuser.me/api/portraits/men/32.jpg", // Casual man
   "prof.rohaan": "https://randomuser.me/api/portraits/men/22.jpg", // Professor/professional man
 };
 
