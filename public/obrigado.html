@@ -100,7 +100,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             animation: fadeInUp 0.6s ease-out 0.2s both;
         }
         
@@ -115,52 +115,128 @@
             }
         }
         
-        .content {
+        .intro-text {
+            color: #e2e8f0;
+            font-size: 1.125rem;
+            line-height: 1.625;
+            max-width: 28rem;
+            margin: 0 auto 2rem;
             animation: fadeInUp 0.6s ease-out 0.3s both;
         }
         
-        .success-msg {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            color: #34d399;
-            font-size: 1.125rem;
-            font-weight: 500;
-            margin-bottom: 1rem;
+        .email-box {
+            position: relative;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            max-width: 28rem;
+            border-radius: 1rem;
+            background: linear-gradient(135deg, rgba(88, 28, 135, 0.3), rgba(5, 150, 105, 0.2));
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.15), 0 0 60px rgba(16, 185, 129, 0.1);
+            animation: fadeInUp 0.6s ease-out 0.4s both, glow 3s ease-in-out infinite;
         }
         
-        .sparkles-icon {
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(168, 85, 247, 0.15), 0 0 40px rgba(16, 185, 129, 0.1);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(168, 85, 247, 0.25), 0 0 80px rgba(16, 185, 129, 0.15);
+            }
+        }
+        
+        .mail-icon {
+            width: 3rem;
+            height: 3rem;
+            margin: 0 auto 1rem;
+            color: #34d399;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+        
+        .email-box h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #34d399;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .checklist {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+        
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.875rem;
+            color: #e2e8f0;
+            opacity: 0;
+            animation: slideInLeft 0.5s ease-out forwards;
+        }
+        
+        .checklist li:nth-child(1) {
+            animation-delay: 0.6s;
+        }
+        
+        .checklist li:nth-child(2) {
+            animation-delay: 0.7s;
+        }
+        
+        .checklist li:nth-child(3) {
+            animation-delay: 0.8s;
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .check-icon-small {
             width: 1.25rem;
             height: 1.25rem;
-        }
-        
-        .description {
-            color: #cbd5e1;
-            font-size: 1rem;
-            line-height: 1.625;
-            max-width: 28rem;
-            margin: 0 auto 1.5rem;
+            flex-shrink: 0;
+            color: #34d399;
+            margin-top: 0.125rem;
         }
         
         .gratitude {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
             color: #d8b4fe;
             font-size: 0.875rem;
             font-style: italic;
-            margin-bottom: 2rem;
+            margin: 1.5rem 0 2rem;
+            animation: fadeInUp 0.6s ease-out 0.9s both;
         }
         
-        .heart-icon {
-            width: 1rem;
-            height: 1rem;
-            fill: currentColor;
+        .cta-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+            animation: fadeInUp 0.6s ease-out 1.0s both;
         }
         
-        .btn {
+        .btn-primary {
             display: inline-block;
             background: linear-gradient(to right, #FF9500, #f59e0b);
             color: white;
@@ -170,11 +246,25 @@
             text-decoration: none;
             transition: transform 0.2s;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            animation: fadeInUp 0.6s ease-out 0.5s both;
         }
         
-        .btn:hover {
+        .btn-primary:hover {
             transform: scale(1.05);
+        }
+        
+        .btn-secondary {
+            display: inline-block;
+            color: #94a3b8;
+            font-weight: 500;
+            padding: 0.5rem 1.5rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .btn-secondary:hover {
+            color: #e2e8f0;
+            background: rgba(51, 65, 85, 0.5);
         }
         
         @media (max-width: 640px) {
@@ -203,29 +293,55 @@
             <path d="M9 12l2 2 4-4"></path>
         </svg>
         
-        <h1>Obrigado!</h1>
+        <h1>Confirmado! ✨</h1>
         
-        <div class="content">
-            <div class="success-msg">
-                <svg class="sparkles-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 22.5l-.394-1.933a2.25 2.25 0 00-1.423-1.423L12.75 18.75l1.933-.394a2.25 2.25 0 001.423-1.423l.394-1.933.394 1.933a2.25 2.25 0 001.423 1.423l1.933.394-1.933.394a2.25 2.25 0 00-1.423 1.423z"></path>
-                </svg>
-                <span>Sua jornada xamânica foi registrada</span>
-            </div>
+        <p class="intro-text">
+            Seu Mapa Xamânico completo está sendo enviado para o e-mail da sua compra agora mesmo!
+        </p>
+        
+        <!-- Email Box -->
+        <div class="email-box">
+            <svg class="mail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                <path d="M22 7l-10 6L2 7"></path>
+            </svg>
             
-            <p class="description">
-                Seu resultado foi enviado com sucesso. Em breve você receberá mais informações sobre sua conexão ancestral.
-            </p>
+            <h2>Próximos Passos:</h2>
             
-            <div class="gratitude">
-                <svg class="heart-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"></path>
-                </svg>
-                <span>Gratidão por sua presença</span>
-            </div>
+            <ul class="checklist">
+                <li>
+                    <svg class="check-icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span><strong>Verifique sua caixa de entrada</strong> (ou spam/promoções)</span>
+                </li>
+                <li>
+                    <svg class="check-icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span><strong>Todo o conteúdo completo</strong> do seu mapa está no e-mail</span>
+                </li>
+                <li>
+                    <svg class="check-icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span><strong>Descubra sua conexão ancestral</strong> e próximas ações</span>
+                </li>
+            </ul>
         </div>
         
-        <a href="/" class="btn">Voltar ao Início</a>
+        <p class="gratitude">
+            🙏 Gratidão por sua presença nesta jornada sagrada
+        </p>
+        
+        <div class="cta-container">
+            <a href="https://mail.google.com" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                📧 Abrir meu e-mail agora
+            </a>
+            <a href="/" class="btn-secondary">
+                Voltar ao Início
+            </a>
+        </div>
     </div>
 </body>
 </html>
