@@ -1,22 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Brain, Heart, Wallet, CheckCircle2, Star } from 'lucide-react';
+import { QuizPath } from '../types';
 
 interface AnalysisLoadingProps {
   onComplete: () => void;
+  quizPath?: QuizPath;
 }
 
-export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete }) => {
+export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, quizPath = 'finance' }) => {
   const [progress, setProgress] = useState(0);
   const [stage, setStage] = useState(0);
 
-  const stages = [
+  // Stages adapted by quiz path
+  const financeStages = [
     { pct: 20, text: "Identificando bloqueio financeiro...", icon: <Wallet className="w-6 h-6 text-gold-400" /> },
     { pct: 45, text: "Analisando bloqueio emocional...", icon: <Heart className="w-6 h-6 text-red-400" /> },
     { pct: 70, text: "Verificando bloqueio de propósito...", icon: <Brain className="w-6 h-6 text-purple-400" /> },
     { pct: 95, text: "Gerando seu mapa personalizado...", icon: <Search className="w-6 h-6 text-blue-400" /> },
     { pct: 100, text: "Quase lá! Preparando seu resultado.", icon: <CheckCircle2 className="w-6 h-6 text-green-400" /> }
   ];
+
+  const relationshipStages = [
+    { pct: 20, text: "Identificando padrões emocionais...", icon: <Heart className="w-6 h-6 text-pink-400" /> },
+    { pct: 45, text: "Analisando bloqueios relacionais...", icon: <Brain className="w-6 h-6 text-purple-400" /> },
+    { pct: 70, text: "Detectando ciclos familiares...", icon: <Search className="w-6 h-6 text-blue-400" /> },
+    { pct: 95, text: "Gerando seu mapa afetivo...", icon: <Heart className="w-6 h-6 text-red-400" /> },
+    { pct: 100, text: "Pronto! Revelando seu perfil amoroso.", icon: <CheckCircle2 className="w-6 h-6 text-green-400" /> }
+  ];
+
+  const stages = quizPath === 'relationship' ? relationshipStages : financeStages;
+
+  const testimonial = quizPath === 'relationship' 
+    ? { text: "\"Descobri porque sempre escolho errado. Libertador!\"", author: "@FernandaCoelho" }
+    : { text: "\"Adorei meu Mapa! Completo e fácil de entender.\"", author: "@RafaelaNascimento7" };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -49,15 +66,15 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete }) 
       
       {/* Background Glow */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none -z-10">
-         <div className="w-[300px] h-[300px] bg-gold-500/10 rounded-full blur-[80px] animate-pulse"></div>
+         <div className={`w-[300px] h-[300px] ${quizPath === 'relationship' ? 'bg-purple-500/10' : 'bg-gold-500/10'} rounded-full blur-[80px] animate-pulse`}></div>
       </div>
 
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-        className="w-24 h-24 rounded-full border-4 border-white/5 border-t-gold-500 shadow-[0_0_50px_rgba(245,158,11,0.4)] relative"
+        className={`w-24 h-24 rounded-full border-4 border-white/5 ${quizPath === 'relationship' ? 'border-t-purple-500 shadow-[0_0_50px_rgba(168,85,247,0.4)]' : 'border-t-gold-500 shadow-[0_0_50px_rgba(245,158,11,0.4)]'} relative`}
       >
-        <div className="absolute inset-0 bg-gold-500/10 rounded-full blur-xl"></div>
+        <div className={`absolute inset-0 ${quizPath === 'relationship' ? 'bg-purple-500/10' : 'bg-gold-500/10'} rounded-full blur-xl`}></div>
       </motion.div>
 
       <div className="space-y-6 w-full">
@@ -67,7 +84,7 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete }) 
         
         <div className="w-full bg-white/5 rounded-full h-4 overflow-hidden border border-white/10 shadow-inner">
           <motion.div 
-            className="bg-gradient-to-r from-gold-600 via-gold-400 to-white h-full rounded-full shadow-[0_0_20px_rgba(251,191,36,0.5)]"
+            className={`${quizPath === 'relationship' ? 'bg-gradient-to-r from-purple-600 via-pink-400 to-purple-500 shadow-[0_0_20px_rgba(168,85,247,0.5)]' : 'bg-gradient-to-r from-gold-600 via-gold-400 to-white shadow-[0_0_20px_rgba(251,191,36,0.5)]'} h-full rounded-full`}
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -76,7 +93,7 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete }) 
           <div className="p-2 bg-white/5 rounded-full">{stages[stage].icon}</div>
           <span className="text-slate-200 font-medium text-sm text-left">
             {stages[stage].text} <br/>
-            <span className="text-gold-500 font-bold text-xs tracking-widest uppercase">Progresso: {Math.round(progress)}%</span>
+            <span className={`${quizPath === 'relationship' ? 'text-purple-500' : 'text-gold-500'} font-bold text-xs tracking-widest uppercase`}>Progresso: {Math.round(progress)}%</span>
           </span>
         </div>
       </div>
@@ -88,11 +105,11 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete }) 
         transition={{ delay: 2 }}
         className="bg-white/5 backdrop-blur-xl p-5 rounded-2xl border border-white/10 mt-8 shadow-lg max-w-sm"
       >
-        <p className="text-[10px] text-gold-500 font-bold uppercase tracking-wider mb-2 flex items-center gap-1">
-          <Star className="w-3 h-3 fill-gold-500" /> Depoimento recente
+        <p className={`text-[10px] ${quizPath === 'relationship' ? 'text-purple-500' : 'text-gold-500'} font-bold uppercase tracking-wider mb-2 flex items-center gap-1`}>
+          <Star className={`w-3 h-3 ${quizPath === 'relationship' ? 'fill-purple-500' : 'fill-gold-500'}`} /> Depoimento recente
         </p>
-        <p className="text-slate-200 text-sm italic leading-relaxed">“Adorei meu Mapa! Completo e fácil de entender.”</p>
-        <p className="text-slate-400 text-xs mt-2 text-right">– @RafaelaNascimento7</p>
+        <p className="text-slate-200 text-sm italic leading-relaxed">{testimonial.text}</p>
+        <p className="text-slate-400 text-xs mt-2 text-right">– {testimonial.author}</p>
       </motion.div>
     </div>
   );

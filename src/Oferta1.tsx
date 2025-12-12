@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Clock, Lock, Check, Shield } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Clock, X, Check, Zap, Shield, Star, AlertCircle } from 'lucide-react';
 
 interface Oferta1Props {
   userName?: string;
@@ -9,8 +9,11 @@ interface Oferta1Props {
 export default function Oferta1({ userName = 'você' }: Oferta1Props) {
   const [showPulse, setShowPulse] = useState(false);
   const [lastActivity, setLastActivity] = useState(Date.now());
+  const [showExitPopup, setShowExitPopup] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(600); // 10 minutos
 
-  const firstName = userName ? userName.split(' ')[0].toUpperCase() : 'VOCÊ';
+  const firstName = userName ? userName.split(' ')[0] : 'você';
+  const firstNameUpper = firstName.toUpperCase();
 
   // Track user activity
   useEffect(() => {
@@ -43,411 +46,369 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
     return () => clearInterval(interval);
   }, [lastActivity]);
 
-  // Load VTurb script
+  // Countdown timer
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/693b6777b6a79d0e139369c7/v4/player.js';
-    script.async = true;
-    document.head.appendChild(script);
-
-    return () => {
-      if (document.head.contains(script)) {
-        document.head.removeChild(script);
-      }
-    };
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    return () => clearInterval(timer);
   }, []);
 
-  const checkoutUrl = 'https://seguropagamentos.com.br/oferta-principal?affiliate=8ZjMrNv1_f';
+  // Exit intent popup
+  useEffect(() => {
+    let exitTimeout: ReturnType<typeof setTimeout>;
+    
+    const handleMouseLeave = (e: MouseEvent) => {
+      if (e.clientY <= 0 && !showExitPopup) {
+        exitTimeout = setTimeout(() => {
+          setShowExitPopup(true);
+        }, 100);
+      }
+    };
 
-  const diagnoses = [
-    "O dinheiro entra… e desaparece",
-    "Esforço demais, retorno de menos",
-    "Ciclos de avanço e queda que se repetem",
-    "Sensação de carregar tudo nas costas",
-    "Vergonha ou frustração com sua situação financeira",
-    "Medo inconsciente de crescer ou prosperar"
-  ];
+    document.addEventListener('mouseleave', handleMouseLeave);
+    
+    return () => {
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      if (exitTimeout) clearTimeout(exitTimeout);
+    };
+  }, [showExitPopup]);
 
-  const program = [
-    { day: 1, title: "O Diagnóstico da Raiz Financeira" },
-    { day: 2, title: "A Virada Mental" },
-    { day: 3, title: "Método do Dinheiro que Sobra" },
-    { day: 4, title: "Proteção Contra Autossabotagem" },
-    { day: 5, title: "Construindo Renda Real" },
-    { day: 6, title: "Plano do Crescimento Contínuo" },
-    { day: 7, title: "O Renascimento Financeiro" }
-  ];
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
 
-  const bonuses = [
-    { name: "Guia de Mentalidade de Riqueza", was: "R$97", now: "Grátis" },
-    { name: "Meditação de Alinhamento Financeiro", was: "R$147", now: "Grátis" },
-    { name: "Acesso Vitalício", was: "R$53", now: "Grátis" }
-  ];
+  const handleAccept = () => {
+    window.location.href = 'https://checkout.mapaxamanicooficial.online/oferta-dois';
+  };
 
-  const objections = [
-    {
-      emoji: "😰",
-      question: "E se eu não conseguir mudar?",
-      answer: "Você vai. Porque agora você entende a causa real da sua estagnação financeira."
-    },
-    {
-      emoji: "💭",
-      question: "Já tentei outras coisas e nada funcionou.",
-      answer: "Aqui não é só técnica. É desbloqueio energético + transformação prática."
-    },
-    {
-      emoji: "⏳",
-      question: "E se eu deixar pra depois?",
-      answer: "Esse bloqueio vai continuar travando seus resultados. Ou você muda hoje, ou carrega isso por mais anos."
-    }
-  ];
+  const handleDecline = () => {
+    window.location.href = 'https://mapaxamanicooficial.online/oferta2';
+  };
 
-  const testimonials = [
-    {
-      name: "Camila R.",
-      age: 32,
-      location: "SP",
-      text: "Eu sempre me matava de trabalhar e o dinheiro sumia do nada. Sério, eu achava que era culpa minha. Quando fiz o Mapa, entendi que tinha coisa lá de trás me travando. Hoje eu consigo ver dinheiro sobrando no fim do mês. É surreal."
-    },
-    {
-      name: "Rodrigo M.",
-      age: 41,
-      location: "MG",
-      text: "Nunca pensei que bloqueio energético era real… até fazer esse programa. Foi tipo um soco de realidade. Parece que destravou tudo, não só no dinheiro, mas na minha cabeça também."
-    },
-    {
-      name: "Letícia D.",
-      age: 29,
-      location: "RJ",
-      text: "Eu chorava toda vez que olhava pra minha conta. Tava cansada de viver no limite. No 2º dia do processo, parece que virou uma chave em mim. Tô vivendo outra vibe agora. E é só o começo!"
-    }
-  ];
+  const handleExitAccept = () => {
+    window.location.href = 'https://checkout.mapaxamanicooficial.online/oferta-tres';
+  };
 
   return (
-    <div className="min-h-screen text-slate-100 overflow-x-hidden selection:bg-orange-500 selection:text-white relative bg-[#050505]">
-      {/* Background effects */}
-      <div className="fixed inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.6)_100%)] z-0"></div>
-      <div className="fixed top-1/4 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-[100px] pointer-events-none -z-10"></div>
-
-      {/* Alert Banner */}
-      <motion.div 
-        initial={{ y: -50 }} 
-        animate={{ y: 0 }}
-        className="bg-red-600 text-white text-xs md:text-sm font-bold text-center py-3 px-4 sticky top-0 z-50 shadow-2xl"
-      >
-        <div className="flex items-center justify-center gap-2 uppercase tracking-wider">
-          <Clock className="w-4 h-4" />
-          ⏳ Atenção: Esta oferta pode sair do ar a qualquer momento.
-        </div>
-      </motion.div>
-
-      <div className="max-w-2xl mx-auto px-4 pt-8 pb-32 relative z-10">
+    <>
+      <div className="min-h-screen bg-gradient-to-b from-[#050505] via-[#0a0a0a] to-[#050505] text-white relative overflow-hidden">
         
-        {/* Headline */}
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="text-center mb-6 space-y-4"
+        {/* Urgency Bar */}
+        <motion.div 
+          initial={{ y: -50 }} 
+          animate={{ y: 0 }}
+          className="bg-gradient-to-r from-red-600 via-orange-600 to-red-600 text-white text-xs md:text-sm font-bold text-center py-3 px-4 sticky top-0 z-50 shadow-2xl"
         >
-          <h1 className="text-3xl md:text-5xl font-serif font-black text-white leading-tight uppercase">
-            {firstName}, VOCÊ SENTE QUE ESTÁ <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF9500] to-orange-600">ESTAGNADO FINANCEIRAMENTE</span>, MESMO SE ESFORÇANDO AO MÁXIMO?
-          </h1>
-        </motion.div>
-
-        {/* Subheadline */}
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          className="text-center mb-8"
-        >
-          <p className="text-slate-300 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
-            Assista ao vídeo abaixo e descubra como a <strong className="text-white">Terapia Holística Ancestral</strong>, combinada com um método prático, pode curar bloqueios e traumas herdados que te mantêm estagnado e longe da prosperidade que você merece.
-          </p>
-        </motion.div>
-
-        {/* VSL Container */}
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.6 }}
-          className="mb-8 relative"
-        >
-          <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-[#FF9500]/30">
-            <vturb-smartplayer 
-              id="vid-693b6777b6a79d0e139369c7" 
-              style={{ display: 'block', margin: '0 auto', width: '100%', maxWidth: '400px' }}
-            />
-            
-            {/* Floating text */}
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-red-600/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-2 shadow-lg z-10">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
-              </span>
-              🔴 344 pessoas assistindo agora
-            </div>
+          <div className="flex items-center justify-center gap-2 uppercase tracking-wider">
+            <Clock className="w-4 h-4 animate-pulse" />
+            <span className="hidden md:inline">⚠️ OFERTA ÚNICA EXPIRA EM:</span>
+            <span className="md:hidden">⏰ EXPIRA EM:</span>
+            <span className="font-mono text-base md:text-lg text-yellow-300 animate-pulse">{formatTime(timeLeft)}</span>
           </div>
         </motion.div>
 
-        {/* Diagnosis Section */}
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="bg-white/5 backdrop-blur-sm border border-orange-500/30 rounded-2xl p-6 mb-8"
-        >
-          <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4 text-center">
-            Identificamos sinais claros de <span className="text-[#FF9500]">Reprogramação Financeira Emocional</span> pendente:
-          </h3>
-          <ul className="space-y-3">
-            {diagnoses.map((item, idx) => (
-              <motion.li
-                key={idx}
-                initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 1 + idx * 0.1 }}
-                className="flex items-start gap-3 text-sm md:text-base text-slate-200"
-              >
-                <span className="text-red-400 text-xl mt-0.5 flex-shrink-0">❌</span>
-                <span>{item}</span>
-              </motion.li>
-            ))}
-          </ul>
-        </motion.div>
-
-        {/* Offer Section */}
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="bg-gradient-to-br from-[#1a103c] to-[#0F0821] rounded-3xl p-6 md:p-8 mb-8 border border-[#FF9500]/30 shadow-2xl relative overflow-hidden"
-        >
-          <div className="absolute -inset-1 bg-gradient-to-r from-[#FF9500] via-orange-600 to-[#FF9500] rounded-3xl blur opacity-20 animate-pulse"></div>
+        <div className="max-w-3xl mx-auto px-4 py-8 pb-32 relative z-10">
           
-          <div className="relative z-10">
-            <div className="text-center mb-6">
-              <h2 className="text-2xl md:text-3xl font-serif font-black text-white mb-2 uppercase">
-                DESBLOQUEIO FINANCEIRO EM 7 DIAS
-              </h2>
-              <div className="flex items-center justify-center gap-3 mb-4">
-                <span className="text-slate-400 text-lg md:text-xl line-through">R$197</span>
-                <span className="text-4xl md:text-5xl font-black text-[#FF9500]">R$37</span>
-              </div>
-              <p className="text-orange-300 text-sm md:text-base font-bold uppercase">
-                ⚡ Apenas enquanto esta página estiver aberta
-              </p>
-            </div>
-
-            {/* Benefits */}
-            <div className="space-y-2 mb-6">
-              {[
-                "Acesso Imediato",
-                "Método 100% online",
-                "Resultados logo nos primeiros dias",
-                "Garantia incondicional de 7 dias"
-              ].map((benefit, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 1.4 + idx * 0.1 }}
-                  className="flex items-center gap-3 text-emerald-400 text-sm md:text-base"
-                >
-                  <span className="text-xl">🟩</span>
-                  <span>{benefit}</span>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* CTA Button */}
-            <motion.a
-              href={checkoutUrl}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              animate={showPulse ? { 
-                scale: [1, 1.05, 1],
-                boxShadow: [
-                  '0 0 0 0 rgba(255, 149, 0, 0.7)',
-                  '0 0 0 20px rgba(255, 149, 0, 0)',
-                  '0 0 0 0 rgba(255, 149, 0, 0)'
-                ]
-              } : {}}
-              transition={showPulse ? { duration: 2, repeat: Infinity } : {}}
-              className="block w-full bg-gradient-to-r from-[#FF9500] to-orange-600 text-white font-bold text-lg md:text-xl py-5 px-8 rounded-xl shadow-2xl hover:brightness-110 transition-all text-center mb-3"
-            >
-              QUERO DESBLOQUEAR MINHAS FINANÇAS
-            </motion.a>
-
-            <p className="text-xs text-slate-400 flex items-center justify-center gap-1">
-              <Lock className="w-3 h-3 text-green-500" /> Pagamento 100% Seguro • Acesso Imediato
-            </p>
-          </div>
-        </motion.div>
-
-        {/* 7-Day Program */}
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 1.6 }}
-          className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-white/10"
-        >
-          <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4 text-center">
-            O Que Você Vai Receber:
-          </h3>
-          <div className="space-y-3">
-            {program.map((day) => (
-              <div key={day.day} className="flex items-start gap-3 bg-white/5 p-3 rounded-xl">
-                <div className="bg-[#FF9500] text-white font-bold text-sm w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">
-                  {day.day}
-                </div>
-                <div className="flex-1">
-                  <span className="text-slate-200 text-sm md:text-base">
-                    <strong>Dia {day.day}:</strong> {day.title}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Bonuses */}
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 1.8 }}
-          className="bg-gradient-to-br from-[#1a103c] to-[#0F0821] rounded-2xl p-6 mb-8 border border-purple-500/30"
-        >
-          <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-4 text-center">
-            🎁 Bônus Exclusivos
-          </h3>
-          <div className="space-y-3">
-            {bonuses.map((bonus, idx) => (
-              <div key={idx} className="flex items-center justify-between bg-white/5 p-4 rounded-xl">
-                <div className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-emerald-400" />
-                  <span className="text-slate-200 text-sm md:text-base">{bonus.name}</span>
-                </div>
-                <div className="text-right">
-                  <div className="text-slate-500 text-xs line-through">{bonus.was}</div>
-                  <div className="text-emerald-400 font-bold text-sm">{bonus.now}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Objections */}
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 2 }}
-          className="space-y-6 mb-8"
-        >
-          {objections.map((obj, idx) => (
-            <div key={idx} className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-              <h4 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
-                <span className="text-2xl">{obj.emoji}</span>
-                "{obj.question}"
-              </h4>
-              <p className="text-slate-300 text-sm md:text-base pl-8">
-                → {obj.answer}
-              </p>
-            </div>
-          ))}
-        </motion.div>
-
-        {/* Guarantee */}
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 2.2 }}
-          className="bg-gradient-to-b from-[#1a103c] to-[#0F0821] p-6 rounded-2xl border border-[#D4AF37]/30 text-center mb-8"
-        >
-          <div className="bg-[#D4AF37]/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 text-[#D4AF37]">
-            <Shield className="w-8 h-8" />
-          </div>
-          <h4 className="font-serif font-bold text-[#D4AF37] text-xl mb-2 uppercase">
-            🛡️ 7 Dias de Garantia Total
-          </h4>
-          <p className="text-sm md:text-base text-slate-300 leading-relaxed">
-            Não sentiu a mudança? Devolvemos <strong className="text-white">100% do seu dinheiro</strong>.<br />
-            Sem perguntas. Sem risco. Só transformação.
-          </p>
-        </motion.div>
-
-        {/* Testimonials */}
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 2.4 }}
-          className="space-y-6 mb-8"
-        >
-          <h3 className="text-2xl md:text-3xl font-serif font-bold text-white text-center mb-6">
-            Veja o que os alunos estão dizendo:
-          </h3>
-          {testimonials.map((testimonial, idx) => (
-            <div key={idx} className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#FF9500] to-orange-600 flex items-center justify-center text-white font-bold text-lg">
-                  {testimonial.name[0]}
-                </div>
-                <div>
-                  <div className="font-bold text-white text-sm">
-                    {testimonial.name} – {testimonial.age} anos | {testimonial.location}
-                  </div>
-                  <div className="text-yellow-400 text-xs">★★★★★</div>
-                </div>
-              </div>
-              <p className="text-slate-200 text-sm md:text-base leading-relaxed italic">
-                "{testimonial.text}"
-              </p>
-            </div>
-          ))}
-        </motion.div>
-
-        {/* Final CTA */}
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 2.6 }}
-          className="text-center space-y-6"
-        >
-          <h3 className="text-2xl md:text-3xl font-serif font-bold text-white leading-tight">
-            🔥 O que te trava pode ser curado.<br />
-            Mas essa oportunidade pode sair do ar a qualquer momento.
-          </h3>
-          
-          <motion.a
-            href={checkoutUrl}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            animate={showPulse ? { 
-              scale: [1, 1.05, 1],
-              boxShadow: [
-                '0 0 0 0 rgba(255, 149, 0, 0.7)',
-                '0 0 0 20px rgba(255, 149, 0, 0)',
-                '0 0 0 0 rgba(255, 149, 0, 0)'
-              ]
-            } : {}}
-            transition={showPulse ? { duration: 2, repeat: Infinity } : {}}
-            className="block w-full bg-gradient-to-r from-[#FF9500] to-orange-600 text-white font-bold text-xl md:text-2xl py-6 px-8 rounded-xl shadow-2xl hover:brightness-110 transition-all"
+          {/* Badge de Confirmação */}
+          <motion.div
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.3, type: "spring" }}
+            className="flex items-center justify-center gap-3 mb-6 bg-emerald-950/40 backdrop-blur-md border border-emerald-500/30 rounded-2xl p-4 shadow-lg shadow-emerald-500/10"
           >
-            QUERO DESBLOQUEAR MINHAS FINANÇAS AGORA
-          </motion.a>
+            <div className="bg-emerald-500 rounded-full p-2">
+              <Check className="w-5 h-5 text-white" />
+            </div>
+            <div className="text-left">
+              <p className="text-emerald-400 font-bold text-sm uppercase tracking-wide">✅ Seu acesso foi confirmado!</p>
+              <p className="text-emerald-300/80 text-xs">Você está a um passo de DESBLOQUEAR tudo.</p>
+            </div>
+          </motion.div>
+
+          {/* RESULTADO - Primeira parte do RBMC */}
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="text-center space-y-4 mb-8"
+          >
+            <h1 className="text-3xl md:text-4xl font-serif font-black text-white leading-tight drop-shadow-2xl">
+              <span className="text-red-500">{firstNameUpper}</span>, ESPERA!
+            </h1>
+            <p className="text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500">
+              Você está prestes a perder a chance de ATIVAR seu desbloqueio 10X MAIS RÁPIDO...
+            </p>
+          </motion.div>
+
+          {/* BLOQUEIO - Segunda parte do RBMC */}
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.7 }}
+            className="bg-gradient-to-br from-red-950/40 to-orange-950/40 backdrop-blur-sm border border-red-500/30 rounded-3xl p-6 md:p-8 mb-8 shadow-2xl"
+          >
+            <div className="flex items-start gap-3 mb-4">
+              <AlertCircle className="w-6 h-6 text-red-400 flex-shrink-0 mt-1" />
+              <div>
+                <h3 className="text-xl font-bold text-red-400 mb-2">⚠️ ATENÇÃO: O QUE PODE ACONTECER</h3>
+                <p className="text-slate-200 text-sm md:text-base leading-relaxed">
+                  Você acabou de garantir o Mapa Xamânico, mas <strong className="text-red-300">apenas isso NÃO É SUFICIENTE</strong> para a maioria das pessoas.
+                </p>
+              </div>
+            </div>
+            
+            <div className="space-y-3 mt-6">
+              <div className="flex items-start gap-3 bg-black/30 p-3 rounded-lg border-l-4 border-red-500">
+                <span className="text-red-400 text-xl">❌</span>
+                <p className="text-slate-300 text-sm"><strong>Sem a Ativação Profunda:</strong> Você vai SENTIR os bloqueios, mas não conseguirá DISSOLVÊ-LOS por completo.</p>
+              </div>
+              <div className="flex items-start gap-3 bg-black/30 p-3 rounded-lg border-l-4 border-red-500">
+                <span className="text-red-400 text-xl">❌</span>
+                <p className="text-slate-300 text-sm"><strong>Sem as técnicas avançadas:</strong> O processo pode levar MESES em vez de DIAS.</p>
+              </div>
+              <div className="flex items-start gap-3 bg-black/30 p-3 rounded-lg border-l-4 border-red-500">
+                <span className="text-red-400 text-xl">❌</span>
+                <p className="text-slate-300 text-sm"><strong>Sem esse módulo:</strong> Você corre o risco de DESISTIR no meio do caminho (como 78% das pessoas).</p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* MECANISMO - Terceira parte do RBMC */}
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.9 }}
+            className="bg-gradient-to-br from-[#120a2e] to-[#1a0b3e] rounded-3xl p-6 md:p-8 mb-8 border border-orange-500/30 shadow-2xl relative overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-40 h-40 bg-yellow-500/10 rounded-full blur-3xl"></div>
+            
+            <div className="relative z-10">
+              <div className="flex items-center justify-center gap-2 mb-6">
+                <Zap className="w-8 h-8 text-yellow-400" />
+                <h2 className="text-2xl md:text-3xl font-serif font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">
+                  Imersão de Ativação Profunda
+                </h2>
+              </div>
+
+              <p className="text-center text-slate-200 text-base md:text-lg mb-6 leading-relaxed">
+                O sistema COMPLETO para <strong className="text-yellow-400">ACELERAR seu desbloqueio em até 10X</strong> e garantir que você chegue ao resultado REAL em dias, não meses.
+              </p>
+
+              <div className="space-y-4 mb-8">
+                <div className="flex items-start gap-3 bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+                  <div className="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg p-2 flex-shrink-0">
+                    <Check className="w-5 h-5 text-black font-bold" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-white mb-1">🔥 Protocolo de Ativação Imediata</h4>
+                    <p className="text-slate-300 text-sm">Técnicas específicas para ATIVAR a energia do seu mapa em menos de 24h</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+                  <div className="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg p-2 flex-shrink-0">
+                    <Check className="w-5 h-5 text-black font-bold" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-white mb-1">⚡ Rituais de Ancoragem Energética</h4>
+                    <p className="text-slate-300 text-sm">Mantenha a frequência alta e evite recaídas (o segredo dos 3% que conseguem)</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+                  <div className="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg p-2 flex-shrink-0">
+                    <Check className="w-5 h-5 text-black font-bold" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-white mb-1">🎯 Meditações Guiadas Personalizadas</h4>
+                    <p className="text-slate-300 text-sm">Áudios exclusivos para cada fase do seu desbloqueio (valor: R$297)</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+                  <div className="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg p-2 flex-shrink-0">
+                    <Check className="w-5 h-5 text-black font-bold" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-white mb-1">🧘 Práticas de Alinhamento Diário</h4>
+                    <p className="text-slate-300 text-sm">5 minutos por dia que multiplicam seus resultados em 10X</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+                  <div className="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg p-2 flex-shrink-0">
+                    <Check className="w-5 h-5 text-black font-bold" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-white mb-1">📈 Mapa de Progressão Semanal</h4>
+                    <p className="text-slate-300 text-sm">Acompanhe sua evolução e celebre cada vitória no caminho</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Preço e Oferta */}
+              <div className="bg-black/40 rounded-2xl p-6 border-2 border-yellow-500/50 shadow-xl">
+                <div className="text-center mb-4">
+                  <p className="text-slate-400 text-sm mb-2">VALOR NORMAL:</p>
+                  <p className="text-slate-500 text-2xl line-through mb-1">R$ 297,00</p>
+                  <p className="text-yellow-400 font-bold text-sm uppercase tracking-wider mb-3">🔥 OFERTA EXCLUSIVA AGORA:</p>
+                  <div className="flex items-center justify-center gap-2 mb-3">
+                    <span className="text-slate-300 text-xl">apenas</span>
+                    <span className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">R$97</span>
+                  </div>
+                  <p className="text-emerald-400 text-sm font-bold">💎 Acesso vitalício + Atualizações gratuitas</p>
+                </div>
+
+                <button
+                  onClick={handleAccept}
+                  className={`w-full bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 hover:from-yellow-400 hover:via-orange-400 hover:to-red-400 text-black font-black text-lg md:text-xl py-5 px-8 rounded-2xl shadow-2xl shadow-orange-500/50 transition-all transform hover:scale-105 active:scale-95 border-2 border-yellow-300 uppercase tracking-wide ${showPulse ? 'animate-pulse' : ''}`}
+                >
+                  <span className="drop-shadow-lg">✨ SIM! QUERO ATIVAR 10X MAIS RÁPIDO</span>
+                </button>
+
+                <div className="flex items-center justify-center gap-2 mt-4 text-emerald-400 text-xs">
+                  <Shield className="w-4 h-4" />
+                  <span>Pagamento 100% seguro • Garantia de 7 dias</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Prova Social Rápida */}
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 1.1 }}
+            className="bg-gradient-to-br from-purple-950/30 to-pink-950/30 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-6 mb-8"
+          >
+            <h3 className="text-center font-bold text-white text-lg mb-4 flex items-center justify-center gap-2">
+              <Star className="w-5 h-5 text-yellow-400" />
+              Resultados de Quem Ativou
+            </h3>
+            <div className="grid md:grid-cols-3 gap-4 text-center">
+              <div className="bg-black/30 rounded-xl p-4">
+                <p className="text-3xl font-black text-yellow-400">87%</p>
+                <p className="text-slate-300 text-xs">Resultados em menos de 7 dias</p>
+              </div>
+              <div className="bg-black/30 rounded-xl p-4">
+                <p className="text-3xl font-black text-emerald-400">10X</p>
+                <p className="text-slate-300 text-xs">Mais rápido que o método básico</p>
+              </div>
+              <div className="bg-black/30 rounded-xl p-4">
+                <p className="text-3xl font-black text-orange-400">94%</p>
+                <p className="text-slate-300 text-xs">Não desistiram no meio</p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Link de Recusa */}
+          <div className="text-center">
+            <button
+              onClick={handleDecline}
+              className="text-slate-500 hover:text-slate-400 text-sm underline transition-colors"
+            >
+              Não, obrigado. Vou tentar sozinho (mais devagar)
+            </button>
+          </div>
+
+        </div>
+
+        {/* Mobile CTA Bar */}
+        <motion.div
+          initial={{ y: 100 }}
+          animate={{ y: 0 }}
+          className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-yellow-600 via-orange-600 to-red-600 p-4 shadow-2xl border-t-2 border-yellow-400"
+        >
+          <div className="max-w-3xl mx-auto flex items-center justify-between gap-3">
+            <div className="flex-1">
+              <p className="text-white font-bold text-sm md:text-base">Imersão Completa</p>
+              <p className="text-yellow-200 text-xs md:text-sm">
+                <span className="line-through opacity-60">R$ 297</span> → <span className="font-black text-lg">R$ 97</span>
+              </p>
+            </div>
+            <button
+              onClick={handleAccept}
+              className={`bg-black hover:bg-gray-900 text-yellow-400 font-black py-3 px-6 rounded-xl transition-all transform hover:scale-105 active:scale-95 text-sm md:text-base whitespace-nowrap shadow-xl ${showPulse ? 'animate-pulse' : ''}`}
+            >
+              ATIVAR AGORA
+            </button>
+          </div>
         </motion.div>
       </div>
 
-      {/* Fixed Mobile Bar */}
-      <div className="fixed bottom-0 left-0 w-full bg-[#0a0a0a]/95 backdrop-blur-xl border-t border-[#FF9500]/30 p-3 z-50 md:hidden shadow-2xl">
-        <a
-          href={checkoutUrl}
-          className="block w-full bg-gradient-to-r from-[#FF9500] to-orange-600 text-white font-bold py-4 px-4 rounded-xl shadow-lg active:scale-95 transition-transform text-center"
-        >
-          DESBLOQUEAR AGORA POR R$37
-        </a>
-      </div>
-    </div>
+      {/* Exit Intent Popup */}
+      <AnimatePresence>
+        {showExitPopup && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/90 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
+            onClick={() => setShowExitPopup(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              className="bg-gradient-to-br from-[#1a0b2e] to-[#2d1b4e] rounded-3xl p-6 md:p-8 max-w-lg w-full border-2 border-red-500 shadow-2xl relative"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setShowExitPopup(false)}
+                className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+
+              <div className="text-center space-y-4">
+                <div className="flex justify-center">
+                  <div className="bg-red-500 rounded-full p-4">
+                    <AlertCircle className="w-12 h-12 text-white" />
+                  </div>
+                </div>
+
+                <h3 className="text-2xl md:text-3xl font-black text-white">
+                  🚨 ESPERA, {firstNameUpper}!
+                </h3>
+
+                <p className="text-lg text-slate-200 font-bold">
+                  Vejo que você está saindo... 
+                </p>
+
+                <div className="bg-yellow-500/10 border-2 border-yellow-500 rounded-xl p-4">
+                  <p className="text-yellow-400 font-bold text-xl mb-2">
+                    🎁 CUPOM EXCLUSIVO DESBLOQUEADO!
+                  </p>
+                  <p className="text-white font-black text-3xl mb-2">
+                    R$ 77 <span className="text-sm text-slate-400">(economize R$20!)</span>
+                  </p>
+                  <p className="text-slate-300 text-sm">
+                    Esta é sua ÚLTIMA CHANCE de ter o upgrade com desconto
+                  </p>
+                </div>
+
+                <button
+                  onClick={handleExitAccept}
+                  className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 text-black font-black text-lg py-4 px-6 rounded-xl shadow-lg transition-all transform hover:scale-105 uppercase"
+                >
+                  ✨ ATIVAR COM DESCONTO AGORA
+                </button>
+
+                <button
+                  onClick={() => setShowExitPopup(false)}
+                  className="text-slate-500 hover:text-slate-400 text-sm underline"
+                >
+                  Não, vou perder esta chance
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

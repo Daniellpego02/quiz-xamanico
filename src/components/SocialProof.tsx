@@ -2,34 +2,41 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './Button';
 import { Heart, MessageCircle, Send, Bookmark, MoreHorizontal, ShieldCheck } from 'lucide-react';
+import { QuizPath } from '../types';
 
 interface SocialProofProps {
   onNext: () => void;
+  quizPath?: QuizPath;
 }
 
-// Map of realistic profile images - Realistic people matching name gender
-// Using randomuser.me for diverse, realistic human faces matching gender
+// Map of realistic profile images - Real-looking Brazilian people matching names
+// Using a mix of services for diverse, realistic Brazilian faces
 const avatarImages: Record<string, string> = {
-  // Main profile - Woman
-  "xama_interior": "https://randomuser.me/api/portraits/women/65.jpg", 
+  // Main profile - Woman (Anahí Solara)
+  "xama_interior": "https://i.pravatar.cc/150?img=47", 
   
-  // Female testimonials - Women with diverse appearances
-  "neuropsicopedagogafa_titania": "https://randomuser.me/api/portraits/women/44.jpg", // Professional woman
-  "cristinabertyfit": "https://randomuser.me/api/portraits/women/68.jpg", // Fitness enthusiast woman
-  "drysoriano": "https://randomuser.me/api/portraits/women/72.jpg", // Doctor/professional woman
-  "julimma_2": "https://randomuser.me/api/portraits/women/21.jpg", // Young woman
-  "aninhajalandiqueimasemcodimas": "https://randomuser.me/api/portraits/women/32.jpg", // Casual woman
-  "jasmine_awache": "https://randomuser.me/api/portraits/women/15.jpg", // Young woman
-  "iavella": "https://randomuser.me/api/portraits/women/55.jpg", // Mature woman
+  // Female testimonials - Brazilian women with names matching appearance
+  "neuropsicopedagogafa_titania": "https://i.pravatar.cc/150?img=45", // Professional woman - Titania
+  "cristinabertyfit": "https://i.pravatar.cc/150?img=49", // Fitness woman - Cristina
+  "drysoriano": "https://i.pravatar.cc/150?img=44", // Doctor woman - Soriano
+  "julimma_2": "https://i.pravatar.cc/150?img=43", // Young woman - Juliana
+  "aninhajalandiqueimasemcodimas": "https://i.pravatar.cc/150?img=38", // Casual young woman - Ana
+  "jasmine_awache": "https://i.pravatar.cc/150?img=31", // Young woman - Jasmine
+  "iavella": "https://i.pravatar.cc/150?img=41", // Mature woman - Isabella
+  "mariana_luz": "https://i.pravatar.cc/150?img=48", // Young woman - Mariana
+  "fernanda_coelho": "https://i.pravatar.cc/150?img=32", // Woman - Fernanda
+  "carla_mendes": "https://i.pravatar.cc/150?img=42", // Woman - Carla
   
-  // Male testimonials - Men with diverse appearances  
-  "rafaelmoraes": "https://randomuser.me/api/portraits/men/46.jpg", // Man
-  "rafaelgasta_": "https://randomuser.me/api/portraits/men/32.jpg", // Casual man
-  "prof.rohaan": "https://randomuser.me/api/portraits/men/22.jpg", // Professor/professional man
+  // Male testimonials - Brazilian men with names matching appearance
+  "rafaelmoraes": "https://i.pravatar.cc/150?img=12", // Man - Rafael
+  "rafaelgasta_": "https://i.pravatar.cc/150?img=13", // Casual man - Rafael
+  "prof.rohaan": "https://i.pravatar.cc/150?img=15", // Professional man - Professor
+  "pedro_santos": "https://i.pravatar.cc/150?img=14", // Man - Pedro
+  "lucas_almeira": "https://i.pravatar.cc/150?img=11", // Young man - Lucas
 };
 
-// Grouped comments into "Threads" to simulate posts
-const instagramThreads = [
+// Finance-focused testimonials (original)
+const financeThreads = [
   {
     id: 1,
     postedTime: "2 dias",
@@ -123,7 +130,102 @@ const instagramThreads = [
   }
 ];
 
-const InstagramMockup: React.FC<{ thread: typeof instagramThreads[0] }> = ({ thread }) => (
+// Relationship-focused testimonials with shamanic healing emphasis
+const relationshipThreads = [
+  {
+    id: 1,
+    postedTime: "2 dias",
+    likes: "5.892 curtidas",
+    comments: [
+      {
+        username: "mariana_luz",
+        text: "Gente, fiz o Mapa Xamânico focado em relacionamentos e foi tipo um tapa na cara (no bom sentido). Descobri que eu atraía pessoas que não me valorizavam por uma ferida emocional que eu nem sabia que tinha. 💔→💖",
+        time: "3h",
+        likes: 234,
+        hasAvatar: true
+      },
+      {
+        username: "fernanda_coelho",
+        text: "Nunca pensei que meus bloqueios amorosos viessem de tanto tempo atrás... O mapa mostra tudo com uma clareza assustadora. Chorei muito mas foi libertador 😭✨",
+        time: "6h",
+        likes: 189,
+        hasAvatar: true
+      },
+      {
+        username: "lucas_almeira",
+        text: "Cara, eu tinha medo de admitir, mas eu sempre sabotava meus relacionamentos. O mapa me mostrou de onde vinha isso. Agora entendo tudo.",
+        time: "1d",
+        likes: 156,
+        hasAvatar: true
+      }
+    ]
+  },
+  {
+    id: 2,
+    postedTime: "4 dias",
+    likes: "9.341 curtidas",
+    comments: [
+      {
+        username: "carla_mendes",
+        text: "Acabei de receber meu mapa e estou chocada... Todo o padrão que eu repito nos relacionamentos tá explicado aqui. É exatamente sobre mim e minha família. Obrigada @xama_interior 🙏💜",
+        time: "2h",
+        likes: 312,
+        hasAvatar: true
+      },
+      {
+        username: "pedro_santos",
+        text: "Sempre achei que era azar no amor. Mas o mapa me mostrou que eu carrego traumas que afastam pessoas boas. Isso é real demais... 💔",
+        time: "5h",
+        likes: 267,
+        hasAvatar: true
+      },
+      {
+        username: "julimma_2",
+        text: "Esse mapa salvou meu coração, literalmente. Entendi porque sempre escolho errado. Agora posso mudar! ❤️‍🩹🙌",
+        time: "9h",
+        likes: 198,
+        hasAvatar: true
+      }
+    ]
+  },
+  {
+    id: 3,
+    postedTime: "1 semana",
+    likes: "14.2k curtidas",
+    comments: [
+      {
+        username: "jasmine_awache",
+        text: "O mapa xamânico de relacionamentos é PROFUNDO. Mostra não só seus bloqueios, mas de onde eles vêm (às vezes de gerações atrás). Foi a coisa mais reveladora que já fiz na minha vida amorosa 💜✨",
+        time: "1d",
+        likes: 521,
+        hasAvatar: true
+      },
+      {
+        username: "rafaelmoraes",
+        text: "Fiz focando em relacionamentos porque tava cansado de sofrer. O resultado me deixou sem palavras. Tudo que eu sentia mas não conseguia explicar tava ali. Recomendo demais!",
+        time: "3d",
+        likes: 432,
+        hasAvatar: true
+      },
+      {
+        username: "iavella",
+        text: "Meu terapeuta me recomendou fazer isso e foi a melhor decisão. O mapa complementou minha terapia e me deu respostas que eu buscava há anos sobre meus padrões amorosos 💖🙏",
+        time: "5d",
+        likes: 678,
+        hasAvatar: true
+      },
+      {
+        username: "cristinabertyfit",
+        text: "Depois de 3 relacionamentos ruins seguidos, fiz o mapa. GENTE... faz sentido TUDO agora. É como se alguém tivesse acendido a luz. 💡❤️",
+        time: "1sem",
+        likes: 890,
+        hasAvatar: true
+      }
+    ]
+  }
+];
+
+const InstagramMockup: React.FC<{ thread: typeof financeThreads[0] }> = ({ thread }) => (
   <div className="bg-black/80 backdrop-blur-md border border-white/10 rounded-xl overflow-hidden mb-8 text-white text-sm font-sans shadow-2xl max-w-sm mx-auto w-full relative group">
     {/* Subtle glow behind card */}
     <div className="absolute -inset-1 bg-gradient-to-b from-purple-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-lg -z-10"></div>
@@ -193,7 +295,10 @@ const InstagramMockup: React.FC<{ thread: typeof instagramThreads[0] }> = ({ thr
   </div>
 );
 
-export const SocialProof: React.FC<SocialProofProps> = ({ onNext }) => {
+export const SocialProof: React.FC<SocialProofProps> = ({ onNext, quizPath = 'finance' }) => {
+  // Select threads based on quiz path
+  const threads = quizPath === 'relationship' ? relationshipThreads : financeThreads;
+  
   return (
     <motion.div 
       initial={{ opacity: 0 }}
@@ -210,7 +315,7 @@ export const SocialProof: React.FC<SocialProofProps> = ({ onNext }) => {
       </div>
 
       <div className="space-y-6 mb-12">
-        {instagramThreads.map((thread, i) => (
+        {threads.map((thread, i) => (
           <motion.div
             key={thread.id}
             initial={{ y: 20, opacity: 0 }}

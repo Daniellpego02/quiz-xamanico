@@ -56,11 +56,11 @@ function App() {
       case AppStep.QUIZ:
         return <Quiz onComplete={handleQuizComplete} />;
       case AppStep.AUTHORITY:
-        return <Authority onNext={handleAuthorityNext} />;
+        return <Authority onNext={handleAuthorityNext} quizPath={quizPath} />;
       case AppStep.SOCIAL_PROOF:
-        return <SocialProof onNext={handleSocialProofNext} />;
+        return <SocialProof onNext={handleSocialProofNext} quizPath={quizPath} />;
       case AppStep.LOADING:
-        return <AnalysisLoading onComplete={handleLoadingComplete} />;
+        return <AnalysisLoading onComplete={handleLoadingComplete} quizPath={quizPath} />;
       case AppStep.OFFER:
         return <Offer quizPath={quizPath} />; // Passa o caminho para a oferta
       default:
