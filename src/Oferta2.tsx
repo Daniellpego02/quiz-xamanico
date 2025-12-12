@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Clock, Lock, Check, Shield, Heart } from 'lucide-react';
+import { Lock, Check, Shield, Heart } from 'lucide-react';
 
 interface Oferta2Props {
   userName?: string;
