@@ -15,6 +15,7 @@ import Oferta2 from './Oferta2';
 function App() {
   const [currentStep, setCurrentStep] = useState<AppStep>(AppStep.HERO);
   const [quizPath, setQuizPath] = useState<QuizPath>('finance'); // Padrão
+  const [userName, setUserName] = useState<string>('');
 
   useEffect(() => {
     // Inicialização do Pixel se necessário
@@ -29,9 +30,10 @@ function App() {
     goToStep(AppStep.QUIZ);
   };
 
-  // Agora recebe o caminho escolhido
-  const handleQuizComplete = (path: QuizPath) => {
+  // Agora recebe o caminho escolhido e o nome do usuário
+  const handleQuizComplete = (path: QuizPath, name: string) => {
     setQuizPath(path);
+    setUserName(name);
     goToStep(AppStep.AUTHORITY); // Mantendo o ritual de conexão
   };
 
@@ -82,8 +84,8 @@ function App() {
     <Routes>
       <Route path="/" element={<MainQuizFlow />} />
       <Route path="/obrigado" element={<Obrigado />} />
-      <Route path="/oferta1" element={<Oferta1 />} />
-      <Route path="/oferta2" element={<Oferta2 />} />
+      <Route path="/oferta1" element={<Oferta1 userName={userName} />} />
+      <Route path="/oferta2" element={<Oferta2 userName={userName} />} />
     </Routes>
   );
 }

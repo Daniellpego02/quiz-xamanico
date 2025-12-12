@@ -4,7 +4,7 @@ import { QuizQuestion, QuizPath } from '../types';
 import { ChevronRight, Sparkles, Fingerprint } from 'lucide-react';
 
 interface QuizProps {
-  onComplete: (path: QuizPath) => void;
+  onComplete: (path: QuizPath, userName: string) => void;
 }
 
 export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
@@ -230,7 +230,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
         if (typeof window.fbq === 'function') {
           window.fbq('track', 'CompleteRegistration', { content_name: 'Quiz Completo', path: selectedPath });
         }
-        onComplete(selectedPath);
+        onComplete(selectedPath, userName);
       }
     }, 250);
   };
@@ -282,12 +282,6 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           className="flex-1 flex flex-col"
         >
           <div className="mb-6">
-            <h3 className="text-orange-400 font-bold text-xs tracking-[0.2em] uppercase mb-3 flex items-center gap-2">
-              <span className="bg-orange-500/10 w-6 h-6 rounded-full flex items-center justify-center text-[10px] border border-orange-500/30 text-orange-400">
-                {currentIndex + 1}
-              </span>
-              {currentQuestion.title}
-            </h3>
             <h2 className="text-xl md:text-2xl font-serif font-bold text-white leading-snug drop-shadow-lg">
               {personalizeText(currentQuestion.text)}
             </h2>
