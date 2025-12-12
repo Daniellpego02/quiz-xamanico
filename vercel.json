@@ -11,6 +11,10 @@
   ],
   "routes": [
     {
+      "src": "/obrigado",
+      "dest": "/obrigado.html"
+    },
+    {
       "handle": "filesystem"
     },
     {
