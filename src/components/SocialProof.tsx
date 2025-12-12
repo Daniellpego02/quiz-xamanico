@@ -9,30 +9,30 @@ interface SocialProofProps {
   quizPath?: QuizPath;
 }
 
-// Map of realistic profile images - Realistic people matching name gender
-// Using randomuser.me for diverse, realistic human faces matching gender
+// Map of realistic profile images - Real-looking Brazilian people matching names
+// Using a mix of services for diverse, realistic Brazilian faces
 const avatarImages: Record<string, string> = {
-  // Main profile - Woman
-  "xama_interior": "https://randomuser.me/api/portraits/women/65.jpg", 
+  // Main profile - Woman (Anahí Solara)
+  "xama_interior": "https://i.pravatar.cc/150?img=47", 
   
-  // Female testimonials - Women with diverse appearances
-  "neuropsicopedagogafa_titania": "https://randomuser.me/api/portraits/women/44.jpg", // Professional woman
-  "cristinabertyfit": "https://randomuser.me/api/portraits/women/68.jpg", // Fitness enthusiast woman
-  "drysoriano": "https://randomuser.me/api/portraits/women/72.jpg", // Doctor/professional woman
-  "julimma_2": "https://randomuser.me/api/portraits/women/21.jpg", // Young woman
-  "aninhajalandiqueimasemcodimas": "https://randomuser.me/api/portraits/women/32.jpg", // Casual woman
-  "jasmine_awache": "https://randomuser.me/api/portraits/women/15.jpg", // Young woman
-  "iavella": "https://randomuser.me/api/portraits/women/55.jpg", // Mature woman
-  "mariana_luz": "https://randomuser.me/api/portraits/women/28.jpg",
-  "fernanda_coelho": "https://randomuser.me/api/portraits/women/41.jpg",
-  "carla_mendes": "https://randomuser.me/api/portraits/women/36.jpg",
+  // Female testimonials - Brazilian women with names matching appearance
+  "neuropsicopedagogafa_titania": "https://i.pravatar.cc/150?img=45", // Professional woman - Titania
+  "cristinabertyfit": "https://i.pravatar.cc/150?img=49", // Fitness woman - Cristina
+  "drysoriano": "https://i.pravatar.cc/150?img=44", // Doctor woman - Soriano
+  "julimma_2": "https://i.pravatar.cc/150?img=43", // Young woman - Juliana
+  "aninhajalandiqueimasemcodimas": "https://i.pravatar.cc/150?img=38", // Casual young woman - Ana
+  "jasmine_awache": "https://i.pravatar.cc/150?img=31", // Young woman - Jasmine
+  "iavella": "https://i.pravatar.cc/150?img=41", // Mature woman - Isabella
+  "mariana_luz": "https://i.pravatar.cc/150?img=48", // Young woman - Mariana
+  "fernanda_coelho": "https://i.pravatar.cc/150?img=32", // Woman - Fernanda
+  "carla_mendes": "https://i.pravatar.cc/150?img=42", // Woman - Carla
   
-  // Male testimonials - Men with diverse appearances  
-  "rafaelmoraes": "https://randomuser.me/api/portraits/men/46.jpg", // Man
-  "rafaelgasta_": "https://randomuser.me/api/portraits/men/32.jpg", // Casual man
-  "prof.rohaan": "https://randomuser.me/api/portraits/men/22.jpg", // Professor/professional man
-  "pedro_santos": "https://randomuser.me/api/portraits/men/54.jpg",
-  "lucas_almeira": "https://randomuser.me/api/portraits/men/29.jpg",
+  // Male testimonials - Brazilian men with names matching appearance
+  "rafaelmoraes": "https://i.pravatar.cc/150?img=12", // Man - Rafael
+  "rafaelgasta_": "https://i.pravatar.cc/150?img=13", // Casual man - Rafael
+  "prof.rohaan": "https://i.pravatar.cc/150?img=15", // Professional man - Professor
+  "pedro_santos": "https://i.pravatar.cc/150?img=14", // Man - Pedro
+  "lucas_almeira": "https://i.pravatar.cc/150?img=11", // Young man - Lucas
 };
 
 // Finance-focused testimonials (original)
