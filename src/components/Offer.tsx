@@ -7,14 +7,16 @@ import { QuizPath } from '../types';
 // Dicionário de Conteúdo Dinâmico
 const offerContent = {
   finance: {
-    headline: "Bloqueio Financeiro Identificado: Aqui Está o Motivo Real da Sua Estagnação",
-    subheadline: "Assista ao vídeo abaixo para entender como desbloquear sua vida em 7 dias — no dinheiro, no amor e em todas as áreas que importam.",
+    headline: "VOCÊ SENTE QUE ESTÁ ESTAGNADO FINANCEIRAMENTE, MESMO SE ESFORÇANDO AO MÁXIMO?",
+    subheadline: "Assista ao vídeo abaixo e descubra como a Terapia Holística Ancestral, combinada com um método prático, pode curar bloqueios e traumas herdados que te mantêm estagnado e longe da prosperidade que você merece.",
     painMechanism: "Reprogramação Financeira Emocional",
     painPoints: [
-      "Dinheiro entra e some",
-      "Ciclos de avanço e queda",
-      "Medo de crescimento",
-      "Peso financeiro familiar"
+      "❌ O dinheiro entra… e desaparece",
+      "❌ Esforço demais, retorno de menos",
+      "❌ Ciclos de avanço e queda que se repetem",
+      "❌ Sensação de carregar tudo nas costas",
+      "❌ Vergonha ou frustração com sua situação financeira",
+      "❌ Medo inconsciente de crescer ou prosperar"
     ],
     modules: [
       "DIA 1 — O Diagnóstico da Raiz Financeira",
@@ -27,21 +29,22 @@ const offerContent = {
     ],
     bonuses: [
       { title: "Guia de Mentalidade de Riqueza", value: "97", desc: "Quebra instantânea de crenças limitantes." },
-      { title: "Meditação de Alinhamento", value: "147", desc: "Ativa foco, força e clareza financeira." },
+      { title: "Meditação de Alinhamento Financeiro", value: "147", desc: "Ativa foco, força e clareza financeira." },
       { title: "Acesso Vitalício", value: "53", desc: "Aprenda no seu tempo." }
     ],
     objections: [
-      { title: "JÁ TENTEI DE TUDO", text: "Você tentou técnica. Aqui trabalhamos emoção + técnica, o que funciona." },
-      { title: "NÃO SEI SE VOU ENTENDER", text: "Linguagem simples, direta, zero complicação." },
-      { title: "TENHO MEDO DE INVESTIR", text: "Por isso existe garantia de 7 dias. Risco zero." }
+      { title: "E se eu não conseguir mudar?", text: "Você vai. Porque agora você entende a causa real da sua estagnação financeira." },
+      { title: "Já tentei outras coisas e nada funcionou.", text: "Aqui não é só técnica. É desbloqueio energético + transformação prática." },
+      { title: "E se eu deixar pra depois?", text: "Esse bloqueio vai continuar travando seus resultados. Ou você muda hoje, ou carrega isso por mais anos." }
     ],
-    cta: "DESTRAVAR MINHAS FINANÇAS AGORA",
+    cta: "QUERO DESBLOQUEAR MINHAS FINANÇAS",
     alertBanner: "⏳ Atenção: Esta oferta pode sair do ar a qualquer momento.",
     vslId: "vid-692d0662eb5ec5285cee0f8c",
-    offerHeadline: undefined,
-    guaranteeText: undefined,
-    finalCta: undefined,
-    finalCtaButton: undefined
+    offerHeadline: "DESBLOQUEIO FINANCEIRO EM 7 DIAS",
+    guaranteeText: "Não sentiu a mudança? Devolvemos 100% do seu dinheiro. Sem perguntas. Sem risco. Só transformação.",
+    finalCta: "🔥 O que te trava pode ser curado. Mas essa oportunidade pode sair do ar a qualquer momento.",
+    finalCtaButton: "QUERO DESBLOQUEAR MINHAS FINANÇAS AGORA",
+    videoFloatingText: "Você não está quebrado — você está bloqueado. E isso tem cura."
   },
   relationship: {
     headline: "VOCÊ ESTÁ PRESA EM CICLOS QUE SE REPETEM NO AMOR?",
@@ -78,7 +81,8 @@ const offerContent = {
     offerHeadline: "🔓 O DESBLOQUEIO COMEÇA HOJE: VIVA O AMOR QUE VOCÊ SONHA!",
     guaranteeText: "Você sente a transformação ou devolvemos 100% do seu dinheiro. Sem perguntas. Sem julgamentos. Você merece essa chance.",
     finalCta: "🔥 Últimas vagas por R$37 — clique abaixo e comece agora sua nova história no amor.",
-    finalCtaButton: "CURAR MEU CORAÇÃO AGORA"
+    finalCtaButton: "CURAR MEU CORAÇÃO AGORA",
+    videoFloatingText: undefined
   }
 };
 
@@ -196,18 +200,33 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance' }) => {
 
         <div>
            <VturbPlayer quizPath={quizPath} />
-           <div className="flex items-center justify-center gap-2 text-xs text-slate-400 font-medium mt-3">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-              </span>
-              Mais de {viewers} pessoas estão assistindo agora — transforme sua história você também.
-           </div>
+           {content.videoFloatingText ? (
+             <div className="text-center mt-3 space-y-2">
+               <p className="text-slate-200 font-medium text-sm italic">
+                 "{content.videoFloatingText}"
+               </p>
+               <div className="flex items-center justify-center gap-2 text-xs text-slate-400 font-medium">
+                 <span className="relative flex h-2 w-2">
+                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                   <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                 </span>
+                 🔴 {viewers} pessoas assistindo agora
+               </div>
+             </div>
+           ) : (
+             <div className="flex items-center justify-center gap-2 text-xs text-slate-400 font-medium mt-3">
+               <span className="relative flex h-2 w-2">
+                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+               </span>
+               Mais de {viewers} pessoas estão assistindo agora — transforme sua história você também.
+             </div>
+           )}
         </div>
 
         <div className={`bg-white/5 backdrop-blur-sm border ${quizPath === 'relationship' ? 'border-purple-500/30' : 'border-white/10'} rounded-2xl p-6 text-left space-y-4`}>
-            <h3 className="text-lg font-serif font-bold text-white flex items-center gap-2 text-center justify-center">
-                {quizPath === 'relationship' ? '🔍 PADRÃO EMOCIONAL BLOQUEADOR IDENTIFICADO' : 'Padrão Oculto Identificado'}
+            <h3 className="text-lg font-serif font-bold text-white text-center">
+                {quizPath === 'relationship' ? '🔍 PADRÃO EMOCIONAL BLOQUEADOR IDENTIFICADO' : '🔍 Diagnóstico Personalizado'}
             </h3>
             <p className="text-sm text-slate-300 text-center">
                 {quizPath === 'relationship' ? (
@@ -219,7 +238,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance' }) => {
             <ul className="space-y-2">
                 {content.painPoints.map((point, idx) => (
                     <li key={idx} className="flex items-start gap-3 text-sm text-slate-200">
-                        <span className="mt-1">{quizPath === 'relationship' ? '' : '✖'}</span> {point}
+                        {point}
                     </li>
                 ))}
             </ul>
@@ -234,32 +253,36 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance' }) => {
                   Oferta Exclusiva
                 </div>
                 <h2 className="text-xl md:text-2xl font-serif font-black text-white mb-1 leading-tight">
-                  {quizPath === 'relationship' && content.offerHeadline ? content.offerHeadline : 'Destravamento em 7 Dias'}
+                  {content.offerHeadline || 'Destravamento em 7 Dias'}
                 </h2>
                 <div className="my-6">
                   <span className="text-slate-500 text-sm line-through block mb-1">De R$ 197,00</span>
                   <div className="flex items-center justify-center gap-1">
-                    <span className="text-xl text-slate-300">Por</span>
+                    <span className="text-xl text-slate-300">{quizPath === 'finance' ? 'por apenas' : 'Por'}</span>
                     <span className="text-6xl font-black text-white tracking-tighter text-shadow-glow">R$37</span>
                   </div>
-                  {quizPath === 'relationship' && (
-                    <p className="text-pink-300 text-sm md:text-base font-bold mt-2">
-                      🔥 Oferta disponível apenas enquanto esta página estiver aberta.
-                    </p>
-                  )}
+                  <p className={`${quizPath === 'relationship' ? 'text-pink-300' : 'text-amber-300'} text-sm md:text-base font-bold mt-2`}>
+                    ⚡ {quizPath === 'finance' ? 'Apenas enquanto esta página estiver aberta' : 'Oferta disponível apenas enquanto esta página estiver aberta'}
+                  </p>
                 </div>
-                {quizPath === 'relationship' && (
-                  <div className="space-y-2 mb-6 text-left max-w-md mx-auto">
-                    <div className="flex items-center gap-3 text-emerald-400 text-sm">
-                      <Check className="w-5 h-5" />
-                      <span>Acesso imediato + Garantia de 7 dias</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-emerald-400 text-sm">
-                      <Check className="w-5 h-5" />
-                      <span>Método 100% online + resultados já no primeiro exercício</span>
-                    </div>
+                <div className="space-y-2 mb-6 text-left max-w-md mx-auto">
+                  <div className="flex items-center gap-3 text-emerald-400 text-sm">
+                    <span className="text-emerald-400">🟩</span>
+                    <span>{quizPath === 'finance' ? 'Acesso Imediato' : 'Acesso imediato + Garantia de 7 dias'}</span>
                   </div>
-                )}
+                  <div className="flex items-center gap-3 text-emerald-400 text-sm">
+                    <span className="text-emerald-400">🟩</span>
+                    <span>Método 100% online</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-emerald-400 text-sm">
+                    <span className="text-emerald-400">🟩</span>
+                    <span>{quizPath === 'finance' ? 'Resultados logo nos primeiros dias' : 'Resultados já no primeiro exercício'}</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-emerald-400 text-sm">
+                    <span className="text-emerald-400">🟩</span>
+                    <span>Garantia incondicional de 7 dias</span>
+                  </div>
+                </div>
                 <Button onClick={handleCheckout} pulse className="w-full text-lg shadow-xl mb-3">
                   🔥 {content.cta}
                 </Button>
@@ -315,7 +338,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance' }) => {
              <Shield className="w-8 h-8" />
           </div>
           <h4 className={`font-serif font-bold ${quizPath === 'relationship' ? 'text-purple-400' : 'text-[#D4AF37]'} text-lg mb-2 uppercase`}>
-            {quizPath === 'relationship' ? '💜 GARANTIA DE 7 DIAS' : 'Garantia de 7 Dias'}
+            {quizPath === 'finance' ? '7 Dias de Garantia Total' : '💜 GARANTIA DE 7 DIAS'}
           </h4>
           <p className="text-sm text-slate-300">
             {content.guaranteeText || (
@@ -325,13 +348,13 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance' }) => {
         </div>
 
         <div className="text-center pb-8 space-y-4">
-           {quizPath === 'relationship' && content.finalCta && (
+           {content.finalCta && (
              <h3 className="text-xl md:text-2xl font-serif font-bold text-white leading-tight">
                {content.finalCta}
              </h3>
            )}
            <Button onClick={handleCheckout} pulse className="w-full shadow-lg py-4">
-              🔥 {quizPath === 'relationship' && content.finalCtaButton ? content.finalCtaButton : content.cta}
+              {content.finalCtaButton || content.cta}
            </Button>
         </div>
 
@@ -347,7 +370,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance' }) => {
              </div>
           </div>
           <button onClick={handleCheckout} className={`flex-1 bg-gradient-to-r ${quizPath === 'relationship' ? 'from-purple-600 to-pink-600' : 'from-[#FF9500] to-orange-600'} text-white font-bold py-3 px-4 rounded-xl shadow-lg active:scale-95 transition-transform flex items-center justify-center gap-2 text-sm`}>
-            {quizPath === 'relationship' ? 'CURAR MEU CORAÇÃO' : 'QUERO AGORA'} <ArrowDown className="w-4 h-4 animate-bounce" />
+            {quizPath === 'relationship' ? 'CURAR MEU CORAÇÃO' : 'DESBLOQUEAR FINANÇAS'} <ArrowDown className="w-4 h-4 animate-bounce" />
           </button>
         </div>
       </div>
