@@ -7,20 +7,25 @@ interface SocialProofProps {
   onNext: () => void;
 }
 
-// Map of realistic profile images to replace generic avatars
-// Simulating high-quality AI generated portraits
+// Map of realistic profile images - Brazilian people matching name gender
+// Using randomuser.me for realistic Brazilian faces matching gender
 const avatarImages: Record<string, string> = {
-  "xama_interior": "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&q=80&w=150&h=150", 
-  "neuropsicopedagogafa_titania": "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=150&h=150",
-  "rafaelmoraes": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150&h=150",
-  "cristinabertyfit": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150&h=150",
-  "drysoriano": "https://images.unsplash.com/photo-1554151228-14d9def656ec?auto=format&fit=crop&q=80&w=150&h=150",
-  "julimma_2": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150",
-  "aninhajalandiqueimasemcodimas": "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&q=80&w=150&h=150",
-  "rafaelgasta_": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150",
-  "jasmine_awache": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150",
-  "prof.rohaan": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150&h=150",
-  "iavella": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=150&h=150",
+  // Main profile - Brazilian woman
+  "xama_interior": "https://randomuser.me/api/portraits/women/65.jpg", 
+  
+  // Female testimonials - Brazilian women with diverse appearances
+  "neuropsicopedagogafa_titania": "https://randomuser.me/api/portraits/women/44.jpg", // Professional woman
+  "cristinabertyfit": "https://randomuser.me/api/portraits/women/68.jpg", // Fitness enthusiast woman
+  "drysoriano": "https://randomuser.me/api/portraits/women/72.jpg", // Doctor/professional woman
+  "julimma_2": "https://randomuser.me/api/portraits/women/21.jpg", // Young woman
+  "aninhajalandiqueimasemcodimas": "https://randomuser.me/api/portraits/women/32.jpg", // Casual woman
+  "jasmine_awache": "https://randomuser.me/api/portraits/women/15.jpg", // Young Brazilian woman
+  "iavella": "https://randomuser.me/api/portraits/women/55.jpg", // Mature woman
+  
+  // Male testimonials - Brazilian men with diverse appearances  
+  "rafaelmoraes": "https://randomuser.me/api/portraits/men/46.jpg", // Brazilian man
+  "rafaelgasta_": "https://randomuser.me/api/portraits/men/32.jpg", // Casual Brazilian man
+  "prof.rohaan": "https://randomuser.me/api/portraits/men/22.jpg", // Professor/professional man
 };
 
 // Grouped comments into "Threads" to simulate posts
