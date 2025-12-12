@@ -9,6 +9,8 @@ import { SocialProof } from './components/SocialProof';
 import { AnalysisLoading } from './components/AnalysisLoading';
 import { Offer } from './components/Offer';
 import Obrigado from './Obrigado';
+import Oferta1 from './Oferta1';
+import Oferta2 from './Oferta2';
 
 function App() {
   const [currentStep, setCurrentStep] = useState<AppStep>(AppStep.HERO);
@@ -80,6 +82,8 @@ function App() {
     <Routes>
       <Route path="/" element={<MainQuizFlow />} />
       <Route path="/obrigado" element={<Obrigado />} />
+      <Route path="/oferta1" element={<Oferta1 />} />
+      <Route path="/oferta2" element={<Oferta2 />} />
     </Routes>
   );
 }
