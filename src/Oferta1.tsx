@@ -5,9 +5,15 @@ import {
   Radio, Video, Lock, ArrowDown, Star
 } from 'lucide-react';
 
+const COUNTDOWN_DURATION = 15 * 60; // 15 minutes in seconds
+const INITIAL_VIEWERS = 87;
+const MIN_VIEWERS = 50;
+const MAX_VIEWERS = 120;
+const VIEWER_UPDATE_INTERVAL = 5000; // 5 seconds
+
 export default function Oferta1() {
-  const [timeLeft, setTimeLeft] = useState(15 * 60); // 15 minutes
-  const [viewers, setViewers] = useState(87);
+  const [timeLeft, setTimeLeft] = useState(COUNTDOWN_DURATION);
+  const [viewers, setViewers] = useState(INITIAL_VIEWERS);
 
   // Countdown timer
   useEffect(() => {
@@ -20,8 +26,8 @@ export default function Oferta1() {
   // Fake viewers counter
   useEffect(() => {
     const interval = setInterval(() => {
-      setViewers(prev => Math.max(50, Math.min(120, prev + Math.floor(Math.random() * 7) - 3)));
-    }, 5000);
+      setViewers(prev => Math.max(MIN_VIEWERS, Math.min(MAX_VIEWERS, prev + Math.floor(Math.random() * 7) - 3)));
+    }, VIEWER_UPDATE_INTERVAL);
     return () => clearInterval(interval);
   }, []);
 
