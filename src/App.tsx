@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { AppStep, QuizPath } from './types';
 import { Hero } from './components/Hero';
@@ -7,6 +8,7 @@ import { Authority } from './components/Authority';
 import { SocialProof } from './components/SocialProof';
 import { AnalysisLoading } from './components/AnalysisLoading';
 import { Offer } from './components/Offer';
+import Obrigado from './Obrigado';
 
 function App() {
   const [currentStep, setCurrentStep] = useState<AppStep>(AppStep.HERO);
@@ -62,7 +64,7 @@ function App() {
     }
   };
 
-  return (
+  const MainQuizFlow = () => (
     <main className="min-h-[100dvh] text-slate-100 overflow-x-hidden selection:bg-orange-500 selection:text-white relative">
       <div className="fixed inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.6)_100%)] z-0"></div>
       
@@ -72,6 +74,13 @@ function App() {
         </AnimatePresence>
       </div>
     </main>
+  );
+
+  return (
+    <Routes>
+      <Route path="/" element={<MainQuizFlow />} />
+      <Route path="/obrigado" element={<Obrigado />} />
+    </Routes>
   );
 }
 
