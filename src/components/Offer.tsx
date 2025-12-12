@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Button } from './Button';
-import { Check, Shield, Lock, Clock, ChevronDown, BookOpen, Infinity, Headphones, HelpCircle, MessageCircle, Star, ArrowDown, Play, Award, ShieldCheck } from 'lucide-react';
+import { Check, Shield, Lock, Clock, HelpCircle, Star, ArrowDown, Play } from 'lucide-react';
 import { QuizPath } from '../types';
 
 // Dicionário de Conteúdo Dinâmico
@@ -103,7 +103,6 @@ interface OfferProps {
 export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance' }) => {
   const content = offerContent[quizPath] || offerContent.finance;
   const [timeLeft, setTimeLeft] = useState(15 * 60);
-  const [activeAccordion, setActiveAccordion] = useState<number | null>(0);
   const [viewers, setViewers] = useState(342);
 
   useEffect(() => {
