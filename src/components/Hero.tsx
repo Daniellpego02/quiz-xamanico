@@ -54,10 +54,10 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           transition={{ delay: 0.2 }}
         >
           <h1 className="text-3xl md:text-4xl font-serif font-black text-white leading-[1.1] drop-shadow-2xl mb-2">
-            O Que Está <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#FF9500] to-orange-600 underline decoration-orange-500/0">TRAVANDO</span> Sua Vida Financeira?
+            Algo invisível pode estar <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#FF9500] to-orange-600">sabotando sua vida</span> — no dinheiro ou no amor.
           </h1>
           <p className="text-slate-300 text-sm md:text-base leading-relaxed max-w-xs mx-auto">
-            Faça o teste de 1 minuto e descubra o <strong>Bloqueio Oculto</strong> que impede sua prosperidade.
+            Faça o teste gratuito e descubra o <strong>bloqueio energético oculto</strong> que trava sua prosperidade e seus relacionamentos.
           </p>
         </motion.div>
 
@@ -69,7 +69,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
         >
           <div className="absolute -inset-0.5 bg-gradient-to-r from-orange-600 to-amber-600 rounded-xl blur opacity-40 group-hover:opacity-70 transition duration-1000 animate-pulse"></div>
           <Button onClick={handleStartClick} pulse className="relative text-lg py-4 w-full shadow-[0_0_30px_rgba(255,149,0,0.3)] border-t border-white/20">
-            FAZER O TESTE AGORA
+            Quero descobrir meu bloqueio agora →
           </Button>
           <p className="text-[10px] text-slate-500 mt-2 uppercase tracking-widest flex items-center justify-center gap-1">
             <Clock className="w-3 h-3" /> Gratuito por tempo limitado
@@ -86,7 +86,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
              <Lock className="w-4 h-4 text-red-400" />
           </div>
           <p className="text-xs text-slate-300 leading-snug">
-            <strong>Atenção:</strong> Você pode ter <span className="text-red-300 font-bold border-b border-red-500/30 pb-0.5">bloqueios energéticos invisíveis</span> que travam seu dinheiro e relacionamentos — sem você perceber.
+            Você pode estar repetindo padrões emocionais herdados que limitam sua vida — e nem percebe.
           </p>
         </motion.div>
 
