@@ -10,10 +10,14 @@ const INITIAL_VIEWERS = 87;
 const MIN_VIEWERS = 50;
 const MAX_VIEWERS = 120;
 const VIEWER_UPDATE_INTERVAL = 5000; // 5 seconds
+const INITIAL_SPOTS = 3;
 
 export default function Oferta1() {
   const [timeLeft, setTimeLeft] = useState(COUNTDOWN_DURATION);
   const [viewers, setViewers] = useState(INITIAL_VIEWERS);
+  const [spotsLeft, setSpotsLeft] = useState(INITIAL_SPOTS);
+  const [showExitIntent, setShowExitIntent] = useState(false);
+  const [showStickyHeader, setShowStickyHeader] = useState(false);
 
   // Countdown timer
   useEffect(() => {
@@ -44,6 +48,34 @@ export default function Oferta1() {
         });
       }, 300);
     }
+  }, []);
+
+  // Spots counter (decreases over time)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSpotsLeft(prev => Math.max(1, prev - (Math.random() > 0.7 ? 1 : 0)));
+    }, 45000); // Every 45 seconds
+    return () => clearInterval(interval);
+  }, []);
+
+  // Exit intent detection
+  useEffect(() => {
+    const handleMouseLeave = (e: MouseEvent) => {
+      if (e.clientY <= 0 && !showExitIntent) {
+        setShowExitIntent(true);
+      }
+    };
+    document.addEventListener('mouseleave', handleMouseLeave);
+    return () => document.removeEventListener('mouseleave', handleMouseLeave);
+  }, [showExitIntent]);
+
+  // Sticky header on scroll (mobile)
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowStickyHeader(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const formatTime = (seconds: number) => {
@@ -110,18 +142,27 @@ export default function Oferta1() {
           </div>
         </motion.div>
 
-        {/* Viewers Counter */}
+        {/* Viewers Counter + Scarcity */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="flex items-center justify-center gap-2 text-xs text-slate-400 font-medium mb-8"
+          className="flex flex-col items-center justify-center gap-3 mb-8"
         >
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
-          </span>
-          {viewers} pessoas vendo esta oferta agora
+          <div className="flex items-center gap-2 text-xs text-slate-400 font-medium">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+            </span>
+            {viewers} pessoas vendo esta oferta agora
+          </div>
+          <motion.div
+            animate={{ scale: [1, 1.05, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="bg-red-900/30 border border-red-500/50 text-red-400 px-4 py-2 rounded-full text-xs md:text-sm font-bold uppercase tracking-wide"
+          >
+            🔥 Apenas {spotsLeft} vagas restantes neste horário
+          </motion.div>
         </motion.div>
 
         {/* Main Headline */}
@@ -333,6 +374,97 @@ export default function Oferta1() {
           </button>
         </motion.div>
       </div>
+
+      {/* Sticky Header Mobile - Price always visible */}
+      {showStickyHeader && (
+        <motion.div
+          initial={{ y: -100 }}
+          animate={{ y: 0 }}
+          className="fixed top-0 left-0 w-full bg-[#0a0a0a]/98 backdrop-blur-xl border-b border-[#FF9500]/30 p-2 z-40 md:hidden shadow-2xl"
+        >
+          <div className="flex items-center justify-between max-w-lg mx-auto">
+            <div className="flex flex-col">
+              <span className="text-slate-500 line-through text-[9px]">R$ 497</span>
+              <div className="flex items-baseline gap-1">
+                <span className="font-black text-xl text-white">R$ 97</span>
+                <span className="text-[#FF9500] text-[9px] font-bold">HOJE</span>
+              </div>
+            </div>
+            <button
+              onClick={() => {
+                document.getElementById('buckpay-upsell-button')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="bg-gradient-to-r from-[#FF9500] to-orange-600 text-white font-bold py-2 px-4 rounded-lg shadow-lg text-xs"
+            >
+              ⚡ ACELERAR
+            </button>
+          </div>
+        </motion.div>
+      )}
+
+      {/* Exit Intent Popup */}
+      {showExitIntent && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
+          onClick={() => setShowExitIntent(false)}
+        >
+          <motion.div
+            initial={{ scale: 0.8, y: 50 }}
+            animate={{ scale: 1, y: 0 }}
+            transition={{ type: "spring", damping: 15 }}
+            className="bg-gradient-to-br from-[#1a103c] to-[#0F0821] rounded-3xl p-6 md:p-8 max-w-md w-full border-2 border-[#FF9500] shadow-2xl relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowExitIntent(false)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-white text-2xl"
+            >
+              ×
+            </button>
+            
+            <div className="text-center mb-6">
+              <h3 className="text-2xl md:text-3xl font-serif font-black text-white mb-3">
+                ⏰ <span className="text-[#FF9500]">ESPERA!</span>
+              </h3>
+              <p className="text-slate-300 text-sm md:text-base leading-relaxed">
+                Desconto adicional de <strong className="text-[#FF9500]">R$20</strong> se você decidir nos próximos <strong>60 segundos</strong>!
+              </p>
+            </div>
+
+            <div className="bg-black/40 rounded-2xl p-5 mb-6 text-center border border-[#FF9500]/30">
+              <div className="mb-3">
+                <span className="text-slate-500 text-sm line-through block">De R$ 497</span>
+                <div className="flex items-baseline justify-center gap-2">
+                  <span className="text-slate-400 text-lg line-through">R$ 97</span>
+                  <span className="text-4xl font-black text-[#FF9500]">R$ 77</span>
+                </div>
+                <p className="text-emerald-400 text-xs font-bold mt-2">
+                  💰 Economia EXTRA de R$20 • Válido por 60s
+                </p>
+              </div>
+            </div>
+
+            <button
+              onClick={() => {
+                setShowExitIntent(false);
+                document.getElementById('buckpay-upsell-button')?.click();
+              }}
+              className="w-full bg-gradient-to-r from-[#FF9500] to-orange-600 text-white font-bold text-lg py-4 px-6 rounded-xl shadow-2xl hover:brightness-110 transition-all mb-3"
+            >
+              🔥 QUERO O DESCONTO EXTRA AGORA!
+            </button>
+
+            <button
+              onClick={() => setShowExitIntent(false)}
+              className="text-slate-500 hover:text-slate-400 text-sm underline w-full"
+            >
+              Continuar sem o desconto extra
+            </button>
+          </motion.div>
+        </motion.div>
+      )}
 
       {/* Fixed Mobile Bar */}
       <div className="fixed bottom-0 left-0 w-full bg-[#0a0a0a]/95 backdrop-blur-xl border-t border-[#FF9500]/30 p-3 z-50 md:hidden shadow-2xl pb-[env(safe-area-inset-bottom)]">
