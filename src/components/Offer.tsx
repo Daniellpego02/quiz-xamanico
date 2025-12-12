@@ -98,6 +98,7 @@ const VturbPlayer = React.memo(() => {
 
 interface OfferProps {
   quizPath?: QuizPath;
+  userName?: string;
 }
 
 export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance' }) => {

@@ -282,6 +282,17 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           className="flex-1 flex flex-col"
         >
           <div className="mb-6">
+            {/* Show name badge for exclusivity if user has provided name and it's not the first question */}
+            {userName && currentIndex > 0 && (
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                className="inline-flex items-center gap-2 bg-[#FF9500]/10 backdrop-blur-md text-[#FF9500] px-4 py-2 rounded-full text-xs font-bold border border-[#FF9500]/20 shadow-lg mb-4"
+              >
+                <Sparkles className="w-3 h-3" />
+                <span>Pergunta exclusiva para {userName.split(' ')[0]}</span>
+              </motion.div>
+            )}
             <h2 className="text-xl md:text-2xl font-serif font-bold text-white leading-snug drop-shadow-lg">
               {personalizeText(currentQuestion.text)}
             </h2>

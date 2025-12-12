@@ -2,12 +2,30 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './Button';
 import { Award, MapPin, ShieldCheck, Star } from 'lucide-react';
+import { QuizPath } from '../types';
 
 interface AuthorityProps {
   onNext: () => void;
+  quizPath?: QuizPath;
 }
 
-export const Authority: React.FC<AuthorityProps> = ({ onNext }) => {
+export const Authority: React.FC<AuthorityProps> = ({ onNext, quizPath = 'finance' }) => {
+  // Content niched by path
+  const content = {
+    finance: {
+      intro: "Xamã e Terapeuta Holística há 12 anos, tive a honra de testemunhar transformações profundas através do Mapa Xamânico. Criei esta ferramenta após anos de estudo em sabedoria ancestral, Kaballah e ferramentas espirituais.",
+      middle: "O Mapa Xamânico não é apenas um diagnóstico — é um <strong className=\"text-[#FF9500] font-bold border-b border-[#FF9500]/30 pb-0.5\">caminho prático</strong> para você se reconectar com sua essência, curar feridas emocionais e destravar bloqueios invisíveis que impedem sua prosperidade.",
+      final: "Se você sente que há áreas da sua vida que ainda não floresceram, este é o momento de trazer luz a esses pontos. Mais de <strong className=\"text-white\">20.000 pessoas</strong> já transformaram suas vidas com meu método."
+    },
+    relationship: {
+      intro: "Xamã e Terapeuta Holística especializada em cura relacional há 12 anos. Dediquei minha vida a compreender os padrões emocionais ancestrais que sabotam nossos relacionamentos. Minha jornada começou quando percebi que os maiores bloqueios no amor não estão fora — mas dentro de nós.",
+      middle: "Através do Mapa Xamânico de Relacionamentos, você vai descobrir as <strong className=\"text-purple-400 font-bold border-b border-purple-400/30 pb-0.5\">raízes emocionais</strong> que te fazem repetir padrões dolorosos. Não é terapia convencional — é um despertar profundo da sua capacidade de amar e ser amado de forma saudável.",
+      final: "Trabalho com mulheres e homens que carregam feridas de relacionamentos passados, medo de rejeição e padrões herdados da família. Mais de <strong className=\"text-white\">20.000 pessoas</strong> já curaram seus corações e construíram relações verdadeiras através do meu método."
+    }
+  };
+
+  const selectedContent = content[quizPath];
+
   return (
     <motion.div 
       initial={{ opacity: 0 }}
@@ -62,16 +80,14 @@ export const Authority: React.FC<AuthorityProps> = ({ onNext }) => {
         <div className="absolute top-4 right-6 text-6xl text-white/5 font-serif font-black">"</div>
 
         <p className="relative z-10">
-          <strong className="text-white text-lg font-serif">Xamã e Terapeuta Holística há 12 anos</strong>, tive a honra de testemunhar transformações profundas através do Mapa Xamânico. Criei esta ferramenta após anos de estudo em sabedoria ancestral, Kaballah e ferramentas espirituais.
+          <strong className="text-white text-lg font-serif">
+            {quizPath === 'relationship' ? 'Especialista em Cura Relacional' : 'Xamã e Terapeuta Holística há 12 anos'}
+          </strong>, {selectedContent.intro}
         </p>
 
-        <p className="relative z-10">
-          O Mapa Xamânico não é apenas um diagnóstico — é um <strong className="text-[#FF9500] font-bold border-b border-[#FF9500]/30 pb-0.5">caminho prático</strong> para você se reconectar com sua essência, curar feridas emocionais e destravar bloqueios invisíveis que impedem sua prosperidade.
-        </p>
+        <p className="relative z-10" dangerouslySetInnerHTML={{ __html: selectedContent.middle }} />
 
-        <p className="relative z-10">
-           Se você sente que há áreas da sua vida que ainda não floresceram, este é o momento de trazer luz a esses pontos. Mais de <strong className="text-white">20.000 pessoas</strong> já transformaram suas vidas com meu método.
-        </p>
+        <p className="relative z-10" dangerouslySetInnerHTML={{ __html: selectedContent.final }} />
 
         <div className="pt-6 mt-2 relative z-10">
             <p className="flex items-center gap-3 text-emerald-300 font-medium text-sm bg-emerald-950/40 p-4 rounded-xl border border-emerald-500/20 shadow-inner">
