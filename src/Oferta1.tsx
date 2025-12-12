@@ -57,7 +57,7 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
     };
   }, []);
 
-  const checkoutUrl = 'https://seguropagamentos.com.br/oferta-principal?affiliate=8ZjMrNv1_f';
+  const checkoutUrl = 'https://checkout.mapaxamanicooficial.online/oferta-principal?affiliate=8ZjMrNv1_f';
 
   const diagnoses = [
     "O dinheiro entra… e desaparece",

@@ -57,7 +57,7 @@ export default function Oferta2({ userName = 'você' }: Oferta2Props) {
     };
   }, []);
 
-  const checkoutUrl = 'https://seguropagamentos.com.br/oferta-principal?affiliate=8ZjMrNv1_f';
+  const checkoutUrl = 'https://checkout.mapaxamanicooficial.online/oferta-principal?affiliate=8ZjMrNv1_f';
 
   const diagnoses = [
     "Medo de ser rejeitada",

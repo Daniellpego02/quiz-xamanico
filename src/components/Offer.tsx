@@ -174,7 +174,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance' }) => {
     if (typeof window.fbq === 'function') {
       window.fbq('track', 'AddToCart', { content_name: `Mapa Xamânico (${quizPath})`, value: 37, currency: 'BRL' });
     }
-    window.location.href = "https://seguropagamentos.com.br/oferta-principal";
+    window.location.href = "https://checkout.mapaxamanicooficial.online/oferta-principal";
   };
 
   return (
