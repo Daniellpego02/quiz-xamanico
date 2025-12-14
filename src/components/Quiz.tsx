@@ -91,19 +91,24 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     setActiveQuestions(initialQuestions);
   }, []);
 
+  const getLoadingStages = () => [
+    "Acessando Registros Ancestrais de " + userName,
+    "Identificando Padrão de Escassez Hereditária",
+    "Calculando Potencial de Riqueza Reprimido",
+    "MAPA GERADO COM SUCESSO! ✅"
+  ];
+
   useEffect(() => {
     if (showTuningScreen) {
-      const loadingStages = [
-        "Acessando Registros Ancestrais de " + userName,
-        "Identificando Padrão de Escassez Hereditária",
-        "Calculando Potencial de Riqueza Reprimido",
-        "MAPA GERADO COM SUCESSO! ✅"
-      ];
+      const loadingStages = getLoadingStages();
       
       const interval = setInterval(() => {
         setLoadingStage(prev => (prev + 1) % loadingStages.length);
       }, 800);
       return () => clearInterval(interval);
+    } else {
+      // Reset loading stage when screen is hidden
+      setLoadingStage(0);
     }
   }, [showTuningScreen, userName]);
 
@@ -116,7 +121,6 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     if (!inputValue.trim()) return;
     
     setUserName(inputValue.trim());
-    setLoadingStage(0); // Reset loading stage
     setShowTuningScreen(true);
     
     if (typeof window.fbq === 'function') {
@@ -163,12 +167,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   };
 
   if (showTuningScreen) {
-    const loadingStages = [
-      "Acessando Registros Ancestrais de " + userName,
-      "Identificando Padrão de Escassez Hereditária",
-      "Calculando Potencial de Riqueza Reprimido",
-      "MAPA GERADO COM SUCESSO! ✅"
-    ];
+    const loadingStages = getLoadingStages();
     
     return (
       <div className="min-h-screen flex flex-col items-center justify-center px-6 relative z-20 text-center">
