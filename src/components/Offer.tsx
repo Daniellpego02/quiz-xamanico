@@ -10,7 +10,7 @@ import SocialProof from './SocialProof';
 const offerContent = {
   finance: {
     // Bloco Hero/Veredito já é componente separado
-    vslId: "vid-692d0662eb5ec5285cee0f8c",
+    vslId: "vid-693f17c2b7fea67f333de06f",
     
     // Bloco 2: Entrega - Protocolo de 7 Dias
     deliveryTitle: "ISTO NÃO É UM CURSO. É UM PROTOCOLO DE ATIVAÇÃO DE 7 DIAS.",
@@ -115,7 +115,7 @@ const VturbPlayer = React.memo(({ quizPath = 'finance' }: { quizPath?: QuizPath 
   const containerRef = useRef<HTMLDivElement>(null);
   
   // Select VSL ID based on path
-  const vslId = quizPath === 'relationship' ? 'vid-693b6771c33297495ef77ddc' : 'vid-692d0662eb5ec5285cee0f8c';
+  const vslId = quizPath === 'relationship' ? 'vid-693b6771c33297495ef77ddc' : 'vid-693f17c2b7fea67f333de06f';
   
   useEffect(() => {
     if (!containerRef.current) return;
@@ -155,7 +155,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
     const scriptId = quizPath === 'relationship' ? 'vturb-script-relationship' : 'vturb-script-finance';
     const scriptSrc = quizPath === 'relationship' 
       ? "https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/693b6771c33297495ef77ddc/v4/player.js"
-      : "https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/692d0662eb5ec5285cee0f8c/v4/player.js";
+      : "https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/693f17c2b7fea67f333de06f/v4/player.js";
     
     if (!document.getElementById(scriptId)) {
       const script = document.createElement('script');
