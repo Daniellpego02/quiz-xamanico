@@ -10,12 +10,13 @@ interface AuthorityProps {
 }
 
 export const Authority: React.FC<AuthorityProps> = ({ onNext, quizPath = 'finance' }) => {
-  // Content niched by path
+  // Content niched by path - Updated to storytelling approach
   const content = {
     finance: {
-      intro: "Xamã e Terapeuta Holística há 12 anos, tive a honra de testemunhar transformações profundas através do Mapa Xamânico. Criei esta ferramenta após anos de estudo em sabedoria ancestral, Kaballah e ferramentas espirituais.",
-      middle: "O Mapa Xamânico não é apenas um diagnóstico — é um <strong className=\"text-[#FF9500] font-bold border-b border-[#FF9500]/30 pb-0.5\">caminho prático</strong> para você se reconectar com sua essência, curar feridas emocionais e destravar bloqueios invisíveis que impedem sua prosperidade.",
-      final: "Se você sente que há áreas da sua vida que ainda não floresceram, este é o momento de trazer luz a esses pontos. Mais de <strong className=\"text-white\">20.000 pessoas</strong> já transformaram suas vidas com meu método."
+      headline: "EU NÃO DESCOBRI ISSO EM LIVROS. EU DESCOBRI ISSO NO CAMPO DE BATALHA.",
+      intro: "Olá, sou Anahí Solara. Por 12 anos, eu fui como você: trabalhava 14h por dia e o dinheiro fugia. Eu achava que era azar. Até que, em uma imersão com Xamãs nos Andes, descobri que a pobreza não é falta de esforço. É uma herança.",
+      middle: "Hoje, depois de destravar a prosperidade de mais de 20.000 pessoas, eu dedico minha vida a revelar o <strong className=\"text-[#FF9500] font-bold border-b border-[#FF9500]/30 pb-0.5\">'Código Oculto'</strong> que existe no seu campo energético.",
+      final: "O que você vai ler a seguir não é autoajuda. É a chave que eu gostaria de ter recebido há 10 anos."
     },
     relationship: {
       intro: "Xamã e Terapeuta Holística especializada em cura relacional há 12 anos. Dediquei minha vida a compreender os padrões emocionais ancestrais que sabotam nossos relacionamentos. Minha jornada começou quando percebi que os maiores bloqueios no amor não estão fora — mas dentro de nós.",
@@ -33,8 +34,8 @@ export const Authority: React.FC<AuthorityProps> = ({ onNext, quizPath = 'financ
       className="min-h-screen max-w-lg mx-auto px-6 py-8 flex flex-col items-center relative z-10"
     >
       <div className="text-center mb-8">
-        <h2 className="text-lg font-serif font-bold text-[#FF9500] mb-4 uppercase tracking-widest flex items-center justify-center gap-2 drop-shadow-md">
-          <Star className="w-4 h-4 fill-[#FF9500] animate-pulse" /> Prazer, sou Anahí Solara
+        <h2 className="text-xl font-serif font-bold text-[#FF9500] mb-6 uppercase tracking-wide leading-relaxed drop-shadow-md">
+          {selectedContent.headline || "Prazer, sou Anahí Solara"}
         </h2>
         
         {/* FOTO DA EXPERT */}
@@ -80,14 +81,14 @@ export const Authority: React.FC<AuthorityProps> = ({ onNext, quizPath = 'financ
         <div className="absolute top-4 right-6 text-6xl text-white/5 font-serif font-black">"</div>
 
         <p className="relative z-10">
-          <strong className="text-white text-lg font-serif">
-            {quizPath === 'relationship' ? 'Especialista em Cura Relacional' : 'Xamã e Terapeuta Holística há 12 anos'}
-          </strong>, {selectedContent.intro}
+          {selectedContent.intro}
         </p>
 
         <p className="relative z-10" dangerouslySetInnerHTML={{ __html: selectedContent.middle }} />
 
-        <p className="relative z-10" dangerouslySetInnerHTML={{ __html: selectedContent.final }} />
+        <p className="relative z-10">
+          {selectedContent.final}
+        </p>
 
         <div className="pt-6 mt-2 relative z-10">
             <p className="flex items-center gap-3 text-emerald-300 font-medium text-sm bg-emerald-950/40 p-4 rounded-xl border border-emerald-500/20 shadow-inner">

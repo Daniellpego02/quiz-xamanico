@@ -1,50 +1,75 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './Button';
-import { Check, Shield, Lock, Clock, Star, ArrowDown, Play } from 'lucide-react';
+import { Check, Shield, Lock, Clock, Star, ArrowDown, Play, Calendar, Headphones, Jar, ShieldCheck, Magnet, TrendingUp, Butterfly } from 'lucide-react';
 import { QuizPath } from '../types';
+import Veredito from './Veredito';
+import SocialProof from './SocialProof';
 
-// Dicionário de Conteúdo Dinâmico
+// Dicionário de Conteúdo Dinâmico - NOVA ESTRUTURA VERSÃO FILEMON
 const offerContent = {
   finance: {
-    headline: "VOCÊ SENTE QUE ESTÁ ESTAGNADO FINANCEIRAMENTE, MESMO SE ESFORÇANDO AO MÁXIMO?",
-    subheadline: "Assista ao vídeo abaixo e descubra como a Terapia Holística Ancestral, combinada com um método prático, pode curar bloqueios e traumas herdados que te mantêm estagnado e longe da prosperidade que você merece.",
-    painMechanism: "Reprogramação Financeira Emocional",
-    painPoints: [
-      "❌ O dinheiro entra… e desaparece",
-      "❌ Esforço demais, retorno de menos",
-      "❌ Ciclos de avanço e queda que se repetem",
-      "❌ Sensação de carregar tudo nas costas",
-      "❌ Vergonha ou frustração com sua situação financeira",
-      "❌ Medo inconsciente de crescer ou prosperar"
+    // Bloco Hero/Veredito já é componente separado
+    vslId: "vid-693f17c2b7fea67f333de06f",
+    
+    // Bloco 2: Entrega - Protocolo de 7 Dias
+    deliveryTitle: "ISTO NÃO É UM CURSO. É UM PROTOCOLO DE ATIVAÇÃO DE 7 DIAS.",
+    deliverables: [
+      { icon: Calendar, day: 1, title: "O Raio-X da Sua Alma", desc: "Localizando a raiz exata do trauma que seus pais deixaram em você" },
+      { icon: Headphones, day: 2, title: "A Técnica de Limpeza do Subconsciente", desc: "Áudio Binaural para remover o medo de faltar dinheiro" },
+      { icon: Jar, day: 3, title: "O Ritual do Pote de Ouro", desc: "A técnica prática para fazer o dinheiro parar na sua mão" },
+      { icon: ShieldCheck, day: 4, title: "Blindagem Energética", desc: "Como nunca mais perder o que você conquistou" },
+      { icon: Magnet, day: 5, title: "Ativação do Imã de Prosperidade", desc: "Reprogramação para atrair oportunidades" },
+      { icon: TrendingUp, day: 6, title: "Plano do Crescimento Contínuo", desc: "Mantendo o fluxo aberto" },
+      { icon: Butterfly, day: 7, title: "A Sua Nova Identidade Financeira", desc: "O Renascimento" }
     ],
-    modules: [
-      "DIA 1 — O Diagnóstico da Raiz Financeira",
-      "DIA 2 — A Virada Mental",
-      "DIA 3 — Método do Dinheiro que Sobra",
-      "DIA 4 — Proteção Contra Autossabotagem",
-      "DIA 5 — Construindo Renda Real",
-      "DIA 6 — Plano do Crescimento Contínuo",
-      "DIA 7 — O Renascimento Financeiro"
-    ],
+    
+    // Bloco 3: Prova Social
+    socialProofTitle: "NÃO ACREDITE EM MIM. VEJA O SALDO BANCÁRIO DE QUEM ATIVOU O MAPA:",
+    
+    // Bloco 4: Bônus
+    bonusTitle: "LIBERANDO SEU ACESSO HOJE, VOCÊ GANHA 2 PRESENTES DE OURO:",
     bonuses: [
-      { title: "Guia de Mentalidade de Riqueza", value: "97", desc: "Quebra instantânea de crenças limitantes." },
-      { title: "Meditação de Alinhamento Financeiro", value: "147", desc: "Ativa foco, força e clareza financeira." },
-      { title: "Acesso Vitalício", value: "53", desc: "Aprenda no seu tempo." }
+      { 
+        icon: "🎁", 
+        title: "Áudio de Socorro Financeiro", 
+        desc: "O que ouvir 5 minutos antes de pagar uma conta ou negociar uma dívida para não vibrar na escassez.", 
+        value: "97" 
+      },
+      { 
+        icon: "🎁", 
+        title: "O Código da Cama do Dinheiro", 
+        desc: "Feng Shui Xamânico: Como preparar seu quarto para atrair riqueza enquanto você dorme.", 
+        value: "47" 
+      }
     ],
-    objections: [
-      { title: "E se eu não conseguir mudar?", text: "Você vai. Porque agora você entende a causa real da sua estagnação financeira." },
-      { title: "Já tentei outras coisas e nada funcionou.", text: "Aqui não é só técnica. É desbloqueio energético + transformação prática." },
-      { title: "E se eu deixar pra depois?", text: "Esse bloqueio vai continuar travando seus resultados. Ou você muda hoje, ou carrega isso por mais anos." }
-    ],
-    cta: "QUERO DESBLOQUEAR MINHAS FINANÇAS",
-    alertBanner: "⏳ Atenção: Esta oferta pode sair do ar a qualquer momento.",
-    vslId: "vid-692d0662eb5ec5285cee0f8c",
-    offerHeadline: "DESBLOQUEIO FINANCEIRO EM 7 DIAS",
-    guaranteeText: "Não sentiu a mudança? Devolvemos 100% do seu dinheiro. Sem perguntas. Sem risco. Só transformação.",
-    finalCta: "🔥 O que te trava pode ser curado. Mas essa oportunidade pode sair do ar a qualquer momento.",
-    finalCtaButton: "QUERO DESBLOQUEAR MINHAS FINANÇAS AGORA",
-    videoFloatingText: "Você não está quebrado — você está bloqueado. E isso tem cura."
+    
+    // Bloco 5: Oferta/Checkout
+    offerTitle: "O ACESSO AO SEU MAPA ESTÁ LIBERADO POR TEMPO LIMITADO",
+    priceOld: "197,00",
+    priceNew: "37,00",
+    cta: "🔓 DESTRAVAR MEU MAPA AGORA ➔",
+    ctaSubtext: "Acesso Imediato ao PDF + App",
+    
+    // Bloco 6: Garantia
+    guaranteeTitle: "GARANTIA BLINDADA DE 7 DIAS",
+    guaranteeText: "Eu assumo o risco. Entre, gere seu mapa e faça o protocolo de 7 dias. Se você não sentir um peso saindo das costas e não ver sinais claros de dinheiro aparecendo na sua vida em uma semana, eu devolvo 100% do seu dinheiro. Você não paga pelo que não funciona.",
+    
+    // Bloco 7: FAQ
+    faqs: [
+      { 
+        question: "É um curso? Eu não tenho tempo.", 
+        answer: "Não. É uma ferramenta de diagnóstico e um protocolo guiado. Você precisa de apenas 10 minutos por dia." 
+      },
+      { 
+        question: "Funciona para quem está muito endividado?", 
+        answer: "Sim. O Mapa foi desenhado exatamente para quem está no 'Modo Sobrevivência'." 
+      },
+      { 
+        question: "Como eu recebo o acesso?", 
+        answer: "Imediatamente no seu e-mail após a confirmação do pagamento." 
+      }
+    ]
   },
   relationship: {
     headline: "VOCÊ ESTÁ PRESA EM CICLOS QUE SE REPETEM NO AMOR?",
@@ -90,7 +115,7 @@ const VturbPlayer = React.memo(({ quizPath = 'finance' }: { quizPath?: QuizPath 
   const containerRef = useRef<HTMLDivElement>(null);
   
   // Select VSL ID based on path
-  const vslId = quizPath === 'relationship' ? 'vid-693b6771c33297495ef77ddc' : 'vid-692d0662eb5ec5285cee0f8c';
+  const vslId = quizPath === 'relationship' ? 'vid-693b6771c33297495ef77ddc' : 'vid-693f17c2b7fea67f333de06f';
   
   useEffect(() => {
     if (!containerRef.current) return;
@@ -121,17 +146,16 @@ interface OfferProps {
   userName?: string;
 }
 
-export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance' }) => {
+export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) => {
   const content = offerContent[quizPath] || offerContent.finance;
-  const [timeLeft, setTimeLeft] = useState(15 * 60);
-  const [viewers, setViewers] = useState(342);
+  const [faqOpen, setFaqOpen] = useState<number | null>(null);
 
   useEffect(() => {
     // Load the appropriate VSL script based on path
     const scriptId = quizPath === 'relationship' ? 'vturb-script-relationship' : 'vturb-script-finance';
     const scriptSrc = quizPath === 'relationship' 
       ? "https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/693b6771c33297495ef77ddc/v4/player.js"
-      : "https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/692d0662eb5ec5285cee0f8c/v4/player.js";
+      : "https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/693f17c2b7fea67f333de06f/v4/player.js";
     
     if (!document.getElementById(scriptId)) {
       const script = document.createElement('script');
@@ -140,237 +164,245 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance' }) => {
       script.async = true;
       document.head.appendChild(script);
     }
-    if (typeof (window as any).confetti === 'function') {
-      setTimeout(() => {
-        (window as any).confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 }, colors: ['#FF9500', '#FBBF24', '#FFFFFF'], zIndex: 100 });
-      }, 500);
-    }
+    
     if (typeof window.fbq === 'function') {
       window.fbq('track', 'ViewContent', { content_name: `Oferta ${quizPath}`, value: 37, currency: 'BRL' });
     }
   }, [quizPath]);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(prev => prev <= 0 ? 0 : prev - 1);
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setViewers(prev => prev + Math.floor(Math.random() * 5) - 2);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const formatTime = (seconds: number) => {
-    const m = Math.floor(seconds / 60);
-    const s = seconds % 60;
-    return `${m}:${s < 10 ? '0' : ''}${s}`;
-  };
-
   const handleCheckout = () => {
     if (typeof window.fbq === 'function') {
       window.fbq('track', 'AddToCart', { content_name: `Mapa Xamânico (${quizPath})`, value: 37, currency: 'BRL' });
     }
-    window.location.href = "https://checkout.mapaxamanicooficial.online/oferta-principal";
+    window.location.href = "https://go.perfectpay.com.br/PPU38CQ4NQP";
   };
 
   return (
-    <div className="min-h-screen pb-24 md:pb-40 relative z-10 overflow-hidden">
+    <div className="min-h-screen pb-24 md:pb-40 relative z-10 overflow-hidden bg-gradient-to-b from-[#050505] via-[#0a0a0a] to-[#050505]">
       
-      <motion.div initial={{ y: -50 }} animate={{ y: 0 }} className={`${quizPath === 'relationship' ? 'bg-purple-700' : 'bg-[#d20a0a]'} text-white text-xs font-bold text-center py-3 px-4 sticky top-0 z-50 shadow-xl flex items-center justify-center gap-2 uppercase tracking-widest`}>
-        <Clock className="w-3 h-3 animate-pulse" /> {content.alertBanner || 'OFERTA EXPIRA EM:'} {content.alertBanner ? '' : <span className="font-mono text-base">{formatTime(timeLeft)}</span>}
-      </motion.div>
+      <div className="max-w-4xl mx-auto px-4 pt-8 space-y-12 pb-safe">
 
-      <div className="max-w-xl mx-auto px-4 pt-8 space-y-12 pb-safe">
+        {/* BLOCO 1: HERO/VEREDITO */}
+        <Veredito userName={userName} />
 
-        <div className="text-center space-y-4">
-          <div className="inline-flex items-center gap-2 bg-green-500/10 backdrop-blur-md text-green-400 px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold border border-green-500/20 shadow-lg uppercase tracking-wide">
-            <Check className="w-3 h-3" /> Análise Concluída
-          </div>
-          <h1 className="text-2xl md:text-3xl font-serif font-black text-white leading-tight drop-shadow-2xl">
-            {content.headline}
-          </h1>
-          <p className="text-slate-300 text-sm max-w-sm mx-auto leading-relaxed">
-            {content.subheadline}
-          </p>
-        </div>
-
+        {/* VSL Player */}
         <div>
            <VturbPlayer quizPath={quizPath} />
-           {content.videoFloatingText ? (
-             <div className="text-center mt-3 space-y-2">
-               <p className="text-slate-200 font-medium text-sm italic">
-                 "{content.videoFloatingText}"
-               </p>
-               <div className="flex items-center justify-center gap-2 text-xs text-slate-400 font-medium">
-                 <span className="relative flex h-2 w-2">
-                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                   <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
-                 </span>
-                 🔴 {viewers} pessoas assistindo agora
-               </div>
-             </div>
-           ) : (
-             <div className="flex items-center justify-center gap-2 text-xs text-slate-400 font-medium mt-3">
-               <span className="relative flex h-2 w-2">
-                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-               </span>
-               Mais de {viewers} pessoas estão assistindo agora — transforme sua história você também.
-             </div>
-           )}
         </div>
 
-        <div className={`bg-white/5 backdrop-blur-sm border ${quizPath === 'relationship' ? 'border-purple-500/30' : 'border-white/10'} rounded-2xl p-6 text-left space-y-4`}>
-            <h3 className="text-lg font-serif font-bold text-white text-center">
-                {quizPath === 'relationship' ? '🔍 PADRÃO EMOCIONAL BLOQUEADOR IDENTIFICADO' : '🔍 Diagnóstico Personalizado'}
-            </h3>
-            <p className="text-sm text-slate-300 text-center">
-                {quizPath === 'relationship' ? (
-                  <>Você apresenta sinais de <strong className="text-purple-400">{content.painMechanism}</strong> pendente:</>
-                ) : (
-                  <>Identificamos sinais claros de <strong>{content.painMechanism}</strong> pendente:</>
-                )}
-            </p>
-            <ul className="space-y-2">
-                {content.painPoints.map((point, idx) => (
-                    <li key={idx} className="flex items-start gap-3 text-sm text-slate-200">
-                        {point}
-                    </li>
-                ))}
-            </ul>
+        {/* CTA after video */}
+        <div className="text-center">
+          <Button onClick={handleCheckout} pulse className="w-full max-w-lg mx-auto text-lg shadow-xl">
+            👉 QUERO DESTRAVAR MEU MAPA AGORA ➔
+          </Button>
         </div>
 
-        <div className="bg-[#120a2e] rounded-[32px] p-6 text-center border border-white/10 shadow-2xl relative overflow-hidden group">
-            <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
-            <div className={`absolute -inset-1 bg-gradient-to-r ${quizPath === 'relationship' ? 'from-purple-600 via-pink-500 to-purple-600' : 'from-yellow-600 via-[#FF9500] to-amber-600'} rounded-[35px] blur opacity-20 animate-pulse group-hover:opacity-40 transition duration-1000`}></div>
-            
-            <div className="relative z-10">
-                <div className={`inline-block bg-gradient-to-r ${quizPath === 'relationship' ? 'from-purple-600 to-pink-600' : 'from-[#FF9500] to-red-600'} text-white font-bold text-[10px] px-3 py-1 rounded-full mb-4 shadow-lg uppercase`}>
-                  Oferta Exclusiva
-                </div>
-                <h2 className="text-xl md:text-2xl font-serif font-black text-white mb-1 leading-tight">
-                  {content.offerHeadline || 'Destravamento em 7 Dias'}
-                </h2>
-                <div className="my-6">
-                  <span className="text-slate-400 text-sm line-through block mb-1">De R$ 197,00</span>
-                  <div className="flex items-center justify-center gap-1">
-                    <span className="text-xl text-slate-300">{quizPath === 'finance' ? 'por apenas' : 'Por'}</span>
-                    <span className="text-6xl font-black text-white tracking-tighter text-shadow-glow">R$37</span>
-                  </div>
-                  <p className={`${quizPath === 'relationship' ? 'text-pink-300' : 'text-amber-300'} text-sm md:text-base font-bold mt-2`}>
-                    ⚡ {quizPath === 'finance' ? 'Apenas enquanto esta página estiver aberta' : 'Oferta disponível apenas enquanto esta página estiver aberta'}
-                  </p>
-                </div>
-                <div className="space-y-2 mb-6 text-left max-w-md mx-auto">
-                  <div className="flex items-center gap-3 text-emerald-400 text-sm">
-                    <span className="text-emerald-400">🟩</span>
-                    <span>{quizPath === 'finance' ? 'Acesso Imediato' : 'Acesso imediato + Garantia de 7 dias'}</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-emerald-400 text-sm">
-                    <span className="text-emerald-400">🟩</span>
-                    <span>Método 100% online</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-emerald-400 text-sm">
-                    <span className="text-emerald-400">🟩</span>
-                    <span>{quizPath === 'finance' ? 'Resultados logo nos primeiros dias' : 'Resultados já no primeiro exercício'}</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-emerald-400 text-sm">
-                    <span className="text-emerald-400">🟩</span>
-                    <span>Garantia incondicional de 7 dias</span>
-                  </div>
-                </div>
-                <Button onClick={handleCheckout} pulse className="w-full text-lg shadow-xl mb-3">
-                  🔥 {content.cta}
-                </Button>
-                <p className="text-[10px] text-slate-400 flex items-center justify-center gap-1 opacity-80">
-                  <Lock className="w-3 h-3 text-green-500" /> Compra Segura • Acesso Imediato
-                </p>
-            </div>
-        </div>
-
-        <div className="space-y-4">
-            <h3 className="text-center font-serif font-bold text-white text-lg mb-4">📦 O Programa Inclui:</h3>
-            <div className="grid gap-3">
-                {content.modules.map((mod, idx) => (
-                    <div key={idx} className={`bg-white/5 p-3 rounded-xl border ${quizPath === 'relationship' ? 'border-purple-500/20' : 'border-orange-500/20'} flex items-center gap-3 text-sm text-slate-100 hover:bg-white/10 transition-colors`}>
-                        <span className={`${quizPath === 'relationship' ? 'bg-purple-500/20 text-purple-300' : 'bg-[#FF9500]/20 text-[#FF9500]'} text-xs font-bold px-2 py-1 rounded`}>Dia {idx + 1}</span>
-                        {mod.replace(/DIA \d+ — /, '')}
+        {/* BLOCO 2: ENTREGA - Protocolo de 7 Dias */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-[#FF9500]/20 rounded-2xl p-8"
+        >
+          <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-2">
+            {content.deliveryTitle}
+          </h2>
+          <div className="space-y-4 mt-8">
+            {content.deliverables?.map((item, idx) => {
+              const IconComponent = item.icon;
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="flex gap-4 bg-white/5 p-5 rounded-xl border border-[#FF9500]/10 hover:border-[#FF9500]/30 transition-colors"
+                >
+                  <div className="shrink-0">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#FF9500] to-orange-600 flex items-center justify-center">
+                      <IconComponent className="w-6 h-6 text-white" aria-hidden="true" />
                     </div>
-                ))}
-            </div>
-        </div>
-
-        <div className="space-y-4">
-          <h3 className="font-serif font-bold text-white text-xl text-center mb-4">
-             <span className={quizPath === 'relationship' ? 'text-purple-400' : 'text-[#FF9500]'}>🎁</span> Bônus Exclusivos
-          </h3>
-          {content.bonuses.map((bonus, idx) => (
-             <div key={idx} className="flex gap-4 bg-[#0F0821]/80 backdrop-blur-md p-4 rounded-2xl border border-white/10 items-start">
-                <div className="bg-gradient-to-br from-white/10 to-transparent p-3 rounded-xl border border-white/5 shadow-inner shrink-0">
-                    <Star className="w-5 h-5 text-[#FF9500]" />
-                </div>
-                <div>
-                    <h4 className="font-bold text-white text-sm mb-1">{bonus.title}</h4>
-                    <p className="text-xs text-slate-300">{bonus.desc}</p>
-                    <span className="text-[10px] text-green-400 font-bold bg-green-900/30 px-1.5 rounded mt-1 inline-block">GRÁTIS (Era R${bonus.value})</span>
-                </div>
-             </div>
-          ))}
-        </div>
-
-        <div className="space-y-4 pt-6 border-t border-white/5">
-           {content.objections.map((obj, idx) => (
-               <div key={idx} className={`bg-white/5 backdrop-blur-xl p-5 rounded-2xl border-l-4 ${quizPath === 'relationship' ? 'border-purple-500' : 'border-orange-500'} border-y border-r border-white/5 shadow-lg mb-4`}>
-                <h3 className="font-bold text-white text-sm flex items-center gap-2 mb-2 font-serif">
-                  {quizPath === 'relationship' ? '😰 ' : ''}{obj.title}
-                </h3>
-                <p className="text-xs text-slate-300 leading-relaxed font-light">→ {obj.text}</p>
-              </div>
-           ))}
-        </div>
-
-        <div className={`bg-gradient-to-b from-[#1a103c] to-[#0F0821] p-6 rounded-3xl border ${quizPath === 'relationship' ? 'border-purple-500/30' : 'border-[#D4AF37]/30'} text-center relative overflow-hidden`}>
-          <div className={`${quizPath === 'relationship' ? 'bg-purple-500/20 text-purple-400' : 'bg-[#D4AF37]/20 text-[#D4AF37]'} w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4`}>
-             <Shield className="w-8 h-8" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[#FF9500] font-bold text-sm">DIA {item.day}</span>
+                      <span className="text-white font-bold text-base">{item.title}</span>
+                    </div>
+                    <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
-          <h4 className={`font-serif font-bold ${quizPath === 'relationship' ? 'text-purple-400' : 'text-[#D4AF37]'} text-lg mb-2 uppercase`}>
-            {quizPath === 'finance' ? '7 Dias de Garantia Total' : '💜 GARANTIA DE 7 DIAS'}
-          </h4>
-          <p className="text-sm text-slate-300">
-            {content.guaranteeText || (
-              <>Se não sentir a mudança, devolvemos <strong className="text-white">100% do seu dinheiro</strong>. Sem perguntas.</>
-            )}
-          </p>
-        </div>
+        </motion.div>
 
-        <div className="text-center pb-8 space-y-4">
-           {content.finalCta && (
-             <h3 className="text-xl md:text-2xl font-serif font-bold text-white leading-tight">
-               {content.finalCta}
-             </h3>
-           )}
-           <Button onClick={handleCheckout} pulse className="w-full shadow-lg py-4">
-              {content.finalCtaButton || content.cta}
-           </Button>
+        {/* BLOCO 3: PROVA SOCIAL */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-gradient-to-b from-[#0a0a0a] to-[#1a1a1a] border border-emerald-500/20 rounded-2xl p-8"
+        >
+          <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-8">
+            {content.socialProofTitle}
+          </h2>
+          <SocialProof />
+        </motion.div>
+
+        {/* BLOCO 4: BÔNUS */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-yellow-500/20 rounded-2xl p-8"
+        >
+          <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-8">
+            {content.bonusTitle}
+          </h2>
+          <div className="space-y-6">
+            {content.bonuses?.map((bonus, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.15 }}
+                className="flex gap-4 bg-gradient-to-r from-yellow-900/20 to-orange-900/20 p-6 rounded-xl border border-yellow-500/30"
+              >
+                <div className="text-4xl">{bonus.icon}</div>
+                <div className="flex-1">
+                  <h3 className="text-white font-bold text-lg mb-2">{bonus.title}</h3>
+                  <p className="text-gray-300 text-sm mb-3">{bonus.desc}</p>
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-500 line-through text-sm">R$ {bonus.value}</span>
+                    <span className="text-green-400 font-bold text-lg">→ GRÁTIS</span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* BLOCO 5: OFERTA/CHECKOUT */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-gradient-to-b from-[#FF9500]/10 to-[#FF9500]/5 border-2 border-[#FF9500] rounded-3xl p-8 relative overflow-hidden"
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-[#FF9500]/10 via-transparent to-orange-900/10" aria-hidden="true" />
+          <div className="relative z-10 text-center space-y-6">
+            <h2 className="text-2xl md:text-3xl font-bold text-white">
+              {content.offerTitle}
+            </h2>
+            
+            {/* Price */}
+            <div className="space-y-2">
+              <p className="text-gray-400 text-lg">
+                De <span className="line-through">R$ {content.priceOld}</span> por apenas:
+              </p>
+              <div className="text-7xl md:text-8xl font-black text-white">
+                R${content.priceNew?.split(',')[0]}
+                <span className="text-4xl align-super">,{content.priceNew?.split(',')[1]}</span>
+              </div>
+              <p className="text-sm text-gray-400">(à vista ou parcelado)</p>
+            </div>
+
+            {/* CTA Button */}
+            <Button onClick={handleCheckout} pulse className="w-full max-w-md mx-auto text-xl py-6 shadow-2xl">
+              {content.cta}
+            </Button>
+            
+            <p className="text-xs text-gray-400 flex items-center justify-center gap-2">
+              <Lock className="w-4 h-4 text-green-500" aria-hidden="true" />
+              🔒 Compra Segura • ⚡ Chega no E-mail • 🛡️ Dados Protegidos
+            </p>
+            
+            <p className="text-sm text-gray-300 mt-4">{content.ctaSubtext}</p>
+          </div>
+        </motion.div>
+
+        {/* BLOCO 6: GARANTIA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border-2 border-yellow-600 rounded-2xl p-8 text-center"
+        >
+          <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center">
+            <Shield className="w-10 h-10 text-white" aria-hidden="true" />
+          </div>
+          <h2 className="text-2xl md:text-3xl font-bold text-yellow-500 mb-4">
+            {content.guaranteeTitle}
+          </h2>
+          <p className="text-gray-300 text-base leading-relaxed max-w-2xl mx-auto">
+            {content.guaranteeText}
+          </p>
+        </motion.div>
+
+        {/* BLOCO 7: FAQ */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="space-y-4"
+        >
+          <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-8">
+            Perguntas Frequentes
+          </h2>
+          {content.faqs?.map((faq, idx) => (
+            <div
+              key={idx}
+              className="bg-white/5 border border-white/10 rounded-xl overflow-hidden"
+            >
+              <button
+                onClick={() => setFaqOpen(faqOpen === idx ? null : idx)}
+                className="w-full text-left p-5 flex items-center justify-between hover:bg-white/5 transition-colors"
+              >
+                <span className="text-white font-semibold pr-4">{faq.question}</span>
+                <span className="text-[#FF9500] text-2xl shrink-0">
+                  {faqOpen === idx ? '−' : '+'}
+                </span>
+              </button>
+              {faqOpen === idx && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  className="px-5 pb-5"
+                >
+                  <p className="text-gray-300 leading-relaxed">{faq.answer}</p>
+                </motion.div>
+              )}
+            </div>
+          ))}
+        </motion.div>
+
+        {/* Final CTA */}
+        <div className="text-center pb-8 space-y-6">
+          <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight">
+            🔥 Destrave sua prosperidade agora
+          </h3>
+          <Button onClick={handleCheckout} pulse className="w-full max-w-lg mx-auto text-xl py-6 shadow-2xl">
+            {content.cta}
+          </Button>
         </div>
 
       </div>
 
-      <div className={`fixed bottom-0 left-0 w-full bg-[#0a0a0a]/95 backdrop-blur-xl border-t ${quizPath === 'relationship' ? 'border-purple-500/30' : 'border-[#FF9500]/30'} p-3 z-50 md:hidden shadow-2xl pb-[env(safe-area-inset-bottom)]`}>
+      {/* Sticky Bottom CTA (Mobile) */}
+      <div className="fixed bottom-0 left-0 w-full bg-[#0a0a0a]/95 backdrop-blur-xl border-t border-[#FF9500]/30 p-3 z-50 md:hidden shadow-2xl pb-[env(safe-area-inset-bottom)]">
         <div className="flex items-center justify-between gap-3 max-w-lg mx-auto">
           <div className="flex flex-col">
              <span className="text-slate-500 line-through text-[10px]">R$ 197</span>
              <div className="flex items-baseline gap-1">
                 <span className="font-black text-2xl text-white">R$ 37</span>
-                <span className={`${quizPath === 'relationship' ? 'text-purple-400' : 'text-[#FF9500]'} text-[10px] font-bold`}>HOJE</span>
+                <span className="text-[#FF9500] text-[10px] font-bold">HOJE</span>
              </div>
           </div>
-          <button onClick={handleCheckout} className={`flex-1 bg-gradient-to-r ${quizPath === 'relationship' ? 'from-purple-600 to-pink-600' : 'from-[#FF9500] to-orange-600'} text-white font-bold py-3 px-4 rounded-xl shadow-lg active:scale-95 transition-transform flex items-center justify-center gap-2 text-sm`}>
-            {quizPath === 'relationship' ? 'CURAR MEU CORAÇÃO' : 'DESBLOQUEAR FINANÇAS'} <ArrowDown className="w-4 h-4 animate-bounce" />
+          <button onClick={handleCheckout} className="flex-1 bg-gradient-to-r from-[#FF9500] to-orange-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg active:scale-95 transition-transform flex items-center justify-center gap-2 text-sm">
+            DESTRAVAR MAPA <ArrowDown className="w-4 h-4 animate-bounce" aria-hidden="true" />
           </button>
         </div>
       </div>
