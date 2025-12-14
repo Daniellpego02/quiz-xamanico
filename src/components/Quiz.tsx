@@ -20,8 +20,8 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const initialQuestions: QuizQuestion[] = [
     {
       id: 0,
-      title: "IDENTIFICAÇÃO",
-      text: "Antes de iniciarmos a leitura do seu campo energético, como você gostaria de ser chamado(a)?",
+      title: "CALIBRAGEM ENERGÉTICA",
+      text: "Para calibrar a precisão do seu mapa, precisamos conectar o seu nome à sua energia.",
       type: "input",
       placeholder: "Digite seu primeiro nome..."
     },
@@ -316,8 +316,11 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 disabled={!inputValue.trim()}
                 className="w-full bg-gradient-to-r from-orange-600 to-amber-500 text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-500/20 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                CONTINUAR
+                CONECTAR E INICIAR ANÁLISE ➔
               </button>
+              <p className="text-[10px] text-slate-400 text-center mt-2 flex items-center justify-center gap-1">
+                🔒 Ambiente Seguro e Sigiloso
+              </p>
             </form>
           ) : (
             <div className="space-y-3">
