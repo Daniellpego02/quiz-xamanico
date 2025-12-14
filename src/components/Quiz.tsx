@@ -337,7 +337,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-orange-500/0 via-orange-500/5 to-orange-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -translate-x-full group-hover:translate-x-full"></div>
                   <div className="flex items-center gap-4 relative z-10">
-                    <span className="text-3xl filter drop-shadow-md">{option.icon}</span>
+                    <span className="text-3xl filter drop-shadow-md" aria-hidden="true">{option.icon}</span>
                     <div className="flex-1">
                       <span className="text-slate-200 font-medium group-hover:text-white transition-colors text-lg block">
                         {option.label}
@@ -348,9 +348,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                         </span>
                       )}
                     </div>
-                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#FF9500] group-hover:text-white transition-colors">
-                      <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-white" />
-                    </div>
+                    <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-white ml-auto shrink-0" aria-hidden="true" />
                   </div>
                 </motion.button>
               ))}
