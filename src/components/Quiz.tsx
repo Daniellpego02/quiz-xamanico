@@ -241,6 +241,18 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 </span>
               </motion.div>
             )}
+            {currentQuestion.id === 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="mb-2"
+              >
+                <p className="text-[#FF9500] text-xs md:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-1">
+                  ⚡ CALIBRAGEM VIBRACIONAL
+                </p>
+              </motion.div>
+            )}
             <h2 className="text-xl md:text-2xl font-serif font-bold text-white leading-snug drop-shadow-lg">
               {personalizeText(currentQuestion.text)}
             </h2>
@@ -262,7 +274,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               <button 
                 type="submit"
                 disabled={!inputValue.trim()}
-                className="w-full bg-gradient-to-r from-orange-600 to-amber-500 text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-500/20 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full bg-gradient-to-br from-[#FF9500] via-[#F58400] to-[#EA580C] text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:brightness-110 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 border-t border-white/20"
               >
                 CONECTAR E INICIAR ANÁLISE
                 <ChevronRight className="w-5 h-5" />
