@@ -27,11 +27,13 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     },
     {
       id: 1,
-      title: "IDENTIFICAÇÃO DO BLOQUEIO",
-      text: "{NAME}, o Oráculo precisa saber: onde você sente que sua vida está mais 'travada' hoje?",
+      title: "CALIBRAGEM DE INTENSIDADE",
+      text: "{NAME}, para o Oráculo rastrear a origem do bloqueio, precisamos saber: há quanto tempo você sente que sua vida financeira está 'estagnada'?",
       options: [
-        { label: "Vida Financeira", sublabel: "Sinto que o dinheiro foge ou nunca é suficiente", value: "finance", icon: "💰", path: 'finance' },
-        { label: "Amor e Relacionamentos", sublabel: "Repito padrões ou me sinto sozinho(a)", value: "relationship", icon: "❤️", path: 'relationship' },
+        { label: "Há alguns meses", sublabel: "Começou recentemente, mas me preocupa", value: "months", icon: "📅" },
+        { label: "Entre 1 e 3 anos", sublabel: "Sinto que estou andando em círculos", value: "years_1_3", icon: "🔄" },
+        { label: "Mais de 5 anos", sublabel: "Já tentei de tudo e nada muda", value: "years_5_plus", icon: "⏳" },
+        { label: "Desde sempre / Padrão de Família", sublabel: "Parece que herdei essa dificuldade", value: "hereditary", icon: "🧬" },
       ]
     }
   ];
@@ -203,16 +205,13 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     if (isNavigating) return;
     setIsNavigating(true);
 
-    // LÓGICA DE RAMIFICAÇÃO (Pergunta 1)
-    // Criamos uma cópia mesclada de perguntas (`mergedQuestions`) e usamos ela
-    // para decidir se devemos avançar ou finalizar — evitando dependência
-    // do estado assíncrono `activeQuestions` dentro do closure.
+    // LÓGICA DE FLUXO ÚNICO FINANCEIRO (Pergunta 1)
+    // Após a pergunta 1 (temporal pain), automaticamente adiciona as perguntas financeiras
     let mergedQuestions = activeQuestions;
-    if (currentIndex === 1 && option.path) {
-      const newPath = option.path as QuizPath;
-      setSelectedPath(newPath);
-      const nextQuestions = newPath === 'finance' ? financeQuestions : relationshipQuestions;
-      mergedQuestions = [...activeQuestions, ...nextQuestions];
+    if (currentIndex === 1) {
+      // Sempre usa o caminho financeiro
+      setSelectedPath('finance');
+      mergedQuestions = [...activeQuestions, ...financeQuestions];
       setActiveQuestions(mergedQuestions);
     }
 
@@ -228,9 +227,9 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
         setIsNavigating(false);
       } else {
         if (typeof window.fbq === 'function') {
-          window.fbq('track', 'CompleteRegistration', { content_name: 'Quiz Completo', path: selectedPath });
+          window.fbq('track', 'CompleteRegistration', { content_name: 'Quiz Completo', path: 'finance' });
         }
-        onComplete(selectedPath, userName);
+        onComplete('finance', userName);
       }
     }, 250);
   };
@@ -290,7 +289,12 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 className="inline-flex items-center gap-2 bg-[#FF9500]/10 backdrop-blur-md text-[#FF9500] px-4 py-2 rounded-full text-xs font-bold border border-[#FF9500]/20 shadow-lg mb-4"
               >
                 <Sparkles className="w-3 h-3" />
-                <span>Pergunta exclusiva para {userName.split(' ')[0]}</span>
+                <span>
+                  {currentIndex === 1 
+                    ? `Calibrando Fluxo da Prosperidade de ${userName.split(' ')[0]}`
+                    : `Pergunta exclusiva para ${userName.split(' ')[0]}`
+                  }
+                </span>
               </motion.div>
             )}
             <h2 className="text-xl md:text-2xl font-serif font-bold text-white leading-snug drop-shadow-lg">
