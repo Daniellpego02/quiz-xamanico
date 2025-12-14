@@ -48,7 +48,7 @@ const offerContent = {
     offerTitle: "O ACESSO AO SEU MAPA ESTÁ LIBERADO POR TEMPO LIMITADO",
     priceOld: "197,00",
     priceNew: "37,00",
-    cta: "🔓 DESTRAVAR MEU MAPA AGORA ➔",
+    cta: "👉 SIM! QUERO DESTRAVAR MINHA PROSPERIDADE AGORA 👈",
     ctaSubtext: "Acesso Imediato ao PDF + App",
     
     // Bloco 6: Garantia
@@ -114,7 +114,7 @@ const offerContent = {
     offerTitle: "O ACESSO AO SEU MAPA ESTÁ LIBERADO POR TEMPO LIMITADO",
     priceOld: "197,00",
     priceNew: "37,00",
-    cta: "SIM, QUERO CURAR MEU CORAÇÃO AGORA ➔",
+    cta: "👉 SIM! QUERO DESTRAVAR MINHA PROSPERIDADE AGORA 👈",
     ctaSubtext: "Acesso Imediato ao PDF + App",
     
     // Bloco 6: Garantia
@@ -220,8 +220,8 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
 
         {/* CTA after video */}
         <div className="text-center">
-          <Button onClick={handleCheckout} pulse className="w-full max-w-lg mx-auto text-lg shadow-xl">
-            👉 QUERO DESTRAVAR MEU MAPA AGORA ➔
+          <Button onClick={handleCheckout} pulse className="w-full max-w-lg mx-auto text-lg shadow-xl animate-pulse">
+            👉 SIM! QUERO DESTRAVAR MINHA PROSPERIDADE AGORA 👈
           </Button>
         </div>
 
@@ -317,9 +317,9 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-b from-[#FF9500]/10 to-[#FF9500]/5 border-2 border-[#C69320] rounded-3xl p-8 relative overflow-hidden shadow-[0_0_20px_rgba(198,147,32,0.3)]"
+          className="bg-gradient-to-b from-[#FF9500]/10 to-[#FF9500]/5 border-2 border-[#C69320] rounded-3xl p-8 relative overflow-hidden shadow-[0_0_40px_rgba(198,147,32,0.6),0_0_80px_rgba(198,147,32,0.3)]"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-[#FF9500]/10 via-transparent to-orange-900/10" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#FF9500]/10 via-transparent to-orange-900/10 animate-pulse" aria-hidden="true" />
           <div className="relative z-10 text-center space-y-6">
             <h2 className="text-2xl md:text-3xl font-bold text-white">
               {content.offerTitle}
@@ -330,7 +330,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
               <p className="text-gray-400 text-lg">
                 De <span className="line-through">R$ {content.priceOld}</span> por apenas:
               </p>
-              <div className="text-7xl md:text-8xl font-black text-white">
+              <div className="text-7xl md:text-8xl font-black text-[#FFD700]">
                 R${content.priceNew?.split(',')[0]}
                 <span className="text-4xl align-super">,{content.priceNew?.split(',')[1]}</span>
               </div>
@@ -338,14 +338,24 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
             </div>
 
             {/* CTA Button */}
-            <Button onClick={handleCheckout} pulse className="w-full max-w-md mx-auto text-xl py-6 shadow-2xl">
+            <Button onClick={handleCheckout} pulse className="w-full max-w-md mx-auto text-xl py-6 shadow-2xl animate-pulse">
               {content.cta}
             </Button>
             
-            <p className="text-xs text-gray-400 flex items-center justify-center gap-2">
-              <Lock className="w-4 h-4 text-green-500" aria-hidden="true" />
-              🔒 Compra Segura • ⚡ Chega no E-mail • 🛡️ Dados Protegidos
-            </p>
+            {/* Trust Badges */}
+            <div className="flex items-center justify-center gap-4 text-sm text-gray-300 flex-wrap">
+              <div className="flex items-center gap-1">
+                <Lock className="w-4 h-4 text-green-500" aria-hidden="true" />
+                <span>🔒 Compra Segura</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <span>💳 Pix e Cartão</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Shield className="w-4 h-4 text-yellow-500" aria-hidden="true" />
+                <span>🛡️ Garantia de 7 Dias</span>
+              </div>
+            </div>
             
             <p className="text-sm text-gray-300 mt-4">{content.ctaSubtext}</p>
           </div>
@@ -412,10 +422,26 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight">
             🔥 Destrave sua prosperidade agora
           </h3>
-          <Button onClick={handleCheckout} pulse className="w-full max-w-lg mx-auto text-xl py-6 shadow-2xl">
+          <Button onClick={handleCheckout} pulse className="w-full max-w-lg mx-auto text-xl py-6 shadow-2xl animate-pulse">
             {content.cta}
           </Button>
         </div>
+
+        {/* FASE 5: Footer Legal Links */}
+        <footer className="mt-16 pt-8 border-t border-white/10 text-center space-y-4">
+          <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-gray-500">
+            <a href="#" className="hover:text-white transition-colors">Termos de Uso</a>
+            <span className="text-gray-700">|</span>
+            <a href="#" className="hover:text-white transition-colors">Políticas de Privacidade</a>
+            <span className="text-gray-700">|</span>
+            <a href="#" className="hover:text-white transition-colors">Disclaimer</a>
+            <span className="text-gray-700">|</span>
+            <a href="mailto:suporte@mapaxamanico.com" className="hover:text-white transition-colors">Contato</a>
+          </div>
+          <p className="text-xs text-gray-600 max-w-2xl mx-auto leading-relaxed px-4">
+            Este site não é afiliado ao Facebook ou a qualquer entidade do Facebook. Depois que você sair do Facebook, a responsabilidade não é deles e sim do nosso site. Fazemos todos os esforços para indicar claramente e mostrar todas as provas do produto e usamos resultados reais. Nós não vendemos o seu e-mail ou qualquer informação para terceiros. Jamais fazemos nenhum tipo de spam. Se você tiver alguma dúvida, sinta-se à vontade para usar o link de contato e falar conosco em horário comercial de Segunda a Sextas das 09h00 ás 18h00. Lemos e respondemos todas as mensagens por ordem de chegada.
+          </p>
+        </footer>
 
       </div>
 
