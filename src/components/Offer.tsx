@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './Button';
-import { Check, Shield, Lock, Clock, Star, ArrowDown, Play, Calendar, Headphones, Jar, ShieldCheck, Magnet, TrendingUp, Butterfly } from 'lucide-react';
+import { Shield, Lock, Play, Calendar, Headphones, Package, ShieldCheck, Magnet, TrendingUp, Sparkles, ArrowDown } from 'lucide-react';
 import { QuizPath } from '../types';
 import Veredito from './Veredito';
-import SocialProof from './SocialProof';
+import { SocialProof } from './SocialProof';
 
 // Dicionário de Conteúdo Dinâmico - NOVA ESTRUTURA VERSÃO FILEMON
 const offerContent = {
@@ -17,11 +17,11 @@ const offerContent = {
     deliverables: [
       { icon: Calendar, day: 1, title: "O Raio-X da Sua Alma", desc: "Localizando a raiz exata do trauma que seus pais deixaram em você" },
       { icon: Headphones, day: 2, title: "A Técnica de Limpeza do Subconsciente", desc: "Áudio Binaural para remover o medo de faltar dinheiro" },
-      { icon: Jar, day: 3, title: "O Ritual do Pote de Ouro", desc: "A técnica prática para fazer o dinheiro parar na sua mão" },
+      { icon: Package, day: 3, title: "O Ritual do Pote de Ouro", desc: "A técnica prática para fazer o dinheiro parar na sua mão" },
       { icon: ShieldCheck, day: 4, title: "Blindagem Energética", desc: "Como nunca mais perder o que você conquistou" },
       { icon: Magnet, day: 5, title: "Ativação do Imã de Prosperidade", desc: "Reprogramação para atrair oportunidades" },
       { icon: TrendingUp, day: 6, title: "Plano do Crescimento Contínuo", desc: "Mantendo o fluxo aberto" },
-      { icon: Butterfly, day: 7, title: "A Sua Nova Identidade Financeira", desc: "O Renascimento" }
+      { icon: Sparkles, day: 7, title: "A Sua Nova Identidade Financeira", desc: "O Renascimento" }
     ],
     
     // Bloco 3: Prova Social
@@ -72,42 +72,66 @@ const offerContent = {
     ]
   },
   relationship: {
-    headline: "VOCÊ ESTÁ PRESA EM CICLOS QUE SE REPETEM NO AMOR?",
-    subheadline: "Assista ao vídeo abaixo e veja como desbloquear sua vida afetiva em 7 dias. Com técnicas ancestrais + reprogramação emocional, você vai curar o que te impede de viver o amor leve e recíproco que merece.",
-    painMechanism: "Reprogramação Afetiva",
-    painPoints: [
-      "😔 Medo de ser rejeitada",
-      "💔 Atração por relações desequilibradas",
-      "⛓️ Repetição de traumas familiares",
-      "❄️ Crenças inconscientes de que 'não merece amor verdadeiro'"
-    ],
-    modules: [
-      "DIA 1 — O Diagnóstico do Seu Padrão Amoroso",
-      "DIA 2 — A Cura do Seu Valor",
-      "DIA 3 — Atração Consciente",
-      "DIA 4 — Reprogramando Seu Afeto",
-      "DIA 5 — Relacionamentos Leves",
-      "DIA 6 — Blindagem Emocional",
-      "DIA 7 — Sua Nova Versão no Amor"
-    ],
-    bonuses: [
-      { title: "Guia do Amor Recíproco", value: "97", desc: "O que procurar (e evitar) em qualquer relação." },
-      { title: "Meditação de Cura Emocional", value: "147", desc: "Transforma dores antigas em força emocional." },
-      { title: "Acesso Vitalício ao Programa", value: "53", desc: "Para sempre seu." }
-    ],
-    objections: [
-      { title: "E se eu me machucar de novo?", text: "Justamente por isso o método começa pela cura e blindagem emocional." },
-      { title: "Já tentei de tudo…", text: "Aqui não é teoria. É transformação prática com base em sabedoria ancestral e ciência emocional." },
-      { title: "E se eu não mudar?", text: "Você vai. Porque vai entender, pela primeira vez, a raiz emocional do seu padrão." }
-    ],
-    cta: "SIM, QUERO CURAR MEU CORAÇÃO AGORA",
-    alertBanner: "Oferta exclusiva para destravar sua vida amorosa termina em breve.",
     vslId: "vid-693b6771c33297495ef77ddc",
-    offerHeadline: "🔓 O DESBLOQUEIO COMEÇA HOJE: VIVA O AMOR QUE VOCÊ SONHA!",
+    
+    // Bloco 2: Entrega - Protocolo de 7 Dias
+    deliveryTitle: "ISTO NÃO É UM CURSO. É UM PROTOCOLO DE CURA EMOCIONAL DE 7 DIAS.",
+    deliverables: [
+      { icon: Calendar, day: 1, title: "O Diagnóstico do Seu Padrão Amoroso", desc: "Identificando a raiz dos seus bloqueios afetivos" },
+      { icon: Headphones, day: 2, title: "A Cura do Seu Valor", desc: "Áudio Binaural para reconstruir sua autoestima" },
+      { icon: Package, day: 3, title: "Atração Consciente", desc: "Como magnetizar relacionamentos saudáveis" },
+      { icon: ShieldCheck, day: 4, title: "Reprogramando Seu Afeto", desc: "Transformando padrões inconscientes" },
+      { icon: Magnet, day: 5, title: "Relacionamentos Leves", desc: "Vivendo conexões verdadeiras" },
+      { icon: TrendingUp, day: 6, title: "Blindagem Emocional", desc: "Protegendo seu coração sem fechar-se" },
+      { icon: Sparkles, day: 7, title: "Sua Nova Versão no Amor", desc: "O Renascimento Afetivo" }
+    ],
+    
+    // Bloco 3: Prova Social
+    socialProofTitle: "NÃO ACREDITE EM MIM. VEJA O QUE QUEM CUROU SEU CORAÇÃO TEM A DIZER:",
+    
+    // Bloco 4: Bônus
+    bonusTitle: "LIBERANDO SEU ACESSO HOJE, VOCÊ GANHA 2 PRESENTES DE OURO:",
+    bonuses: [
+      { 
+        icon: "🎁", 
+        title: "Guia do Amor Recíproco", 
+        desc: "O que procurar (e evitar) em qualquer relação.", 
+        value: "97" 
+      },
+      { 
+        icon: "🎁", 
+        title: "Meditação de Cura Emocional", 
+        desc: "Transforma dores antigas em força emocional.", 
+        value: "147" 
+      }
+    ],
+    
+    // Bloco 5: Oferta/Checkout
+    offerTitle: "O ACESSO AO SEU MAPA ESTÁ LIBERADO POR TEMPO LIMITADO",
+    priceOld: "197,00",
+    priceNew: "37,00",
+    cta: "SIM, QUERO CURAR MEU CORAÇÃO AGORA ➔",
+    ctaSubtext: "Acesso Imediato ao PDF + App",
+    
+    // Bloco 6: Garantia
+    guaranteeTitle: "GARANTIA BLINDADA DE 7 DIAS",
     guaranteeText: "Você sente a transformação ou devolvemos 100% do seu dinheiro. Sem perguntas. Sem julgamentos. Você merece essa chance.",
-    finalCta: "🔥 Últimas vagas por R$37 — clique abaixo e comece agora sua nova história no amor.",
-    finalCtaButton: "CURAR MEU CORAÇÃO AGORA",
-    videoFloatingText: undefined
+    
+    // Bloco 7: FAQ
+    faqs: [
+      { 
+        question: "É um curso? Eu não tenho tempo.", 
+        answer: "Não. É uma ferramenta de diagnóstico e um protocolo guiado. Você precisa de apenas 10 minutos por dia." 
+      },
+      { 
+        question: "E se eu me machucar de novo?", 
+        answer: "Justamente por isso o método começa pela cura e blindagem emocional." 
+      },
+      { 
+        question: "Como eu recebo o acesso?", 
+        answer: "Imediatamente no seu e-mail após a confirmação do pagamento." 
+      }
+    ]
   }
 };
 
@@ -247,7 +271,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-8">
             {content.socialProofTitle}
           </h2>
-          <SocialProof />
+          <SocialProof onNext={() => {}} quizPath={quizPath} />
         </motion.div>
 
         {/* BLOCO 4: BÔNUS */}

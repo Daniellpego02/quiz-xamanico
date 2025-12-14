@@ -5,8 +5,7 @@ interface VeredictoProps {
   userName?: string;
 }
 
-export default function Veredito({ userName = 'você' }: VeredictoProps) {
-  const firstName = userName ? userName.split(' ')[0].toUpperCase() : 'VOCÊ';
+export default function Veredito({ userName: _userName = 'você' }: VeredictoProps) {
   
   return (
     <motion.div
