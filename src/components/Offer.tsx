@@ -202,7 +202,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
   };
 
   return (
-    <div className="min-h-screen pb-24 md:pb-40 relative z-10 overflow-hidden bg-gradient-to-b from-[#050505] via-[#0a0a0a] to-[#050505]">
+    <div className="min-h-screen pb-24 md:pb-40 relative z-10 overflow-hidden bg-gradient-to-b from-[#120520] via-[#2A0F3D] to-[#120520]">
       
       <div className="max-w-4xl mx-auto px-4 pt-8 space-y-12 pb-safe">
 
@@ -226,7 +226,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-[#FF9500]/20 rounded-2xl p-8"
+          className="bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-[#C69320] rounded-2xl p-8 shadow-[0_0_15px_rgba(198,147,32,0.2)]"
         >
           <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-2">
             {content.deliveryTitle}
@@ -279,7 +279,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-yellow-500/20 rounded-2xl p-8"
+          className="bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-[#C69320] rounded-2xl p-8 shadow-[0_0_15px_rgba(198,147,32,0.2)]"
         >
           <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-8">
             {content.bonusTitle}
@@ -313,7 +313,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-b from-[#FF9500]/10 to-[#FF9500]/5 border-2 border-[#FF9500] rounded-3xl p-8 relative overflow-hidden"
+          className="bg-gradient-to-b from-[#FF9500]/10 to-[#FF9500]/5 border-2 border-[#C69320] rounded-3xl p-8 relative overflow-hidden shadow-[0_0_20px_rgba(198,147,32,0.3)]"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-[#FF9500]/10 via-transparent to-orange-900/10" aria-hidden="true" />
           <div className="relative z-10 text-center space-y-6">
@@ -352,7 +352,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border-2 border-yellow-600 rounded-2xl p-8 text-center"
+          className="bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border-2 border-[#C69320] rounded-2xl p-8 text-center shadow-[0_0_15px_rgba(198,147,32,0.2)]"
         >
           <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center">
             <Shield className="w-10 h-10 text-white" aria-hidden="true" />
@@ -378,7 +378,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           {content.faqs?.map((faq, idx) => (
             <div
               key={idx}
-              className="bg-white/5 border border-white/10 rounded-xl overflow-hidden"
+              className="bg-white/5 border border-[#C69320]/30 rounded-xl overflow-hidden shadow-[0_0_10px_rgba(198,147,32,0.15)]"
             >
               <button
                 onClick={() => setFaqOpen(faqOpen === idx ? null : idx)}
