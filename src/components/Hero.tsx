@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './Button';
-import { Lock, Clock, Eye, Trophy } from 'lucide-react';
+import { Lock, Clock, Eye } from 'lucide-react';
 
 interface HeroProps {
   onStart: () => void;
@@ -30,7 +30,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
         <div className="flex items-center justify-center gap-3">
           <Eye className="w-5 h-5 text-[#FF9500] animate-pulse" />
           <p className="text-xs font-serif text-[#FF9500] tracking-wider uppercase">
-            Revelação Ancestral Liberada
+            Revelação Ancestral Disponível
           </p>
         </div>
       </motion.div>
@@ -44,8 +44,8 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           transition={{ delay: 0.1 }}
           className="inline-flex items-center gap-1.5 bg-emerald-950/40 backdrop-blur-md text-emerald-400 px-3 py-1 rounded-full text-[10px] font-bold border border-emerald-500/30"
         >
-          <Trophy className="w-3 h-3" />
-          <span>+20.000 vidas transformadas</span>
+          <Lock className="w-3 h-3" />
+          <span>Método Validado: +21.400 Mapas Gerados</span>
         </motion.div>
 
         <motion.div
@@ -54,10 +54,10 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           transition={{ delay: 0.2 }}
         >
           <h1 className="text-3xl md:text-4xl font-serif font-black text-white leading-[1.1] drop-shadow-2xl mb-2">
-            Algo invisível pode estar <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#FF9500] to-orange-600">sabotando sua vida</span> — no dinheiro ou no amor.
+            <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#FF9500] to-orange-600">Você não está quebrado, você está bloqueado.</span> Descubra o "Nó Energético Oculto" que impede sua vida de avançar — no Dinheiro ou no Amor.
           </h1>
-          <p className="text-slate-300 text-sm md:text-base leading-relaxed max-w-xs mx-auto">
-            Faça o teste gratuito e descubra o <strong>bloqueio energético oculto</strong> que trava sua prosperidade e seus relacionamentos.
+          <p className="text-slate-300 text-sm md:text-base leading-relaxed max-w-md mx-auto">
+            Não é sorte, é alinhamento. Responda a <strong>7 perguntas</strong> e deixe o Oráculo gerar seu <strong>Mapa de Desbloqueio Personalizado</strong> em instantes.
           </p>
         </motion.div>
 
@@ -69,11 +69,21 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
         >
           <div className="absolute -inset-0.5 bg-gradient-to-r from-orange-600 to-amber-600 rounded-xl blur opacity-40 group-hover:opacity-70 transition duration-1000 animate-pulse"></div>
           <Button onClick={handleStartClick} pulse className="relative text-lg py-4 w-full shadow-[0_0_30px_rgba(255,149,0,0.3)] border-t border-white/20">
-            Quero descobrir meu bloqueio agora →
+            👉 Quero meu Mapa Agora →
           </Button>
-          <p className="text-[10px] text-slate-500 mt-2 uppercase tracking-widest flex items-center justify-center gap-1">
-            <Clock className="w-3 h-3" /> Gratuito por tempo limitado
+          <p className="text-[10px] text-slate-400 mt-2 uppercase tracking-widest flex items-center justify-center gap-1">
+            <Lock className="w-3 h-3" /> Análise Gratuita • Resultado Imediato
           </p>
+        </motion.div>
+
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="flex items-center justify-center gap-1 text-xs text-amber-400/90"
+        >
+          <span>⭐⭐⭐⭐⭐</span>
+          <span className="text-slate-400">4.9/5 baseado em 20k+ leituras</span>
         </motion.div>
 
         <motion.div 
@@ -86,7 +96,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
              <Lock className="w-4 h-4 text-red-400" />
           </div>
           <p className="text-xs text-slate-300 leading-snug">
-            Você pode estar repetindo padrões emocionais herdados que limitam sua vida — e nem percebe.
+            A Ciência Ancestral confirma: existe um <strong>"Bloqueio Energético Hereditário"</strong> impedindo sua prosperidade e amor de fluírem. Você não tem culpa.
           </p>
         </motion.div>
 
