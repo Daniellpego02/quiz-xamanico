@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './Button';
-import { Award, MapPin, ShieldCheck, Star } from 'lucide-react';
+import { Award, MapPin, ShieldCheck } from 'lucide-react';
 import { QuizPath } from '../types';
 
 interface AuthorityProps {
@@ -19,6 +19,7 @@ export const Authority: React.FC<AuthorityProps> = ({ onNext, quizPath = 'financ
       final: "O que você vai ler a seguir não é autoajuda. É a chave que eu gostaria de ter recebido há 10 anos."
     },
     relationship: {
+      headline: "EU NÃO DESCOBRI ISSO EM LIVROS. EU DESCOBRI ISSO NO CAMPO DE BATALHA.",
       intro: "Xamã e Terapeuta Holística especializada em cura relacional há 12 anos. Dediquei minha vida a compreender os padrões emocionais ancestrais que sabotam nossos relacionamentos. Minha jornada começou quando percebi que os maiores bloqueios no amor não estão fora — mas dentro de nós.",
       middle: "Através do Mapa Xamânico de Relacionamentos, você vai descobrir as <strong className=\"text-purple-400 font-bold border-b border-purple-400/30 pb-0.5\">raízes emocionais</strong> que te fazem repetir padrões dolorosos. Não é terapia convencional — é um despertar profundo da sua capacidade de amar e ser amado de forma saudável.",
       final: "Trabalho com mulheres e homens que carregam feridas de relacionamentos passados, medo de rejeição e padrões herdados da família. Mais de <strong className=\"text-white\">20.000 pessoas</strong> já curaram seus corações e construíram relações verdadeiras através do meu método."

@@ -13,7 +13,6 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const [inputValue, setInputValue] = useState("");
   const [isNavigating, setIsNavigating] = useState(false);
   const [showTuningScreen, setShowTuningScreen] = useState(false);
-  const [selectedPath, setSelectedPath] = useState<QuizPath>('finance');
   const [activeQuestions, setActiveQuestions] = useState<QuizQuestion[]>([]);
 
   // Quiz path is now hardcoded to finance only (single flow strategy)
@@ -87,75 +86,6 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     }
   ];
 
-  // Caminho RELACIONAMENTO (Texto atualizado conforme briefing)
-  const relationshipQuestions: QuizQuestion[] = [
-    {
-      id: 2,
-      title: "P2 — O Sintoma do Coração",
-      text: "{NAME}, ao pensar na sua vida amorosa, o que mais dói hoje?",
-      options: [
-        { label: "Sempre escolho errado.", value: "wrong", icon: "💔" },
-        { label: "Dou demais e recebo pouco.", value: "give", icon: "🤲" },
-        { label: "Tenho medo de me entregar e me machucar.", value: "fear", icon: "🛡️" },
-        { label: "Me sinto sozinho(a) mesmo estando com alguém.", value: "lonely", icon: "😔" },
-      ]
-    },
-    {
-      id: 3,
-      title: "P3 — O Ciclo Emocional",
-      text: "Você sente que vive padrões de relacionamento que se repetem?",
-      options: [
-        { label: "Sim, parece que sempre encontro a mesma dor.", value: "pattern", icon: "🔄" },
-        { label: "Escolho pessoas que não me escolhem.", value: "rejection", icon: "🚫" },
-        { label: "Carrego traumas que estragam minhas relações.", value: "trauma", icon: "🎒" },
-        { label: "Às vezes, flui… mas logo desmorona.", value: "collapse", icon: "🏚️" },
-      ]
-    },
-    {
-      id: 4,
-      title: "P4 — A Herança Emocional Familiar",
-      text: "Na sua família, você observou padrões parecidos no amor?",
-      options: [
-        { label: "Sim, relacionamentos complicados ou instáveis.", value: "complicated", icon: "⚡" },
-        { label: "Muita cobrança, brigas ou falta de afeto.", value: "cold", icon: "❄️" },
-        { label: "Histórias de abandono ou traição.", value: "betrayal", icon: "🥀" },
-        { label: "Nunca pensei nisso, mas faz sentido.", value: "insight", icon: "💡" },
-      ]
-    },
-    {
-      id: 5,
-      title: "P5 — O Medo Silencioso",
-      text: "O que mais te assusta nos relacionamentos?",
-      options: [
-        { label: "Ser rejeitado(a) novamente.", value: "rejected", icon: "🙅" },
-        { label: "Amar alguém que não me valoriza.", value: "unvalued", icon: "💎" },
-        { label: "Não conseguir construir algo sólido.", value: "solid", icon: "🧱" },
-        { label: "Repetir o passado e nunca viver algo leve.", value: "heavy", icon: "☁️" },
-      ]
-    },
-    {
-      id: 6,
-      title: "P6 — O Desejo Amoroso Real",
-      text: "Se você pudesse destravar UMA coisa no amor hoje, o que seria?",
-      options: [
-        { label: "Atrair alguém que realmente me escolha.", value: "chosen", icon: "👩‍❤️‍👨" },
-        { label: "Curar minhas feridas e parar de sofrer.", value: "heal", icon: "🩹" },
-        { label: "Sentir segurança emocional.", value: "safety", icon: "🛡️" },
-        { label: "Construir um relacionamento leve e recíproco.", value: "lightness", icon: "✨" },
-      ]
-    },
-    {
-      id: 7,
-      title: "P7 — A Permissão para o Amor",
-      text: "Se eu te mostrasse o que está bloqueando seus relacionamentos… você estaria pronto(a) para essa verdade?",
-      options: [
-        { label: "Sim! Estou cansado(a) de sofrer.", value: "ready", icon: "🔥" },
-        { label: "Acho que esse é o meu momento.", value: "time", icon: "✨" },
-        { label: "Tenho medo, mas quero mudar.", value: "scared", icon: "🦋" },
-      ]
-    }
-  ];
-
   useEffect(() => {
     setActiveQuestions(initialQuestions);
   }, []);
@@ -181,7 +111,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     }, 3500);
   };
 
-  const handleOptionClick = (option: any) => {
+  const handleOptionClick = (_option: any) => {
     if (isNavigating) return;
     setIsNavigating(true);
 
@@ -191,7 +121,6 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     let mergedQuestions = activeQuestions;
     if (currentIndex === 1) {
       // Sempre usa o caminho financeiro
-      setSelectedPath(QUIZ_PATH);
       mergedQuestions = [...activeQuestions, ...financeQuestions];
       setActiveQuestions(mergedQuestions);
     }
