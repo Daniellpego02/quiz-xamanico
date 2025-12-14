@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './Button';
-import { Lock, Clock, Eye } from 'lucide-react';
+import { Lock, Eye, BadgeCheck } from 'lucide-react';
 
 interface HeroProps {
   onStart: () => void;
@@ -44,7 +44,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           transition={{ delay: 0.1 }}
           className="inline-flex items-center gap-1.5 bg-emerald-950/40 backdrop-blur-md text-emerald-400 px-3 py-1 rounded-full text-[10px] font-bold border border-emerald-500/30"
         >
-          <Lock className="w-3 h-3" />
+          <BadgeCheck className="w-3 h-3" />
           <span>Método Validado: +21.400 Mapas Gerados</span>
         </motion.div>
 
