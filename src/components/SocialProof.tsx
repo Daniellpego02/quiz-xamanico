@@ -15,7 +15,17 @@ const avatarImages: Record<string, string> = {
   // Main profile - Woman (Anahí Solara)
   "xama_interior": "https://i.pravatar.cc/150?img=47", 
   
-  // Female testimonials - Brazilian women with names matching appearance
+  // FASE 3 New testimonials - Female
+  "carol.design_": "https://i.pravatar.cc/150?img=35", // Designer woman - Carol
+  "marta_vaz": "https://i.pravatar.cc/150?img=36", // Mature woman - Marta
+  "juliana_p": "https://i.pravatar.cc/150?img=43", // Young woman - Juliana
+  "fernanda.g": "https://i.pravatar.cc/150?img=32", // Woman - Fernanda
+  "beatriz.l": "https://i.pravatar.cc/150?img=29", // Woman - Beatriz
+  
+  // FASE 3 New testimonials - Male
+  "roberto.santos88": "https://i.pravatar.cc/150?img=17", // Man - Roberto
+  
+  // Original Female testimonials
   "neuropsicopedagogafa_titania": "https://i.pravatar.cc/150?img=45", // Professional woman - Titania
   "cristinabertyfit": "https://i.pravatar.cc/150?img=49", // Fitness woman - Cristina
   "drysoriano": "https://i.pravatar.cc/150?img=44", // Doctor woman - Soriano
@@ -27,7 +37,7 @@ const avatarImages: Record<string, string> = {
   "fernanda_coelho": "https://i.pravatar.cc/150?img=32", // Woman - Fernanda
   "carla_mendes": "https://i.pravatar.cc/150?img=42", // Woman - Carla
   
-  // Male testimonials - Brazilian men with names matching appearance
+  // Original Male testimonials
   "rafaelmoraes": "https://i.pravatar.cc/150?img=12", // Man - Rafael
   "rafaelgasta_": "https://i.pravatar.cc/150?img=13", // Casual man - Rafael
   "prof.rohaan": "https://i.pravatar.cc/150?img=15", // Professional man - Professor
@@ -35,95 +45,81 @@ const avatarImages: Record<string, string> = {
   "lucas_almeira": "https://i.pravatar.cc/150?img=11", // Young man - Lucas
 };
 
-// Finance-focused testimonials (original)
+// Finance-focused testimonials - NEW from FASE 3
 const financeThreads = [
   {
     id: 1,
-    postedTime: "2 dias",
-    likes: "4.291 curtidas",
+    postedTime: "1 dia",
+    likes: "6.823 curtidas",
     comments: [
       {
-        username: "neuropsicopedagogafa_titania",
-        text: "Ahhh incrível!! @igrejalarissa394, pois amei o meu mapa. @rgnlarinho3394 fala com o Juan Xamã",
-        time: "2h",
-        likes: 12,
+        username: "carol.design_",
+        text: "Gente, eu tô tremendo. Fiz o desbloqueio do Dia 3 ontem de manhã. Hoje à tarde um cliente antigo me pagou uma dívida de 2021 que eu dava como perdida. R$ 1.400,00 na conta do nada. O mapa é real!",
+        time: "4h",
+        likes: 412,
         hasAvatar: true
       },
       {
-        username: "rafaelmoraes",
-        text: "Já tive um encontro com meu animal guia, só quero ter certeza mesma. Atranez mapa xamânico ❤️🙌🏻🙏",
-        time: "5h",
-        likes: 48,
-        hasAvatar: true
-      },
-      {
-        username: "cristinabertyfit",
-        text: "Sinceramente! É o melhor que já pude ver e ler! Traz clareza, e verdades sobre você! 😍🙏🏼",
-        time: "1d",
-        likes: 156,
+        username: "marta_vaz",
+        text: "Descobri que meu bloqueio vinha do meu avô que faliu. Chorei horrores ouvindo o áudio, mas foi um choro de alívio. A sensação de culpa foi embora. Obrigada Anahí! ✨",
+        time: "6h",
+        likes: 287,
         hasAvatar: true
       }
     ]
   },
   {
     id: 2,
-    postedTime: "5 dias",
-    likes: "8.102 curtidas",
+    postedTime: "3 dias",
+    likes: "9.541 curtidas",
     comments: [
       {
-        username: "drysoriano",
-        text: "Eu fiz o meu e amei. 🔥👏😍 super recomendo. Gratidão",
-        time: "3h",
-        likes: 24,
+        username: "roberto.santos88",
+        text: "Eu achava que minha dor no trapézio era estresse. Fiz a técnica de Ressonância Inversa e juro... o peso sumiu na hora. Parece que tiraram um saco de cimento das minhas costas.",
+        time: "2h",
+        likes: 534,
         hasAvatar: true
       },
       {
-        username: "julimma_2",
-        text: "Maravilhoso!! Fiz e recomendo ❤️🥰🥰",
-        time: "8h",
-        likes: 89,
+        username: "juliana_p",
+        text: "Juuuuura que funciona mesmo! Fiz a técnica do Pote de Ouro e a Receita Federal liberou uma restituição travada há 2 anos! R$ 2.400 na conta! Tô em choque! 😱",
+        time: "7h",
+        likes: 892,
         hasAvatar: true
       },
       {
-        username: "aninhajalandiqueimasemcodimas",
-        text: "Fiz o meu amei, muitas coisas que de certa forma eu não tinha conhecimento foram se encaixando. Amei de vdd vale muito a pena",
+        username: "fernanda.g",
+        text: "Minha mão era furada real. Depois do Dia 7, pela primeira vez sobrou dinheiro no fim do mês. Tô me sentindo 'rica' de verdade.",
         time: "1d",
-        likes: 230,
+        likes: 456,
         hasAvatar: true
       }
     ]
   },
   {
     id: 3,
-    postedTime: "1 semana",
-    likes: "12.5k curtidas",
+    postedTime: "5 dias",
+    likes: "11.2k curtidas",
     comments: [
       {
-        username: "rafaelgasta_",
-        text: "Sensacional!!",
-        time: "2d",
-        likes: 15,
+        username: "beatriz.l",
+        text: "Sou mãe solo e não tenho tempo. Os áudios de 10 minutos eu ouço no ônibus. Já sinto a diferença no olhar das pessoas e o dinheiro começou a render mais.",
+        time: "3h",
+        likes: 678,
         hasAvatar: true
       },
       {
-        username: "jasmine_awache",
-        text: "Fiz o ano passado e só verdades acontecendo, é muito verdadeiro! 🙏🥰",
-        time: "3d",
-        likes: 342,
+        username: "neuropsicopedagogafa_titania",
+        text: "Pessoal, funciona mesmo! O mapa mostra exatamente onde sua energia está bloqueada. Depois que fiz a limpeza do Dia 2, apareceram 3 oportunidades de trabalho do nada! 🙏✨",
+        time: "8h",
+        likes: 523,
         hasAvatar: true
       },
       {
-        username: "prof.rohaan",
-        text: "Recebi meu mapa ontem a noite e achei profundamente esclarecedor. Gratidão por essa ferramenta 🙏🏽",
-        time: "4d",
-        likes: 521,
-        hasAvatar: true
-      },
-      {
-        username: "iavella",
-        text: "Façam pessoal vale muito a pena, eu amei o meu. E abriu a minha mente para muitas coisas ❤️🙌🙏",
-        time: "1sem",
-        likes: 890,
+        username: "rafaelmoraes",
+        text: "Cara, eu era cético. Mas depois de fazer o protocolo completo, minha vida mudou. Consegui negociar uma dívida que tava me sufocando e ainda sobrou dinheiro. Gratidão 🙌",
+        time: "1d",
+        likes: 712,
         hasAvatar: true
       }
     ]

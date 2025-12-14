@@ -15,13 +15,13 @@ const offerContent = {
     // Bloco 2: Entrega - Protocolo de 7 Dias
     deliveryTitle: "ISTO NÃO É UM CURSO. É UM PROTOCOLO DE ATIVAÇÃO DE 7 DIAS.",
     deliverables: [
-      { icon: Calendar, day: 1, title: "O Raio-X da Sua Alma", desc: "Localizando a raiz exata do trauma que seus pais deixaram em você" },
-      { icon: Headphones, day: 2, title: "A Técnica de Limpeza do Subconsciente", desc: "Áudio Binaural para remover o medo de faltar dinheiro" },
-      { icon: Package, day: 3, title: "O Ritual do Pote de Ouro", desc: "A técnica prática para fazer o dinheiro parar na sua mão" },
-      { icon: ShieldCheck, day: 4, title: "Blindagem Energética", desc: "Como nunca mais perder o que você conquistou" },
-      { icon: Magnet, day: 5, title: "Ativação do Imã de Prosperidade", desc: "Reprogramação para atrair oportunidades" },
-      { icon: TrendingUp, day: 6, title: "Plano do Crescimento Contínuo", desc: "Mantendo o fluxo aberto" },
-      { icon: Sparkles, day: 7, title: "A Sua Nova Identidade Financeira", desc: "O Renascimento" }
+      { icon: Calendar, day: 1, title: "O Raio-X da Sua Alma", desc: "Diagnóstico da Raiz" },
+      { icon: Headphones, day: 2, title: "O Exorcismo da Escassez", desc: "Áudio Binaural de Limpeza" },
+      { icon: Package, day: 3, title: "O Ritual do Pote de Ouro", desc: "Técnica de Magnetismo" },
+      { icon: ShieldCheck, day: 4, title: "Blindagem Energética", desc: "Proteção contra Inveja" },
+      { icon: Magnet, day: 5, title: "Ativação do Ímã de Prosperidade", desc: "Reprogramação para atrair oportunidades" },
+      { icon: TrendingUp, day: 6, title: "Manutenção do Fluxo Infinito", desc: "Mantendo a prosperidade contínua" },
+      { icon: Sparkles, day: 7, title: "O Renascimento", desc: "Sua Nova Identidade Financeira" }
     ],
     
     // Bloco 3: Prova Social
@@ -58,16 +58,20 @@ const offerContent = {
     // Bloco 7: FAQ
     faqs: [
       { 
-        question: "É um curso? Eu não tenho tempo.", 
-        answer: "Não. É uma ferramenta de diagnóstico e um protocolo guiado. Você precisa de apenas 10 minutos por dia." 
+        question: "Eu não tenho tempo para assistir aulas longas. Isso é para mim?", 
+        answer: "Sim, foi feito exatamente para quem tem a rotina corrida. O Mapa Xamânico não é um curso cheio de teoria que te cansa. É um Protocolo de Ativação. Você só precisa de 12 minutos por dia. Basta colocar os fones de ouvido (enquanto vai ao trabalho, lava louça ou antes de dormir) e deixar os áudios de Ressonância Inversa agirem no seu subconsciente. É simples e passivo." 
       },
       { 
-        question: "Funciona para quem está muito endividado?", 
-        answer: "Sim. O Mapa foi desenhado exatamente para quem está no 'Modo Sobrevivência'." 
+        question: "Estou endividado e no 'vermelho'. Funciona mesmo na minha situação?", 
+        answer: "Funciona principalmente para a sua situação. Se você já tivesse dinheiro sobrando, não precisaria desligar a Escassez Hereditária. O Protocolo foi desenhado para quem está no 'Modo Sobrevivência' e precisa de um alívio imediato — tanto financeiro quanto emocional. O objetivo é estancar o 'sangramento energético' para o dinheiro voltar a parar na sua mão." 
       },
       { 
-        question: "Como eu recebo o acesso?", 
-        answer: "Imediatamente no seu e-mail após a confirmação do pagamento." 
+        question: "Preciso ter alguma religião ou conhecimento prévio?", 
+        answer: "Absolutamente não. O Mapa baseia-se na Ciência Ancestral e em princípios de Ressonância Vibracional. Não tem vínculo com nenhuma religião, dogma ou seita. É sobre desbloquear a sua própria energia pessoal, independente do que você acredita. É seguro e universal." 
+      },
+      { 
+        question: "E se eu fizer e não sentir nada?", 
+        answer: "Eu assumo esse risco por você. Se em 7 dias você ouvir os áudios e não sentir — fisicamente — o peso saindo das suas costas e a clareza mental voltando, eu devolvo 100% do seu dinheiro. Sem letras miúdas, sem perguntas." 
       }
     ]
   },
