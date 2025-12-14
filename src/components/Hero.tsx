@@ -72,7 +72,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
         >
           <div className="absolute -inset-0.5 bg-gradient-to-r from-orange-600 to-amber-600 rounded-xl blur opacity-40 group-hover:opacity-70 transition duration-1000 animate-pulse"></div>
           <Button onClick={handleStartClick} pulse className="relative text-lg py-4 w-full shadow-[0_0_30px_rgba(255,149,0,0.3)] border-t border-white/20">
-            Rastrear Meu Bloqueio Financeiro Agora →
+            Rastrear Meu Bloqueio Financeiro Agora
           </Button>
           <p className="text-[10px] text-slate-400 mt-2 uppercase tracking-widest flex items-center justify-center gap-1">
             <Lock className="w-3 h-3" /> Análise Gratuita & Sigilosa
