@@ -25,6 +25,7 @@ export interface QuizQuestion {
   type?: 'select' | 'input';
   placeholder?: string;
   options?: QuestionOption[];
+  singleButton?: boolean; // For questions with only one option (e.g., readiness confirmation)
 }
 
 declare global {
