@@ -16,6 +16,9 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const [selectedPath, setSelectedPath] = useState<QuizPath>('finance');
   const [activeQuestions, setActiveQuestions] = useState<QuizQuestion[]>([]);
 
+  // Quiz path is now hardcoded to finance only (single flow strategy)
+  const QUIZ_PATH: QuizPath = 'finance';
+
   // Perguntas Iniciais (Comuns)
   const initialQuestions: QuizQuestion[] = [
     {
@@ -207,10 +210,11 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
 
     // LÓGICA DE FLUXO ÚNICO FINANCEIRO (Pergunta 1)
     // Após a pergunta 1 (temporal pain), automaticamente adiciona as perguntas financeiras
+    // Note: O path é fixo em 'finance' como estratégia de fluxo único para aumentar conversão
     let mergedQuestions = activeQuestions;
     if (currentIndex === 1) {
       // Sempre usa o caminho financeiro
-      setSelectedPath('finance');
+      setSelectedPath(QUIZ_PATH);
       mergedQuestions = [...activeQuestions, ...financeQuestions];
       setActiveQuestions(mergedQuestions);
     }
@@ -227,9 +231,9 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
         setIsNavigating(false);
       } else {
         if (typeof window.fbq === 'function') {
-          window.fbq('track', 'CompleteRegistration', { content_name: 'Quiz Completo', path: 'finance' });
+          window.fbq('track', 'CompleteRegistration', { content_name: 'Quiz Completo', path: QUIZ_PATH });
         }
-        onComplete('finance', userName);
+        onComplete(QUIZ_PATH, userName);
       }
     }, 250);
   };
