@@ -11,6 +11,7 @@ export type QuizPath = 'finance' | 'relationship';
 
 export interface QuestionOption {
   label: string;
+  sublabel?: string; // Micro-copy below the main label for emotional impact
   value: string;
   icon?: string;
   isNew?: boolean;

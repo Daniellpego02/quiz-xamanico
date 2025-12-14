@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { QuizQuestion, QuizPath } from '../types';
-import { ChevronRight, Sparkles, Fingerprint } from 'lucide-react';
+import { ChevronRight, Sparkles, Compass } from 'lucide-react';
 
 interface QuizProps {
   onComplete: (path: QuizPath, userName: string) => void;
@@ -27,11 +27,11 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     },
     {
       id: 1,
-      title: "O FOCO",
-      text: "{NAME}, para calibrar a energia do seu mapa, qual área você quer entender profundamente hoje?",
+      title: "IDENTIFICAÇÃO DO BLOQUEIO",
+      text: "{NAME}, o Oráculo precisa saber: onde você sente que sua vida está mais 'travada' hoje?",
       options: [
-        { label: "Vida Financeira e Prosperidade", value: "finance", icon: "💰", path: 'finance' },
-        { label: "Relacionamentos e Amor", value: "relationship", icon: "❤️", path: 'relationship' },
+        { label: "Vida Financeira", sublabel: "Sinto que o dinheiro foge ou nunca é suficiente", value: "finance", icon: "💰", path: 'finance' },
+        { label: "Amor e Relacionamentos", sublabel: "Repito padrões ou me sinto sozinho(a)", value: "relationship", icon: "❤️", path: 'relationship' },
       ]
     }
   ];
@@ -244,11 +244,11 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           className="relative"
         >
             <div className="absolute inset-0 bg-orange-500 rounded-full blur-[80px] opacity-40 animate-pulse"></div>
-            <Fingerprint className="w-24 h-24 text-[#FF9500] mx-auto mb-6 relative z-10 animate-pulse" />
+            <Compass className="w-24 h-24 text-[#FF9500] mx-auto mb-6 relative z-10 animate-pulse" />
         </motion.div>
         
-        <h2 className="text-2xl font-serif text-white mb-2">Sintonizando Frequência...</h2>
-        <p className="text-slate-300 text-lg">Conectando à energia de <strong className="text-[#FF9500]">{userName}</strong></p>
+        <h2 className="text-2xl font-serif text-white mb-2">Acessando Frequência Vibracional...</h2>
+        <p className="text-slate-300 text-lg">Localizando registros ancestrais de <strong className="text-[#FF9500]">{userName}</strong></p>
         <div className="w-64 h-1 bg-white/10 rounded-full mt-8 overflow-hidden mx-auto">
             <motion.div className="h-full bg-[#FF9500]" initial={{ width: "0%" }} animate={{ width: "100%" }} transition={{ duration: 3, ease: "easeInOut" }} />
         </div>
@@ -339,9 +339,14 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   <div className="flex items-center gap-4 relative z-10">
                     <span className="text-3xl filter drop-shadow-md">{option.icon}</span>
                     <div className="flex-1">
-                      <span className="text-slate-200 font-medium group-hover:text-white transition-colors text-lg">
+                      <span className="text-slate-200 font-medium group-hover:text-white transition-colors text-lg block">
                         {option.label}
                       </span>
+                      {option.sublabel && (
+                        <span className="text-slate-400 text-sm mt-1 block group-hover:text-slate-300 transition-colors">
+                          {option.sublabel}
+                        </span>
+                      )}
                     </div>
                     <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#FF9500] group-hover:text-white transition-colors">
                       <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-white" />
