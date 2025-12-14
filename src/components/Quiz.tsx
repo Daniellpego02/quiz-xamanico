@@ -314,11 +314,12 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               <button 
                 type="submit"
                 disabled={!inputValue.trim()}
-                className="w-full bg-gradient-to-r from-orange-600 to-amber-500 text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-500/20 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-gradient-to-r from-orange-600 to-amber-500 text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-500/20 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
-                CONECTAR E INICIAR ANÁLISE ➔
+                CONECTAR E INICIAR ANÁLISE
+                <ChevronRight className="w-5 h-5" />
               </button>
-              <p className="text-[10px] text-slate-400 text-center mt-2 flex items-center justify-center gap-1">
+              <p className="text-xs text-slate-400 text-center mt-2 flex items-center justify-center gap-1">
                 🔒 Ambiente Seguro e Sigiloso
               </p>
             </form>
