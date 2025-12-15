@@ -8,19 +8,23 @@ export const FrequencyRoom: React.FC = () => {
   const [showFeedback, setShowFeedback] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // Simulated waveform bars
+  // Simulated waveform bars with stable heights
   const waveformBars = 40;
+  const waveformHeights = useRef(
+    Array.from({ length: waveformBars }, (_, i) => 20 + Math.sin(i * 0.5) * 15)
+  ).current;
 
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.addEventListener('timeupdate', handleTimeUpdate);
-      audioRef.current.addEventListener('ended', handleEnded);
+    const audio = audioRef.current;
+    if (audio) {
+      audio.addEventListener('timeupdate', handleTimeUpdate);
+      audio.addEventListener('ended', handleEnded);
     }
 
     return () => {
-      if (audioRef.current) {
-        audioRef.current.removeEventListener('timeupdate', handleTimeUpdate);
-        audioRef.current.removeEventListener('ended', handleEnded);
+      if (audio) {
+        audio.removeEventListener('timeupdate', handleTimeUpdate);
+        audio.removeEventListener('ended', handleEnded);
       }
     };
   }, []);
@@ -108,15 +112,14 @@ export const FrequencyRoom: React.FC = () => {
           {/* Waveform Visualization */}
           <div className="flex items-center justify-center gap-1 h-24 mb-6">
             {[...Array(waveformBars)].map((_, i) => {
-              const height = isPlaying 
-                ? Math.random() * 60 + 20 
-                : 20 + Math.sin(i * 0.5) * 15;
+              const baseHeight = waveformHeights[i];
+              const animatedHeight = isPlaying ? baseHeight + 20 : baseHeight;
               
               return (
                 <motion.div
                   key={i}
                   animate={{
-                    height: isPlaying ? [height, height + 20, height] : height,
+                    height: isPlaying ? [baseHeight, animatedHeight, baseHeight] : baseHeight,
                     opacity: progress > (i / waveformBars) * 100 ? 1 : 0.3
                   }}
                   transition={{
@@ -125,7 +128,7 @@ export const FrequencyRoom: React.FC = () => {
                     delay: i * 0.02
                   }}
                   className="w-1 bg-gradient-to-t from-[#C69320] to-[#FFD700] rounded-full"
-                  style={{ height: `${height}px` }}
+                  style={{ height: `${baseHeight}px` }}
                 />
               );
             })}
@@ -158,6 +161,7 @@ export const FrequencyRoom: React.FC = () => {
           </button>
 
           {/* Hidden Audio Element */}
+          {/* TODO: Replace with production binaural 528Hz audio with 8D whispered voice */}
           <audio
             ref={audioRef}
             src="https://cdn.pixabay.com/audio/2022/03/15/audio_d1718372d8.mp3"
