@@ -100,13 +100,13 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
         <motion.div 
           initial={{ y: -50 }} 
           animate={{ y: 0 }}
-          className="bg-gradient-to-r from-red-600 via-orange-600 to-red-600 text-white text-xs md:text-sm font-bold text-center py-3 px-4 sticky top-0 z-50 shadow-2xl"
+          className="bg-gradient-to-r from-[#EA580C] via-[#F58400] to-[#EA580C] text-white text-xs md:text-sm font-bold text-center py-3 md:py-4 px-4 sticky top-0 z-50 shadow-2xl"
         >
           <div className="flex items-center justify-center gap-2 uppercase tracking-wider">
-            <Clock className="w-4 h-4 animate-pulse" />
+            <Clock className="w-4 h-4 md:w-5 md:h-5 animate-pulse" />
             <span className="hidden md:inline">⚠️ OFERTA ÚNICA EXPIRA EM:</span>
             <span className="md:hidden">⏰ EXPIRA EM:</span>
-            <span className="font-mono text-base md:text-lg text-yellow-300 animate-pulse">{formatTime(timeLeft)}</span>
+            <span className="font-mono text-base md:text-lg text-yellow-300 animate-pulse drop-shadow-[0_0_10px_rgba(253,224,71,0.8)]">{formatTime(timeLeft)}</span>
           </div>
         </motion.div>
 
@@ -138,7 +138,7 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
             <h1 className="text-3xl md:text-4xl font-serif font-black text-white leading-tight drop-shadow-2xl">
               <span className="text-red-500">{firstNameUpper}</span>, ESPERA!
             </h1>
-            <p className="text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500">
+            <p className="text-xl md:text-2xl font-bold text-yellow-400 drop-shadow-[0_2px_10px_rgba(251,191,36,0.5)]">
               Você está prestes a perder a chance de ATIVAR seu desbloqueio 10X MAIS RÁPIDO...
             </p>
           </motion.div>
@@ -189,7 +189,7 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
             <div className="relative z-10">
               <div className="flex items-center justify-center gap-2 mb-6">
                 <Zap className="w-8 h-8 text-yellow-400" />
-                <h2 className="text-2xl md:text-3xl font-serif font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">
+                <h2 className="text-2xl md:text-3xl font-serif font-black text-yellow-400 drop-shadow-[0_2px_15px_rgba(251,191,36,0.6)]">
                   Imersão de Ativação Profunda
                 </h2>
               </div>
@@ -199,73 +199,73 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
               </p>
 
               <div className="space-y-4 mb-8">
-                <div className="flex items-start gap-3 bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
-                  <div className="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg p-2 flex-shrink-0">
-                    <Check className="w-5 h-5 text-black font-bold" />
+                <div className="flex items-start gap-3 bg-gradient-to-r from-[#FF9500]/10 to-[#EA580C]/10 p-4 md:p-5 rounded-xl border-2 border-[#FF9500]/30 hover:border-[#FFD700]/50 hover:bg-[#FF9500]/20 transition-all">
+                  <div className="bg-gradient-to-br from-[#FF9500] to-[#EA580C] rounded-lg p-2 flex-shrink-0 shadow-lg">
+                    <Check className="w-5 h-5 text-white font-bold" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-white mb-1">🔥 Protocolo de Ativação Imediata</h4>
-                    <p className="text-slate-300 text-sm">Técnicas específicas para ATIVAR a energia do seu mapa em menos de 24h</p>
+                    <h4 className="font-bold text-white mb-1 text-base md:text-lg">🔥 Protocolo de Ativação Imediata</h4>
+                    <p className="text-slate-300 text-sm md:text-base">Técnicas específicas para ATIVAR a energia do seu mapa em menos de 24h</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
-                  <div className="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg p-2 flex-shrink-0">
-                    <Check className="w-5 h-5 text-black font-bold" />
+                <div className="flex items-start gap-3 bg-gradient-to-r from-[#FF9500]/10 to-[#EA580C]/10 p-4 md:p-5 rounded-xl border-2 border-[#FF9500]/30 hover:border-[#FFD700]/50 hover:bg-[#FF9500]/20 transition-all">
+                  <div className="bg-gradient-to-br from-[#FF9500] to-[#EA580C] rounded-lg p-2 flex-shrink-0 shadow-lg">
+                    <Check className="w-5 h-5 text-white font-bold" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-white mb-1">⚡ Rituais de Ancoragem Energética</h4>
-                    <p className="text-slate-300 text-sm">Mantenha a frequência alta e evite recaídas (o segredo dos 3% que conseguem)</p>
+                    <h4 className="font-bold text-white mb-1 text-base md:text-lg">⚡ Rituais de Ancoragem Energética</h4>
+                    <p className="text-slate-300 text-sm md:text-base">Mantenha a frequência alta e evite recaídas (o segredo dos 3% que conseguem)</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
-                  <div className="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg p-2 flex-shrink-0">
-                    <Check className="w-5 h-5 text-black font-bold" />
+                <div className="flex items-start gap-3 bg-gradient-to-r from-[#FF9500]/10 to-[#EA580C]/10 p-4 md:p-5 rounded-xl border-2 border-[#FF9500]/30 hover:border-[#FFD700]/50 hover:bg-[#FF9500]/20 transition-all">
+                  <div className="bg-gradient-to-br from-[#FF9500] to-[#EA580C] rounded-lg p-2 flex-shrink-0 shadow-lg">
+                    <Check className="w-5 h-5 text-white font-bold" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-white mb-1">🎯 Meditações Guiadas Personalizadas</h4>
-                    <p className="text-slate-300 text-sm">Áudios exclusivos para cada fase do seu desbloqueio (valor: R$297)</p>
+                    <h4 className="font-bold text-white mb-1 text-base md:text-lg">🎯 Meditações Guiadas Personalizadas</h4>
+                    <p className="text-slate-300 text-sm md:text-base">Áudios exclusivos para cada fase do seu desbloqueio (valor: R$297)</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
-                  <div className="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg p-2 flex-shrink-0">
-                    <Check className="w-5 h-5 text-black font-bold" />
+                <div className="flex items-start gap-3 bg-gradient-to-r from-[#FF9500]/10 to-[#EA580C]/10 p-4 md:p-5 rounded-xl border-2 border-[#FF9500]/30 hover:border-[#FFD700]/50 hover:bg-[#FF9500]/20 transition-all">
+                  <div className="bg-gradient-to-br from-[#FF9500] to-[#EA580C] rounded-lg p-2 flex-shrink-0 shadow-lg">
+                    <Check className="w-5 h-5 text-white font-bold" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-white mb-1">🧘 Práticas de Alinhamento Diário</h4>
-                    <p className="text-slate-300 text-sm">5 minutos por dia que multiplicam seus resultados em 10X</p>
+                    <h4 className="font-bold text-white mb-1 text-base md:text-lg">🧘 Práticas de Alinhamento Diário</h4>
+                    <p className="text-slate-300 text-sm md:text-base">5 minutos por dia que multiplicam seus resultados em 10X</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
-                  <div className="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg p-2 flex-shrink-0">
-                    <Check className="w-5 h-5 text-black font-bold" />
+                <div className="flex items-start gap-3 bg-gradient-to-r from-[#FF9500]/10 to-[#EA580C]/10 p-4 md:p-5 rounded-xl border-2 border-[#FF9500]/30 hover:border-[#FFD700]/50 hover:bg-[#FF9500]/20 transition-all">
+                  <div className="bg-gradient-to-br from-[#FF9500] to-[#EA580C] rounded-lg p-2 flex-shrink-0 shadow-lg">
+                    <Check className="w-5 h-5 text-white font-bold" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-white mb-1">📈 Mapa de Progressão Semanal</h4>
-                    <p className="text-slate-300 text-sm">Acompanhe sua evolução e celebre cada vitória no caminho</p>
+                    <h4 className="font-bold text-white mb-1 text-base md:text-lg">📈 Mapa de Progressão Semanal</h4>
+                    <p className="text-slate-300 text-sm md:text-base">Acompanhe sua evolução e celebre cada vitória no caminho</p>
                   </div>
                 </div>
               </div>
 
               {/* Preço e Oferta */}
-              <div className="bg-black/40 rounded-2xl p-6 border-2 border-yellow-500/50 shadow-xl">
+              <div className="bg-gradient-to-br from-black/60 to-black/40 rounded-2xl p-6 md:p-8 border-2 border-[#FFD700] shadow-[0_0_40px_rgba(255,215,0,0.4)]">
                 <div className="text-center mb-4">
-                  <p className="text-slate-400 text-sm mb-2">VALOR NORMAL:</p>
-                  <p className="text-slate-500 text-2xl line-through mb-1">R$ 297,00</p>
-                  <p className="text-yellow-400 font-bold text-sm uppercase tracking-wider mb-3">🔥 OFERTA EXCLUSIVA AGORA:</p>
+                  <p className="text-slate-400 text-sm mb-2 uppercase tracking-wider">VALOR NORMAL:</p>
+                  <p className="text-slate-500 text-2xl md:text-3xl line-through mb-1">R$ 297,00</p>
+                  <p className="text-[#FFD700] font-bold text-base md:text-lg uppercase tracking-wider mb-4">🔥 OFERTA EXCLUSIVA AGORA:</p>
                   <div className="flex items-center justify-center gap-2 mb-3">
                     <span className="text-slate-300 text-xl">apenas</span>
-                    <span className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">R$97</span>
+                    <span className="text-5xl md:text-6xl font-black text-yellow-400 drop-shadow-[0_0_20px_rgba(251,191,36,0.8)]" style={{ textShadow: '0 0 30px rgba(251,191,36,0.6), 0 0 60px rgba(251,191,36,0.4)' }}>R$97</span>
                   </div>
-                  <p className="text-emerald-400 text-sm font-bold">💎 Acesso vitalício + Atualizações gratuitas</p>
+                  <p className="text-emerald-400 text-sm md:text-base font-bold">💎 Acesso vitalício + Atualizações gratuitas</p>
                 </div>
 
                 <button
                   onClick={handleAccept}
-                  className={`w-full bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 hover:from-yellow-400 hover:via-orange-400 hover:to-red-400 text-black font-black text-lg md:text-xl py-5 px-8 rounded-2xl shadow-2xl shadow-orange-500/50 transition-all transform hover:scale-105 active:scale-95 border-2 border-yellow-300 uppercase tracking-wide ${showPulse ? 'animate-pulse' : ''}`}
+                  className={`w-full bg-gradient-to-r from-[#FF9500] via-[#F58400] to-[#EA580C] hover:from-[#FF9500] hover:via-[#FF9500] hover:to-[#F58400] text-white font-black text-lg md:text-xl py-6 px-8 rounded-2xl shadow-[0_4px_30px_rgba(255,149,0,0.6)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#FFD700] uppercase tracking-wide ${showPulse ? 'animate-pulse' : ''}`}
                 >
                   <span className="drop-shadow-lg">✨ SIM! QUERO ATIVAR 10X MAIS RÁPIDO</span>
                 </button>
@@ -321,18 +321,18 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
         <motion.div
           initial={{ y: 100 }}
           animate={{ y: 0 }}
-          className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-yellow-600 via-orange-600 to-red-600 p-4 shadow-2xl border-t-2 border-yellow-400"
+          className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-[#FF9500] via-[#F58400] to-[#EA580C] p-4 shadow-2xl border-t-2 border-[#FFD700]"
         >
           <div className="max-w-3xl mx-auto flex items-center justify-between gap-3">
             <div className="flex-1">
               <p className="text-white font-bold text-sm md:text-base">Imersão Completa</p>
-              <p className="text-yellow-200 text-xs md:text-sm">
-                <span className="line-through opacity-60">R$ 297</span> → <span className="font-black text-lg">R$ 97</span>
+              <p className="text-yellow-100 text-xs md:text-sm">
+                <span className="line-through opacity-60">R$ 297</span> → <span className="font-black text-lg text-white">R$ 97</span>
               </p>
             </div>
             <button
               onClick={handleAccept}
-              className={`bg-black hover:bg-gray-900 text-yellow-400 font-black py-3 px-6 rounded-xl transition-all transform hover:scale-105 active:scale-95 text-sm md:text-base whitespace-nowrap shadow-xl ${showPulse ? 'animate-pulse' : ''}`}
+              className={`bg-black hover:bg-gray-900 text-[#FFD700] font-black py-3 px-6 md:py-4 md:px-8 rounded-xl transition-all transform hover:scale-105 active:scale-95 text-sm md:text-base whitespace-nowrap shadow-xl border-2 border-[#FFD700] ${showPulse ? 'animate-pulse' : ''}`}
             >
               ATIVAR AGORA
             </button>
