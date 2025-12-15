@@ -31,7 +31,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     {
       id: 1,
       title: "CALIBRAGEM DE INTENSIDADE",
-      text: "{NAME}, para o Oráculo rastrear a origem do bloqueio, precisamos saber: há quanto tempo você sente que sua vida financeira está 'estagnada'?",
+      text: "{NAME}, para o Oráculo rastrear a origem do bloqueio, precisamos saber: <strong>há quanto tempo você sente que sua vida financeira está 'estagnada'?</strong>",
       options: [
         { label: "Há alguns meses", sublabel: "Começou recentemente, mas me preocupa", value: "months", icon: "📅" },
         { label: "Entre 1 e 3 anos", sublabel: "Sinto que estou andando em círculos", value: "years_1_3", icon: "🔄" },
@@ -61,7 +61,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       options: [
         { label: "Sim, herdei exatamente as mesmas dificuldades deles", value: "inherited", icon: "🔄" },
         { label: "Eles tinham dinheiro, mas perderam tudo", sublabel: "Trauma de Escassez", value: "trauma", icon: "💔" },
-        { label: "Não, sou o único da família que parece 'travado'", value: "unique", icon: "🚪" },
+        { label: "Não, sou o único da família que parece 'travado'", value: "unique", icon: "🐑" },
         { label: "Nunca parei para pensar nisso", sublabel: "Bloqueio Inconsciente", value: "unaware", icon: "💡" },
       ]
     },
@@ -241,8 +241,19 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 </span>
               </motion.div>
             )}
-            <h2 className="text-xl md:text-2xl font-serif font-bold text-white leading-snug drop-shadow-lg">
-              {personalizeText(currentQuestion.text)}
+            {currentQuestion.id === 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="mb-2"
+              >
+                <p className="text-[#FF9500] text-xs md:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-1">
+                  ⚡ CALIBRAGEM VIBRACIONAL
+                </p>
+              </motion.div>
+            )}
+            <h2 className="text-xl md:text-2xl font-serif font-bold text-white leading-snug drop-shadow-lg" dangerouslySetInnerHTML={{ __html: personalizeText(currentQuestion.text) }}>
             </h2>
           </div>
 
@@ -262,7 +273,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               <button 
                 type="submit"
                 disabled={!inputValue.trim()}
-                className="w-full bg-gradient-to-r from-orange-600 to-amber-500 text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-500/20 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full bg-gradient-to-br from-[#FF9500] via-[#F58400] to-[#EA580C] text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:brightness-110 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 border-t border-white/20"
               >
                 CONECTAR E INICIAR ANÁLISE
                 <ChevronRight className="w-5 h-5" />
@@ -281,22 +292,26 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   transition={{ delay: idx * 0.1 }}
                   onClick={() => handleOptionClick(option)}
                   disabled={isNavigating}
-                  className={`w-full text-left p-5 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 hover:border-[#FF9500]/50 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,149,0,0.15)] transition-all active:scale-[0.98] group relative overflow-hidden ${isNavigating ? 'cursor-not-allowed opacity-80' : 'cursor-pointer'}`}
+                  className={`w-full text-left p-5 rounded-2xl transition-all active:scale-[0.98] group relative overflow-hidden ${isNavigating ? 'cursor-not-allowed opacity-80' : 'cursor-pointer'} ${
+                    currentQuestion.singleButton 
+                      ? 'bg-gradient-to-br from-[#FF9500] via-[#F58400] to-[#EA580C] text-white font-bold shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:brightness-110 border-t border-white/20' 
+                      : 'bg-white/5 backdrop-blur-md border border-white/10 hover:border-[#FF9500]/50 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,149,0,0.15)]'
+                  }`}
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-orange-500/0 via-orange-500/5 to-orange-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -translate-x-full group-hover:translate-x-full"></div>
                   <div className="flex items-center gap-4 relative z-10">
                     <span className="text-3xl filter drop-shadow-md" aria-hidden="true">{option.icon}</span>
                     <div className="flex-1">
-                      <span className="text-slate-200 font-medium group-hover:text-white transition-colors text-lg block">
+                      <span className={`font-medium transition-colors text-lg block ${currentQuestion.singleButton ? 'text-white' : 'text-slate-200 group-hover:text-white'}`}>
                         {option.label}
                       </span>
                       {option.sublabel && (
-                        <span className="text-slate-400 text-sm mt-1 block group-hover:text-slate-300 transition-colors">
+                        <span className={`text-sm mt-1 block transition-colors ${currentQuestion.singleButton ? 'text-white/90' : 'text-slate-400 group-hover:text-slate-300'}`}>
                           {option.sublabel}
                         </span>
                       )}
                     </div>
-                    <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-white ml-auto shrink-0" aria-hidden="true" />
+                    <ChevronRight className={`w-4 h-4 ml-auto shrink-0 ${currentQuestion.singleButton ? 'text-white' : 'text-slate-500 group-hover:text-white'}`} aria-hidden="true" />
                   </div>
                 </motion.button>
               ))}

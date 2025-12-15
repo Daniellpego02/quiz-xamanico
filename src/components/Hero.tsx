@@ -53,11 +53,14 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
-          <h1 className="text-3xl md:text-4xl font-serif font-black text-white leading-[1.1] drop-shadow-2xl mb-2">
-            Você não tem <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#FF9500] to-orange-600">"azar" com dinheiro</span>. Você tem um <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#FF9500] to-orange-600">"Bloqueio Energético Oculto"</span>. Descubra a raiz invisível que faz você viver no "Modo Sobrevivência" — mesmo trabalhando duro e tentando de tudo.
+          <h1 className="text-3xl md:text-4xl font-serif font-black text-white leading-[1.1] drop-shadow-2xl mb-4 uppercase">
+            Você não tem <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#FF9500] to-orange-600">"azar" com dinheiro</span>...
           </h1>
+          <p className="text-slate-200 text-base md:text-lg leading-relaxed max-w-md mx-auto mb-3 font-light">
+            Descubra a raiz invisível que faz você viver no "Modo Sobrevivência" — mesmo trabalhando duro e tentando de tudo.
+          </p>
           <p className="text-slate-300 text-sm md:text-base leading-relaxed max-w-md mx-auto">
-            A Ciência Ancestral confirma: padrões repetitivos de escassez podem estar instalados no seu campo vibracional. Em <strong>2 minutos</strong>, nossa <strong>Ferramenta Xamânica</strong> rastreia a origem da sua trava e gera o seu <strong>Mapa de Desbloqueio da Prosperidade</strong>.
+            A Ciência Ancestral confirma: padrões repetitivos de escassez podem estar instalados no seu campo vibracional. Em <strong>45 segundos</strong>, nossa <strong>Ferramenta Xamânica</strong> rastreia a origem da sua trava e gera o seu <strong>Mapa de Desbloqueio da Prosperidade</strong>.
           </p>
         </motion.div>
 
@@ -69,7 +72,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
         >
           <div className="absolute -inset-0.5 bg-gradient-to-r from-orange-600 to-amber-600 rounded-xl blur opacity-40 group-hover:opacity-70 transition duration-1000 animate-pulse"></div>
           <Button onClick={handleStartClick} pulse className="relative text-lg py-4 w-full shadow-[0_0_30px_rgba(255,149,0,0.3)] border-t border-white/20">
-            Rastrear Meu Bloqueio Financeiro Agora →
+            Rastrear Meu Bloqueio Financeiro Agora
           </Button>
           <p className="text-[10px] text-slate-400 mt-2 uppercase tracking-widest flex items-center justify-center gap-1">
             <Lock className="w-3 h-3" /> Análise Gratuita & Sigilosa
@@ -101,7 +104,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
              <Lock className="w-4 h-4 text-red-400" />
           </div>
           <p className="text-xs text-slate-300 leading-snug">
-            Padrões repetitivos de <strong>escassez financeira</strong> podem estar instalados no seu campo energético desde a infância. A Ciência Ancestral confirma: <strong>você não tem culpa</strong>.
+            Padrões repetitivos de <strong>escassez financeira</strong> podem estar instalados no seu campo energético desde a infância. A Ciência Ancestral confirma: <strong className="text-white font-bold">VOCÊ NÃO TEM CULPA</strong>.
           </p>
         </motion.div>
 

@@ -66,7 +66,7 @@ export const Authority: React.FC<AuthorityProps> = ({ onNext, quizPath = 'financ
             <Award className="w-3 h-3 text-[#FF9500]" /> 12 Anos de Exp.
           </span>
           <span className="bg-white/5 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 flex items-center gap-1 shadow-lg">
-            <ShieldCheck className="w-3 h-3 text-[#FF9500]" /> Fundadora Xamã Interior
+            <ShieldCheck className="w-3 h-3 text-[#FF9500]" /> Criadora do Protocolo
           </span>
           <span className="bg-white/5 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 flex items-center gap-1 shadow-lg">
             <MapPin className="w-3 h-3 text-[#FF9500]" /> 15+ Países
@@ -92,7 +92,7 @@ export const Authority: React.FC<AuthorityProps> = ({ onNext, quizPath = 'financ
         </p>
 
         <div className="pt-6 mt-2 relative z-10">
-            <p className="flex items-center gap-3 text-emerald-300 font-medium text-sm bg-emerald-950/40 p-4 rounded-xl border border-emerald-500/20 shadow-inner">
+            <p className="flex items-center gap-3 text-white font-medium text-sm bg-emerald-950/40 p-4 rounded-xl border border-emerald-500/20 shadow-inner">
             <ShieldCheck className="w-6 h-6 shrink-0 text-emerald-400" />
             Agora é a sua vez de viver essa transformação.
             </p>
@@ -103,7 +103,7 @@ export const Authority: React.FC<AuthorityProps> = ({ onNext, quizPath = 'financ
       <div className="w-full mt-10 relative">
         <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 to-purple-600 rounded-xl blur opacity-25"></div>
         <Button onClick={onNext} className="relative shadow-2xl">
-          Continuar Minha Jornada
+          QUERO DESTRAVAR MINHA PROSPERIDADE
         </Button>
       </div>
     </motion.div>

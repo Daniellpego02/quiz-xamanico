@@ -15,13 +15,13 @@ const offerContent = {
     // Bloco 2: Entrega - Protocolo de 7 Dias
     deliveryTitle: "ISTO NÃO É UM CURSO. É UM PROTOCOLO DE ATIVAÇÃO DE 7 DIAS.",
     deliverables: [
-      { icon: Calendar, day: 1, title: "O Raio-X da Sua Alma", desc: "Localizando a raiz exata do trauma que seus pais deixaram em você" },
-      { icon: Headphones, day: 2, title: "A Técnica de Limpeza do Subconsciente", desc: "Áudio Binaural para remover o medo de faltar dinheiro" },
-      { icon: Package, day: 3, title: "O Ritual do Pote de Ouro", desc: "A técnica prática para fazer o dinheiro parar na sua mão" },
-      { icon: ShieldCheck, day: 4, title: "Blindagem Energética", desc: "Como nunca mais perder o que você conquistou" },
-      { icon: Magnet, day: 5, title: "Ativação do Imã de Prosperidade", desc: "Reprogramação para atrair oportunidades" },
-      { icon: TrendingUp, day: 6, title: "Plano do Crescimento Contínuo", desc: "Mantendo o fluxo aberto" },
-      { icon: Sparkles, day: 7, title: "A Sua Nova Identidade Financeira", desc: "O Renascimento" }
+      { icon: Calendar, day: 1, title: "O Raio-X da Sua Alma", desc: "Diagnóstico da Raiz" },
+      { icon: Headphones, day: 2, title: "O Exorcismo da Escassez", desc: "Áudio Binaural de Limpeza" },
+      { icon: Package, day: 3, title: "O Ritual do Pote de Ouro", desc: "Técnica de Magnetismo" },
+      { icon: ShieldCheck, day: 4, title: "Blindagem Energética", desc: "Proteção contra Inveja" },
+      { icon: Magnet, day: 5, title: "Ativação do Ímã de Prosperidade", desc: "Reprogramação para atrair oportunidades" },
+      { icon: TrendingUp, day: 6, title: "Manutenção do Fluxo Infinito", desc: "Mantendo a prosperidade contínua" },
+      { icon: Sparkles, day: 7, title: "O Renascimento", desc: "Sua Nova Identidade Financeira" }
     ],
     
     // Bloco 3: Prova Social
@@ -48,7 +48,7 @@ const offerContent = {
     offerTitle: "O ACESSO AO SEU MAPA ESTÁ LIBERADO POR TEMPO LIMITADO",
     priceOld: "197,00",
     priceNew: "37,00",
-    cta: "🔓 DESTRAVAR MEU MAPA AGORA ➔",
+    cta: "👉 SIM! QUERO DESTRAVAR MINHA PROSPERIDADE AGORA 👈",
     ctaSubtext: "Acesso Imediato ao PDF + App",
     
     // Bloco 6: Garantia
@@ -58,16 +58,20 @@ const offerContent = {
     // Bloco 7: FAQ
     faqs: [
       { 
-        question: "É um curso? Eu não tenho tempo.", 
-        answer: "Não. É uma ferramenta de diagnóstico e um protocolo guiado. Você precisa de apenas 10 minutos por dia." 
+        question: "Eu não tenho tempo para assistir aulas longas. Isso é para mim?", 
+        answer: "Sim, foi feito exatamente para quem tem a rotina corrida. O Mapa Xamânico não é um curso cheio de teoria que te cansa. É um Protocolo de Ativação. Você só precisa de 12 minutos por dia. Basta colocar os fones de ouvido (enquanto vai ao trabalho, lava louça ou antes de dormir) e deixar os áudios de Ressonância Inversa agirem no seu subconsciente. É simples e passivo." 
       },
       { 
-        question: "Funciona para quem está muito endividado?", 
-        answer: "Sim. O Mapa foi desenhado exatamente para quem está no 'Modo Sobrevivência'." 
+        question: "Estou endividado e no 'vermelho'. Funciona mesmo na minha situação?", 
+        answer: "Funciona principalmente para a sua situação. Se você já tivesse dinheiro sobrando, não precisaria desligar a Escassez Hereditária. O Protocolo foi desenhado para quem está no 'Modo Sobrevivência' e precisa de um alívio imediato — tanto financeiro quanto emocional. O objetivo é estancar o 'sangramento energético' para o dinheiro voltar a parar na sua mão." 
       },
       { 
-        question: "Como eu recebo o acesso?", 
-        answer: "Imediatamente no seu e-mail após a confirmação do pagamento." 
+        question: "Preciso ter alguma religião ou conhecimento prévio?", 
+        answer: "Absolutamente não. O Mapa baseia-se na Ciência Ancestral e em princípios de Ressonância Vibracional. Não tem vínculo com nenhuma religião, dogma ou seita. É sobre desbloquear a sua própria energia pessoal, independente do que você acredita. É seguro e universal." 
+      },
+      { 
+        question: "E se eu fizer e não sentir nada?", 
+        answer: "Eu assumo esse risco por você. Se em 7 dias você ouvir os áudios e não sentir — fisicamente — o peso saindo das suas costas e a clareza mental voltando, eu devolvo 100% do seu dinheiro. Sem letras miúdas, sem perguntas." 
       }
     ]
   },
@@ -110,7 +114,7 @@ const offerContent = {
     offerTitle: "O ACESSO AO SEU MAPA ESTÁ LIBERADO POR TEMPO LIMITADO",
     priceOld: "197,00",
     priceNew: "37,00",
-    cta: "SIM, QUERO CURAR MEU CORAÇÃO AGORA ➔",
+    cta: "👉 SIM! QUERO DESTRAVAR MINHA PROSPERIDADE AGORA 👈",
     ctaSubtext: "Acesso Imediato ao PDF + App",
     
     // Bloco 6: Garantia
@@ -202,7 +206,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
   };
 
   return (
-    <div className="min-h-screen pb-24 md:pb-40 relative z-10 overflow-hidden bg-gradient-to-b from-[#050505] via-[#0a0a0a] to-[#050505]">
+    <div className="min-h-screen pb-24 md:pb-40 relative z-10 overflow-hidden bg-gradient-to-b from-[#120520] via-[#2A0F3D] to-[#120520]">
       
       <div className="max-w-4xl mx-auto px-4 pt-8 space-y-12 pb-safe">
 
@@ -216,8 +220,8 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
 
         {/* CTA after video */}
         <div className="text-center">
-          <Button onClick={handleCheckout} pulse className="w-full max-w-lg mx-auto text-lg shadow-xl">
-            👉 QUERO DESTRAVAR MEU MAPA AGORA ➔
+          <Button onClick={handleCheckout} pulse className="w-full max-w-lg mx-auto text-lg shadow-xl animate-pulse">
+            👉 SIM! QUERO DESTRAVAR MINHA PROSPERIDADE AGORA 👈
           </Button>
         </div>
 
@@ -226,7 +230,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-[#FF9500]/20 rounded-2xl p-8"
+          className="bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-[#C69320] rounded-2xl p-8 shadow-[0_0_15px_rgba(198,147,32,0.2)]"
         >
           <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-2">
             {content.deliveryTitle}
@@ -279,7 +283,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-yellow-500/20 rounded-2xl p-8"
+          className="bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-[#C69320] rounded-2xl p-8 shadow-[0_0_15px_rgba(198,147,32,0.2)]"
         >
           <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-8">
             {content.bonusTitle}
@@ -313,9 +317,9 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-b from-[#FF9500]/10 to-[#FF9500]/5 border-2 border-[#FF9500] rounded-3xl p-8 relative overflow-hidden"
+          className="bg-gradient-to-b from-[#FF9500]/10 to-[#FF9500]/5 border-2 border-[#C69320] rounded-3xl p-8 relative overflow-hidden shadow-[0_0_40px_rgba(198,147,32,0.6),0_0_80px_rgba(198,147,32,0.3)]"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-[#FF9500]/10 via-transparent to-orange-900/10" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#FF9500]/10 via-transparent to-orange-900/10 animate-pulse" aria-hidden="true" />
           <div className="relative z-10 text-center space-y-6">
             <h2 className="text-2xl md:text-3xl font-bold text-white">
               {content.offerTitle}
@@ -326,7 +330,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
               <p className="text-gray-400 text-lg">
                 De <span className="line-through">R$ {content.priceOld}</span> por apenas:
               </p>
-              <div className="text-7xl md:text-8xl font-black text-white">
+              <div className="text-7xl md:text-8xl font-black text-[#FFD700]">
                 R${content.priceNew?.split(',')[0]}
                 <span className="text-4xl align-super">,{content.priceNew?.split(',')[1]}</span>
               </div>
@@ -334,14 +338,24 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
             </div>
 
             {/* CTA Button */}
-            <Button onClick={handleCheckout} pulse className="w-full max-w-md mx-auto text-xl py-6 shadow-2xl">
+            <Button onClick={handleCheckout} pulse className="w-full max-w-md mx-auto text-xl py-6 shadow-2xl animate-pulse">
               {content.cta}
             </Button>
             
-            <p className="text-xs text-gray-400 flex items-center justify-center gap-2">
-              <Lock className="w-4 h-4 text-green-500" aria-hidden="true" />
-              🔒 Compra Segura • ⚡ Chega no E-mail • 🛡️ Dados Protegidos
-            </p>
+            {/* Trust Badges */}
+            <div className="flex items-center justify-center gap-4 text-sm text-gray-300 flex-wrap">
+              <div className="flex items-center gap-1">
+                <Lock className="w-4 h-4 text-green-500" aria-hidden="true" />
+                <span>🔒 Compra Segura</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <span>💳 Pix e Cartão</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Shield className="w-4 h-4 text-yellow-500" aria-hidden="true" />
+                <span>🛡️ Garantia de 7 Dias</span>
+              </div>
+            </div>
             
             <p className="text-sm text-gray-300 mt-4">{content.ctaSubtext}</p>
           </div>
@@ -352,7 +366,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border-2 border-yellow-600 rounded-2xl p-8 text-center"
+          className="bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border-2 border-[#C69320] rounded-2xl p-8 text-center shadow-[0_0_15px_rgba(198,147,32,0.2)]"
         >
           <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center">
             <Shield className="w-10 h-10 text-white" aria-hidden="true" />
@@ -378,7 +392,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           {content.faqs?.map((faq, idx) => (
             <div
               key={idx}
-              className="bg-white/5 border border-white/10 rounded-xl overflow-hidden"
+              className="bg-white/5 border border-[#C69320]/30 rounded-xl overflow-hidden shadow-[0_0_10px_rgba(198,147,32,0.15)]"
             >
               <button
                 onClick={() => setFaqOpen(faqOpen === idx ? null : idx)}
@@ -408,10 +422,26 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight">
             🔥 Destrave sua prosperidade agora
           </h3>
-          <Button onClick={handleCheckout} pulse className="w-full max-w-lg mx-auto text-xl py-6 shadow-2xl">
+          <Button onClick={handleCheckout} pulse className="w-full max-w-lg mx-auto text-xl py-6 shadow-2xl animate-pulse">
             {content.cta}
           </Button>
         </div>
+
+        {/* FASE 5: Footer Legal Links */}
+        <footer className="mt-16 pt-8 border-t border-white/10 text-center space-y-4">
+          <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-gray-500">
+            <a href="#" className="hover:text-white transition-colors">Termos de Uso</a>
+            <span className="text-gray-700">|</span>
+            <a href="#" className="hover:text-white transition-colors">Políticas de Privacidade</a>
+            <span className="text-gray-700">|</span>
+            <a href="#" className="hover:text-white transition-colors">Disclaimer</a>
+            <span className="text-gray-700">|</span>
+            <a href="mailto:suporte@mapaxamanico.com" className="hover:text-white transition-colors">Contato</a>
+          </div>
+          <p className="text-xs text-gray-600 max-w-2xl mx-auto leading-relaxed px-4">
+            Este site não é afiliado ao Facebook ou a qualquer entidade do Facebook. Depois que você sair do Facebook, a responsabilidade não é deles e sim do nosso site. Fazemos todos os esforços para indicar claramente e mostrar todas as provas do produto e usamos resultados reais. Nós não vendemos o seu e-mail ou qualquer informação para terceiros. Jamais fazemos nenhum tipo de spam. Se você tiver alguma dúvida, sinta-se à vontade para usar o link de contato e falar conosco em horário comercial de Segunda a Sextas das 09h00 ás 18h00. Lemos e respondemos todas as mensagens por ordem de chegada.
+          </p>
+        </footer>
 
       </div>
 
