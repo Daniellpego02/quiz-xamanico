@@ -264,12 +264,12 @@ const VturbPlayer = React.memo(({ quizPath = 'finance' }: { quizPath?: QuizPath 
   };
 
   return (
-    <div className="relative w-full max-w-4xl mx-auto my-8">
+    <div className="relative w-full max-w-sm mx-auto my-8">
       {/* Outer glow effect */}
       <div className="absolute -inset-1 bg-gradient-to-r from-[#FFD700] via-orange-500 to-[#FFD700] rounded-2xl blur-xl opacity-20 animate-pulse" />
       
       {/* Main video container */}
-      <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(255,215,0,0.15)] border border-[#FFD700]/20 bg-black">
+      <div className="relative w-full aspect-[9/16] max-h-[70vh] rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(255,215,0,0.15)] border border-[#FFD700]/20 bg-black">
         
         {/* Custom Thumbnail Overlay - shows before video starts */}
         {showCustomThumbnail && (
