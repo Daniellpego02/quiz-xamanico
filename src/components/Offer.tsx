@@ -357,7 +357,8 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
   };
 
   return (
-    <div className="min-h-screen pb-24 md:pb-40 relative z-10 overflow-hidden bg-gradient-to-b from-[#120520] via-[#2A0F3D] to-[#120520]">
+    <div className="min-h-screen pb-32 md:pb-40 relative z-10 overflow-hidden bg-gradient-to-b from-[#120520] via-[#2A0F3D] to-[#120520]">
+      {/* pb-32 prevents sticky CTA from overlapping footer on mobile */}
       
       <div className="max-w-4xl mx-auto px-4 pt-8 space-y-12 pb-safe">
 
@@ -397,9 +398,9 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-2">
             {content.deliveryTitle}
           </h2>
-          <div className="relative space-y-4 mt-8">
+          <div className="relative space-y-3 mt-8">
             {/* Linha conectora dourada */}
-            <div className="absolute left-6 top-6 bottom-6 w-0.5 bg-gradient-to-b from-[#C69320] via-[#FFD700] to-[#C69320] opacity-30" aria-hidden="true" />
+            <div className="absolute left-5 top-5 bottom-5 w-0.5 bg-gradient-to-b from-[#C69320] via-[#FFD700] to-[#C69320] opacity-30" aria-hidden="true" />
             
             {content.deliverables?.map((item, idx) => {
               const IconComponent = item.icon;
@@ -410,19 +411,19 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1 }}
-                  className="relative flex gap-4 bg-white/5 p-5 rounded-xl border border-[#C69320]/20 hover:border-[#C69320]/50 transition-all hover:shadow-[0_0_20px_rgba(198,147,32,0.3)]"
+                  className="relative flex gap-3 bg-white/5 p-3 rounded-xl border border-[#C69320]/20 hover:border-[#C69320]/50 transition-all"
                 >
                   <div className="shrink-0 relative z-10">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#C69320] to-[#FFD700] flex items-center justify-center shadow-[0_0_15px_rgba(198,147,32,0.5)]">
-                      <IconComponent className="w-6 h-6 text-white" aria-hidden="true" />
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#C69320] to-[#FFD700] flex items-center justify-center shadow-[0_0_12px_rgba(198,147,32,0.4)]">
+                      <IconComponent className="w-5 h-5 text-white" aria-hidden="true" />
                     </div>
                   </div>
                   <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-[#FFD700] font-bold text-sm">DIA {item.day}</span>
-                      <span className="text-white font-bold text-base">{item.title}</span>
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <span className="text-[#FFD700] font-bold text-xs">DIA {item.day}</span>
+                      <span className="text-white font-bold text-sm">{item.title}</span>
                     </div>
-                    <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+                    <p className="text-gray-300 text-xs leading-relaxed">{item.desc}</p>
                   </div>
                 </motion.div>
               );
@@ -462,7 +463,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           className="relative"
         >
           {/* Golden glow effect around bonus section */}
-          <div className="absolute -inset-2 bg-gradient-to-r from-[#C69320] via-[#FFD700] to-[#C69320] rounded-3xl blur-xl opacity-20 animate-pulse" aria-hidden="true" />
+          <div className="absolute -inset-2 bg-gradient-to-r from-[#C69320] via-[#FFD700] to-[#C69320] rounded-3xl blur-xl opacity-15" aria-hidden="true" />
           
           <div className="relative bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-[#C69320] rounded-2xl p-8 shadow-[0_0_25px_rgba(198,147,32,0.3)]">
             <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-8">
@@ -485,9 +486,9 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
                     <div className="text-4xl">{bonus.icon}</div>
                     <div className="flex-1">
                       <h3 className="text-white font-bold text-lg mb-2">{bonus.title}</h3>
-                      <p className="text-gray-300 text-sm mb-3">{bonus.desc}</p>
+                      <p className="text-gray-200 text-sm mb-3">{bonus.desc}</p>
                       <div className="flex items-center gap-2">
-                        <span className="text-gray-500 line-through text-sm">R$ {bonus.value}</span>
+                        <span className="text-gray-400 line-through text-sm">R$ {bonus.value}</span>
                         <span className="text-green-400 font-bold text-lg drop-shadow-[0_0_10px_rgba(74,222,128,0.5)]">→ GRÁTIS</span>
                       </div>
                     </div>
@@ -509,10 +510,10 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           className="relative"
         >
           {/* Efeito Radioativo - Brilho Dourado Intenso */}
-          <div className="absolute -inset-4 bg-gradient-to-r from-[#C69320] via-[#FFD700] to-[#C69320] rounded-3xl blur-2xl opacity-40 animate-pulse" aria-hidden="true" />
+          <div className="absolute -inset-4 bg-gradient-to-r from-[#C69320] via-[#FFD700] to-[#C69320] rounded-3xl blur-2xl opacity-30" aria-hidden="true" />
           
           <div className="relative bg-gradient-to-b from-[#C69320]/20 to-[#C69320]/10 border-2 border-[#FFD700] rounded-3xl p-8 overflow-hidden shadow-[0_0_60px_rgba(198,147,32,0.8),0_0_100px_rgba(255,215,0,0.5)]">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#FFD700]/10 via-transparent to-[#C69320]/10 animate-pulse" aria-hidden="true" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#FFD700]/10 via-transparent to-[#C69320]/10" aria-hidden="true" />
             <div className="relative z-10 text-center space-y-6">
               <div className="flex flex-col items-center gap-3">
                 <CountdownTimer initialMinutes={10} />
@@ -521,24 +522,28 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
                 </h2>
               </div>
               
-              {/* Price */}
-              <div className="space-y-2">
-                <p className="text-white text-lg font-semibold">
-                  De <span className="line-through text-gray-400">R$ {content.priceOld}</span> por apenas:
+              {/* Price - RESPONSIVE FLEXBOX LAYOUT */}
+              <div className="space-y-3">
+                <p className="text-white text-base md:text-lg font-semibold">
+                  De <span className="line-through text-gray-300">R$ {content.priceOld}</span> por apenas:
                 </p>
-                <div className="relative">
-                  {/* Shadow layer for better visibility */}
-                  <div className="absolute inset-0 text-7xl md:text-9xl font-black text-black/30 blur-sm">
-                    R${content.priceNew?.split(',')[0]}
-                    <span className="text-4xl md:text-5xl align-super">,{content.priceNew?.split(',')[1]}</span>
-                  </div>
-                  {/* Main price with strong contrast - FIXED for mobile */}
-                  <div className="relative text-7xl md:text-9xl font-black text-[#FFD700] drop-shadow-[0_0_30px_rgba(255,215,0,0.8)]" style={{ textShadow: '0 0 40px rgba(255,215,0,0.6), 0 0 80px rgba(255,215,0,0.4)' }}>
-                    R${content.priceNew?.split(',')[0]}
-                    <span className="text-4xl md:text-5xl align-super">,{content.priceNew?.split(',')[1]}</span>
-                  </div>
+                <div className="flex items-center justify-center gap-1">
+                  {/* Currency symbol */}
+                  <span className="text-3xl md:text-4xl font-black text-[#FFD700] drop-shadow-[0_0_20px_rgba(255,215,0,0.8)]" style={{ textShadow: '0 0 30px rgba(255,215,0,0.6)' }}>
+                    R$
+                  </span>
+                  {/* Main price */}
+                  <span className="text-6xl md:text-8xl font-black text-[#FFD700] drop-shadow-[0_0_30px_rgba(255,215,0,0.8)]" style={{ textShadow: '0 0 40px rgba(255,215,0,0.6), 0 0 80px rgba(255,215,0,0.4)' }}>
+                    {content.priceNew?.split(',')[0] || content.priceNew}
+                  </span>
+                  {/* Cents */}
+                  {content.priceNew?.includes(',') && (
+                    <span className="text-2xl md:text-4xl font-black text-[#FFD700] self-start mt-2 drop-shadow-[0_0_20px_rgba(255,215,0,0.8)]" style={{ textShadow: '0 0 30px rgba(255,215,0,0.6)' }}>
+                      ,{content.priceNew.split(',')[1]}
+                    </span>
+                  )}
                 </div>
-                <p className="text-sm text-white font-medium">(à vista ou parcelado)</p>
+                <p className="text-sm text-gray-200 font-medium">(à vista ou parcelado)</p>
               </div>
 
               {/* CTA Button */}
@@ -547,7 +552,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
               </Button>
               
               {/* Trust Badges */}
-              <div className="flex items-center justify-center gap-4 text-sm text-gray-300 flex-wrap">
+              <div className="flex items-center justify-center gap-4 text-sm text-gray-200 flex-wrap">
                 <div className="flex items-center gap-1">
                   <Lock className="w-4 h-4 text-green-500" aria-hidden="true" />
                   <span>🔒 Compra Segura</span>
@@ -561,7 +566,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
               </div>
             </div>
             
-            <p className="text-sm text-gray-300 mt-4">{content.ctaSubtext}</p>
+            <p className="text-sm text-gray-200 mt-4">{content.ctaSubtext}</p>
           </div>
         </div>
         </motion.div>
@@ -579,7 +584,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           <h2 className="text-2xl md:text-3xl font-bold text-yellow-500 mb-4">
             {content.guaranteeTitle}
           </h2>
-          <p className="text-gray-300 text-base leading-relaxed max-w-2xl mx-auto">
+          <p className="text-gray-200 text-base leading-relaxed max-w-2xl mx-auto">
             {content.guaranteeText}
           </p>
         </motion.div>
@@ -615,7 +620,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
                   exit={{ height: 0, opacity: 0 }}
                   className="px-5 pb-5"
                 >
-                  <p className="text-gray-300 leading-relaxed">{faq.answer}</p>
+                  <p className="text-gray-200 leading-relaxed">{faq.answer}</p>
                 </motion.div>
               )}
             </div>
@@ -650,18 +655,24 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
 
       </div>
 
-      {/* Sticky Bottom CTA (Mobile) */}
-      <div className="fixed bottom-0 left-0 w-full bg-[#0a0a0a]/95 backdrop-blur-xl border-t border-[#FF9500]/30 p-3 z-50 md:hidden shadow-2xl pb-[env(safe-area-inset-bottom)]">
+      {/* Sticky Bottom CTA (Mobile) - Enhanced Contrast & Shimmer */}
+      <div className="fixed bottom-0 left-0 w-full bg-gradient-to-t from-black via-[#0a0a0a] to-[#0a0a0a]/95 backdrop-blur-xl border-t-2 border-[#FFD700]/50 p-3 z-50 md:hidden shadow-[0_-10px_40px_rgba(0,0,0,0.8)] pb-[env(safe-area-inset-bottom)]">
         <div className="flex items-center justify-between gap-3 max-w-lg mx-auto">
           <div className="flex flex-col">
-             <span className="text-slate-500 line-through text-[10px]">R$ 197</span>
-             <div className="flex items-baseline gap-1">
-                <span className="font-black text-2xl text-white">R$ 37</span>
-                <span className="text-[#FF9500] text-[10px] font-bold">HOJE</span>
+             <span className="text-gray-400 line-through text-[11px] font-medium">De R$ 197</span>
+             <div className="flex items-baseline gap-1.5">
+                <span className="text-[10px] text-gray-300 font-semibold">Por</span>
+                <span className="font-black text-3xl text-[#FFD700] drop-shadow-[0_0_10px_rgba(255,215,0,0.8)]">R$ 37</span>
              </div>
           </div>
-          <button onClick={handleCheckout} className="flex-1 bg-gradient-to-r from-[#FF9500] to-orange-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg active:scale-95 transition-transform flex items-center justify-center gap-2 text-sm">
-            DESTRAVAR MAPA <ArrowDown className="w-4 h-4 animate-bounce" aria-hidden="true" />
+          <button 
+            onClick={handleCheckout} 
+            className="relative flex-1 bg-gradient-to-r from-[#FF9500] via-[#FFD700] to-[#FF9500] text-black font-bold py-3.5 px-4 rounded-xl shadow-[0_0_20px_rgba(255,215,0,0.6)] active:scale-95 transition-transform flex items-center justify-center gap-2 text-sm overflow-hidden group"
+          >
+            {/* Shimmer effect - respects prefers-reduced-motion */}
+            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent motion-reduce:transition-none motion-reduce:translate-x-0"></div>
+            <span className="relative z-10">DESTRAVAR MAPA</span>
+            <ArrowDown className="w-4 h-4 animate-bounce motion-reduce:animate-none relative z-10" aria-hidden="true" />
           </button>
         </div>
       </div>
