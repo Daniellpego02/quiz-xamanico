@@ -138,7 +138,7 @@ export default function Oferta2({ userName = 'você' }: Oferta2Props) {
             <h1 className="text-3xl md:text-4xl font-serif font-black text-white leading-tight drop-shadow-2xl">
               <span className="text-purple-400">{firstNameUpper}</span>, ANTES DE IR...
             </h1>
-            <p className="text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-purple-400">
+            <p className="text-xl md:text-2xl font-bold text-purple-400 drop-shadow-[0_2px_10px_rgba(192,132,252,0.5)]">
               Você precisa saber sobre o RISCO REAL de perder tudo o que conquistou...
             </p>
           </motion.div>
@@ -195,7 +195,7 @@ export default function Oferta2({ userName = 'você' }: Oferta2Props) {
             <div className="relative z-10">
               <div className="flex items-center justify-center gap-2 mb-6">
                 <Shield className="w-8 h-8 text-purple-400" />
-                <h2 className="text-2xl md:text-3xl font-serif font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">
+                <h2 className="text-2xl md:text-3xl font-serif font-black text-purple-400 drop-shadow-[0_2px_15px_rgba(192,132,252,0.6)]">
                   Blindagem Energética Permanente
                 </h2>
               </div>
@@ -264,14 +264,14 @@ export default function Oferta2({ userName = 'você' }: Oferta2Props) {
                   <p className="text-purple-400 font-bold text-sm uppercase tracking-wider mb-3">🛡️ PROTEÇÃO EXCLUSIVA AGORA:</p>
                   <div className="flex items-center justify-center gap-2 mb-3">
                     <span className="text-slate-300 text-xl">apenas</span>
-                    <span className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">R$67</span>
+                    <span className="text-5xl md:text-6xl font-black text-purple-400 drop-shadow-[0_0_20px_rgba(192,132,252,0.8)]" style={{ textShadow: '0 0 30px rgba(192,132,252,0.6), 0 0 60px rgba(192,132,252,0.4)' }}>R$67</span>
                   </div>
                   <p className="text-emerald-400 text-sm font-bold">💎 Proteção vitalícia + Atualizações gratuitas</p>
                 </div>
 
                 <button
                   onClick={handleAccept}
-                  className={`w-full bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 hover:from-purple-500 hover:via-pink-500 hover:to-purple-500 text-white font-black text-lg md:text-xl py-5 px-8 rounded-2xl shadow-2xl shadow-purple-500/50 transition-all transform hover:scale-105 active:scale-95 border-2 border-purple-300 uppercase tracking-wide ${showPulse ? 'animate-pulse' : ''}`}
+                  className={`w-full bg-gradient-to-r from-purple-600 via-fuchsia-600 to-purple-600 hover:from-purple-500 hover:via-fuchsia-500 hover:to-purple-500 text-white font-black text-lg md:text-xl py-6 px-8 rounded-2xl shadow-[0_4px_30px_rgba(168,85,247,0.6)] transition-all transform hover:scale-105 active:scale-95 border-2 border-purple-300 uppercase tracking-wide ${showPulse ? 'animate-pulse' : ''}`}
                 >
                   <span className="drop-shadow-lg">🛡️ SIM! QUERO BLINDAGEM PERMANENTE</span>
                 </button>
