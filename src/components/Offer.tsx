@@ -223,6 +223,7 @@ const offerContent = {
 
 const VturbPlayer = React.memo(({ quizPath = 'finance' }: { quizPath?: QuizPath }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [showCustomThumbnail, setShowCustomThumbnail] = useState(true);
   
   // Select VSL ID based on path
   const vslId = quizPath === 'relationship' ? 'vid-693b6771c33297495ef77ddc' : 'vid-693f17c2b7fea67f333de06f';
@@ -235,13 +236,75 @@ const VturbPlayer = React.memo(({ quizPath = 'finance' }: { quizPath?: QuizPath 
         style="display:block; width:100%; height:100%; object-fit: cover;"
       ></vturb-smartplayer>
     `;
-    return () => { if (containerRef.current) containerRef.current.innerHTML = ''; };
+    
+    // Listen for video play events to hide custom thumbnail
+    const handlePlayEvent = () => setShowCustomThumbnail(false);
+    const smartplayer = containerRef.current.querySelector('vturb-smartplayer');
+    if (smartplayer) {
+      smartplayer.addEventListener('play', handlePlayEvent);
+    }
+    
+    return () => { 
+      if (containerRef.current) containerRef.current.innerHTML = ''; 
+    };
   }, [vslId]);
+
+  const handleThumbnailClick = () => {
+    setShowCustomThumbnail(false);
+    // Try to trigger video play
+    const smartplayer = containerRef.current?.querySelector('vturb-smartplayer') as any;
+    if (smartplayer && smartplayer.play) {
+      smartplayer.play();
+    }
+  };
 
   return (
     <div className="relative w-full max-w-[360px] mx-auto group my-6">
-      <div className={`absolute -inset-1 bg-gradient-to-r ${quizPath === 'relationship' ? 'from-purple-500 via-pink-500 to-purple-500' : 'from-[#FF9500] via-yellow-500 to-[#FF9500]'} rounded-[2.5rem] blur opacity-30 group-hover:opacity-50 transition duration-1000 animate-pulse`}></div>
-      <div className="relative w-full aspect-[9/16] bg-black rounded-[2rem] overflow-hidden shadow-2xl border border-white/10 z-10">
+      {/* Enhanced golden glow effect */}
+      <div className={`absolute -inset-2 bg-gradient-to-r ${quizPath === 'relationship' ? 'from-purple-500 via-pink-500 to-purple-500' : 'from-[#FF9500] via-[#FFD700] to-[#FF9500]'} rounded-[2.5rem] blur-xl opacity-40 group-hover:opacity-60 transition duration-1000 animate-pulse`}></div>
+      <div className="relative w-full aspect-[9/16] bg-black rounded-[2rem] overflow-hidden shadow-2xl border border-[#FFD700]/20 z-10">
+        {/* Custom Thumbnail Overlay - shows before video starts */}
+        {showCustomThumbnail && (
+          <div 
+            onClick={handleThumbnailClick}
+            className="absolute inset-0 z-30 cursor-pointer bg-gradient-to-b from-[#2A0F3D] via-[#1a0b2e] to-[#0a0a0a] flex flex-col items-center justify-center group/thumb"
+          >
+            {/* Dramatic image placeholder - can be replaced with actual image */}
+            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iIzFhMGIyZSIvPgogIDxjaXJjbGUgY3g9IjIwMCIgY3k9IjMwMCIgcj0iODAiIGZpbGw9IiNGRkQ3MDAiIG9wYWNpdHk9IjAuMiIvPgo8L3N2Zz4=')] bg-cover bg-center opacity-30"></div>
+            
+            {/* Overlay content */}
+            <div className="relative z-10 text-center px-6">
+              {/* Large play button */}
+              <motion.div
+                animate={{ 
+                  scale: [1, 1.1, 1],
+                }}
+                transition={{ 
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatType: "reverse"
+                }}
+                className="mb-4"
+              >
+                <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-[#FF9500] to-[#FFD700] flex items-center justify-center shadow-[0_0_30px_rgba(255,215,0,0.6)] group-hover/thumb:shadow-[0_0_50px_rgba(255,215,0,0.8)] transition-shadow">
+                  <Play className="w-10 h-10 text-white fill-white ml-1" />
+                </div>
+              </motion.div>
+              
+              {/* Emotional hook text */}
+              <h3 className="text-xl font-bold text-white mb-2 drop-shadow-lg">
+                💰 A Verdade Sobre o Seu Bloqueio Financeiro
+              </h3>
+              <p className="text-sm text-[#FFD700] font-semibold">
+                Toque para assistir e descobrir a raiz do problema
+              </p>
+            </div>
+            
+            {/* Pulse ring effect */}
+            <div className="absolute inset-0 rounded-[2rem] border-2 border-[#FFD700] opacity-0 group-hover/thumb:opacity-100 animate-pulse"></div>
+          </div>
+        )}
+        
         <div ref={containerRef} className="w-full h-full" />
       </div>
       <div className="absolute bottom-6 right-6 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden md:flex items-center gap-2 text-[10px] font-bold text-white bg-black/60 px-3 py-1.5 rounded-full backdrop-blur-md border border-white/10">
@@ -390,32 +453,42 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-[#C69320] rounded-2xl p-8 shadow-[0_0_15px_rgba(198,147,32,0.2)]"
+          className="relative"
         >
-          <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-8">
-            {content.bonusTitle}
-          </h2>
-          <div className="space-y-6">
-            {content.bonuses?.map((bonus, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.15 }}
-                className="flex gap-4 bg-gradient-to-r from-yellow-900/20 to-orange-900/20 p-6 rounded-xl border border-yellow-500/30"
-              >
-                <div className="text-4xl">{bonus.icon}</div>
-                <div className="flex-1">
-                  <h3 className="text-white font-bold text-lg mb-2">{bonus.title}</h3>
-                  <p className="text-gray-300 text-sm mb-3">{bonus.desc}</p>
-                  <div className="flex items-center gap-2">
-                    <span className="text-gray-500 line-through text-sm">R$ {bonus.value}</span>
-                    <span className="text-green-400 font-bold text-lg">→ GRÁTIS</span>
+          {/* Golden glow effect around bonus section */}
+          <div className="absolute -inset-2 bg-gradient-to-r from-[#C69320] via-[#FFD700] to-[#C69320] rounded-3xl blur-xl opacity-20 animate-pulse" aria-hidden="true" />
+          
+          <div className="relative bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-[#C69320] rounded-2xl p-8 shadow-[0_0_25px_rgba(198,147,32,0.3)]">
+            <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-8">
+              {content.bonusTitle}
+            </h2>
+            <div className="space-y-6">
+              {content.bonuses?.map((bonus, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.15 }}
+                  className="relative group"
+                >
+                  {/* Glow effect on hover */}
+                  <div className="absolute -inset-1 bg-gradient-to-r from-yellow-500/0 via-yellow-500/20 to-orange-500/0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity blur-md" aria-hidden="true" />
+                  
+                  <div className="relative flex gap-4 bg-gradient-to-r from-yellow-900/20 to-orange-900/20 p-6 rounded-xl border border-yellow-500/30 group-hover:border-yellow-500/50 transition-colors">
+                    <div className="text-4xl">{bonus.icon}</div>
+                    <div className="flex-1">
+                      <h3 className="text-white font-bold text-lg mb-2">{bonus.title}</h3>
+                      <p className="text-gray-300 text-sm mb-3">{bonus.desc}</p>
+                      <div className="flex items-center gap-2">
+                        <span className="text-gray-500 line-through text-sm">R$ {bonus.value}</span>
+                        <span className="text-green-400 font-bold text-lg drop-shadow-[0_0_10px_rgba(74,222,128,0.5)]">→ GRÁTIS</span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </div>
         </motion.div>
 
@@ -444,14 +517,22 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
               
               {/* Price */}
               <div className="space-y-2">
-                <p className="text-gray-300 text-lg">
-                  De <span className="line-through">R$ {content.priceOld}</span> por apenas:
+                <p className="text-white text-lg font-semibold">
+                  De <span className="line-through text-gray-400">R$ {content.priceOld}</span> por apenas:
                 </p>
-                <div className="text-7xl md:text-9xl font-black text-[#FFD700] [background:linear-gradient(180deg,#FFD700_0%,#FFA500_50%,#FF8C00_100%)] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent] supports-[not_(background-clip:text)]:text-[#FFD700] drop-shadow-[0_0_30px_rgba(255,215,0,0.8)]">
-                  R${content.priceNew?.split(',')[0]}
-                  <span className="text-4xl md:text-5xl align-super">,{content.priceNew?.split(',')[1]}</span>
+                <div className="relative">
+                  {/* Shadow layer for better visibility */}
+                  <div className="absolute inset-0 text-7xl md:text-9xl font-black text-black/30 blur-sm">
+                    R${content.priceNew?.split(',')[0]}
+                    <span className="text-4xl md:text-5xl align-super">,{content.priceNew?.split(',')[1]}</span>
+                  </div>
+                  {/* Main price with strong contrast */}
+                  <div className="relative text-7xl md:text-9xl font-black text-[#FFD700] [background:linear-gradient(180deg,#FFD700_0%,#FFA500_50%,#FF8C00_100%)] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent] supports-[not_(background-clip:text)]:text-[#FFD700] [text-shadow:0_0_40px_rgba(0,0,0,0.8),0_2px_4px_rgba(0,0,0,0.9)]" style={{textShadow: '0 0 40px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.9), 0 0 60px rgba(255,215,0,0.6)'}}>
+                    R${content.priceNew?.split(',')[0]}
+                    <span className="text-4xl md:text-5xl align-super">,{content.priceNew?.split(',')[1]}</span>
+                  </div>
                 </div>
-                <p className="text-sm text-gray-300">(à vista ou parcelado)</p>
+                <p className="text-sm text-white font-medium">(à vista ou parcelado)</p>
               </div>
 
               {/* CTA Button */}
