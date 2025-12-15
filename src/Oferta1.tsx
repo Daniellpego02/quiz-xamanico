@@ -100,7 +100,7 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
         <motion.div 
           initial={{ y: -50 }} 
           animate={{ y: 0 }}
-          className="bg-gradient-to-r from-[#EA580C] via-[#F58400] to-[#EA580C] text-white text-xs md:text-sm font-bold text-center py-3 md:py-4 px-4 sticky top-0 z-50 shadow-2xl"
+          className="bg-gradient-to-r from-purple-700 via-pink-600 to-purple-700 text-white text-xs md:text-sm font-bold text-center py-3 md:py-4 px-4 sticky top-0 z-50 shadow-2xl"
         >
           <div className="flex items-center justify-center gap-2 uppercase tracking-wider">
             <Clock className="w-4 h-4 md:w-5 md:h-5 animate-pulse" />
@@ -199,9 +199,9 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
               </p>
 
               <div className="space-y-4 mb-8">
-                <div className="flex items-start gap-3 bg-gradient-to-r from-[#FF9500]/10 to-[#EA580C]/10 p-4 md:p-5 rounded-xl border-2 border-[#FF9500]/30 hover:border-[#FFD700]/50 hover:bg-[#FF9500]/20 transition-all">
-                  <div className="bg-gradient-to-br from-[#FF9500] to-[#EA580C] rounded-lg p-2 flex-shrink-0 shadow-lg">
-                    <Check className="w-5 h-5 text-white font-bold" />
+                <div className="flex items-start gap-3 bg-white/5 p-4 md:p-5 rounded-xl border-2 border-[#C69320]/30 hover:border-[#FFD700]/50 hover:bg-white/10 transition-all">
+                  <div className="bg-gradient-to-br from-[#C69320] to-[#FFD700] rounded-lg p-2 flex-shrink-0 shadow-lg">
+                    <Check className="w-5 h-5 text-black font-bold" />
                   </div>
                   <div>
                     <h4 className="font-bold text-white mb-1 text-base md:text-lg">🔥 Protocolo de Ativação Imediata</h4>
@@ -209,9 +209,9 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 bg-gradient-to-r from-[#FF9500]/10 to-[#EA580C]/10 p-4 md:p-5 rounded-xl border-2 border-[#FF9500]/30 hover:border-[#FFD700]/50 hover:bg-[#FF9500]/20 transition-all">
-                  <div className="bg-gradient-to-br from-[#FF9500] to-[#EA580C] rounded-lg p-2 flex-shrink-0 shadow-lg">
-                    <Check className="w-5 h-5 text-white font-bold" />
+                <div className="flex items-start gap-3 bg-white/5 p-4 md:p-5 rounded-xl border-2 border-[#C69320]/30 hover:border-[#FFD700]/50 hover:bg-white/10 transition-all">
+                  <div className="bg-gradient-to-br from-[#C69320] to-[#FFD700] rounded-lg p-2 flex-shrink-0 shadow-lg">
+                    <Check className="w-5 h-5 text-black font-bold" />
                   </div>
                   <div>
                     <h4 className="font-bold text-white mb-1 text-base md:text-lg">⚡ Rituais de Ancoragem Energética</h4>
@@ -219,9 +219,9 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 bg-gradient-to-r from-[#FF9500]/10 to-[#EA580C]/10 p-4 md:p-5 rounded-xl border-2 border-[#FF9500]/30 hover:border-[#FFD700]/50 hover:bg-[#FF9500]/20 transition-all">
-                  <div className="bg-gradient-to-br from-[#FF9500] to-[#EA580C] rounded-lg p-2 flex-shrink-0 shadow-lg">
-                    <Check className="w-5 h-5 text-white font-bold" />
+                <div className="flex items-start gap-3 bg-white/5 p-4 md:p-5 rounded-xl border-2 border-[#C69320]/30 hover:border-[#FFD700]/50 hover:bg-white/10 transition-all">
+                  <div className="bg-gradient-to-br from-[#C69320] to-[#FFD700] rounded-lg p-2 flex-shrink-0 shadow-lg">
+                    <Check className="w-5 h-5 text-black font-bold" />
                   </div>
                   <div>
                     <h4 className="font-bold text-white mb-1 text-base md:text-lg">🎯 Meditações Guiadas Personalizadas</h4>
@@ -229,9 +229,9 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 bg-gradient-to-r from-[#FF9500]/10 to-[#EA580C]/10 p-4 md:p-5 rounded-xl border-2 border-[#FF9500]/30 hover:border-[#FFD700]/50 hover:bg-[#FF9500]/20 transition-all">
-                  <div className="bg-gradient-to-br from-[#FF9500] to-[#EA580C] rounded-lg p-2 flex-shrink-0 shadow-lg">
-                    <Check className="w-5 h-5 text-white font-bold" />
+                <div className="flex items-start gap-3 bg-white/5 p-4 md:p-5 rounded-xl border-2 border-[#C69320]/30 hover:border-[#FFD700]/50 hover:bg-white/10 transition-all">
+                  <div className="bg-gradient-to-br from-[#C69320] to-[#FFD700] rounded-lg p-2 flex-shrink-0 shadow-lg">
+                    <Check className="w-5 h-5 text-black font-bold" />
                   </div>
                   <div>
                     <h4 className="font-bold text-white mb-1 text-base md:text-lg">🧘 Práticas de Alinhamento Diário</h4>
@@ -239,9 +239,9 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 bg-gradient-to-r from-[#FF9500]/10 to-[#EA580C]/10 p-4 md:p-5 rounded-xl border-2 border-[#FF9500]/30 hover:border-[#FFD700]/50 hover:bg-[#FF9500]/20 transition-all">
-                  <div className="bg-gradient-to-br from-[#FF9500] to-[#EA580C] rounded-lg p-2 flex-shrink-0 shadow-lg">
-                    <Check className="w-5 h-5 text-white font-bold" />
+                <div className="flex items-start gap-3 bg-white/5 p-4 md:p-5 rounded-xl border-2 border-[#C69320]/30 hover:border-[#FFD700]/50 hover:bg-white/10 transition-all">
+                  <div className="bg-gradient-to-br from-[#C69320] to-[#FFD700] rounded-lg p-2 flex-shrink-0 shadow-lg">
+                    <Check className="w-5 h-5 text-black font-bold" />
                   </div>
                   <div>
                     <h4 className="font-bold text-white mb-1 text-base md:text-lg">📈 Mapa de Progressão Semanal</h4>
@@ -254,11 +254,11 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
               <div className="bg-gradient-to-br from-black/60 to-black/40 rounded-2xl p-6 md:p-8 border-2 border-[#FFD700] shadow-[0_0_40px_rgba(255,215,0,0.4)]">
                 <div className="text-center mb-4">
                   <p className="text-slate-400 text-sm mb-2 uppercase tracking-wider">VALOR NORMAL:</p>
-                  <p className="text-slate-500 text-2xl md:text-3xl line-through mb-1">R$ 297,00</p>
+                  <p className="text-slate-500 text-2xl md:text-3xl line-through mb-1">R$ 197,00</p>
                   <p className="text-[#FFD700] font-bold text-base md:text-lg uppercase tracking-wider mb-4">🔥 OFERTA EXCLUSIVA AGORA:</p>
                   <div className="flex items-center justify-center gap-2 mb-3">
                     <span className="text-slate-300 text-xl">apenas</span>
-                    <span className="text-5xl md:text-6xl font-black text-yellow-400 drop-shadow-[0_0_20px_rgba(251,191,36,0.8)]" style={{ textShadow: '0 0 30px rgba(251,191,36,0.6), 0 0 60px rgba(251,191,36,0.4)' }}>R$97</span>
+                    <span className="text-5xl md:text-6xl font-black text-yellow-400 drop-shadow-[0_0_20px_rgba(251,191,36,0.8)]" style={{ textShadow: '0 0 30px rgba(251,191,36,0.6), 0 0 60px rgba(251,191,36,0.4)' }}>R$37</span>
                   </div>
                   <p className="text-emerald-400 text-sm md:text-base font-bold">💎 Acesso vitalício + Atualizações gratuitas</p>
                 </div>
@@ -321,13 +321,13 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
         <motion.div
           initial={{ y: 100 }}
           animate={{ y: 0 }}
-          className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-[#FF9500] via-[#F58400] to-[#EA580C] p-4 shadow-2xl border-t-2 border-[#FFD700]"
+          className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-purple-700 via-pink-600 to-purple-700 p-4 shadow-2xl border-t-2 border-[#FFD700]"
         >
           <div className="max-w-3xl mx-auto flex items-center justify-between gap-3">
             <div className="flex-1">
               <p className="text-white font-bold text-sm md:text-base">Imersão Completa</p>
               <p className="text-yellow-100 text-xs md:text-sm">
-                <span className="line-through opacity-60">R$ 297</span> → <span className="font-black text-lg text-white">R$ 97</span>
+                <span className="line-through opacity-60">R$ 197</span> → <span className="font-black text-lg text-white">R$ 37</span>
               </p>
             </div>
             <button
