@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './Button';
-import { Shield, Lock, Play, Calendar, Headphones, Package, ShieldCheck, Magnet, TrendingUp, Sparkles, ArrowDown } from 'lucide-react';
+import { Shield, Lock, Play, ShieldCheck, Magnet, TrendingUp, Sparkles, ArrowDown, Eye, Flame, Zap } from 'lucide-react';
 import { QuizPath } from '../types';
 import Veredito from './Veredito';
-import { SocialProof } from './SocialProof';
+import { TestimonialCard } from './TestimonialCard';
+import { FrequencyRoom } from './FrequencyRoom';
+import { CountdownTimer } from './CountdownTimer';
 
 // Dicionário de Conteúdo Dinâmico - NOVA ESTRUTURA VERSÃO FILEMON
 const offerContent = {
@@ -15,17 +17,55 @@ const offerContent = {
     // Bloco 2: Entrega - Protocolo de 7 Dias
     deliveryTitle: "ISTO NÃO É UM CURSO. É UM PROTOCOLO DE ATIVAÇÃO DE 7 DIAS.",
     deliverables: [
-      { icon: Calendar, day: 1, title: "O Raio-X da Sua Alma", desc: "Diagnóstico da Raiz" },
-      { icon: Headphones, day: 2, title: "O Exorcismo da Escassez", desc: "Áudio Binaural de Limpeza" },
-      { icon: Package, day: 3, title: "O Ritual do Pote de Ouro", desc: "Técnica de Magnetismo" },
+      { icon: Eye, day: 1, title: "O Raio-X da Sua Alma", desc: "Diagnóstico da Raiz" },
+      { icon: Flame, day: 2, title: "O Exorcismo da Escassez", desc: "Áudio Binaural de Limpeza" },
+      { icon: Zap, day: 3, title: "O Ritual do Pote de Ouro", desc: "Técnica de Magnetismo" },
       { icon: ShieldCheck, day: 4, title: "Blindagem Energética", desc: "Proteção contra Inveja" },
       { icon: Magnet, day: 5, title: "Ativação do Ímã de Prosperidade", desc: "Reprogramação para atrair oportunidades" },
-      { icon: TrendingUp, day: 6, title: "Manutenção do Fluxo Infinito", desc: "Mantendo a prosperidade contínua" },
-      { icon: Sparkles, day: 7, title: "O Renascimento", desc: "Sua Nova Identidade Financeira" }
+      { icon: TrendingUp, day: 6, title: "Blindagem Anti-Inveja e Fluxo Infinito", desc: "Mantendo a prosperidade contínua" },
+      { icon: Sparkles, day: 7, title: "O Renascimento Financeiro", desc: "Sua Nova Identidade Financeira" }
     ],
     
     // Bloco 3: Prova Social
-    socialProofTitle: "NÃO ACREDITE EM MIM. VEJA O SALDO BANCÁRIO DE QUEM ATIVOU O MAPA:",
+    socialProofTitle: "VEJA O QUE QUEM ATIVOU O PROTOCOLO TEM A DIZER:",
+    testimonials: [
+      {
+        name: "Carlos Eduardo M.",
+        format: "whatsapp" as const,
+        text: "Anahí, vou ser sincero. Comprei achando que era golpe pq o preço era baixo. Mas cara... o áudio do Dia 2 me desmontou. Chorei igual criança lembrando do meu pai. A sensação de peso saiu na hora. Valeu cada centavo.",
+        image: "https://i.pravatar.cc/150?img=12"
+      },
+      {
+        name: "Juliana P.",
+        format: "instagram" as const,
+        text: "Juuuuura que funciona mesmo! Fiz a técnica do Pote de Ouro ontem de manhã. Hoje a Receita Federal liberou uma restituição que tava travada há 2 anos! R$ 2.400 na conta! Tô em choque! 😱✨",
+        image: "https://i.pravatar.cc/150?img=43"
+      },
+      {
+        name: "Renata Siqueira",
+        format: "facebook" as const,
+        text: "Alguém mais sentiu o pescoço estalar ouvindo o áudio? Eu tinha uma dor crônica no trapézio que remédio nenhum tirava. Sumiu. Simplesmente sumiu. Parece mágica, mas é energia.",
+        image: "https://i.pravatar.cc/150?img=36"
+      },
+      {
+        name: "Marcos V.",
+        format: "whatsapp" as const,
+        text: "Eu tava com vergonha de contar, mas tava devendo agiota. O Mapa me deu clareza pra negociar. Não sei explicar, mas depois que fiz a limpeza, o cara aceitou minha proposta de pagamento parcelado que ele negava antes. A energia mudou.",
+        image: "https://i.pravatar.cc/150?img=14"
+      },
+      {
+        name: "Beatriz L.",
+        format: "instagram" as const,
+        text: "O que eu mais amei é que é rápido. Sou mãe solo, não tenho tempo pra curso longo. Os áudios de 12 minutos eu ouço no ônibus indo pro trabalho. Já sinto a diferença no olhar das pessoas pra mim.",
+        image: "https://i.pravatar.cc/150?img=29"
+      },
+      {
+        name: "Fernanda G.",
+        format: "facebook" as const,
+        text: "Minha mão era furada real. Ganhava e gastava. Depois do Dia 7 (Nova Identidade), pela primeira vez sobrou dinheiro no fim do mês e eu não senti vontade de gastar com bobagem. Tô me sentindo 'rica' de verdade.",
+        image: "https://i.pravatar.cc/150?img=32"
+      }
+    ],
     
     // Bloco 4: Bônus
     bonusTitle: "LIBERANDO SEU ACESSO HOJE, VOCÊ GANHA 2 PRESENTES DE OURO:",
@@ -34,13 +74,13 @@ const offerContent = {
         icon: "🎁", 
         title: "Áudio de Socorro Financeiro", 
         desc: "O que ouvir 5 minutos antes de pagar uma conta ou negociar uma dívida para não vibrar na escassez.", 
-        value: "97" 
+        value: "197" 
       },
       { 
         icon: "🎁", 
         title: "O Código da Cama do Dinheiro", 
         desc: "Feng Shui Xamânico: Como preparar seu quarto para atrair riqueza enquanto você dorme.", 
-        value: "47" 
+        value: "147" 
       }
     ],
     
@@ -48,7 +88,7 @@ const offerContent = {
     offerTitle: "O ACESSO AO SEU MAPA ESTÁ LIBERADO POR TEMPO LIMITADO",
     priceOld: "197,00",
     priceNew: "37,00",
-    cta: "👉 SIM! QUERO DESTRAVAR MINHA PROSPERIDADE AGORA 👈",
+    cta: "QUERO DESTRAVAR MINHA PROSPERIDADE AGORA ➔",
     ctaSubtext: "Acesso Imediato ao PDF + App",
     
     // Bloco 6: Garantia
@@ -72,6 +112,10 @@ const offerContent = {
       { 
         question: "E se eu fizer e não sentir nada?", 
         answer: "Eu assumo esse risco por você. Se em 7 dias você ouvir os áudios e não sentir — fisicamente — o peso saindo das suas costas e a clareza mental voltando, eu devolvo 100% do seu dinheiro. Sem letras miúdas, sem perguntas." 
+      },
+      { 
+        question: "E se eu seguir tudo certinho e mesmo assim não funcionar PRA MIM?", 
+        answer: "Impossível. Mas se acontecer, eu não só devolvo seu dinheiro — eu pago DOBRADO pela sua frustração. R$ 74 na sua conta. É meu jeito de assumir 100% do risco. Você literalmente não tem nada a perder e tudo a ganhar." 
       }
     ]
   },
@@ -81,9 +125,9 @@ const offerContent = {
     // Bloco 2: Entrega - Protocolo de 7 Dias
     deliveryTitle: "ISTO NÃO É UM CURSO. É UM PROTOCOLO DE CURA EMOCIONAL DE 7 DIAS.",
     deliverables: [
-      { icon: Calendar, day: 1, title: "O Diagnóstico do Seu Padrão Amoroso", desc: "Identificando a raiz dos seus bloqueios afetivos" },
-      { icon: Headphones, day: 2, title: "A Cura do Seu Valor", desc: "Áudio Binaural para reconstruir sua autoestima" },
-      { icon: Package, day: 3, title: "Atração Consciente", desc: "Como magnetizar relacionamentos saudáveis" },
+      { icon: Eye, day: 1, title: "O Diagnóstico do Seu Padrão Amoroso", desc: "Identificando a raiz dos seus bloqueios afetivos" },
+      { icon: Flame, day: 2, title: "A Cura do Seu Valor", desc: "Áudio Binaural para reconstruir sua autoestima" },
+      { icon: Zap, day: 3, title: "Atração Consciente", desc: "Como magnetizar relacionamentos saudáveis" },
       { icon: ShieldCheck, day: 4, title: "Reprogramando Seu Afeto", desc: "Transformando padrões inconscientes" },
       { icon: Magnet, day: 5, title: "Relacionamentos Leves", desc: "Vivendo conexões verdadeiras" },
       { icon: TrendingUp, day: 6, title: "Blindagem Emocional", desc: "Protegendo seu coração sem fechar-se" },
@@ -91,7 +135,45 @@ const offerContent = {
     ],
     
     // Bloco 3: Prova Social
-    socialProofTitle: "NÃO ACREDITE EM MIM. VEJA O QUE QUEM CUROU SEU CORAÇÃO TEM A DIZER:",
+    socialProofTitle: "VEJA O QUE QUEM CUROU SEU CORAÇÃO TEM A DIZER:",
+    testimonials: [
+      {
+        name: "Carolina M.",
+        format: "whatsapp" as const,
+        text: "Fiquei cética no início, mas o áudio do Dia 2 me fez chorar como nunca. Percebi que eu estava repetindo o padrão de abandono da minha mãe. Agora entendo e estou me curando.",
+        image: "https://i.pravatar.cc/150?img=35"
+      },
+      {
+        name: "Paula R.",
+        format: "instagram" as const,
+        text: "Depois do protocolo, conheci alguém completamente diferente dos meus ex-tóxicos. E o melhor: reconheci os sinais de saúde emocional que antes eu ignorava. Tô vivendo um amor leve! 💕✨",
+        image: "https://i.pravatar.cc/150?img=48"
+      },
+      {
+        name: "Renata Siqueira",
+        format: "facebook" as const,
+        text: "Eu carregava uma angústia no peito que ninguém explicava. Depois da blindagem emocional do Dia 6, senti um alívio físico. Meu coração ficou mais leve, literalmente.",
+        image: "https://i.pravatar.cc/150?img=36"
+      },
+      {
+        name: "Marcos V.",
+        format: "whatsapp" as const,
+        text: "Sempre fui o 'cara legal' mas nunca valorizado. O Mapa me mostrou que eu atraía pessoas que me usavam. Hoje consigo colocar limites e me relacionar de igual pra igual.",
+        image: "https://i.pravatar.cc/150?img=14"
+      },
+      {
+        name: "Beatriz L.",
+        format: "instagram" as const,
+        text: "Mãe solo aqui! Não tinha tempo pra terapia longa. Os áudios de 12 min no ônibus me ajudaram a entender meus padrões e a não repetir os erros com meu filho. Gratidão! 🙏",
+        image: "https://i.pravatar.cc/150?img=29"
+      },
+      {
+        name: "Fernanda G.",
+        format: "facebook" as const,
+        text: "Eu pulava de relação em relação, sempre escolhendo errado. Depois do Dia 7, pela primeira vez, fiquei bem estando sozinha. E aí apareceu alguém incrível, quando parei de buscar.",
+        image: "https://i.pravatar.cc/150?img=32"
+      }
+    ],
     
     // Bloco 4: Bônus
     bonusTitle: "LIBERANDO SEU ACESSO HOJE, VOCÊ GANHA 2 PRESENTES DE OURO:",
@@ -114,7 +196,7 @@ const offerContent = {
     offerTitle: "O ACESSO AO SEU MAPA ESTÁ LIBERADO POR TEMPO LIMITADO",
     priceOld: "197,00",
     priceNew: "37,00",
-    cta: "👉 SIM! QUERO DESTRAVAR MINHA PROSPERIDADE AGORA 👈",
+    cta: "QUERO DESTRAVAR MINHA PROSPERIDADE AGORA ➔",
     ctaSubtext: "Acesso Imediato ao PDF + App",
     
     // Bloco 6: Garantia
@@ -219,9 +301,20 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
         </div>
 
         {/* CTA after video */}
-        <div className="text-center">
+        <div className="text-center space-y-4">
+          <div className="flex flex-col items-center gap-3">
+            <CountdownTimer initialMinutes={10} />
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="text-orange-300 text-sm md:text-base font-semibold"
+            >
+              ⚠️ Esta oferta especial expira quando você sair desta página
+            </motion.p>
+          </div>
           <Button onClick={handleCheckout} pulse className="w-full max-w-lg mx-auto text-lg shadow-xl animate-pulse">
-            👉 SIM! QUERO DESTRAVAR MINHA PROSPERIDADE AGORA 👈
+            QUERO DESTRAVAR MINHA PROSPERIDADE AGORA ➔
           </Button>
         </div>
 
@@ -235,7 +328,10 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-2">
             {content.deliveryTitle}
           </h2>
-          <div className="space-y-4 mt-8">
+          <div className="relative space-y-4 mt-8">
+            {/* Linha conectora dourada */}
+            <div className="absolute left-6 top-6 bottom-6 w-0.5 bg-gradient-to-b from-[#C69320] via-[#FFD700] to-[#C69320] opacity-30" aria-hidden="true" />
+            
             {content.deliverables?.map((item, idx) => {
               const IconComponent = item.icon;
               return (
@@ -245,16 +341,16 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1 }}
-                  className="flex gap-4 bg-white/5 p-5 rounded-xl border border-[#FF9500]/10 hover:border-[#FF9500]/30 transition-colors"
+                  className="relative flex gap-4 bg-white/5 p-5 rounded-xl border border-[#C69320]/20 hover:border-[#C69320]/50 transition-all hover:shadow-[0_0_20px_rgba(198,147,32,0.3)]"
                 >
-                  <div className="shrink-0">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#FF9500] to-orange-600 flex items-center justify-center">
+                  <div className="shrink-0 relative z-10">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#C69320] to-[#FFD700] flex items-center justify-center shadow-[0_0_15px_rgba(198,147,32,0.5)]">
                       <IconComponent className="w-6 h-6 text-white" aria-hidden="true" />
                     </div>
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-[#FF9500] font-bold text-sm">DIA {item.day}</span>
+                      <span className="text-[#FFD700] font-bold text-sm">DIA {item.day}</span>
                       <span className="text-white font-bold text-base">{item.title}</span>
                     </div>
                     <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
@@ -270,12 +366,23 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-b from-[#0a0a0a] to-[#1a1a1a] border border-emerald-500/20 rounded-2xl p-8"
+          className="space-y-6"
         >
           <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-8">
             {content.socialProofTitle}
           </h2>
-          <SocialProof onNext={() => {}} quizPath={quizPath} />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+            {content.testimonials?.map((testimonial, idx) => (
+              <TestimonialCard
+                key={idx}
+                name={testimonial.name}
+                format={testimonial.format}
+                text={testimonial.text}
+                image={testimonial.image}
+                delay={idx * 0.1}
+              />
+            ))}
+          </div>
         </motion.div>
 
         {/* BLOCO 4: BÔNUS */}
@@ -312,42 +419,52 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           </div>
         </motion.div>
 
+        {/* NOVO BLOCO: SALA DE FREQUÊNCIA (Teste Sensorial) */}
+        <FrequencyRoom />
+
         {/* BLOCO 5: OFERTA/CHECKOUT */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-b from-[#FF9500]/10 to-[#FF9500]/5 border-2 border-[#C69320] rounded-3xl p-8 relative overflow-hidden shadow-[0_0_40px_rgba(198,147,32,0.6),0_0_80px_rgba(198,147,32,0.3)]"
+          className="relative"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-[#FF9500]/10 via-transparent to-orange-900/10 animate-pulse" aria-hidden="true" />
-          <div className="relative z-10 text-center space-y-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-white">
-              {content.offerTitle}
-            </h2>
-            
-            {/* Price */}
-            <div className="space-y-2">
-              <p className="text-gray-400 text-lg">
-                De <span className="line-through">R$ {content.priceOld}</span> por apenas:
-              </p>
-              <div className="text-7xl md:text-8xl font-black text-[#FFD700]">
-                R${content.priceNew?.split(',')[0]}
-                <span className="text-4xl align-super">,{content.priceNew?.split(',')[1]}</span>
+          {/* Efeito Radioativo - Brilho Dourado Intenso */}
+          <div className="absolute -inset-4 bg-gradient-to-r from-[#C69320] via-[#FFD700] to-[#C69320] rounded-3xl blur-2xl opacity-40 animate-pulse" aria-hidden="true" />
+          
+          <div className="relative bg-gradient-to-b from-[#C69320]/20 to-[#C69320]/10 border-2 border-[#FFD700] rounded-3xl p-8 overflow-hidden shadow-[0_0_60px_rgba(198,147,32,0.8),0_0_100px_rgba(255,215,0,0.5)]">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#FFD700]/10 via-transparent to-[#C69320]/10 animate-pulse" aria-hidden="true" />
+            <div className="relative z-10 text-center space-y-6">
+              <div className="flex flex-col items-center gap-3">
+                <CountdownTimer initialMinutes={10} />
+                <h2 className="text-2xl md:text-3xl font-bold text-white">
+                  {content.offerTitle}
+                </h2>
               </div>
-              <p className="text-sm text-gray-400">(à vista ou parcelado)</p>
-            </div>
+              
+              {/* Price */}
+              <div className="space-y-2">
+                <p className="text-gray-300 text-lg">
+                  De <span className="line-through">R$ {content.priceOld}</span> por apenas:
+                </p>
+                <div className="text-7xl md:text-9xl font-black text-[#FFD700] [background:linear-gradient(180deg,#FFD700_0%,#FFA500_50%,#FF8C00_100%)] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent] supports-[not_(background-clip:text)]:text-[#FFD700] drop-shadow-[0_0_30px_rgba(255,215,0,0.8)]">
+                  R${content.priceNew?.split(',')[0]}
+                  <span className="text-4xl md:text-5xl align-super">,{content.priceNew?.split(',')[1]}</span>
+                </div>
+                <p className="text-sm text-gray-300">(à vista ou parcelado)</p>
+              </div>
 
-            {/* CTA Button */}
-            <Button onClick={handleCheckout} pulse className="w-full max-w-md mx-auto text-xl py-6 shadow-2xl animate-pulse">
-              {content.cta}
-            </Button>
-            
-            {/* Trust Badges */}
-            <div className="flex items-center justify-center gap-4 text-sm text-gray-300 flex-wrap">
-              <div className="flex items-center gap-1">
-                <Lock className="w-4 h-4 text-green-500" aria-hidden="true" />
-                <span>🔒 Compra Segura</span>
-              </div>
+              {/* CTA Button */}
+              <Button onClick={handleCheckout} pulse className="w-full max-w-md mx-auto text-xl py-6 shadow-2xl animate-pulse">
+                {content.cta}
+              </Button>
+              
+              {/* Trust Badges */}
+              <div className="flex items-center justify-center gap-4 text-sm text-gray-300 flex-wrap">
+                <div className="flex items-center gap-1">
+                  <Lock className="w-4 h-4 text-green-500" aria-hidden="true" />
+                  <span>🔒 Compra Segura</span>
+                </div>
               <div className="flex items-center gap-1">
                 <span>💳 Pix e Cartão</span>
               </div>
@@ -359,6 +476,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
             
             <p className="text-sm text-gray-300 mt-4">{content.ctaSubtext}</p>
           </div>
+        </div>
         </motion.div>
 
         {/* BLOCO 6: GARANTIA */}
