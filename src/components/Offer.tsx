@@ -358,6 +358,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
 
   return (
     <div className="min-h-screen pb-32 md:pb-40 relative z-10 overflow-hidden bg-gradient-to-b from-[#120520] via-[#2A0F3D] to-[#120520]">
+      {/* pb-32 prevents sticky CTA from overlapping footer on mobile */}
       
       <div className="max-w-4xl mx-auto px-4 pt-8 space-y-12 pb-safe">
 
@@ -533,12 +534,14 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
                   </span>
                   {/* Main price */}
                   <span className="text-6xl md:text-8xl font-black text-[#FFD700] drop-shadow-[0_0_30px_rgba(255,215,0,0.8)]" style={{ textShadow: '0 0 40px rgba(255,215,0,0.6), 0 0 80px rgba(255,215,0,0.4)' }}>
-                    {content.priceNew?.split(',')[0]}
+                    {content.priceNew?.split(',')[0] || content.priceNew}
                   </span>
                   {/* Cents */}
-                  <span className="text-2xl md:text-4xl font-black text-[#FFD700] self-start mt-2 drop-shadow-[0_0_20px_rgba(255,215,0,0.8)]" style={{ textShadow: '0 0 30px rgba(255,215,0,0.6)' }}>
-                    ,{content.priceNew?.split(',')[1]}
-                  </span>
+                  {content.priceNew?.includes(',') && (
+                    <span className="text-2xl md:text-4xl font-black text-[#FFD700] self-start mt-2 drop-shadow-[0_0_20px_rgba(255,215,0,0.8)]" style={{ textShadow: '0 0 30px rgba(255,215,0,0.6)' }}>
+                      ,{content.priceNew.split(',')[1]}
+                    </span>
+                  )}
                 </div>
                 <p className="text-sm text-gray-200 font-medium">(à vista ou parcelado)</p>
               </div>
@@ -666,10 +669,10 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
             onClick={handleCheckout} 
             className="relative flex-1 bg-gradient-to-r from-[#FF9500] via-[#FFD700] to-[#FF9500] text-black font-bold py-3.5 px-4 rounded-xl shadow-[0_0_20px_rgba(255,215,0,0.6)] active:scale-95 transition-transform flex items-center justify-center gap-2 text-sm overflow-hidden group"
           >
-            {/* Shimmer effect */}
-            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+            {/* Shimmer effect - respects prefers-reduced-motion */}
+            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent motion-reduce:transition-none motion-reduce:translate-x-0"></div>
             <span className="relative z-10">DESTRAVAR MAPA</span>
-            <ArrowDown className="w-4 h-4 animate-bounce relative z-10" aria-hidden="true" />
+            <ArrowDown className="w-4 h-4 animate-bounce motion-reduce:animate-none relative z-10" aria-hidden="true" />
           </button>
         </div>
       </div>
