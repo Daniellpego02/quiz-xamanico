@@ -11,6 +11,8 @@ import { Offer } from './components/Offer';
 import Obrigado from './Obrigado';
 import Oferta1 from './Oferta1';
 import Oferta2 from './Oferta2';
+import Upsell1 from './Upsell1';
+import Downsell1 from './Downsell1';
 
 function App() {
   const [currentStep, setCurrentStep] = useState<AppStep>(AppStep.HERO);
@@ -86,6 +88,8 @@ function App() {
       <Route path="/obrigado" element={<Obrigado />} />
       <Route path="/oferta1" element={<Oferta1 userName={userName} />} />
       <Route path="/oferta2" element={<Oferta2 userName={userName} />} />
+      <Route path="/up1" element={<Upsell1 userName={userName} />} />
+      <Route path="/down1" element={<Downsell1 userName={userName} />} />
     </Routes>
   );
 }
