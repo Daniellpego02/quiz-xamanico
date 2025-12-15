@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { QuizQuestion, QuizPath } from '../types';
+import { QuizQuestion, QuizPath, QuestionOption } from '../types';
 import { ChevronRight, Sparkles, Compass } from 'lucide-react';
 
 interface QuizProps {
@@ -133,9 +133,27 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     }, 3500);
   };
 
-  const handleOptionClick = (_option: any) => {
+  const handleOptionClick = (option: QuestionOption) => {
     if (isNavigating) return;
     setIsNavigating(true);
+
+    // Pixel Inteligente - Rastreamento de Resposta e Progresso
+    if (typeof window.fbq === 'function') {
+      // Rastreia a resposta específica (para segmentação de audiência)
+      window.fbq('trackCustom', 'QuizAnswer', {
+        content_name: activeQuestions[currentIndex]?.title,
+        question_step: currentIndex + 1,
+        answer_value: option.value,
+        answer_label: option.label,
+        quiz_path: QUIZ_PATH
+      });
+      
+      // Rastreia o progresso granular
+      window.fbq('trackCustom', 'QuizProgress', {
+         percentage: Math.round(((currentIndex + 1) / activeQuestions.length) * 100),
+         step: currentIndex + 1
+      });
+    }
 
     // LÓGICA DE FLUXO ÚNICO FINANCEIRO (Pergunta 1)
     // Após a pergunta 1 (temporal pain), automaticamente adiciona as perguntas financeiras
