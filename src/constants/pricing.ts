@@ -16,8 +16,14 @@ export const PRICING = {
 
 // Checkout URLs
 export const CHECKOUT_URLS = {
-  upsell1: 'https://checkout.mapaxamanicooficial.online/cerimonia-quebra',
-  downsell1: 'https://checkout.mapaxamanicooficial.online/codigos-grabovoi'
+  upsell1: {
+    main: 'https://go.perfectpay.com.br/PPU38CQ4OE0?upsell=true',
+    exitPopup: 'https://go.perfectpay.com.br/PPU38CQ4OE9?upsell=true'
+  },
+  downsell1: {
+    main: 'https://go.perfectpay.com.br/PPU38CQ4OE5?upsell=true',
+    exitPopup: 'https://go.perfectpay.com.br/PPU38CQ4OE8?upsell=true'
+  }
 } as const;
 
 // Timer durations in seconds

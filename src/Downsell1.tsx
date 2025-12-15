@@ -79,7 +79,7 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
   };
 
   const handleAccept = () => {
-    window.location.href = CHECKOUT_URLS.downsell1;
+    window.location.href = CHECKOUT_URLS.downsell1.main;
   };
 
   const handleDecline = () => {
@@ -87,8 +87,7 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
   };
 
   const handleExitAccept = () => {
-    setShowExitPopup(false);
-    handleAccept();
+    window.location.href = CHECKOUT_URLS.downsell1.exitPopup;
   };
 
   return (
