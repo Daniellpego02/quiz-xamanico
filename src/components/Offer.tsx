@@ -532,8 +532,8 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
                     R${content.priceNew?.split(',')[0]}
                     <span className="text-4xl md:text-5xl align-super">,{content.priceNew?.split(',')[1]}</span>
                   </div>
-                  {/* Main price with strong contrast */}
-                  <div className="relative text-7xl md:text-9xl font-black text-[#FFD700] [background:linear-gradient(180deg,#FFD700_0%,#FFA500_50%,#FF8C00_100%)] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent] supports-[not_(background-clip:text)]:text-[#FFD700]">
+                  {/* Main price with strong contrast - FIXED for mobile */}
+                  <div className="relative text-7xl md:text-9xl font-black text-[#FFD700] drop-shadow-[0_0_30px_rgba(255,215,0,0.8)]" style={{ textShadow: '0 0 40px rgba(255,215,0,0.6), 0 0 80px rgba(255,215,0,0.4)' }}>
                     R${content.priceNew?.split(',')[0]}
                     <span className="text-4xl md:text-5xl align-super">,{content.priceNew?.split(',')[1]}</span>
                   </div>
