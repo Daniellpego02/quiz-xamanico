@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, X, Shield, Star, AlertCircle, Heart, Flame, Lock, Award, ChevronRight } from 'lucide-react';
+import { PRICING, CHECKOUT_URLS, TIMER_DURATIONS } from './constants/pricing';
 
 interface Upsell1Props {
   userName?: string;
@@ -8,22 +9,31 @@ interface Upsell1Props {
 
 export default function Upsell1({ userName = 'você' }: Upsell1Props) {
   const [showExitPopup, setShowExitPopup] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(600); // 10 minutos
+  const [timeLeft, setTimeLeft] = useState<number>(TIMER_DURATIONS.upsell1);
 
   const firstName = userName ? userName.split(' ')[0] : 'você';
   const firstNameUpper = firstName.toUpperCase();
 
   // Countdown timer
   useEffect(() => {
+    if (timeLeft <= 0) return;
+    
     const timer = setInterval(() => {
-      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
     }, 1000);
     return () => clearInterval(timer);
   }, []);
 
-  // Exit intent popup
+  // Exit intent popup (desktop and mobile)
   useEffect(() => {
     let exitTimeout: ReturnType<typeof setTimeout>;
+    let touchStartY = 0;
     
     const handleMouseLeave = (e: MouseEvent) => {
       if (e.clientY <= 0 && !showExitPopup) {
@@ -33,10 +43,31 @@ export default function Upsell1({ userName = 'você' }: Upsell1Props) {
       }
     };
 
+    // Mobile: detect upward swipe from top
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      const touchY = e.touches[0].clientY;
+      const swipeDistance = touchY - touchStartY;
+      
+      // If swiping up near the top of the page
+      if (touchStartY < 50 && swipeDistance > 50 && !showExitPopup) {
+        exitTimeout = setTimeout(() => {
+          setShowExitPopup(true);
+        }, 300);
+      }
+    };
+
     document.addEventListener('mouseleave', handleMouseLeave);
+    document.addEventListener('touchstart', handleTouchStart);
+    document.addEventListener('touchmove', handleTouchMove);
     
     return () => {
       document.removeEventListener('mouseleave', handleMouseLeave);
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchmove', handleTouchMove);
       if (exitTimeout) clearTimeout(exitTimeout);
     };
   }, [showExitPopup]);
@@ -48,7 +79,7 @@ export default function Upsell1({ userName = 'você' }: Upsell1Props) {
   };
 
   const handleAccept = () => {
-    window.location.href = 'https://checkout.mapaxamanicooficial.online/cerimonia-quebra';
+    window.location.href = CHECKOUT_URLS.upsell1;
   };
 
   const handleDecline = () => {
@@ -293,7 +324,7 @@ export default function Upsell1({ userName = 'você' }: Upsell1Props) {
                   <div className="relative z-10">
                     <div className="text-center mb-6">
                       <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                        Uma sessão individual dessa comigo custa <span className="text-white font-bold line-through">R$ 497,00</span>.
+                        Uma sessão individual dessa comigo custa <span className="text-white font-bold line-through">R$ {PRICING.upsell1.original}</span>.
                       </p>
                       <p className="text-yellow-400 font-bold text-base md:text-lg mb-4 uppercase tracking-wide">
                         Mas como você já é aluno novo e está aqui <strong>AGORA</strong>...
@@ -307,7 +338,7 @@ export default function Upsell1({ userName = 'você' }: Upsell1Props) {
                       </div>
 
                       <div className="my-6">
-                        <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">DE: R$ 497,00</p>
+                        <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">DE: R$ {PRICING.upsell1.original}</p>
                         <div className="flex items-center justify-center gap-3 mb-2">
                           <span className="text-gray-400 text-xl">POR APENAS:</span>
                           <div className="flex items-baseline">
@@ -328,7 +359,7 @@ export default function Upsell1({ userName = 'você' }: Upsell1Props) {
                         onClick={handleAccept}
                         className="w-full bg-gradient-to-r from-[#FF9500] via-[#F58400] to-[#EA580C] hover:from-[#FFA500] hover:via-[#FF9500] hover:to-[#F58400] text-white font-black text-xl md:text-2xl py-6 md:py-8 px-6 rounded-2xl shadow-[0_8px_40px_rgba(255,149,0,0.8)] transition-all transform hover:scale-105 active:scale-95 border-4 border-[#FFD700] uppercase tracking-wide mb-3 animate-pulse"
                       >
-                        <span className="drop-shadow-lg">✅ SIM! QUERO QUEBRAR MEUS CONTRATOS DE POBREZA POR R$ 49,90</span>
+                        <span className="drop-shadow-lg">✅ SIM! QUERO QUEBRAR MEUS CONTRATOS DE POBREZA POR R$ {PRICING.upsell1.offer}</span>
                       </button>
                       <p className="text-gray-400 text-xs md:text-sm italic">
                         (Adiciona automaticamente ao seu pedido. Não precisa digitar o cartão novamente)
@@ -492,7 +523,7 @@ export default function Upsell1({ userName = 'você' }: Upsell1Props) {
               onClick={handleAccept}
               className="w-full bg-gradient-to-r from-[#FF9500] via-[#F58400] to-[#EA580C] hover:from-[#FFA500] hover:via-[#FF9500] hover:to-[#F58400] text-white font-black text-xl md:text-2xl py-6 md:py-8 px-6 rounded-2xl shadow-[0_8px_40px_rgba(255,149,0,0.8)] transition-all transform hover:scale-105 active:scale-95 border-4 border-[#FFD700] uppercase tracking-wide animate-pulse"
             >
-              ✅ QUERO QUEBRAR MEUS CONTRATOS AGORA • R$ 49,90
+              ✅ QUERO QUEBRAR MEUS CONTRATOS AGORA • R$ {PRICING.upsell1.offer}
             </button>
           </motion.div>
 
@@ -514,7 +545,7 @@ export default function Upsell1({ userName = 'você' }: Upsell1Props) {
             <div className="flex-1">
               <p className="text-white font-bold text-sm">Cerimônia de Quebra</p>
               <p className="text-yellow-400 text-xs">
-                <span className="line-through opacity-60">R$ 497</span> → <span className="font-black text-lg">R$ 49,90</span>
+                <span className="line-through opacity-60">R$ {PRICING.upsell1.original.replace(',00', '')}</span> → <span className="font-black text-lg">R$ {PRICING.upsell1.offer}</span>
               </p>
             </div>
             <button
@@ -574,13 +605,13 @@ export default function Upsell1({ userName = 'você' }: Upsell1Props) {
                     Como você está saindo, liberei um desconto especial que <strong>NUNCA foi oferecido antes</strong>:
                   </p>
                   <div className="flex items-baseline justify-center gap-2 mb-2">
-                    <span className="text-gray-400 line-through text-xl">R$ 49,90</span>
+                    <span className="text-gray-400 line-through text-xl">R$ {PRICING.upsell1.offer}</span>
                     <span className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
-                      R$ 37
+                      R$ {PRICING.upsell1.exitPopupDiscount}
                     </span>
                   </div>
                   <p className="text-emerald-400 text-sm font-bold">
-                    Economize R$ 12,90 • Só válido AGORA
+                    Economize R$ {PRICING.upsell1.savings} • Só válido AGORA
                   </p>
                 </div>
 

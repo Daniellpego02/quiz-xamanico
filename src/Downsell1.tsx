@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, X, Shield, Star, Heart, Sparkles, TrendingUp, Zap, Gift, ChevronRight, DollarSign } from 'lucide-react';
+import { PRICING, CHECKOUT_URLS, TIMER_DURATIONS } from './constants/pricing';
 
 interface Downsell1Props {
   userName?: string;
@@ -8,22 +9,31 @@ interface Downsell1Props {
 
 export default function Downsell1({ userName = 'você' }: Downsell1Props) {
   const [showExitPopup, setShowExitPopup] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(300); // 5 minutos
+  const [timeLeft, setTimeLeft] = useState<number>(TIMER_DURATIONS.downsell1);
 
   const firstName = userName ? userName.split(' ')[0] : 'você';
   const firstNameUpper = firstName.toUpperCase();
 
   // Countdown timer
   useEffect(() => {
+    if (timeLeft <= 0) return;
+    
     const timer = setInterval(() => {
-      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
     }, 1000);
     return () => clearInterval(timer);
   }, []);
 
-  // Exit intent popup
+  // Exit intent popup (desktop and mobile)
   useEffect(() => {
     let exitTimeout: ReturnType<typeof setTimeout>;
+    let touchStartY = 0;
     
     const handleMouseLeave = (e: MouseEvent) => {
       if (e.clientY <= 0 && !showExitPopup) {
@@ -33,10 +43,31 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
       }
     };
 
+    // Mobile: detect upward swipe from top
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      const touchY = e.touches[0].clientY;
+      const swipeDistance = touchY - touchStartY;
+      
+      // If swiping up near the top of the page
+      if (touchStartY < 50 && swipeDistance > 50 && !showExitPopup) {
+        exitTimeout = setTimeout(() => {
+          setShowExitPopup(true);
+        }, 300);
+      }
+    };
+
     document.addEventListener('mouseleave', handleMouseLeave);
+    document.addEventListener('touchstart', handleTouchStart);
+    document.addEventListener('touchmove', handleTouchMove);
     
     return () => {
       document.removeEventListener('mouseleave', handleMouseLeave);
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchmove', handleTouchMove);
       if (exitTimeout) clearTimeout(exitTimeout);
     };
   }, [showExitPopup]);
@@ -48,7 +79,7 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
   };
 
   const handleAccept = () => {
-    window.location.href = 'https://checkout.mapaxamanicooficial.online/codigos-grabovoi';
+    window.location.href = CHECKOUT_URLS.downsell1;
   };
 
   const handleDecline = () => {
@@ -273,14 +304,14 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
                   <div className="relative z-10">
                     <div className="text-center mb-6">
                       <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                        Eu vendo esse Guia por <span className="text-white font-bold line-through">R$ 67,00</span>.
+                        Eu vendo esse Guia por <span className="text-white font-bold line-through">R$ {PRICING.downsell1.original}</span>.
                       </p>
                       <p className="text-purple-400 font-bold text-base md:text-lg mb-4 uppercase tracking-wide">
                         Mas, para você não ficar <strong className="text-red-400">desprotegido</strong>...
                       </p>
 
                       <div className="my-6">
-                        <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">DE: R$ 67,00</p>
+                        <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">DE: R$ {PRICING.downsell1.original}</p>
                         <div className="flex items-center justify-center gap-3 mb-2">
                           <span className="text-gray-400 text-xl">LEVE POR APENAS:</span>
                           <div className="flex items-baseline">
@@ -304,7 +335,7 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
                         onClick={handleAccept}
                         className="w-full bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] hover:from-[#FFA500] hover:via-[#FFD700] hover:to-[#FFA500] text-black font-black text-xl md:text-2xl py-6 md:py-8 px-6 rounded-2xl shadow-[0_8px_40px_rgba(255,215,0,0.6)] transition-all transform hover:scale-105 active:scale-95 border-4 border-yellow-300 uppercase tracking-wide mb-3"
                       >
-                        <span className="drop-shadow-lg">✅ ADICIONAR CÓDIGOS DE EMERGÊNCIA POR R$ 19,90</span>
+                        <span className="drop-shadow-lg">✅ ADICIONAR CÓDIGOS DE EMERGÊNCIA POR R$ {PRICING.downsell1.offer}</span>
                       </button>
                       <p className="text-gray-400 text-xs md:text-sm italic">
                         (Adiciona ao seu pedido. Pagamento único, acesso para sempre)
@@ -496,7 +527,7 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
               onClick={handleAccept}
               className="w-full bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] hover:from-[#FFA500] hover:via-[#FFD700] hover:to-[#FFA500] text-black font-black text-xl md:text-2xl py-6 md:py-8 px-6 rounded-2xl shadow-[0_8px_40px_rgba(255,215,0,0.6)] transition-all transform hover:scale-105 active:scale-95 border-4 border-yellow-300 uppercase tracking-wide"
             >
-              ✅ QUERO OS CÓDIGOS DE EMERGÊNCIA • R$ 19,90
+              ✅ QUERO OS CÓDIGOS DE EMERGÊNCIA • R$ {PRICING.downsell1.offer}
             </button>
           </motion.div>
 
@@ -518,7 +549,7 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
             <div className="flex-1">
               <p className="text-white font-bold text-sm">Códigos Grabovoi</p>
               <p className="text-yellow-300 text-xs">
-                <span className="line-through opacity-60">R$ 67</span> → <span className="font-black text-lg">R$ 19,90</span>
+                <span className="line-through opacity-60">R$ {PRICING.downsell1.original.replace(',00', '')}</span> → <span className="font-black text-lg">R$ {PRICING.downsell1.offer}</span>
               </p>
             </div>
             <button
@@ -578,13 +609,13 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
                     Ok, eu entendo. Deixa eu tornar isso <strong>IRRECUSÁVEL</strong>:
                   </p>
                   <div className="flex items-baseline justify-center gap-2 mb-2">
-                    <span className="text-gray-400 line-through text-xl">R$ 19,90</span>
+                    <span className="text-gray-400 line-through text-xl">R$ {PRICING.downsell1.offer}</span>
                     <span className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
-                      R$ 14,90
+                      R$ {PRICING.downsell1.exitPopupDiscount}
                     </span>
                   </div>
                   <p className="text-emerald-400 text-sm font-bold">
-                    Economize R$ 5 • Menos que um lanche
+                    Economize R$ {PRICING.downsell1.savings} • Menos que um lanche
                   </p>
                 </div>
 
