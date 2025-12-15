@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './Button';
-import { Shield, Lock, Play, ShieldCheck, Magnet, TrendingUp, Sparkles, ArrowDown, Eye, Flame, Zap } from 'lucide-react';
+import { Eye, Flame, Lock, Magnet, Play, Shield, ShieldCheck, Sparkles, TrendingUp, Zap } from 'lucide-react';
 import { QuizPath } from '../types';
 import Veredito from './Veredito';
 import { TestimonialCard } from './TestimonialCard';
@@ -264,57 +264,101 @@ const VturbPlayer = React.memo(({ quizPath = 'finance' }: { quizPath?: QuizPath 
   };
 
   return (
-    <div className="relative w-full max-w-[360px] mx-auto group my-6">
-      {/* Enhanced golden glow effect */}
-      <div className={`absolute -inset-2 bg-gradient-to-r ${quizPath === 'relationship' ? 'from-purple-500 via-pink-500 to-purple-500' : 'from-[#FF9500] via-[#FFD700] to-[#FF9500]'} rounded-[2.5rem] blur-xl opacity-40 group-hover:opacity-60 transition duration-1000 animate-pulse`}></div>
-      <div className="relative w-full aspect-[9/16] bg-black rounded-[2rem] overflow-hidden shadow-2xl border border-[#FFD700]/20 z-10">
+    <div className="relative w-full max-w-4xl mx-auto my-8">
+      {/* Outer glow effect */}
+      <div className="absolute -inset-1 bg-gradient-to-r from-[#FFD700] via-orange-500 to-[#FFD700] rounded-2xl blur-xl opacity-20 animate-pulse" />
+      
+      {/* Main video container */}
+      <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(255,215,0,0.15)] border border-[#FFD700]/20 bg-black">
+        
         {/* Custom Thumbnail Overlay - shows before video starts */}
         {showCustomThumbnail && (
           <div 
             onClick={handleThumbnailClick}
-            className="absolute inset-0 z-30 cursor-pointer bg-gradient-to-b from-[#2A0F3D] via-[#1a0b2e] to-[#0a0a0a] flex flex-col items-center justify-center group/thumb"
+            className="absolute inset-0 z-30 cursor-pointer group/thumb"
           >
-            {/* Dramatic background gradient */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#2A0F3D] via-[#1a0b2e] to-[#0a0a0a] opacity-90"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,215,0,0.15)_0%,transparent_70%)]"></div>
+            {/* Background with image overlay effect - using Unsplash mystical/financial imagery */}
+            {/* Note: Consider hosting this image locally for production reliability */}
+            <div 
+              className="absolute inset-0 bg-cover bg-center opacity-40"
+              style={{
+                backgroundImage: 'url(https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=1200&q=80)',
+                backgroundColor: '#1a0b2e', // Fallback color if image fails to load
+              }}
+            />
             
-            {/* Overlay content */}
-            <div className="relative z-10 text-center px-6">
-              {/* Large play button */}
+            {/* Dark gradient overlays for text readability */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90" />
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-900/30 via-transparent to-orange-900/30" />
+            
+            {/* Animated radial glow effect */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,215,0,0.2)_0%,transparent_60%)]" />
+            
+            {/* Content */}
+            <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 md:px-12 text-center">
+              
+              {/* Large animated play button */}
               <motion.div
                 animate={{ 
-                  scale: [1, 1.1, 1],
+                  scale: [1, 1.15, 1],
                 }}
                 transition={{ 
                   duration: 2,
                   repeat: Infinity,
-                  repeatType: "reverse"
+                  ease: "easeInOut"
                 }}
-                className="mb-4"
+                className="mb-6"
               >
-                <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-[#FF9500] to-[#FFD700] flex items-center justify-center shadow-[0_0_30px_rgba(255,215,0,0.6)] group-hover/thumb:shadow-[0_0_50px_rgba(255,215,0,0.8)] transition-shadow">
-                  <Play className="w-10 h-10 text-white fill-white ml-1" />
+                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-[#FF9500] to-[#FFD700] flex items-center justify-center shadow-[0_0_40px_rgba(255,215,0,0.6)] group-hover/thumb:shadow-[0_0_60px_rgba(255,215,0,0.9)] transition-all">
+                  <Play className="w-12 h-12 md:w-16 md:h-16 text-white fill-white ml-1" />
                 </div>
               </motion.div>
               
-              {/* Emotional hook text */}
-              <h3 className="text-xl font-bold text-white mb-2 drop-shadow-lg">
-                💰 A Verdade Sobre o Seu Bloqueio Financeiro
+              {/* Headline */}
+              <h3 className="text-2xl md:text-4xl font-black text-white mb-3 drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+                ⚡ A Verdade Sobre o Seu Bloqueio Financeiro
               </h3>
-              <p className="text-sm text-[#FFD700] font-semibold">
-                Toque para assistir e descobrir a raiz do problema
+              
+              {/* Subheadline */}
+              <p className="text-base md:text-xl text-[#FFD700] font-bold mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+                Toque para assistir este diagnóstico revelador
               </p>
+              
+              {/* Sound warning */}
+              <div className="flex items-center gap-2 mt-4 px-4 py-2 bg-black/60 rounded-full backdrop-blur-sm border border-[#FFD700]/30">
+                <motion.div
+                  animate={{
+                    scale: [1, 1.2, 1],
+                  }}
+                  transition={{
+                    duration: 1,
+                    repeat: Infinity,
+                  }}
+                >
+                  🔊
+                </motion.div>
+                <span className="text-sm md:text-base text-white font-semibold">
+                  ATIVE O SOM PARA MELHOR EXPERIÊNCIA
+                </span>
+              </div>
             </div>
             
-            {/* Pulse ring effect */}
-            <div className="absolute inset-0 rounded-[2rem] border-2 border-[#FFD700] opacity-0 group-hover/thumb:opacity-100 animate-pulse"></div>
+            {/* Animated pulse border */}
+            <motion.div
+              animate={{
+                opacity: [0.3, 0.7, 0.3],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+              }}
+              className="absolute inset-0 rounded-2xl border-4 border-[#FFD700] pointer-events-none"
+            />
           </div>
         )}
         
+        {/* Video player container */}
         <div ref={containerRef} className="w-full h-full" />
-      </div>
-      <div className="absolute bottom-6 right-6 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden md:flex items-center gap-2 text-[10px] font-bold text-white bg-black/60 px-3 py-1.5 rounded-full backdrop-blur-md border border-white/10">
-         <Play className="w-3 h-3 fill-white" /> LIGUE O SOM
       </div>
     </div>
   );
@@ -357,8 +401,8 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
   };
 
   return (
-    <div className="min-h-screen pb-32 md:pb-40 relative z-10 overflow-hidden bg-gradient-to-b from-[#120520] via-[#2A0F3D] to-[#120520]">
-      {/* pb-32 prevents sticky CTA from overlapping footer on mobile */}
+    <div className="min-h-screen pb-8 relative z-10 overflow-hidden bg-gradient-to-b from-[#120520] via-[#2A0F3D] to-[#120520]">
+      {/* Removed pb-32 since sticky CTA is removed */}
       
       <div className="max-w-4xl mx-auto px-4 pt-8 space-y-12 pb-safe">
 
@@ -653,28 +697,6 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           </p>
         </footer>
 
-      </div>
-
-      {/* Sticky Bottom CTA (Mobile) - Enhanced Contrast & Shimmer */}
-      <div className="fixed bottom-0 left-0 w-full bg-gradient-to-t from-black via-[#0a0a0a] to-[#0a0a0a]/95 backdrop-blur-xl border-t-2 border-[#FFD700]/50 p-3 z-50 md:hidden shadow-[0_-10px_40px_rgba(0,0,0,0.8)] pb-[env(safe-area-inset-bottom)]">
-        <div className="flex items-center justify-between gap-3 max-w-lg mx-auto">
-          <div className="flex flex-col">
-             <span className="text-gray-400 line-through text-[11px] font-medium">De R$ 197</span>
-             <div className="flex items-baseline gap-1.5">
-                <span className="text-[10px] text-gray-300 font-semibold">Por</span>
-                <span className="font-black text-3xl text-[#FFD700] drop-shadow-[0_0_10px_rgba(255,215,0,0.8)]">R$ 37</span>
-             </div>
-          </div>
-          <button 
-            onClick={handleCheckout} 
-            className="relative flex-1 bg-gradient-to-r from-[#FF9500] via-[#FFD700] to-[#FF9500] text-black font-bold py-3.5 px-4 rounded-xl shadow-[0_0_20px_rgba(255,215,0,0.6)] active:scale-95 transition-transform flex items-center justify-center gap-2 text-sm overflow-hidden group"
-          >
-            {/* Shimmer effect - respects prefers-reduced-motion */}
-            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent motion-reduce:transition-none motion-reduce:translate-x-0"></div>
-            <span className="relative z-10">DESTRAVAR MAPA</span>
-            <ArrowDown className="w-4 h-4 animate-bounce motion-reduce:animate-none relative z-10" aria-hidden="true" />
-          </button>
-        </div>
       </div>
 
     </div>
