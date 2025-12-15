@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './Button';
-import { Shield, Lock, Play, ShieldCheck, Magnet, TrendingUp, Sparkles, Eye, Flame, Zap } from 'lucide-react';
+import { Eye, Flame, Lock, Magnet, Play, Shield, ShieldCheck, Sparkles, TrendingUp, Zap } from 'lucide-react';
 import { QuizPath } from '../types';
 import Veredito from './Veredito';
 import { TestimonialCard } from './TestimonialCard';
@@ -278,10 +278,12 @@ const VturbPlayer = React.memo(({ quizPath = 'finance' }: { quizPath?: QuizPath 
             className="absolute inset-0 z-30 cursor-pointer group/thumb"
           >
             {/* Background with image overlay effect - using Unsplash mystical/financial imagery */}
+            {/* Note: Consider hosting this image locally for production reliability */}
             <div 
               className="absolute inset-0 bg-cover bg-center opacity-40"
               style={{
                 backgroundImage: 'url(https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=1200&q=80)',
+                backgroundColor: '#1a0b2e', // Fallback color if image fails to load
               }}
             />
             
