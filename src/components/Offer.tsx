@@ -245,15 +245,20 @@ const VturbPlayer = React.memo(({ quizPath = 'finance' }: { quizPath?: QuizPath 
     }
     
     return () => { 
-      if (containerRef.current) containerRef.current.innerHTML = ''; 
+      if (smartplayer) {
+        smartplayer.removeEventListener('play', handlePlayEvent);
+      }
+      if (containerRef.current) {
+        containerRef.current.innerHTML = '';
+      }
     };
   }, [vslId]);
 
   const handleThumbnailClick = () => {
     setShowCustomThumbnail(false);
     // Try to trigger video play
-    const smartplayer = containerRef.current?.querySelector('vturb-smartplayer') as any;
-    if (smartplayer && smartplayer.play) {
+    const smartplayer = containerRef.current?.querySelector('vturb-smartplayer') as HTMLElement & { play?: () => void };
+    if (smartplayer && typeof smartplayer.play === 'function') {
       smartplayer.play();
     }
   };
@@ -269,8 +274,9 @@ const VturbPlayer = React.memo(({ quizPath = 'finance' }: { quizPath?: QuizPath 
             onClick={handleThumbnailClick}
             className="absolute inset-0 z-30 cursor-pointer bg-gradient-to-b from-[#2A0F3D] via-[#1a0b2e] to-[#0a0a0a] flex flex-col items-center justify-center group/thumb"
           >
-            {/* Dramatic image placeholder - can be replaced with actual image */}
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjYwMCIgZmlsbD0iIzFhMGIyZSIvPgogIDxjaXJjbGUgY3g9IjIwMCIgY3k9IjMwMCIgcj0iODAiIGZpbGw9IiNGRkQ3MDAiIG9wYWNpdHk9IjAuMiIvPgo8L3N2Zz4=')] bg-cover bg-center opacity-30"></div>
+            {/* Dramatic background gradient */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[#2A0F3D] via-[#1a0b2e] to-[#0a0a0a] opacity-90"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,215,0,0.15)_0%,transparent_70%)]"></div>
             
             {/* Overlay content */}
             <div className="relative z-10 text-center px-6">
@@ -527,7 +533,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
                     <span className="text-4xl md:text-5xl align-super">,{content.priceNew?.split(',')[1]}</span>
                   </div>
                   {/* Main price with strong contrast */}
-                  <div className="relative text-7xl md:text-9xl font-black text-[#FFD700] [background:linear-gradient(180deg,#FFD700_0%,#FFA500_50%,#FF8C00_100%)] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent] supports-[not_(background-clip:text)]:text-[#FFD700] [text-shadow:0_0_40px_rgba(0,0,0,0.8),0_2px_4px_rgba(0,0,0,0.9)]" style={{textShadow: '0 0 40px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.9), 0 0 60px rgba(255,215,0,0.6)'}}>
+                  <div className="relative text-7xl md:text-9xl font-black text-[#FFD700] [background:linear-gradient(180deg,#FFD700_0%,#FFA500_50%,#FF8C00_100%)] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent] supports-[not_(background-clip:text)]:text-[#FFD700]">
                     R${content.priceNew?.split(',')[0]}
                     <span className="text-4xl md:text-5xl align-super">,{content.priceNew?.split(',')[1]}</span>
                   </div>
