@@ -5,6 +5,7 @@ import { Shield, Lock, Play, ShieldCheck, Magnet, TrendingUp, Sparkles, ArrowDow
 import { QuizPath } from '../types';
 import Veredito from './Veredito';
 import { TestimonialCard } from './TestimonialCard';
+import { FrequencyRoom } from './FrequencyRoom';
 
 // Dicionário de Conteúdo Dinâmico - NOVA ESTRUTURA VERSÃO FILEMON
 const offerContent = {
@@ -401,6 +402,9 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
             ))}
           </div>
         </motion.div>
+
+        {/* NOVO BLOCO: SALA DE FREQUÊNCIA (Teste Sensorial) */}
+        <FrequencyRoom />
 
         {/* BLOCO 5: OFERTA/CHECKOUT */}
         <motion.div
