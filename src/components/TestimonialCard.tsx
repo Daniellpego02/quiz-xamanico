@@ -48,6 +48,9 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({ name, format, 
           src={image} 
           alt={name}
           className="w-10 h-10 rounded-full border-2 border-white/20 object-cover"
+          onError={(e) => {
+            e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`;
+          }}
         />
         <div className="flex-1">
           <div className="flex items-center gap-2">

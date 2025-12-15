@@ -138,10 +138,10 @@ const offerContent = {
         image: "https://i.pravatar.cc/150?img=35"
       },
       {
-        name: "Juliana P.",
+        name: "Paula R.",
         format: "instagram" as const,
         text: "Depois do protocolo, conheci alguém completamente diferente dos meus ex-tóxicos. E o melhor: reconheci os sinais de saúde emocional que antes eu ignorava. Tô vivendo um amor leve! 💕✨",
-        image: "https://i.pravatar.cc/150?img=43"
+        image: "https://i.pravatar.cc/150?img=48"
       },
       {
         name: "Renata Siqueira",
@@ -424,7 +424,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
                 <p className="text-gray-300 text-lg">
                   De <span className="line-through">R$ {content.priceOld}</span> por apenas:
                 </p>
-                <div className="text-7xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-b from-[#FFD700] via-[#FFA500] to-[#FF8C00] drop-shadow-[0_0_30px_rgba(255,215,0,0.8)]">
+                <div className="text-7xl md:text-9xl font-black text-[#FFD700] [background:linear-gradient(180deg,#FFD700_0%,#FFA500_50%,#FF8C00_100%)] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent] supports-[not_(background-clip:text)]:text-[#FFD700] drop-shadow-[0_0_30px_rgba(255,215,0,0.8)]">
                   R${content.priceNew?.split(',')[0]}
                   <span className="text-4xl md:text-5xl align-super">,{content.priceNew?.split(',')[1]}</span>
                 </div>
@@ -453,7 +453,7 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
             
             <p className="text-sm text-gray-300 mt-4">{content.ctaSubtext}</p>
           </div>
-          </div>
+        </div>
         </motion.div>
 
         {/* BLOCO 6: GARANTIA */}
