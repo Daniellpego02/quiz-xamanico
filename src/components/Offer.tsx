@@ -6,6 +6,7 @@ import { QuizPath } from '../types';
 import Veredito from './Veredito';
 import { TestimonialCard } from './TestimonialCard';
 import { FrequencyRoom } from './FrequencyRoom';
+import { CountdownTimer } from './CountdownTimer';
 
 // Dicionário de Conteúdo Dinâmico - NOVA ESTRUTURA VERSÃO FILEMON
 const offerContent = {
@@ -73,13 +74,13 @@ const offerContent = {
         icon: "🎁", 
         title: "Áudio de Socorro Financeiro", 
         desc: "O que ouvir 5 minutos antes de pagar uma conta ou negociar uma dívida para não vibrar na escassez.", 
-        value: "97" 
+        value: "197" 
       },
       { 
         icon: "🎁", 
         title: "O Código da Cama do Dinheiro", 
         desc: "Feng Shui Xamânico: Como preparar seu quarto para atrair riqueza enquanto você dorme.", 
-        value: "47" 
+        value: "147" 
       }
     ],
     
@@ -111,6 +112,10 @@ const offerContent = {
       { 
         question: "E se eu fizer e não sentir nada?", 
         answer: "Eu assumo esse risco por você. Se em 7 dias você ouvir os áudios e não sentir — fisicamente — o peso saindo das suas costas e a clareza mental voltando, eu devolvo 100% do seu dinheiro. Sem letras miúdas, sem perguntas." 
+      },
+      { 
+        question: "E se eu seguir tudo certinho e mesmo assim não funcionar PRA MIM?", 
+        answer: "Impossível. Mas se acontecer, eu não só devolvo seu dinheiro — eu pago DOBRADO pela sua frustração. R$ 74 na sua conta. É meu jeito de assumir 100% do risco. Você literalmente não tem nada a perder e tudo a ganhar." 
       }
     ]
   },
@@ -296,7 +301,18 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
         </div>
 
         {/* CTA after video */}
-        <div className="text-center">
+        <div className="text-center space-y-4">
+          <div className="flex flex-col items-center gap-3">
+            <CountdownTimer initialMinutes={10} />
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="text-orange-300 text-sm md:text-base font-semibold"
+            >
+              ⚠️ Esta oferta especial expira quando você sair desta página
+            </motion.p>
+          </div>
           <Button onClick={handleCheckout} pulse className="w-full max-w-lg mx-auto text-lg shadow-xl animate-pulse">
             QUERO DESTRAVAR MINHA PROSPERIDADE AGORA ➔
           </Button>
@@ -419,9 +435,12 @@ export const Offer: React.FC<OfferProps> = ({ quizPath = 'finance', userName }) 
           <div className="relative bg-gradient-to-b from-[#C69320]/20 to-[#C69320]/10 border-2 border-[#FFD700] rounded-3xl p-8 overflow-hidden shadow-[0_0_60px_rgba(198,147,32,0.8),0_0_100px_rgba(255,215,0,0.5)]">
             <div className="absolute inset-0 bg-gradient-to-br from-[#FFD700]/10 via-transparent to-[#C69320]/10 animate-pulse" aria-hidden="true" />
             <div className="relative z-10 text-center space-y-6">
-              <h2 className="text-2xl md:text-3xl font-bold text-white">
-                {content.offerTitle}
-              </h2>
+              <div className="flex flex-col items-center gap-3">
+                <CountdownTimer initialMinutes={10} />
+                <h2 className="text-2xl md:text-3xl font-bold text-white">
+                  {content.offerTitle}
+                </h2>
+              </div>
               
               {/* Price */}
               <div className="space-y-2">
