@@ -64,7 +64,7 @@ function App() {
       case AppStep.LOADING:
         return <AnalysisLoading onComplete={handleLoadingComplete} quizPath={quizPath} />;
       case AppStep.OFFER:
-        return <Offer quizPath={quizPath} userName={userName} />; // Passa o caminho e userName para a oferta
+        return <Offer userName={userName} />;
       default:
         return <Hero onStart={handleStartQuiz} />;
     }

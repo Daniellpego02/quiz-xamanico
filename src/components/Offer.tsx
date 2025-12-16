@@ -1,11 +1,9 @@
 import { motion } from 'framer-motion';
 import { Check, Eye, Flame, Zap, Shield, Clock, Star, Sparkles } from 'lucide-react';
-import { QuizPath } from '../types';
 import Veredito from './Veredito';
 import { FrequencyRoom } from './FrequencyRoom';
 
 interface OfferProps {
-    quizPath: QuizPath;
     userName: string;
 }
 
