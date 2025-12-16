@@ -52,18 +52,20 @@ const Offer = ({ userName }: OfferProps) => {
                     </p>
                 </motion.div>
 
-                {/* Video Section - VSL 9:16 Format with Vturb Player */}
+                {/* Video Section - VSL 9:16 Format with Vturb Player - Fixed for Desktop and Mobile */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.7 }}
-                    className="relative rounded-2xl overflow-hidden border-2 border-[#D4AF37] shadow-[0_0_40px_rgba(212,175,55,0.3)] mb-12"
+                    className="relative rounded-2xl overflow-hidden border-2 border-[#D4AF37] shadow-[0_0_40px_rgba(212,175,55,0.3)] mb-12 mx-auto max-w-md"
                 >
-                    <div className="bg-black/50 flex items-center justify-center py-4">
-                        <vturb-smartplayer 
-                            id="vid-693f17c2b7fea67f333de06f" 
-                            style={{ display: 'block', margin: '0 auto', width: '100%', maxWidth: '400px' }}
-                        ></vturb-smartplayer>
+                    <div className="bg-black/50 flex items-center justify-center py-4 px-4">
+                        <div className="w-full" style={{ aspectRatio: '9/16', maxWidth: '400px', margin: '0 auto' }}>
+                            <vturb-smartplayer 
+                                id="vid-693f17c2b7fea67f333de06f" 
+                                style={{ display: 'block', width: '100%', height: '100%' }}
+                            ></vturb-smartplayer>
+                        </div>
                     </div>
                 </motion.div>
 
@@ -148,13 +150,13 @@ const Offer = ({ userName }: OfferProps) => {
                             </h3>
                         </div>
 
-                        {/* Price Display - Enhanced */}
+                        {/* Price Display - Enhanced with WHITE price for better contrast */}
                         <div className="text-center mb-8">
                             <p className="text-slate-400 text-sm mb-2">De:</p>
                             <p className="text-2xl text-slate-500 line-through mb-4">R$ {priceOld}</p>
                             <p className="text-[#FFD700] text-lg font-bold mb-2">Por apenas:</p>
                             <div className="flex items-center justify-center gap-2 mb-4">
-                                <span className="text-7xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#10B981] via-[#34D399] to-[#10B981] drop-shadow-[0_0_40px_rgba(16,185,129,0.8)] animate-pulse">
+                                <span className="text-7xl md:text-8xl font-black text-white drop-shadow-[0_0_40px_rgba(255,255,255,0.8)] animate-pulse">
                                     R${priceNew}
                                 </span>
                             </div>

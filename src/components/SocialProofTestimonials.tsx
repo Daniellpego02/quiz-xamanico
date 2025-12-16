@@ -1,34 +1,38 @@
 import { motion } from 'framer-motion';
-import { MessageCircle, TrendingUp, Briefcase, Heart, Star } from 'lucide-react';
+import { Check, CheckCheck } from 'lucide-react';
 
 const testimonials = [
   {
     id: 1,
     name: 'Mariana S.',
-    icon: TrendingUp,
-    message: 'Anahí, você não vai acreditar! Fiz o desbloqueio do Dia 2 ontem à noite. Hoje de manhã recebi um PIX de uma dívida antiga que eu nem lembrava mais que existia. Tô arrepiada!',
-    color: 'from-green-500 to-emerald-500',
+    avatar: '👩🏻',
+    time: '10:34',
+    message: 'Anahí, você não vai acreditar! Fiz o desbloqueio do Dia 2 ontem à noite. Hoje de manhã recebi um PIX de uma dívida antiga que eu nem lembrava mais que existia. Tô arrepiada! 😱',
+    platform: 'whatsapp',
   },
   {
     id: 2,
     name: 'Carlos Eduardo',
-    icon: Briefcase,
-    message: 'Estava travado no profissional há 8 meses. Comecei o Mapa na segunda, hoje me chamaram pra entrevista e JÁ PASSEI! A sensação é que tirei uma âncora do pé.',
-    color: 'from-blue-500 to-cyan-500',
+    avatar: '👨🏽',
+    time: '15:22',
+    message: 'Estava travado no profissional há 8 meses. Comecei o Mapa na segunda, hoje me chamaram pra entrevista e JÁ PASSEI! A sensação é que tirei uma âncora do pé. 🚀',
+    platform: 'whatsapp',
   },
   {
     id: 3,
     name: 'Fernanda L.',
-    icon: Heart,
-    message: 'Só queria agradecer. Eu sentia um peso nas costas que não saía com nada. Depois do áudio da Sala de Frequência, parece que tiraram uma tonelada de mim. Gratidão eterna.',
-    color: 'from-pink-500 to-rose-500',
+    avatar: '👩🏼',
+    time: '08:47',
+    message: 'Só queria agradecer. Eu sentia um peso nas costas que não saía com nada. Depois do áudio da Sala de Frequência, parece que tiraram uma tonelada de mim. Gratidão eterna 🙏✨',
+    platform: 'whatsapp',
   },
   {
     id: 4,
     name: 'Roberto G.',
-    icon: Star,
-    message: 'Confesso que comprei desconfiado pelo valor ser baixo... mas o conteúdo vale 10x mais. Minha loja bateu recorde de vendas essa semana. O ritual da carteira é real!',
-    color: 'from-yellow-500 to-amber-500',
+    avatar: '👨🏻',
+    time: '19:15',
+    message: 'Confesso que comprei desconfiado pelo valor ser baixo... mas o conteúdo vale 10x mais. Minha loja bateu recorde de vendas essa semana. O ritual da carteira é real! 💰🔥',
+    platform: 'whatsapp',
   },
 ];
 
@@ -53,11 +57,11 @@ export const SocialProofTestimonials = () => {
             ✨ VEJA O QUE ACONTECE QUANDO VOCÊ GIRA A CHAVE
           </motion.h2>
           <p className="text-slate-300 text-base md:text-lg">
-            Milhares de pessoas já destravaram sua prosperidade
+            Mensagens reais de pessoas que destravaram sua prosperidade
           </p>
         </div>
 
-        {/* Testimonials Grid */}
+        {/* Testimonials Grid - WhatsApp Style */}
         <div className="grid md:grid-cols-2 gap-6">
           {testimonials.map((testimonial, index) => (
             <motion.div
@@ -66,31 +70,44 @@ export const SocialProofTestimonials = () => {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="relative group"
+              className="relative"
             >
-              {/* Glow effect on hover */}
-              <div className={`absolute -inset-1 bg-gradient-to-r ${testimonial.color} rounded-2xl blur-lg opacity-0 group-hover:opacity-30 transition-opacity duration-300`} />
-              
-              {/* Message bubble */}
-              <div className="relative bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/20">
-                {/* Icon */}
-                <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br ${testimonial.color} mb-4 shadow-lg`}>
-                  <testimonial.icon className="w-6 h-6 text-white" />
+              {/* WhatsApp-style chat container */}
+              <div className="relative bg-[#0B141A] rounded-2xl p-4 shadow-2xl border border-[#2A3942]">
+                {/* Header - WhatsApp style */}
+                <div className="flex items-center gap-3 mb-4 pb-3 border-b border-[#2A3942]">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#FFD700] flex items-center justify-center text-2xl shadow-lg">
+                    {testimonial.avatar}
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-white text-sm font-bold">{testimonial.name}</p>
+                    <p className="text-[#8696A0] text-xs">online</p>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                  </div>
                 </div>
 
-                {/* Message */}
-                <p className="text-gray-800 text-sm md:text-base leading-relaxed mb-4 font-medium">
-                  "{testimonial.message}"
-                </p>
+                {/* Message bubble - WhatsApp received message style */}
+                <div className="flex gap-2">
+                  <div className="flex-1">
+                    <div className="bg-[#1F2C34] rounded-lg rounded-tl-none p-3 shadow-lg">
+                      <p className="text-white text-sm md:text-base leading-relaxed font-normal mb-2">
+                        {testimonial.message}
+                      </p>
+                      <div className="flex items-center justify-end gap-1">
+                        <span className="text-[#8696A0] text-xs">{testimonial.time}</span>
+                        <CheckCheck className="w-4 h-4 text-[#53BDEB]" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-                {/* Name and verified badge */}
-                <div className="flex items-center justify-between">
-                  <p className="text-gray-600 text-sm font-bold">
-                    — {testimonial.name}
-                  </p>
-                  <div className="flex items-center gap-1 text-emerald-600">
-                    <MessageCircle className="w-4 h-4" />
-                    <span className="text-xs font-semibold">Verificado</span>
+                {/* Verified badge */}
+                <div className="flex items-center justify-end gap-1 mt-2">
+                  <div className="bg-emerald-500/20 border border-emerald-500/40 rounded-full px-3 py-1 flex items-center gap-1">
+                    <Check className="w-3 h-3 text-emerald-400" />
+                    <span className="text-emerald-400 text-xs font-semibold">Cliente Verificado</span>
                   </div>
                 </div>
               </div>
@@ -106,14 +123,14 @@ export const SocialProofTestimonials = () => {
           transition={{ delay: 0.5 }}
           className="mt-10 text-center"
         >
-          <div className="inline-flex items-center gap-2 bg-emerald-500/20 border-2 border-emerald-500/40 rounded-full px-6 py-3">
+          <div className="inline-flex items-center gap-3 bg-emerald-500/20 border-2 border-emerald-500/40 rounded-full px-6 py-3">
             <div className="flex -space-x-2">
-              {[...Array(5)].map((_, i) => (
+              {['👩🏻', '👨🏽', '👩🏼', '👨🏻', '👩🏾'].map((avatar, i) => (
                 <div
                   key={i}
-                  className="w-8 h-8 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#FFD700] border-2 border-white flex items-center justify-center"
+                  className="w-8 h-8 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#FFD700] border-2 border-[#0B141A] flex items-center justify-center text-lg"
                 >
-                  <Star className="w-4 h-4 text-white fill-white" />
+                  {avatar}
                 </div>
               ))}
             </div>
