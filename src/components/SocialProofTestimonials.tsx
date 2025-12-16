@@ -6,6 +6,7 @@ const testimonials = [
     id: 1,
     name: 'Mariana S.',
     avatar: '👩🏻',
+    photo: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=faces',
     time: '10:34',
     message: 'Anahí, você não vai acreditar! Fiz o desbloqueio do Dia 2 ontem à noite. Hoje de manhã recebi um PIX de uma dívida antiga que eu nem lembrava mais que existia. Tô arrepiada! 😱',
     platform: 'whatsapp',
@@ -14,6 +15,7 @@ const testimonials = [
     id: 2,
     name: 'Carlos Eduardo',
     avatar: '👨🏽',
+    photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=faces',
     time: '15:22',
     message: 'Estava travado no profissional há 8 meses. Comecei o Mapa na segunda, hoje me chamaram pra entrevista e JÁ PASSEI! A sensação é que tirei uma âncora do pé. 🚀',
     platform: 'whatsapp',
@@ -22,6 +24,7 @@ const testimonials = [
     id: 3,
     name: 'Fernanda L.',
     avatar: '👩🏼',
+    photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=faces',
     time: '08:47',
     message: 'Só queria agradecer. Eu sentia um peso nas costas que não saía com nada. Depois do áudio da Sala de Frequência, parece que tiraram uma tonelada de mim. Gratidão eterna 🙏✨',
     platform: 'whatsapp',
@@ -30,6 +33,7 @@ const testimonials = [
     id: 4,
     name: 'Roberto G.',
     avatar: '👨🏻',
+    photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=faces',
     time: '19:15',
     message: 'Confesso que comprei desconfiado pelo valor ser baixo... mas o conteúdo vale 10x mais. Minha loja bateu recorde de vendas essa semana. O ritual da carteira é real! 💰🔥',
     platform: 'whatsapp',
@@ -76,9 +80,11 @@ export const SocialProofTestimonials = () => {
               <div className="relative bg-[#0B141A] rounded-2xl p-4 shadow-2xl border border-[#2A3942]">
                 {/* Header - WhatsApp style */}
                 <div className="flex items-center gap-3 mb-4 pb-3 border-b border-[#2A3942]">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#FFD700] flex items-center justify-center text-2xl shadow-lg">
-                    {testimonial.avatar}
-                  </div>
+                  <img 
+                    src={testimonial.photo} 
+                    alt={testimonial.name}
+                    className="w-10 h-10 rounded-full object-cover shadow-lg border-2 border-[#D4AF37]"
+                  />
                   <div className="flex-1">
                     <p className="text-white text-sm font-bold">{testimonial.name}</p>
                     <p className="text-[#8696A0] text-xs">online</p>
