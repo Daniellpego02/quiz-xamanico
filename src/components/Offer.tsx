@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 import { Check, Eye, Flame, Zap, Shield, Clock, Star, Sparkles } from 'lucide-react';
 import Veredito from './Veredito';
 import { FrequencyRoom } from './FrequencyRoom';
@@ -18,6 +19,32 @@ interface OfferProps {
 const Offer = ({ userName }: OfferProps) => {
     const priceOld = "97,00";
     const priceNew = "27,90";
+
+    // Load video player script only when Offer component is mounted
+    useEffect(() => {
+        // Add Vturb optimization script
+        const optimizationScript = document.createElement('script');
+        optimizationScript.innerHTML = '!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);';
+        document.head.appendChild(optimizationScript);
+
+        // Add video player script with error handling
+        const playerScript = document.createElement('script');
+        playerScript.src = 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/693f17c2b7fea67f333de06f/v4/player.js';
+        playerScript.async = true;
+        
+        // Handle script loading errors gracefully
+        playerScript.onerror = () => {
+            console.error('Failed to load video player script');
+        };
+        
+        document.head.appendChild(playerScript);
+
+        // Cleanup function to remove scripts when component unmounts
+        return () => {
+            optimizationScript.remove();
+            playerScript.remove();
+        };
+    }, []);
 
     const handleCheckout = () => {
         window.location.href = 'https://pay.kiwify.com.br/vW2ZZRM';
