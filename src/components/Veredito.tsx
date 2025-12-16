@@ -17,18 +17,18 @@ export default function Veredito({ userName = 'você' }: VeredictoProps) {
       animate={{ opacity: 1, y: 0 }}
       className="relative w-full max-w-md mx-auto mt-6"
     >
-      {/* Outer glow effect */}
-      <div className="absolute -inset-1 bg-gradient-to-r from-red-600 to-orange-600 rounded-2xl blur opacity-20 animate-pulse" />
+      {/* Outer glow effect - Softer */}
+      <div className="absolute -inset-1 bg-gradient-to-r from-red-600/60 to-orange-600/60 rounded-2xl blur-lg opacity-30 animate-pulse" />
       
-      {/* Main container */}
-      <div className="relative bg-[#0f0f0f] border border-red-900/50 rounded-xl overflow-hidden shadow-2xl">
+      {/* Main container with Glassmorphism */}
+      <div className="relative bg-[#0f0f0f]/90 backdrop-blur-md border border-red-900/40 rounded-2xl overflow-hidden shadow-2xl">
         
         {/* Header with dramatic styling */}
         <div className="bg-gradient-to-r from-red-600 to-orange-600 px-6 py-4">
           <div className="flex items-center justify-center gap-2 mb-2">
             <Zap className="w-6 h-6 text-white animate-pulse" aria-hidden="true" />
             <h2 className="text-xl md:text-2xl font-black text-white text-center tracking-wide">
-              DIAGNÓSTICO CONCLUÍDO
+              ANÁLISE VIBRACIONAL CONFIRMADA
             </h2>
             <Zap className="w-6 h-6 text-white animate-pulse" aria-hidden="true" />
           </div>
@@ -99,13 +99,13 @@ export default function Veredito({ userName = 'você' }: VeredictoProps) {
             </div>
           </div>
 
-          {/* Archetype highlight - Enhanced */}
+          {/* Archetype highlight - Enhanced with Glassmorphism */}
           <div className="relative">
             <div className="absolute -inset-2 bg-gradient-to-r from-red-600/20 to-orange-600/20 rounded-lg blur-md" aria-hidden="true" />
-            <div className="relative bg-gradient-to-b from-red-950/40 to-orange-950/40 border-2 border-red-800/60 rounded-lg p-4 shadow-lg">
+            <div className="relative bg-gradient-to-b from-red-950/40 to-orange-950/40 backdrop-blur-xl border-2 border-red-800/60 rounded-xl p-4 shadow-lg">
               <div className="text-center space-y-2">
                 <p className="text-sm text-orange-300 font-semibold">
-                  O Oráculo detectou seu arquétipo:
+                  Seu arquétipo identificado:
                 </p>
                 <div className="relative inline-block">
                   <motion.div
@@ -126,6 +126,9 @@ export default function Veredito({ userName = 'você' }: VeredictoProps) {
                     🔥 HERDEIRO DA ESCASSEZ 🔥
                   </motion.div>
                 </div>
+                <p className="text-xs md:text-sm text-gray-300 leading-relaxed mt-3 px-2">
+                  Este arquétipo é o responsável por você ganhar dinheiro e perder tudo logo em seguida.
+                </p>
               </div>
             </div>
           </div>

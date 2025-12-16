@@ -217,6 +217,52 @@ export const FrequencyRoom: React.FC = () => {
           )}
         </AnimatePresence>
 
+        {/* Social Proof Comments - Placebo Effect */}
+        <div className="space-y-3 mt-6">
+          <p className="text-center text-[#FFD700] text-sm font-bold mb-4">
+            💬 Veja o que as pessoas estão sentindo:
+          </p>
+          
+          {/* Comment 1 */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.5 }}
+            className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4"
+          >
+            <p className="text-gray-200 text-sm italic mb-2">
+              "Nossa, minha mão formigou na hora! 🤚✨"
+            </p>
+            <p className="text-gray-400 text-xs">— Juliana M.</p>
+          </motion.div>
+
+          {/* Comment 2 */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.7 }}
+            className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4"
+          >
+            <p className="text-gray-200 text-sm italic mb-2">
+              "Senti um calor no peito, que loucura! 🔥"
+            </p>
+            <p className="text-gray-400 text-xs">— Carlos E.</p>
+          </motion.div>
+
+          {/* Comment 3 */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.9 }}
+            className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4"
+          >
+            <p className="text-gray-200 text-sm italic mb-2">
+              "Meu corpo todo arrepiou... é muito forte essa frequência! ⚡"
+            </p>
+            <p className="text-gray-400 text-xs">— Fernanda L.</p>
+          </motion.div>
+        </div>
+
         {/* Social proof and Disclaimer */}
         <div className="space-y-3">
           <div className="bg-gradient-to-r from-purple-900/20 to-blue-900/20 border border-purple-500/30 rounded-xl p-4 text-center">
