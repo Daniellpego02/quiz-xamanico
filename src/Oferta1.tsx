@@ -254,11 +254,11 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
               <div className="bg-gradient-to-br from-black/60 to-black/40 rounded-2xl p-6 md:p-8 border-2 border-[#FFD700] shadow-[0_0_40px_rgba(255,215,0,0.4)]">
                 <div className="text-center mb-4">
                   <p className="text-slate-400 text-sm mb-2 uppercase tracking-wider">VALOR NORMAL:</p>
-                  <p className="text-slate-500 text-2xl md:text-3xl line-through mb-1">R$ 197,00</p>
+                  <p className="text-slate-500 text-2xl md:text-3xl line-through mb-1">R$ 97,00</p>
                   <p className="text-[#FFD700] font-bold text-base md:text-lg uppercase tracking-wider mb-4">🔥 OFERTA EXCLUSIVA AGORA:</p>
                   <div className="flex items-center justify-center gap-2 mb-3">
                     <span className="text-slate-300 text-xl">apenas</span>
-                    <span className="text-5xl md:text-6xl font-black text-yellow-400 drop-shadow-[0_0_20px_rgba(251,191,36,0.8)]" style={{ textShadow: '0 0 30px rgba(251,191,36,0.6), 0 0 60px rgba(251,191,36,0.4)' }}>R$37</span>
+                    <span className="text-5xl md:text-6xl font-black text-yellow-400 drop-shadow-[0_0_20px_rgba(251,191,36,0.8)]" style={{ textShadow: '0 0 30px rgba(251,191,36,0.6), 0 0 60px rgba(251,191,36,0.4)' }}>R$27,90</span>
                   </div>
                   <p className="text-emerald-400 text-sm md:text-base font-bold">💎 Acesso vitalício + Atualizações gratuitas</p>
                 </div>
@@ -327,7 +327,7 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
             <div className="flex-1">
               <p className="text-white font-bold text-sm md:text-base">Imersão Completa</p>
               <p className="text-yellow-100 text-xs md:text-sm">
-                <span className="line-through opacity-60">R$ 197</span> → <span className="font-black text-lg text-white">R$ 37</span>
+                <span className="line-through opacity-60">R$ 97</span> → <span className="font-black text-lg text-white">R$ 27,90</span>
               </p>
             </div>
             <button

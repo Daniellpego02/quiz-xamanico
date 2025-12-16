@@ -7,7 +7,7 @@ import { Quiz } from './components/Quiz';
 import { Authority } from './components/Authority';
 import { SocialProof } from './components/SocialProof';
 import { AnalysisLoading } from './components/AnalysisLoading';
-import { Offer } from './components/Offer';
+import Offer from './components/Offer';
 import Obrigado from './Obrigado';
 import Oferta1 from './Oferta1';
 import Oferta2 from './Oferta2';
