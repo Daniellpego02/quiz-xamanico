@@ -14,9 +14,9 @@ export const Authority: React.FC<AuthorityProps> = ({ onNext, quizPath = 'financ
   const content = {
     finance: {
       headline: "EU NÃO DESCOBRI ISSO EM LIVROS. EU DESCOBRI ISSO NO CAMPO DE BATALHA.",
-      intro: "Olá, sou Anahí Solara. Por 12 anos, eu fui como você: trabalhava 14h por dia e o dinheiro fugia. Eu achava que era azar. Até que, em uma imersão com Xamãs nos Andes, descobri que a pobreza não é falta de esforço. É uma herança.",
-      middle: "Hoje, depois de destravar a prosperidade de mais de 20.000 pessoas, eu dedico minha vida a revelar o <strong className=\"text-[#FF9500] font-bold border-b border-[#FF9500]/30 pb-0.5\">'Código Oculto'</strong> que existe no seu campo energético.",
-      final: "O que você vai ler a seguir não é autoajuda. É a chave que eu gostaria de ter recebido há 10 anos."
+      intro: "Olá, sou Anahí Solara.\n\nPor 12 anos, eu fui exatamente como você: trabalhava 14h por dia, mas o dinheiro sempre fugia. Eu achava que era azar ou incompetência.\n\nAté que, em uma imersão profunda com Xamãs nos Andes, descobri a verdade brutal: a pobreza não é falta de esforço. É uma Herança Vibracional.",
+      middle: "Foi para quebrar esse ciclo de escassez que eu criei o MAPA XAMÂNICO.\n\nEle não é um livro de autoajuda. O Mapa é a sistematização de tudo que aprendi para identificar e desativar os Arquétipos de Bloqueio que impedem sua prosperidade.\n\nHoje, com mais de 20.000 alunos destravados em 15 países, minha missão é te entregar esse mesmo \"Código de Desbloqueio\" que salvou a minha vida financeira.",
+      final: "O que você está prestes a acessar é a chave que eu gostaria de ter recebido há 10 anos."
     },
     relationship: {
       headline: "EU NÃO DESCOBRI ISSO EM LIVROS. EU DESCOBRI ISSO NO CAMPO DE BATALHA.",
@@ -81,11 +81,19 @@ export const Authority: React.FC<AuthorityProps> = ({ onNext, quizPath = 'financ
         <div className="absolute bottom-0 left-0 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl pointer-events-none"></div>
         <div className="absolute top-4 right-6 text-6xl text-white/5 font-serif font-black">"</div>
 
-        <p className="relative z-10">
-          {selectedContent.intro}
-        </p>
+        {/* Render intro text with line breaks preserved */}
+        {selectedContent.intro.split('\n\n').map((paragraph, index) => (
+          <p key={`intro-${index}`} className="relative z-10">
+            {paragraph}
+          </p>
+        ))}
 
-        <p className="relative z-10" dangerouslySetInnerHTML={{ __html: selectedContent.middle }} />
+        {/* Render middle text with line breaks preserved */}
+        {selectedContent.middle.split('\n\n').map((paragraph, index) => (
+          <p key={`middle-${index}`} className="relative z-10">
+            {paragraph}
+          </p>
+        ))}
 
         <p className="relative z-10">
           {selectedContent.final}
