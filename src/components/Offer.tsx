@@ -88,7 +88,11 @@ const Offer = ({ userName }: OfferProps) => {
                 >
                     <div className="bg-black/50 flex items-center justify-center py-4 px-4 relative">
                         {/* Play Button Overlay */}
-                        <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+                        <div 
+                            className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none"
+                            role="img" 
+                            aria-label="Play video"
+                        >
                             <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/20 backdrop-blur-sm border-4 border-white/80 flex items-center justify-center shadow-[0_0_30px_rgba(255,255,255,0.5)] animate-pulse">
                                 <Play className="w-10 h-10 md:w-12 md:h-12 text-white fill-white ml-1" />
                             </div>
