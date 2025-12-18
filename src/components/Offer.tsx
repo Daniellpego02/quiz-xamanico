@@ -22,14 +22,51 @@ const Offer = ({ userName }: OfferProps) => {
 
     // Load video player script only when Offer component is mounted
     useEffect(() => {
-        // Add Vturb optimization script
+        // Add Vturb optimization script (performance timing)
         const optimizationScript = document.createElement('script');
         optimizationScript.innerHTML = '!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);';
         document.head.appendChild(optimizationScript);
 
+        // Add preload links for better performance
+        const preloadLinks = [
+            { href: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/69435dab1452433694dabfb7/v4/player.js', as: 'script' },
+            { href: 'https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js', as: 'script' },
+            { href: 'https://cdn.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/69435da4738d3928ecc67c16/main.m3u8', as: 'fetch' }
+        ];
+
+        const preloadElements: HTMLLinkElement[] = [];
+        preloadLinks.forEach(link => {
+            const preloadLink = document.createElement('link');
+            preloadLink.rel = 'preload';
+            preloadLink.href = link.href;
+            preloadLink.as = link.as;
+            if (link.as === 'fetch') {
+                preloadLink.setAttribute('crossorigin', 'anonymous');
+            }
+            document.head.appendChild(preloadLink);
+            preloadElements.push(preloadLink);
+        });
+
+        // Add DNS prefetch for faster domain resolution
+        const dnsPrefetchDomains = [
+            'https://cdn.converteai.net',
+            'https://scripts.converteai.net',
+            'https://images.converteai.net',
+            'https://api.vturb.com.br'
+        ];
+
+        const dnsPrefetchElements: HTMLLinkElement[] = [];
+        dnsPrefetchDomains.forEach(domain => {
+            const dnsPrefetch = document.createElement('link');
+            dnsPrefetch.rel = 'dns-prefetch';
+            dnsPrefetch.href = domain;
+            document.head.appendChild(dnsPrefetch);
+            dnsPrefetchElements.push(dnsPrefetch);
+        });
+
         // Add video player script with error handling
         const playerScript = document.createElement('script');
-        playerScript.src = 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/693f17c2b7fea67f333de06f/v4/player.js';
+        playerScript.src = 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/69435dab1452433694dabfb7/v4/player.js';
         playerScript.async = true;
         
         // Handle script loading errors gracefully
@@ -43,6 +80,8 @@ const Offer = ({ userName }: OfferProps) => {
         return () => {
             optimizationScript.remove();
             playerScript.remove();
+            preloadElements.forEach(el => el.remove());
+            dnsPrefetchElements.forEach(el => el.remove());
         };
     }, []);
 
@@ -99,8 +138,8 @@ const Offer = ({ userName }: OfferProps) => {
                         </div>
                         <div className="w-full" style={{ aspectRatio: '9/16', maxWidth: '400px', margin: '0 auto' }}>
                             <vturb-smartplayer 
-                                id="vid-693f17c2b7fea67f333de06f" 
-                                style={{ display: 'block', width: '100%', height: '100%' }}
+                                id="vid-69435dab1452433694dabfb7" 
+                                style={{ display: 'block', margin: '0 auto', width: '100%', maxWidth: '400px' }}
                             ></vturb-smartplayer>
                         </div>
                     </div>
