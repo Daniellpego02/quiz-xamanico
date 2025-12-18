@@ -29,7 +29,7 @@ const Offer = ({ userName }: OfferProps) => {
 
         // Add video player script with error handling
         const playerScript = document.createElement('script');
-        playerScript.src = 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/69435dab1452433694dabfb7/v4/player.js';
+        playerScript.src = 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/693f17c2b7fea67f333de06f/v4/player.js';
         playerScript.async = true;
         
         // Handle script loading errors gracefully
@@ -99,7 +99,7 @@ const Offer = ({ userName }: OfferProps) => {
                         </div>
                         <div className="w-full" style={{ aspectRatio: '9/16', maxWidth: '400px', margin: '0 auto' }}>
                             <vturb-smartplayer 
-                                id="vid-69435dab1452433694dabfb7" 
+                                id="vid-693f17c2b7fea67f333de06f" 
                                 style={{ display: 'block', width: '100%', height: '100%' }}
                             ></vturb-smartplayer>
                         </div>
