@@ -1,0 +1,49 @@
+# Proteção contra crawlers e ferramentas de clonagem
+User-agent: HTTrack
+Disallow: /
+
+User-agent: Teleport
+Disallow: /
+
+User-agent: WebCopier
+Disallow: /
+
+User-agent: WebZIP
+Disallow: /
+
+User-agent: wget
+Disallow: /
+
+User-agent: WebReaper
+Disallow: /
+
+User-agent: WebSauger
+Disallow: /
+
+User-agent: WebsiteExtractor
+Disallow: /
+
+User-agent: WebsiteQuester
+Disallow: /
+
+User-agent: WebStripper
+Disallow: /
+
+User-agent: WebSucker
+Disallow: /
+
+User-agent: SiteSnagger
+Disallow: /
+
+User-agent: Offline Explorer
+Disallow: /
+
+User-agent: Offline Navigator
+Disallow: /
+
+# Permitir crawlers legítimos
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
