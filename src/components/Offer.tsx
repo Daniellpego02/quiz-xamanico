@@ -86,7 +86,7 @@ const Offer = ({ userName }: OfferProps) => {
     }, []);
 
     const handleCheckout = () => {
-        window.location.href = 'https://pay.kiwify.com.br/vW2ZZRM';
+        window.location.href = 'https://go.perfectpay.com.br/PPU38CQ4NQP';
     };
 
     return (
