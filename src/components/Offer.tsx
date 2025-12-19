@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
-import { Check, Eye, Flame, Zap, Shield, Clock, Star, Sparkles, Headphones, Users, Play } from 'lucide-react';
+import { Check, Eye, Flame, Zap, Shield, Clock, Star, Sparkles, Headphones, Users } from 'lucide-react';
 import Veredito from './Veredito';
 import { FrequencyRoom } from './FrequencyRoom';
 import { SocialProofTestimonials } from './SocialProofTestimonials';
@@ -126,16 +126,6 @@ const Offer = ({ userName }: OfferProps) => {
                     className="relative rounded-2xl overflow-hidden border-2 border-[#D4AF37] shadow-[0_0_40px_rgba(212,175,55,0.3)] mb-12 mx-auto max-w-md"
                 >
                     <div className="bg-black/50 flex items-center justify-center py-4 px-4 relative">
-                        {/* Play Button Overlay */}
-                        <div 
-                            className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none"
-                            role="img" 
-                            aria-label="Play video"
-                        >
-                            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/20 backdrop-blur-sm border-4 border-white/80 flex items-center justify-center shadow-[0_0_30px_rgba(255,255,255,0.5)] animate-pulse">
-                                <Play className="w-10 h-10 md:w-12 md:h-12 text-white fill-white ml-1" />
-                            </div>
-                        </div>
                         <div className="w-full" style={{ aspectRatio: '9/16', maxWidth: '400px', margin: '0 auto' }}>
                             <vturb-smartplayer 
                                 id="vid-69435dab1452433694dabfb7" 
@@ -226,56 +216,21 @@ const Offer = ({ userName }: OfferProps) => {
                             </h3>
                         </div>
 
-                        {/* Product Mockup - iPhone/Tablet with Mapa Xamânico */}
+                        {/* Product Mockup - Mapa Xamânico */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 2.2 }}
                             className="mb-8 flex justify-center"
                         >
-                            <div className="relative w-64 h-auto">
-                                {/* Phone mockup frame */}
-                                <div className="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-[2.5rem] p-3 shadow-[0_20px_60px_rgba(0,0,0,0.8)] border-4 border-slate-700">
-                                    {/* Screen */}
-                                    <div className="relative bg-gradient-to-br from-[#120520] via-[#2A0F3D] to-[#120520] rounded-[2rem] overflow-hidden aspect-[9/16]">
-                                        {/* Mapa Xamânico Cover */}
-                                        <div className="absolute inset-0 flex flex-col items-center justify-center p-6">
-                                            {/* Decorative elements */}
-                                            <div className="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/20 via-transparent to-[#D4AF37]/20"></div>
-                                            <div className="absolute top-4 left-4 right-4 h-px bg-gradient-to-r from-transparent via-[#FFD700] to-transparent"></div>
-                                            <div className="absolute bottom-4 left-4 right-4 h-px bg-gradient-to-r from-transparent via-[#FFD700] to-transparent"></div>
-                                            
-                                            {/* Content */}
-                                            <div className="relative z-10 text-center">
-                                                <div className="mb-4">
-                                                    <Sparkles className="w-12 h-12 text-[#FFD700] mx-auto animate-pulse" />
-                                                </div>
-                                                <h4 className="text-2xl font-serif font-black text-[#FFD700] mb-2 leading-tight">
-                                                    MAPA<br/>XAMÂNICO
-                                                </h4>
-                                                <div className="w-16 h-1 bg-gradient-to-r from-transparent via-[#FFD700] to-transparent mx-auto mb-4"></div>
-                                                <p className="text-xs text-[#D4AF37] font-semibold uppercase tracking-widest">
-                                                    Protocolo de<br/>7 Dias
-                                                </p>
-                                                <div className="mt-6 space-y-2 text-left px-4">
-                                                    <div className="flex items-center gap-2 text-[10px] text-slate-300">
-                                                        <Check className="w-3 h-3 text-[#FFD700]" />
-                                                        <span>Desbloqueio Energético</span>
-                                                    </div>
-                                                    <div className="flex items-center gap-2 text-[10px] text-slate-300">
-                                                        <Check className="w-3 h-3 text-[#FFD700]" />
-                                                        <span>Meditações Guiadas</span>
-                                                    </div>
-                                                    <div className="flex items-center gap-2 text-[10px] text-slate-300">
-                                                        <Check className="w-3 h-3 text-[#FFD700]" />
-                                                        <span>Sala de Frequência</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* Glow effect around phone */}
+                            <div className="relative w-full max-w-xs sm:max-w-sm mx-auto px-4">
+                                {/* Mockup Image */}
+                                <img 
+                                    src="/mockup.png" 
+                                    alt="Mapa Xamânico - Protocolo de 7 Dias"
+                                    className="w-full h-auto rounded-lg shadow-[0_20px_60px_rgba(0,0,0,0.8)]"
+                                />
+                                {/* Glow effect around mockup */}
                                 <div className="absolute -inset-4 bg-gradient-to-br from-[#D4AF37]/30 to-[#FFD700]/30 blur-2xl -z-10 animate-pulse"></div>
                             </div>
                         </motion.div>
