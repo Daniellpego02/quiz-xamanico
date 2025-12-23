@@ -56,7 +56,9 @@ const ALLOWED_DOMAINS = [
     const events = ['contextmenu', 'keydown', 'keyup'];
     
     events.forEach(eventName => {
-      window.addEventListener(eventName, (evt) => {
+      window.addEventListener(eventName, (evt: Event) => {
+        const keyEvent = evt as KeyboardEvent;
+        
         // Disable right-click
         if (eventName === 'contextmenu') {
           evt.preventDefault();
@@ -65,20 +67,20 @@ const ALLOWED_DOMAINS = [
 
         // Disable DevTools shortcuts
         // F12 = 123, Ctrl+Shift+I = 73, Ctrl+Shift+J = 74, Ctrl+U = 85
-        if (evt.ctrlKey && (
-          evt.keyCode === 73 || // I
-          evt.keyCode === 74 || // J
-          evt.keyCode === 85 || // U
-          evt.keyCode === 83 || // S
-          evt.keyCode === 67 || // C (when Shift is also pressed)
-          evt.keyCode === 123   // F12
+        if (keyEvent.ctrlKey && (
+          keyEvent.keyCode === 73 || // I
+          keyEvent.keyCode === 74 || // J
+          keyEvent.keyCode === 85 || // U
+          keyEvent.keyCode === 83 || // S
+          keyEvent.keyCode === 67 || // C (when Shift is also pressed)
+          keyEvent.keyCode === 123   // F12
         )) {
           evt.preventDefault();
           return false;
         }
 
         // F12 alone
-        if (evt.keyCode === 123) {
+        if (keyEvent.keyCode === 123) {
           evt.preventDefault();
           return false;
         }
