@@ -29,9 +29,6 @@ export interface QuizQuestion {
 }
 
 declare global {
-  interface Window {
-    fbq: any;
-  }
   namespace JSX {
     interface IntrinsicElements {
       'vturb-smartplayer': any;

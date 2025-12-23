@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './Button';
 import { Lock, BadgeCheck } from 'lucide-react';
+import { tracking } from '../utils/tracking';
 
 interface HeroProps {
   onStart: () => void;
@@ -9,9 +10,7 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ onStart }) => {
   const handleStartClick = () => {
-    if (typeof window.fbq === 'function') {
-      window.fbq('track', 'Lead', { content_name: 'Quiz Iniciado' });
-    }
+    tracking.meta.lead({ content_name: 'Quiz Iniciado' });
     onStart();
   };
 

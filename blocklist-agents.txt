@@ -1,0 +1,40 @@
+# Blocklist de User-Agents Maliciosos
+# Use este arquivo para bloquear bots e scrapers indesejados
+
+# Scrapers conhecidos
+HTTrack
+WebCopier
+WebZIP
+wget
+curl
+libwww-perl
+python-requests
+scrapy
+
+# Bots maliciosos
+AhrefsBot
+SemrushBot
+MJ12bot
+DotBot
+BLEXBot
+DataForSeoBot
+
+# Scrapers de conteúdo
+SiteSucker
+WebReaper
+Teleport
+WebStripper
+Offline Explorer
+BlackWidow
+
+# Ferramentas de download
+Download Master
+GetRight
+Go!Zilla
+Go-Ahead-Got-It
+FlashGet
+
+# Outros
+nutch
+larbin
+WebBandit
