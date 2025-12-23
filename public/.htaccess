@@ -1,0 +1,65 @@
+# Anti-Plagiarism Protection - Apache Configuration
+# Place this file in your web root directory
+
+# Disable directory browsing
+Options -Indexes
+
+# Protect sensitive files
+<FilesMatch "\.(env|log|sql|md|txt|json)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Block bad bots and scrapers
+SetEnvIfNoCase User-Agent "^HTTrack" bad_bot
+SetEnvIfNoCase User-Agent "^WebCopier" bad_bot
+SetEnvIfNoCase User-Agent "^WebZIP" bad_bot
+SetEnvIfNoCase User-Agent "^wget" bad_bot
+SetEnvIfNoCase User-Agent "^curl" bad_bot
+SetEnvIfNoCase User-Agent "^libwww-perl" bad_bot
+SetEnvIfNoCase User-Agent "^python-requests" bad_bot
+SetEnvIfNoCase User-Agent "^scrapy" bad_bot
+SetEnvIfNoCase User-Agent "^AhrefsBot" bad_bot
+SetEnvIfNoCase User-Agent "^SemrushBot" bad_bot
+SetEnvIfNoCase User-Agent "^MJ12bot" bad_bot
+SetEnvIfNoCase User-Agent "^DotBot" bad_bot
+SetEnvIfNoCase User-Agent "^BLEXBot" bad_bot
+SetEnvIfNoCase User-Agent "^DataForSeoBot" bad_bot
+SetEnvIfNoCase User-Agent "^SiteSucker" bad_bot
+SetEnvIfNoCase User-Agent "^WebReaper" bad_bot
+SetEnvIfNoCase User-Agent "^Teleport" bad_bot
+SetEnvIfNoCase User-Agent "^WebStripper" bad_bot
+SetEnvIfNoCase User-Agent "^Offline Explorer" bad_bot
+SetEnvIfNoCase User-Agent "^BlackWidow" bad_bot
+
+<Limit GET POST>
+    Order Allow,Deny
+    Allow from all
+    Deny from env=bad_bot
+</Limit>
+
+# Block hotlinking of images
+RewriteEngine on
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?mapaxamanicooficial\.online [NC]
+RewriteRule \.(jpg|jpeg|png|gif|webp|svg)$ - [F,NC]
+
+# Security headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+
+# Disable server signature
+ServerSignature Off
+
+# Prevent clickjacking
+Header always append X-Frame-Options SAMEORIGIN
+
+# Content Security Policy
+<IfModule mod_headers.c>
+    Header set Content-Security-Policy "frame-ancestors 'self'"
+</IfModule>
