@@ -37,9 +37,8 @@ declare global {
 // CONSTANTS
 // ============================================================================
 
-// Pixel IDs are configured in the HTML files directly
-// const META_PIXEL_ID = '1908080873443730';
-// const UTMFY_PIXEL_ID = '69346cfb70f1cd636eb5e31c';
+// Note: Pixel IDs are configured directly in HTML files (index.html, public/obrigado.html)
+// This ensures they load before the application code and are available immediately
 
 // ============================================================================
 // UTILITY FUNCTIONS
@@ -89,7 +88,7 @@ function trackMetaPixelEvent(
 /**
  * Tracking API for Quiz Application
  */
-export const tracking = {
+const tracking = {
   /**
    * Standard Meta Pixel Events
    */
@@ -289,7 +288,7 @@ export const tracking = {
     storeParams(): void {
       if (typeof window === 'undefined') return;
 
-      const utmParams = this.getParams();
+      const utmParams = tracking.utm.getParams();
       if (Object.keys(utmParams).length > 0) {
         sessionStorage.setItem('utm_params', JSON.stringify(utmParams));
       }
@@ -312,12 +311,12 @@ export const tracking = {
    */
   init(): void {
     // Store UTM parameters on page load
-    this.utm.storeParams();
+    tracking.utm.storeParams();
 
     // Log initialization in development
     if (import.meta.env?.DEV) {
       console.log('[Tracking] Tracking systems initialized');
-      console.log('[Tracking] UTM Parameters:', this.utm.getParams());
+      console.log('[Tracking] UTM Parameters:', tracking.utm.getParams());
     }
   },
 };
@@ -336,4 +335,4 @@ if (typeof window !== 'undefined') {
   }
 }
 
-export default tracking;
+export { tracking };
