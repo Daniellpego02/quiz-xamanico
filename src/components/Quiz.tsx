@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { QuizQuestion, QuizPath, QuestionOption } from '../types';
 import { ChevronRight, Sparkles, Compass } from 'lucide-react';
+import { tracking } from '../utils/tracking';
 
 interface QuizProps {
   onComplete: (path: QuizPath, userName: string) => void;
@@ -123,9 +124,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     setUserName(inputValue.trim());
     setShowTuningScreen(true);
     
-    if (typeof window.fbq === 'function') {
-      window.fbq('trackCustom', 'QuizStarted', { name_provided: true });
-    }
+    tracking.quiz.started(inputValue.trim());
 
     setTimeout(() => {
         setShowTuningScreen(false);
@@ -138,22 +137,22 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     setIsNavigating(true);
 
     // Pixel Inteligente - Rastreamento de Resposta e Progresso
-    if (typeof window.fbq === 'function') {
-      // Rastreia a resposta específica (para segmentação de audiência)
-      window.fbq('trackCustom', 'QuizAnswer', {
-        content_name: activeQuestions[currentIndex]?.title,
-        question_step: currentIndex + 1,
-        answer_value: option.value,
-        answer_label: option.label,
-        quiz_path: QUIZ_PATH
-      });
-      
-      // Rastreia o progresso granular
-      window.fbq('trackCustom', 'QuizProgress', {
-         percentage: Math.round(((currentIndex + 1) / activeQuestions.length) * 100),
-         step: currentIndex + 1
-      });
-    }
+    const currentQuestion = activeQuestions[currentIndex];
+    
+    // Track the specific answer
+    tracking.quiz.answer({
+      questionTitle: currentQuestion?.title || '',
+      questionStep: currentIndex + 1,
+      answerValue: option.value,
+      answerLabel: option.label,
+      quizPath: QUIZ_PATH
+    });
+    
+    // Track progress
+    tracking.quiz.progress(
+      Math.round(((currentIndex + 1) / activeQuestions.length) * 100),
+      currentIndex + 1
+    );
 
     // LÓGICA DE FLUXO ÚNICO FINANCEIRO (Pergunta 1)
     // Após a pergunta 1 (temporal pain), automaticamente adiciona as perguntas financeiras
@@ -165,9 +164,9 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       setActiveQuestions(mergedQuestions);
     }
 
-    // Pixel
-    if (typeof window.fbq === 'function') {
-      if (currentIndex === 4) window.fbq('trackCustom', 'QuizHalfway');
+    // Track halfway point
+    if (currentIndex === 4) {
+      tracking.quiz.halfway();
     }
 
     setTimeout(() => {
@@ -176,9 +175,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
         setCurrentIndex(prev => prev + 1);
         setIsNavigating(false);
       } else {
-        if (typeof window.fbq === 'function') {
-          window.fbq('track', 'CompleteRegistration', { content_name: 'Quiz Completo', path: QUIZ_PATH });
-        }
+        tracking.meta.completeRegistration({ content_name: 'Quiz Completo', path: QUIZ_PATH });
         onComplete(QUIZ_PATH, userName);
       }
     }, 250);
