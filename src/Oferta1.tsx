@@ -1,60 +1,17 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Clock, X, Check, Zap, Shield, Star, AlertCircle } from 'lucide-react';
+import { X, Check, Shield, Heart, Sparkles } from 'lucide-react';
 
 interface Oferta1Props {
   userName?: string;
 }
 
 export default function Oferta1({ userName = 'você' }: Oferta1Props) {
-  const [showPulse, setShowPulse] = useState(false);
-  const [lastActivity, setLastActivity] = useState(Date.now());
   const [showExitPopup, setShowExitPopup] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(600); // 10 minutos
 
   const firstName = userName ? userName.split(' ')[0] : 'você';
-  const firstNameUpper = firstName.toUpperCase();
 
-  // Track user activity
-  useEffect(() => {
-    const handleActivity = () => {
-      setLastActivity(Date.now());
-      setShowPulse(false);
-    };
-
-    window.addEventListener('mousemove', handleActivity);
-    window.addEventListener('scroll', handleActivity);
-    window.addEventListener('click', handleActivity);
-    window.addEventListener('keypress', handleActivity);
-
-    return () => {
-      window.removeEventListener('mousemove', handleActivity);
-      window.removeEventListener('scroll', handleActivity);
-      window.removeEventListener('click', handleActivity);
-      window.removeEventListener('keypress', handleActivity);
-    };
-  }, []);
-
-  // Check for inactivity
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (Date.now() - lastActivity > 30000) {
-        setShowPulse(true);
-      }
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [lastActivity]);
-
-  // Countdown timer
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  // Exit intent popup
+  // Exit intent popup (gentle, no pressure)
   useEffect(() => {
     let exitTimeout: ReturnType<typeof setTimeout>;
     
@@ -74,335 +31,310 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
     };
   }, [showExitPopup]);
 
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  };
-
   const handleAccept = () => {
-    window.location.href = 'https://checkout.mapaxamanicooficial.online/oferta-dois';
+    window.location.href = 'https://go.perfectpay.com.br/PPU38CQ4OE0?guia7dias=true';
   };
 
   const handleDecline = () => {
-    window.location.href = 'https://mapaxamanicooficial.online/oferta2';
-  };
-
-  const handleExitAccept = () => {
-    window.location.href = 'https://checkout.mapaxamanicooficial.online/oferta-tres';
+    window.location.href = '/oferta2';
   };
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-b from-[#050505] via-[#0a0a0a] to-[#050505] text-white relative overflow-hidden">
+      <div className="min-h-screen bg-gradient-to-b from-[#0f0a1a] via-[#1a0f2e] to-[#0f0a1a] text-white relative overflow-hidden">
         
-        {/* Urgency Bar */}
-        <motion.div 
-          initial={{ y: -50 }} 
-          animate={{ y: 0 }}
-          className="bg-gradient-to-r from-purple-700 via-pink-600 to-purple-700 text-white text-xs md:text-sm font-bold text-center py-3 md:py-4 px-4 sticky top-0 z-50 shadow-2xl"
-        >
-          <div className="flex items-center justify-center gap-2 uppercase tracking-wider">
-            <Clock className="w-4 h-4 md:w-5 md:h-5 animate-pulse" />
-            <span className="hidden md:inline">⚠️ OFERTA ÚNICA EXPIRA EM:</span>
-            <span className="md:hidden">⏰ EXPIRA EM:</span>
-            <span className="font-mono text-base md:text-lg text-yellow-300 animate-pulse drop-shadow-[0_0_10px_rgba(253,224,71,0.8)]">{formatTime(timeLeft)}</span>
+        {/* Progress Bar - Post-Purchase Continuation */}
+        <div className="sticky top-0 z-50 bg-gradient-to-r from-indigo-950/95 via-purple-950/95 to-indigo-950/95 backdrop-blur-md border-b border-purple-500/30">
+          <div className="max-w-4xl mx-auto px-4 py-4">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <div className="bg-emerald-500 rounded-full p-1">
+                  <Check className="w-4 h-4 text-white" />
+                </div>
+                <span className="text-emerald-400 text-xs md:text-sm font-medium">Compra confirmada</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="bg-purple-500 rounded-full p-1 animate-pulse">
+                  <Sparkles className="w-4 h-4 text-white" />
+                </div>
+                <span className="text-purple-300 text-xs md:text-sm font-medium">Passo opcional</span>
+              </div>
+              <div className="flex items-center gap-2 opacity-40">
+                <div className="bg-gray-600 rounded-full p-1">
+                  <Check className="w-4 h-4 text-white" />
+                </div>
+                <span className="text-gray-400 text-xs md:text-sm font-medium hidden md:inline">Início do Mapa</span>
+              </div>
+            </div>
+            <div className="w-full bg-gray-800/50 rounded-full h-2 overflow-hidden">
+              <motion.div 
+                initial={{ width: 0 }}
+                animate={{ width: "66%" }}
+                transition={{ duration: 1.2, ease: "easeOut" }}
+                className="h-full bg-gradient-to-r from-emerald-500 via-purple-500 to-indigo-500"
+              />
+            </div>
           </div>
-        </motion.div>
+        </div>
 
-        <div className="max-w-3xl mx-auto px-4 py-8 pb-32 relative z-10">
+        <div className="max-w-3xl mx-auto px-4 py-8 md:py-12 pb-32 relative z-10">
           
-          {/* Badge de Confirmação */}
+          {/* HEADLINE - Calm and Congruent */}
           <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.3, type: "spring" }}
-            className="flex items-center justify-center gap-3 mb-6 bg-emerald-950/40 backdrop-blur-md border border-emerald-500/30 rounded-2xl p-4 shadow-lg shadow-emerald-500/10"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="text-center space-y-4 mb-8 md:mb-10"
           >
-            <div className="bg-emerald-500 rounded-full p-2">
-              <Check className="w-5 h-5 text-white" />
-            </div>
-            <div className="text-left">
-              <p className="text-emerald-400 font-bold text-sm uppercase tracking-wide">✅ Seu acesso foi confirmado!</p>
-              <p className="text-emerald-300/80 text-xs">Você está a um passo de DESBLOQUEAR tudo.</p>
-            </div>
+            <h1 className="text-2xl md:text-4xl font-bold text-white leading-tight max-w-2xl mx-auto">
+              Antes de iniciar o Mapa Xamânico sozinho, veja isso
+            </h1>
+            <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto">
+              Um acompanhamento leve e diário para você saber se está fazendo certo e não travar no meio do processo
+            </p>
           </motion.div>
 
-          {/* RESULTADO - Primeira parte do RBMC */}
+          {/* MAIN COPY - Supportive and Clear */}
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="text-center space-y-4 mb-8"
+            className="bg-gradient-to-br from-indigo-950/40 to-purple-950/40 backdrop-blur-sm border border-indigo-500/20 rounded-3xl p-6 md:p-10 mb-8 shadow-2xl"
           >
-            <h1 className="text-3xl md:text-4xl font-serif font-black text-white leading-tight drop-shadow-2xl">
-              <span className="text-red-500">{firstNameUpper}</span>, ESPERA!
-            </h1>
-            <p className="text-xl md:text-2xl font-bold text-yellow-400 drop-shadow-[0_2px_10px_rgba(251,191,36,0.5)]">
-              Você está prestes a perder a chance de ATIVAR seu desbloqueio 10X MAIS RÁPIDO...
-            </p>
+            <div className="prose prose-invert max-w-none">
+              <p className="text-base md:text-lg text-gray-200 leading-relaxed mb-4">
+                O <strong className="text-indigo-300">Guia de Acompanhamento do Mapa Xamânico – 7 Dias</strong> foi criado para quem não quer passar pelo processo com dúvida, insegurança ou sensação de estar fazendo algo errado.
+              </p>
+              
+              <p className="text-base md:text-lg text-gray-200 leading-relaxed mb-4">
+                Durante os 7 dias, você recebe orientações simples e diretas para entender os sinais do processo, saber o que é normal sentir e evitar os erros mais comuns que fazem muitas pessoas desistirem no meio do caminho.
+              </p>
+
+              <div className="bg-indigo-900/30 border-l-4 border-indigo-400 p-5 rounded-r-xl my-6">
+                <p className="text-base md:text-lg text-indigo-200 leading-relaxed">
+                  <strong>Não é um novo método.</strong><br />
+                  <strong>Não substitui o Mapa Xamânico.</strong><br />
+                  É apenas um apoio tranquilo para você seguir com mais clareza e confiança desde o primeiro dia.
+                </p>
+              </div>
+            </div>
           </motion.div>
 
-          {/* BLOQUEIO - Segunda parte do RBMC */}
+          {/* WHAT YOU RECEIVE - Clean Bullets */}
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.7 }}
-            className="bg-gradient-to-br from-red-950/40 to-orange-950/40 backdrop-blur-sm border border-red-500/30 rounded-3xl p-6 md:p-8 mb-8 shadow-2xl"
+            className="mb-8 md:mb-10"
           >
-            <div className="flex items-start gap-3 mb-4">
-              <AlertCircle className="w-6 h-6 text-red-400 flex-shrink-0 mt-1" />
-              <div>
-                <h3 className="text-xl font-bold text-red-400 mb-2">⚠️ ATENÇÃO: O QUE PODE ACONTECER</h3>
-                <p className="text-slate-200 text-sm md:text-base leading-relaxed">
-                  Você acabou de garantir o Mapa Xamânico, mas <strong className="text-red-300">apenas isso NÃO É SUFICIENTE</strong> para a maioria das pessoas.
-                </p>
-              </div>
-            </div>
+            <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-6">
+              👉 Incluído neste acompanhamento:
+            </h2>
             
-            <div className="space-y-3 mt-6">
-              <div className="flex items-start gap-3 bg-black/30 p-3 rounded-lg border-l-4 border-red-500">
-                <span className="text-red-400 text-xl">❌</span>
-                <p className="text-slate-300 text-sm"><strong>Sem a Ativação Profunda:</strong> Você vai SENTIR os bloqueios, mas não conseguirá DISSOLVÊ-LOS por completo.</p>
+            <div className="space-y-4">
+              <div className="flex items-start gap-4 bg-indigo-950/30 p-5 rounded-xl border border-indigo-500/20 hover:border-indigo-400/40 transition-all">
+                <div className="bg-gradient-to-br from-indigo-500 to-purple-500 rounded-lg p-2.5 flex-shrink-0">
+                  <Check className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <p className="text-gray-200 text-sm md:text-base leading-relaxed">
+                    <strong className="text-white">Orientações diárias simples</strong> durante os 7 dias do Mapa
+                  </p>
+                </div>
               </div>
-              <div className="flex items-start gap-3 bg-black/30 p-3 rounded-lg border-l-4 border-red-500">
-                <span className="text-red-400 text-xl">❌</span>
-                <p className="text-slate-300 text-sm"><strong>Sem as técnicas avançadas:</strong> O processo pode levar MESES em vez de DIAS.</p>
+
+              <div className="flex items-start gap-4 bg-indigo-950/30 p-5 rounded-xl border border-indigo-500/20 hover:border-indigo-400/40 transition-all">
+                <div className="bg-gradient-to-br from-indigo-500 to-purple-500 rounded-lg p-2.5 flex-shrink-0">
+                  <Check className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <p className="text-gray-200 text-sm md:text-base leading-relaxed">
+                    <strong className="text-white">Explicação clara dos sinais emocionais</strong> mais comuns
+                  </p>
+                </div>
               </div>
-              <div className="flex items-start gap-3 bg-black/30 p-3 rounded-lg border-l-4 border-red-500">
-                <span className="text-red-400 text-xl">❌</span>
-                <p className="text-slate-300 text-sm"><strong>Sem esse módulo:</strong> Você corre o risco de DESISTIR no meio do caminho (como 78% das pessoas).</p>
+
+              <div className="flex items-start gap-4 bg-indigo-950/30 p-5 rounded-xl border border-indigo-500/20 hover:border-indigo-400/40 transition-all">
+                <div className="bg-gradient-to-br from-indigo-500 to-purple-500 rounded-lg p-2.5 flex-shrink-0">
+                  <Check className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <p className="text-gray-200 text-sm md:text-base leading-relaxed">
+                    <strong className="text-white">Ajustes práticos</strong> para não travar nem desistir
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4 bg-indigo-950/30 p-5 rounded-xl border border-indigo-500/20 hover:border-indigo-400/40 transition-all">
+                <div className="bg-gradient-to-br from-indigo-500 to-purple-500 rounded-lg p-2.5 flex-shrink-0">
+                  <Check className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <p className="text-gray-200 text-sm md:text-base leading-relaxed">
+                    <strong className="text-white">Áudios curtos de apoio</strong> (5 minutos)
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4 bg-indigo-950/30 p-5 rounded-xl border border-indigo-500/20 hover:border-indigo-400/40 transition-all">
+                <div className="bg-gradient-to-br from-indigo-500 to-purple-500 rounded-lg p-2.5 flex-shrink-0">
+                  <Check className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <p className="text-gray-200 text-sm md:text-base leading-relaxed">
+                    <strong className="text-white">Pensado para quem tem pouco tempo e pouca energia</strong>
+                  </p>
+                </div>
               </div>
             </div>
           </motion.div>
 
-          {/* MECANISMO - Terceira parte do RBMC */}
+          {/* SOCIAL PROOF - No risky numbers */}
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.9 }}
-            className="bg-gradient-to-br from-[#120a2e] to-[#1a0b3e] rounded-3xl p-6 md:p-8 mb-8 border border-orange-500/30 shadow-2xl relative overflow-hidden"
+            className="bg-gradient-to-br from-purple-950/30 to-indigo-950/30 border border-purple-500/20 rounded-2xl p-6 mb-8 text-center"
           >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-40 h-40 bg-yellow-500/10 rounded-full blur-3xl"></div>
-            
-            <div className="relative z-10">
-              <div className="flex items-center justify-center gap-2 mb-6">
-                <Zap className="w-8 h-8 text-yellow-400" />
-                <h2 className="text-2xl md:text-3xl font-serif font-black text-yellow-400 drop-shadow-[0_2px_15px_rgba(251,191,36,0.6)]">
-                  Imersão de Ativação Profunda
-                </h2>
-              </div>
-
-              <p className="text-center text-slate-200 text-base md:text-lg mb-6 leading-relaxed">
-                O sistema COMPLETO para <strong className="text-yellow-400">ACELERAR seu desbloqueio em até 10X</strong> e garantir que você chegue ao resultado REAL em dias, não meses.
-              </p>
-
-              <div className="space-y-4 mb-8">
-                <div className="flex items-start gap-3 bg-white/5 p-4 md:p-5 rounded-xl border-2 border-[#C69320]/30 hover:border-[#FFD700]/50 hover:bg-white/10 transition-all">
-                  <div className="bg-gradient-to-br from-[#C69320] to-[#FFD700] rounded-lg p-2 flex-shrink-0 shadow-lg">
-                    <Check className="w-5 h-5 text-black font-bold" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-white mb-1 text-base md:text-lg">🔥 Protocolo de Ativação Imediata</h4>
-                    <p className="text-slate-300 text-sm md:text-base">Técnicas específicas para ATIVAR a energia do seu mapa em menos de 24h</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3 bg-white/5 p-4 md:p-5 rounded-xl border-2 border-[#C69320]/30 hover:border-[#FFD700]/50 hover:bg-white/10 transition-all">
-                  <div className="bg-gradient-to-br from-[#C69320] to-[#FFD700] rounded-lg p-2 flex-shrink-0 shadow-lg">
-                    <Check className="w-5 h-5 text-black font-bold" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-white mb-1 text-base md:text-lg">⚡ Rituais de Ancoragem Energética</h4>
-                    <p className="text-slate-300 text-sm md:text-base">Mantenha a frequência alta e evite recaídas (o segredo dos 3% que conseguem)</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3 bg-white/5 p-4 md:p-5 rounded-xl border-2 border-[#C69320]/30 hover:border-[#FFD700]/50 hover:bg-white/10 transition-all">
-                  <div className="bg-gradient-to-br from-[#C69320] to-[#FFD700] rounded-lg p-2 flex-shrink-0 shadow-lg">
-                    <Check className="w-5 h-5 text-black font-bold" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-white mb-1 text-base md:text-lg">🎯 Meditações Guiadas Personalizadas</h4>
-                    <p className="text-slate-300 text-sm md:text-base">Áudios exclusivos para cada fase do seu desbloqueio (valor: R$297)</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3 bg-white/5 p-4 md:p-5 rounded-xl border-2 border-[#C69320]/30 hover:border-[#FFD700]/50 hover:bg-white/10 transition-all">
-                  <div className="bg-gradient-to-br from-[#C69320] to-[#FFD700] rounded-lg p-2 flex-shrink-0 shadow-lg">
-                    <Check className="w-5 h-5 text-black font-bold" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-white mb-1 text-base md:text-lg">🧘 Práticas de Alinhamento Diário</h4>
-                    <p className="text-slate-300 text-sm md:text-base">5 minutos por dia que multiplicam seus resultados em 10X</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3 bg-white/5 p-4 md:p-5 rounded-xl border-2 border-[#C69320]/30 hover:border-[#FFD700]/50 hover:bg-white/10 transition-all">
-                  <div className="bg-gradient-to-br from-[#C69320] to-[#FFD700] rounded-lg p-2 flex-shrink-0 shadow-lg">
-                    <Check className="w-5 h-5 text-black font-bold" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-white mb-1 text-base md:text-lg">📈 Mapa de Progressão Semanal</h4>
-                    <p className="text-slate-300 text-sm md:text-base">Acompanhe sua evolução e celebre cada vitória no caminho</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Preço e Oferta */}
-              <div className="bg-gradient-to-br from-black/60 to-black/40 rounded-2xl p-6 md:p-8 border-2 border-[#FFD700] shadow-[0_0_40px_rgba(255,215,0,0.4)]">
-                <div className="text-center mb-4">
-                  <p className="text-slate-400 text-sm mb-2 uppercase tracking-wider">VALOR NORMAL:</p>
-                  <p className="text-slate-500 text-2xl md:text-3xl line-through mb-1">R$ 97,00</p>
-                  <p className="text-[#FFD700] font-bold text-base md:text-lg uppercase tracking-wider mb-4">🔥 OFERTA EXCLUSIVA AGORA:</p>
-                  <div className="flex items-center justify-center gap-2 mb-3">
-                    <span className="text-slate-300 text-xl">apenas</span>
-                    <span className="text-5xl md:text-6xl font-black text-yellow-400 drop-shadow-[0_0_20px_rgba(251,191,36,0.8)]" style={{ textShadow: '0 0 30px rgba(251,191,36,0.6), 0 0 60px rgba(251,191,36,0.4)' }}>R$27,90</span>
-                  </div>
-                  <p className="text-emerald-400 text-sm md:text-base font-bold">💎 Acesso vitalício + Atualizações gratuitas</p>
-                </div>
-
-                <button
-                  onClick={handleAccept}
-                  className={`w-full bg-gradient-to-r from-[#FF9500] via-[#F58400] to-[#EA580C] hover:from-[#FF9500] hover:via-[#FF9500] hover:to-[#F58400] text-white font-black text-lg md:text-xl py-6 px-8 rounded-2xl shadow-[0_4px_30px_rgba(255,149,0,0.6)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#FFD700] uppercase tracking-wide ${showPulse ? 'animate-pulse' : ''}`}
-                >
-                  <span className="drop-shadow-lg">✨ SIM! QUERO ATIVAR 10X MAIS RÁPIDO</span>
-                </button>
-
-                <div className="flex items-center justify-center gap-2 mt-4 text-emerald-400 text-xs">
-                  <Shield className="w-4 h-4" />
-                  <span>Pagamento 100% seguro • Garantia de 7 dias</span>
-                </div>
-              </div>
-            </div>
+            <Heart className="w-10 h-10 text-purple-400 mx-auto mb-3" />
+            <p className="text-base md:text-lg text-gray-200 leading-relaxed italic">
+              "Muitas pessoas relatam que o mais difícil não é começar, mas seguir com segurança. Esse guia nasceu exatamente disso."
+            </p>
           </motion.div>
 
-          {/* Prova Social Rápida */}
+          {/* PRICING AND CTA */}
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 1.1 }}
-            className="bg-gradient-to-br from-purple-950/30 to-pink-950/30 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-6 mb-8"
+            className="bg-gradient-to-br from-indigo-950/60 to-purple-950/60 rounded-3xl p-6 md:p-8 mb-8 border-2 border-purple-400/40 shadow-2xl"
           >
-            <h3 className="text-center font-bold text-white text-lg mb-4 flex items-center justify-center gap-2">
-              <Star className="w-5 h-5 text-yellow-400" />
-              Resultados de Quem Ativou
-            </h3>
-            <div className="grid md:grid-cols-3 gap-4 text-center">
-              <div className="bg-black/30 rounded-xl p-4">
-                <p className="text-3xl font-black text-yellow-400">87%</p>
-                <p className="text-slate-300 text-xs">Resultados em menos de 7 dias</p>
+            <div className="text-center mb-6">
+              <p className="text-gray-400 text-sm mb-3 uppercase tracking-wider">Valor sugerido:</p>
+              <p className="text-gray-500 text-2xl md:text-3xl line-through mb-2">R$ 79</p>
+              <p className="text-purple-300 font-bold text-base md:text-lg uppercase tracking-wider mb-4">
+                Oferta exclusiva agora:
+              </p>
+              <div className="flex items-baseline justify-center gap-1 mb-4">
+                <span className="text-3xl text-white font-bold">R$</span>
+                <span className="text-6xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-indigo-300 to-purple-300">
+                  29
+                </span>
+                <span className="text-3xl text-white font-bold">,00</span>
               </div>
-              <div className="bg-black/30 rounded-xl p-4">
-                <p className="text-3xl font-black text-emerald-400">10X</p>
-                <p className="text-slate-300 text-xs">Mais rápido que o método básico</p>
-              </div>
-              <div className="bg-black/30 rounded-xl p-4">
-                <p className="text-3xl font-black text-orange-400">94%</p>
-                <p className="text-slate-300 text-xs">Não desistiram no meio</p>
+              <p className="text-emerald-400 text-sm md:text-base font-medium mb-6">
+                💳 Pagamento: 1 clique via PIX
+              </p>
+
+              <button
+                onClick={handleAccept}
+                className="w-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:via-indigo-500 hover:to-purple-500 text-white font-bold text-lg md:text-xl py-5 md:py-6 px-6 rounded-2xl shadow-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] border border-purple-400/30 mb-3"
+              >
+                SIM, QUERO SEGUIR COM MAIS CLAREZA
+              </button>
+
+              <p className="text-gray-400 text-xs md:text-sm mb-4">
+                Oferta disponível apenas agora, junto com sua compra do Mapa Xamânico.
+              </p>
+
+              <div className="flex items-center justify-center gap-2 text-emerald-400 text-xs">
+                <Shield className="w-4 h-4" />
+                <span>🔒 Pagamento 100% Seguro • Garantia de 7 Dias</span>
               </div>
             </div>
           </motion.div>
 
-          {/* Link de Recusa */}
+          {/* Decline Link - No guilt */}
           <div className="text-center">
             <button
               onClick={handleDecline}
-              className="text-slate-500 hover:text-slate-400 text-sm underline transition-colors"
+              className="text-gray-500 hover:text-gray-400 text-sm underline transition-colors"
             >
-              Não, obrigado. Vou tentar sozinho (mais devagar)
+              Não, vou seguir sozinho
             </button>
           </div>
 
         </div>
 
-        {/* Mobile CTA Bar */}
-        <motion.div
-          initial={{ y: 100 }}
-          animate={{ y: 0 }}
-          className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-purple-700 via-pink-600 to-purple-700 p-4 shadow-2xl border-t-2 border-[#FFD700]"
-        >
-          <div className="max-w-3xl mx-auto flex items-center justify-between gap-3">
+        {/* Mobile Sticky CTA - Clean and supportive */}
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-indigo-950 via-purple-950 to-indigo-950 backdrop-blur-md border-t border-purple-500/30 p-4 shadow-2xl md:hidden">
+          <div className="flex items-center justify-between gap-3">
             <div className="flex-1">
-              <p className="text-white font-bold text-sm md:text-base">Imersão Completa</p>
-              <p className="text-yellow-100 text-xs md:text-sm">
-                <span className="line-through opacity-60">R$ 97</span> → <span className="font-black text-lg text-white">R$ 27,90</span>
+              <p className="text-white font-semibold text-sm">Guia 7 Dias</p>
+              <p className="text-purple-300 text-xs">
+                <span className="line-through opacity-60">R$ 79</span> → <span className="font-bold text-base">R$ 29</span>
               </p>
             </div>
             <button
               onClick={handleAccept}
-              className={`bg-black hover:bg-gray-900 text-[#FFD700] font-black py-3 px-6 md:py-4 md:px-8 rounded-xl transition-all transform hover:scale-105 active:scale-95 text-sm md:text-base whitespace-nowrap shadow-xl border-2 border-[#FFD700] ${showPulse ? 'animate-pulse' : ''}`}
+              className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold py-3 px-6 rounded-xl transition-all transform active:scale-95 text-sm whitespace-nowrap shadow-xl"
             >
-              ATIVAR AGORA
+              QUERO CLAREZA
             </button>
           </div>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Exit Intent Popup */}
+      {/* Exit Intent Popup - Gentle approach */}
       <AnimatePresence>
         {showExitPopup && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/90 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black/90 backdrop-blur-md z-[100] flex items-center justify-center p-4"
             onClick={() => setShowExitPopup(false)}
           >
             <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              className="bg-gradient-to-br from-[#1a0b2e] to-[#2d1b4e] rounded-3xl p-6 md:p-8 max-w-lg w-full border-2 border-red-500 shadow-2xl relative"
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              className="bg-gradient-to-br from-indigo-950 via-purple-950 to-indigo-950 rounded-3xl p-6 md:p-8 max-w-lg w-full border-2 border-purple-500/40 shadow-2xl relative"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 onClick={() => setShowExitPopup(false)}
-                className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors"
+                className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
               >
                 <X className="w-6 h-6" />
               </button>
 
-              <div className="text-center space-y-4">
+              <div className="text-center space-y-5">
                 <div className="flex justify-center">
-                  <div className="bg-red-500 rounded-full p-4">
-                    <AlertCircle className="w-12 h-12 text-white" />
+                  <div className="bg-purple-500/20 rounded-full p-4 border-2 border-purple-400/40">
+                    <Heart className="w-10 h-10 text-purple-300" />
                   </div>
                 </div>
 
-                <h3 className="text-2xl md:text-3xl font-black text-white">
-                  🚨 ESPERA, {firstNameUpper}!
+                <h3 className="text-xl md:text-2xl font-bold text-white leading-tight">
+                  Antes de ir...
                 </h3>
 
-                <p className="text-lg text-slate-200 font-bold">
-                  Vejo que você está saindo... 
+                <p className="text-base text-gray-300 leading-relaxed">
+                  Lembre-se: esta oferta só está disponível agora, junto com sua compra do Mapa Xamânico.
                 </p>
 
-                <div className="bg-yellow-500/10 border-2 border-yellow-500 rounded-xl p-4">
-                  <p className="text-yellow-400 font-bold text-xl mb-2">
-                    🎁 CUPOM EXCLUSIVO DESBLOQUEADO!
+                <div className="bg-purple-900/30 border border-purple-400/30 rounded-xl p-5">
+                  <p className="text-purple-200 font-semibold text-lg mb-2">
+                    R$ 29 para ter apoio nos primeiros 7 dias
                   </p>
-                  <p className="text-white font-black text-3xl mb-2">
-                    R$ 77 <span className="text-sm text-slate-400">(economize R$20!)</span>
-                  </p>
-                  <p className="text-slate-300 text-sm">
-                    Esta é sua ÚLTIMA CHANCE de ter o upgrade com desconto
+                  <p className="text-gray-300 text-sm">
+                    Orientações diárias para você não se sentir perdido
                   </p>
                 </div>
 
                 <button
-                  onClick={handleExitAccept}
-                  className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 text-black font-black text-lg py-4 px-6 rounded-xl shadow-lg transition-all transform hover:scale-105 uppercase"
+                  onClick={handleAccept}
+                  className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-lg py-4 px-6 rounded-xl shadow-lg transition-all transform hover:scale-105"
                 >
-                  ✨ ATIVAR COM DESCONTO AGORA
+                  QUERO O GUIA DE 7 DIAS
                 </button>
 
                 <button
                   onClick={() => setShowExitPopup(false)}
-                  className="text-slate-500 hover:text-slate-400 text-sm underline"
+                  className="text-gray-500 hover:text-gray-400 text-sm underline"
                 >
-                  Não, vou perder esta chance
+                  Não, obrigado
                 </button>
               </div>
             </motion.div>
