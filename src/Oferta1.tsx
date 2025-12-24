@@ -9,8 +9,8 @@ interface Oferta1Props {
 // BuckPay Configuration
 const BUCKPAY_CONFIG = {
   offerId: '7c265285-38dc-44e9-8f56-eaa6356e26b1',
-  upsellUrl: 'https://www.mapaxamanicooficial.online/obrigado',
-  downsellUrl: null,
+  upsellUrl: 'https://www.mapaxamanicooficial.online/oferta1',
+  downsellUrl: 'https://www.mapaxamanicooficial.online/down1',
   scriptUrl: 'https://www.seguropagamentos.com.br/upsell-downsell-script.js'
 } as const;
 
@@ -122,7 +122,15 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
   };
 
   const handleDecline = () => {
-    window.location.href = '/down1';
+    // Trigger BuckPay downsell button (redirects to /down1)
+    const buckpayDownsellButton = document.getElementById('buckpay-downsell-button');
+    
+    if (buckpayDownsellButton) {
+      buckpayDownsellButton.click();
+    } else {
+      // Fallback: direct redirect
+      window.location.href = '/down1';
+    }
   };
 
   return (
@@ -570,11 +578,36 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
         )}
       </AnimatePresence>
 
-      {/* Hidden BuckPay One-Click Upsell Container */}
-      <div style={{ display: 'none' }} id="buckpay-upsell-downsell-container">
-        <button id="buckpay-upsell-button">
+      {/* Hidden BuckPay One-Click Upsell/Downsell Container */}
+      <div style={{ display: 'none', textAlign: 'center' }} id="buckpay-upsell-downsell-container">
+        <button 
+          id="buckpay-upsell-button" 
+          style={{
+            backgroundColor: '#09a530',
+            padding: '12px 16px',
+            cursor: 'pointer',
+            color: '#ffffff',
+            fontWeight: 600,
+            borderRadius: '6px',
+            border: '1px solid #09a530',
+            fontSize: '20px'
+          }}
+        >
           Sim, eu quero essa oferta!
         </button>
+        <div 
+          id="buckpay-downsell-button" 
+          style={{
+            color: '#ffffff',
+            marginTop: '1rem',
+            cursor: 'pointer',
+            fontSize: '16px',
+            textDecoration: 'underline',
+            fontFamily: 'sans-serif'
+          }}
+        >
+          Não, eu gostaria de recusar essa oferta
+        </div>
       </div>
     </>
   );
