@@ -1,5 +1,11 @@
 // Pricing constants for Upsell and Downsell pages
 export const PRICING = {
+  oferta1: {
+    original: '79,00',
+    offer: '29,00',
+    exitPopupDiscount: '29,00',
+    savings: '50,00' // R$79 - R$29 = R$50
+  },
   upsell1: {
     original: '497,00',
     offer: '49,90',
