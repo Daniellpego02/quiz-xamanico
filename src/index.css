@@ -45,3 +45,16 @@ html {
     opacity: 0.6;
   }
 }
+
+/* Accessibility: Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-mystical-stars,
+  .animate-pulse {
+    animation: none !important;
+  }
+}
+
+/* Tailwind utility for mystical stars animation */
+.animate-mystical-stars {
+  animation: mysticalStars 20s ease-in-out infinite;
+}

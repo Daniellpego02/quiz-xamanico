@@ -102,7 +102,7 @@ const Offer = ({ userName }: OfferProps) => {
                 <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-[#FFD700]/5 rounded-full blur-[100px]"></div>
                 
                 {/* Mystical stars/particles overlay */}
-                <div className="absolute inset-0 opacity-40" style={{
+                <div className="absolute inset-0 opacity-40 animate-mystical-stars" style={{
                     backgroundImage: `radial-gradient(2px 2px at 20% 30%, white, transparent),
                                       radial-gradient(2px 2px at 60% 70%, white, transparent),
                                       radial-gradient(1px 1px at 50% 50%, white, transparent),
@@ -110,8 +110,7 @@ const Offer = ({ userName }: OfferProps) => {
                                       radial-gradient(2px 2px at 90% 60%, white, transparent),
                                       radial-gradient(1px 1px at 33% 80%, white, transparent),
                                       radial-gradient(1px 1px at 15% 60%, white, transparent)`,
-                    backgroundSize: '200% 200%',
-                    animation: 'mysticalStars 20s ease-in-out infinite'
+                    backgroundSize: '200% 200%'
                 }}></div>
                 
                 {/* Subtle noise texture for depth */}
@@ -218,7 +217,7 @@ const Offer = ({ userName }: OfferProps) => {
                         {/* Protocol Steps - Benefit-Focused */}
                         {[
                             { icon: Eye, title: 'Dia 1: O Fim da Cegueira Financeira Ancestral', desc: 'Identifique onde seu dinheiro está vazando' },
-                            { icon: Flame, title: 'Dia 2: Limpeza de DNA - Vazamento Invisível', desc: 'Elimine a lealdade invisível à pobreza que você não vê mas que drena sua energia' },
+                            { icon: Flame, title: 'Dia 2: Limpeza de DNA - Vazamento Invisível', desc: 'Elimine a lealdade invisível à pobreza que drena sua energia' },
                             { icon: Zap, title: 'Dia 3: Despertar da Frequência', desc: 'Ative sua vibração de abundância' },
                             { icon: Sparkles, title: 'Dia 4: Ancoragem da Prosperidade', desc: 'Fixe novos padrões energéticos' },
                             { icon: Star, title: 'Dia 5: A Ativação do Imã', desc: 'Como fazer o dinheiro vir até você sem esforço' },
