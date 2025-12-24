@@ -4,7 +4,7 @@ export const PRICING = {
     original: '79,00',
     offer: '29,00',
     exitPopupDiscount: '29,00',
-    savings: '0,00'
+    savings: '50,00' // R$79 - R$29 = R$50
   },
   upsell1: {
     original: '497,00',

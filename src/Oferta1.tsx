@@ -6,10 +6,19 @@ interface Oferta1Props {
   userName?: string;
 }
 
+// BuckPay Configuration
+const BUCKPAY_CONFIG = {
+  offerId: '7c265285-38dc-44e9-8f56-eaa6356e26b1',
+  upsellUrl: 'https://www.mapaxamanicooficial.online/obrigado',
+  downsellUrl: null,
+  scriptUrl: 'https://www.seguropagamentos.com.br/upsell-downsell-script.js'
+} as const;
+
 export default function Oferta1({ userName = 'você' }: Oferta1Props) {
   const [showExitPopup, setShowExitPopup] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
+  const [buckpayError, setBuckpayError] = useState(false);
   
   const benefitsRef = useRef(null);
   const socialProofRef = useRef(null);
@@ -50,14 +59,18 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
   // Load BuckPay one-click upsell script
   useEffect(() => {
     // Set BuckPay configuration
-    (window as any).buckpayOfferId = '7c265285-38dc-44e9-8f56-eaa6356e26b1';
-    (window as any).buckpayUpsellUrl = 'https://www.mapaxamanicooficial.online/obrigado';
-    (window as any).buckpayDownsellUrl = null;
+    (window as any).buckpayOfferId = BUCKPAY_CONFIG.offerId;
+    (window as any).buckpayUpsellUrl = BUCKPAY_CONFIG.upsellUrl;
+    (window as any).buckpayDownsellUrl = BUCKPAY_CONFIG.downsellUrl;
 
     // Load BuckPay script
     const script = document.createElement('script');
-    script.src = 'https://www.seguropagamentos.com.br/upsell-downsell-script.js';
+    script.src = BUCKPAY_CONFIG.scriptUrl;
     script.async = true;
+    script.onerror = () => {
+      console.error('Failed to load BuckPay script');
+      setBuckpayError(true);
+    };
     document.body.appendChild(script);
 
     return () => {
@@ -90,10 +103,21 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
 
   const handleAccept = () => {
     setIsProcessing(true);
+    
     // Trigger BuckPay one-click upsell
     const buckpayButton = document.getElementById('buckpay-upsell-button');
+    
     if (buckpayButton) {
       buckpayButton.click();
+    } else {
+      // Fallback: show error and reset
+      console.error('BuckPay button not found');
+      setTimeout(() => {
+        setIsProcessing(false);
+        setBuckpayError(true);
+        // Could show error message to user here
+        alert('Erro ao processar pagamento. Por favor, tente novamente ou entre em contato com o suporte.');
+      }, 1000);
     }
   };
 
@@ -441,6 +465,7 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
                     transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                     className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
                   />
+                  <span>Aguarde...</span>
                 </span>
               ) : (
                 'QUERO CLAREZA'
