@@ -3,8 +3,9 @@ import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { X, Check, Shield, Heart, Sparkles } from 'lucide-react';
 
 // BuckPay Configuration for Downsell
+// ⚠️ IMPORTANT: Replace 'YOUR_DOWNSELL_OFFER_ID' with actual BuckPay offer ID before deployment
 const BUCKPAY_DOWNSELL_CONFIG = {
-  offerId: 'YOUR_DOWNSELL_OFFER_ID', // Replace with actual downsell offer ID
+  offerId: 'YOUR_DOWNSELL_OFFER_ID', // TODO: Replace with actual downsell offer ID from BuckPay dashboard
   upsellUrl: 'https://www.mapaxamanicooficial.online/obrigado',
   downsellUrl: null,
   scriptUrl: 'https://www.seguropagamentos.com.br/upsell-downsell-script.js'

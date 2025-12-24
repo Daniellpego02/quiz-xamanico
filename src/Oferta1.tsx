@@ -122,7 +122,7 @@ export default function Oferta1({ userName = 'você' }: Oferta1Props) {
   };
 
   const handleDecline = () => {
-    window.location.href = '/oferta2';
+    window.location.href = '/down1';
   };
 
   return (
