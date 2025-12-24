@@ -6,12 +6,12 @@ const faqs = [
   {
     id: 1,
     question: 'Tenho pouco tempo, consigo fazer?',
-    answer: 'Sim. O Protocolo foi desenhado para rotinas corridas. São áudios e exercícios guiados de apenas 10 a 15 minutos por dia. Você pode ouvir indo para o trabalho ou antes de dormir.',
+    answer: 'Sim. O protocolo foi desenhado para ser feito em 12 min/dia. É sobre frequência, não volume de trabalho. Você pode ouvir enquanto se arruma pela manhã ou antes de dormir.',
   },
   {
     id: 2,
     question: 'Isso tem a ver com alguma religião?',
-    answer: 'Não. O Mapa Xamânico é baseado em Ciência Vibracional e Arquétipos Universais. Não interfere na sua fé ou crença religiosa. É uma ferramenta de autoconhecimento e energia.',
+    answer: 'Não. É ciência ancestral e frequência vibracional (528Hz). Funciona independente da sua crença. O Mapa Xamânico é baseado em arquétipos universais e princípios energéticos que transcendem qualquer religião.',
   },
   {
     id: 3,
@@ -21,7 +21,7 @@ const faqs = [
   {
     id: 4,
     question: 'E se não funcionar para mim?',
-    answer: 'Você está protegido pela nossa Garantia Blindada de 7 Dias. Se você aplicar o método e não sentir nenhuma mudança na sua energia ou prosperidade, nós devolvemos 100% do seu dinheiro. O risco é todo nosso.',
+    answer: 'Você tem 7 dias de garantia incondicional. Se não sentir mudança, devolvemos seu dinheiro. Sem perguntas, sem burocracia. O risco é todo nosso, porque sabemos que o método funciona.',
   },
   {
     id: 5,

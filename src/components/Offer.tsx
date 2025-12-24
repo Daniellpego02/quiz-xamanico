@@ -91,6 +91,30 @@ const Offer = ({ userName }: OfferProps) => {
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-[#120520] via-[#2A0F3D] to-[#120520] text-white">
+            {/* Progress Bar - Step 2 of 3 */}
+            <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="sticky top-0 z-50 bg-gradient-to-r from-[#1a0b2e] via-[#2A0F3D] to-[#1a0b2e] border-b border-[#D4AF37]/30 backdrop-blur-sm"
+            >
+                <div className="max-w-4xl mx-auto px-4 py-3">
+                    <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm md:text-base text-[#FFD700] font-semibold">
+                            Passo 2 de 3: Análise Concluída - Ative seu Mapa
+                        </span>
+                        <span className="text-xs md:text-sm text-slate-400">67% completo</span>
+                    </div>
+                    <div className="w-full bg-slate-800/50 rounded-full h-2 overflow-hidden">
+                        <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: '67%' }}
+                            transition={{ duration: 1, ease: 'easeOut' }}
+                            className="h-full bg-gradient-to-r from-[#D4AF37] to-[#FFD700] rounded-full shadow-[0_0_10px_rgba(212,175,55,0.6)]"
+                        />
+                    </div>
+                </div>
+            </motion.div>
+
             {/* Hero Section with Verdict */}
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -113,6 +137,15 @@ const Offer = ({ userName }: OfferProps) => {
                         </h1>
                         <p className="text-red-300 text-sm md:text-base font-bold mt-2">(NÍVEL CRÍTICO)</p>
                     </div>
+                    {/* Validation Headline */}
+                    <motion.p
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.7 }}
+                        className="text-red-400 text-base md:text-lg font-bold mb-4 max-w-2xl mx-auto"
+                    >
+                        Este bloqueio é o motivo de 92% do seu esforço ser jogado no lixo. Veja como desligá-lo agora.
+                    </motion.p>
                     <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
                         Assista ao vídeo curto abaixo para entender <span className="text-[#FFD700] font-bold">como desativar essa frequência em 7 dias</span> e instalar o código da prosperidade.
                     </p>
@@ -142,9 +175,12 @@ const Offer = ({ userName }: OfferProps) => {
                     transition={{ delay: 0.9 }}
                     className="mb-12"
                 >
-                    <h2 className="text-2xl md:text-3xl font-serif font-black text-center text-[#D4AF37] mb-8">
+                    <h2 className="text-2xl md:text-3xl font-serif font-black text-center text-[#D4AF37] mb-2">
                         ⚡ O Protocolo de 7 Dias
                     </h2>
+                    <p className="text-center text-[#FFD700] text-lg font-semibold mb-8">
+                        Apenas 12 minutos por dia
+                    </p>
                     
                     <div className="space-y-4 relative">
                         {/* Connecting line */}
@@ -152,8 +188,8 @@ const Offer = ({ userName }: OfferProps) => {
                         
                         {/* Protocol Steps - Benefit-Focused */}
                         {[
-                            { icon: Eye, title: 'Dia 1: O Fim da Cegueira Financeira', desc: 'Identifique onde seu dinheiro está vazando' },
-                            { icon: Flame, title: 'Dia 2: Limpeza de DNA', desc: 'Elimine a lealdade invisível à pobreza dos seus pais' },
+                            { icon: Eye, title: 'Dia 1: O Fim da Cegueira Financeira Ancestral', desc: 'Identifique onde seu dinheiro está vazando' },
+                            { icon: Flame, title: 'Dia 2: Limpeza de DNA - Vazamento Invisível', desc: 'Elimine a lealdade invisível à pobreza que você não vê mas que drena sua energia' },
                             { icon: Zap, title: 'Dia 3: Despertar da Frequência', desc: 'Ative sua vibração de abundância' },
                             { icon: Sparkles, title: 'Dia 4: Ancoragem da Prosperidade', desc: 'Fixe novos padrões energéticos' },
                             { icon: Star, title: 'Dia 5: A Ativação do Imã', desc: 'Como fazer o dinheiro vir até você sem esforço' },
@@ -179,18 +215,26 @@ const Offer = ({ userName }: OfferProps) => {
                     </div>
                 </motion.div>
 
-                {/* Frequency Room Component */}
+                {/* Frequency Room Component - Lazy Loaded */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1.8 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "100px" }}
+                    transition={{ delay: 0.2 }}
                     className="mb-12"
                 >
                     <FrequencyRoom />
                 </motion.div>
 
-                {/* Social Proof Testimonials Section */}
-                <SocialProofTestimonials />
+                {/* Social Proof Testimonials Section - Lazy Loaded */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "100px" }}
+                    transition={{ delay: 0.2 }}
+                >
+                    <SocialProofTestimonials />
+                </motion.div>
 
                 {/* Mentor Authority Section */}
                 <MentorAuthority />
@@ -251,16 +295,21 @@ const Offer = ({ userName }: OfferProps) => {
                             </p>
                         </div>
 
-                        {/* CTA Button - First Person */}
+                        {/* CTA Button - Changed to Vibrant Orange/Yellow */}
                         <button
                             onClick={handleCheckout}
-                            className="w-full bg-gradient-to-r from-[#10B981] via-[#059669] to-[#047857] hover:from-[#34D399] hover:via-[#10B981] hover:to-[#059669] text-white font-black text-xl py-6 px-8 rounded-2xl shadow-[0_8px_40px_rgba(16,185,129,0.6)] transition-all transform hover:scale-105 active:scale-95 border-2 border-emerald-300 uppercase tracking-wide"
+                            className="w-full bg-gradient-to-r from-[#FF8C00] via-[#FFA500] to-[#FFB700] hover:from-[#FFA500] hover:via-[#FFB700] hover:to-[#FFD700] text-white font-black text-xl py-6 px-8 rounded-2xl shadow-[0_8px_40px_rgba(255,140,0,0.6)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#FFD700] uppercase tracking-wide"
                         >
                             <span className="drop-shadow-lg">✨ SIM, QUERO DESTRAVAR MINHA PROSPERIDADE</span>
                         </button>
 
+                        {/* Micro-copy below CTA */}
+                        <p className="text-center text-[#FFD700] text-sm mt-3 font-semibold">
+                            🚀 Acesso imediato enviado para o seu e-mail
+                        </p>
+
                         {/* Trust Badges */}
-                        <div className="flex items-center justify-center gap-2 mt-6 text-emerald-400 text-sm">
+                        <div className="flex items-center justify-center gap-2 mt-4 text-emerald-400 text-sm">
                             <Shield className="w-5 h-5" />
                             <span>Pagamento 100% seguro • Garantia de 7 dias</span>
                         </div>
@@ -276,21 +325,34 @@ const Offer = ({ userName }: OfferProps) => {
                 >
                     <h3 className="text-xl font-bold text-[#FFD700] mb-4">🎁 Bônus Exclusivos Inclusos:</h3>
                     <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
-                        <div className="bg-white/5 backdrop-blur-sm border border-[#D4AF37]/30 rounded-xl p-4">
+                        {/* Bonus 1: Meditations - 3D Mockup Visual */}
+                        <div className="bg-white/5 backdrop-blur-sm border border-[#D4AF37]/30 rounded-xl p-4 hover:border-[#FFD700]/50 transition-all">
                             <div className="flex items-center justify-center mb-3">
-                                <Headphones className="w-8 h-8 text-[#FFD700]" />
+                                <div className="relative">
+                                    <Headphones className="w-12 h-12 text-[#FFD700]" />
+                                    <div className="absolute -inset-1 bg-[#FFD700]/20 blur-lg rounded-full"></div>
+                                </div>
                             </div>
-                            <p className="font-semibold text-white mb-2">Meditações Guiadas</p>
-                            <p className="text-sm text-slate-300">Áudios de ativação profunda</p>
-                            <p className="text-[#FFD700] text-sm mt-2">Valor: R$ 97,00</p>
+                            <p className="font-semibold text-white mb-2">🎧 Meditações Guiadas 3D</p>
+                            <p className="text-sm text-slate-300">Áudios de ativação profunda com frequência 528Hz</p>
+                            <p className="text-[#FFD700] text-sm mt-2 font-bold">Valor: R$ 97,00</p>
                         </div>
-                        <div className="bg-white/5 backdrop-blur-sm border border-[#D4AF37]/30 rounded-xl p-4">
-                            <div className="flex items-center justify-center mb-3">
-                                <Users className="w-8 h-8 text-[#FFD700]" />
+                        {/* Bonus 2: Support - With Scarcity */}
+                        <div className="bg-white/5 backdrop-blur-sm border border-[#D4AF37]/30 rounded-xl p-4 hover:border-[#FFD700]/50 transition-all relative overflow-hidden">
+                            {/* Scarcity Badge */}
+                            <div className="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full animate-pulse">
+                                VAGAS LIMITADAS
                             </div>
-                            <p className="font-semibold text-white mb-2">Suporte Energético</p>
-                            <p className="text-sm text-slate-300">Comunidade exclusiva</p>
-                            <p className="text-[#FFD700] text-sm mt-2">Valor: R$ 47,00</p>
+                            <div className="flex items-center justify-center mb-3 mt-4">
+                                <div className="relative">
+                                    <Users className="w-12 h-12 text-[#FFD700]" />
+                                    <div className="absolute -inset-1 bg-[#FFD700]/20 blur-lg rounded-full"></div>
+                                </div>
+                            </div>
+                            <p className="font-semibold text-white mb-2">👥 Suporte Energético Exclusivo</p>
+                            <p className="text-sm text-slate-300">Comunidade privada com acesso limitado</p>
+                            <p className="text-[#FFD700] text-sm mt-2 font-bold">Valor: R$ 47,00</p>
+                            <p className="text-xs text-red-300 mt-2 font-semibold">⚠️ Apenas 50 vagas disponíveis</p>
                         </div>
                     </div>
                 </motion.div>
