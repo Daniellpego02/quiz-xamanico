@@ -90,12 +90,41 @@ const Offer = ({ userName }: OfferProps) => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-[#120520] via-[#2A0F3D] to-[#120520] text-white">
+        <div className="min-h-screen relative overflow-hidden text-white">
+            {/* Enhanced Mystical Background with Multiple Layers */}
+            <div className="fixed inset-0 -z-10">
+                {/* Base gradient layer */}
+                <div className="absolute inset-0 bg-gradient-to-b from-[#0a0118] via-[#1a0b2e] via-[#2A0F3D] to-[#0a0118]"></div>
+                
+                {/* Radial glow effects */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#D4AF37]/5 rounded-full blur-[120px] animate-pulse"></div>
+                <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[100px]"></div>
+                <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-[#FFD700]/5 rounded-full blur-[100px]"></div>
+                
+                {/* Mystical stars/particles overlay */}
+                <div className="absolute inset-0 opacity-40" style={{
+                    backgroundImage: `radial-gradient(2px 2px at 20% 30%, white, transparent),
+                                      radial-gradient(2px 2px at 60% 70%, white, transparent),
+                                      radial-gradient(1px 1px at 50% 50%, white, transparent),
+                                      radial-gradient(1px 1px at 80% 10%, white, transparent),
+                                      radial-gradient(2px 2px at 90% 60%, white, transparent),
+                                      radial-gradient(1px 1px at 33% 80%, white, transparent),
+                                      radial-gradient(1px 1px at 15% 60%, white, transparent)`,
+                    backgroundSize: '200% 200%',
+                    animation: 'mysticalStars 20s ease-in-out infinite'
+                }}></div>
+                
+                {/* Subtle noise texture for depth */}
+                <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay" style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+                }}></div>
+            </div>
+
             {/* Progress Bar - Step 2 of 3 */}
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="sticky top-0 z-50 bg-gradient-to-r from-[#1a0b2e] via-[#2A0F3D] to-[#1a0b2e] border-b border-[#D4AF37]/30 backdrop-blur-sm"
+                className="sticky top-0 z-50 bg-gradient-to-r from-[#1a0b2e]/95 via-[#2A0F3D]/95 to-[#1a0b2e]/95 border-b border-[#D4AF37]/30 backdrop-blur-md"
             >
                 <div className="max-w-4xl mx-auto px-4 py-3">
                     <div className="flex items-center justify-between mb-2">
