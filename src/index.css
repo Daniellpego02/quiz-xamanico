@@ -33,3 +33,28 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: #6d28d9;
 }
+
+/* Mystical Stars Animation for Offer Page */
+@keyframes mysticalStars {
+  0%, 100% {
+    background-position: 0% 0%;
+    opacity: 0.4;
+  }
+  50% {
+    background-position: 100% 100%;
+    opacity: 0.6;
+  }
+}
+
+/* Accessibility: Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-mystical-stars,
+  .animate-pulse {
+    animation: none !important;
+  }
+}
+
+/* Tailwind utility for mystical stars animation */
+.animate-mystical-stars {
+  animation: mysticalStars 20s ease-in-out infinite;
+}
