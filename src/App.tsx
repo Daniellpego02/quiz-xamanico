@@ -7,7 +7,7 @@ import { Quiz } from './components/Quiz';
 import { Authority } from './components/Authority';
 import { SocialProof } from './components/SocialProof';
 import { AnalysisLoading } from './components/AnalysisLoading';
-import Offer from './components/Offer';
+import OfferNew from './components/OfferNew';
 import Obrigado from './Obrigado';
 import Oferta1 from './Oferta1';
 import Oferta2 from './Oferta2';
@@ -65,7 +65,7 @@ function App() {
       case AppStep.LOADING:
         return <AnalysisLoading onComplete={handleLoadingComplete} quizPath={quizPath} />;
       case AppStep.OFFER:
-        return <Offer userName={userName} />;
+        return <OfferNew userName={userName} />;
       default:
         return <Hero onStart={handleStartQuiz} />;
     }
