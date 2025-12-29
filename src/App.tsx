@@ -37,7 +37,7 @@ function App() {
   const handleQuizComplete = (path: QuizPath, name: string) => {
     setQuizPath(path);
     setUserName(name);
-    goToStep(AppStep.AUTHORITY); // Mantendo o ritual de conexão
+    goToStep(AppStep.LOADING); // Go directly to loading screen
   };
 
   const handleAuthorityNext = () => {
