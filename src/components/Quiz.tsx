@@ -79,7 +79,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   }, []);
 
   const getLoadingStages = () => [
-    "Conectando à egrégora de " + userName + "...",
+    `Conectando à egrégora de ${userName}...`,
     "Analisando respostas de frequência...",
     "Bloqueio Ancestral Detectado: Nível Alto...",
     "Gerando Protocolo de Solução...",
@@ -204,7 +204,10 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const currentQuestion = activeQuestions[currentIndex];
   if (!currentQuestion) return null;
 
-  const progress = 10 + (currentIndex / activeQuestions.length) * 90; // Start at 10%, end at 100%
+  // Progress bar constants
+  const PROGRESS_START_PERCENT = 10;
+  const PROGRESS_RANGE_PERCENT = 90;
+  const progress = PROGRESS_START_PERCENT + (currentIndex / activeQuestions.length) * PROGRESS_RANGE_PERCENT;
 
   return (
     <div className="min-h-screen flex flex-col max-w-lg mx-auto px-4 py-6 relative z-10">

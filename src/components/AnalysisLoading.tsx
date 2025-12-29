@@ -14,7 +14,7 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
 
   // Stages adapted by quiz path
   const financeStages = [
-    { pct: 15, text: "Conectando à egrégora de " + (typeof window !== 'undefined' ? window.sessionStorage.getItem('userName') || 'você' : 'você') + "...", icon: <Search className="w-6 h-6 text-[#D4AF37]" /> },
+    { pct: 15, text: "Conectando à egrégora...", icon: <Search className="w-6 h-6 text-[#D4AF37]" /> },
     { pct: 35, text: "Analisando respostas de frequência...", icon: <Brain className="w-6 h-6 text-[#D4AF37]" /> },
     { pct: 60, text: "Bloqueio Ancestral Detectado: Nível Alto...", icon: <Heart className="w-6 h-6 text-red-400" /> },
     { pct: 85, text: "Gerando Protocolo de Solução...", icon: <Wallet className="w-6 h-6 text-[#D4AF37]" /> },
