@@ -14,13 +14,11 @@ interface OfferProps {
  */
 const OfferNew = ({ userName }: OfferProps) => {
     const [showOfferContent, setShowOfferContent] = useState(false);
-    const [videoWatched, setVideoWatched] = useState(false);
     
     // Price configuration
     const priceOld = "497,00";
     const priceNew = "27,90";
     const priceInstallment = "2,89";
-    const installments = "12";
 
     // Load video player script
     useEffect(() => {
@@ -56,7 +54,6 @@ const OfferNew = ({ userName }: OfferProps) => {
         // In production, this should be triggered by actual video events
         const timer = setTimeout(() => {
             setShowOfferContent(true);
-            setVideoWatched(true);
         }, 5000); // 5 seconds for demo, should be 255000 in production
 
         return () => {

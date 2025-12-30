@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './Button';
-import { Lock, BadgeCheck } from 'lucide-react';
+import { Lock } from 'lucide-react';
 import { tracking } from '../utils/tracking';
 
 interface HeroProps {
