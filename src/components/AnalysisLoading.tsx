@@ -14,11 +14,11 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
 
   // Stages adapted by quiz path
   const financeStages = [
-    { pct: 20, text: "Identificando bloqueio financeiro...", icon: <Wallet className="w-6 h-6 text-gold-400" /> },
-    { pct: 45, text: "Analisando bloqueio emocional...", icon: <Heart className="w-6 h-6 text-red-400" /> },
-    { pct: 70, text: "Verificando bloqueio de propósito...", icon: <Brain className="w-6 h-6 text-purple-400" /> },
-    { pct: 95, text: "Gerando seu mapa personalizado...", icon: <Search className="w-6 h-6 text-blue-400" /> },
-    { pct: 100, text: "Quase lá! Preparando seu resultado.", icon: <CheckCircle2 className="w-6 h-6 text-green-400" /> }
+    { pct: 15, text: "Conectando à egrégora...", icon: <Search className="w-6 h-6 text-[#D4AF37]" /> },
+    { pct: 35, text: "Analisando respostas de frequência...", icon: <Brain className="w-6 h-6 text-[#D4AF37]" /> },
+    { pct: 60, text: "Bloqueio Ancestral Detectado: Nível Alto...", icon: <Heart className="w-6 h-6 text-red-400" /> },
+    { pct: 85, text: "Gerando Protocolo de Solução...", icon: <Wallet className="w-6 h-6 text-[#D4AF37]" /> },
+    { pct: 100, text: "CONCLUÍDO.", icon: <CheckCircle2 className="w-6 h-6 text-green-400" /> }
   ];
 
   const relationshipStages = [
@@ -54,10 +54,10 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
 
   // Update text stage based on progress
   useEffect(() => {
-    if (progress < 20) setStage(0);
-    else if (progress < 45) setStage(1);
-    else if (progress < 70) setStage(2);
-    else if (progress < 95) setStage(3);
+    if (progress < 15) setStage(0);
+    else if (progress < 35) setStage(1);
+    else if (progress < 60) setStage(2);
+    else if (progress < 85) setStage(3);
     else setStage(4);
   }, [progress]);
 
@@ -66,15 +66,15 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
       
       {/* Background Glow */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none -z-10">
-         <div className={`w-[300px] h-[300px] ${quizPath === 'relationship' ? 'bg-purple-500/10' : 'bg-gold-500/10'} rounded-full blur-[80px] animate-pulse`}></div>
+         <div className={`w-[300px] h-[300px] ${quizPath === 'relationship' ? 'bg-purple-500/10' : 'bg-[#D4AF37]/10'} rounded-full blur-[80px] animate-pulse`}></div>
       </div>
 
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-        className={`w-24 h-24 rounded-full border-4 border-white/5 ${quizPath === 'relationship' ? 'border-t-purple-500 shadow-[0_0_50px_rgba(168,85,247,0.4)]' : 'border-t-gold-500 shadow-[0_0_50px_rgba(245,158,11,0.4)]'} relative`}
+        className={`w-24 h-24 rounded-full border-4 border-white/5 ${quizPath === 'relationship' ? 'border-t-purple-500 shadow-[0_0_50px_rgba(168,85,247,0.4)]' : 'border-t-[#D4AF37] shadow-[0_0_50px_rgba(212,175,55,0.4)]'} relative`}
       >
-        <div className={`absolute inset-0 ${quizPath === 'relationship' ? 'bg-purple-500/10' : 'bg-gold-500/10'} rounded-full blur-xl`}></div>
+        <div className={`absolute inset-0 ${quizPath === 'relationship' ? 'bg-purple-500/10' : 'bg-[#D4AF37]/10'} rounded-full blur-xl`}></div>
       </motion.div>
 
       <div className="space-y-6 w-full">
@@ -84,7 +84,7 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
         
         <div className="w-full bg-white/5 rounded-full h-4 overflow-hidden border border-white/10 shadow-inner">
           <motion.div 
-            className={`${quizPath === 'relationship' ? 'bg-gradient-to-r from-purple-600 via-pink-400 to-purple-500 shadow-[0_0_20px_rgba(168,85,247,0.5)]' : 'bg-gradient-to-r from-gold-600 via-gold-400 to-white shadow-[0_0_20px_rgba(251,191,36,0.5)]'} h-full rounded-full`}
+            className={`${quizPath === 'relationship' ? 'bg-gradient-to-r from-purple-600 via-pink-400 to-purple-500 shadow-[0_0_20px_rgba(168,85,247,0.5)]' : 'bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.5)]'} h-full rounded-full`}
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -93,7 +93,7 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
           <div className="p-2 bg-white/5 rounded-full">{stages[stage].icon}</div>
           <span className="text-slate-200 font-medium text-sm text-left">
             {stages[stage].text} <br/>
-            <span className={`${quizPath === 'relationship' ? 'text-purple-500' : 'text-gold-500'} font-bold text-xs tracking-widest uppercase`}>Progresso: {Math.round(progress)}%</span>
+            <span className={`${quizPath === 'relationship' ? 'text-purple-500' : 'text-[#D4AF37]'} font-bold text-xs tracking-widest uppercase`}>Progresso: {Math.round(progress)}%</span>
           </span>
         </div>
       </div>
@@ -105,8 +105,8 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
         transition={{ delay: 2 }}
         className="bg-white/5 backdrop-blur-xl p-5 rounded-2xl border border-white/10 mt-8 shadow-lg max-w-sm"
       >
-        <p className={`text-[10px] ${quizPath === 'relationship' ? 'text-purple-500' : 'text-gold-500'} font-bold uppercase tracking-wider mb-2 flex items-center gap-1`}>
-          <Star className={`w-3 h-3 ${quizPath === 'relationship' ? 'fill-purple-500' : 'fill-gold-500'}`} /> Depoimento recente
+        <p className={`text-[10px] ${quizPath === 'relationship' ? 'text-purple-500' : 'text-[#D4AF37]'} font-bold uppercase tracking-wider mb-2 flex items-center gap-1`}>
+          <Star className={`w-3 h-3 ${quizPath === 'relationship' ? 'fill-purple-500' : 'fill-[#D4AF37]'}`} /> Depoimento recente
         </p>
         <p className="text-slate-200 text-sm italic leading-relaxed">{testimonial.text}</p>
         <p className="text-slate-400 text-xs mt-2 text-right">– {testimonial.author}</p>

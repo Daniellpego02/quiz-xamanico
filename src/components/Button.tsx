@@ -23,7 +23,7 @@ export const Button: React.FC<ButtonProps> = ({
   // New Premium Variants
   const variants = {
     // Elegant gradient with inner ring and diffuse shadow (no thick border)
-    primary: "bg-gradient-to-br from-[#FF9500] via-[#F58400] to-[#EA580C] text-white shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:brightness-110 border-t border-white/20 ring-1 ring-white/10 ring-inset",
+    primary: "bg-gradient-to-br from-[#D4AF37] via-[#FFD700] to-[#D4AF37] text-white shadow-lg shadow-[#D4AF37]/30 hover:shadow-[#D4AF37]/50 hover:brightness-110 border-t border-white/20 ring-1 ring-white/10 ring-inset",
     secondary: "bg-white/10 backdrop-blur-sm text-white border border-white/20 hover:bg-white/20"
   };
 

@@ -25,65 +25,51 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     {
       id: 0,
       title: "CALIBRAGEM ENERGÉTICA",
-      text: "Para calibrar a precisão do seu mapa, precisamos conectar o seu nome à sua energia.",
+      text: "Para quem os portais de abundância devem ser abertos hoje?",
       type: "input",
       placeholder: "Digite seu primeiro nome..."
-    },
-    {
-      id: 1,
-      title: "CALIBRAGEM DE INTENSIDADE",
-      text: "{NAME}, para o Oráculo rastrear a origem do bloqueio, precisamos saber: <strong>há quanto tempo você sente que sua vida financeira está 'estagnada'?</strong>",
-      options: [
-        { label: "Há alguns meses", sublabel: "Começou recentemente, mas me preocupa", value: "months", icon: "📅" },
-        { label: "Entre 1 e 3 anos", sublabel: "Sinto que estou andando em círculos", value: "years_1_3", icon: "🔄" },
-        { label: "Mais de 5 anos", sublabel: "Já tentei de tudo e nada muda", value: "years_5_plus", icon: "⏳" },
-        { label: "Desde sempre / Padrão de Família", sublabel: "Parece que herdei essa dificuldade", value: "hereditary", icon: "🧬" },
-      ]
     }
   ];
 
   // Caminho FINANCEIRO - Nova estrutura de agitação de dor conforme briefing
   const financeQuestions: QuizQuestion[] = [
     {
-      id: 2,
-      title: "P2 — O Sintoma Visceral",
-      text: "Qual dessas sensações descreve melhor a sua relação com o dinheiro hoje?",
+      id: 1,
+      title: "P1 — O SINTOMA",
+      text: "Vamos analisar seu padrão atual, {NAME}. Como você descreve sua relação com o dinheiro hoje?",
       options: [
-        { label: "Mão Furada", sublabel: "O dinheiro entra e parece que 'evapora' com imprevistos", value: "leak", icon: "💸" },
-        { label: "Teto de Vidro", sublabel: "Trabalho muito, mas nunca consigo passar de um certo valor", value: "ceiling", icon: "🚧" },
-        { label: "Montanha Russa", sublabel: "Tenho meses ótimos seguidos de quedas bruscas", value: "rollercoaster", icon: "🎢" },
-        { label: "Peso Morto", sublabel: "Sinto que carrego a responsabilidade financeira de todos nas costas", value: "burden", icon: "🎒" },
+        { label: "O dinheiro entra e some (imprevistos constantes).", sublabel: "Parece que tenho um ralo energético", value: "leak", icon: "💸" },
+        { label: "Trabalho muito, ganho pouco e sinto cansaço crônico.", sublabel: "O esforço não se transforma em resultado", value: "tired", icon: "😰" },
+        { label: "Tenho medo de faltar e vivo economizando cada centavo.", sublabel: "Sinto sempre que vai acabar", value: "fear", icon: "😨" },
+      ]
+    },
+    {
+      id: 2,
+      title: "P2 — A CAUSA (ANCESTRALIDADE)",
+      text: "O Xamanismo Financeiro ensina que padrões se repetem. Olhando para seus pais ou avós, o que você vê?",
+      options: [
+        { label: "Histórico de dívidas, falências ou lutas financeiras pesadas.", value: "heavy", icon: "💔" },
+        { label: "Pessoas honestas, mas que nunca enriqueceram.", value: "honest", icon: "🙏" },
+        { label: "Havia dinheiro, mas muitas brigas e desarmonia familiar.", value: "conflict", icon: "⚡" },
       ]
     },
     {
       id: 3,
-      title: "P3 — A Raiz Ancestral",
-      text: "O Mapa Xamânico busca raízes profundas. Olhando para seus pais ou avós, você vê esse mesmo padrão?",
+      title: "P3 — A AGITAÇÃO (O CUSTO EMOCIONAL)",
+      text: "Se nada mudar nos próximos 6 meses, qual é o seu maior medo, {NAME}?",
       options: [
-        { label: "Sim, herdei exatamente as mesmas dificuldades deles", value: "inherited", icon: "🔄" },
-        { label: "Eles tinham dinheiro, mas perderam tudo", sublabel: "Trauma de Escassez", value: "trauma", icon: "💔" },
-        { label: "Não, sou o único da família que parece 'travado'", value: "unique", icon: "🐑" },
-        { label: "Nunca parei para pensar nisso", sublabel: "Bloqueio Inconsciente", value: "unaware", icon: "💡" },
+        { label: "Continuar dependendo dos outros ou contando moedas.", value: "dependency", icon: "😔" },
+        { label: "Envelhecer sem construir nenhum patrimônio real.", value: "aging", icon: "⏰" },
+        { label: "Ver minha família passar necessidade por minha causa.", value: "family", icon: "💔" },
       ]
     },
     {
       id: 4,
-      title: "P4 — O Gatilho da Injustiça",
-      text: "Você tem a sensação de que pessoas menos capacitadas que você estão ganhando muito mais?",
-      options: [
-        { label: "Sim, e isso me gera revolta e frustração", value: "anger", icon: "😤" },
-        { label: "Sinto que para mim tudo é 10x mais difícil", value: "harder", icon: "⛰️" },
-        { label: "Parece que eles têm uma 'sorte' que eu não tenho", value: "unlucky", icon: "🍀" },
-        { label: "Sinto que meu esforço é inútil", value: "futile", icon: "😔" },
-      ]
-    },
-    {
-      id: 5,
-      title: "P5 — A Prontidão",
-      text: "{NAME}, o Oráculo identificou um bloqueio severo. A revelação pode ser dolorosa. Você está pronto para ver seu mapa?",
+      title: "P4 — O COMPROMISSO",
+      text: "O sistema identificou um bloqueio severo na sua frequência. Se existir um Protocolo de 7 dias para limpar isso, você está disposto(a) a seguir?",
       singleButton: true,
       options: [
-        { label: "Sim, quero a verdade e o fim desse ciclo", value: "ready", icon: "🔥" },
+        { label: "SIM, eu aceito receber meu Mapa e me desbloquear.", value: "ready", icon: "🔥" },
       ]
     }
   ];
@@ -93,10 +79,11 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   }, []);
 
   const getLoadingStages = () => [
-    "Acessando Registros Ancestrais de " + userName,
-    "Identificando Padrão de Escassez Hereditária",
-    "Calculando Potencial de Riqueza Reprimido",
-    "MAPA GERADO COM SUCESSO! ✅"
+    `Conectando à egrégora de ${userName}...`,
+    "Analisando respostas de frequência...",
+    "Bloqueio Ancestral Detectado: Nível Alto...",
+    "Gerando Protocolo de Solução...",
+    "CONCLUÍDO."
   ];
 
   useEffect(() => {
@@ -154,18 +141,18 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       currentIndex + 1
     );
 
-    // LÓGICA DE FLUXO ÚNICO FINANCEIRO (Pergunta 1)
-    // Após a pergunta 1 (temporal pain), automaticamente adiciona as perguntas financeiras
+    // LÓGICA DE FLUXO ÚNICO FINANCEIRO 
+    // Após a pergunta 0 (nome), automaticamente adiciona as perguntas financeiras
     // Note: O path é fixo em 'finance' como estratégia de fluxo único para aumentar conversão
     let mergedQuestions = activeQuestions;
-    if (currentIndex === 1) {
+    if (currentIndex === 0) {
       // Sempre usa o caminho financeiro
       mergedQuestions = [...activeQuestions, ...financeQuestions];
       setActiveQuestions(mergedQuestions);
     }
 
     // Track halfway point
-    if (currentIndex === 4) {
+    if (currentIndex === 2) {
       tracking.quiz.halfway();
     }
 
@@ -191,8 +178,8 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           animate={{ scale: 1, opacity: 1 }}
           className="relative"
         >
-            <div className="absolute inset-0 bg-orange-500 rounded-full blur-[80px] opacity-40 animate-pulse"></div>
-            <Compass className="w-24 h-24 text-[#FF9500] mx-auto mb-6 relative z-10 animate-pulse" />
+            <div className="absolute inset-0 bg-[#D4AF37] rounded-full blur-[80px] opacity-40 animate-pulse"></div>
+            <Compass className="w-24 h-24 text-[#D4AF37] mx-auto mb-6 relative z-10 animate-pulse" />
         </motion.div>
         
         <h2 className="text-2xl font-serif text-white mb-2">Acessando Frequência Vibracional...</h2>
@@ -204,11 +191,11 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             exit={{ opacity: 0, y: -10 }}
             className="text-slate-300 text-lg min-h-[3rem] flex items-center justify-center"
           >
-            <strong className="text-[#FF9500]">{loadingStages[loadingStage]}</strong>
+            <strong className="text-[#D4AF37]">{loadingStages[loadingStage]}</strong>
           </motion.p>
         </AnimatePresence>
         <div className="w-64 h-1 bg-white/10 rounded-full mt-8 overflow-hidden mx-auto">
-            <motion.div className="h-full bg-[#FF9500]" initial={{ width: "0%" }} animate={{ width: "100%" }} transition={{ duration: 3, ease: "easeInOut" }} />
+            <motion.div className="h-full bg-[#D4AF37]" initial={{ width: "0%" }} animate={{ width: "100%" }} transition={{ duration: 3, ease: "easeInOut" }} />
         </div>
       </div>
     );
@@ -217,13 +204,16 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const currentQuestion = activeQuestions[currentIndex];
   if (!currentQuestion) return null;
 
-  const progress = ((currentIndex + 1) / activeQuestions.length) * 100;
+  // Progress bar constants
+  const PROGRESS_START_PERCENT = 10;
+  const PROGRESS_RANGE_PERCENT = 90;
+  const progress = PROGRESS_START_PERCENT + (currentIndex / activeQuestions.length) * PROGRESS_RANGE_PERCENT;
 
   return (
     <div className="min-h-screen flex flex-col max-w-lg mx-auto px-4 py-6 relative z-10">
       <div className="w-full bg-white/5 backdrop-blur-sm rounded-full h-3 mb-8 relative overflow-hidden border border-white/10 shadow-inner">
         <motion.div 
-          className="bg-gradient-to-r from-orange-600 to-yellow-400 h-full rounded-full shadow-[0_0_15px_rgba(251,191,36,0.5)]"
+          className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] h-full rounded-full shadow-[0_0_15px_rgba(212,175,55,0.5)]"
           initial={{ width: 0 }}
           animate={{ width: `${progress}%` }}
           transition={{ duration: 0.5 }}
@@ -245,15 +235,10 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="inline-flex items-center gap-2 bg-[#FF9500]/10 backdrop-blur-md text-[#FF9500] px-4 py-2 rounded-full text-xs font-bold border border-[#FF9500]/20 shadow-lg mb-4"
+                className="inline-flex items-center gap-2 bg-[#D4AF37]/10 backdrop-blur-md text-[#D4AF37] px-4 py-2 rounded-full text-xs font-bold border border-[#D4AF37]/20 shadow-lg mb-4"
               >
                 <Sparkles className="w-3 h-3" />
-                <span>
-                  {currentIndex === 1 
-                    ? `Calibrando Fluxo da Prosperidade de ${userName.split(' ')[0]}`
-                    : `Pergunta exclusiva para ${userName.split(' ')[0]}`
-                  }
-                </span>
+                <span>Pergunta exclusiva para {userName.split(' ')[0]}</span>
               </motion.div>
             )}
             {currentQuestion.id === 0 && (
@@ -263,7 +248,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 transition={{ delay: 0.1 }}
                 className="mb-2"
               >
-                <p className="text-[#FF9500] text-xs md:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-1">
+                <p className="text-[#D4AF37] text-xs md:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-1">
                   ⚡ CALIBRAGEM VIBRACIONAL
                 </p>
               </motion.div>
@@ -280,15 +265,15 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder={currentQuestion.placeholder}
-                  className="w-full bg-white/10 border border-white/20 rounded-xl p-5 text-lg text-white placeholder-slate-400 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all text-center"
+                  className="w-full bg-white/10 border border-white/20 rounded-xl p-5 text-lg text-white placeholder-slate-400 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all text-center"
                   autoFocus
                 />
-                <Sparkles className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-orange-400 animate-pulse" />
+                <Sparkles className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#D4AF37] animate-pulse" />
               </div>
               <button 
                 type="submit"
                 disabled={!inputValue.trim()}
-                className="w-full bg-gradient-to-br from-[#FF9500] via-[#F58400] to-[#EA580C] text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:brightness-110 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 border-t border-white/20"
+                className="w-full bg-gradient-to-br from-[#D4AF37] via-[#FFD700] to-[#D4AF37] text-white font-bold py-4 rounded-xl shadow-lg shadow-[#D4AF37]/30 hover:shadow-[#D4AF37]/50 hover:brightness-110 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 border-t border-white/20"
               >
                 CONECTAR E INICIAR ANÁLISE
                 <ChevronRight className="w-5 h-5" />
@@ -309,11 +294,11 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   disabled={isNavigating}
                   className={`w-full text-left p-5 rounded-2xl transition-all active:scale-[0.98] group relative overflow-hidden ${isNavigating ? 'cursor-not-allowed opacity-80' : 'cursor-pointer'} ${
                     currentQuestion.singleButton 
-                      ? 'bg-gradient-to-br from-[#FF9500] via-[#F58400] to-[#EA580C] text-white font-bold shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:brightness-110 border-t border-white/20' 
-                      : 'bg-white/5 backdrop-blur-md border border-white/10 hover:border-[#FF9500]/50 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,149,0,0.15)]'
+                      ? 'bg-gradient-to-br from-[#D4AF37] via-[#FFD700] to-[#D4AF37] text-white font-bold shadow-lg shadow-[#D4AF37]/30 hover:shadow-[#D4AF37]/50 hover:brightness-110 border-t border-white/20' 
+                      : 'bg-white/5 backdrop-blur-md border border-white/10 hover:border-[#D4AF37]/50 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]'
                   }`}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-orange-500/0 via-orange-500/5 to-orange-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -translate-x-full group-hover:translate-x-full"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/0 via-[#D4AF37]/5 to-[#D4AF37]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -translate-x-full group-hover:translate-x-full"></div>
                   <div className="flex items-center gap-4 relative z-10">
                     <span className="text-3xl filter drop-shadow-md" aria-hidden="true">{option.icon}</span>
                     <div className="flex-1">
