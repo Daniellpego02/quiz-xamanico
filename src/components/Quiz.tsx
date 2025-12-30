@@ -115,6 +115,9 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
 
     setTimeout(() => {
         setShowTuningScreen(false);
+        // Add finance questions after name input (question 0)
+        const mergedQuestions = [...activeQuestions, ...financeQuestions];
+        setActiveQuestions(mergedQuestions);
         setCurrentIndex(prev => prev + 1);
     }, 3500);
   };
