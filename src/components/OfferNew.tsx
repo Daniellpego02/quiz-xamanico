@@ -16,6 +16,7 @@ const OfferNew = ({ userName }: OfferProps) => {
     const [showOfferContent, setShowOfferContent] = useState(false);
     
     // Price configuration - PIX ONLY (À VISTA)
+    // Updated price anchoring: From R$ 497,00 (session value) to R$ 27,90
     const priceOld = "497,00";
     const priceNew = "27,90";
 
@@ -26,9 +27,9 @@ const OfferNew = ({ userName }: OfferProps) => {
         document.head.appendChild(optimizationScript);
 
         const preloadLinks = [
-            { href: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/69435dab1452433694dabfb7/v4/player.js', as: 'script' },
+            { href: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6953144d84040898eb13007a/v4/player.js', as: 'script' },
             { href: 'https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js', as: 'script' },
-            { href: 'https://cdn.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/69435da4738d3928ecc67c16/main.m3u8', as: 'fetch' }
+            { href: 'https://cdn.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/6953140fba8707e946bf11ea/main.m3u8', as: 'fetch' }
         ];
 
         const preloadElements: HTMLLinkElement[] = [];
@@ -45,7 +46,7 @@ const OfferNew = ({ userName }: OfferProps) => {
         });
 
         const playerScript = document.createElement('script');
-        playerScript.src = 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/69435dab1452433694dabfb7/v4/player.js';
+        playerScript.src = 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6953144d84040898eb13007a/v4/player.js';
         playerScript.async = true;
         document.head.appendChild(playerScript);
 
@@ -85,9 +86,10 @@ const OfferNew = ({ userName }: OfferProps) => {
                     animate={{ opacity: 1, y: 0 }}
                     className="text-center mb-6"
                 >
-                    <h1 className="text-2xl md:text-3xl font-black uppercase text-[#FFD700] mb-4 tracking-wide">
-                        DIAGNÓSTICO DE {userName.toUpperCase()} CONCLUÍDO:<br/>
-                        <span className="text-white">SEU BLOQUEIO ANCESTRAL FOI IDENTIFICADO</span>
+                    <h1 className="text-xl sm:text-2xl md:text-3xl font-black uppercase text-[#FFD700] mb-4 tracking-wide leading-tight px-2">
+                        <span className="break-words">DIAGNÓSTICO DE {userName.toUpperCase()} CONCLUÍDO:</span>
+                        <br className="hidden sm:block"/>
+                        <span className="text-white block mt-2">SEU BLOQUEIO ANCESTRAL FOI IDENTIFICADO</span>
                     </h1>
                 </motion.div>
 
@@ -113,7 +115,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                     <div className="bg-black flex items-center justify-center relative">
                         <div className="w-full" style={{ aspectRatio: '9/16', maxWidth: '400px' }}>
                             <vturb-smartplayer 
-                                id="vid-69435dab1452433694dabfb7" 
+                                id="vid-6953144d84040898eb13007a" 
                                 style={{ display: 'block', width: '100%', maxWidth: '400px', margin: '0 auto' }}
                             ></vturb-smartplayer>
                         </div>
@@ -130,74 +132,58 @@ const OfferNew = ({ userName }: OfferProps) => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
                         >
-                            {/* PIX VACCINE BOX - MÁXIMA PRIORIDADE */}
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.2 }}
-                                className="bg-gradient-to-r from-[#8B0000]/20 to-[#CC0000]/20 border-2 border-dashed border-yellow-500 rounded-xl p-6 mb-8"
-                            >
-                                <div className="flex items-start gap-4">
-                                    <AlertTriangle className="w-10 h-10 text-yellow-500 flex-shrink-0 animate-pulse" />
-                                    <div>
-                                        <p className="text-yellow-500 font-bold text-xl mb-3">⚠️ AVISO DE EXPIRAÇÃO</p>
-                                        <p className="text-white text-base md:text-lg leading-relaxed">
-                                            O Link de Pagamento e o QR Code gerados têm validade de apenas <span className="font-black text-yellow-500">15 minutos</span>. Como o sistema libera o acesso instantaneamente, não seguramos reservas. Se o PIX não for compensado nesse tempo, sua vaga no servidor é <span className="font-bold text-red-400">cancelada automaticamente</span>.
-                                        </p>
-                                    </div>
-                                </div>
-                            </motion.div>
-
                             {/* PRICE ANCHORING STACK - PIX APENAS */}
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.4 }}
-                                className="bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] border-2 border-[#D4AF37] rounded-3xl p-8 mb-8 relative overflow-hidden"
+                                className="bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] border-2 border-[#D4AF37] rounded-3xl p-4 sm:p-6 md:p-8 mb-8 relative overflow-hidden"
                             >
                                 {/* Pulsing glow */}
                                 <div className="absolute -inset-1 bg-gradient-to-r from-[#D4AF37] to-[#FFD700] rounded-3xl blur-lg opacity-20 animate-pulse"></div>
                                 
                                 <div className="relative">
-                                    <div className="text-center mb-8">
-                                        <p className="text-slate-400 text-sm uppercase tracking-wider mb-6">
-                                            <Clock className="inline w-4 h-4 mr-2" />
+                                    <div className="text-center mb-6 sm:mb-8">
+                                        <p className="text-slate-400 text-xs sm:text-sm uppercase tracking-wider mb-4 sm:mb-6">
+                                            <Clock className="inline w-3 h-3 sm:w-4 sm:h-4 mr-2" />
                                             Oferta Exclusiva para {userName}
                                         </p>
                                         
-                                        {/* Price Stack - NOVO FORMATO SÓ PIX */}
-                                        <div className="space-y-3">
+                                        {/* Price Stack - NOVO FORMATO SÓ PIX - MOBILE OPTIMIZED */}
+                                        <div className="space-y-2 sm:space-y-3">
                                             {/* Linha 1: Ancoragem (Valor Antigo) */}
                                             <div>
-                                                <p className="text-slate-500 text-sm line-through">
+                                                <p className="text-slate-500 text-xs sm:text-sm line-through">
                                                     Valor da Sessão Individual: R$ {priceOld}
                                                 </p>
                                             </div>
 
                                             {/* Linha 2: Justificativa do PIX */}
-                                            <div className="my-4">
-                                                <p className="text-white text-lg md:text-xl font-semibold">
+                                            <div className="my-3 sm:my-4">
+                                                <p className="text-white text-base sm:text-lg md:text-xl font-semibold px-2">
                                                     Isento de Taxas Bancárias (Somente PIX):
                                                 </p>
                                             </div>
 
-                                            {/* Linha 3: PREÇO GIGANTE VERDE NEON */}
-                                            <div className="my-8">
-                                                <p className="text-[#00FF41] text-8xl md:text-9xl font-black leading-none drop-shadow-[0_0_30px_rgba(0,255,65,0.8)]">
-                                                    R${priceNew}
-                                                </p>
+                                            {/* Linha 3: PREÇO GIGANTE VERDE NEON - Mobile Optimized */}
+                                            <div className="my-6 sm:my-8">
+                                                <div className="flex items-center justify-center gap-1">
+                                                    <span className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-[#00FF41] drop-shadow-[0_0_30px_rgba(0,255,65,0.8)]">R$</span>
+                                                    <span className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-[#00FF41] drop-shadow-[0_0_30px_rgba(0,255,65,0.8)]">27</span>
+                                                    <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#00FF41] drop-shadow-[0_0_30px_rgba(0,255,65,0.8)] self-start mt-2">,90</span>
+                                                </div>
                                             </div>
 
                                             {/* Linha 4: Microcopy */}
-                                            <div className="mb-6">
-                                                <p className="text-white text-xl md:text-2xl font-bold">
+                                            <div className="mb-4 sm:mb-6">
+                                                <p className="text-white text-lg sm:text-xl md:text-2xl font-bold px-2">
                                                     Pagamento Único. Acesso Vitalício.
                                                 </p>
                                             </div>
 
                                             {/* Justificativa do "Só PIX" */}
-                                            <div className="bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-xl p-4 mb-6">
-                                                <p className="text-slate-300 text-sm leading-relaxed">
+                                            <div className="bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-xl p-3 sm:p-4 mb-4 sm:mb-6">
+                                                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
                                                     Para manter o valor acessível em R$ 27,90, nós removemos as taxas de cartão de crédito e boletos bancários. 
                                                     O pagamento é <span className="text-[#FFD700] font-bold">exclusivo via PIX</span> para ativação imediata no sistema.
                                                 </p>
@@ -205,13 +191,26 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         </div>
                                     </div>
 
-                                    {/* CTA BUTTON COM ÍCONE PIX */}
+                                    {/* PIX VACCINE BOX - Reposicionado próximo ao botão */}
+                                    <div className="bg-gradient-to-r from-[#8B0000]/20 to-[#CC0000]/20 border-2 border-dashed border-yellow-500 rounded-xl p-3 sm:p-4 mb-4">
+                                        <div className="flex items-start gap-2 sm:gap-3">
+                                            <AlertTriangle className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-500 flex-shrink-0" />
+                                            <div className="flex-1 min-w-0">
+                                                <p className="text-yellow-500 font-bold text-sm sm:text-base mb-1 sm:mb-2">⚠️ AVISO: Vaga Expira em 15 Min</p>
+                                                <p className="text-white text-xs sm:text-sm leading-relaxed">
+                                                    O QR Code PIX tem validade de <span className="font-black text-yellow-500">15 minutos</span>. Se não compensado, sua vaga é <span className="font-bold text-red-400">cancelada automaticamente</span>.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* CTA BUTTON COM ÍCONE PIX - Mobile Optimized */}
                                     <button
                                         onClick={handleCheckout}
-                                        className="w-full bg-gradient-to-r from-[#00FF41] to-[#00CC33] hover:from-[#00CC33] hover:to-[#00FF41] text-black font-black text-lg md:text-xl py-6 px-8 rounded-2xl shadow-[0_0_40px_rgba(0,255,65,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 uppercase tracking-wide mb-3 flex items-center justify-center gap-3"
+                                        className="w-full bg-gradient-to-r from-[#00FF41] to-[#00CC33] hover:from-[#00CC33] hover:to-[#00FF41] text-black font-black text-base sm:text-lg md:text-xl py-5 md:py-6 px-4 md:px-8 rounded-2xl shadow-[0_0_40px_rgba(0,255,65,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 uppercase tracking-wide mb-3 flex items-center justify-center gap-2 md:gap-3"
                                     >
-                                        <span className="text-3xl">🔷</span>
-                                        GERAR MEU ACESSO AGORA (PIX)
+                                        <span className="text-2xl md:text-3xl flex-shrink-0">🔷</span>
+                                        <span className="leading-tight">GERAR MEU ACESSO AGORA (PIX)</span>
                                     </button>
 
                                     {/* Subtexto do Botão */}
@@ -220,15 +219,15 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         ⚡ Acesso Liberado em Até 2 Minutos
                                     </p>
 
-                                    {/* Trust Badge - SÓ PIX */}
-                                    <div className="flex items-center justify-center gap-3 mt-6">
-                                        <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-lg">
-                                            <Shield className="w-5 h-5 text-emerald-400" />
-                                            <span className="text-slate-300 text-sm font-semibold">Site Seguro SSL</span>
+                                    {/* Trust Badge - SÓ PIX - Mobile Optimized */}
+                                    <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mt-6">
+                                        <div className="flex items-center gap-2 bg-white/10 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm">
+                                            <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 flex-shrink-0" />
+                                            <span className="text-slate-300 font-semibold whitespace-nowrap">Site Seguro SSL</span>
                                         </div>
-                                        <div className="flex items-center gap-2 bg-[#32BCAD]/20 px-4 py-2 rounded-lg border border-[#32BCAD]/50">
-                                            <span className="text-2xl">🔷</span>
-                                            <span className="text-white text-sm font-bold">PIX Oficial</span>
+                                        <div className="flex items-center gap-2 bg-[#32BCAD]/20 px-3 sm:px-4 py-2 rounded-lg border border-[#32BCAD]/50 text-xs sm:text-sm">
+                                            <span className="text-xl sm:text-2xl flex-shrink-0">🔷</span>
+                                            <span className="text-white font-bold whitespace-nowrap">PIX Oficial</span>
                                         </div>
                                     </div>
                                 </div>
@@ -241,7 +240,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 transition={{ delay: 0.6 }}
                                 className="mb-12"
                             >
-                                <h2 className="text-2xl md:text-3xl font-black text-center text-[#FFD700] mb-8">
+                                <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-center text-[#FFD700] mb-6 sm:mb-8 px-2">
                                     O Que Você Vai Receber Imediatamente
                                 </h2>
 
@@ -286,14 +285,14 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             initial={{ opacity: 0, x: -20 }}
                                             animate={{ opacity: 1, x: 0 }}
                                             transition={{ delay: 0.8 + idx * 0.1 }}
-                                            className="flex items-start gap-4 bg-white/5 border border-[#D4AF37]/30 rounded-xl p-4"
+                                            className="flex items-start gap-4 bg-white/5 border border-[#D4AF37]/30 rounded-xl p-3 sm:p-4"
                                         >
-                                            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-[#00FF41] to-[#00CC33] flex items-center justify-center">
-                                                <Check className="w-6 h-6 text-black" />
+                                            <div className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-[#00FF41] to-[#00CC33] flex items-center justify-center">
+                                                <Check className="w-5 h-5 sm:w-6 sm:h-6 text-black" />
                                             </div>
-                                            <div>
-                                                <p className="text-white font-bold text-lg mb-1">✅ {item.title}</p>
-                                                <p className="text-slate-300 text-sm">{item.desc}</p>
+                                            <div className="flex-1 min-w-0">
+                                                <p className="text-white font-bold text-base sm:text-lg mb-1">✅ {item.title}</p>
+                                                <p className="text-slate-300 text-xs sm:text-sm">{item.desc}</p>
                                             </div>
                                         </motion.div>
                                     ))}
@@ -327,12 +326,12 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         <div className="absolute -inset-2 bg-[#D4AF37]/20 blur-xl -z-10"></div>
                                     </div>
 
-                                    {/* Expert Bio */}
+                                    {/* Expert Bio - Enhanced with Bold for Scannability */}
                                     <div className="flex-1 text-center md:text-left">
                                         <p className="text-slate-200 leading-relaxed text-sm md:text-base">
-                                            "Eu sou <span className="text-[#FFD700] font-bold">Anahí Solara</span>. Não sou guru financeira. 
-                                            Sou Terapeuta Holística e dediquei os últimos <span className="text-white font-semibold">10 anos</span> a decodificar 
-                                            os padrões ocultos da escassez. Este mapa não é teoria. É o exato método que salvou minha 
+                                            <span className="font-bold">"Por 12 anos, eu fui exatamente como você..."</span> Eu sou <span className="text-[#FFD700] font-bold">Anahí Solara</span>. Não sou guru financeira. 
+                                            Sou Terapeuta Holística e dediquei os últimos <span className="text-white font-bold">10 anos</span> a decodificar 
+                                            os padrões ocultos da escassez. <span className="font-bold">...descobri a verdade brutal: é uma Herança Vibracional.</span> Este mapa não é teoria. É o exato método que salvou minha 
                                             própria família da falência e já ajudou mais de <span className="text-[#FFD700] font-bold">4.000 alunos</span> a 
                                             destravarem a prosperidade."
                                         </p>
@@ -347,18 +346,18 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 transition={{ delay: 1.4 }}
                                 className="mb-12"
                             >
-                                <h3 className="text-2xl md:text-3xl font-bold text-[#FFD700] text-center mb-8">
+                                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#FFD700] text-center mb-6 sm:mb-8 px-2">
                                     💬 O que os alunos estão dizendo
                                 </h3>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 max-w-4xl mx-auto">
                                     {[
                                         {
                                             name: 'Fernanda Oliveira',
                                             age: '34 anos',
                                             city: 'São Paulo, SP',
                                             text: 'Eu estava devendo 18 mil reais. Depois de fazer o protocolo por 7 dias, consegui um emprego novo que pagava o DOBRO do que eu ganhava. Paguei tudo em 4 meses! Isso é real, gente! 😭🙏',
-                                            time: '3 dias atrás',
+                                            time: 'há 2h',
                                             photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop'
                                         },
                                         {
@@ -366,7 +365,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             age: '41 anos',
                                             city: 'Rio de Janeiro, RJ',
                                             text: 'Sou empresário e estava em crise há 2 anos. No 5º dia do mapa, fechei um contrato de R$ 85 mil que estava travado há meses. Coincidência? Não acredito mais nisso! 💰',
-                                            time: '1 semana atrás',
+                                            time: 'há 5h',
                                             photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop'
                                         },
                                         {
@@ -374,7 +373,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             age: '28 anos',
                                             city: 'Curitiba, PR',
                                             text: 'Meu marido estava desempregado há 8 meses. Fizemos o ritual juntos e em 11 dias ele recebeu 3 propostas de emprego! Escolhemos a melhor. Gratidão infinita! ✨',
-                                            time: '4 dias atrás',
+                                            time: 'há 1 dia',
                                             photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop'
                                         },
                                         {
@@ -382,7 +381,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             age: '37 anos',
                                             city: 'Belo Horizonte, MG',
                                             text: 'Trabalho com vendas e estava em crise. Depois do Mapa, meu faturamento subiu 340% em 2 meses. Nunca tinha visto dinheiro entrar assim na minha vida. Recomendo demais! 🚀',
-                                            time: '2 semanas atrás',
+                                            time: 'há 1 dia',
                                             photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop'
                                         },
                                         {
@@ -390,7 +389,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             age: '31 anos',
                                             city: 'Porto Alegre, RS',
                                             text: 'Eu era cética, mas resolvi tentar. No 3º dia, recebi uma herança de uma tia distante que eu nem sabia que existia. R$ 47 mil! Fiquei em choque. Isso funciona MESMO! 😱💎',
-                                            time: '5 dias atrás',
+                                            time: 'há 8h',
                                             photo: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop'
                                         },
                                         {
@@ -398,7 +397,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             age: '45 anos',
                                             city: 'Brasília, DF',
                                             text: 'Eu tinha bloqueios ancestrais pesados (meu pai faliu 2 vezes). O Mapa me libertou disso. Hoje tenho minha empresa sólida e zero dívidas. Mudou minha vida e da minha família! 🙌',
-                                            time: '1 mês atrás',
+                                            time: 'há 2 dias',
                                             photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop'
                                         },
                                         {
@@ -406,7 +405,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             age: '39 anos',
                                             city: 'Salvador, BA',
                                             text: 'Os áudios noturnos são INCRÍVEIS! Acordo com outra energia. Clientes começaram a aparecer do nada. Meu Instagram explodiu de vendas. Estou realizando sonhos que eu achava impossíveis! 💫',
-                                            time: '6 dias atrás',
+                                            time: 'há 3h',
                                             photo: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=200&auto=format&fit=crop'
                                         }
                                     ].map((testimonial, idx) => (
@@ -415,15 +414,15 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ delay: 1.6 + idx * 0.1 }}
-                                            className="bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] border border-[#D4AF37]/30 rounded-2xl p-5 hover:border-[#D4AF37]/60 transition-all hover:shadow-[0_0_30px_rgba(212,175,55,0.2)]"
+                                            className="bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] border border-[#D4AF37]/30 rounded-2xl p-4 sm:p-5 hover:border-[#D4AF37]/60 transition-all hover:shadow-[0_0_30px_rgba(212,175,55,0.2)]"
                                         >
-                                            <div className="flex items-start gap-4">
+                                            <div className="flex items-start gap-3 sm:gap-4">
                                                 {/* Foto Real do Cliente */}
                                                 <div className="flex-shrink-0">
                                                     <img 
                                                         src={testimonial.photo}
                                                         alt={testimonial.name}
-                                                        className="w-14 h-14 rounded-full object-cover border-2 border-[#D4AF37]"
+                                                        className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-[#D4AF37]"
                                                         onError={(e) => {
                                                             e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonial.name)}&background=D4AF37&color=000&size=200`;
                                                         }}
@@ -431,21 +430,21 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                 </div>
                                                 <div className="flex-1 min-w-0">
                                                     <div className="mb-2">
-                                                        <p className="text-white font-bold text-base mb-1">{testimonial.name}</p>
-                                                        <p className="text-slate-400 text-xs">
+                                                        <p className="text-white font-bold text-sm sm:text-base mb-1 truncate">{testimonial.name}</p>
+                                                        <p className="text-slate-400 text-[10px] sm:text-xs">
                                                             {testimonial.age} • {testimonial.city}
                                                         </p>
                                                     </div>
-                                                    <p className="text-slate-200 text-sm leading-relaxed mb-3">
+                                                    <p className="text-slate-200 text-xs sm:text-sm leading-relaxed mb-3">
                                                         {testimonial.text}
                                                     </p>
-                                                    <div className="flex items-center justify-between">
+                                                    <div className="flex items-center justify-between gap-2">
                                                         <div className="flex gap-1">
                                                             {[...Array(5)].map((_, i) => (
-                                                                <span key={i} className="text-[#FFD700] text-sm">⭐</span>
+                                                                <span key={i} className="text-[#FFD700] text-xs sm:text-sm">⭐</span>
                                                             ))}
                                                         </div>
-                                                        <p className="text-slate-500 text-xs">{testimonial.time}</p>
+                                                        <p className="text-slate-500 text-[10px] sm:text-xs whitespace-nowrap">{testimonial.time}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -459,20 +458,20 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 1.8 }}
-                                className="mb-12 bg-gradient-to-br from-emerald-950/40 to-green-900/20 border-2 border-emerald-500/40 rounded-2xl p-8 text-center"
+                                className="mb-12 bg-gradient-to-br from-emerald-950/40 to-green-900/20 border-2 border-emerald-500/40 rounded-2xl p-6 sm:p-8 text-center"
                             >
-                                <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-emerald-400 to-green-500 border-4 border-emerald-300 shadow-[0_0_30px_rgba(16,185,129,0.6)] mx-auto mb-6">
+                                <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-emerald-400 to-green-500 border-4 border-emerald-300 shadow-[0_0_30px_rgba(16,185,129,0.6)] mx-auto mb-4 sm:mb-6">
                                     <div className="text-center">
-                                        <p className="text-white text-xs font-black">GARANTIA</p>
-                                        <p className="text-white text-2xl font-black leading-none">7</p>
-                                        <p className="text-white text-xs font-black">DIAS</p>
+                                        <p className="text-white text-[10px] sm:text-xs font-black">GARANTIA</p>
+                                        <p className="text-white text-xl sm:text-2xl font-black leading-none">7</p>
+                                        <p className="text-white text-[10px] sm:text-xs font-black">DIAS</p>
                                     </div>
                                 </div>
 
-                                <h3 className="text-2xl font-bold text-emerald-300 mb-4">
+                                <h3 className="text-xl sm:text-2xl font-bold text-emerald-300 mb-4">
                                     GARANTIA BLINDADA DE RESULTADO
                                 </h3>
-                                <div className="text-slate-200 leading-relaxed space-y-3 max-w-2xl mx-auto">
+                                <div className="text-slate-200 text-sm sm:text-base leading-relaxed space-y-3 max-w-2xl mx-auto px-2">
                                     <p className="font-semibold text-white">
                                         "Você não tem risco nenhum. Entre, faça o Mapa, use os áudios por 7 dias. 
                                         Se você não sentir o peso saindo das suas costas, eu devolvo 100% do seu dinheiro. 
@@ -483,6 +482,44 @@ const OfferNew = ({ userName }: OfferProps) => {
 
                             {/* FAQ Section */}
                             <FAQ />
+
+                            {/* STICKY CTA FOOTER - Mobile Conversion Booster */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 50 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 2.0 }}
+                                className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-t from-black via-black/95 to-transparent backdrop-blur-md border-t-2 border-[#00FF41]/50 shadow-[0_-10px_40px_rgba(0,0,0,0.9)] pb-safe"
+                            >
+                                <div className="max-w-[800px] mx-auto px-3 py-3 sm:px-4 sm:py-4">
+                                    <div className="flex items-center gap-2 sm:gap-3">
+                                        {/* Price Display - Compact */}
+                                        <div className="flex flex-col min-w-0">
+                                            <span className="text-slate-400 text-[10px] sm:text-xs line-through">De R$ 497,00</span>
+                                            <div className="flex items-baseline gap-1">
+                                                <span className="text-slate-300 text-[10px] sm:text-xs font-semibold">Por</span>
+                                                <span className="text-[#00FF41] text-lg sm:text-2xl md:text-3xl font-black drop-shadow-[0_0_10px_rgba(0,255,65,0.8)]">R$ 27,90</span>
+                                            </div>
+                                        </div>
+                                        
+                                        {/* CTA Button - Sticky */}
+                                        <button
+                                            onClick={handleCheckout}
+                                            className="flex-1 bg-gradient-to-r from-[#00FF41] to-[#00CC33] hover:from-[#00CC33] hover:to-[#00FF41] text-black font-black text-sm sm:text-base md:text-lg py-3 sm:py-4 px-3 sm:px-6 rounded-xl shadow-[0_0_30px_rgba(0,255,65,0.7)] transition-all transform hover:scale-[1.02] active:scale-95 uppercase tracking-wide flex items-center justify-center gap-2"
+                                        >
+                                            <span className="text-xl sm:text-2xl flex-shrink-0">🔷</span>
+                                            <span className="leading-tight truncate">GERAR ACESSO (PIX)</span>
+                                        </button>
+                                    </div>
+                                    
+                                    {/* Urgency Micro-copy */}
+                                    <p className="text-center text-yellow-500 text-[10px] sm:text-xs font-bold mt-2 animate-pulse">
+                                        ⚠️ Vagas limitadas • Expira em 15 minutos
+                                    </p>
+                                </div>
+                            </motion.div>
+
+                            {/* Spacer para evitar que o conteúdo fique sob o sticky CTA */}
+                            <div className="h-24 sm:h-28"></div>
                         </motion.div>
                     )}
                 </AnimatePresence>
