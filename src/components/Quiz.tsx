@@ -144,23 +144,13 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       currentIndex + 1
     );
 
-    // LÓGICA DE FLUXO ÚNICO FINANCEIRO 
-    // Após a pergunta 0 (nome), automaticamente adiciona as perguntas financeiras
-    // Note: O path é fixo em 'finance' como estratégia de fluxo único para aumentar conversão
-    let mergedQuestions = activeQuestions;
-    if (currentIndex === 0) {
-      // Sempre usa o caminho financeiro
-      mergedQuestions = [...activeQuestions, ...financeQuestions];
-      setActiveQuestions(mergedQuestions);
-    }
-
     // Track halfway point
     if (currentIndex === 2) {
       tracking.quiz.halfway();
     }
 
     setTimeout(() => {
-      const length = mergedQuestions.length;
+      const length = activeQuestions.length;
       if (currentIndex < length - 1) {
         setCurrentIndex(prev => prev + 1);
         setIsNavigating(false);
