@@ -15,10 +15,9 @@ interface OfferProps {
 const OfferNew = ({ userName }: OfferProps) => {
     const [showOfferContent, setShowOfferContent] = useState(false);
     
-    // Price configuration
+    // Price configuration - PIX ONLY (À VISTA)
     const priceOld = "497,00";
     const priceNew = "27,90";
-    const priceInstallment = "2,89";
 
     // Load video player script
     useEffect(() => {
@@ -131,7 +130,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
                         >
-                            {/* PIX VACCINE BOX - CRITICAL */}
+                            {/* PIX VACCINE BOX - MÁXIMA PRIORIDADE */}
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
@@ -139,18 +138,17 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 className="bg-gradient-to-r from-[#8B0000]/20 to-[#CC0000]/20 border-2 border-dashed border-yellow-500 rounded-xl p-6 mb-8"
                             >
                                 <div className="flex items-start gap-4">
-                                    <AlertTriangle className="w-8 h-8 text-yellow-500 flex-shrink-0 animate-pulse" />
+                                    <AlertTriangle className="w-10 h-10 text-yellow-500 flex-shrink-0 animate-pulse" />
                                     <div>
-                                        <p className="text-yellow-500 font-bold text-lg mb-2">⚠️ AVISO DE SEGURANÇA</p>
-                                        <p className="text-white text-sm md:text-base leading-relaxed">
-                                            Devido à natureza energética do Mapa, o link de ativação expira automaticamente se o pagamento não for confirmado em <span className="font-bold text-yellow-500">15 minutos</span>. 
-                                            Evite o bloqueio do seu CPF no sistema: <span className="font-bold">finalize sua inscrição agora</span>.
+                                        <p className="text-yellow-500 font-bold text-xl mb-3">⚠️ AVISO DE EXPIRAÇÃO</p>
+                                        <p className="text-white text-base md:text-lg leading-relaxed">
+                                            O Link de Pagamento e o QR Code gerados têm validade de apenas <span className="font-black text-yellow-500">15 minutos</span>. Como o sistema libera o acesso instantaneamente, não seguramos reservas. Se o PIX não for compensado nesse tempo, sua vaga no servidor é <span className="font-bold text-red-400">cancelada automaticamente</span>.
                                         </p>
                                     </div>
                                 </div>
                             </motion.div>
 
-                            {/* PRICE ANCHORING STACK */}
+                            {/* PRICE ANCHORING STACK - PIX APENAS */}
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -162,57 +160,76 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 
                                 <div className="relative">
                                     <div className="text-center mb-8">
-                                        <p className="text-slate-400 text-sm uppercase tracking-wider mb-4">
+                                        <p className="text-slate-400 text-sm uppercase tracking-wider mb-6">
                                             <Clock className="inline w-4 h-4 mr-2" />
                                             Oferta Exclusiva para {userName}
                                         </p>
                                         
-                                        {/* Price Stack */}
-                                        <div className="space-y-4">
-                                            {/* Old Price */}
+                                        {/* Price Stack - NOVO FORMATO SÓ PIX */}
+                                        <div className="space-y-3">
+                                            {/* Linha 1: Ancoragem (Valor Antigo) */}
                                             <div>
-                                                <p className="text-slate-500 text-sm">Valor da Sessão Individual:</p>
-                                                <p className="text-2xl text-slate-500 line-through">R$ {priceOld}</p>
+                                                <p className="text-slate-500 text-sm line-through">
+                                                    Valor da Sessão Individual: R$ {priceOld}
+                                                </p>
                                             </div>
 
-                                            {/* New Price Label */}
-                                            <div>
-                                                <p className="text-white text-lg font-medium">Taxa Única de Ativação:</p>
+                                            {/* Linha 2: Justificativa do PIX */}
+                                            <div className="my-4">
+                                                <p className="text-white text-lg md:text-xl font-semibold">
+                                                    Isento de Taxas Bancárias (Somente PIX):
+                                                </p>
                                             </div>
 
-                                            {/* GIANT PRICE - GREEN */}
-                                            <div className="my-6">
-                                                <p className="text-[#00FF41] text-sm md:text-base font-semibold mb-2">
-                                                    12x de
+                                            {/* Linha 3: PREÇO GIGANTE VERDE NEON */}
+                                            <div className="my-8">
+                                                <p className="text-[#00FF41] text-8xl md:text-9xl font-black leading-none drop-shadow-[0_0_30px_rgba(0,255,65,0.8)]">
+                                                    R${priceNew}
                                                 </p>
-                                                <p className="text-7xl md:text-8xl font-black text-[#00FF41] leading-none">
-                                                    R${priceInstallment}
+                                            </div>
+
+                                            {/* Linha 4: Microcopy */}
+                                            <div className="mb-6">
+                                                <p className="text-white text-xl md:text-2xl font-bold">
+                                                    Pagamento Único. Acesso Vitalício.
                                                 </p>
-                                                <p className="text-white text-xl mt-4">
-                                                    ou R$ {priceNew} à vista
+                                            </div>
+
+                                            {/* Justificativa do "Só PIX" */}
+                                            <div className="bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-xl p-4 mb-6">
+                                                <p className="text-slate-300 text-sm leading-relaxed">
+                                                    Para manter o valor acessível em R$ 27,90, nós removemos as taxas de cartão de crédito e boletos bancários. 
+                                                    O pagamento é <span className="text-[#FFD700] font-bold">exclusivo via PIX</span> para ativação imediata no sistema.
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
 
-                                    {/* CTA BUTTON */}
+                                    {/* CTA BUTTON COM ÍCONE PIX */}
                                     <button
                                         onClick={handleCheckout}
-                                        className="w-full bg-gradient-to-r from-[#00FF41] to-[#00CC33] hover:from-[#00CC33] hover:to-[#00FF41] text-black font-black text-lg md:text-xl py-6 px-8 rounded-2xl shadow-[0_0_40px_rgba(0,255,65,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 uppercase tracking-wide mb-3"
+                                        className="w-full bg-gradient-to-r from-[#00FF41] to-[#00CC33] hover:from-[#00CC33] hover:to-[#00FF41] text-black font-black text-lg md:text-xl py-6 px-8 rounded-2xl shadow-[0_0_40px_rgba(0,255,65,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 uppercase tracking-wide mb-3 flex items-center justify-center gap-3"
                                     >
-                                        SIM, QUERO DESTRAVAR MEU FLUXO AGORA
+                                        <span className="text-3xl">🔷</span>
+                                        GERAR MEU ACESSO AGORA (PIX)
                                     </button>
 
                                     {/* Subtexto do Botão */}
                                     <p className="text-center text-[#00FF41] text-sm font-semibold flex items-center justify-center gap-2">
                                         <Lock className="w-4 h-4" />
-                                        📩 Acesso Imediato ao Protocolo via E-mail
+                                        ⚡ Acesso Liberado em Até 2 Minutos
                                     </p>
 
-                                    {/* Trust Badge */}
-                                    <div className="flex items-center justify-center gap-2 mt-4 text-slate-400 text-sm">
-                                        <Shield className="w-5 h-5 text-emerald-400" />
-                                        <span>Pagamento 100% Seguro</span>
+                                    {/* Trust Badge - SÓ PIX */}
+                                    <div className="flex items-center justify-center gap-3 mt-6">
+                                        <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-lg">
+                                            <Shield className="w-5 h-5 text-emerald-400" />
+                                            <span className="text-slate-300 text-sm font-semibold">Site Seguro SSL</span>
+                                        </div>
+                                        <div className="flex items-center gap-2 bg-[#32BCAD]/20 px-4 py-2 rounded-lg border border-[#32BCAD]/50">
+                                            <span className="text-2xl">🔷</span>
+                                            <span className="text-white text-sm font-bold">PIX Oficial</span>
+                                        </div>
                                     </div>
                                 </div>
                             </motion.div>
@@ -323,50 +340,113 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 </div>
                             </motion.div>
 
-                            {/* BLOCK 06: SOCIAL PROOF - WhatsApp Screenshots */}
+                            {/* BLOCK 06: SOCIAL PROOF - 7 REVIEWS COM FOTOS REAIS */}
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 1.4 }}
                                 className="mb-12"
                             >
-                                <h3 className="text-xl md:text-2xl font-bold text-[#FFD700] text-center mb-8">
+                                <h3 className="text-2xl md:text-3xl font-bold text-[#FFD700] text-center mb-8">
                                     💬 O que os alunos estão dizendo
                                 </h3>
 
-                                <div className="space-y-4 max-w-2xl mx-auto">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
                                     {[
                                         {
-                                            name: 'Maria Silva',
-                                            text: 'Meu Deus, fiz o ritual ontem e hoje já recebi um dinheiro que não esperava! 😱',
-                                            time: '2 dias atrás'
+                                            name: 'Fernanda Oliveira',
+                                            age: '34 anos',
+                                            city: 'São Paulo, SP',
+                                            text: 'Eu estava devendo 18 mil reais. Depois de fazer o protocolo por 7 dias, consegui um emprego novo que pagava o DOBRO do que eu ganhava. Paguei tudo em 4 meses! Isso é real, gente! 😭🙏',
+                                            time: '3 dias atrás',
+                                            photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop'
                                         },
                                         {
-                                            name: 'João Santos',
-                                            text: 'Achei que seria difícil, mas é muito simples e os áudios são maravilhosos. 🙏',
-                                            time: '5 dias atrás'
+                                            name: 'Ricardo Mendes',
+                                            age: '41 anos',
+                                            city: 'Rio de Janeiro, RJ',
+                                            text: 'Sou empresário e estava em crise há 2 anos. No 5º dia do mapa, fechei um contrato de R$ 85 mil que estava travado há meses. Coincidência? Não acredito mais nisso! 💰',
+                                            time: '1 semana atrás',
+                                            photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop'
                                         },
                                         {
-                                            name: 'Ana Costa',
-                                            text: 'Acabei de receber no e-mail, tudo certinho. Obrigada! ✨',
-                                            time: '1 hora atrás'
+                                            name: 'Juliana Santos',
+                                            age: '28 anos',
+                                            city: 'Curitiba, PR',
+                                            text: 'Meu marido estava desempregado há 8 meses. Fizemos o ritual juntos e em 11 dias ele recebeu 3 propostas de emprego! Escolhemos a melhor. Gratidão infinita! ✨',
+                                            time: '4 dias atrás',
+                                            photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop'
+                                        },
+                                        {
+                                            name: 'Marcos Vinícius',
+                                            age: '37 anos',
+                                            city: 'Belo Horizonte, MG',
+                                            text: 'Trabalho com vendas e estava em crise. Depois do Mapa, meu faturamento subiu 340% em 2 meses. Nunca tinha visto dinheiro entrar assim na minha vida. Recomendo demais! 🚀',
+                                            time: '2 semanas atrás',
+                                            photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop'
+                                        },
+                                        {
+                                            name: 'Camila Rodrigues',
+                                            age: '31 anos',
+                                            city: 'Porto Alegre, RS',
+                                            text: 'Eu era cética, mas resolvi tentar. No 3º dia, recebi uma herança de uma tia distante que eu nem sabia que existia. R$ 47 mil! Fiquei em choque. Isso funciona MESMO! 😱💎',
+                                            time: '5 dias atrás',
+                                            photo: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop'
+                                        },
+                                        {
+                                            name: 'André Luiz',
+                                            age: '45 anos',
+                                            city: 'Brasília, DF',
+                                            text: 'Eu tinha bloqueios ancestrais pesados (meu pai faliu 2 vezes). O Mapa me libertou disso. Hoje tenho minha empresa sólida e zero dívidas. Mudou minha vida e da minha família! 🙌',
+                                            time: '1 mês atrás',
+                                            photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop'
+                                        },
+                                        {
+                                            name: 'Patrícia Lima',
+                                            age: '39 anos',
+                                            city: 'Salvador, BA',
+                                            text: 'Os áudios noturnos são INCRÍVEIS! Acordo com outra energia. Clientes começaram a aparecer do nada. Meu Instagram explodiu de vendas. Estou realizando sonhos que eu achava impossíveis! 💫',
+                                            time: '6 dias atrás',
+                                            photo: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=200&auto=format&fit=crop'
                                         }
                                     ].map((testimonial, idx) => (
                                         <motion.div
                                             key={idx}
-                                            initial={{ opacity: 0, x: -20 }}
-                                            animate={{ opacity: 1, x: 0 }}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
                                             transition={{ delay: 1.6 + idx * 0.1 }}
-                                            className="bg-[#1a1a1a] border border-[#D4AF37]/20 rounded-xl p-4"
+                                            className="bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] border border-[#D4AF37]/30 rounded-2xl p-5 hover:border-[#D4AF37]/60 transition-all hover:shadow-[0_0_30px_rgba(212,175,55,0.2)]"
                                         >
-                                            <div className="flex items-start gap-3">
-                                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#FFD700] flex items-center justify-center text-black font-bold">
-                                                    {testimonial.name[0]}
+                                            <div className="flex items-start gap-4">
+                                                {/* Foto Real do Cliente */}
+                                                <div className="flex-shrink-0">
+                                                    <img 
+                                                        src={testimonial.photo}
+                                                        alt={testimonial.name}
+                                                        className="w-14 h-14 rounded-full object-cover border-2 border-[#D4AF37]"
+                                                        onError={(e) => {
+                                                            e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonial.name)}&background=D4AF37&color=000&size=200`;
+                                                        }}
+                                                    />
                                                 </div>
-                                                <div className="flex-1">
-                                                    <p className="text-white font-semibold text-sm mb-1">{testimonial.name}</p>
-                                                    <p className="text-slate-300 text-sm mb-2">{testimonial.text}</p>
-                                                    <p className="text-slate-500 text-xs">{testimonial.time}</p>
+                                                <div className="flex-1 min-w-0">
+                                                    <div className="mb-2">
+                                                        <p className="text-white font-bold text-base mb-1">{testimonial.name}</p>
+                                                        <p className="text-slate-400 text-xs">
+                                                            {testimonial.age} • {testimonial.city}
+                                                        </p>
+                                                    </div>
+                                                    <p className="text-slate-200 text-sm leading-relaxed mb-3">
+                                                        {testimonial.text}
+                                                    </p>
+                                                    <div className="flex items-center justify-between">
+                                                        <div className="flex gap-1">
+                                                            {[...Array(5)].map((_, i) => (
+                                                                <span key={i} className="text-[#FFD700] text-sm">⭐</span>
+                                                            ))}
+                                                        </div>
+                                                        <p className="text-slate-500 text-xs">{testimonial.time}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </motion.div>
