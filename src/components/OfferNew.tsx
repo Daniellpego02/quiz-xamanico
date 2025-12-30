@@ -18,7 +18,6 @@ const OfferNew = ({ userName }: OfferProps) => {
     // Price configuration - PIX ONLY (À VISTA)
     // Updated price anchoring: From R$ 497,00 (session value) to R$ 27,90
     const priceOld = "497,00";
-    const priceNew = "27,90";
 
     // Load video player script
     useEffect(() => {
@@ -87,7 +86,9 @@ const OfferNew = ({ userName }: OfferProps) => {
                     className="text-center mb-6"
                 >
                     <h1 className="text-xl sm:text-2xl md:text-3xl font-black uppercase text-[#FFD700] mb-4 tracking-wide leading-tight px-2">
-                        <span className="break-words">DIAGNÓSTICO DE {userName.toUpperCase()} CONCLUÍDO:</span>
+                        <span className="break-words">
+                            {userName && userName.trim() ? `DIAGNÓSTICO DE ${userName.toUpperCase()} CONCLUÍDO:` : 'SEU DIAGNÓSTICO ESTÁ CONCLUÍDO:'}
+                        </span>
                         <br className="hidden sm:block"/>
                         <span className="text-white block mt-2">SEU BLOQUEIO ANCESTRAL FOI IDENTIFICADO</span>
                     </h1>
@@ -482,44 +483,6 @@ const OfferNew = ({ userName }: OfferProps) => {
 
                             {/* FAQ Section */}
                             <FAQ />
-
-                            {/* STICKY CTA FOOTER - Mobile Conversion Booster */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 50 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 2.0 }}
-                                className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-t from-black via-black/95 to-transparent backdrop-blur-md border-t-2 border-[#00FF41]/50 shadow-[0_-10px_40px_rgba(0,0,0,0.9)] pb-safe"
-                            >
-                                <div className="max-w-[800px] mx-auto px-3 py-3 sm:px-4 sm:py-4">
-                                    <div className="flex items-center gap-2 sm:gap-3">
-                                        {/* Price Display - Compact */}
-                                        <div className="flex flex-col min-w-0">
-                                            <span className="text-slate-400 text-[10px] sm:text-xs line-through">De R$ 497,00</span>
-                                            <div className="flex items-baseline gap-1">
-                                                <span className="text-slate-300 text-[10px] sm:text-xs font-semibold">Por</span>
-                                                <span className="text-[#00FF41] text-lg sm:text-2xl md:text-3xl font-black drop-shadow-[0_0_10px_rgba(0,255,65,0.8)]">R$ 27,90</span>
-                                            </div>
-                                        </div>
-                                        
-                                        {/* CTA Button - Sticky */}
-                                        <button
-                                            onClick={handleCheckout}
-                                            className="flex-1 bg-gradient-to-r from-[#00FF41] to-[#00CC33] hover:from-[#00CC33] hover:to-[#00FF41] text-black font-black text-sm sm:text-base md:text-lg py-3 sm:py-4 px-3 sm:px-6 rounded-xl shadow-[0_0_30px_rgba(0,255,65,0.7)] transition-all transform hover:scale-[1.02] active:scale-95 uppercase tracking-wide flex items-center justify-center gap-2"
-                                        >
-                                            <span className="text-xl sm:text-2xl flex-shrink-0">🔷</span>
-                                            <span className="leading-tight truncate">GERAR ACESSO (PIX)</span>
-                                        </button>
-                                    </div>
-                                    
-                                    {/* Urgency Micro-copy */}
-                                    <p className="text-center text-yellow-500 text-[10px] sm:text-xs font-bold mt-2 animate-pulse">
-                                        ⚠️ Vagas limitadas • Expira em 15 minutos
-                                    </p>
-                                </div>
-                            </motion.div>
-
-                            {/* Spacer para evitar que o conteúdo fique sob o sticky CTA */}
-                            <div className="h-24 sm:h-28"></div>
                         </motion.div>
                     )}
                 </AnimatePresence>
