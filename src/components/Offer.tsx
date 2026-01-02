@@ -19,6 +19,7 @@ interface OfferProps {
 const Offer = ({ userName }: OfferProps) => {
     const priceOld = "97,00";
     const priceNew = "27,90";
+    const totalMapas = "4.300";
 
     // Load video player script only when Offer component is mounted
     useEffect(() => {
@@ -222,9 +223,9 @@ const Offer = ({ userName }: OfferProps) => {
 
                     {/* Micro-benefits below button */}
                     <div className="text-center space-y-1 text-sm">
-                        <p className="text-emerald-400 font-semibold">✅ Pagamento Único de R$27,90 (PIX)</p>
+                        <p className="text-emerald-400 font-semibold">✅ Pagamento Único de R${priceNew} (PIX)</p>
                         <p className="text-emerald-400 font-semibold">✅ Acesso Vitalício | Garantia de 7 Dias</p>
-                        <p className="text-emerald-400 font-semibold">✅ Mais de 4.300 mapas já gerados</p>
+                        <p className="text-emerald-400 font-semibold">✅ Mais de {totalMapas} mapas já gerados</p>
                     </div>
 
                     {/* Security badge */}
@@ -326,7 +327,7 @@ const Offer = ({ userName }: OfferProps) => {
                         QUERO ACESSAR TUDO ISSO AGORA
                     </button>
                     <p className="text-center text-slate-400 text-sm mt-3">
-                        Acesso imediato após pagamento | R$27,90 no PIX
+                        Acesso imediato após pagamento | R${priceNew} no PIX
                     </p>
                 </motion.div>
 
@@ -425,7 +426,7 @@ const Offer = ({ userName }: OfferProps) => {
                                 Desbloqueio Financeiro Ancestral
                             </p>
                             <p className="text-slate-300 text-sm mt-3">
-                                ✅ Mais de 4.300 mapas já gerados
+                                ✅ Mais de {totalMapas} mapas já gerados
                             </p>
                         </div>
 
@@ -436,7 +437,7 @@ const Offer = ({ userName }: OfferProps) => {
                             <p className="text-slate-400 text-sm mb-2 line-through">Valor da Sessão Individual: R$ 497,00</p>
                             <p className="text-emerald-400 text-2xl md:text-3xl font-black mb-4">
                                 💰 INVESTIMENTO ÚNICO:<br />
-                                <span className="text-white text-5xl md:text-6xl">R$ 27,90</span> <span className="text-emerald-400 text-2xl">(PIX)</span>
+                                <span className="text-white text-5xl md:text-6xl">R$ {priceNew}</span> <span className="text-emerald-400 text-2xl">(PIX)</span>
                             </p>
                             <div className="space-y-1 text-emerald-400 text-sm font-semibold">
                                 <p>✅ Acesso Vitalício</p>
@@ -642,7 +643,7 @@ const Offer = ({ userName }: OfferProps) => {
                                     <span>💡</span> POR QUE OFEREÇO ISSO?
                                 </h4>
                                 <p className="text-slate-200 text-sm md:text-base leading-relaxed mb-3">
-                                    Porque EU SEI que funciona. Mais de 4.300 pessoas já fizeram e 92% relatam mudança em até 14 dias.
+                                    Porque EU SEI que funciona. Mais de {totalMapas} pessoas já fizeram e 92% relatam mudança em até 14 dias.
                                 </p>
                                 <p className="text-emerald-300 font-semibold">
                                     Se não funcionar com você (raro), eu não mereço seu dinheiro.
