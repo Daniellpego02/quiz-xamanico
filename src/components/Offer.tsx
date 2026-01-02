@@ -531,8 +531,9 @@ const Offer = ({ userName }: OfferProps) => {
 
                         {/* Payment Processor Badge */}
                         <div className="text-center text-slate-400 text-xs space-y-1">
-                            <p>💳 Pagamento processado pela Kiwify</p>
+                            <p>💳 Pagamento processado pela Buck Pay</p>
                             <p>🔐 Site Seguro SSL | PIX Oficial Banco Central</p>
+                            <p className="text-[10px] text-slate-500">A plataforma de pagamentos mais segura do Brasil</p>
                         </div>
                     </div>
                 </motion.div>
