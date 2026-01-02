@@ -222,7 +222,7 @@ Você vai continuar vivendo com esse bloqueio...
 **G. SELOS DE SEGURANÇA:**
 - ✅ Acesso Liberado em Até 2 Minutos
 - 🔒 Pagamento 100% Seguro via PIX Banco Central
-- 💳 Processado pela Kiwify
+- 💳 Processado pela Buck Pay (a plataforma de pagamentos mais segura do Brasil)
 - 🔐 Site Seguro SSL
 
 **MUDANÇAS CRÍTICAS:**
