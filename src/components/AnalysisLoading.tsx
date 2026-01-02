@@ -11,6 +11,7 @@ interface AnalysisLoadingProps {
 export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, quizPath = 'finance' }) => {
   const [progress, setProgress] = useState(0);
   const [stage, setStage] = useState(0);
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
 
   // Stages adapted by quiz path
   const financeStages = [
@@ -31,9 +32,19 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
 
   const stages = quizPath === 'relationship' ? relationshipStages : financeStages;
 
-  const testimonial = quizPath === 'relationship' 
-    ? { text: "\"Descobri porque sempre escolho errado. Libertador!\"", author: "@FernandaCoelho" }
-    : { text: "\"Adorei meu Mapa! Completo e fácil de entender.\"", author: "@RafaelaNascimento7" };
+  // Rotating testimonials for finance path
+  const testimonials = [
+    { text: "\"Adorei meu Mapa! Completo e fácil de entender.\"", author: "@RafaelaNascimento7" },
+    { text: "\"Em 7 dias consegui um emprego novo que pagava o DOBRO!\"", author: "@FernandaOliveira" },
+    { text: "\"Fechei um contrato de R$ 85 mil que estava travado há meses.\"", author: "@RicardoMendes" },
+    { text: "\"Finalmente entendi porque o dinheiro sempre sumia.\"", author: "@JulianaCostaRJ" },
+  ];
+
+  const relationshipTestimonial = { text: "\"Descobri porque sempre escolho errado. Libertador!\"", author: "@FernandaCoelho" };
+
+  const currentTestimonial = quizPath === 'relationship' 
+    ? relationshipTestimonial 
+    : testimonials[testimonialIndex];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -60,6 +71,16 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
     else if (progress < 85) setStage(3);
     else setStage(4);
   }, [progress]);
+
+  // Rotate testimonials every 3 seconds (only for finance path)
+  useEffect(() => {
+    if (quizPath === 'finance') {
+      const interval = setInterval(() => {
+        setTestimonialIndex((prev) => (prev + 1) % testimonials.length);
+      }, 3000);
+      return () => clearInterval(interval);
+    }
+  }, [quizPath]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 max-w-lg mx-auto text-center space-y-10 relative z-10">
@@ -108,8 +129,16 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
         <p className={`text-[10px] ${quizPath === 'relationship' ? 'text-purple-500' : 'text-[#D4AF37]'} font-bold uppercase tracking-wider mb-2 flex items-center gap-1`}>
           <Star className={`w-3 h-3 ${quizPath === 'relationship' ? 'fill-purple-500' : 'fill-[#D4AF37]'}`} /> Depoimento recente
         </p>
-        <p className="text-slate-200 text-sm italic leading-relaxed">{testimonial.text}</p>
-        <p className="text-slate-400 text-xs mt-2 text-right">– {testimonial.author}</p>
+        <motion.div
+          key={testimonialIndex}
+          initial={{ opacity: 0, y: 5 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -5 }}
+          transition={{ duration: 0.3 }}
+        >
+          <p className="text-slate-200 text-sm italic leading-relaxed">{currentTestimonial.text}</p>
+          <p className="text-slate-400 text-xs mt-2 text-right">– {currentTestimonial.author}</p>
+        </motion.div>
       </motion.div>
     </div>
   );
