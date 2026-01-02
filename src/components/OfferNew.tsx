@@ -361,6 +361,12 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             <span className="text-white font-bold whitespace-nowrap">PIX Oficial</span>
                                         </div>
                                     </div>
+
+                                    {/* Payment Processor Badge */}
+                                    <div className="text-center text-slate-400 text-xs space-y-1 mt-4">
+                                        <p>💳 Pagamento processado pela Buck Pay</p>
+                                        <p className="text-[10px] text-slate-500">A plataforma de pagamentos mais segura do Brasil</p>
+                                    </div>
                                 </div>
                             </motion.div>
 
