@@ -196,12 +196,146 @@ const Offer = ({ userName }: OfferProps) => {
                     </div>
                 </motion.div>
 
-                {/* Protocol Section - Gamified Journey */}
+                {/* IMMEDIATE CTA AFTER VSL - CRITICAL FOR CONVERSION */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.9 }}
+                    className="mt-8 mb-12"
+                >
+                    {/* Headline */}
+                    <h2 className="text-2xl md:text-3xl font-black text-center text-white mb-3 leading-tight">
+                        EXISTE UMA "TRAVA ANCESTRAL" IMPEDINDO<br />
+                        O DINHEIRO DE PARAR NA SUA MÃO?
+                    </h2>
+                    <p className="text-lg text-slate-300 text-center mb-6">
+                        O Protocolo Xamânico revela onde está o vazamento.
+                    </p>
+
+                    {/* Giant CTA Button */}
+                    <button
+                        onClick={handleCheckout}
+                        className="w-full md:w-[70%] mx-auto block bg-gradient-to-r from-[#FF8C00] via-[#FFA500] to-[#FFB700] hover:from-[#FFA500] hover:via-[#FFB700] hover:to-[#FFD700] text-white font-black text-xl md:text-2xl py-6 px-8 rounded-2xl shadow-[0_8px_40px_rgba(255,140,0,0.6)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#FFD700] uppercase tracking-wide mb-4"
+                    >
+                        🔥 QUERO INICIAR MEU MAPEAMENTO AGORA
+                    </button>
+
+                    {/* Micro-benefits below button */}
+                    <div className="text-center space-y-1 text-sm">
+                        <p className="text-emerald-400 font-semibold">✅ Pagamento Único de R$27,90 (PIX)</p>
+                        <p className="text-emerald-400 font-semibold">✅ Acesso Vitalício | Garantia de 7 Dias</p>
+                        <p className="text-emerald-400 font-semibold">✅ Mais de 4.300 mapas já gerados</p>
+                    </div>
+
+                    {/* Security badge */}
+                    <p className="text-center text-slate-400 text-xs mt-4">
+                        💳 Pagamento 100% seguro via PIX Banco Central
+                    </p>
+                </motion.div>
+
+                {/* Protocol Section - Rewritten with Emotional Benefits */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.9 }}
                     className="mb-12"
+                >
+                    <h2 className="text-2xl md:text-3xl font-serif font-black text-center text-[#D4AF37] mb-8">
+                        O QUE VOCÊ VAI RECEBER IMEDIATAMENTE
+                    </h2>
+                    
+                    <div className="grid md:grid-cols-2 gap-6 mb-8">
+                        {/* Card 1 - Mapa da Frequência */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 1.0 }}
+                            className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl p-6 hover:border-[#FFD700]/50 hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all"
+                        >
+                            <div className="flex items-start gap-4 mb-3">
+                                <div className="text-4xl">📜</div>
+                                <div>
+                                    <h3 className="text-[#FFD700] font-bold text-lg mb-2">✅ O MAPA DA FREQUÊNCIA</h3>
+                                    <p className="text-slate-300 text-sm leading-relaxed">
+                                        Descubra exatamente onde está o vazamento de dinheiro na sua vida. Não é adivinhação, é um diagnóstico energético baseado na sua linhagem.
+                                    </p>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        {/* Card 2 - Protocolo de 7 Dias */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 1.1 }}
+                            className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl p-6 hover:border-[#FFD700]/50 hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all"
+                        >
+                            <div className="flex items-start gap-4 mb-3">
+                                <div className="text-4xl">🎧</div>
+                                <div>
+                                    <h3 className="text-[#FFD700] font-bold text-lg mb-2">✅ PROTOCOLO DE 7 DIAS</h3>
+                                    <p className="text-slate-300 text-sm leading-relaxed">
+                                        O passo a passo simples para limpar a energia estagnada. Você não precisa de nada caro ou complicado - só seguir o protocolo.
+                                    </p>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        {/* Card 3 - Áudios de Reprogramação */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 1.2 }}
+                            className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl p-6 hover:border-[#FFD700]/50 hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all"
+                        >
+                            <div className="flex items-start gap-4 mb-3">
+                                <div className="text-4xl">🔊</div>
+                                <div>
+                                    <h3 className="text-[#FFD700] font-bold text-lg mb-2">✅ ÁUDIOS DE REPROGRAMAÇÃO</h3>
+                                    <p className="text-slate-300 text-sm leading-relaxed">
+                                        Desbloqueie sua mente enquanto você dorme. Esses áudios foram criados para desprogramar crenças de escassez que você nem sabe que tem.
+                                    </p>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        {/* Card 4 - Ritual de Blindagem */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 1.3 }}
+                            className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl p-6 hover:border-[#FFD700]/50 hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all"
+                        >
+                            <div className="flex items-start gap-4 mb-3">
+                                <div className="text-4xl">🏠</div>
+                                <div>
+                                    <h3 className="text-[#FFD700] font-bold text-lg mb-2">✅ BÔNUS: RITUAL DE BLINDAGEM DA CASA</h3>
+                                    <p className="text-slate-300 text-sm leading-relaxed">
+                                        Proteja seu espaço das energias de escassez. 80% das pessoas não fazem isso e por isso o dinheiro "evapora" de casa.
+                                    </p>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+
+                    {/* CTA After Cards */}
+                    <button
+                        onClick={handleCheckout}
+                        className="w-full md:w-[60%] mx-auto block bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] hover:brightness-110 text-black font-black text-lg py-5 px-8 rounded-2xl shadow-[0_8px_30px_rgba(212,175,55,0.5)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#FFD700] uppercase tracking-wide"
+                    >
+                        QUERO ACESSAR TUDO ISSO AGORA
+                    </button>
+                    <p className="text-center text-slate-400 text-sm mt-3">
+                        Acesso imediato após pagamento | R$27,90 no PIX
+                    </p>
+                </motion.div>
+
+                {/* Old Protocol Section - REPLACED ABOVE */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.4 }}
+                    className="mb-12 hidden"
                 >
                     <h2 className="text-2xl md:text-3xl font-serif font-black text-center text-[#D4AF37] mb-2">
                         ⚡ O Protocolo de 7 Dias
@@ -261,85 +395,145 @@ const Offer = ({ userName }: OfferProps) => {
                     viewport={{ once: true, margin: "100px" }}
                     transition={{ delay: 0.2 }}
                 >
-                    <SocialProofTestimonials />
+                    <SocialProofTestimonials onCtaClick={handleCheckout} />
                 </motion.div>
 
                 {/* Mentor Authority Section */}
                 <MentorAuthority />
 
-                {/* Offer Box with Price - Cleaned Up Design */}
+                {/* CHECKOUT FINAL - COMPLETELY REWRITTEN */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 2 }}
-                    className="relative bg-gradient-to-br from-[#1a0b2e] to-[#2d1b4e] rounded-3xl p-8 border-2 border-[#D4AF37] shadow-[0_0_40px_rgba(212,175,55,0.4)]"
+                    className="relative bg-gradient-to-br from-[#1a0b2e] to-[#2d1b4e] rounded-3xl p-8 md:p-10 border-2 border-[#D4AF37] shadow-[0_0_40px_rgba(212,175,55,0.4)]"
                 >
-                    {/* Subtle pulsing glow effect - reduced */}
+                    {/* Subtle pulsing glow effect */}
                     <div className="absolute -inset-0.5 bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] rounded-3xl blur-md opacity-20 animate-pulse" aria-hidden="true"></div>
                     
                     <div className="relative">
+                        {/* Exclusive Offer Badge */}
                         <div className="text-center mb-6">
-                            <p className="text-slate-400 text-sm uppercase tracking-wider mb-2">
-                                <Clock className="inline w-4 h-4 mr-1" />
-                                Oferta por Tempo Limitado
-                            </p>
-                            <h3 className="text-2xl md:text-3xl font-serif font-black text-[#FFD700] mb-4">
-                                Acesso Completo ao Mapa Xamânico
+                            <div className="inline-block bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black font-black text-sm px-6 py-2 rounded-full mb-4 shadow-lg">
+                                🔒 OFERTA EXCLUSIVA PARA {userName.toUpperCase()}
+                            </div>
+                            <h3 className="text-3xl md:text-4xl font-black text-white mb-2 leading-tight">
+                                ATIVE SEU PROTOCOLO DE<br />DESBLOQUEIO AGORA
                             </h3>
-                        </div>
-
-                        {/* Product Mockup - Mapa Xamânico */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 2.2 }}
-                            className="mb-8 flex justify-center"
-                        >
-                            <div className="relative w-full max-w-xs sm:max-w-sm mx-auto px-4">
-                                {/* Mockup Image */}
-                                <img 
-                                    src="/mockup.png" 
-                                    alt="Mapa Xamânico - Protocolo de 7 Dias"
-                                    className="w-full h-auto rounded-lg shadow-[0_20px_60px_rgba(0,0,0,0.8)]"
-                                />
-                                {/* Glow effect around mockup */}
-                                <div className="absolute -inset-4 bg-gradient-to-br from-[#D4AF37]/30 to-[#FFD700]/30 blur-2xl -z-10 animate-pulse"></div>
-                            </div>
-                        </motion.div>
-
-                        {/* Price Display - Enhanced with WHITE price for better contrast */}
-                        <div className="text-center mb-8">
-                            <p className="text-slate-400 text-sm mb-2">De:</p>
-                            <p className="text-2xl text-slate-500 line-through mb-4">R$ {priceOld}</p>
-                            <p className="text-[#FFD700] text-lg font-bold mb-2">Por apenas:</p>
-                            <div className="flex items-center justify-center gap-2 mb-4">
-                                <span className="text-7xl md:text-8xl font-black text-white">
-                                    R${priceNew}
-                                </span>
-                            </div>
-                            <p className="text-emerald-400 text-sm font-semibold flex items-center justify-center gap-2">
-                                <Shield className="w-4 h-4" />
-                                ✨ Acesso vitalício + Atualizações gratuitas
+                            <p className="text-[#FFD700] text-lg font-semibold">
+                                Mapa Xamânico Personalizado + Protocolo de 7 Dias<br />
+                                Desbloqueio Financeiro Ancestral
                             </p>
                         </div>
 
-                        {/* CTA Button - Changed to Vibrant Orange/Yellow */}
+                        <hr className="border-[#D4AF37]/30 my-6" />
+
+                        {/* Price Display - Enhanced */}
+                        <div className="text-center mb-6">
+                            <p className="text-slate-400 text-sm mb-2 line-through">Valor da Sessão Individual: R$ 497,00</p>
+                            <p className="text-emerald-400 text-2xl md:text-3xl font-black mb-4">
+                                INVESTIMENTO ÚNICO:<br />
+                                <span className="text-white text-5xl md:text-6xl">R$ 27,90</span>
+                            </p>
+                            <div className="space-y-1 text-emerald-400 text-sm font-semibold">
+                                <p>✅ Pagamento via PIX (sem taxas)</p>
+                                <p>✅ Acesso 100% Vitalício</p>
+                                <p>✅ Garantia Incondicional de 7 Dias</p>
+                            </div>
+                        </div>
+
+                        <hr className="border-[#D4AF37]/30 my-6" />
+
+                        {/* Emotional Urgency Box - YELLOW (not red) */}
+                        <div className="bg-[#FFD700]/10 border-2 border-[#FFD700]/40 rounded-xl p-6 mb-6">
+                            <p className="text-[#FFD700] font-bold text-lg mb-3 flex items-center justify-center gap-2">
+                                <span>⚡</span> ATENÇÃO:
+                            </p>
+                            <div className="text-white text-base leading-relaxed space-y-2">
+                                <p>
+                                    Cada dia que você adia é um dia a mais vivendo com esse bloqueio financeiro.
+                                </p>
+                                <p className="font-bold text-lg">
+                                    Quanto tempo você vai esperar?
+                                </p>
+                                <p>
+                                    Mais 1 mês? Mais 1 ano? Mais 10 anos?
+                                </p>
+                                <p className="text-[#FFD700] font-black text-xl">
+                                    O momento de agir é AGORA.
+                                </p>
+                            </div>
+                        </div>
+
+                        <hr className="border-[#D4AF37]/30 my-6" />
+
+                        {/* Social Proof - Recent Purchases */}
+                        <div className="text-center mb-6">
+                            <p className="text-slate-300 text-sm mb-3 flex items-center justify-center gap-2">
+                                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                                👥 23 pessoas compraram nas últimas 24h
+                            </p>
+                            <div className="flex items-center justify-center gap-4 text-xs text-slate-400">
+                                <span className="bg-white/5 px-3 py-1 rounded-full">"Maria acabou de comprar há 2min"</span>
+                                <span className="bg-white/5 px-3 py-1 rounded-full">"João acabou de comprar há 8min"</span>
+                            </div>
+                        </div>
+
+                        <hr className="border-[#D4AF37]/30 my-6" />
+
+                        {/* FINAL EMOTIONAL CTA */}
+                        <div className="text-center mb-6">
+                            <p className="text-white text-lg font-bold mb-4">
+                                Você está a UM CLIQUE de:
+                            </p>
+                            <div className="text-slate-300 text-sm space-y-2 mb-6">
+                                <p className="flex items-start gap-2">
+                                    <span className="text-[#FFD700]">✨</span>
+                                    <span>Descobrir qual bloqueio ancestral trava seu dinheiro</span>
+                                </p>
+                                <p className="flex items-start gap-2">
+                                    <span className="text-[#FFD700]">✨</span>
+                                    <span>Receber o ritual exato de 7 dias para limpar isso</span>
+                                </p>
+                                <p className="flex items-start gap-2">
+                                    <span className="text-[#FFD700]">✨</span>
+                                    <span>Entender por que algumas pessoas atraem abundância e você não</span>
+                                </p>
+                            </div>
+                            <p className="text-white text-xl font-bold mb-2">
+                                A pergunta é:
+                            </p>
+                            <p className="text-slate-300 text-base mb-4">
+                                Você vai continuar vivendo com esse bloqueio...<br />
+                                <span className="text-white font-bold">...ou vai fazer algo HOJE?</span>
+                            </p>
+                        </div>
+
+                        {/* GIANT CTA BUTTON */}
                         <button
                             onClick={handleCheckout}
-                            className="w-full bg-gradient-to-r from-[#FF8C00] via-[#FFA500] to-[#FFB700] hover:from-[#FFA500] hover:via-[#FFB700] hover:to-[#FFD700] text-white font-black text-xl py-6 px-8 rounded-2xl shadow-[0_8px_40px_rgba(255,140,0,0.6)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#FFD700] uppercase tracking-wide"
+                            className="w-full md:w-[80%] mx-auto block bg-gradient-to-r from-[#FF8C00] via-[#FFA500] to-[#FFB700] hover:from-[#FFA500] hover:via-[#FFB700] hover:to-[#FFD700] text-white font-black text-xl md:text-2xl py-6 px-8 rounded-2xl shadow-[0_8px_40px_rgba(255,140,0,0.6)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#FFD700] uppercase tracking-wide mb-4"
                         >
-                            <span className="drop-shadow-lg">✨ SIM, QUERO DESTRAVAR MINHA PROSPERIDADE</span>
+                            🔥 GERAR MEU ACESSO AGORA (PIX)
                         </button>
 
-                        {/* Micro-copy below CTA */}
-                        <p className="text-center text-[#FFD700] text-sm mt-3 font-semibold">
-                            🚀 Acesso imediato enviado para o seu e-mail
-                        </p>
+                        {/* Security Badges Below Button */}
+                        <div className="text-center space-y-2">
+                            <p className="text-emerald-400 text-sm font-semibold">
+                                ✅ Acesso Liberado em Até 2 Minutos
+                            </p>
+                            <p className="text-emerald-400 text-sm font-semibold">
+                                🔒 Pagamento 100% Seguro via PIX Banco Central
+                            </p>
+                        </div>
 
-                        {/* Trust Badges */}
-                        <div className="flex items-center justify-center gap-2 mt-4 text-emerald-400 text-sm">
-                            <Shield className="w-5 h-5" />
-                            <span>Pagamento 100% seguro • Garantia de 7 dias</span>
+                        <hr className="border-[#D4AF37]/30 my-6" />
+
+                        {/* Payment Processor Badge */}
+                        <div className="text-center text-slate-400 text-xs space-y-1">
+                            <p>💳 Pagamento processado pela Buck Pay</p>
+                            <p>🔐 Site Seguro SSL | PIX Oficial Banco Central</p>
+                            <p className="text-[10px] text-slate-500">A plataforma de pagamentos mais segura do Brasil</p>
                         </div>
                     </div>
                 </motion.div>
@@ -411,24 +605,55 @@ const Offer = ({ userName }: OfferProps) => {
                                 className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-emerald-400 to-green-500 border-4 border-emerald-300 shadow-[0_0_30px_rgba(16,185,129,0.6)] mx-auto mb-4"
                             >
                                 <div className="text-center">
-                                    <p className="text-white text-xs font-black">RISCO</p>
-                                    <p className="text-white text-xl font-black leading-none">ZERO</p>
-                                    <p className="text-white text-xs font-black">7 DIAS</p>
+                                    <p className="text-white text-xs font-black">GARANTIA</p>
+                                    <p className="text-white text-xl font-black leading-none">7 DIAS</p>
                                 </div>
                             </motion.div>
 
-                            <h3 className="text-2xl font-bold text-emerald-300 mb-4">Garantia Incondicional de 7 Dias</h3>
+                            <h3 className="text-2xl font-bold text-emerald-300 mb-4">Garantia Blindada de Resultado</h3>
                             <div className="text-slate-200 text-base md:text-lg leading-relaxed space-y-3">
                                 <p className="font-semibold text-white">
-                                    Você nem precisa decidir agora.
+                                    Você não tem risco nenhum.
                                 </p>
                                 <p>
-                                    Entre, use o Mapa, faça a limpeza. Se em 7 dias sua conta bancária não der sinais de melhora, eu devolvo cada centavo.
+                                    Entre, faça o Mapa, use os áudios por 7 dias.
                                 </p>
-                                <p className="text-emerald-300 font-bold">
-                                    O risco é todo meu.
+                                <p>
+                                    Se você <strong className="text-white">NÃO</strong> sentir o peso saindo das suas costas, 
+                                    se você <strong className="text-white">NÃO</strong> perceber mudança na sua energia, 
+                                    se você <strong className="text-white">NÃO</strong> ver sinais de desbloqueio...
+                                </p>
+                                <p className="text-white font-bold">
+                                    ...eu devolvo 100% do seu dinheiro.
+                                </p>
+                                <p>
+                                    Sem perguntas. Sem burocracia. Basta um e-mail.
+                                </p>
+                                <p className="text-emerald-300 font-bold text-xl mt-4">
+                                    Ou seja: o risco é TODO MEU.
                                 </p>
                             </div>
+
+                            {/* NEW: "Why I Offer This" Box */}
+                            <div className="mt-8 bg-white/5 backdrop-blur-md border border-emerald-500/30 rounded-xl p-6">
+                                <h4 className="text-[#FFD700] font-bold text-lg mb-3 flex items-center justify-center gap-2">
+                                    <span>💡</span> POR QUE OFEREÇO ISSO?
+                                </h4>
+                                <p className="text-slate-200 text-sm md:text-base leading-relaxed mb-3">
+                                    Porque EU SEI que funciona. Mais de 4.300 pessoas já fizeram e 92% relatam mudança em até 14 dias.
+                                </p>
+                                <p className="text-emerald-300 font-semibold">
+                                    Se não funcionar com você (raro), eu não mereço seu dinheiro.
+                                </p>
+                            </div>
+
+                            {/* CTA Button */}
+                            <button
+                                onClick={handleCheckout}
+                                className="mt-6 w-full md:w-auto mx-auto block bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] hover:brightness-110 text-black font-black text-lg py-5 px-12 rounded-2xl shadow-[0_8px_30px_rgba(212,175,55,0.5)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#FFD700] uppercase tracking-wide"
+                            >
+                                QUERO COMEÇAR SEM RISCO AGORA
+                            </button>
                         </div>
                     </div>
                 </motion.div>

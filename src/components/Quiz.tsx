@@ -47,6 +47,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       id: 2,
       title: "P2 — A CAUSA (ANCESTRALIDADE)",
       text: "O Xamanismo Financeiro ensina que padrões se repetem. Olhando para seus pais ou avós, o que você vê?",
+      validationText: "Isso não é culpa sua. É uma herança vibracional que você recebeu sem escolher.",
       options: [
         { label: "Histórico de dívidas, falências ou lutas financeiras pesadas.", value: "heavy", icon: "💔" },
         { label: "Pessoas honestas, mas que nunca enriqueceram.", value: "honest", icon: "🙏" },
@@ -57,6 +58,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       id: 3,
       title: "P3 — A AGITAÇÃO (O CUSTO EMOCIONAL)",
       text: "Se nada mudar nos próximos 6 meses, qual é o seu maior medo, {NAME}?",
+      warningText: "⚠️ Atenção: O que você responder aqui define o tipo de bloqueio que será revelado no seu diagnóstico.",
       options: [
         { label: "Continuar dependendo dos outros ou contando moedas.", value: "dependency", icon: "😔" },
         { label: "Envelhecer sem construir nenhum patrimônio real.", value: "aging", icon: "⏰" },
@@ -66,10 +68,11 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     {
       id: 4,
       title: "P4 — O COMPROMISSO",
-      text: "O sistema identificou um bloqueio severo na sua frequência. Se existir um Protocolo de 7 dias para limpar isso, você está disposto(a) a seguir?",
+      text: "O sistema identificou um bloqueio severo na sua frequência. Se existir um Protocolo de 7 dias para limpar isso COMPLETAMENTE, você está disposto(a) a seguir?",
       singleButton: true,
+      validationText: "(A maioria das pessoas vive a vida inteira com esse bloqueio sem saber. Você não precisa ser uma delas.)",
       options: [
-        { label: "SIM, eu aceito receber meu Mapa e me desbloquear.", value: "ready", icon: "🔥" },
+        { label: "🔥 SIM, eu aceito receber meu Mapa e me desbloquear", value: "ready", icon: "" },
       ]
     }
   ];
@@ -263,6 +266,9 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 />
                 <Sparkles className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#D4AF37] animate-pulse" />
               </div>
+              <p className="text-xs text-slate-300 text-center mt-2 mb-3">
+                Seu nome ativa a frequência energética personalizada
+              </p>
               <button 
                 type="submit"
                 disabled={!inputValue.trim()}
@@ -293,7 +299,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/0 via-[#D4AF37]/5 to-[#D4AF37]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -translate-x-full group-hover:translate-x-full"></div>
                   <div className="flex items-center gap-4 relative z-10">
-                    <span className="text-3xl filter drop-shadow-md" aria-hidden="true">{option.icon}</span>
+                    {option.icon && <span className="text-3xl filter drop-shadow-md" aria-hidden="true">{option.icon}</span>}
                     <div className="flex-1">
                       <span className={`font-medium transition-colors text-lg block ${currentQuestion.singleButton ? 'text-white' : 'text-slate-200 group-hover:text-white'}`}>
                         {option.label}
@@ -308,6 +314,30 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   </div>
                 </motion.button>
               ))}
+              
+              {/* Validation text - italic, centered */}
+              {currentQuestion.validationText && (
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="text-sm text-slate-300 text-center italic mt-4 px-2"
+                >
+                  {currentQuestion.validationText}
+                </motion.p>
+              )}
+              
+              {/* Warning text - red, bold, centered */}
+              {currentQuestion.warningText && (
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="text-sm text-red-400 text-center font-bold mt-4 px-2 bg-red-950/30 border border-red-900/50 rounded-lg py-3"
+                >
+                  {currentQuestion.warningText}
+                </motion.p>
+              )}
             </div>
           )}
         </motion.div>

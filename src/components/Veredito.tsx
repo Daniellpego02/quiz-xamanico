@@ -154,6 +154,31 @@ export default function Veredito({ userName = 'você' }: VeredictoProps) {
             </motion.div>
           </div>
 
+          {/* Benefits List - What they'll discover in the video */}
+          <div className="mt-6 bg-gradient-to-br from-[#D4AF37]/10 to-[#FFD700]/5 backdrop-blur-md border-2 border-[#D4AF37]/30 rounded-xl p-5 space-y-3">
+            <h3 className="text-center text-[#FFD700] font-bold text-sm uppercase tracking-wider mb-3">
+              ✨ Neste vídeo você vai descobrir:
+            </h3>
+            <div className="space-y-2">
+              <p className="text-slate-200 text-sm flex items-start gap-2">
+                <span className="text-green-400 font-bold">✓</span>
+                <span>Por que o dinheiro entra e sai da sua vida</span>
+              </p>
+              <p className="text-slate-200 text-sm flex items-start gap-2">
+                <span className="text-green-400 font-bold">✓</span>
+                <span>Qual trava ancestral está te bloqueando</span>
+              </p>
+              <p className="text-slate-200 text-sm flex items-start gap-2">
+                <span className="text-green-400 font-bold">✓</span>
+                <span>O protocolo exato de 7 dias para limpar isso</span>
+              </p>
+              <p className="text-slate-200 text-sm flex items-start gap-2">
+                <span className="text-green-400 font-bold">✓</span>
+                <span>Como ativar sua frequência de abundância</span>
+              </p>
+            </div>
+          </div>
+
         </div>
 
       </div>
