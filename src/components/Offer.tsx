@@ -418,11 +418,14 @@ const Offer = ({ userName }: OfferProps) => {
                                 🔒 OFERTA EXCLUSIVA PARA {userName.toUpperCase()}
                             </div>
                             <h3 className="text-3xl md:text-4xl font-black text-white mb-2 leading-tight">
-                                ATIVE SEU PROTOCOLO DE<br />DESBLOQUEIO AGORA
+                                🔥 ÚLTIMA ETAPA: ATIVE SEU<br />PROTOCOLO AGORA
                             </h3>
-                            <p className="text-[#FFD700] text-lg font-semibold">
+                            <p className="text-[#FFD700] text-lg font-semibold mb-2">
                                 Mapa Xamânico Personalizado + Protocolo de 7 Dias<br />
                                 Desbloqueio Financeiro Ancestral
+                            </p>
+                            <p className="text-slate-300 text-sm mt-3">
+                                ✅ Mais de 4.300 mapas já gerados
                             </p>
                         </div>
 
@@ -432,13 +435,12 @@ const Offer = ({ userName }: OfferProps) => {
                         <div className="text-center mb-6">
                             <p className="text-slate-400 text-sm mb-2 line-through">Valor da Sessão Individual: R$ 497,00</p>
                             <p className="text-emerald-400 text-2xl md:text-3xl font-black mb-4">
-                                INVESTIMENTO ÚNICO:<br />
-                                <span className="text-white text-5xl md:text-6xl">R$ 27,90</span>
+                                💰 INVESTIMENTO ÚNICO:<br />
+                                <span className="text-white text-5xl md:text-6xl">R$ 27,90</span> <span className="text-emerald-400 text-2xl">(PIX)</span>
                             </p>
                             <div className="space-y-1 text-emerald-400 text-sm font-semibold">
-                                <p>✅ Pagamento via PIX (sem taxas)</p>
-                                <p>✅ Acesso 100% Vitalício</p>
-                                <p>✅ Garantia Incondicional de 7 Dias</p>
+                                <p>✅ Acesso Vitalício</p>
+                                <p>✅ Garantia de 7 Dias</p>
                             </div>
                         </div>
 
