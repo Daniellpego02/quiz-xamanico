@@ -3,16 +3,22 @@
 ## 📊 O QUE ESTÁ SENDO RASTREADO
 
 ```
-┌─────────────────────────────────────────────┐
-│ FUNIL DO QUIZ - EVENTOS RASTREADOS          │
-├─────────────────────────────────────────────┤
-│ ✅ quiz_started        → Pessoa clica começar quiz
-│ ✅ quiz_question       → Responde cada questão
-│ ✅ quiz_completed      → Completa todas questões
-│ ✅ resultado_view      → Vê página de resultado/oferta
-│ ✅ add_to_cart         → Clica em "Comprar Agora"
-│ ✅ purchase            → Completa compra (página obrigado)
-└─────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│ FUNIL COMPLETO DO QUIZ - EVENTOS RASTREADOS                 │
+├─────────────────────────────────────────────────────────────┤
+│ ✅ quiz_started        → Pessoa clica começar quiz          │
+│ ✅ quiz_question       → Responde cada questão              │
+│ ✅ quiz_completed      → Completa todas questões            │
+│ ✅ resultado_view      → Vê página de resultado/oferta      │
+│ ✅ add_to_cart         → Clica em "Comprar Agora"           │
+│ ✅ upsell_view         → Visualiza página de Upsell         │
+│ ✅ upsell_accept       → Aceita Upsell                      │
+│ ✅ upsell_decline      → Recusa Upsell                      │
+│ ✅ downsell_view       → Visualiza página de Downsell       │
+│ ✅ downsell_accept     → Aceita Downsell                    │
+│ ✅ downsell_decline    → Recusa Downsell                    │
+│ ✅ purchase            → Completa compra (página obrigado)   │
+└─────────────────────────────────────────────────────────────┘
 ```
 
 ## 🔧 IMPLEMENTAÇÃO TÉCNICA
@@ -252,6 +258,75 @@ trackEvent('purchase', {
 
 ---
 
+### 📍 Eventos de Upsell e Downsell
+
+#### Upsell View
+**Dispara quando**: Página de Upsell é carregada
+
+**Arquivos**: `src/Upsell1.tsx`, `src/Oferta1.tsx`, `src/Oferta2.tsx`
+
+**Código**:
+```typescript
+tracking.funnel.viewUpsell('Upsell 1 - Mentoria Individual');
+tracking.funnel.viewOffer('Oferta 1 - BuckPay Upsell');
+```
+
+#### Upsell Accept (add_to_cart)
+**Dispara quando**: Usuário clica em aceitar o upsell
+
+**Código**:
+```typescript
+tracking.purchase.addToCart({
+  productName: 'Upsell 1 - Mentoria Individual',
+  productPrice: 197.00,
+  productId: 'upsell1-mentoria',
+  email: 'unknown@email.com'
+});
+```
+
+#### Upsell Decline
+**Dispara quando**: Usuário recusa o upsell
+
+**Código**:
+```typescript
+tracking.funnel.clickCTA('Upsell 1 - Declined');
+```
+
+#### Downsell View
+**Dispara quando**: Página de Downsell é carregada
+
+**Arquivos**: `src/Downsell1.tsx`
+
+**Código**:
+```typescript
+tracking.funnel.viewDownsell('Downsell 1 - Curso Completo');
+```
+
+#### Downsell Accept (add_to_cart)
+**Dispara quando**: Usuário clica em aceitar o downsell
+
+**Código**:
+```typescript
+tracking.purchase.addToCart({
+  productName: 'Downsell 1 - Curso Completo',
+  productPrice: 97.00,
+  productId: 'downsell1-curso',
+  email: 'unknown@email.com'
+});
+```
+
+#### Downsell Decline
+**Dispara quando**: Usuário recusa o downsell
+
+**Código**:
+```typescript
+tracking.funnel.clickCTA('Downsell 1 - Declined');
+```
+
+**Nota**: O transaction_id vem da URL (`?transaction_id=xxx`) ou é gerado automaticamente se não existir.
+
+---
+
 ## 4️⃣ DADOS AUTOMÁTICOS EM TODOS OS EVENTOS
 
 Todos os eventos incluem automaticamente:
@@ -348,6 +423,10 @@ src/
 │   ├── Hero.tsx             # quiz_started
 │   ├── Quiz.tsx             # quiz_question, quiz_completed
 │   └── OfferNew.tsx         # resultado_view, add_to_cart
+├── Upsell1.tsx              # upsell_view, add_to_cart (upsell accept), decline
+├── Downsell1.tsx            # downsell_view, add_to_cart (downsell accept), decline
+├── Oferta1.tsx              # offer_view, add_to_cart, decline
+└── Oferta2.tsx              # offer_view, add_to_cart, decline
 public/
 └── obrigado.html            # purchase
 ```
@@ -398,6 +477,12 @@ tracking.trackEvent(eventName: string, eventData: any)
 [ ] Evento quiz_completed dispara ao terminar quiz
 [ ] Evento resultado_view dispara na página de oferta
 [ ] Evento add_to_cart dispara ao clicar "Comprar"
+[ ] Evento upsell_view dispara na página de upsell
+[ ] Evento upsell aceitar dispara add_to_cart
+[ ] Evento upsell recusar dispara clickCTA
+[ ] Evento downsell_view dispara na página de downsell
+[ ] Evento downsell aceitar dispara add_to_cart
+[ ] Evento downsell recusar dispara clickCTA
 [ ] Evento purchase dispara na página obrigado
 [ ] UTM parameters sendo capturados corretamente
 [ ] Session ID sendo gerado e persistido
