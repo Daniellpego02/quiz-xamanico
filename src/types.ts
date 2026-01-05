@@ -28,6 +28,7 @@ export interface QuizQuestion {
   singleButton?: boolean; // For questions with only one option (e.g., readiness confirmation)
   validationText?: string; // Italic text below options for emotional validation
   warningText?: string; // Red warning text below options for importance
+  emotionalContext?: string; // Emotional context text before options
 }
 
 declare global {

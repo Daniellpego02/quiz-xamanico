@@ -16,9 +16,10 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
   // Stages adapted by quiz path
   const financeStages = [
     { pct: 15, text: "Conectando à egrégora...", icon: <Search className="w-6 h-6 text-[#D4AF37]" /> },
-    { pct: 35, text: "Analisando respostas de frequência...", icon: <Brain className="w-6 h-6 text-[#D4AF37]" /> },
-    { pct: 60, text: "Bloqueio Ancestral Detectado: Nível Alto...", icon: <Heart className="w-6 h-6 text-red-400" /> },
-    { pct: 85, text: "Gerando Protocolo de Solução...", icon: <Wallet className="w-6 h-6 text-[#D4AF37]" /> },
+    { pct: 30, text: "Mapeando frequência vibracional...", icon: <Brain className="w-6 h-6 text-[#D4AF37]" /> },
+    { pct: 50, text: "Analisando respostas de frequência...", icon: <Heart className="w-6 h-6 text-[#D4AF37]" /> },
+    { pct: 70, text: "Bloqueio Ancestral Detectado: Nível Alto...", icon: <Heart className="w-6 h-6 text-red-400" /> },
+    { pct: 90, text: "Gerando Protocolo Personalizado...", icon: <Wallet className="w-6 h-6 text-[#D4AF37]" /> },
     { pct: 100, text: "CONCLUÍDO.", icon: <CheckCircle2 className="w-6 h-6 text-green-400" /> }
   ];
 
@@ -66,10 +67,11 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
   // Update text stage based on progress
   useEffect(() => {
     if (progress < 15) setStage(0);
-    else if (progress < 35) setStage(1);
-    else if (progress < 60) setStage(2);
-    else if (progress < 85) setStage(3);
-    else setStage(4);
+    else if (progress < 30) setStage(1);
+    else if (progress < 50) setStage(2);
+    else if (progress < 70) setStage(3);
+    else if (progress < 90) setStage(4);
+    else setStage(5);
   }, [progress]);
 
   // Rotate testimonials every 3 seconds (only for finance path)

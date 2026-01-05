@@ -50,7 +50,10 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             O Protocolo Xamânico revela onde está o vazamento.
           </h2>
           <p className="text-sm md:text-base text-slate-300 leading-relaxed max-w-md mx-auto">
-            Responda a <strong className="text-white">4 perguntas simples</strong> para mapear sua assinatura energética e descobrir como desbloquear seu fluxo de prosperidade em <strong className="text-white">7 dias</strong>.
+            Responda a <strong className="text-white">6 perguntas rápidas</strong> para mapear seu <strong className="text-[#FFD700]">BLOQUEIO FINANCEIRO ANCESTRAL</strong> e descobrir o ritual exato para desbloquear em <strong className="text-white">7 dias</strong>.
+          </p>
+          <p className="text-xs text-slate-400 mt-2 flex items-center justify-center gap-1">
+            ⏱ Leva menos de 2 minutos
           </p>
         </motion.div>
 
