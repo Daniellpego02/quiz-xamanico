@@ -258,8 +258,8 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
               </p>
               <div className="flex items-baseline justify-center gap-1 mb-4">
                 <span className="text-2xl text-white font-bold">R$</span>
-                <span className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-green-300 to-emerald-300">
-                  9
+                <span className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-indigo-300 to-purple-300">
+                  19
                 </span>
                 <span className="text-2xl text-white font-bold">,90</span>
               </div>
@@ -267,13 +267,13 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
                 💳 Pagamento 1 clique via PIX
               </p>
               <p className="text-gray-400 text-xs mb-5">
-                Apenas R$9,90 para ter suporte básico nos momentos críticos
+                Apenas R$19,90 para ter suporte básico nos momentos críticos
               </p>
 
               <button
                 onClick={handleAccept}
                 disabled={isProcessing}
-                className="w-full bg-gradient-to-r from-emerald-600 via-green-600 to-emerald-600 hover:from-emerald-500 hover:via-green-500 hover:to-emerald-500 disabled:from-emerald-700 disabled:via-green-700 disabled:to-emerald-700 text-white font-bold text-base md:text-lg py-4 md:py-5 px-6 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-[1.01] active:scale-[0.99] disabled:scale-100 border border-emerald-400/20 mb-3 relative overflow-hidden group"
+                className="w-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:via-indigo-500 hover:to-purple-500 disabled:from-purple-700 disabled:via-indigo-700 disabled:to-purple-700 text-white font-bold text-base md:text-lg py-4 md:py-5 px-6 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-[1.01] active:scale-[0.99] disabled:scale-100 border border-purple-400/20 mb-3 relative overflow-hidden group"
               >
                 {isProcessing ? (
                   <span className="flex items-center justify-center gap-2">
@@ -286,8 +286,8 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
                   </span>
                 ) : (
                   <>
-                    <span className="relative z-10">✓ SIM, QUERO O ESSENCIAL (R$9,90)</span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/0 via-white/10 to-emerald-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                    <span className="relative z-10">✓ SIM, QUERO O ESSENCIAL (R$19,90)</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-400/0 via-white/5 to-purple-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
                   </>
                 )}
               </button>
@@ -314,7 +314,7 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
             className="bg-indigo-900/20 border border-indigo-500/20 rounded-xl p-4 mb-6"
           >
             <p className="text-gray-300 text-xs md:text-sm text-center leading-relaxed">
-              <span className="text-indigo-300 font-semibold">💡 Dica:</span> Se você quiser acompanhamento diário completo + grupo de suporte + protocolo de emergência, <span className="text-white font-semibold">o Guia Completo por R$29</span> pode ser melhor escolha.
+              <span className="text-indigo-300 font-semibold">💡 Lembrete:</span> Esse é o preço mais baixo que consigo oferecer. Se recusar, você vai fazer o Mapa totalmente sozinho, sem nenhum suporte.
             </p>
           </motion.div>
 
