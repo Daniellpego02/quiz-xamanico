@@ -10,7 +10,7 @@ const BUCKPAY_CONFIG = {
   offerId: '7c265285-38dc-44e9-8f56-eaa6356e26b1',
   upsellUrl: 'https://www.mapaxamanicooficial.online/oferta1',
   downsellUrl: 'https://www.mapaxamanicooficial.online/down1',
-  scriptUrl: 'https://www.seguropagamentos.com.br/upsell-downsell-script.js'
+  scriptUrl: 'https://seguropagamentos.com.br/upsell-downsell-script.js'
 } as const;
 
 export default function Oferta1({ userName }: Oferta1Props) {
@@ -19,6 +19,8 @@ export default function Oferta1({ userName }: Oferta1Props) {
   const [buckpayError, setBuckpayError] = useState(false);
   const [timeLeft, setTimeLeft] = useState(15 * 60); // 15 minutes in seconds
   
+  const PULSE_THRESHOLD_SECONDS = 5 * 60; // 5 minutes
+
   // Get name from URL param or prop
   const nameFromUrl = searchParams.get('name') || searchParams.get('nome');
   const displayName = nameFromUrl || userName || '';
@@ -49,16 +51,10 @@ export default function Oferta1({ userName }: Oferta1Props) {
     };
   }, []);
 
-  // Countdown timer
+  // Countdown timer - 15 minutes
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 0) {
-          clearInterval(timer);
-          return 0;
-        }
-        return prev - 1;
-      });
+      setTimeLeft((prev) => Math.max(0, prev - 1));
     }, 1000);
 
     return () => clearInterval(timer);
@@ -364,7 +360,7 @@ export default function Oferta1({ userName }: Oferta1Props) {
             <div className="text-center mb-6">
               <p className="text-sm text-[#fbbf24] mb-2">⏰ Oferta expira em:</p>
               <p 
-                className={`text-4xl md:text-5xl font-black text-[#fbbf24] ${timeLeft <= 300 ? 'animate-pulse' : ''}`}
+                className={`text-4xl md:text-5xl font-black text-[#fbbf24] ${timeLeft <= PULSE_THRESHOLD_SECONDS ? 'animate-pulse' : ''}`}
               >
                 {formatTime(timeLeft)}
               </p>
@@ -459,27 +455,27 @@ export default function Oferta1({ userName }: Oferta1Props) {
         </div>
       </div>
 
-      {/* Hidden BuckPay One-Click Upsell/Downsell Container */}
-      <div style={{ display: 'none', textAlign: 'center' }} id="buckpay-upsell-downsell-container">
+      {/* Hidden BuckPay One-Click Upsell/Downsell Container - Required by BuckPay Script */}
+      <div style={{ position: 'absolute', left: '-9999px', textAlign: 'center' }} id="buckpay-upsell-downsell-container">
         <button 
           id="buckpay-upsell-button" 
           style={{
-            backgroundColor: '#09a530',
+            backgroundColor: '#7C3AED',
             padding: '12px 16px',
             cursor: 'pointer',
             color: '#ffffff',
             fontWeight: 600,
             borderRadius: '6px',
-            border: '1px solid #09a530',
+            border: '1px solid #7C3AED',
             fontSize: '20px'
           }}
         >
-          Sim, eu quero essa oferta!
+          💰 SIM, QUERO RESULTADO 3X MAIS RÁPIDO
         </button>
         <div 
           id="buckpay-downsell-button" 
           style={{
-            color: '#ffffff',
+            color: '#6B7280',
             marginTop: '1rem',
             cursor: 'pointer',
             fontSize: '16px',
@@ -487,7 +483,7 @@ export default function Oferta1({ userName }: Oferta1Props) {
             fontFamily: 'sans-serif'
           }}
         >
-          Não, eu gostaria de recusar essa oferta
+          Não, prefiro arriscar fazer sozinho
         </div>
       </div>
     </>
