@@ -279,7 +279,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               <button 
                 type="submit"
                 disabled={!inputValue.trim()}
-                className="w-[90%] md:w-[90%] mx-auto bg-gradient-to-br from-[#D4AF37] via-[#FFD700] to-[#D4AF37] text-white font-bold py-5 md:h-[60px] rounded-xl shadow-lg shadow-[#D4AF37]/30 hover:shadow-[#D4AF37]/50 hover:brightness-110 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 border-t border-white/20"
+                className="w-[90%] mx-auto bg-gradient-to-br from-[#D4AF37] via-[#FFD700] to-[#D4AF37] text-white font-bold py-5 md:h-[60px] rounded-xl shadow-lg shadow-[#D4AF37]/30 hover:shadow-[#D4AF37]/50 hover:brightness-110 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 border-t border-white/20"
               >
                 🔥 CONECTAR E INICIAR ANÁLISE →
               </button>
@@ -317,13 +317,13 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/0 via-[#D4AF37]/5 to-[#D4AF37]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -translate-x-full group-hover:translate-x-full"></div>
                   <div className="flex items-center gap-4 relative z-10">
-                    {option.icon && <span className="text-[32px] md:text-[32px] filter drop-shadow-md" aria-hidden="true">{option.icon}</span>}
+                    {option.icon && <span className="text-[32px] filter drop-shadow-md" aria-hidden="true">{option.icon}</span>}
                     <div className="flex-1">
                       <span className={`font-semibold transition-colors text-base md:text-lg block leading-tight ${currentQuestion.singleButton ? 'text-white' : 'text-slate-200 group-hover:text-white'}`}>
                         {option.label}
                       </span>
                       {option.sublabel && (
-                        <span className={`text-sm mt-1.5 block transition-colors leading-relaxed ${currentQuestion.singleButton ? 'text-white/90' : 'text-[#c4b5d6] group-hover:text-slate-300'}`}>
+                        <span className={`text-sm mt-1.5 block transition-colors leading-relaxed ${currentQuestion.singleButton ? 'text-white/90' : 'text-lavender group-hover:text-slate-300'}`}>
                           {option.sublabel}
                         </span>
                       )}

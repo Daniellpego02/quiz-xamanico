@@ -25,7 +25,8 @@ export default {
           900: '#0F0821', // Darker, deeper purple base
           800: '#1E1245',
           700: '#302060',
-        }
+        },
+        lavender: '#c4b5d6', // Quiz subtitle color for readability
       },
       animation: {
         'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
