@@ -48,6 +48,9 @@ export default function Veredito({ userName = 'você' }: VeredictoProps) {
             <p className="text-gray-300 text-sm mb-3">
               Olá, <span className="text-orange-400 font-semibold">{formattedName}</span>
             </p>
+            <p className="text-xs text-slate-400 italic">
+              → Este resultado foi gerado especificamente para VOCÊ baseado nas suas 6 respostas.
+            </p>
           </div>
 
           {/* Critical Level Progress Bar - Enhanced */}

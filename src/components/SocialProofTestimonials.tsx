@@ -98,7 +98,10 @@ export const SocialProofTestimonials = ({ onCtaClick }: { onCtaClick?: () => voi
                     className="w-10 h-10 rounded-full object-cover shadow-lg border-2 border-[#D4AF37]"
                   />
                   <div className="flex-1">
-                    <p className="text-white text-sm font-bold">{testimonial.name}</p>
+                    <p className="text-white text-sm font-bold flex items-center gap-1.5">
+                      {testimonial.name}
+                      <span className="text-emerald-400 text-xs">✓</span>
+                    </p>
                     <div className="flex items-center gap-2">
                       <p className="text-[#8696A0] text-xs">{testimonial.location}</p>
                       <span className="text-[#8696A0] text-xs">•</span>

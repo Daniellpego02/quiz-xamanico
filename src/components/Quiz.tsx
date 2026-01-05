@@ -37,6 +37,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       id: 1,
       title: "P1 — O SINTOMA",
       text: "Vamos analisar seu padrão atual, {NAME}. Como você descreve sua relação com o dinheiro hoje?",
+      emotionalContext: "→ Essa resposta revela o TIPO de bloqueio energético que você carrega.",
       options: [
         { label: "O dinheiro entra e some (imprevistos constantes).", sublabel: "Parece que tenho um ralo energético", value: "leak", icon: "💸" },
         { label: "Trabalho muito, ganho pouco e sinto cansaço crônico.", sublabel: "O esforço não se transforma em resultado", value: "tired", icon: "😰" },
@@ -47,22 +48,24 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       id: 2,
       title: "P2 — A CAUSA (ANCESTRALIDADE)",
       text: "O Xamanismo Financeiro ensina que padrões se repetem. Olhando para seus pais ou avós, o que você vê?",
+      emotionalContext: "→ Essa resposta define o TIPO de bloqueio que vamos identificar.",
       validationText: "Isso não é culpa sua. É uma herança vibracional que você recebeu sem escolher.",
       options: [
-        { label: "Histórico de dívidas, falências ou lutas financeiras pesadas.", value: "heavy", icon: "💔" },
-        { label: "Pessoas honestas, mas que nunca enriqueceram.", value: "honest", icon: "🙏" },
-        { label: "Havia dinheiro, mas muitas brigas e desarmonia familiar.", value: "conflict", icon: "⚡" },
+        { label: "Histórico de dívidas, falências ou lutas financeiras pesadas.", sublabel: "Ciclos que se repetem há gerações", value: "heavy", icon: "💔" },
+        { label: "Pessoas honestas, mas que nunca enriqueceram.", sublabel: "O trabalho duro sem recompensa", value: "honest", icon: "🙏" },
+        { label: "Havia dinheiro, mas muitas brigas e desarmonia familiar.", sublabel: "Riqueza com conflito emocional", value: "conflict", icon: "⚡" },
       ]
     },
     {
       id: 3,
       title: "P3 — A AGITAÇÃO (O CUSTO EMOCIONAL)",
       text: "Se nada mudar nos próximos 6 meses, qual é o seu maior medo, {NAME}?",
+      emotionalContext: "→ Seja honesto. Essa resposta molda seu protocolo de desbloqueio.",
       warningText: "⚠️ Atenção: O que você responder aqui define o tipo de bloqueio que será revelado no seu diagnóstico.",
       options: [
-        { label: "Continuar dependendo dos outros ou contando moedas.", value: "dependency", icon: "😔" },
-        { label: "Envelhecer sem construir nenhum patrimônio real.", value: "aging", icon: "⏰" },
-        { label: "Ver minha família passar necessidade por minha causa.", value: "family", icon: "💔" },
+        { label: "Continuar dependendo dos outros ou contando moedas.", sublabel: "Viver com medo de faltar", value: "dependency", icon: "😔" },
+        { label: "Envelhecer sem construir nenhum patrimônio real.", sublabel: "Ver o tempo passar sem mudança", value: "aging", icon: "⏰" },
+        { label: "Ver minha família passar necessidade por minha causa.", sublabel: "Sentir que falhei com quem amo", value: "family", icon: "💔" },
       ]
     },
     {
@@ -83,9 +86,10 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
 
   const getLoadingStages = () => [
     `Conectando à egrégora de ${userName}...`,
+    "Mapeando frequência vibracional...",
     "Analisando respostas de frequência...",
     "Bloqueio Ancestral Detectado: Nível Alto...",
-    "Gerando Protocolo de Solução...",
+    "Gerando Protocolo Personalizado...",
     "CONCLUÍDO."
   ];
 
@@ -95,7 +99,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       
       const interval = setInterval(() => {
         setLoadingStage(prev => (prev + 1) % loadingStages.length);
-      }, 800);
+      }, 650);
       return () => clearInterval(interval);
     } else {
       // Reset loading stage when screen is hidden
@@ -122,7 +126,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
         const mergedQuestions = [...activeQuestions, ...financeQuestions];
         setActiveQuestions(mergedQuestions);
         setCurrentIndex(prev => prev + 1);
-    }, 3500);
+    }, 4000);
   };
 
   const handleOptionClick = (option: QuestionOption) => {
@@ -249,7 +253,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 </p>
               </motion.div>
             )}
-            <h2 className="text-xl md:text-2xl font-serif font-bold text-white leading-snug drop-shadow-lg" dangerouslySetInnerHTML={{ __html: personalizeText(currentQuestion.text) }}>
+            <h2 className="text-2xl md:text-[28px] font-serif font-bold text-white leading-snug drop-shadow-lg" dangerouslySetInnerHTML={{ __html: personalizeText(currentQuestion.text) }}>
             </h2>
           </div>
 
@@ -269,13 +273,15 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               <p className="text-xs text-slate-300 text-center mt-2 mb-3">
                 Seu nome ativa a frequência energética personalizada
               </p>
+              <div className="text-xs bg-white/5 backdrop-blur-md border border-white/10 rounded-lg px-3 py-2 mb-3 text-slate-300 text-center">
+                ℹ️ Você receberá seu diagnóstico gratuito na próxima tela. Sem compromisso.
+              </div>
               <button 
                 type="submit"
                 disabled={!inputValue.trim()}
-                className="w-full bg-gradient-to-br from-[#D4AF37] via-[#FFD700] to-[#D4AF37] text-white font-bold py-4 rounded-xl shadow-lg shadow-[#D4AF37]/30 hover:shadow-[#D4AF37]/50 hover:brightness-110 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 border-t border-white/20"
+                className="w-[90%] mx-auto bg-gradient-to-br from-[#D4AF37] via-[#FFD700] to-[#D4AF37] text-white font-bold py-5 md:h-[60px] rounded-xl shadow-lg shadow-[#D4AF37]/30 hover:shadow-[#D4AF37]/50 hover:brightness-110 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 border-t border-white/20"
               >
-                CONECTAR E INICIAR ANÁLISE
-                <ChevronRight className="w-5 h-5" />
+                🔥 CONECTAR E INICIAR ANÁLISE →
               </button>
               <p className="text-xs text-slate-400 text-center mt-2 flex items-center justify-center gap-1">
                 🔒 Ambiente Seguro e Sigiloso
@@ -283,6 +289,18 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             </form>
           ) : (
             <div className="space-y-3">
+              {/* Emotional context text before options */}
+              {currentQuestion.emotionalContext && (
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-sm text-[#FFD700] text-center font-semibold mt-2 mb-4 px-2"
+                >
+                  {currentQuestion.emotionalContext}
+                </motion.p>
+              )}
+              
               {currentQuestion.options?.map((option, idx) => (
                 <motion.button
                   key={idx}
@@ -291,7 +309,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   transition={{ delay: idx * 0.1 }}
                   onClick={() => handleOptionClick(option)}
                   disabled={isNavigating}
-                  className={`w-full text-left p-5 rounded-2xl transition-all active:scale-[0.98] group relative overflow-hidden ${isNavigating ? 'cursor-not-allowed opacity-80' : 'cursor-pointer'} ${
+                  className={`w-full text-left p-5 md:p-6 rounded-2xl transition-all duration-300 active:scale-[0.98] group relative overflow-hidden hover:-translate-y-1 ${isNavigating ? 'cursor-not-allowed opacity-80' : 'cursor-pointer'} ${
                     currentQuestion.singleButton 
                       ? 'bg-gradient-to-br from-[#D4AF37] via-[#FFD700] to-[#D4AF37] text-white font-bold shadow-lg shadow-[#D4AF37]/30 hover:shadow-[#D4AF37]/50 hover:brightness-110 border-t border-white/20' 
                       : 'bg-white/5 backdrop-blur-md border border-white/10 hover:border-[#D4AF37]/50 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]'
@@ -299,18 +317,18 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/0 via-[#D4AF37]/5 to-[#D4AF37]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -translate-x-full group-hover:translate-x-full"></div>
                   <div className="flex items-center gap-4 relative z-10">
-                    {option.icon && <span className="text-3xl filter drop-shadow-md" aria-hidden="true">{option.icon}</span>}
+                    {option.icon && <span className="text-[32px] filter drop-shadow-md" aria-hidden="true">{option.icon}</span>}
                     <div className="flex-1">
-                      <span className={`font-medium transition-colors text-lg block ${currentQuestion.singleButton ? 'text-white' : 'text-slate-200 group-hover:text-white'}`}>
+                      <span className={`font-semibold transition-colors text-base md:text-lg block leading-tight ${currentQuestion.singleButton ? 'text-white' : 'text-slate-200 group-hover:text-white'}`}>
                         {option.label}
                       </span>
                       {option.sublabel && (
-                        <span className={`text-sm mt-1 block transition-colors ${currentQuestion.singleButton ? 'text-white/90' : 'text-slate-400 group-hover:text-slate-300'}`}>
+                        <span className={`text-sm mt-1.5 block transition-colors leading-relaxed ${currentQuestion.singleButton ? 'text-white/90' : 'text-lavender-500 group-hover:text-slate-300'}`}>
                           {option.sublabel}
                         </span>
                       )}
                     </div>
-                    <ChevronRight className={`w-4 h-4 ml-auto shrink-0 ${currentQuestion.singleButton ? 'text-white' : 'text-slate-500 group-hover:text-white'}`} aria-hidden="true" />
+                    <ChevronRight className={`w-5 h-5 ml-auto shrink-0 ${currentQuestion.singleButton ? 'text-white' : 'text-slate-500 group-hover:text-white'}`} aria-hidden="true" />
                   </div>
                 </motion.button>
               ))}

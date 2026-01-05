@@ -58,3 +58,15 @@ html {
 .animate-mystical-stars {
   animation: mysticalStars 20s ease-in-out infinite;
 }
+
+/* Fade In Up Animation for Quiz Questions */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -19,7 +19,10 @@ interface OfferProps {
 const Offer = ({ userName }: OfferProps) => {
     const priceOld = "97,00";
     const priceNew = "27,90";
-    const totalMapas = "4.300";
+    const totalMapas = "4.317";
+    const totalMapasExact = "4.317 pessoas";
+    const percentageSuccess = "92%";
+    const totalSuccess = "3.972 pessoas";
 
     // Load video player script only when Offer component is mounted
     useEffect(() => {
@@ -245,18 +248,22 @@ const Offer = ({ userName }: OfferProps) => {
                         O QUE VOCÊ VAI RECEBER IMEDIATAMENTE
                     </h2>
                     
-                    <div className="grid md:grid-cols-2 gap-6 mb-8">
+                    <div className="grid md:grid-cols-2 gap-4 md:gap-6 mb-8">
                         {/* Card 1 - Mapa da Frequência */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1.0 }}
-                            className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl p-6 hover:border-[#FFD700]/50 hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all"
+                            className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl p-5 md:p-6 hover:border-[#FFD700]/50 hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all relative"
                         >
+                            {/* INCLUSO Badge */}
+                            <div className="absolute top-3 right-3 bg-green-600 text-white text-[10px] font-bold px-2 py-1 rounded-full">
+                                ✅ INCLUSO
+                            </div>
                             <div className="flex items-start gap-4 mb-3">
-                                <div className="text-4xl">📜</div>
+                                <div className="text-5xl md:text-[48px]">📜</div>
                                 <div>
-                                    <h3 className="text-[#FFD700] font-bold text-lg mb-2">✅ O MAPA DA FREQUÊNCIA</h3>
+                                    <h3 className="text-[#FFD700] font-bold text-lg mb-2">O MAPA DA FREQUÊNCIA</h3>
                                     <p className="text-slate-300 text-sm leading-relaxed">
                                         Descubra exatamente onde está o vazamento de dinheiro na sua vida. Não é adivinhação, é um diagnóstico energético baseado na sua linhagem.
                                     </p>
@@ -269,12 +276,16 @@ const Offer = ({ userName }: OfferProps) => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1.1 }}
-                            className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl p-6 hover:border-[#FFD700]/50 hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all"
+                            className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl p-5 md:p-6 hover:border-[#FFD700]/50 hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all relative"
                         >
+                            {/* INCLUSO Badge */}
+                            <div className="absolute top-3 right-3 bg-green-600 text-white text-[10px] font-bold px-2 py-1 rounded-full">
+                                ✅ INCLUSO
+                            </div>
                             <div className="flex items-start gap-4 mb-3">
-                                <div className="text-4xl">🎧</div>
+                                <div className="text-5xl md:text-[48px]">🎧</div>
                                 <div>
-                                    <h3 className="text-[#FFD700] font-bold text-lg mb-2">✅ PROTOCOLO DE 7 DIAS</h3>
+                                    <h3 className="text-[#FFD700] font-bold text-lg mb-2">PROTOCOLO DE 7 DIAS</h3>
                                     <p className="text-slate-300 text-sm leading-relaxed">
                                         O passo a passo simples para limpar a energia estagnada. Você não precisa de nada caro ou complicado - só seguir o protocolo.
                                     </p>
@@ -287,12 +298,16 @@ const Offer = ({ userName }: OfferProps) => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1.2 }}
-                            className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl p-6 hover:border-[#FFD700]/50 hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all"
+                            className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl p-5 md:p-6 hover:border-[#FFD700]/50 hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all relative"
                         >
+                            {/* INCLUSO Badge */}
+                            <div className="absolute top-3 right-3 bg-green-600 text-white text-[10px] font-bold px-2 py-1 rounded-full">
+                                ✅ INCLUSO
+                            </div>
                             <div className="flex items-start gap-4 mb-3">
-                                <div className="text-4xl">🔊</div>
+                                <div className="text-5xl md:text-[48px]">🔊</div>
                                 <div>
-                                    <h3 className="text-[#FFD700] font-bold text-lg mb-2">✅ ÁUDIOS DE REPROGRAMAÇÃO</h3>
+                                    <h3 className="text-[#FFD700] font-bold text-lg mb-2">ÁUDIOS DE REPROGRAMAÇÃO</h3>
                                     <p className="text-slate-300 text-sm leading-relaxed">
                                         Desbloqueie sua mente enquanto você dorme. Esses áudios foram criados para desprogramar crenças de escassez que você nem sabe que tem.
                                     </p>
@@ -305,12 +320,16 @@ const Offer = ({ userName }: OfferProps) => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1.3 }}
-                            className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl p-6 hover:border-[#FFD700]/50 hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all"
+                            className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl p-5 md:p-6 hover:border-[#FFD700]/50 hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all relative"
                         >
+                            {/* INCLUSO Badge */}
+                            <div className="absolute top-3 right-3 bg-green-600 text-white text-[10px] font-bold px-2 py-1 rounded-full">
+                                ✅ INCLUSO
+                            </div>
                             <div className="flex items-start gap-4 mb-3">
-                                <div className="text-4xl">🏠</div>
+                                <div className="text-5xl md:text-[48px]">🏠</div>
                                 <div>
-                                    <h3 className="text-[#FFD700] font-bold text-lg mb-2">✅ BÔNUS: RITUAL DE BLINDAGEM DA CASA</h3>
+                                    <h3 className="text-[#FFD700] font-bold text-lg mb-2">BÔNUS: RITUAL DE BLINDAGEM DA CASA</h3>
                                     <p className="text-slate-300 text-sm leading-relaxed">
                                         Proteja seu espaço das energias de escassez. 80% das pessoas não fazem isso e por isso o dinheiro "evapora" de casa.
                                     </p>
@@ -447,9 +466,9 @@ const Offer = ({ userName }: OfferProps) => {
 
                         <hr className="border-[#D4AF37]/30 my-6" />
 
-                        {/* Emotional Urgency Box - YELLOW (not red) */}
-                        <div className="bg-[#FFD700]/10 border-2 border-[#FFD700]/40 rounded-xl p-6 mb-6">
-                            <p className="text-[#FFD700] font-bold text-lg mb-3 flex items-center justify-center gap-2">
+                        {/* Emotional Urgency Box - PURPLE (not red) */}
+                        <div className="bg-gradient-to-br from-[#8b5cf6] to-[#6d28d9] border-l-4 border-[#fbbf24] rounded-xl p-6 mb-6">
+                            <p className="text-white font-bold text-lg mb-3 flex items-center justify-center gap-2">
                                 <span>⚡</span> ATENÇÃO:
                             </p>
                             <div className="text-white text-base leading-relaxed space-y-2">
@@ -473,12 +492,21 @@ const Offer = ({ userName }: OfferProps) => {
                         {/* Social Proof - Recent Purchases */}
                         <div className="text-center mb-6">
                             <p className="text-slate-300 text-sm mb-3 flex items-center justify-center gap-2">
-                                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                                <span className="relative flex h-3 w-3">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                                </span>
                                 👥 23 pessoas compraram nas últimas 24h
                             </p>
-                            <div className="flex items-center justify-center gap-4 text-xs text-slate-400">
-                                <span className="bg-white/5 px-3 py-1 rounded-full">"Maria acabou de comprar há 2min"</span>
-                                <span className="bg-white/5 px-3 py-1 rounded-full">"João acabou de comprar há 8min"</span>
+                            <div className="flex items-center justify-center gap-3 text-xs text-slate-400">
+                                <span className="bg-white/5 px-3 py-1.5 rounded-full flex items-center gap-2">
+                                    <span className="w-6 h-6 rounded-full bg-gradient-to-br from-pink-400 to-purple-500"></span>
+                                    "Maria acabou de comprar há 2min"
+                                </span>
+                                <span className="bg-white/5 px-3 py-1.5 rounded-full flex items-center gap-2">
+                                    <span className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-400 to-cyan-500"></span>
+                                    "João acabou de comprar há 8min"
+                                </span>
                             </div>
                         </div>
 
@@ -551,7 +579,7 @@ const Offer = ({ userName }: OfferProps) => {
                     <h3 className="text-xl font-bold text-[#FFD700] mb-4">🎁 Bônus Exclusivos Inclusos:</h3>
                     <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
                         {/* Bonus 1: Meditations - 3D Mockup Visual */}
-                        <div className="bg-white/5 backdrop-blur-sm border border-[#D4AF37]/30 rounded-xl p-4 hover:border-[#FFD700]/50 transition-all">
+                        <div className="bg-white/5 backdrop-blur-sm border border-[#D4AF37]/30 rounded-xl p-5 md:p-4 hover:border-[#FFD700]/50 transition-all">
                             <div className="flex items-center justify-center mb-3">
                                 <div className="relative">
                                     <Headphones className="w-12 h-12 text-[#FFD700]" />
@@ -563,7 +591,7 @@ const Offer = ({ userName }: OfferProps) => {
                             <p className="text-[#FFD700] text-sm mt-2 font-bold">Valor: R$ 97,00</p>
                         </div>
                         {/* Bonus 2: Support - With Scarcity */}
-                        <div className="bg-white/5 backdrop-blur-sm border border-[#D4AF37]/30 rounded-xl p-4 hover:border-[#FFD700]/50 transition-all relative overflow-hidden">
+                        <div className="bg-white/5 backdrop-blur-sm border border-[#D4AF37]/30 rounded-xl p-5 md:p-4 hover:border-[#FFD700]/50 transition-all relative overflow-hidden">
                             {/* Scarcity Badge */}
                             <div className="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full animate-pulse">
                                 VAGAS LIMITADAS
@@ -643,7 +671,7 @@ const Offer = ({ userName }: OfferProps) => {
                                     <span>💡</span> POR QUE OFEREÇO ISSO?
                                 </h4>
                                 <p className="text-slate-200 text-sm md:text-base leading-relaxed mb-3">
-                                    Porque EU SEI que funciona. Mais de {totalMapas} pessoas já fizeram e 92% relatam mudança em até 14 dias.
+                                    Porque EU SEI que funciona. Das {totalMapasExact} que já fizeram, {percentageSuccess} ({totalSuccess}) relatam mudança em até 14 dias.
                                 </p>
                                 <p className="text-emerald-300 font-semibold">
                                     Se não funcionar com você (raro), eu não mereço seu dinheiro.
