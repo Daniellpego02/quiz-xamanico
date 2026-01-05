@@ -42,7 +42,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
         { label: "O dinheiro entra, mas some em imprevistos", sublabel: "Parece que tenho um RALO que suga tudo", value: "leak", icon: "💰" },
         { label: "Trabalho demais, ganho pouco, sou cansado", sublabel: "O esforço NÃO vira resultado", value: "tired", icon: "😤" },
         { label: "Tenho pavor de faltar", sublabel: "Vivo apertando cada centavo, com medo", value: "fear", icon: "😰" },
-        { label: "Nenhum desses, tenho outro problema", sublabel: "", value: "other", icon: "🚫" },
+        { label: "Nenhum desses, tenho outro problema", sublabel: "Minha situação é diferente", value: "other", icon: "🚫" },
       ]
     },
     {
