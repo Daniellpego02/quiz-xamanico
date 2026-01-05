@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { X, Check, Shield, Heart, Sparkles } from 'lucide-react';
+import { tracking } from './utils/tracking';
 
 // BuckPay Configuration for Downsell
 // ⚠️ IMPORTANT: Replace 'YOUR_DOWNSELL_OFFER_ID' with actual BuckPay offer ID before deployment
@@ -23,6 +24,11 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
   const benefitsInView = useInView(benefitsRef, { once: true, margin: "-100px" });
 
   const firstName = userName ? userName.split(' ')[0] : 'você';
+
+  // Track downsell page view
+  useEffect(() => {
+    tracking.funnel.viewDownsell('Downsell 1 - Curso Completo');
+  }, []);
 
   // Subtle animation variants (lighter than upsell)
   const fadeIn = {
@@ -86,6 +92,14 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
   const handleAccept = () => {
     setIsProcessing(true);
     
+    // Track downsell acceptance
+    tracking.purchase.addToCart({
+      productName: 'Downsell 1 - Curso Completo',
+      productPrice: 97.00, // Adjust to actual downsell price
+      productId: 'downsell1-curso',
+      email: 'unknown@email.com'
+    });
+    
     const buckpayButton = document.getElementById('buckpay-upsell-button');
     
     if (buckpayButton) {
@@ -101,6 +115,9 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
   };
 
   const handleDecline = () => {
+    // Track downsell decline
+    tracking.funnel.clickCTA('Downsell 1 - Declined');
+    
     window.location.href = '/obrigado';
   };
 

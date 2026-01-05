@@ -10,6 +10,8 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ onStart }) => {
   const handleStartClick = () => {
+    // Track quiz start with new comprehensive tracking
+    tracking.quiz.started();
     tracking.meta.lead({ content_name: 'Quiz Iniciado' });
     onStart();
   };

@@ -161,6 +161,8 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
         setCurrentIndex(prev => prev + 1);
         setIsNavigating(false);
       } else {
+        // Track quiz completion with enhanced tracking
+        tracking.quiz.complete(QUIZ_PATH, userName, activeQuestions.length);
         tracking.meta.completeRegistration({ content_name: 'Quiz Completo', path: QUIZ_PATH });
         onComplete(QUIZ_PATH, userName);
       }

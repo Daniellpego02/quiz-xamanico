@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { tracking } from './utils/tracking';
 
 interface Oferta1Props {
   userName?: string;
@@ -25,6 +26,11 @@ export default function Oferta1({ userName }: Oferta1Props) {
   const nameFromUrl = searchParams.get('name') || searchParams.get('nome');
   const displayName = nameFromUrl || userName || '';
   const firstName = displayName ? displayName.split(' ')[0] : '';
+
+  // Track offer page view
+  useEffect(() => {
+    tracking.funnel.viewOffer('Oferta 1 - BuckPay Upsell');
+  }, []);
 
   // Load BuckPay one-click upsell script
   useEffect(() => {
@@ -88,6 +94,14 @@ export default function Oferta1({ userName }: Oferta1Props) {
   const handleAccept = () => {
     setIsProcessing(true);
     
+    // Track offer 1 acceptance
+    tracking.purchase.addToCart({
+      productName: 'Oferta 1 - BuckPay Upsell',
+      productPrice: 197.00, // Adjust to actual price
+      productId: 'oferta1-buckpay',
+      email: 'unknown@email.com'
+    });
+    
     // Trigger BuckPay one-click upsell
     const buckpayButton = document.getElementById('buckpay-upsell-button');
     
@@ -105,6 +119,9 @@ export default function Oferta1({ userName }: Oferta1Props) {
   };
 
   const handleDecline = () => {
+    // Track offer 1 decline
+    tracking.funnel.clickCTA('Oferta 1 - Declined');
+    
     // Direct redirect to downsell page
     // The hidden buckpay-downsell-button also has a click handler attached
     // but we ensure redirect happens regardless of external script behavior
