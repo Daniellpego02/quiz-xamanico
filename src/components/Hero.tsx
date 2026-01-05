@@ -45,10 +45,10 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           className="space-y-3"
         >
           <h1 className="text-3xl md:text-4xl font-serif font-black text-white leading-[1.15] drop-shadow-2xl">
-            Existe uma <span className="text-[#FFD700]">"TRAVA ANCESTRAL"</span> bloqueando <span className="text-[#FFD700]">R$5-50 MIL</span> na sua vida?
+            Existe uma <span className="text-[#FFD700]">"TRAVA ANCESTRAL"</span> roubando <span className="text-[#FFD700]">R$5-50 MIL</span> da sua vida?
           </h1>
           <p className="text-sm md:text-base text-slate-300 italic">
-            (O Protocolo Xamânico revela exatamente onde está o vazamento)
+            (Descubra como destravá-la em 7 dias - e liberar R$5-50k)
           </p>
         </motion.div>
 
@@ -63,21 +63,21 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             O Protocolo Xamânico identifica <strong className="text-white">EXATAMENTE</strong> qual é seu bloqueio financeiro ancestral.
           </p>
           <p className="text-base md:text-lg text-[#4ade80] font-bold leading-relaxed">
-            Depois de 7 dias seguindo o protocolo, R$5-50 mil em dinheiro destravado.
+            Em apenas 7 dias seguindo o protocolo: R$5-50 mil destravados na sua conta.
           </p>
           
           <div className="text-left space-y-2 bg-[#2d1b4e]/30 backdrop-blur-sm border border-[#D4AF37]/20 rounded-xl p-4">
             <div className="flex items-start gap-2">
               <CheckCircle className="w-5 h-5 text-[#4ade80] flex-shrink-0 mt-0.5" />
-              <p className="text-sm md:text-base text-slate-200">Qual é exatamente seu bloqueio financeiro</p>
+              <p className="text-sm md:text-base text-slate-200">EXATAMENTE qual bloqueio ancestral te rouba dinheiro</p>
             </div>
             <div className="flex items-start gap-2">
               <CheckCircle className="w-5 h-5 text-[#4ade80] flex-shrink-0 mt-0.5" />
-              <p className="text-sm md:text-base text-slate-200">De onde vem (ancestral vs atual)</p>
+              <p className="text-sm md:text-base text-slate-200">Por que começou (e quando você pode PARAR)</p>
             </div>
             <div className="flex items-start gap-2">
               <CheckCircle className="w-5 h-5 text-[#4ade80] flex-shrink-0 mt-0.5" />
-              <p className="text-sm md:text-base text-slate-200">Como destravá-lo em 7 dias (ritual específico)</p>
+              <p className="text-sm md:text-base text-slate-200">O ritual que desbloqueia R$5-50k em 7 dias</p>
             </div>
           </div>
 
@@ -204,19 +204,19 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           <div className="text-left space-y-2 text-sm md:text-base text-slate-300">
             <div className="flex items-start gap-2">
               <span className="text-[#4ade80] flex-shrink-0">●</span>
-              <p>R$5k-50k finalmente destravado</p>
+              <p>R$5k-50k saindo de forma inesperada</p>
             </div>
             <div className="flex items-start gap-2">
               <span className="text-[#4ade80] flex-shrink-0">●</span>
-              <p>Fluxo de dinheiro melhorou significativamente</p>
+              <p>Fluxo de dinheiro que NÃO PARA</p>
             </div>
             <div className="flex items-start gap-2">
               <span className="text-[#4ade80] flex-shrink-0">●</span>
-              <p>Bloqueios emocionais foram solucionados</p>
+              <p>Raiva/culpa sobre dinheiro: DESAPARECEU</p>
             </div>
             <div className="flex items-start gap-2">
               <span className="text-[#4ade80] flex-shrink-0">●</span>
-              <p>Abundância começou a chegar sem esforço</p>
+              <p>Abundância chegando sem esforço</p>
             </div>
           </div>
           <p className="text-xs md:text-sm text-slate-400 pt-2">
