@@ -248,13 +248,13 @@ const Offer = ({ userName }: OfferProps) => {
                         O QUE VOCÊ VAI RECEBER IMEDIATAMENTE
                     </h2>
                     
-                    <div className="grid md:grid-cols-2 gap-6 mb-8">
+                    <div className="grid md:grid-cols-2 gap-4 md:gap-6 mb-8">
                         {/* Card 1 - Mapa da Frequência */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1.0 }}
-                            className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl p-6 hover:border-[#FFD700]/50 hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all relative"
+                            className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl p-5 md:p-6 hover:border-[#FFD700]/50 hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all relative"
                         >
                             {/* INCLUSO Badge */}
                             <div className="absolute top-3 right-3 bg-green-600 text-white text-[10px] font-bold px-2 py-1 rounded-full">
@@ -276,7 +276,7 @@ const Offer = ({ userName }: OfferProps) => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1.1 }}
-                            className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl p-6 hover:border-[#FFD700]/50 hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all relative"
+                            className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl p-5 md:p-6 hover:border-[#FFD700]/50 hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all relative"
                         >
                             {/* INCLUSO Badge */}
                             <div className="absolute top-3 right-3 bg-green-600 text-white text-[10px] font-bold px-2 py-1 rounded-full">
@@ -298,7 +298,7 @@ const Offer = ({ userName }: OfferProps) => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1.2 }}
-                            className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl p-6 hover:border-[#FFD700]/50 hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all relative"
+                            className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl p-5 md:p-6 hover:border-[#FFD700]/50 hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all relative"
                         >
                             {/* INCLUSO Badge */}
                             <div className="absolute top-3 right-3 bg-green-600 text-white text-[10px] font-bold px-2 py-1 rounded-full">
@@ -320,7 +320,7 @@ const Offer = ({ userName }: OfferProps) => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1.3 }}
-                            className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl p-6 hover:border-[#FFD700]/50 hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all relative"
+                            className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl p-5 md:p-6 hover:border-[#FFD700]/50 hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all relative"
                         >
                             {/* INCLUSO Badge */}
                             <div className="absolute top-3 right-3 bg-green-600 text-white text-[10px] font-bold px-2 py-1 rounded-full">
@@ -579,7 +579,7 @@ const Offer = ({ userName }: OfferProps) => {
                     <h3 className="text-xl font-bold text-[#FFD700] mb-4">🎁 Bônus Exclusivos Inclusos:</h3>
                     <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
                         {/* Bonus 1: Meditations - 3D Mockup Visual */}
-                        <div className="bg-white/5 backdrop-blur-sm border border-[#D4AF37]/30 rounded-xl p-4 hover:border-[#FFD700]/50 transition-all">
+                        <div className="bg-white/5 backdrop-blur-sm border border-[#D4AF37]/30 rounded-xl p-5 md:p-4 hover:border-[#FFD700]/50 transition-all">
                             <div className="flex items-center justify-center mb-3">
                                 <div className="relative">
                                     <Headphones className="w-12 h-12 text-[#FFD700]" />
@@ -591,7 +591,7 @@ const Offer = ({ userName }: OfferProps) => {
                             <p className="text-[#FFD700] text-sm mt-2 font-bold">Valor: R$ 97,00</p>
                         </div>
                         {/* Bonus 2: Support - With Scarcity */}
-                        <div className="bg-white/5 backdrop-blur-sm border border-[#D4AF37]/30 rounded-xl p-4 hover:border-[#FFD700]/50 transition-all relative overflow-hidden">
+                        <div className="bg-white/5 backdrop-blur-sm border border-[#D4AF37]/30 rounded-xl p-5 md:p-4 hover:border-[#FFD700]/50 transition-all relative overflow-hidden">
                             {/* Scarcity Badge */}
                             <div className="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full animate-pulse">
                                 VAGAS LIMITADAS
