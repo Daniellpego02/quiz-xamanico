@@ -45,6 +45,8 @@ export default function Oferta1({ userName }: Oferta1Props) {
 
     // Add manual click handler for downsell button as fallback
     // The external script may not properly handle the downsell button
+    // Note: If external script also attaches a handler, both may fire,
+    // but since both redirect to the same URL, this is not an issue
     const setupDownsellHandler = () => {
       const downsellButton = document.getElementById('buckpay-downsell-button');
       if (downsellButton) {
@@ -55,7 +57,8 @@ export default function Oferta1({ userName }: Oferta1Props) {
       }
     };
 
-    // Setup handler after a short delay to ensure DOM is ready
+    // Setup handler after DOM is ready
+    // The 100ms delay ensures the hidden container has been rendered
     const timeoutId = setTimeout(setupDownsellHandler, 100);
 
     return () => {
