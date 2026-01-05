@@ -78,6 +78,14 @@ function generateSessionId(): string {
 }
 
 /**
+ * Validate email format
+ */
+function isValidEmail(email: string): boolean {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+/**
  * Get UTM parameters from URL or sessionStorage
  */
 function getUTMParams(): Record<string, string> {
@@ -446,8 +454,15 @@ const tracking = {
   email: {
     /**
      * Track email capture - fires when user submits email
+     * Validates email format before tracking
      */
     captured(email: string, name?: string, value?: number): void {
+      // Validate email format before tracking
+      if (!isValidEmail(email)) {
+        console.error('[Tracking] Invalid email format, not tracking:', email);
+        return;
+      }
+
       trackEvent('email_captured', {
         quiz_name: 'Mapa Xamânico',
         email: email,

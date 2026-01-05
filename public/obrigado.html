@@ -50,6 +50,8 @@
     <!-- End Meta Pixel Code -->
 
     <!-- TikTok Pixel -->
+    <!-- ⚠️ CRITICAL: Replace PLACEHOLDER_TIKTOK_PIXEL_ID with your real TikTok Pixel ID -->
+    <!-- Get your ID from: https://ads.tiktok.com → Tools → Events → Your Pixel ID -->
     <script>
     !function (w, d, t) {
       w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];
@@ -61,7 +63,7 @@
       ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};
       var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;
       var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
-      ttq.load('PLACEHOLDER_TIKTOK_PIXEL_ID');
+      ttq.load('PLACEHOLDER_TIKTOK_PIXEL_ID');  // ⚠️ REPLACE THIS WITH YOUR REAL TIKTOK PIXEL ID
       ttq.page();
     }(window, document, 'ttq');
     </script>
@@ -161,6 +163,12 @@
 
       // Track purchase on page load
       function trackPurchase() {
+        // Prevent duplicate tracking on page reload
+        if (sessionStorage.getItem('purchase_tracked')) {
+          console.log('⚠️ Purchase already tracked in this session, skipping duplicate');
+          return;
+        }
+
         var urlParams = new URLSearchParams(window.location.search);
         var transactionId = urlParams.get('transaction_id') || 'TXN_' + Date.now();
         var email = urlParams.get('email') || 'unknown@email.com';
@@ -175,6 +183,10 @@
           currency: 'BRL',
           quiz_name: 'Mapa Xamânico'
         });
+
+        // Mark as tracked to prevent duplicates
+        sessionStorage.setItem('purchase_tracked', 'true');
+        sessionStorage.setItem('purchase_tracked_at', new Date().toISOString());
 
         console.log('🎉 PURCHASE TRACKED! Transaction ID:', transactionId);
       }
