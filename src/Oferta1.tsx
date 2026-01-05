@@ -43,8 +43,27 @@ export default function Oferta1({ userName }: Oferta1Props) {
     };
     document.body.appendChild(script);
 
+    // Add manual click handler for downsell button as fallback
+    // The external script may not properly handle the downsell button
+    // Note: If external script also attaches a handler, both may fire,
+    // but since both redirect to the same URL, this is not an issue
+    const setupDownsellHandler = () => {
+      const downsellButton = document.getElementById('buckpay-downsell-button');
+      if (downsellButton) {
+        // Add click event listener for manual redirect
+        downsellButton.addEventListener('click', () => {
+          window.location.href = BUCKPAY_CONFIG.downsellUrl;
+        });
+      }
+    };
+
+    // Setup handler after DOM is ready
+    // The 100ms delay ensures the hidden container has been rendered
+    const timeoutId = setTimeout(setupDownsellHandler, 100);
+
     return () => {
       // Cleanup script on unmount
+      clearTimeout(timeoutId);
       if (script.parentNode) {
         script.parentNode.removeChild(script);
       }
@@ -86,15 +105,10 @@ export default function Oferta1({ userName }: Oferta1Props) {
   };
 
   const handleDecline = () => {
-    // Trigger BuckPay downsell button (redirects to /down1)
-    const buckpayDownsellButton = document.getElementById('buckpay-downsell-button');
-    
-    if (buckpayDownsellButton) {
-      buckpayDownsellButton.click();
-    } else {
-      // Fallback: direct redirect
-      window.location.href = '/down1';
-    }
+    // Direct redirect to downsell page
+    // The hidden buckpay-downsell-button also has a click handler attached
+    // but we ensure redirect happens regardless of external script behavior
+    window.location.href = BUCKPAY_CONFIG.downsellUrl;
   };
 
   return (
