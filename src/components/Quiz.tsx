@@ -24,10 +24,10 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const initialQuestions: QuizQuestion[] = [
     {
       id: 0,
-      title: "CALIBRAGEM ENERGÉTICA",
-      text: "Para quem os portais de abundância devem ser abertos hoje?",
+      title: "PERGUNTA 1 DE 6",
+      text: "SEU NOME CARREGA A FREQUÊNCIA DA SUA LINHAGEM",
       type: "input",
-      placeholder: "Digite seu primeiro nome..."
+      placeholder: "Ex: João"
     }
   ];
 
@@ -35,18 +35,19 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const financeQuestions: QuizQuestion[] = [
     {
       id: 1,
-      title: "P1 — O SINTOMA",
-      text: "Vamos analisar seu padrão atual, {NAME}. Como você descreve sua relação com o dinheiro hoje?",
-      emotionalContext: "→ Essa resposta revela o TIPO de bloqueio energético que você carrega.",
+      title: "⚡ PERGUNTA 2 DE 6 ⚡",
+      text: "{NAME}, QUAL DESSAS VERDADES MAIS DÓI?",
+      emotionalContext: "Qual desses cenários é VOCÊ agora?",
       options: [
-        { label: "O dinheiro entra e some (imprevistos constantes).", sublabel: "Parece que tenho um ralo energético", value: "leak", icon: "💸" },
-        { label: "Trabalho muito, ganho pouco e sinto cansaço crônico.", sublabel: "O esforço não se transforma em resultado", value: "tired", icon: "😰" },
-        { label: "Tenho medo de faltar e vivo economizando cada centavo.", sublabel: "Sinto sempre que vai acabar", value: "fear", icon: "😨" },
+        { label: "O dinheiro entra, mas some em imprevistos", sublabel: "Parece que tenho um RALO que suga tudo", value: "leak", icon: "💰" },
+        { label: "Trabalho demais, ganho pouco, sou cansado", sublabel: "O esforço NÃO vira resultado", value: "tired", icon: "😤" },
+        { label: "Tenho pavor de faltar", sublabel: "Vivo apertando cada centavo, com medo", value: "fear", icon: "😰" },
+        { label: "Nenhum desses, tenho outro problema", sublabel: "", value: "other", icon: "🚫" },
       ]
     },
     {
       id: 2,
-      title: "P2 — A CAUSA (ANCESTRALIDADE)",
+      title: "🔮 PERGUNTA 3 DE 6 🔮",
       text: "O Xamanismo Financeiro ensina que padrões se repetem. Olhando para seus pais ou avós, o que você vê?",
       emotionalContext: "→ Essa resposta define o TIPO de bloqueio que vamos identificar.",
       validationText: "Isso não é culpa sua. É uma herança vibracional que você recebeu sem escolher.",
@@ -58,7 +59,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     },
     {
       id: 3,
-      title: "P3 — A AGITAÇÃO (O CUSTO EMOCIONAL)",
+      title: "⚠️ PERGUNTA 4 DE 6 ⚠️",
       text: "Se nada mudar nos próximos 6 meses, qual é o seu maior medo, {NAME}?",
       emotionalContext: "→ Seja honesto. Essa resposta molda seu protocolo de desbloqueio.",
       warningText: "⚠️ Atenção: O que você responder aqui define o tipo de bloqueio que será revelado no seu diagnóstico.",
@@ -70,7 +71,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     },
     {
       id: 4,
-      title: "P4 — O COMPROMISSO",
+      title: "🔥 PERGUNTA 5 DE 6 🔥",
       text: "O sistema identificou um bloqueio severo na sua frequência. Se existir um Protocolo de 7 dias para limpar isso COMPLETAMENTE, você está disposto(a) a seguir?",
       singleButton: true,
       validationText: "(A maioria das pessoas vive a vida inteira com esse bloqueio sem saber. Você não precisa ser uma delas.)",
@@ -247,7 +248,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 className="mb-2"
               >
                 <p className="text-[#D4AF37] text-xs md:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-1">
-                  ⚡ CALIBRAGEM VIBRACIONAL
+                  🔮 {currentQuestion.title} 🔮
                 </p>
               </motion.div>
             )}
@@ -269,7 +270,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 <Sparkles className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#D4AF37] animate-pulse" />
               </div>
               <p className="text-xs text-slate-300 text-center mt-2 mb-3">
-                Seu nome ativa a frequência energética personalizada
+                ⚠️ Aviso: Seu nome ativa a VIBRAÇÃO exata da sua linhagem ancestral. Isso muda tudo no mapeamento.
               </p>
               <div className="text-xs bg-white/5 backdrop-blur-md border border-white/10 rounded-lg px-3 py-2 mb-3 text-slate-300 text-center">
                 ℹ️ Você receberá seu diagnóstico gratuito na próxima tela. Sem compromisso.
