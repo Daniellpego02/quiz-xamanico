@@ -86,11 +86,9 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
 
   const getLoadingStages = () => [
     `Conectando à egrégora de ${userName}...`,
-    "Mapeando frequência vibracional...",
-    "Analisando respostas de frequência...",
-    "Bloqueio Ancestral Detectado: Nível Alto...",
-    "Gerando Protocolo Personalizado...",
-    "CONCLUÍDO."
+    "Calibrando frequência vibracional...",
+    "Preparando perguntas personalizadas...",
+    "Pronto para começar!"
   ];
 
   useEffect(() => {
@@ -182,7 +180,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             <Compass className="w-24 h-24 text-[#D4AF37] mx-auto mb-6 relative z-10 animate-pulse" />
         </motion.div>
         
-        <h2 className="text-2xl font-serif text-white mb-2">Acessando Frequência Vibracional...</h2>
+        <h2 className="text-2xl font-serif text-white mb-2">Preparando seu Quiz Personalizado...</h2>
         <AnimatePresence mode='wait'>
           <motion.p
             key={loadingStage}
