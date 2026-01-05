@@ -15,16 +15,21 @@ const faqs = [
   },
   {
     id: 3,
+    question: 'Preciso ter experiência com xamanismo ou espiritualidade?',
+    answer: 'Não! O protocolo foi criado para iniciantes absolutos. Você recebe tudo passo a passo: Vídeos explicativos (linguagem simples), Áudios guiados (só apertar play), Rituais com materiais da sua casa. Se você sabe apertar play em um áudio e seguir instruções simples, você consegue fazer. Mais de 70% dos nossos alunos nunca tinham feito NADA de espiritual antes. E funcionou.',
+  },
+  {
+    id: 4,
     question: 'Como recebo o acesso ao Mapa?',
     answer: 'O acesso é imediato e 100% online. Assim que o pagamento for aprovado, você recebe um e-mail com seu login e senha para nossa Área de Membros exclusiva.',
   },
   {
-    id: 4,
+    id: 5,
     question: 'E se não funcionar para mim?',
     answer: 'Você tem 7 dias de garantia incondicional. Se não sentir mudança, devolvemos seu dinheiro. Sem perguntas, sem burocracia. O risco é todo nosso, porque sabemos que o método funciona.',
   },
   {
-    id: 5,
+    id: 6,
     question: 'Por quanto tempo terei acesso?',
     answer: 'Adquirindo hoje nessa oferta especial, seu acesso é VITALÍCIO. Você pode refazer o ciclo de 7 dias quantas vezes quiser e terá direito a todas as atualizações futuras gratuitamente.',
   },
