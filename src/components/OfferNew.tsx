@@ -383,11 +383,11 @@ const OfferNew = ({ userName }: OfferProps) => {
 
                                 {/* Mockup Visual - Otimizado para Mobile */}
                                 <div className="flex justify-center mb-8 px-4 sm:px-6">
-                                    <div className="relative w-full max-w-[320px] sm:max-w-sm md:max-w-md">
+                                    <div className="relative w-full max-w-[300px] sm:max-w-sm md:max-w-md lg:max-w-lg">
                                         <img 
                                             src="/mockup.png" 
                                             alt="Mapa Xamânico Completo"
-                                            className="w-full h-auto rounded-lg sm:rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.9)] object-contain"
+                                            className="w-full h-auto max-h-[500px] sm:max-h-[600px] md:max-h-none rounded-lg sm:rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.9)] object-contain mx-auto"
                                             loading="lazy"
                                         />
                                         <div className="absolute -inset-2 sm:-inset-4 bg-gradient-to-br from-[#D4AF37]/20 to-[#FFD700]/20 blur-2xl sm:blur-3xl -z-10"></div>
