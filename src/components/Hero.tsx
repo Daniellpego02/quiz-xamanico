@@ -204,7 +204,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           <div className="text-left space-y-2 text-sm md:text-base text-slate-300">
             <div className="flex items-start gap-2">
               <span className="text-[#4ade80] flex-shrink-0">●</span>
-              <p>R$5k-50k saindo de forma inesperada</p>
+              <p>R$5k-50k aparecendo de forma inesperada</p>
             </div>
             <div className="flex items-start gap-2">
               <span className="text-[#4ade80] flex-shrink-0">●</span>
