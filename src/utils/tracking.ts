@@ -2,7 +2,7 @@
  * Centralized Tracking Utilities
  * 
  * This module provides a unified interface for all tracking operations
- * including Meta Pixel (Facebook), UTMFY, and UTM parameters.
+ * including GA4, Meta Pixel (Facebook), TikTok Pixel, Google Ads, UTMFY, and UTM parameters.
  */
 
 /// <reference types="vite/client" />
@@ -25,11 +25,31 @@ interface FacebookPixel {
   version?: string;
 }
 
+// TypeScript definitions for TikTok Pixel
+interface TikTokPixel {
+  track: (eventName: string, params?: Record<string, any>) => void;
+  page: () => void;
+  identify: (params?: Record<string, any>) => void;
+  instances?: any[];
+  load?: (pixelId: string) => void;
+}
+
+// TypeScript definitions for Google Analytics (gtag)
+interface GtagFunction {
+  (command: 'event', eventName: string, params?: Record<string, any>): void;
+  (command: 'config', targetId: string, params?: Record<string, any>): void;
+  (command: 'js', date: Date): void;
+}
+
 declare global {
   interface Window {
     fbq?: FacebookPixel;
     _fbq?: FacebookPixel;
     pixelId?: string;
+    ttq?: TikTokPixel;
+    gtag?: GtagFunction;
+    dataLayer?: any[];
+    sessionId?: string;
   }
 }
 
@@ -45,10 +65,71 @@ declare global {
 // ============================================================================
 
 /**
+ * Generate a unique session ID for tracking user journey
+ */
+function generateSessionId(): string {
+  if (typeof window !== 'undefined') {
+    if (!window.sessionId) {
+      window.sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    }
+    return window.sessionId;
+  }
+  return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+}
+
+/**
+ * Get UTM parameters from URL or sessionStorage
+ */
+function getUTMParams(): Record<string, string> {
+  if (typeof window === 'undefined') return {};
+
+  const params = new URLSearchParams(window.location.search);
+  const utmParams: Record<string, string> = {};
+
+  const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+
+  utmKeys.forEach((key) => {
+    const value = params.get(key);
+    if (value) {
+      utmParams[key] = value;
+    }
+  });
+
+  // If no UTMs in URL, try to get from sessionStorage
+  if (Object.keys(utmParams).length === 0) {
+    const stored = sessionStorage.getItem('utm_params');
+    if (stored) {
+      return JSON.parse(stored);
+    }
+  }
+
+  // Set defaults if still empty
+  return {
+    utm_source: utmParams.utm_source || 'direct',
+    utm_medium: utmParams.utm_medium || 'direct',
+    utm_campaign: utmParams.utm_campaign || 'direct'
+  };
+}
+
+/**
  * Safely checks if Meta Pixel is loaded and available
  */
 function isMetaPixelLoaded(): boolean {
   return typeof window !== 'undefined' && typeof window.fbq === 'function';
+}
+
+/**
+ * Safely checks if TikTok Pixel is loaded and available
+ */
+function isTikTokPixelLoaded(): boolean {
+  return typeof window !== 'undefined' && typeof window.ttq !== 'undefined' && typeof window.ttq.track === 'function';
+}
+
+/**
+ * Safely checks if Google Analytics (gtag) is loaded and available
+ */
+function isGtagLoaded(): boolean {
+  return typeof window !== 'undefined' && typeof window.gtag === 'function';
 }
 
 /**
@@ -82,6 +163,115 @@ function trackMetaPixelEvent(
 }
 
 // ============================================================================
+// CENTRAL TRACKING FUNCTION (GA4 + ALL PIXELS)
+// ============================================================================
+
+/**
+ * Central tracking function that sends events to all platforms:
+ * - Google Analytics 4 (GA4)
+ * - Facebook Pixel
+ * - TikTok Pixel
+ * - Google Ads
+ */
+function trackEvent(eventName: string, eventData: Record<string, any> = {}): void {
+  // Add timestamp, session ID and UTM params to all events
+  const enrichedData = {
+    ...eventData,
+    timestamp: new Date().toISOString(),
+    page_location: typeof window !== 'undefined' ? window.location.href : '',
+    page_title: typeof document !== 'undefined' ? document.title : '',
+    session_id: generateSessionId(),
+    ...getUTMParams()
+  };
+
+  // ─────────────────────────────────────────────
+  // 1️⃣ SEND TO GA4 (Google Analytics)
+  // ─────────────────────────────────────────────
+  if (isGtagLoaded()) {
+    try {
+      window.gtag!('event', eventName, enrichedData);
+      console.log(`✅ GA4 Event sent: ${eventName}`, enrichedData);
+    } catch (error) {
+      console.error('[Tracking] Error sending GA4 event:', error);
+    }
+  }
+
+  // ─────────────────────────────────────────────
+  // 2️⃣ SEND TO FACEBOOK PIXEL
+  // ─────────────────────────────────────────────
+  if (isMetaPixelLoaded()) {
+    try {
+      // Mapping GA4 events to Facebook events
+      const facebookEventMap: Record<string, string> = {
+        'quiz_started': 'ViewContent',
+        'quiz_question': 'CustomEvent',
+        'quiz_completed': 'Lead',
+        'resultado_view': 'ViewContent',
+        'email_captured': 'Lead',
+        'add_to_cart': 'AddToCart',
+        'purchase': 'Purchase'
+      };
+
+      const fbEventName = facebookEventMap[eventName] || 'CustomEvent';
+      
+      if (fbEventName === 'CustomEvent') {
+        window.fbq!('trackCustom', eventName, enrichedData);
+      } else {
+        window.fbq!('track', fbEventName, enrichedData);
+      }
+      
+      console.log(`✅ FB Pixel Event: ${fbEventName}`, enrichedData);
+    } catch (error) {
+      console.error('[Tracking] Error sending Facebook Pixel event:', error);
+    }
+  }
+
+  // ─────────────────────────────────────────────
+  // 3️⃣ SEND TO TIKTOK PIXEL
+  // ─────────────────────────────────────────────
+  if (isTikTokPixelLoaded()) {
+    try {
+      const tiktokEventMap: Record<string, string> = {
+        'quiz_started': 'ViewContent',
+        'quiz_completed': 'Contact',
+        'email_captured': 'Contact',
+        'add_to_cart': 'AddToCart',
+        'purchase': 'CompletePayment'
+      };
+
+      const ttEventName = tiktokEventMap[eventName] || eventName;
+      window.ttq!.track(ttEventName, enrichedData);
+      console.log(`✅ TikTok Event: ${ttEventName}`, enrichedData);
+    } catch (error) {
+      console.error('[Tracking] Error sending TikTok Pixel event:', error);
+    }
+  }
+
+  // ─────────────────────────────────────────────
+  // 4️⃣ SEND TO GOOGLE ADS
+  // ─────────────────────────────────────────────
+  if (isGtagLoaded()) {
+    try {
+      const googleAdsEventMap: Record<string, string> = {
+        'quiz_started': 'view_item',
+        'quiz_completed': 'generate_lead',
+        'email_captured': 'generate_lead',
+        'add_to_cart': 'add_to_cart',
+        'purchase': 'purchase'
+      };
+
+      const adsEventName = googleAdsEventMap[eventName];
+      if (adsEventName) {
+        window.gtag!('event', adsEventName, enrichedData);
+        console.log(`✅ Google Ads Event: ${adsEventName}`, enrichedData);
+      }
+    } catch (error) {
+      console.error('[Tracking] Error sending Google Ads event:', error);
+    }
+  }
+}
+
+// ============================================================================
 // PUBLIC TRACKING API
 // ============================================================================
 
@@ -90,7 +280,7 @@ function trackMetaPixelEvent(
  */
 const tracking = {
   /**
-   * Standard Meta Pixel Events
+   * Standard Meta Pixel Events (Legacy - maintained for backward compatibility)
    */
   meta: {
     /**
@@ -130,25 +320,34 @@ const tracking = {
   },
 
   /**
-   * Custom Quiz-specific Events
+   * Enhanced Quiz Events using central tracking function
    */
   quiz: {
     /**
-     * Track quiz start with user name
+     * Track quiz start - fires when user clicks "Start Quiz"
      */
-    started(userName: string): void {
-      trackMetaPixelEvent(
-        'QuizStarted',
-        {
-          name_provided: true,
-          user_name: userName,
-        },
-        true
-      );
+    started(userName?: string): void {
+      trackEvent('quiz_started', {
+        quiz_name: 'Mapa Xamânico',
+        user_name: userName || 'Unknown',
+        name_provided: !!userName
+      });
+      
+      // Also fire legacy tracking for backward compatibility
+      if (userName) {
+        trackMetaPixelEvent(
+          'QuizStarted',
+          {
+            name_provided: true,
+            user_name: userName,
+          },
+          true
+        );
+      }
     },
 
     /**
-     * Track individual quiz answer
+     * Track individual quiz question answer
      */
     answer(data: {
       questionTitle: string;
@@ -157,6 +356,16 @@ const tracking = {
       answerLabel: string;
       quizPath: string;
     }): void {
+      trackEvent('quiz_question', {
+        quiz_name: 'Mapa Xamânico',
+        question_number: data.questionStep,
+        question_title: data.questionTitle,
+        answer_selected: data.answerValue,
+        answer_label: data.answerLabel,
+        quiz_path: data.quizPath
+      });
+
+      // Legacy tracking
       trackMetaPixelEvent(
         'QuizAnswer',
         {
@@ -192,9 +401,18 @@ const tracking = {
     },
 
     /**
-     * Track quiz completion
+     * Track quiz completion - fires when all questions are answered
      */
-    complete(path: string): void {
+    complete(path: string, userName?: string, totalQuestions?: number, answers?: any[]): void {
+      trackEvent('quiz_completed', {
+        quiz_name: 'Mapa Xamânico',
+        quiz_path: path,
+        user_name: userName || 'Unknown',
+        total_questions: totalQuestions || 0,
+        answers_data: answers ? JSON.stringify(answers) : undefined
+      });
+
+      // Legacy tracking
       trackMetaPixelEvent(
         'QuizComplete',
         {
@@ -207,7 +425,86 @@ const tracking = {
   },
 
   /**
-   * Offer and Sales Funnel Events
+   * Result and Offer Page Events
+   */
+  result: {
+    /**
+     * Track result page view - fires when user sees their quiz result
+     */
+    view(resultType?: string, resultScore?: number): void {
+      trackEvent('resultado_view', {
+        quiz_name: 'Mapa Xamânico',
+        result_type: resultType || 'Unknown',
+        result_score: resultScore || 0
+      });
+    },
+  },
+
+  /**
+   * Email Capture Events
+   */
+  email: {
+    /**
+     * Track email capture - fires when user submits email
+     */
+    captured(email: string, name?: string, value?: number): void {
+      trackEvent('email_captured', {
+        quiz_name: 'Mapa Xamânico',
+        email: email,
+        name: name || 'Unknown',
+        value: value || 27,
+        currency: 'BRL'
+      });
+    },
+  },
+
+  /**
+   * Purchase Funnel Events
+   */
+  purchase: {
+    /**
+     * Track add to cart - fires when user clicks "Buy Now" button
+     */
+    addToCart(params: {
+      productName: string;
+      productPrice: number;
+      productId: string;
+      email?: string;
+    }): void {
+      trackEvent('add_to_cart', {
+        quiz_name: 'Mapa Xamânico',
+        product_name: params.productName,
+        product_price: params.productPrice,
+        product_id: params.productId,
+        currency: 'BRL',
+        email: params.email || 'unknown@email.com'
+      });
+    },
+
+    /**
+     * Track completed purchase - fires on thank you page
+     */
+    complete(params: {
+      transactionId: string;
+      email?: string;
+      productId: string;
+      productName: string;
+      value: number;
+    }): void {
+      trackEvent('purchase', {
+        transaction_id: params.transactionId,
+        email: params.email || 'unknown@email.com',
+        product_id: params.productId,
+        product_name: params.productName,
+        value: params.value,
+        currency: 'BRL',
+        quiz_name: 'Mapa Xamânico'
+      });
+    },
+  },
+
+  /**
+   * Offer and Sales Funnel Events (Legacy - maintained for backward compatibility)
    */
   funnel: {
     /**
@@ -304,6 +601,12 @@ const tracking = {
       return stored ? JSON.parse(stored) : {};
     },
   },
+
+  /**
+   * Direct access to central tracking function
+   * Use this for custom events not covered by the standard API
+   */
+  trackEvent: trackEvent,
 
   /**
    * Initialize all tracking systems

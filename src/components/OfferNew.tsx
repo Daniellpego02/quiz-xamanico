@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { Check, Shield, Clock, AlertTriangle, Headphones, FileText, Sparkles, Lock } from 'lucide-react';
 import { FAQ } from './FAQ';
+import { tracking } from '../utils/tracking';
 
 interface OfferProps {
     userName: string;
@@ -19,6 +20,11 @@ const OfferNew = ({ userName }: OfferProps) => {
     // Price configuration - PIX ONLY (À VISTA)
     // Updated price anchoring: From R$ 497,00 (session value) to R$ 27,90
     const priceOld = "497,00";
+
+    // Track result page view on component mount
+    useEffect(() => {
+        tracking.result.view('Mapa Xamânico', 100);
+    }, []);
 
     // Load video player script
     useEffect(() => {
@@ -80,6 +86,14 @@ const OfferNew = ({ userName }: OfferProps) => {
     }, []);
 
     const handleCheckout = () => {
+        // Track add to cart before redirecting
+        tracking.purchase.addToCart({
+            productName: 'Mapa Xamânico - Curso Completo',
+            productPrice: 27.90,
+            productId: 'mapa-xamanico-001',
+            email: 'unknown@email.com'
+        });
+        
         window.location.href = 'https://www.seguropagamentos.com.br/mapa-xamanico';
     };
 

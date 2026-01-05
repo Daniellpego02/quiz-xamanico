@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, X, Check, Shield, Star, AlertTriangle } from 'lucide-react';
+import { tracking } from './utils/tracking';
 
 interface Oferta2Props {
   userName?: string;
@@ -14,6 +15,11 @@ export default function Oferta2({ userName = 'você' }: Oferta2Props) {
 
   const firstName = userName ? userName.split(' ')[0] : 'você';
   const firstNameUpper = firstName.toUpperCase();
+
+  // Track offer page view
+  useEffect(() => {
+    tracking.funnel.viewOffer('Oferta 2 - Oferta Quatro');
+  }, []);
 
   // Track user activity
   useEffect(() => {
@@ -81,14 +87,33 @@ export default function Oferta2({ userName = 'você' }: Oferta2Props) {
   };
 
   const handleAccept = () => {
+    // Track offer 2 acceptance
+    tracking.purchase.addToCart({
+      productName: 'Oferta 2 - Oferta Quatro',
+      productPrice: 197.00, // Adjust to actual price
+      productId: 'oferta2-quatro',
+      email: 'unknown@email.com'
+    });
+    
     window.location.href = 'https://checkout.mapaxamanicooficial.online/oferta-quatro';
   };
 
   const handleDecline = () => {
+    // Track offer 2 decline
+    tracking.funnel.clickCTA('Oferta 2 - Declined');
+    
     window.location.href = 'https://mapaxamanicooficial.online/obrigado';
   };
 
   const handleExitAccept = () => {
+    // Track exit popup acceptance
+    tracking.purchase.addToCart({
+      productName: 'Oferta 2 - Se Ssenta (Exit Popup)',
+      productPrice: 67.00, // Adjust to actual price
+      productId: 'oferta2-sessenta-exit',
+      email: 'unknown@email.com'
+    });
+    
     window.location.href = 'https://checkout.mapaxamanicooficial.online/se-ssenta';
   };
 
