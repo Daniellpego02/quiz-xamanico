@@ -26,7 +26,9 @@ export default {
           800: '#1E1245',
           700: '#302060',
         },
-        lavender: '#c4b5d6', // Quiz subtitle color for readability
+        lavender: {
+          500: '#c4b5d6', // Quiz subtitle color for readability
+        },
       },
       animation: {
         'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',

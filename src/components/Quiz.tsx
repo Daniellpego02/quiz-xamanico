@@ -323,7 +323,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                         {option.label}
                       </span>
                       {option.sublabel && (
-                        <span className={`text-sm mt-1.5 block transition-colors leading-relaxed ${currentQuestion.singleButton ? 'text-white/90' : 'text-lavender group-hover:text-slate-300'}`}>
+                        <span className={`text-sm mt-1.5 block transition-colors leading-relaxed ${currentQuestion.singleButton ? 'text-white/90' : 'text-lavender-500 group-hover:text-slate-300'}`}>
                           {option.sublabel}
                         </span>
                       )}
