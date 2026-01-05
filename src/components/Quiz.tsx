@@ -209,7 +209,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const progress = PROGRESS_START_PERCENT + (currentIndex / activeQuestions.length) * PROGRESS_RANGE_PERCENT;
 
   return (
-    <div className="min-h-screen min-h-[100dvh] flex flex-col max-w-lg mx-auto px-4 sm:px-5 py-4 sm:py-6 relative z-10 safe-area-inset">
+    <div className="min-h-screen min-h-[100dvh] flex flex-col max-w-lg mx-auto px-4 sm:px-5 py-4 sm:py-6 relative z-10">
       {/* Progress Bar - Otimizado para mobile */}
       <div className="w-full bg-white/5 backdrop-blur-sm rounded-full h-2 sm:h-3 mb-6 sm:mb-8 relative overflow-hidden border border-white/10 shadow-inner">
         <motion.div 
@@ -267,10 +267,10 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   placeholder={currentQuestion.placeholder}
                   className="w-full bg-white/10 border border-white/20 rounded-xl p-4 sm:p-5 text-base sm:text-lg text-white placeholder-slate-400 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all text-center touch-manipulation"
                   autoFocus
-                  autoComplete="off"
+                  autoComplete="name"
                   inputMode="text"
                 />
-                <Sparkles className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-4 sm:w-5 h-4 sm:h-5 text-[#D4AF37] animate-pulse pointer-events-none" />
+                <Sparkles className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-4 sm:w-5 h-4 sm:h-5 text-[#D4AF37] animate-pulse pointer-events-none" aria-hidden="true" />
               </div>
               <p className="text-[10px] sm:text-xs text-slate-300 text-center mt-2 mb-2 sm:mb-3 px-2 leading-relaxed">
                 ⚠️ Aviso: Seu nome ativa a VIBRAÇÃO exata da sua linhagem ancestral. Isso muda tudo no mapeamento.
