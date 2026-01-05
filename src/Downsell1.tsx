@@ -116,7 +116,7 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
 
         <div className="max-w-2xl mx-auto px-4 py-12 md:py-16 relative z-10">
           
-          {/* HEADLINE - Reassuring, not pushy */}
+          {/* HEADLINE - OPTIMIZED for conversion */}
           <motion.div
             variants={fadeIn}
             initial="hidden"
@@ -125,11 +125,11 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
             className="text-center space-y-4 mb-8"
           >
             <h1 className="text-2xl md:text-3xl font-bold text-white leading-tight max-w-xl mx-auto">
-              Tudo bem se você quiser algo mais simples
+              Entendo. Então veja essa opção mais leve:
             </h1>
           </motion.div>
 
-          {/* MAIN COPY - Shorter, lighter */}
+          {/* MAIN COPY - OPTIMIZED with empathy and specificity */}
           <motion.div
             variants={slideUp}
             initial="hidden"
@@ -139,22 +139,28 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
           >
             <div className="prose prose-invert max-w-none">
               <p className="text-base md:text-lg text-gray-200 leading-relaxed mb-4">
-                Algumas pessoas preferem não ter um acompanhamento completo.
+                Eu entendo que R$29 pode ser muito neste momento.
               </p>
               
               <p className="text-base md:text-lg text-gray-200 leading-relaxed mb-4">
-                Pensando nisso, criamos uma <strong className="text-indigo-300">versão essencial</strong>, apenas para te dar um mínimo de orientação durante os 7 dias do Mapa, sem aprofundamento, sem rotina, sem compromisso.
+                Mas você <strong className="text-indigo-300">não precisa fazer o Mapa TOTALMENTE sozinho</strong>.
+              </p>
+              
+              <p className="text-base md:text-lg text-gray-200 leading-relaxed mb-4">
+                Criei a <strong className="text-indigo-300">VERSÃO ESSENCIAL</strong>: um suporte básico para te guiar nos momentos mais críticos do protocolo.
               </p>
 
               <div className="bg-indigo-900/20 border-l-4 border-indigo-400 p-4 rounded-r-xl my-5">
                 <p className="text-base text-indigo-200 leading-relaxed">
-                  É indicada para quem quer seguir no próprio ritmo, mas não quer se sentir totalmente sozinho.
+                  <strong>Sem compromisso. Sem rotina rígida. No seu ritmo.</strong>
+                  <br /><br />
+                  Mas com o mínimo de direção para <span className="text-white font-semibold">não travar</span>.
                 </p>
               </div>
             </div>
           </motion.div>
 
-          {/* WHAT YOU RECEIVE - Shorter list */}
+          {/* WHAT YOU RECEIVE - OPTIMIZED with specificity */}
           <div ref={benefitsRef} className="mb-8">
             <motion.h2 
               variants={slideUp}
@@ -176,8 +182,14 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
                   <Check className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <p className="text-gray-200 text-sm md:text-base leading-relaxed">
-                    <strong className="text-white">Orientações gerais</strong> para os 7 dias
+                  <p className="text-white font-semibold text-sm md:text-base mb-1">
+                    3 mensagens-chave no WhatsApp
+                  </p>
+                  <p className="text-gray-300 text-xs md:text-sm leading-relaxed">
+                    → Dias 1, 3 e 5 (os momentos críticos)
+                  </p>
+                  <p className="text-gray-400 text-xs mt-2 italic">
+                    Você não fica sozinho nos momentos decisivos
                   </p>
                 </div>
               </motion.div>
@@ -187,8 +199,14 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
                   <Check className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <p className="text-gray-200 text-sm md:text-base leading-relaxed">
-                    <strong className="text-white">Explicação simples</strong> dos sinais mais comuns
+                  <p className="text-white font-semibold text-sm md:text-base mb-1">
+                    Checklist dos 5 sinais principais
+                  </p>
+                  <p className="text-gray-300 text-xs md:text-sm leading-relaxed">
+                    Para você saber se está no caminho certo
+                  </p>
+                  <p className="text-gray-400 text-xs mt-2 italic">
+                    Elimina 80% das dúvidas
                   </p>
                 </div>
               </motion.div>
@@ -198,8 +216,12 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
                   <Heart className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <p className="text-gray-200 text-sm md:text-base leading-relaxed">
-                    <strong className="text-white">2 áudios curtos</strong> de apoio emocional
+                  <p className="text-white font-semibold text-sm md:text-base mb-1">
+                    2 áudios de apoio emocional (5min cada)
+                  </p>
+                  <p className="text-gray-300 text-xs md:text-sm leading-relaxed">
+                    → Áudio 1: Como começar sem medo<br />
+                    → Áudio 2: O que fazer se sentir travado
                   </p>
                 </div>
               </motion.div>
@@ -212,21 +234,27 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
                   <p className="text-gray-300 text-sm md:text-base leading-relaxed">
                     <strong>Sem acompanhamento diário</strong> (versão simplificada)
                   </p>
+                  <p className="text-gray-400 text-xs mt-1">
+                    Para ter isso, veja o Guia Completo por R$29
+                  </p>
                 </div>
               </motion.div>
             </motion.div>
           </div>
 
-          {/* PRICING - Simple, no comparison */}
+          {/* PRICING - OPTIMIZED with comparison anchor */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, delay: 0.8 }}
-            className="bg-gradient-to-br from-indigo-950/40 to-purple-950/40 rounded-2xl p-6 md:p-7 mb-8 border border-purple-400/30 shadow-lg"
+            className="bg-gradient-to-br from-indigo-950/40 to-purple-950/40 rounded-2xl p-6 md:p-7 mb-6 border border-purple-400/30 shadow-lg"
           >
             <div className="text-center mb-6">
-              <p className="text-purple-300 font-semibold text-sm md:text-base uppercase tracking-wider mb-3">
+              <p className="text-purple-300 font-semibold text-sm md:text-base uppercase tracking-wider mb-2">
                 Versão Essencial
+              </p>
+              <p className="text-gray-400 text-xs md:text-sm mb-4 line-through">
+                Valor normal: R$ 47,00
               </p>
               <div className="flex items-baseline justify-center gap-1 mb-4">
                 <span className="text-2xl text-white font-bold">R$</span>
@@ -235,8 +263,11 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
                 </span>
                 <span className="text-2xl text-white font-bold">,90</span>
               </div>
-              <p className="text-emerald-400 text-sm font-medium mb-5">
-                💳 Pagamento via PIX • Acesso imediato
+              <p className="text-emerald-400 text-sm font-medium mb-2">
+                💳 Pagamento 1 clique via PIX
+              </p>
+              <p className="text-gray-400 text-xs mb-5">
+                Apenas R$19,90 para ter suporte básico nos momentos críticos
               </p>
 
               <button
@@ -255,7 +286,7 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
                   </span>
                 ) : (
                   <>
-                    <span className="relative z-10">SIM, QUERO A VERSÃO ESSENCIAL</span>
+                    <span className="relative z-10">✓ SIM, QUERO O ESSENCIAL (R$19,90)</span>
                     <div className="absolute inset-0 bg-gradient-to-r from-purple-400/0 via-white/5 to-purple-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
                   </>
                 )}
@@ -264,18 +295,30 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
               <div className="flex items-center justify-center gap-3 text-gray-400 text-xs">
                 <div className="flex items-center gap-1">
                   <Shield className="w-3 h-3" />
-                  <span>Pagamento seguro</span>
+                  <span>Acesso imediato</span>
                 </div>
                 <span>•</span>
                 <div className="flex items-center gap-1">
                   <Sparkles className="w-3 h-3" />
-                  <span>Sem compromisso</span>
+                  <span>7 dias de garantia</span>
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Decline Link - No guilt, clean */}
+          {/* COMPARISON BOX - Shows what they're missing */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.9 }}
+            className="bg-indigo-900/20 border border-indigo-500/20 rounded-xl p-4 mb-6"
+          >
+            <p className="text-gray-300 text-xs md:text-sm text-center leading-relaxed">
+              <span className="text-indigo-300 font-semibold">💡 Lembrete:</span> Esse é o preço mais baixo que consigo oferecer. Se recusar, você vai fazer o Mapa totalmente sozinho, sem nenhum suporte.
+            </p>
+          </motion.div>
+
+          {/* Decline Link - Softer, no guilt */}
           <motion.div 
             className="text-center"
             initial={{ opacity: 0 }}
@@ -286,7 +329,7 @@ export default function Downsell1({ userName = 'você' }: Downsell1Props) {
               onClick={handleDecline}
               className="text-gray-500 hover:text-gray-400 text-sm underline transition-colors"
             >
-              Não, seguir sem acompanhamento
+              Não, vou seguir totalmente sozinho
             </button>
           </motion.div>
 
