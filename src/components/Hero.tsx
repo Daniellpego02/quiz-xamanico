@@ -125,9 +125,6 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
         {/* ESPAÇAMENTO: 24px */}
         <div className="h-6"></div>
 
-        {/* ESPAÇAMENTO: 24px */}
-        <div className="h-6"></div>
-
         {/* HIGHLIGHT COM ÍCONE */}
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
