@@ -52,7 +52,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       singleButton: true,
       validationText: "A maioria das pessoas passa a vida inteira checando o saldo bancário antes de comprar QUALQUER coisa, vivendo no aperto, pedindo emprestado… sem saber que um bloqueio ancestral está causando isso. Você não precisa ser uma delas.",
       options: [
-        { label: "SIM, estou pronto(a) para destruir esse bloqueio", value: "ready", icon: "" },
+        { label: "SIM, quero destruir esse bloqueio agora", value: "ready", icon: "" },
       ]
     },
     {
@@ -115,7 +115,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       bridgeText: "Se você disser SIM aqui, o sistema gera seu mapa PERSONALIZADO e libera o protocolo completo de 7 dias dentro do APP.",
       validationText: "A maioria das pessoas vive a vida inteira com esse bloqueio sem saber. Você não precisa ser uma delas.",
       options: [
-        { label: "SIM, eu aceito receber meu Mapa e me desbloquear", value: "ready", icon: "" },
+        { label: "SIM, quero meu mapa agora", value: "ready", icon: "" },
       ]
     }
   ];
@@ -413,8 +413,8 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               </motion.div>
             )}
 
-            {/* HEADLINE DA PERGUNTA */}
-            <h2 className="text-[22px] sm:text-[26px] md:text-[32px] lg:text-[36px] font-bold text-white leading-[1.3] text-center px-2 text-glow-gold">
+            {/* HEADLINE DA PERGUNTA - Mobile optimized */}
+            <h2 className="text-[20px] sm:text-[24px] md:text-[28px] lg:text-[32px] font-bold text-white leading-[1.25] text-center px-2 text-glow-gold">
               <span dangerouslySetInnerHTML={{ __html: personalizeText(currentQuestion.text).replace('BLOQUEIO SEVERO', '<span class="text-[#FF4500]">BLOQUEIO SEVERO</span>').replace('6 MESES', '<span class="text-[#FF4500]">6 MESES</span>').replace('MAIOR MEDO', '<span class="text-[#FF4500]">MAIOR MEDO</span>').replace('ENERGIA', '<span class="text-[#FFD700]">ENERGIA</span>') }}></span>
             </h2>
 
@@ -689,7 +689,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 })}
               </div>
 
-              {/* "Nenhum desses" link for question 4 */}
+              {/* "Nenhum desses" link for question 4 - Mobile optimized touch target */}
               {currentQuestion.hasOtherOption && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
@@ -700,7 +700,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   <button
                     onClick={() => handleOptionClick(OTHER_OPTION)}
                     disabled={isNavigating}
-                    className="text-sm text-white/60 hover:text-[#FFD700] underline transition-colors"
+                    className="text-sm text-white/60 hover:text-[#FFD700] underline transition-colors min-h-[44px] px-4 py-2"
                   >
                     Nenhum desses? Meu problema é outro.
                   </button>

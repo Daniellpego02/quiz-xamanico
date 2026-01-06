@@ -62,7 +62,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           transition={{ delay: 0.1, duration: 0.6, ease: "easeOut" }}
           className="space-y-2"
         >
-          <h1 className="text-[28px] sm:text-[36px] md:text-[48px] lg:text-[56px] font-black text-white leading-[1.15] drop-shadow-2xl break-words">
+          <h1 className="text-[24px] sm:text-[36px] md:text-[48px] lg:text-[56px] font-black text-white leading-[1.15] drop-shadow-2xl break-words">
             Existe Uma <span className="text-[#FFD700]">"TRAVA ANCESTRAL"</span>{' '}
             <span className="text-[#FF4500]">SUFOCANDO</span>{' '}
             <span className="text-[#FFD700]">R$5-50 MIL</span>{' '}
@@ -185,38 +185,38 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           </div>
         </motion.div>
 
-        {/* IMAGEM BEFORE/AFTER */}
+        {/* IMAGEM BEFORE/AFTER - Optimized for mobile */}
         <motion.div
           initial={{ scale: 0.95, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 0.5 }}
           className="w-full space-y-2 md:space-y-3"
         >
-          <p className="text-lg sm:text-xl md:text-2xl font-black text-white">
+          <p className="text-base sm:text-lg md:text-xl font-black text-white">
             Onde você está hoje?
           </p>
           
-          <div className="relative border-2 border-[#FFD700]/60 rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(255,215,0,0.2)]">
+          <div className="relative border-2 border-[#FFD700]/60 rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(255,215,0,0.2)] max-h-[200px] sm:max-h-none">
             <img 
               src="/banner principal.png" 
               alt="Transformação - Antes e Depois" 
-              className="w-full h-auto"
+              className="w-full h-auto object-cover"
             />
           </div>
           <div className="space-y-1">
-            <p className="text-sm sm:text-base font-bold text-[#FF4500]">
+            <p className="text-xs sm:text-sm font-bold text-[#FF4500]">
               Você está no lado ESQUERDO?
             </p>
             <div className="flex items-center justify-center gap-2">
-              <p className="text-base sm:text-lg font-bold text-[#4ade80]">
+              <p className="text-sm sm:text-base font-bold text-[#4ade80]">
                 Vamos levar você para o lado DIREITO em 7 dias!
               </p>
-              <Compass className="w-5 h-5 text-[#4ade80]" />
+              <Compass className="w-4 h-4 sm:w-5 sm:h-5 text-[#4ade80]" />
             </div>
           </div>
         </motion.div>
 
-        {/* CARD DE URGÊNCIA */}
+        {/* CARD DE URGÊNCIA - Compact for mobile */}
         <motion.div
           initial={{ scale: 0.95, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -224,19 +224,14 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           className="w-full bg-gradient-to-br from-[#1a0606]/90 to-[#0a0202]/90 backdrop-blur-sm border-2 border-[#FF0000]/60 rounded-lg p-3 md:p-4 space-y-2 shadow-[0_0_30px_rgba(255,0,0,0.2)]"
         >
           <div className="flex items-center justify-center gap-2">
-            <AlertTriangle className="w-5 h-5 text-[#FF0000]" />
-            <p className="text-base sm:text-lg md:text-xl font-black text-[#FF0000]">
+            <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-[#FF0000]" />
+            <p className="text-sm sm:text-base md:text-lg font-black text-[#FF0000]">
               ATENÇÃO: VAGAS LIMITADAS
             </p>
           </div>
-          <p className="text-xs sm:text-sm text-white/90 font-medium">
-            Apenas 50 análises podem ser processadas por dia.
-          </p>
-          <p className="text-sm sm:text-base md:text-lg font-bold text-[#4ade80]">
-            Você está no lugar: <span className="text-[#FFD700]">12/50</span>
-          </p>
-          <p className="text-xs text-slate-400">
-            Vagas esgotadas = próxima disponibilidade é amanhã de manhã
+          {/* Compact text for mobile - 2 lines max */}
+          <p className="text-xs sm:text-sm text-[#4ade80] font-bold text-center">
+            VAGAS: <span className="text-[#FFD700]">12/50</span> | Próxima vaga só amanhã
           </p>
         </motion.div>
 

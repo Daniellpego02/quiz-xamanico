@@ -250,7 +250,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                     </div>
                 </motion.div>
 
-                {/* BLOCK 02: VSL VIDEO PLAYER */}
+                {/* BLOCK 02: VSL VIDEO PLAYER - Mobile Optimized Height */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -258,7 +258,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                     className="relative rounded-lg sm:rounded-2xl overflow-hidden border-2 border-[#D4AF37] shadow-[0_0_60px_rgba(212,175,55,0.4)] mb-4 sm:mb-6 mx-auto max-w-md"
                 >
                     <div className="bg-black flex items-center justify-center relative">
-                        <div className="w-full" style={{ aspectRatio: '9/16', maxWidth: '400px' }}>
+                        <div className="w-full max-h-[220px] sm:max-h-none" style={{ aspectRatio: '9/16', maxWidth: '400px' }}>
                             <vturb-smartplayer 
                                 id="vid-6953144d84040898eb13007a" 
                                 style={{ display: 'block', width: '100%', maxWidth: '400px', margin: '0 auto' }}
@@ -349,7 +349,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                 </p>
                                             </div>
 
-                                            {/* Linha 3: PREÇO GIGANTE VERDE NEON - Mobile Optimized - MELHORADO: dobro do tamanho, ultra brilho */}
+                                            {/* Linha 3: PREÇO GIGANTE VERDE NEON - Mobile Optimized - MELHORADO: muito maior em mobile */}
                                             <motion.div 
                                                 initial={{ scale: 0.7, opacity: 0 }}
                                                 animate={{ 
@@ -370,7 +370,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                         initial={{ opacity: 0, x: -20 }}
                                                         animate={{ opacity: 1, x: 0 }}
                                                         transition={{ delay: 0.8 }}
-                                                        className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" 
+                                                        className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" 
                                                         style={{ fontWeight: 900 }}
                                                     >
                                                         R$
@@ -386,7 +386,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                             duration: 0.5,
                                                             type: "spring"
                                                         }}
-                                                        className="text-7xl sm:text-8xl md:text-9xl lg:text-[12rem] font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" 
+                                                        className="text-8xl sm:text-9xl md:text-[10rem] lg:text-[12rem] font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" 
                                                         style={{ 
                                                             fontWeight: 900,
                                                             textShadow: '0 0 60px rgba(0,255,136,0.8), 0 0 100px rgba(0,255,136,0.4)'
@@ -695,13 +695,24 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             verified: true
                                         },
                                         {
+                                            name: 'Patrícia Lima',
+                                            age: '39 anos',
+                                            city: 'Salvador, BA',
+                                            text: 'Os áudios noturnos são INCRÍVEIS! Acordo com outra energia. Clientes começaram a aparecer do nada. Meu Instagram explodiu de vendas. Estou realizando sonhos que eu achava impossíveis! 💫',
+                                            time: 'há 3h',
+                                            photo: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=200&auto=format&fit=crop',
+                                            verified: true,
+                                            hiddenOnMobile: false
+                                        },
+                                        {
                                             name: 'Marcos Vinícius',
                                             age: '37 anos',
                                             city: 'Belo Horizonte, MG',
                                             text: 'Trabalho com vendas e estava em crise. Depois do Mapa, meu faturamento subiu 340% em 2 meses. Nunca tinha visto dinheiro entrar assim na minha vida. Recomendo demais! 🚀',
                                             time: 'há 1 dia',
                                             photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop',
-                                            verified: true
+                                            verified: true,
+                                            hiddenOnMobile: true
                                         },
                                         {
                                             name: 'Camila Rodrigues',
@@ -710,7 +721,8 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             text: 'Eu era cética, mas resolvi tentar. No 3º dia, recebi uma herança de uma tia distante que eu nem sabia que existia. R$ 47 mil! Fiquei em choque. Isso funciona MESMO! 😱💎',
                                             time: 'há 8h',
                                             photo: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop',
-                                            verified: true
+                                            verified: true,
+                                            hiddenOnMobile: true
                                         },
                                         {
                                             name: 'André Luiz',
@@ -719,16 +731,8 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             text: 'Eu tinha bloqueios ancestrais pesados (meu pai faliu 2 vezes). O Mapa me libertou disso. Hoje tenho minha empresa sólida e zero dívidas. Mudou minha vida e da minha família! 🙌',
                                             time: 'há 2 dias',
                                             photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop',
-                                            verified: true
-                                        },
-                                        {
-                                            name: 'Patrícia Lima',
-                                            age: '39 anos',
-                                            city: 'Salvador, BA',
-                                            text: 'Os áudios noturnos são INCRÍVEIS! Acordo com outra energia. Clientes começaram a aparecer do nada. Meu Instagram explodiu de vendas. Estou realizando sonhos que eu achava impossíveis! 💫',
-                                            time: 'há 3h',
-                                            photo: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=200&auto=format&fit=crop',
-                                            verified: true
+                                            verified: true,
+                                            hiddenOnMobile: true
                                         },
                                         {
                                             name: 'Seu Nome Aqui',
@@ -738,7 +742,8 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             time: '',
                                             photo: '',
                                             verified: false,
-                                            isPlaceholder: true
+                                            isPlaceholder: true,
+                                            hiddenOnMobile: true
                                         }
                                     ].map((testimonial, idx) => (
                                         <motion.div
@@ -750,7 +755,9 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                 testimonial.isPlaceholder 
                                                     ? 'from-[#3a2f0e] to-[#1a1a0a] border-2 border-dashed border-[#FFD700]/60 opacity-90' 
                                                     : 'from-[#1a1a1a] to-[#0d0d0d] border border-[#D4AF37]/30'
-                                            } rounded-2xl p-4 sm:p-5 hover:border-[#D4AF37]/60 transition-all hover:shadow-[0_0_30px_rgba(212,175,55,0.2)]`}
+                                            } rounded-2xl p-4 sm:p-5 hover:border-[#D4AF37]/60 transition-all hover:shadow-[0_0_30px_rgba(212,175,55,0.2)] ${
+                                                testimonial.hiddenOnMobile ? 'hidden md:block' : ''
+                                            }`}
                                         >
                                             <div className="flex items-start gap-3 sm:gap-4">
                                                 {/* Foto Real do Cliente ou Placeholder */}
