@@ -28,7 +28,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       text: "SEU NOME CARREGA A ENERGIA DA SUA LINHAGEM ANCESTRAL",
       type: "input",
       placeholder: "Ex: João",
-      emotionalContext: "⚠️ Sério: Seu nome ativa a FREQUÊNCIA EXATA da sua linhagem ancestral.\n\nQuando você digita seu nome, o sistema cruza com padrões energéticos de 847 linhagens brasileiras catalogadas.\n\nIsso muda TUDO no seu diagnóstico."
+      emotionalContext: "⚠️ Sério: Seu nome ativa a FREQUÊNCIA EXATA da sua linhagem ancestral.\n\nQuando você digita seu nome, o sistema cruza com 847 linhagens brasileiras já catalogadas.\n\nIsso muda TUDO no seu diagnóstico."
     }
   ];
 
@@ -41,7 +41,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       subtext: "Existe um Protocolo Xamânico de 7 dias que limpa esse bloqueio COMPLETAMENTE.",
       emotionalContext: "A pergunta é:\n\nVocê está disposto(a) a seguir o protocolo... mesmo que isso signifique ROMPER padrões que sua família carrega há gerações?",
       singleButton: true,
-      validationText: "(A maioria das pessoas passa a vida inteira checando o saldo bancário antes de comprar QUALQUER coisa... vivendo no aperto... pedindo emprestado... sem saber que um bloqueio ancestral está causando isso.\n\nVocê não precisa ser uma delas.)",
+      validationText: "A maioria das pessoas passa a vida inteira checando o saldo bancário antes de comprar QUALQUER coisa, vivendo no aperto, pedindo emprestado… sem saber que um bloqueio ancestral está causando isso. Você não precisa ser uma delas.",
       options: [
         { label: "🔥 SIM, estou pronto(a) para destruir esse bloqueio →", value: "ready", icon: "" },
       ]
@@ -54,20 +54,20 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       warningText: "🚨 ATENÇÃO: Essa resposta é A MAIS IMPORTANTE do diagnóstico.\n\nO que você escolher aqui define:\n• Qual tipo de bloqueio ancestral será revelado\n• Qual protocolo de limpeza você vai receber\n• Quantos dias até começar a sentir o desbloqueio\n\nA maioria escolhe a opção 1 ou 3. Mas seja honesto com VOCÊ, não com o que \"deveria\" sentir.",
       options: [
         { 
-          label: "Continuar dependendo dos outros ou contando moedas.", 
-          sublabel: "👉 Olhar o preço de TUDO antes de pegar no mercado. Pedir dinheiro emprestado pro fim do mês. Sentir vergonha quando os amigos chamam pra sair e você inventa desculpa porque tá sem grana.", 
+          label: "Continuar dependendo dos outros ou contando moedas", 
+          sublabel: "Olhar o preço de TUDO antes de pegar algo no mercado. Pedir dinheiro emprestado no fim do mês. Inventar desculpas pros amigos porque tá sem grana.", 
           value: "dependency", 
           icon: "😔" 
         },
         { 
-          label: "Envelhecer sem construir nenhum patrimônio real.", 
-          sublabel: "👉 Chegar aos 55 anos no mesmo apartamento ALUGADO. Ver seus filhos crescerem sem poder dar educação de qualidade. Morrer sem deixar NADA para quem você ama.", 
+          label: "Envelhecer sem construir patrimônio real", 
+          sublabel: "Chegar aos 55 anos no mesmo apartamento ALUGADO. Ver seus filhos crescerem sem poder dar a educação que queria. Morrer sem deixar nada pra quem você ama.", 
           value: "aging", 
           icon: "🏠" 
         },
         { 
-          label: "Ver minha família sofrer por causa da minha situação financeira.", 
-          sublabel: "👉 Olhar no olho do seu filho e dizer \"a gente não tem dinheiro pra isso agora\". Ver sua mãe/pai precisando de remédio e você sem condições de ajudar. Sentir que FALHOU como provedor(a).", 
+          label: "Ver minha família sofrer por causa da minha situação financeira", 
+          sublabel: "Olhar nos olhos do seu filho e dizer 'a gente não tem dinheiro pra isso agora'. Ver seus pais precisando de remédio e você sem condições de ajudar. Sentir que FALHOU como provedor(a).", 
           value: "family", 
           icon: "💔" 
         },
@@ -78,11 +78,11 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       title: "⚡ PERGUNTA 4 DE 6",
       text: "{NAME}, QUAL DESSAS VERDADES MAIS DÓI QUANDO VOCÊ PENSA NELA?",
       emotionalContext: "Qual desses cenários descreve SUA VIDA agora?",
+      hasOtherOption: true,
       options: [
-        { label: "O dinheiro entra, mas EVAPORA em imprevistos", sublabel: "👉 Entrou R$2.000 na conta hoje. Amanhã já foi: carro quebrou (R$850), conta atrasada (R$400), \"emergência\" do nada (R$600). Sempre tem um buraco que suga tudo. SEMPRE.", value: "leak", icon: "💸" },
-        { label: "Trabalho 12 horas por dia, ganho pouco, acordo exausto", sublabel: "👉 Você faz TUDO certo: trabalha duro, não gasta com besteira, não é preguiçoso. Mas o salário NÃO sobe. O esforço não vira dinheiro na conta. Parece que tem um TETO invisível impedindo você de crescer.", value: "tired", icon: "😤" },
-        { label: "Tenho PAVOR que falte dinheiro", sublabel: "👉 Você checa o saldo bancário 3x por dia antes de gastar qualquer coisa. Sempre calculando: \"será que dá?\", \"será que sobre?\". Vive apertando. Mesmo quando TEM dinheiro, sente que pode acabar a qualquer momento.", value: "fear", icon: "😰" },
-        { label: "Nenhum desses, meu problema é outro", sublabel: "Minha situação financeira é diferente", value: "other", icon: "🚫" },
+        { label: "O dinheiro entra, mas EVAPORA em imprevistos", sublabel: "Entrou R$2.000 na conta. No dia seguinte já foi: carro quebrou, conta atrasada, 'emergência' do nada. Parece que tem um ralo sugando tudo SEMPRE.", value: "leak", icon: "💸" },
+        { label: "Trabalho 12 horas por dia, ganho pouco, acordo exausto", sublabel: "Você faz TUDO certo: trabalha duro, não gasta com besteira. Mas o salário NÃO sobe. Parece que tem um TETO invisível te impedindo de crescer.", value: "tired", icon: "😤" },
+        { label: "Tenho PAVOR que falte dinheiro", sublabel: "Você checa o saldo bancário 3x por dia antes de gastar qualquer coisa. Vive fazendo conta mental, com medo de faltar pra conta, pras crianças, pra tudo.", value: "fear", icon: "😰" },
       ]
     },
     {
@@ -91,7 +91,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       text: "O XAMANISMO FINANCEIRO DESCOBRIU QUE 87% DOS PADRÕES FINANCEIROS SE REPETEM POR 3 GERAÇÕES.",
       subtext: "Olhando para seus PAIS ou AVÓS, o que você vê?",
       emotionalContext: "→ Essa resposta revela a RAIZ do seu bloqueio ancestral.",
-      validationText: "🔥 IMPORTANTE: Isso NÃO é culpa sua.\n\nÉ um PADRÃO ENERGÉTICO que passou de geração em geração, sem você escolher.\n\nSeu avô recebeu. Seu pai recebeu. Você recebeu.\n\nMas hoje você pode ROMPER esse ciclo para sempre.",
+      validationText: "Isso não é culpa sua. É um padrão que sua família carrega há gerações. Você só recebeu. Agora pode ser quem rompe esse ciclo.",
       options: [
         { label: "Histórico de dívidas, falências ou lutas financeiras brutais.", sublabel: "👉 Seu avô passou aperto. Seu pai passou aperto. Agora VOCÊ passa aperto. O mesmo ciclo há 3 gerações. Dívida, conta atrasada, falta de dinheiro... sempre.", value: "heavy", icon: "💔" },
         { label: "Pessoas honestas, trabalhadoras... mas que NUNCA enriqueceram.", sublabel: "👉 Trabalharam 40 anos em empresa, se aposentaram com 1 salário mínimo. Viveram apertando a vida inteira. Morreram sem ter casa própria. Honestidade não trouxe abundância.", value: "honest", icon: "🙏" },
@@ -103,7 +103,8 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       title: "🔥 PERGUNTA 6 DE 6",
       text: "O sistema identificou um bloqueio severo na sua frequência. Se existir um Protocolo de 7 dias para limpar isso COMPLETAMENTE, você está disposto(a) a seguir?",
       singleButton: true,
-      validationText: "(A maioria das pessoas vive a vida inteira com esse bloqueio sem saber. Você não precisa ser uma delas.)",
+      bridgeText: "Se você disser SIM aqui, o sistema gera seu mapa e libera o protocolo completo de 7 dias.",
+      validationText: "A maioria das pessoas vive a vida inteira com esse bloqueio sem saber. Você não precisa ser uma delas.",
       options: [
         { label: "🔥 SIM, eu aceito receber meu Mapa e me desbloquear", value: "ready", icon: "" },
       ]
@@ -116,8 +117,8 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
 
   const getLoadingStages = () => [
     `Conectando à egrégora de ${userName}...`,
-    "Calibrando frequência vibracional...",
-    "Preparando perguntas personalizadas...",
+    "Cruzando seu nome com 847 linhagens brasileiras catalogadas...",
+    "Calculando tipo de bloqueio ancestral...",
     "Pronto para começar!"
   ];
 
@@ -419,6 +420,21 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               {/* ESPAÇAMENTO: 40px */}
               <div className="h-10"></div>
 
+              {/* Bridge text for question 6 */}
+              {currentQuestion.bridgeText && (
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.25 }}
+                  className="text-sm sm:text-base text-white/90 text-center leading-relaxed"
+                >
+                  {currentQuestion.bridgeText}
+                </motion.p>
+              )}
+
+              {/* ESPAÇAMENTO: 24px (if bridge text exists) */}
+              {currentQuestion.bridgeText && <div className="h-6"></div>}
+
               {/* OPÇÕES - Cards clicáveis */}
               <div className="space-y-5">
                 {currentQuestion.options?.map((option, idx) => (
@@ -471,6 +487,24 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   </motion.button>
                 ))}
               </div>
+
+              {/* "Nenhum desses" link for question 4 */}
+              {currentQuestion.hasOtherOption && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="text-center pt-2"
+                >
+                  <button
+                    onClick={() => handleOptionClick({ label: "Nenhum desses, meu problema é outro", value: "other", icon: "" })}
+                    disabled={isNavigating}
+                    className="text-sm text-white/60 hover:text-[#FFD700] underline transition-colors"
+                  >
+                    Nenhum desses? Meu problema é outro.
+                  </button>
+                </motion.div>
+              )}
 
               {/* ESPAÇAMENTO: 32px */}
               <div className="h-8"></div>

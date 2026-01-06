@@ -30,6 +30,8 @@ export interface QuizQuestion {
   validationText?: string; // Italic text below options for emotional validation
   warningText?: string; // Red warning text below options for importance
   emotionalContext?: string; // Emotional context text before options
+  hasOtherOption?: boolean; // For question 4 - shows "other" as a link below cards
+  bridgeText?: string; // Bridge text shown before button (for question 6)
 }
 
 declare global {
