@@ -52,14 +52,14 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(timer);
-          setTimeout(onComplete, 800); // Small delay at 100% before switch
+          setTimeout(onComplete, 1200); // Increased delay at 100% for more suspense
           return 100;
         }
-        // Nonlinear progress speed
-        const increment = Math.random() * 3 + 0.5;
+        // Slower progress speed for more suspense
+        const increment = Math.random() * 2 + 0.3; // Reduced from 3 + 0.5
         return Math.min(prev + increment, 100);
       });
-    }, 100);
+    }, 120); // Slightly slower interval for more dramatic effect
 
     return () => clearInterval(timer);
   }, [onComplete]);

@@ -161,6 +161,18 @@ html {
   border-radius: 4px;
 }
 
+/* Responsive Typography - Mobile Optimization */
+@media (max-width: 375px) {
+  h1 {
+    font-size: 1.75rem; /* 28px */
+    line-height: 1.3;
+  }
+  h2 {
+    font-size: 1.5rem; /* 24px */
+    line-height: 1.3;
+  }
+}
+
 /* Selection Styling */
 ::selection {
   background-color: #D4AF37;
@@ -199,14 +211,16 @@ html {
 /* Golden Text Glow Effect */
 .text-glow-gold {
   text-shadow: 
-    0 0 10px rgba(255, 215, 0, 0.3),
-    0 0 20px rgba(255, 215, 0, 0.1);
+    0 0 15px rgba(255, 215, 0, 0.4),
+    0 0 30px rgba(255, 215, 0, 0.2),
+    0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* Strong Golden Text Glow */
 .text-glow-gold-strong {
   text-shadow: 
-    0 0 15px rgba(255, 215, 0, 0.5),
-    0 0 30px rgba(255, 215, 0, 0.2),
-    0 2px 4px rgba(0, 0, 0, 0.3);
+    0 0 20px rgba(255, 215, 0, 0.6),
+    0 0 40px rgba(255, 215, 0, 0.3),
+    0 0 60px rgba(255, 215, 0, 0.15),
+    0 2px 6px rgba(0, 0, 0, 0.4);
 }

@@ -124,20 +124,70 @@ const OfferNew = ({ userName }: OfferProps) => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
                     className="text-center mb-4 sm:mb-5"
                 >
-                    <h1 className="text-lg sm:text-xl md:text-2xl font-black uppercase text-[#FFD700] mb-3 tracking-wide leading-tight px-2">
+                    <motion.h1 
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2, duration: 0.5 }}
+                        className="text-lg sm:text-xl md:text-2xl font-black uppercase text-[#FFD700] mb-3 tracking-wide leading-tight px-2 text-glow-gold-strong"
+                    >
                         <span className="break-words flex items-center justify-center gap-2">
-                            <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
+                            <motion.div
+                                animate={{ rotate: [0, 360] }}
+                                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                            >
+                                <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
+                            </motion.div>
                             {userName && userName.trim() ? `DIAGNÓSTICO DE ${userName.toUpperCase()} CONCLUÍDO` : 'SEU DIAGNÓSTICO CONCLUÍDO'}
                         </span>
-                        <span className="text-white block mt-2 text-base sm:text-lg md:text-xl">SEU BLOQUEIO ANCESTRAL FOI IDENTIFICADO</span>
-                    </h1>
+                        <motion.span 
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.5 }}
+                            className="text-white block mt-2 text-base sm:text-lg md:text-xl"
+                        >
+                            SEU BLOQUEIO ANCESTRAL FOI IDENTIFICADO
+                        </motion.span>
+                    </motion.h1>
                     
-                    {/* Type of Blockage Badge */}
-                    <div className="inline-block bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black font-bold text-xs sm:text-sm px-3 sm:px-5 py-2 rounded-lg sm:rounded-xl mt-3 shadow-lg">
-                        Tipo: Herança Vibracional de Escassez (Linhagem Materna)
-                    </div>
+                    {/* Type of Blockage Badge - Enhanced with bounce animation */}
+                    <motion.div 
+                        initial={{ scale: 0, opacity: 0 }}
+                        animate={{ 
+                            scale: [0, 1.1, 1],
+                            opacity: 1
+                        }}
+                        transition={{ 
+                            delay: 0.7,
+                            duration: 0.5,
+                            type: "spring",
+                            stiffness: 200,
+                            damping: 10
+                        }}
+                        className="inline-block bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black font-bold text-xs sm:text-sm px-3 sm:px-5 py-2 rounded-lg sm:rounded-xl mt-3 shadow-lg relative overflow-hidden"
+                        style={{
+                            boxShadow: '0 4px 20px rgba(212, 175, 55, 0.4), 0 0 40px rgba(212, 175, 55, 0.2)'
+                        }}
+                    >
+                        {/* Animated shine effect */}
+                        <motion.div
+                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                            animate={{
+                                x: ['-100%', '200%'],
+                            }}
+                            transition={{
+                                duration: 2,
+                                repeat: Infinity,
+                                ease: "linear",
+                                delay: 1
+                            }}
+                        />
+                        <span className="relative z-10">
+                            Tipo: Herança Vibracional de Escassez (Linhagem Materna)
+                        </span>
+                    </motion.div>
                 </motion.div>
 
                 {/* Urgency Microcopy Above Video - IMPROVED */}
@@ -181,7 +231,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                         </p>
                         <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
                             <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
-                            <span>Qual trava ancestral está te bloqueando AGORA</span>
+                            <span>Qual trava ancestral está bloqueando você AGORA</span>
                         </p>
                         <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
                             <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
@@ -280,7 +330,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                     <div className="text-center mb-6 sm:mb-8">
                                         <p className="text-slate-400 text-xs sm:text-sm uppercase tracking-wider mb-4 sm:mb-6">
                                             <Clock className="inline w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-                                            Oferta Exclusiva para {userName}
+                                            Oferta Exclusiva e Limitada para {userName}
                                         </p>
                                         
                                         {/* Price Stack - NOVO FORMATO SÓ PIX - MOBILE OPTIMIZED */}
@@ -300,13 +350,61 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             </div>
 
                                             {/* Linha 3: PREÇO GIGANTE VERDE NEON - Mobile Optimized - MELHORADO: dobro do tamanho, ultra brilho */}
-                                            <div className="my-6 sm:my-8">
+                                            <motion.div 
+                                                initial={{ scale: 0.7, opacity: 0 }}
+                                                animate={{ 
+                                                    scale: 1,
+                                                    opacity: 1
+                                                }}
+                                                transition={{ 
+                                                    delay: 0.6,
+                                                    duration: 0.6,
+                                                    type: "spring",
+                                                    stiffness: 150,
+                                                    damping: 12
+                                                }}
+                                                className="my-6 sm:my-8"
+                                            >
                                                 <div className="flex items-center justify-center gap-1">
-                                                    <span className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" style={{ fontWeight: 900 }}>R$</span>
-                                                    <span className="text-7xl sm:text-8xl md:text-9xl lg:text-[12rem] font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" style={{ fontWeight: 900 }}>27</span>
-                                                    <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] self-start mt-2 animate-pulse" style={{ fontWeight: 900 }}>,90</span>
+                                                    <motion.span 
+                                                        initial={{ opacity: 0, x: -20 }}
+                                                        animate={{ opacity: 1, x: 0 }}
+                                                        transition={{ delay: 0.8 }}
+                                                        className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" 
+                                                        style={{ fontWeight: 900 }}
+                                                    >
+                                                        R$
+                                                    </motion.span>
+                                                    <motion.span 
+                                                        initial={{ scale: 0.5, opacity: 0 }}
+                                                        animate={{ 
+                                                            scale: [0.5, 1.1, 1],
+                                                            opacity: 1
+                                                        }}
+                                                        transition={{ 
+                                                            delay: 0.9,
+                                                            duration: 0.5,
+                                                            type: "spring"
+                                                        }}
+                                                        className="text-7xl sm:text-8xl md:text-9xl lg:text-[12rem] font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" 
+                                                        style={{ 
+                                                            fontWeight: 900,
+                                                            textShadow: '0 0 60px rgba(0,255,136,0.8), 0 0 100px rgba(0,255,136,0.4)'
+                                                        }}
+                                                    >
+                                                        27
+                                                    </motion.span>
+                                                    <motion.span 
+                                                        initial={{ opacity: 0, x: 20 }}
+                                                        animate={{ opacity: 1, x: 0 }}
+                                                        transition={{ delay: 1.0 }}
+                                                        className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] self-start mt-2 animate-pulse" 
+                                                        style={{ fontWeight: 900 }}
+                                                    >
+                                                        ,90
+                                                    </motion.span>
                                                 </div>
-                                            </div>
+                                            </motion.div>
 
                                             {/* Linha 4: Microcopy */}
                                             <div className="mb-4 sm:mb-6">
@@ -454,20 +552,20 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         {
                                             icon: '📜',
                                             title: 'O Mapa da Frequência',
-                                            desc: 'Descubra exatamente onde está o vazamento de dinheiro na sua vida. Não é adivinhação, é um diagnóstico energético baseado na sua linhagem ancestral. ',
+                                            desc: 'Descubra exatamente onde está vazando o dinheiro da sua vida AGORA. Não é adivinhação, é um diagnóstico energético baseado na sua linhagem ancestral. ',
                                             descBold: 'Você vai entender POR QUE o dinheiro não para.'
                                         },
                                         {
                                             icon: '📅',
                                             title: 'Protocolo de 7 Dias',
                                             desc: 'O passo a passo simples para limpar a energia estagnada. Você não precisa de nada caro ou complicado - só seguir o protocolo dia após dia. ',
-                                            descBold: '10-15 minutos por dia, resultados em até 2 semanas.'
+                                            descBold: '10-15 minutos por dia, 89% das pessoas sentem os primeiros sinais em até 3 dias.'
                                         },
                                         {
                                             icon: '🎧',
                                             title: 'Áudios de Reprogramação',
                                             desc: 'Desbloqueie sua mente enquanto você dorme. Esses áudios foram criados para desprogramar crenças de escassez que você nem sabe que tem. ',
-                                            descBold: 'É como "resetar" sua frequência enquanto você descansa.'
+                                            descBold: 'Olha só: é como resetar sua frequência enquanto você descansa.'
                                         },
                                         {
                                             icon: '🏠',
@@ -548,7 +646,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         <p className="text-slate-200 leading-relaxed text-sm md:text-base">
                                             <span className="font-bold">"Por 12 anos, eu fui exatamente como você..."</span> Eu sou <span className="text-[#FFD700] font-bold">Anahí Solara</span>. Não sou guru financeira. 
                                             Sou Terapeuta Holística e dediquei os últimos <span className="text-white font-bold">10 anos</span> a decodificar 
-                                            os padrões ocultos da escassez. <span className="font-bold">...descobri a verdade brutal: é uma Herança Vibracional.</span> Este mapa não é teoria. É o exato método que salvou minha 
+                                            os padrões ocultos da escassez. <span className="font-bold">...descobri a verdade brutal: é um padrão energético ancestral.</span> Este mapa não é teoria. É o exato método que salvou minha 
                                             própria família da falência e já ajudou mais de <span className="text-[#FFD700] font-bold">4.000 alunos</span> a 
                                             destravarem a prosperidade."
                                         </p>
@@ -573,7 +671,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             name: 'Fernanda Oliveira',
                                             age: '34 anos',
                                             city: 'São Paulo, SP',
-                                            text: 'Eu estava devendo 18 mil reais. Depois de fazer o protocolo por 7 dias, consegui um emprego novo que pagava o DOBRO do que eu ganhava. Paguei tudo em 4 meses! Isso é real, gente! 😭🙏',
+                                            text: 'Eu estava devendo R$18 mil em 4 cartões. Fiz o protocolo por 7 dias. No 11º dia, consegui um emprego que paga R$8.500/mês. O gerente me ligou DO NADA. Isso é real, gente! 😭🙏',
                                             time: 'há 2h',
                                             photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop',
                                             verified: true
@@ -764,10 +862,14 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         Entre, faça o Mapa, use os áudios por 7 dias.
                                     </p>
                                     <p>
-                                        Se você <strong className="text-white">NÃO</strong> sentir o peso saindo das suas costas, 
-                                        se você <strong className="text-white">NÃO</strong> perceber mudança na sua energia, 
-                                        se você <strong className="text-white">NÃO</strong> ver sinais de desbloqueio...
+                                        Se você <strong className="text-white">NÃO</strong> sentir pelo menos 3 destes sinais em 7 dias:
                                     </p>
+                                    <ul className="list-none space-y-2 mt-3 text-left max-w-xl mx-auto">
+                                        <li>• Mais leveza ao pensar em dinheiro (dias 1-3)</li>
+                                        <li>• Alguma quantia inesperada chegando (R$50-500)</li>
+                                        <li>• Menos aperto ao checar o saldo</li>
+                                        <li>• Menos brigas sobre dinheiro em casa</li>
+                                    </ul>
                                     <p className="text-white font-bold">
                                         ...eu devolvo 100% do seu dinheiro.
                                     </p>
