@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './Button';
 import { Lock, CheckCircle, Clock, Mail, Shield, Smartphone, Sparkles, Compass, AlertTriangle, ChevronRight } from 'lucide-react';
@@ -8,7 +8,45 @@ interface HeroProps {
   onStart: () => void;
 }
 
+// Mapa de estados brasileiros
+const ESTADOS_BR: Record<string, string> = {
+  'AC': 'Acre', 'AL': 'Alagoas', 'AP': 'Amapá', 'AM': 'Amazonas',
+  'BA': 'Bahia', 'CE': 'Ceará', 'DF': 'Distrito Federal', 'ES': 'Espírito Santo',
+  'GO': 'Goiás', 'MA': 'Maranhão', 'MT': 'Mato Grosso', 'MS': 'Mato Grosso do Sul',
+  'MG': 'Minas Gerais', 'PA': 'Pará', 'PB': 'Paraíba', 'PR': 'Paraná',
+  'PE': 'Pernambuco', 'PI': 'Piauí', 'RJ': 'Rio de Janeiro', 'RN': 'Rio Grande do Norte',
+  'RS': 'Rio Grande do Sul', 'RO': 'Rondônia', 'RR': 'Roraima', 'SC': 'Santa Catarina',
+  'SP': 'São Paulo', 'SE': 'Sergipe', 'TO': 'Tocantins'
+};
+
 export const Hero: React.FC<HeroProps> = ({ onStart }) => {
+  const [userState, setUserState] = useState<string>('SP, RJ, MG, PR');
+  const [isLoadingState, setIsLoadingState] = useState(true);
+
+  useEffect(() => {
+    // Detectar estado do usuário via geolocalização IP
+    const detectUserState = async () => {
+      try {
+        // Tenta usar API de geolocalização gratuita
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        
+        if (data.region_code && ESTADOS_BR[data.region_code]) {
+          setUserState(ESTADOS_BR[data.region_code]);
+        } else if (data.region) {
+          setUserState(data.region);
+        }
+      } catch (error) {
+        // Fallback: mantém os estados padrão
+        console.log('Geolocation detection skipped');
+      } finally {
+        setIsLoadingState(false);
+      }
+    };
+
+    detectUserState();
+  }, []);
+
   const handleStartClick = () => {
     // Track quiz start with new comprehensive tracking
     tracking.quiz.started();
@@ -66,11 +104,11 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             Existe Uma <span className="text-[#FFD700]">"TRAVA ANCESTRAL"</span>{' '}
             <span className="text-[#FF4500]">SUFOCANDO</span>{' '}
             <span className="text-[#FFD700]">R$5-50 MIL</span>{' '}
-            da Sua Vida?
+            da Sua Conta Bancária Todo Mês?
           </h1>
           {/* SUBHEADLINE */}
           <p className="text-sm sm:text-base md:text-lg text-slate-300/70 leading-relaxed">
-            (Descubra como <strong className="text-white">DESTRUÍ-LA</strong> em 7 dias - e destravar o fluxo)
+            Descubra como <strong className="text-white">DESTRUÍ-LA</strong> em 7 dias e destravar o fluxo de abundância AGORA
           </p>
         </motion.div>
 
@@ -114,7 +152,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
               className="flex items-start gap-2"
             >
               <CheckCircle className="w-4 h-4 text-[#4ade80] flex-shrink-0 mt-0.5" />
-              <p>O protocolo de 7 dias que <strong className="text-[#FFD700]">89%</strong> sente funcionando nos 3 primeiros dias</p>
+              <p>O protocolo de 7 dias que <strong className="text-[#FFD700]">89%</strong> relatam dinheiro inesperado (Pix, propostas, clientes antigos pagando) nos primeiros 3 dias</p>
             </motion.div>
           </div>
         </motion.div>
@@ -127,7 +165,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           className="max-w-[600px] mx-auto"
         >
           <p className="text-xs sm:text-sm md:text-base text-white/90 leading-relaxed">
-            O Protocolo Xamânico usado por <strong className="text-[#FFD700] font-bold">4.387 brasileiros em SP, RJ, MG, PR</strong>{' '}
+            O Protocolo Xamânico usado por <strong className="text-[#FFD700] font-bold">4.387 brasileiros {!isLoadingState && `no ${userState}`}</strong>{' '}
             identifica <strong className="text-[#FFD700] font-bold">EXATAMENTE</strong> qual bloqueio financeiro ancestral{' '}
             está impedindo o dinheiro de chegar até você.
           </p>
@@ -141,7 +179,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           className="bg-gradient-to-r from-[#4ade80]/10 to-[#10b981]/10 border border-[#4ade80]/30 rounded-lg p-3 backdrop-blur-sm"
         >
           <p className="text-xs sm:text-sm md:text-base font-medium text-[#4ade80] leading-relaxed">
-            Em apenas 7 dias seguindo o protocolo: o dinheiro está fluindo sem você precisar trabalhar mais.
+            Em 7 dias após desbloquear a trava ancestral: dinheiro chega sem você correr atrás (Pix inesperados, propostas que você nem buscou)
           </p>
         </motion.div>
 
@@ -155,7 +193,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           <div className="flex items-start gap-2">
             <Sparkles className="w-5 h-5 text-[#FF6347] flex-shrink-0 mt-0.5" />
             <p className="text-xs sm:text-sm md:text-base font-bold text-[#FF6347] leading-relaxed">
-              A maioria descobre uma <strong className="text-white">VERDADE BRUTAL</strong> sobre por que o dinheiro nunca ficou na mão... até agora.
+              Você vai descobrir uma <strong className="text-white">VERDADE BRUTAL</strong> sobre por que o dinheiro nunca ficou na mão... até agora.
             </p>
           </div>
         </motion.div>
@@ -323,19 +361,6 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           <p className="text-xs text-slate-400 pt-1">
             Nada de coincidência. Tudo é resultado de desbloquear a trava ancestral.
           </p>
-        </motion.div>
-
-        {/* RODAPÉ DE CONFIANÇA */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.8, duration: 0.5 }}
-          className="w-full"
-        >
-          <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-white/60">
-            <Shield className="w-4 h-4" />
-            <p>Análise confidencial e segura. 100% baseada em princípios ancestrais milenares.</p>
-          </div>
         </motion.div>
 
       </div>

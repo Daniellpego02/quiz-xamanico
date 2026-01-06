@@ -190,6 +190,41 @@ const OfferNew = ({ userName }: OfferProps) => {
                     </motion.div>
                 </motion.div>
 
+                {/* Pain Dimensionalization Section - PRIORITY 1 */}
+                <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 }}
+                    className="bg-gradient-to-br from-[#2a0606]/95 to-[#1a0606]/95 border-2 border-[#FF4500]/60 rounded-xl p-4 sm:p-5 mb-4 sm:mb-5"
+                >
+                    <div className="flex items-start gap-2 mb-3">
+                        <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-[#FF4500] flex-shrink-0 mt-0.5" />
+                        <p className="text-white font-bold text-sm sm:text-base">
+                            {userName && userName.trim() ? userName.split(' ')[0] : 'Você'}, este bloqueio está AGORA:
+                        </p>
+                    </div>
+                    <div className="space-y-2 text-slate-200 text-xs sm:text-sm ml-7">
+                        <p className="flex items-start gap-2">
+                            <span className="text-[#FF4500]">✗</span>
+                            <span>Drenando R$5-50 mil por mês da sua conta</span>
+                        </p>
+                        <p className="flex items-start gap-2">
+                            <span className="text-[#FF4500]">✗</span>
+                            <span>Criando autosabotagem financeira inconsciente</span>
+                        </p>
+                        <p className="flex items-start gap-2">
+                            <span className="text-[#FF4500]">✗</span>
+                            <span>Fazendo você trabalhar MAIS mas ganhar MENOS</span>
+                        </p>
+                    </div>
+                    <div className="mt-4 pt-3 border-t border-[#FF4500]/30">
+                        <p className="text-white text-xs sm:text-sm font-semibold flex items-center gap-2">
+                            <span>👇</span>
+                            <span>No vídeo abaixo, você vai descobrir EXATAMENTE como destruir esta trava em 7 dias:</span>
+                        </p>
+                    </div>
+                </motion.div>
+
                 {/* Urgency Microcopy Above Video - IMPROVED */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
@@ -204,7 +239,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                         </p>
                     </div>
                     <p className="text-xs text-slate-200">
-                        Por questões de personalização, mantemos cada diagnóstico ativo por apenas 24 horas.
+                        Por questões de personalização, seu diagnóstico expira em 24 horas.
                     </p>
                     <p className="text-xs text-[#FFD700] font-bold mt-1">
                         Assista AGORA antes que expire.
@@ -221,31 +256,31 @@ const OfferNew = ({ userName }: OfferProps) => {
                     <div className="flex items-center justify-center gap-2 mb-2.5 sm:mb-3">
                         <Sparkles className="w-4 h-4 text-[#FFD700]" />
                         <h3 className="text-center text-[#FFD700] font-bold text-xs sm:text-sm uppercase tracking-wider">
-                            NESTE VÍDEO VOCÊ VAI DESCOBRIR:
+                            NESTE VÍDEO VOCÊ ESTÁ DESCOBRINDO:
                         </h3>
                     </div>
                     <div className="space-y-1.5 sm:space-y-2 text-left max-w-lg mx-auto">
                         <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
                             <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
-                            <span>Por que o dinheiro entra e sai da sua vida</span>
+                            <span>Por que o dinheiro entra e sai da sua vida (e como quebrar esse ciclo em 7 dias usando o Protocolo Xamânico que 4.387 pessoas já usaram)</span>
                         </p>
                         <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
                             <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
-                            <span>Qual trava ancestral está bloqueando você AGORA</span>
+                            <span>Qual trava ancestral está bloqueando AGORA de R$5k a R$50k por mês</span>
                         </p>
                         <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
                             <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
-                            <span>O protocolo exato de 7 dias para limpar isso</span>
+                            <span>O protocolo exato de 7 dias para limpar isso — 89% relatam dinheiro inesperado (Pix, propostas, clientes antigos pagando) nos primeiros 3 dias</span>
                         </p>
                         <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
                             <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
-                            <span>Como ativar sua frequência de abundância</span>
+                            <span>Como ativar sua frequência para que o dinheiro chegue SEM você precisar trabalhar mais</span>
                         </p>
                     </div>
                     <div className="flex items-center justify-center gap-1.5 mt-2 sm:mt-3">
                         <Clock className="w-3.5 h-3.5 text-slate-400" />
                         <p className="text-center text-slate-400 text-xs">
-                            Duração: 2 minutos (assista até o fim)
+                            Em apenas 2 minutos você descobre EXATAMENTE qual trava está bloqueando de R$5k a R$50k todo mês
                         </p>
                     </div>
                 </motion.div>

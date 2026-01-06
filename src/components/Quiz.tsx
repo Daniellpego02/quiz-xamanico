@@ -125,10 +125,8 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   }, []);
 
   const getLoadingStages = () => [
-    `Conectando à egrégora de ${userName}...`,
-    `Cruzando seu nome com ${CATALOGED_LINEAGES} linhagens brasileiras...`,
-    "Analisando padrões de 3 gerações...",
-    "Calculando tipo de bloqueio financeiro...",
+    `Identificando seu bloqueio ancestral específico...`,
+    `Gerando seu protocolo personalizado de 7 dias...`,
     "Pronto para começar!"
   ];
 
