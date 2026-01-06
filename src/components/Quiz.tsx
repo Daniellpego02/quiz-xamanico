@@ -32,11 +32,11 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const initialQuestions: QuizQuestion[] = [
     {
       id: 0,
-      title: "👤 PERGUNTA 1 DE 6",
+      title: "PERGUNTA 1 DE 6",
       text: "SEU NOME CARREGA A ENERGIA DA SUA LINHAGEM ANCESTRAL",
       type: "input",
       placeholder: "Ex: João",
-      emotionalContext: `⚠️ Sério: Seu nome ativa a FREQUÊNCIA EXATA da sua linhagem ancestral.\n\nQuando você digita seu nome, o sistema cruza com ${CATALOGED_LINEAGES} linhagens brasileiras já catalogadas.\n\nIsso muda TUDO no seu diagnóstico.`
+      emotionalContext: `Sério: Seu nome ativa a FREQUÊNCIA EXATA da sua linhagem ancestral.\n\nQuando você digita seu nome, o sistema cruza com ${CATALOGED_LINEAGES} linhagens brasileiras já catalogadas.\n\nIsso muda TUDO no seu diagnóstico.`
     }
   ];
 
@@ -44,77 +44,77 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const financeQuestions: QuizQuestion[] = [
     {
       id: 1,
-      title: "💥 PERGUNTA 2 DE 6",
+      title: "PERGUNTA 2 DE 6",
       text: "O SISTEMA DETECTOU UM BLOQUEIO SEVERO NA SUA ENERGIA FINANCEIRA.",
       subtext: "Existe um Protocolo Xamânico de 7 dias que limpa esse bloqueio COMPLETAMENTE.",
       emotionalContext: "A pergunta é:\n\nVocê está disposto(a) a seguir o protocolo... mesmo que isso signifique ROMPER padrões que sua família carrega há gerações?",
       singleButton: true,
       validationText: "A maioria das pessoas passa a vida inteira checando o saldo bancário antes de comprar QUALQUER coisa, vivendo no aperto, pedindo emprestado… sem saber que um bloqueio ancestral está causando isso. Você não precisa ser uma delas.",
       options: [
-        { label: "🔥 SIM, estou pronto(a) para destruir esse bloqueio →", value: "ready", icon: "" },
+        { label: "SIM, estou pronto(a) para destruir esse bloqueio", value: "ready", icon: "" },
       ]
     },
     {
       id: 2,
-      title: "💥 PERGUNTA 3 DE 6",
+      title: "PERGUNTA 3 DE 6",
       text: "SE NADA MUDAR NOS PRÓXIMOS 6 MESES, QUAL É O SEU MAIOR MEDO?",
       emotionalContext: "→ Seja BRUTALMENTE honesto. Essa resposta define qual tipo de bloqueio ancestral o protocolo vai atacar primeiro.",
-      warningText: "🚨 ATENÇÃO: Essa resposta é A MAIS IMPORTANTE do diagnóstico.\n\nO que você escolher aqui define:\n• Qual tipo de bloqueio ancestral será revelado\n• Qual protocolo de limpeza você vai receber\n• Quantos dias até começar a sentir o desbloqueio\n\nA maioria escolhe a opção 1 ou 3. Mas seja honesto com VOCÊ, não com o que \"deveria\" sentir.",
+      warningText: "ATENÇÃO: Essa resposta é A MAIS IMPORTANTE do diagnóstico.\n\nO que você escolher aqui define:\n• Qual tipo de bloqueio ancestral será revelado\n• Qual protocolo de limpeza você vai receber\n• Quantos dias até começar a sentir o desbloqueio\n\nA maioria escolhe a opção 1 ou 3. Mas seja honesto com VOCÊ, não com o que \"deveria\" sentir.",
       options: [
         { 
           label: "Continuar dependendo dos outros ou contando moedas", 
           sublabel: "Olhar o preço de TUDO antes de pegar algo no mercado. Pedir dinheiro emprestado no fim do mês. Inventar desculpas pros amigos porque tá sem grana.", 
           value: "dependency", 
-          icon: "😔" 
+          icon: "" 
         },
         { 
           label: "Envelhecer sem construir patrimônio real", 
           sublabel: "Chegar aos 55 anos no mesmo apartamento ALUGADO. Ver seus filhos crescerem sem poder dar a educação que queria. Morrer sem deixar nada pra quem você ama.", 
           value: "aging", 
-          icon: "🏠" 
+          icon: "" 
         },
         { 
           label: "Ver minha família sofrer por causa da minha situação financeira", 
           sublabel: "Olhar nos olhos do seu filho e dizer 'a gente não tem dinheiro pra isso agora'. Ver seus pais precisando de remédio e você sem condições de ajudar. Sentir que FALHOU como provedor(a).", 
           value: "family", 
-          icon: "💔" 
+          icon: "" 
         },
       ]
     },
     {
       id: 3,
-      title: "⚡ PERGUNTA 4 DE 6",
+      title: "PERGUNTA 4 DE 6",
       text: "{NAME}, QUAL DESSAS VERDADES MAIS DÓI QUANDO VOCÊ PENSA NELA?",
       emotionalContext: "Qual desses cenários descreve SUA VIDA agora?",
       hasOtherOption: true,
       options: [
-        { label: "O dinheiro entra, mas EVAPORA em imprevistos", sublabel: "Entrou R$2.000 na conta. No dia seguinte já foi: carro quebrou, conta atrasada, 'emergência' do nada. Parece que tem um ralo sugando tudo SEMPRE.", value: "leak", icon: "💸" },
-        { label: "Trabalho 12 horas por dia, ganho pouco, acordo exausto", sublabel: "Você faz TUDO certo: trabalha duro, não gasta com besteira. Mas o salário NÃO sobe. Parece que tem um TETO invisível te impedindo de crescer.", value: "tired", icon: "😤" },
-        { label: "Tenho PAVOR que falte dinheiro", sublabel: "Você checa o saldo bancário 3x por dia antes de gastar qualquer coisa. Vive fazendo conta mental, com medo de faltar pra conta, pras crianças, pra tudo.", value: "fear", icon: "😰" },
+        { label: "O dinheiro entra, mas EVAPORA em imprevistos", sublabel: "Entrou R$2.000 na conta. No dia seguinte já foi: carro quebrou, conta atrasada, 'emergência' do nada. Parece que tem um ralo sugando tudo SEMPRE.", value: "leak", icon: "" },
+        { label: "Trabalho 12 horas por dia, ganho pouco, acordo exausto", sublabel: "Você faz TUDO certo: trabalha duro, não gasta com besteira. Mas o salário NÃO sobe. Parece que tem um TETO invisível te impedindo de crescer.", value: "tired", icon: "" },
+        { label: "Tenho PAVOR que falte dinheiro", sublabel: "Você checa o saldo bancário 3x por dia antes de gastar qualquer coisa. Vive fazendo conta mental, com medo de faltar pra conta, pras crianças, pra tudo.", value: "fear", icon: "" },
       ]
     },
     {
       id: 4,
-      title: "🔮 PERGUNTA 5 DE 6",
+      title: "PERGUNTA 5 DE 6",
       text: "O XAMANISMO FINANCEIRO DESCOBRIU QUE 87% DOS PADRÕES FINANCEIROS SE REPETEM POR 3 GERAÇÕES.",
       subtext: "Olhando para seus PAIS ou AVÓS, o que você vê?",
       emotionalContext: "→ Essa resposta revela a RAIZ do seu bloqueio ancestral.",
       validationText: "Isso não é culpa sua. É um padrão que sua família carrega há gerações. Você só recebeu. Agora pode ser quem rompe esse ciclo.",
       options: [
-        { label: "Histórico de dívidas, falências ou lutas financeiras brutais.", sublabel: "👉 Seu avô passou aperto. Seu pai passou aperto. Agora VOCÊ passa aperto. O mesmo ciclo há 3 gerações. Dívida, conta atrasada, falta de dinheiro... sempre.", value: "heavy", icon: "💔" },
-        { label: "Pessoas honestas, trabalhadoras... mas que NUNCA enriqueceram.", sublabel: "👉 Trabalharam 40 anos em empresa, se aposentaram com 1 salário mínimo. Viveram apertando a vida inteira. Morreram sem ter casa própria. Honestidade não trouxe abundância.", value: "honest", icon: "🙏" },
-        { label: "Tinha dinheiro, mas MUITA briga, traição e desarmonia familiar.", sublabel: "👉 A casa tinha grana, mas era um campo de guerra. Gritos, traições, brigas por dinheiro. Você cresceu associando \"ter dinheiro\" = \"sofrer emocionalmente\". Riqueza com conflito.", value: "conflict", icon: "⚡" },
+        { label: "Histórico de dívidas, falências ou lutas financeiras brutais.", sublabel: "Seu avô passou aperto. Seu pai passou aperto. Agora VOCÊ passa aperto. O mesmo ciclo há 3 gerações. Dívida, conta atrasada, falta de dinheiro... sempre.", value: "heavy", icon: "" },
+        { label: "Pessoas honestas, trabalhadoras... mas que NUNCA enriqueceram.", sublabel: "Trabalharam 40 anos em empresa, se aposentaram com 1 salário mínimo. Viveram apertando a vida inteira. Morreram sem ter casa própria. Honestidade não trouxe abundância.", value: "honest", icon: "" },
+        { label: "Tinha dinheiro, mas MUITA briga, traição e desarmonia familiar.", sublabel: "A casa tinha grana, mas era um campo de guerra. Gritos, traições, brigas por dinheiro. Você cresceu associando \"ter dinheiro\" = \"sofrer emocionalmente\". Riqueza com conflito.", value: "conflict", icon: "" },
       ]
     },
     {
       id: 5,
-      title: "🔥 PERGUNTA 6 DE 6",
+      title: "PERGUNTA 6 DE 6",
       text: "O sistema identificou um bloqueio severo na sua frequência. Se existir um Protocolo de 7 dias para limpar isso COMPLETAMENTE, você está disposto(a) a seguir?",
       singleButton: true,
       bridgeText: "Se você disser SIM aqui, o sistema gera seu mapa e libera o protocolo completo de 7 dias.",
       validationText: "A maioria das pessoas vive a vida inteira com esse bloqueio sem saber. Você não precisa ser uma delas.",
       options: [
-        { label: "🔥 SIM, eu aceito receber meu Mapa e me desbloquear", value: "ready", icon: "" },
+        { label: "SIM, eu aceito receber meu Mapa e me desbloquear", value: "ready", icon: "" },
       ]
     }
   ];
@@ -591,7 +591,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               {currentQuestion.bridgeText && <div className="h-6"></div>}
 
               {/* OPÇÕES - Cards clicáveis com design premium */}
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {currentQuestion.options?.map((option, idx) => (
                   <motion.button
                     key={idx}
@@ -602,12 +602,12 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                     disabled={isNavigating}
                     whileHover={!isNavigating ? { scale: 1.02, y: -2 } : {}}
                     whileTap={!isNavigating ? { scale: 0.98 } : {}}
-                    className={`w-full text-left rounded-2xl transition-all duration-300 group relative overflow-hidden ${
+                    className={`w-full text-left rounded-xl sm:rounded-2xl transition-all duration-300 group relative overflow-hidden ${
                       isNavigating ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'
                     } ${
                       currentQuestion.singleButton 
-                        ? 'bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] text-black font-bold p-6 border-none'
-                        : 'bg-gradient-to-br from-[#1a0d2e] to-[#0f0520] border-2 border-[#3d2a5f] hover:border-[#FFD700] p-6'
+                        ? 'bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] text-black font-bold p-4 sm:p-5 border-none'
+                        : 'bg-gradient-to-br from-[#1a0d2e]/90 to-[#0f0520]/90 border-2 border-[#3d2a5f] hover:border-[#FFD700] p-3 sm:p-4'
                     }`}
                     style={currentQuestion.singleButton ? {
                       boxShadow: '0 10px 40px rgba(255, 215, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
@@ -622,7 +622,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                     
                     {/* Hover glow for regular cards */}
                     {!currentQuestion.singleButton && (
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl pointer-events-none"
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl sm:rounded-2xl pointer-events-none"
                         style={{
                           boxShadow: '0 0 20px rgba(212, 175, 55, 0.2), inset 0 0 20px rgba(212, 175, 55, 0.05)',
                         }}
@@ -630,33 +630,17 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                     )}
                     
                     {/* Estrutura interna do card */}
-                    <div className="relative z-10 space-y-3">
-                      {/* Emoji + Headline */}
-                      <div className="flex items-start gap-3 sm:gap-4">
-                        {option.icon && (
-                          <motion.span 
-                            className="text-3xl sm:text-4xl flex-shrink-0"
-                            animate={{
-                              scale: [1, 1.05, 1],
-                            }}
-                            transition={{
-                              duration: 2,
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                              delay: idx * 0.2,
-                            }}
-                          >
-                            {option.icon}
-                          </motion.span>
-                        )}
-                        <div className="flex-1 space-y-2">
-                          <p className={`text-base sm:text-lg font-bold leading-snug ${currentQuestion.singleButton ? 'text-black' : 'text-white'}`}>
+                    <div className="relative z-10 space-y-2">
+                      {/* Headline */}
+                      <div className="flex items-start gap-2 sm:gap-3">
+                        <div className="flex-1 space-y-1.5">
+                          <p className={`text-sm sm:text-base md:text-lg font-bold leading-snug ${currentQuestion.singleButton ? 'text-black' : 'text-white'}`}>
                             {option.label}
                           </p>
                           
                           {/* Descrição expandida (sublabel) */}
                           {option.sublabel && (
-                            <p className={`text-sm sm:text-base leading-relaxed ${currentQuestion.singleButton ? 'text-black/80' : 'text-white/85'}`}>
+                            <p className={`text-xs sm:text-sm leading-relaxed ${currentQuestion.singleButton ? 'text-black/80' : 'text-white/85'}`}>
                               {option.sublabel.split('FALHOU').map((part, i) => (
                                 <span key={i}>
                                   {i > 0 && <strong className={currentQuestion.singleButton ? 'text-black' : 'text-white'}>FALHOU</strong>}
@@ -668,8 +652,10 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                         </div>
                         
                         {/* Seta no canto */}
-                        {!currentQuestion.singleButton && (
+                        {!currentQuestion.singleButton ? (
                           <ChevronRight className="w-5 h-5 text-[#FFD700] flex-shrink-0 group-hover:translate-x-1 transition-transform" />
+                        ) : (
+                          <ChevronRight className="w-5 h-5 text-black flex-shrink-0 group-hover:translate-x-1 transition-transform" />
                         )}
                       </div>
                     </div>
@@ -683,7 +669,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
-                  className="text-center pt-2"
+                  className="text-center pt-1"
                 >
                   <button
                     onClick={() => handleOptionClick(OTHER_OPTION)}
@@ -695,16 +681,13 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 </motion.div>
               )}
 
-              {/* ESPAÇAMENTO: 32px */}
-              <div className="h-8"></div>
-
               {/* CARD DE ATENÇÃO ou TEXTO MOTIVACIONAL - Enhanced styling */}
               {currentQuestion.warningText && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
-                  className="bg-gradient-to-br from-[#2a0606] to-[#1a0606] border-2 border-[#FF4500] rounded-2xl p-6 space-y-3 relative overflow-hidden"
+                  className="bg-gradient-to-br from-[#2a0606]/90 to-[#1a0606]/90 border-2 border-[#FF4500]/60 rounded-xl sm:rounded-2xl p-3 sm:p-4 space-y-2 relative overflow-hidden"
                   style={{
                     boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 30px rgba(255, 69, 0, 0.2)',
                   }}
@@ -712,9 +695,12 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   {/* Subtle glow overlay */}
                   <div className="absolute inset-0 bg-gradient-to-br from-[#FF4500]/10 to-transparent opacity-50 pointer-events-none" />
                   
-                  <p className="text-base sm:text-lg font-bold text-white leading-relaxed whitespace-pre-line relative z-10">
-                    {currentQuestion.warningText}
-                  </p>
+                  <div className="flex items-start gap-2 relative z-10">
+                    <AlertTriangle className="w-5 h-5 text-[#FF4500] flex-shrink-0 mt-0.5" />
+                    <p className="text-sm sm:text-base font-bold text-white leading-relaxed whitespace-pre-line">
+                      {currentQuestion.warningText}
+                    </p>
+                  </div>
                 </motion.div>
               )}
 
@@ -723,7 +709,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
-                  className="bg-gradient-to-br from-[#0f0520] to-[#0a0520] border-l-4 border-[#FFD700] rounded-2xl p-6 relative overflow-hidden"
+                  className="bg-gradient-to-br from-[#0f0520]/90 to-[#0a0520]/90 border-l-4 border-[#FFD700] rounded-xl sm:rounded-2xl p-3 sm:p-4 relative overflow-hidden"
                   style={{
                     boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), inset 2px 0 10px rgba(212, 175, 55, 0.1)',
                   }}
@@ -731,7 +717,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   {/* Subtle shine effect */}
                   <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#FFD700] via-[#D4AF37] to-[#FFD700] opacity-80" />
                   
-                  <p className="text-sm sm:text-base text-white/85 italic leading-relaxed relative z-10">
+                  <p className="text-xs sm:text-sm md:text-base text-white/85 italic leading-relaxed relative z-10">
                     {currentQuestion.validationText}
                   </p>
                 </motion.div>
