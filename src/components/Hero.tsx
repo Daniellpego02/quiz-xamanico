@@ -37,7 +37,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
         </div>
       </motion.div>
 
-      <div className="flex-1 flex flex-col items-center justify-center px-4 sm:px-6 py-8 sm:py-10 space-y-5 sm:space-y-7 text-center relative z-10">
+      <div className="flex-1 flex flex-col items-center justify-center px-5 py-6 space-y-6 text-center relative z-10">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-[#D4AF37]/10 rounded-full blur-[80px] pointer-events-none -z-10"></div>
 
         {/* HEADLINE PRINCIPAL */}
@@ -45,126 +45,125 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.1 }}
-          className="space-y-4 sm:space-y-5"
+          className="space-y-3"
         >
-          <h1 className="text-[28px] leading-[1.2] sm:text-[36px] sm:leading-[1.15] md:text-[48px] lg:text-[56px] font-black text-white drop-shadow-2xl break-words px-2">
+          <h1 className="text-[32px] sm:text-[36px] md:text-[48px] lg:text-[56px] font-black text-white leading-[1.15] drop-shadow-2xl break-words">
             Existe Uma <span className="text-[#FFD700]">"TRAVA ANCESTRAL"</span>{' '}
             <span className="text-[#FF4500]">SUFOCANDO</span>{' '}
             <span className="text-[#FFD700]">R$5-50 MIL</span>{' '}
             da Sua Vida?
           </h1>
           {/* SUBHEADLINE */}
-          <p className="text-[15px] sm:text-lg md:text-xl text-slate-300/80 leading-relaxed px-2">
-            (Descubra como <strong className="text-white font-bold">DESTRUÍ-LA</strong> em 7 dias - e destravar o fluxo)
+          <p className="text-base sm:text-lg md:text-xl text-slate-300/70 leading-relaxed">
+            (Descubra como <strong className="text-white">DESTRUÍ-LA</strong> em 7 dias - e destravar o fluxo)
           </p>
         </motion.div>
 
-        {/* ESPAÇAMENTO: 28px */}
-        <div className="h-7"></div>
+        {/* ESPAÇAMENTO: 40px */}
+        <div className="h-10"></div>
 
         {/* PARÁGRAFO EXPLICATIVO */}
         <motion.div
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="max-w-[600px] mx-auto px-2"
+          className="max-w-[600px] mx-auto"
         >
-          <p className="text-[14px] leading-[1.6] sm:text-base sm:leading-relaxed md:text-lg lg:text-xl text-white/95">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white leading-relaxed">
             O Protocolo Xamânico usado por <strong className="text-[#FFD700] font-bold">4.387 brasileiros</strong>{' '}
             identifica <strong className="text-[#FFD700] font-bold">EXATAMENTE</strong> qual bloqueio financeiro ancestral está impedindo o dinheiro de chegar até você.
           </p>
         </motion.div>
 
-        {/* ESPAÇAMENTO: 20px */}
-        <div className="h-5"></div>
+        {/* ESPAÇAMENTO: 24px */}
+        <div className="h-6"></div>
 
         {/* BENEFÍCIO CURTO */}
         <motion.div
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.25 }}
-          className="px-2"
         >
-          <p className="text-[14px] leading-[1.6] sm:text-base sm:leading-relaxed md:text-lg font-semibold text-[#4ade80]">
+          <p className="text-sm sm:text-base md:text-lg font-medium text-[#4ade80] leading-relaxed">
             Em apenas 7 dias seguindo o protocolo: o dinheiro começa a fluir sem você precisar trabalhar mais.
           </p>
         </motion.div>
 
-        {/* ESPAÇAMENTO: 24px */}
-        <div className="h-6"></div>
+        {/* ESPAÇAMENTO: 32px */}
+        <div className="h-8"></div>
 
         {/* CAIXA ROXA/DESTACADA - Card com borda */}
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="w-full bg-gradient-to-br from-[#1a0d2e] to-[#0a0520] border-2 border-[#FFD700] rounded-xl p-5 sm:p-6 space-y-4 shadow-lg"
+          className="w-full bg-gradient-to-br from-[#1a0d2e] to-[#0a0520] border-2 border-[#FFD700] rounded-xl p-6 space-y-4 shadow-lg"
         >
-          <p className="text-[17px] sm:text-xl font-bold text-white leading-tight">
+          <p className="text-lg sm:text-xl font-bold text-white">
             📋 Responda 6 perguntas rápidas (2 minutos)
           </p>
-          <p className="text-[13px] sm:text-base text-slate-200 font-semibold">Você vai descobrir:</p>
-          <div className="text-left space-y-3 sm:space-y-3.5 text-[13px] sm:text-base text-slate-200 leading-[1.5]">
-            <div className="flex items-start gap-2.5 sm:gap-3">
-              <span className="text-[#4ade80] text-base sm:text-lg flex-shrink-0 mt-0.5">✓</span>
-              <p><strong className="text-white font-bold">EXATAMENTE</strong> qual bloqueio ancestral está drenando seu dinheiro</p>
+          <p className="text-sm sm:text-base text-slate-200 font-medium">Você vai descobrir:</p>
+          <div className="text-left space-y-3 text-sm sm:text-base text-slate-200">
+            <div className="flex items-start gap-3">
+              <span className="text-[#4ade80] text-lg flex-shrink-0 mt-0.5">✓</span>
+              <p><strong className="text-white">EXATAMENTE</strong> qual bloqueio ancestral está drenando seu dinheiro</p>
             </div>
-            <div className="flex items-start gap-2.5 sm:gap-3">
-              <span className="text-[#4ade80] text-base sm:text-lg flex-shrink-0 mt-0.5">✓</span>
-              <p>Por que começou na sua linhagem (e o ritual para <strong className="text-white font-bold">PARAR</strong> hoje)</p>
+            <div className="flex items-start gap-3">
+              <span className="text-[#4ade80] text-lg flex-shrink-0 mt-0.5">✓</span>
+              <p>Por que começou na sua linhagem (e o ritual para <strong className="text-white">PARAR</strong> hoje)</p>
             </div>
-            <div className="flex items-start gap-2.5 sm:gap-3">
-              <span className="text-[#4ade80] text-base sm:text-lg flex-shrink-0 mt-0.5">✓</span>
-              <p>O protocolo de 7 dias que <strong className="text-[#FFD700] font-bold">89%</strong> das pessoas sente funcionando nos primeiros 3 dias</p>
+            <div className="flex items-start gap-3">
+              <span className="text-[#4ade80] text-lg flex-shrink-0 mt-0.5">✓</span>
+              <p>O protocolo de 7 dias que <strong className="text-[#FFD700]">89%</strong> das pessoas sente funcionando nos primeiros 3 dias</p>
             </div>
           </div>
         </motion.div>
 
-        {/* ESPAÇAMENTO: 20px */}
-        <div className="h-5"></div>
+        {/* ESPAÇAMENTO: 24px */}
+        <div className="h-6"></div>
 
         {/* HIGHLIGHT COM ÍCONE */}
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.35 }}
-          className="w-full bg-[#8B0000]/20 border border-[#FF4500]/30 rounded-lg p-4 sm:p-5"
+          className="w-full bg-[#8B0000]/20 border border-[#FF4500]/30 rounded-lg p-4"
         >
-          <p className="text-[13px] leading-[1.5] sm:text-base sm:leading-relaxed md:text-lg font-bold text-[#FF6347]">
-            🔥 A maioria descobre uma <strong className="text-white font-extrabold">VERDADE BRUTAL</strong> sobre por que o dinheiro nunca ficou na mão... até agora.
+          <p className="text-sm sm:text-base md:text-lg font-bold text-[#FF6347] leading-relaxed">
+            🔥 A maioria descobre uma <strong className="text-white">VERDADE BRUTAL</strong> sobre por que o dinheiro nunca ficou na mão... até agora.
           </p>
         </motion.div>
 
-        {/* ESPAÇAMENTO: 24px */}
-        <div className="h-6"></div>
+        {/* ESPAÇAMENTO: 32px */}
+        <div className="h-8"></div>
 
         {/* LISTA DE CONFIANÇA - 4 itens em coluna */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="space-y-2.5 sm:space-y-3 text-white/85 text-[13px] sm:text-sm"
+          className="space-y-3 text-white/80 text-sm"
         >
           <div className="flex items-center justify-center gap-2">
-            <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+            <Clock className="w-4 h-4" />
             <p>⏰ Leva menos de 2 minutos</p>
           </div>
           <div className="flex items-center justify-center gap-2">
-            <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+            <Mail className="w-4 h-4" />
             <p>✉️ Sem e-mail solicitado</p>
           </div>
           <div className="flex items-center justify-center gap-2">
-            <Lock className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+            <Lock className="w-4 h-4" />
             <p>🔒 Nenhum comentário público</p>
           </div>
           <div className="flex items-center justify-center gap-2">
-            <Smartphone className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+            <Smartphone className="w-4 h-4" />
             <p>📱 Resultado chega direto na tela</p>
           </div>
         </motion.div>
 
-        {/* ESPAÇAMENTO: 24px */}
-        <div className="h-6"></div>
+        {/* ESPAÇAMENTO: 32px */}
+        <div className="h-8"></div>
 
         {/* IMAGEM BEFORE/AFTER */}
         <motion.div

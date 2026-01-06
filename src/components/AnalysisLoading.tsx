@@ -15,10 +15,10 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
 
   // Stages adapted by quiz path
   const financeStages = [
-    { pct: 15, text: "🔍 Analisando suas respostas...", icon: <Search className="w-6 h-6 text-[#D4AF37]" /> },
-    { pct: 30, text: "Cruzando suas respostas com 847 padrões ancestrais catalogados...", icon: <Brain className="w-6 h-6 text-[#D4AF37]" /> },
-    { pct: 57, text: "⚠️ ALERTA: Bloqueio Ancestral Detectado", icon: <Heart className="w-6 h-6 text-red-400" /> },
-    { pct: 70, text: "Nível: CRÍTICO", icon: <Heart className="w-6 h-6 text-red-400" /> },
+    { pct: 15, text: "Conectando à egrégora...", icon: <Search className="w-6 h-6 text-[#D4AF37]" /> },
+    { pct: 30, text: "Mapeando frequência vibracional...", icon: <Brain className="w-6 h-6 text-[#D4AF37]" /> },
+    { pct: 50, text: "Analisando respostas de frequência...", icon: <Heart className="w-6 h-6 text-[#D4AF37]" /> },
+    { pct: 70, text: "Bloqueio Ancestral Detectado: Nível Alto...", icon: <Heart className="w-6 h-6 text-red-400" /> },
     { pct: 90, text: "Gerando Protocolo Personalizado...", icon: <Wallet className="w-6 h-6 text-[#D4AF37]" /> },
     { pct: 100, text: "CONCLUÍDO.", icon: <CheckCircle2 className="w-6 h-6 text-green-400" /> }
   ];
@@ -35,10 +35,10 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
 
   // Rotating testimonials for finance path
   const testimonials = [
-    { text: "\"Segui o protocolo por 3 dias. No 4º dia recebi R$1.850 que NÃO esperava (cliente antigo pagou dívida de 2 anos). O mapa mostrou EXATAMENTE onde estava meu bloqueio. Funcionou.\"", author: "@RafaelaNascimento7, São Paulo/SP", time: "há 2 dias" },
-    { text: "\"Em 7 dias consegui um emprego novo que pagava o DOBRO!\"", author: "@FernandaOliveira", time: "há 5 dias" },
-    { text: "\"Fechei um contrato de R$ 85 mil que estava travado há meses.\"", author: "@RicardoMendes", time: "há 1 semana" },
-    { text: "\"Finalmente entendi porque o dinheiro sempre sumia.\"", author: "@JulianaCostaRJ", time: "há 3 dias" },
+    { text: "\"Adorei meu Mapa! Completo e fácil de entender.\"", author: "@RafaelaNascimento7" },
+    { text: "\"Em 7 dias consegui um emprego novo que pagava o DOBRO!\"", author: "@FernandaOliveira" },
+    { text: "\"Fechei um contrato de R$ 85 mil que estava travado há meses.\"", author: "@RicardoMendes" },
+    { text: "\"Finalmente entendi porque o dinheiro sempre sumia.\"", author: "@JulianaCostaRJ" },
   ];
 
   const relationshipTestimonial = { text: "\"Descobri porque sempre escolho errado. Libertador!\"", author: "@FernandaCoelho" };
