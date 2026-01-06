@@ -252,7 +252,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             }}
           >
             <Compass 
-              className="w-28 sm:w-36 md:w-40 h-28 sm:h-36 md:h-40 text-[#D4AF37] relative z-10 drop-shadow-[0_0_30px_rgba(212,175,55,0.8)]" 
+              className="w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 text-[#D4AF37] relative z-10 drop-shadow-[0_0_30px_rgba(212,175,55,0.8)]" 
               strokeWidth={1.5}
             />
           </motion.div>
@@ -283,14 +283,14 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className="text-slate-300 text-lg sm:text-xl min-h-[4rem] flex items-center justify-center px-4 font-medium"
+            className="text-slate-300 text-base sm:text-lg md:text-xl min-h-[4rem] flex items-center justify-center px-4 font-medium"
           >
             <strong className="text-[#FFD700]">{loadingStages[loadingStage]}</strong>
           </motion.p>
         </AnimatePresence>
         
-        {/* Enhanced progress bar */}
-        <div className="w-64 sm:w-80 md:w-96 h-2 bg-white/10 rounded-full mt-8 sm:mt-10 overflow-hidden mx-auto border border-[#D4AF37]/20">
+        {/* Enhanced progress bar - Mobile optimized */}
+        <div className="w-64 sm:w-80 md:w-96 h-1.5 sm:h-2 bg-white/10 rounded-full mt-8 sm:mt-10 overflow-hidden mx-auto border border-[#D4AF37]/20">
           <motion.div 
             className="h-full bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] relative overflow-hidden" 
             initial={{ width: "0%" }} 
