@@ -212,29 +212,100 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     
     return (
       <div className="min-h-screen min-h-[100dvh] flex flex-col items-center justify-center px-5 sm:px-6 py-4 relative z-20 text-center">
+        {/* Enhanced icon with larger size and better animation */}
         <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
+          initial={{ scale: 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          className="relative"
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="relative mb-8 sm:mb-10"
         >
-            <div className="absolute inset-0 bg-[#D4AF37] rounded-full blur-[60px] sm:blur-[80px] opacity-40 animate-pulse"></div>
-            <Compass className="w-20 sm:w-24 h-20 sm:h-24 text-[#D4AF37] mx-auto mb-4 sm:mb-6 relative z-10 animate-pulse" />
+          {/* Outer glow ring */}
+          <motion.div 
+            className="absolute inset-0 bg-[#D4AF37] rounded-full blur-[100px] opacity-40"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.4, 0.6, 0.4],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          
+          {/* Icon with enhanced size and animations */}
+          <motion.div
+            animate={{
+              rotate: [0, 360],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          >
+            <Compass 
+              className="w-28 sm:w-36 md:w-40 h-28 sm:h-36 md:h-40 text-[#D4AF37] relative z-10 drop-shadow-[0_0_30px_rgba(212,175,55,0.8)]" 
+              strokeWidth={1.5}
+            />
+          </motion.div>
+          
+          {/* Inner pulse ring */}
+          <motion.div
+            className="absolute inset-0 border-4 border-[#D4AF37]/30 rounded-full"
+            animate={{
+              scale: [1, 1.5],
+              opacity: [0.5, 0],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeOut",
+            }}
+          />
         </motion.div>
         
-        <h2 className="text-xl sm:text-2xl font-serif text-white mb-2 px-4 leading-tight">Preparando seu Quiz Personalizado...</h2>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-4 px-4 leading-tight tracking-tight">
+          Preparando seu Quiz <span className="text-[#D4AF37]">Personalizado</span>
+        </h2>
+        
         <AnimatePresence mode='wait'>
           <motion.p
             key={loadingStage}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="text-slate-300 text-base sm:text-lg min-h-[3rem] flex items-center justify-center px-4"
+            transition={{ duration: 0.3 }}
+            className="text-slate-300 text-lg sm:text-xl min-h-[4rem] flex items-center justify-center px-4 font-medium"
           >
-            <strong className="text-[#D4AF37]">{loadingStages[loadingStage]}</strong>
+            <strong className="text-[#FFD700]">{loadingStages[loadingStage]}</strong>
           </motion.p>
         </AnimatePresence>
-        <div className="w-56 sm:w-64 h-1 bg-white/10 rounded-full mt-6 sm:mt-8 overflow-hidden mx-auto">
-            <motion.div className="h-full bg-[#D4AF37]" initial={{ width: "0%" }} animate={{ width: "100%" }} transition={{ duration: 3, ease: "easeInOut" }} />
+        
+        {/* Enhanced progress bar */}
+        <div className="w-64 sm:w-80 md:w-96 h-2 bg-white/10 rounded-full mt-8 sm:mt-10 overflow-hidden mx-auto border border-[#D4AF37]/20">
+          <motion.div 
+            className="h-full bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] relative overflow-hidden" 
+            initial={{ width: "0%" }} 
+            animate={{ width: "100%" }} 
+            transition={{ duration: 3.5, ease: "easeInOut" }}
+            style={{
+              boxShadow: '0 0 15px rgba(212, 175, 55, 0.6)',
+            }}
+          >
+            {/* Animated shine */}
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+              animate={{
+                x: ['-100%', '200%'],
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            />
+          </motion.div>
         </div>
       </div>
     );
@@ -250,14 +321,34 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
 
   return (
     <div className="min-h-screen min-h-[100dvh] flex flex-col max-w-lg mx-auto px-4 sm:px-5 py-4 sm:py-6 relative z-10">
-      {/* Progress Bar - Otimizado para mobile */}
-      <div className="w-full bg-white/5 backdrop-blur-sm rounded-full h-2 sm:h-3 mb-6 sm:mb-8 relative overflow-hidden border border-white/10 shadow-inner">
+      {/* Progress Bar - Enhanced with better visibility */}
+      <div className="w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm rounded-full h-3 sm:h-4 mb-6 sm:mb-8 relative overflow-hidden border border-[#D4AF37]/20 shadow-lg">
         <motion.div 
-          className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] h-full rounded-full shadow-[0_0_15px_rgba(212,175,55,0.5)]"
+          className="bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] h-full rounded-full relative overflow-hidden"
           initial={{ width: 0 }}
           animate={{ width: `${progress}%` }}
-          transition={{ duration: 0.5 }}
-        />
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          style={{
+            boxShadow: '0 0 20px rgba(212, 175, 55, 0.6), 0 0 40px rgba(212, 175, 55, 0.3)',
+          }}
+        >
+          {/* Animated shine effect */}
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+            animate={{
+              x: ['-100%', '200%'],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+        </motion.div>
+        {/* Progress percentage text */}
+        <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-[#D4AF37]">
+          {Math.round(progress)}%
+        </div>
       </div>
 
       <AnimatePresence mode='wait'>
@@ -329,42 +420,70 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   Digite seu primeiro nome:
                 </label>
                 
-                {/* INPUT FIELD */}
-                <div className="relative">
+                {/* INPUT FIELD - Enhanced with premium styling */}
+                <div className="relative group">
                   <input
                     type="text"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder={currentQuestion.placeholder}
-                    className="w-full bg-[#1a0d2e]/60 backdrop-blur-sm border-2 border-[#3d2a5f] rounded-xl p-4 pr-12 text-lg text-white placeholder-white/50 focus:outline-none focus:border-[#FFD700] transition-all"
+                    className="w-full bg-gradient-to-br from-[#1a0d2e] to-[#0f0520] backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-2xl p-5 pr-14 text-lg sm:text-xl text-white placeholder-white/40 focus:outline-none focus:border-[#FFD700] focus:ring-4 focus:ring-[#FFD700]/20 transition-all duration-300 shadow-lg hover:border-[#D4AF37]/50"
                     autoFocus
                     autoComplete="name"
                     inputMode="text"
+                    style={{
+                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), inset 0 2px 4px 0 rgba(212, 175, 55, 0.05)',
+                    }}
                   />
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-2xl pointer-events-none">
+                  {/* Animated emoji icon */}
+                  <motion.span 
+                    className="absolute right-5 top-1/2 -translate-y-1/2 text-3xl pointer-events-none"
+                    animate={{
+                      scale: [1, 1.1, 1],
+                      rotate: [0, 5, -5, 0],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  >
                     🔮
-                  </span>
+                  </motion.span>
+                  
+                  {/* Focus glow effect */}
+                  <div className="absolute inset-0 rounded-2xl opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"
+                    style={{
+                      boxShadow: '0 0 0 4px rgba(212, 175, 55, 0.1), 0 0 20px rgba(212, 175, 55, 0.2)',
+                    }}
+                  />
                 </div>
               </div>
 
               {/* ESPAÇAMENTO: 24px */}
               <div className="h-6"></div>
 
-              {/* CARD DE EXPLICAÇÃO - Background roxo escuro */}
+              {/* CARD DE EXPLICAÇÃO - Enhanced premium styling */}
               {currentQuestion.emotionalContext && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="bg-[#1a0d2e] border border-[#FFD700]/30 rounded-lg p-4 space-y-3"
+                  className="bg-gradient-to-br from-[#1a0d2e] to-[#0f0520] border-2 border-[#FFD700]/30 rounded-2xl p-5 sm:p-6 space-y-3 relative overflow-hidden group"
+                  style={{
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(212, 175, 55, 0.05), inset 0 1px 0 0 rgba(255, 255, 255, 0.05)',
+                  }}
                 >
-                  <p className="text-sm sm:text-base text-white/90 leading-relaxed whitespace-pre-line">
+                  {/* Subtle gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent opacity-50 pointer-events-none" />
+                  
+                  <p className="text-sm sm:text-base text-white/90 leading-relaxed whitespace-pre-line relative z-10">
                     {currentQuestion.emotionalContext.split('\n\n').map((paragraph, i) => (
                       <span key={i}>
                         {paragraph.replace('847 linhagens', '').includes('847') ? (
                           <>
                             {paragraph.split('847')[0]}
-                            <strong className="text-[#FFD700]">847</strong>
+                            <strong className="text-[#FFD700] font-bold">847</strong>
                             {paragraph.split('847')[1]}
                           </>
                         ) : (
@@ -388,14 +507,34 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               {/* ESPAÇAMENTO: 32px */}
               <div className="h-8"></div>
 
-              {/* CTA BOTÃO */}
-              <button 
+              {/* CTA BOTÃO - Enhanced premium design */}
+              <motion.button 
                 type="submit"
                 disabled={!inputValue.trim() || inputValue.trim().length < 2}
-                className="w-full bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-black font-black py-5 px-8 rounded-full text-base sm:text-lg shadow-[0_8px_24px_rgba(255,215,0,0.3)] hover:scale-105 hover:shadow-[0_12px_32px_rgba(255,215,0,0.4)] active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                className="relative w-full bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] text-black font-black py-6 px-8 rounded-2xl text-lg sm:text-xl overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                style={{
+                  boxShadow: '0 10px 40px rgba(255, 215, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                }}
               >
-                🔥 CONECTAR E INICIAR ANÁLISE →
-              </button>
+                {/* Shimmer effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer" />
+                
+                {/* Button content */}
+                <span className="relative z-10 flex items-center justify-center gap-2">
+                  <span className="text-2xl">🔥</span>
+                  <span>CONECTAR E INICIAR ANÁLISE</span>
+                  <span className="text-xl">→</span>
+                </span>
+                
+                {/* Glow effect on hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"
+                  style={{
+                    boxShadow: '0 0 30px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.2)',
+                  }}
+                />
+              </motion.button>
 
               {/* ESPAÇAMENTO: 24px */}
               <div className="h-6"></div>
@@ -443,30 +582,64 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               {/* ESPAÇAMENTO: 24px (if bridge text exists) */}
               {currentQuestion.bridgeText && <div className="h-6"></div>}
 
-              {/* OPÇÕES - Cards clicáveis */}
-              <div className="space-y-5">
+              {/* OPÇÕES - Cards clicáveis com design premium */}
+              <div className="space-y-4">
                 {currentQuestion.options?.map((option, idx) => (
                   <motion.button
                     key={idx}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.1 + 0.3 }}
+                    transition={{ delay: idx * 0.08 + 0.3 }}
                     onClick={() => handleOptionClick(option)}
                     disabled={isNavigating}
-                    className={`w-full text-left rounded-2xl transition-all duration-200 group relative overflow-hidden ${
-                      isNavigating ? 'cursor-not-allowed opacity-60' : 'cursor-pointer hover:scale-[1.02] active:scale-[0.98]'
+                    whileHover={!isNavigating ? { scale: 1.02, y: -2 } : {}}
+                    whileTap={!isNavigating ? { scale: 0.98 } : {}}
+                    className={`w-full text-left rounded-2xl transition-all duration-300 group relative overflow-hidden ${
+                      isNavigating ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'
                     } ${
                       currentQuestion.singleButton 
-                        ? 'bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-black font-bold p-5 shadow-lg hover:shadow-xl'
-                        : 'bg-[#1a0d2e] border-2 border-[#3d2a5f] hover:border-[#FFD700] p-6'
+                        ? 'bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] text-black font-bold p-6 border-none'
+                        : 'bg-gradient-to-br from-[#1a0d2e] to-[#0f0520] border-2 border-[#3d2a5f] hover:border-[#FFD700] p-6'
                     }`}
+                    style={currentQuestion.singleButton ? {
+                      boxShadow: '0 10px 40px rgba(255, 215, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                    } : {
+                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(212, 175, 55, 0.05)',
+                    }}
                   >
+                    {/* Shimmer effect for single button */}
+                    {currentQuestion.singleButton && (
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer" />
+                    )}
+                    
+                    {/* Hover glow for regular cards */}
+                    {!currentQuestion.singleButton && (
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl pointer-events-none"
+                        style={{
+                          boxShadow: '0 0 20px rgba(212, 175, 55, 0.2), inset 0 0 20px rgba(212, 175, 55, 0.05)',
+                        }}
+                      />
+                    )}
+                    
                     {/* Estrutura interna do card */}
                     <div className="relative z-10 space-y-3">
                       {/* Emoji + Headline */}
-                      <div className="flex items-start gap-3">
+                      <div className="flex items-start gap-3 sm:gap-4">
                         {option.icon && (
-                          <span className="text-3xl sm:text-4xl flex-shrink-0">{option.icon}</span>
+                          <motion.span 
+                            className="text-3xl sm:text-4xl flex-shrink-0"
+                            animate={{
+                              scale: [1, 1.05, 1],
+                            }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                              delay: idx * 0.2,
+                            }}
+                          >
+                            {option.icon}
+                          </motion.span>
                         )}
                         <div className="flex-1 space-y-2">
                           <p className={`text-base sm:text-lg font-bold leading-snug ${currentQuestion.singleButton ? 'text-black' : 'text-white'}`}>
