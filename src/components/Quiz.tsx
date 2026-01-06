@@ -346,7 +346,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           />
         </motion.div>
         {/* Progress percentage text */}
-        <div className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 text-[10px] sm:text-xs font-bold text-[#D4AF37] drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+        <div className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-[#D4AF37] drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
           {Math.round(progress)}%
         </div>
       </div>
