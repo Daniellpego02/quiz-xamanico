@@ -137,7 +137,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       
       const interval = setInterval(() => {
         setLoadingStage(prev => (prev + 1) % loadingStages.length);
-      }, 800); // Increased from 650ms to 800ms for better readability
+      }, 800); // Increased from 650ms to 800ms for improved pacing and suspense
       return () => clearInterval(interval);
     } else {
       // Reset loading stage when screen is hidden
@@ -609,7 +609,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                       isNavigating ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'
                     } ${
                       isSelected
-                        ? 'border-3 border-[#FFD700] bg-[#1a0d2e]/95'
+                        ? 'border-[3px] border-[#FFD700] bg-[#1a0d2e]/95'
                         : currentQuestion.singleButton 
                           ? 'bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] text-black font-bold p-4 sm:p-5 border-none'
                           : 'bg-gradient-to-br from-[#1a0d2e]/90 to-[#0f0520]/90 border-2 border-[#3d2a5f] hover:border-[#FFD700]/60 hover:bg-[#1a0d2e]/95 p-4 sm:p-5'
