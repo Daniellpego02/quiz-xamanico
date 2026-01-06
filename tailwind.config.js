@@ -9,6 +9,7 @@ export default {
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
         serif: ['Cinzel', 'serif'],
+        display: ['Playfair Display', 'serif'],
       },
       colors: {
         gold: {
@@ -16,6 +17,9 @@ export default {
           400: '#FBBF24',
           500: '#F59E0B',
           600: '#D97706',
+          primary: '#FFD700',
+          secondary: '#FFC700',
+          light: '#FFE66D',
         },
         orange: {
             500: '#FF9500', // High conversion orange
@@ -25,6 +29,9 @@ export default {
           900: '#0F0821', // Darker, deeper purple base
           800: '#1E1245',
           700: '#302060',
+          dark: '#1a0033',
+          medium: '#2d1b4e',
+          light: '#3d2b5e',
         },
         lavender: {
           500: '#c4b5d6', // Quiz subtitle color for readability
