@@ -7,8 +7,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        serif: ['Cinzel', 'serif'],
+        sans: ['Poppins', 'sans-serif'],
+        serif: ['Poppins', 'sans-serif'],
       },
       colors: {
         gold: {

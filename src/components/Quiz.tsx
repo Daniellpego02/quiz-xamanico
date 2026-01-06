@@ -76,25 +76,26 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     {
       id: 3,
       title: "⚡ PERGUNTA 4 DE 6",
-      text: "{NAME}, QUAL DESSAS VERDADES MAIS DÓI?",
-      emotionalContext: "Qual desses cenários é VOCÊ agora?",
+      text: "{NAME}, QUAL DESSAS VERDADES MAIS DÓI QUANDO VOCÊ PENSA NELA?",
+      emotionalContext: "Qual desses cenários descreve SUA VIDA agora?",
       options: [
-        { label: "O dinheiro entra, mas some em imprevistos", sublabel: "Parece que tenho um RALO que suga tudo", value: "leak", icon: "💰" },
-        { label: "Trabalho demais, ganho pouco, sou cansado", sublabel: "O esforço NÃO vira resultado", value: "tired", icon: "😤" },
-        { label: "Tenho pavor de faltar", sublabel: "Vivo apertando cada centavo, com medo", value: "fear", icon: "😰" },
-        { label: "Nenhum desses, tenho outro problema", sublabel: "Minha situação é diferente", value: "other", icon: "🚫" },
+        { label: "O dinheiro entra, mas EVAPORA em imprevistos", sublabel: "👉 Entrou R$2.000 na conta hoje. Amanhã já foi: carro quebrou (R$850), conta atrasada (R$400), \"emergência\" do nada (R$600). Sempre tem um buraco que suga tudo. SEMPRE.", value: "leak", icon: "💸" },
+        { label: "Trabalho 12 horas por dia, ganho pouco, acordo exausto", sublabel: "👉 Você faz TUDO certo: trabalha duro, não gasta com besteira, não é preguiçoso. Mas o salário NÃO sobe. O esforço não vira dinheiro na conta. Parece que tem um TETO invisível impedindo você de crescer.", value: "tired", icon: "😤" },
+        { label: "Tenho PAVOR que falte dinheiro", sublabel: "👉 Você checa o saldo bancário 3x por dia antes de gastar qualquer coisa. Sempre calculando: \"será que dá?\", \"será que sobre?\". Vive apertando. Mesmo quando TEM dinheiro, sente que pode acabar a qualquer momento.", value: "fear", icon: "😰" },
+        { label: "Nenhum desses, meu problema é outro", sublabel: "Minha situação financeira é diferente", value: "other", icon: "🚫" },
       ]
     },
     {
       id: 4,
       title: "🔮 PERGUNTA 5 DE 6",
-      text: "O Xamanismo Financeiro ensina que padrões se repetem. Olhando para seus pais ou avós, o que você vê?",
-      emotionalContext: "→ Essa resposta define o TIPO de bloqueio que vamos identificar.",
-      validationText: "Isso não é culpa sua. É uma herança vibracional que você recebeu sem escolher.",
+      text: "O XAMANISMO FINANCEIRO DESCOBRIU QUE 87% DOS PADRÕES FINANCEIROS SE REPETEM POR 3 GERAÇÕES.",
+      subtext: "Olhando para seus PAIS ou AVÓS, o que você vê?",
+      emotionalContext: "→ Essa resposta revela a RAIZ do seu bloqueio ancestral.",
+      validationText: "🔥 IMPORTANTE: Isso NÃO é culpa sua.\n\nÉ um PADRÃO ENERGÉTICO que passou de geração em geração, sem você escolher.\n\nSeu avô recebeu. Seu pai recebeu. Você recebeu.\n\nMas hoje você pode ROMPER esse ciclo para sempre.",
       options: [
-        { label: "Histórico de dívidas, falências ou lutas financeiras pesadas.", sublabel: "Ciclos que se repetem há gerações", value: "heavy", icon: "💔" },
-        { label: "Pessoas honestas, mas que nunca enriqueceram.", sublabel: "O trabalho duro sem recompensa", value: "honest", icon: "🙏" },
-        { label: "Havia dinheiro, mas muitas brigas e desarmonia familiar.", sublabel: "Riqueza com conflito emocional", value: "conflict", icon: "⚡" },
+        { label: "Histórico de dívidas, falências ou lutas financeiras brutais.", sublabel: "👉 Seu avô passou aperto. Seu pai passou aperto. Agora VOCÊ passa aperto. O mesmo ciclo há 3 gerações. Dívida, conta atrasada, falta de dinheiro... sempre.", value: "heavy", icon: "💔" },
+        { label: "Pessoas honestas, trabalhadoras... mas que NUNCA enriqueceram.", sublabel: "👉 Trabalharam 40 anos em empresa, se aposentaram com 1 salário mínimo. Viveram apertando a vida inteira. Morreram sem ter casa própria. Honestidade não trouxe abundância.", value: "honest", icon: "🙏" },
+        { label: "Tinha dinheiro, mas MUITA briga, traição e desarmonia familiar.", sublabel: "👉 A casa tinha grana, mas era um campo de guerra. Gritos, traições, brigas por dinheiro. Você cresceu associando \"ter dinheiro\" = \"sofrer emocionalmente\". Riqueza com conflito.", value: "conflict", icon: "⚡" },
       ]
     },
     {
