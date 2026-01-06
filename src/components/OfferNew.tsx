@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { Check, Shield, Clock, AlertTriangle, Headphones, FileText, Sparkles, Lock } from 'lucide-react';
+import { Check, Shield, Clock, AlertTriangle, Headphones, FileText, Sparkles, Lock, CheckCircle } from 'lucide-react';
 import { FAQ } from './FAQ';
 import { tracking } from '../utils/tracking';
 
@@ -119,23 +119,23 @@ const OfferNew = ({ userName }: OfferProps) => {
                 }}></div>
             </div>
 
-            <div className="max-w-[800px] mx-auto px-4 py-8">
+            <div className="max-w-[800px] mx-auto px-4 py-4 sm:py-6">
                 {/* BLOCK 01: HERO SECTION - Dynamic Headline */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-center mb-6"
+                    className="text-center mb-4 sm:mb-5"
                 >
-                    <h1 className="text-xl sm:text-2xl md:text-3xl font-black uppercase text-[#FFD700] mb-4 tracking-wide leading-tight px-2">
-                        <span className="break-words">
-                            🎉 {userName && userName.trim() ? `DIAGNÓSTICO DE ${userName.toUpperCase()} CONCLUÍDO` : 'SEU DIAGNÓSTICO CONCLUÍDO'}
+                    <h1 className="text-lg sm:text-xl md:text-2xl font-black uppercase text-[#FFD700] mb-3 tracking-wide leading-tight px-2">
+                        <span className="break-words flex items-center justify-center gap-2">
+                            <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
+                            {userName && userName.trim() ? `DIAGNÓSTICO DE ${userName.toUpperCase()} CONCLUÍDO` : 'SEU DIAGNÓSTICO CONCLUÍDO'}
                         </span>
-                        <br className="hidden sm:block"/>
-                        <span className="text-white block mt-2">SEU BLOQUEIO ANCESTRAL FOI IDENTIFICADO</span>
+                        <span className="text-white block mt-2 text-base sm:text-lg md:text-xl">SEU BLOQUEIO ANCESTRAL FOI IDENTIFICADO</span>
                     </h1>
                     
                     {/* Type of Blockage Badge */}
-                    <div className="inline-block bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black font-bold text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3 rounded-xl mt-4 shadow-lg">
+                    <div className="inline-block bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black font-bold text-xs sm:text-sm px-3 sm:px-5 py-2 rounded-lg sm:rounded-xl mt-3 shadow-lg">
                         Tipo: Herança Vibracional de Escassez (Linhagem Materna)
                     </div>
                 </motion.div>
@@ -145,15 +145,18 @@ const OfferNew = ({ userName }: OfferProps) => {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.2 }}
-                    className="bg-gradient-to-r from-[#8B0000] to-[#CC0000] border border-red-500/50 rounded-lg px-4 py-3 mb-4 text-center"
+                    className="bg-gradient-to-r from-[#8B0000]/90 to-[#CC0000]/90 border border-red-500/50 rounded-lg px-3 sm:px-4 py-2 sm:py-3 mb-3 sm:mb-4 text-center"
                 >
-                    <p className="text-sm md:text-base text-white font-semibold mb-2">
-                        🔒 ATENÇÃO: Este vídeo contém a leitura PERSONALIZADA da sua frequência ancestral.
-                    </p>
-                    <p className="text-xs md:text-sm text-slate-200">
+                    <div className="flex items-start gap-2 justify-center mb-1.5">
+                        <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-white flex-shrink-0 mt-0.5" />
+                        <p className="text-xs sm:text-sm md:text-base text-white font-semibold">
+                            ATENÇÃO: Este vídeo contém a leitura PERSONALIZADA da sua frequência ancestral.
+                        </p>
+                    </div>
+                    <p className="text-xs text-slate-200">
                         Por questões de personalização, mantemos cada diagnóstico ativo por apenas 24 horas.
                     </p>
-                    <p className="text-xs md:text-sm text-[#FFD700] font-bold mt-1">
+                    <p className="text-xs text-[#FFD700] font-bold mt-1">
                         Assista AGORA antes que expire.
                     </p>
                 </motion.div>
@@ -163,32 +166,38 @@ const OfferNew = ({ userName }: OfferProps) => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="bg-gradient-to-br from-[#D4AF37]/10 to-[#FFD700]/5 border-2 border-[#D4AF37]/30 rounded-xl p-4 sm:p-5 mb-6"
+                    className="bg-gradient-to-br from-[#D4AF37]/10 to-[#FFD700]/5 border-2 border-[#D4AF37]/30 rounded-lg sm:rounded-xl p-3 sm:p-4 mb-4 sm:mb-5"
                 >
-                    <h3 className="text-center text-[#FFD700] font-bold text-sm sm:text-base uppercase tracking-wider mb-3">
-                        ✨ NESTE VÍDEO VOCÊ VAI DESCOBRIR:
-                    </h3>
-                    <div className="space-y-2 text-left max-w-lg mx-auto">
-                        <p className="text-slate-200 text-sm flex items-start gap-2">
-                            <span className="text-green-400 font-bold flex-shrink-0">✓</span>
+                    <div className="flex items-center justify-center gap-2 mb-2.5 sm:mb-3">
+                        <Sparkles className="w-4 h-4 text-[#FFD700]" />
+                        <h3 className="text-center text-[#FFD700] font-bold text-xs sm:text-sm uppercase tracking-wider">
+                            NESTE VÍDEO VOCÊ VAI DESCOBRIR:
+                        </h3>
+                    </div>
+                    <div className="space-y-1.5 sm:space-y-2 text-left max-w-lg mx-auto">
+                        <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
+                            <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
                             <span>Por que o dinheiro entra e sai da sua vida</span>
                         </p>
-                        <p className="text-slate-200 text-sm flex items-start gap-2">
-                            <span className="text-green-400 font-bold flex-shrink-0">✓</span>
+                        <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
+                            <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
                             <span>Qual trava ancestral está te bloqueando AGORA</span>
                         </p>
-                        <p className="text-slate-200 text-sm flex items-start gap-2">
-                            <span className="text-green-400 font-bold flex-shrink-0">✓</span>
+                        <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
+                            <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
                             <span>O protocolo exato de 7 dias para limpar isso</span>
                         </p>
-                        <p className="text-slate-200 text-sm flex items-start gap-2">
-                            <span className="text-green-400 font-bold flex-shrink-0">✓</span>
+                        <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
+                            <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
                             <span>Como ativar sua frequência de abundância</span>
                         </p>
                     </div>
-                    <p className="text-center text-slate-400 text-xs mt-3">
-                        ⏱ Duração: 2 minutos (assista até o fim)
-                    </p>
+                    <div className="flex items-center justify-center gap-1.5 mt-2 sm:mt-3">
+                        <Clock className="w-3.5 h-3.5 text-slate-400" />
+                        <p className="text-center text-slate-400 text-xs">
+                            Duração: 2 minutos (assista até o fim)
+                        </p>
+                    </div>
                 </motion.div>
 
                 {/* BLOCK 02: VSL VIDEO PLAYER */}
@@ -196,7 +205,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4 }}
-                    className="relative rounded-2xl overflow-hidden border-2 border-[#D4AF37] shadow-[0_0_60px_rgba(212,175,55,0.4)] mb-8 mx-auto max-w-md"
+                    className="relative rounded-lg sm:rounded-2xl overflow-hidden border-2 border-[#D4AF37] shadow-[0_0_60px_rgba(212,175,55,0.4)] mb-4 sm:mb-6 mx-auto max-w-md"
                 >
                     <div className="bg-black flex items-center justify-center relative">
                         <div className="w-full" style={{ aspectRatio: '9/16', maxWidth: '400px' }}>
