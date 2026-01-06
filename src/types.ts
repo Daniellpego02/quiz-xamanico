@@ -22,6 +22,7 @@ export interface QuizQuestion {
   id: number;
   title: string;
   text: string;
+  subtext?: string; // Additional explanatory text below the main text
   type?: 'select' | 'input';
   placeholder?: string;
   options?: QuestionOption[];

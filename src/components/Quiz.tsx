@@ -24,10 +24,11 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const initialQuestions: QuizQuestion[] = [
     {
       id: 0,
-      title: "PERGUNTA 1 DE 6",
-      text: "SEU NOME CARREGA A FREQUÊNCIA DA SUA LINHAGEM",
+      title: "👤 PERGUNTA 1 DE 6",
+      text: "SEU NOME CARREGA A ENERGIA DA SUA LINHAGEM ANCESTRAL",
       type: "input",
-      placeholder: "Ex: João"
+      placeholder: "Ex: João",
+      emotionalContext: "⚠️ Sério: Seu nome ativa a FREQUÊNCIA EXATA da sua linhagem ancestral.\n\nQuando você digita seu nome, o sistema cruza com padrões energéticos de 847 linhagens brasileiras catalogadas.\n\nIsso muda TUDO no seu diagnóstico."
     }
   ];
 
@@ -35,7 +36,46 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const financeQuestions: QuizQuestion[] = [
     {
       id: 1,
-      title: "⚡ PERGUNTA 2 DE 6 ⚡",
+      title: "💥 PERGUNTA 2 DE 6",
+      text: "O SISTEMA DETECTOU UM BLOQUEIO SEVERO NA SUA ENERGIA FINANCEIRA.",
+      subtext: "Existe um Protocolo Xamânico de 7 dias que limpa esse bloqueio COMPLETAMENTE.",
+      emotionalContext: "A pergunta é:\n\nVocê está disposto(a) a seguir o protocolo... mesmo que isso signifique ROMPER padrões que sua família carrega há gerações?",
+      singleButton: true,
+      validationText: "(A maioria das pessoas passa a vida inteira checando o saldo bancário antes de comprar QUALQUER coisa... vivendo no aperto... pedindo emprestado... sem saber que um bloqueio ancestral está causando isso.\n\nVocê não precisa ser uma delas.)",
+      options: [
+        { label: "🔥 SIM, estou pronto(a) para destruir esse bloqueio →", value: "ready", icon: "" },
+      ]
+    },
+    {
+      id: 2,
+      title: "💥 PERGUNTA 3 DE 6",
+      text: "SE NADA MUDAR NOS PRÓXIMOS 6 MESES, QUAL É O SEU MAIOR MEDO?",
+      emotionalContext: "→ Seja BRUTALMENTE honesto. Essa resposta define qual tipo de bloqueio ancestral o protocolo vai atacar primeiro.",
+      warningText: "🚨 ATENÇÃO: Essa resposta é A MAIS IMPORTANTE do diagnóstico.\n\nO que você escolher aqui define:\n• Qual tipo de bloqueio ancestral será revelado\n• Qual protocolo de limpeza você vai receber\n• Quantos dias até começar a sentir o desbloqueio\n\nA maioria escolhe a opção 1 ou 3. Mas seja honesto com VOCÊ, não com o que \"deveria\" sentir.",
+      options: [
+        { 
+          label: "Continuar dependendo dos outros ou contando moedas.", 
+          sublabel: "👉 Olhar o preço de TUDO antes de pegar no mercado. Pedir dinheiro emprestado pro fim do mês. Sentir vergonha quando os amigos chamam pra sair e você inventa desculpa porque tá sem grana.", 
+          value: "dependency", 
+          icon: "😔" 
+        },
+        { 
+          label: "Envelhecer sem construir nenhum patrimônio real.", 
+          sublabel: "👉 Chegar aos 55 anos no mesmo apartamento ALUGADO. Ver seus filhos crescerem sem poder dar educação de qualidade. Morrer sem deixar NADA para quem você ama.", 
+          value: "aging", 
+          icon: "🏠" 
+        },
+        { 
+          label: "Ver minha família sofrer por causa da minha situação financeira.", 
+          sublabel: "👉 Olhar no olho do seu filho e dizer \"a gente não tem dinheiro pra isso agora\". Ver sua mãe/pai precisando de remédio e você sem condições de ajudar. Sentir que FALHOU como provedor(a).", 
+          value: "family", 
+          icon: "💔" 
+        },
+      ]
+    },
+    {
+      id: 3,
+      title: "⚡ PERGUNTA 4 DE 6",
       text: "{NAME}, QUAL DESSAS VERDADES MAIS DÓI?",
       emotionalContext: "Qual desses cenários é VOCÊ agora?",
       options: [
@@ -46,8 +86,8 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       ]
     },
     {
-      id: 2,
-      title: "🔮 PERGUNTA 3 DE 6 🔮",
+      id: 4,
+      title: "🔮 PERGUNTA 5 DE 6",
       text: "O Xamanismo Financeiro ensina que padrões se repetem. Olhando para seus pais ou avós, o que você vê?",
       emotionalContext: "→ Essa resposta define o TIPO de bloqueio que vamos identificar.",
       validationText: "Isso não é culpa sua. É uma herança vibracional que você recebeu sem escolher.",
@@ -58,20 +98,8 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       ]
     },
     {
-      id: 3,
-      title: "⚠️ PERGUNTA 4 DE 6 ⚠️",
-      text: "Se nada mudar nos próximos 6 meses, qual é o seu maior medo, {NAME}?",
-      emotionalContext: "→ Seja honesto. Essa resposta molda seu protocolo de desbloqueio.",
-      warningText: "⚠️ Atenção: O que você responder aqui define o tipo de bloqueio que será revelado no seu diagnóstico.",
-      options: [
-        { label: "Continuar dependendo dos outros ou contando moedas.", sublabel: "Viver com medo de faltar", value: "dependency", icon: "😔" },
-        { label: "Envelhecer sem construir nenhum patrimônio real.", sublabel: "Ver o tempo passar sem mudança", value: "aging", icon: "⏰" },
-        { label: "Ver minha família passar necessidade por minha causa.", sublabel: "Sentir que falhei com quem amo", value: "family", icon: "💔" },
-      ]
-    },
-    {
-      id: 4,
-      title: "🔥 PERGUNTA 5 DE 6 🔥",
+      id: 5,
+      title: "🔥 PERGUNTA 6 DE 6",
       text: "O sistema identificou um bloqueio severo na sua frequência. Se existir um Protocolo de 7 dias para limpar isso COMPLETAMENTE, você está disposto(a) a seguir?",
       singleButton: true,
       validationText: "(A maioria das pessoas vive a vida inteira com esse bloqueio sem saber. Você não precisa ser uma delas.)",
@@ -231,134 +259,246 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           transition={{ duration: 0.3 }}
           className="flex-1 flex flex-col"
         >
-          <div className="mb-4 sm:mb-6">
-            {/* Show name badge for exclusivity if user has provided name and it's not the first question */}
+          <div className="mb-6 sm:mb-8 space-y-4">
+            {/* TAG PEQUENA */}
             {userName && currentIndex > 0 && (
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="inline-flex items-center gap-2 bg-[#D4AF37]/10 backdrop-blur-md text-[#D4AF37] px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-xs font-bold border border-[#D4AF37]/20 shadow-lg mb-3 sm:mb-4"
+                className="inline-flex items-center gap-2 bg-[#D4AF37]/30 backdrop-blur-md text-[#FFD700] px-4 py-2 rounded-full text-xs sm:text-sm font-bold border border-[#D4AF37]/40"
               >
                 <Sparkles className="w-3 h-3 flex-shrink-0" />
-                <span className="whitespace-nowrap">Pergunta exclusiva para {userName.split(' ')[0]}</span>
+                <span className="whitespace-nowrap">💥 Pergunta exclusiva para {userName.split(' ')[0]}</span>
               </motion.div>
             )}
-            {currentQuestion.id === 0 && (
+            
+            {/* Título da pergunta (TAG) */}
+            {currentQuestion.title && (
               <motion.div
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="mb-2"
+                className="mb-4"
               >
-                <p className="text-[#D4AF37] text-[10px] sm:text-xs md:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-1">
-                  🔮 {currentQuestion.title} 🔮
+                <p className="text-[#FFD700] text-xs sm:text-sm font-bold uppercase tracking-wider text-center">
+                  {currentQuestion.title}
                 </p>
               </motion.div>
             )}
-            <h2 className="text-xl sm:text-2xl md:text-[28px] font-serif font-bold text-white leading-tight sm:leading-snug drop-shadow-lg px-1" dangerouslySetInnerHTML={{ __html: personalizeText(currentQuestion.text) }}>
+
+            {/* ESPAÇAMENTO: 32px */}
+            <div className="h-8"></div>
+
+            {/* HEADLINE DA PERGUNTA */}
+            <h2 className="text-[22px] sm:text-[28px] md:text-[36px] font-bold text-white leading-tight text-center px-2">
+              <span dangerouslySetInnerHTML={{ __html: personalizeText(currentQuestion.text).replace('BLOQUEIO SEVERO', '<span class="text-[#FF4500]">BLOQUEIO SEVERO</span>').replace('6 MESES', '<span class="text-[#FF4500]">6 MESES</span>').replace('MAIOR MEDO', '<span class="text-[#FF4500]">MAIOR MEDO</span>').replace('ENERGIA', '<span class="text-[#FFD700]">ENERGIA</span>') }}></span>
             </h2>
+
+            {/* Subtexto (para pergunta 2) */}
+            {currentQuestion.subtext && (
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15 }}
+                className="text-base sm:text-lg text-white/90 text-center mt-4 px-2"
+              >
+                {currentQuestion.subtext}
+              </motion.p>
+            )}
           </div>
 
+          {/* ESPAÇAMENTO: 20-24px */}
+          <div className="h-6"></div>
+
           {currentQuestion.type === 'input' ? (
-            <form onSubmit={handleInputSubmit} className="space-y-3 sm:space-y-4 mt-3 sm:mt-4">
-              <div className="relative">
-                <input
-                  type="text"
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  placeholder={currentQuestion.placeholder}
-                  className="w-full bg-white/10 border border-white/20 rounded-xl p-4 sm:p-5 text-base sm:text-lg text-white placeholder-slate-400 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all text-center touch-manipulation"
-                  autoFocus
-                  autoComplete="name"
-                  inputMode="text"
-                />
-                <Sparkles className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-4 sm:w-5 h-4 sm:h-5 text-[#D4AF37] animate-pulse pointer-events-none" aria-hidden="true" />
+            // TELA 4: PERGUNTA 1 (NOME)
+            <form onSubmit={handleInputSubmit} className="space-y-6">
+              {/* LABEL DO INPUT */}
+              <div className="text-left">
+                <label className="text-sm sm:text-base text-white/80 block mb-3">
+                  Digite seu primeiro nome:
+                </label>
+                
+                {/* INPUT FIELD */}
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    placeholder={currentQuestion.placeholder}
+                    className="w-full bg-[#1a0d2e]/60 backdrop-blur-sm border-2 border-[#3d2a5f] rounded-xl p-4 pr-12 text-lg text-white placeholder-white/50 focus:outline-none focus:border-[#FFD700] transition-all"
+                    autoFocus
+                    autoComplete="name"
+                    inputMode="text"
+                  />
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-2xl pointer-events-none">
+                    🔮
+                  </span>
+                </div>
               </div>
-              <p className="text-[10px] sm:text-xs text-slate-300 text-center mt-2 mb-2 sm:mb-3 px-2 leading-relaxed">
-                ⚠️ Aviso: Seu nome ativa a VIBRAÇÃO exata da sua linhagem ancestral. Isso muda tudo no mapeamento.
-              </p>
-              <div className="text-[10px] sm:text-xs bg-white/5 backdrop-blur-md border border-white/10 rounded-lg px-3 py-2 mb-2 sm:mb-3 text-slate-300 text-center leading-relaxed">
-                ℹ️ Você receberá seu diagnóstico gratuito na próxima tela. Sem compromisso.
-              </div>
-              <button 
-                type="submit"
-                disabled={!inputValue.trim()}
-                className="w-full sm:w-[90%] mx-auto bg-gradient-to-br from-[#D4AF37] via-[#FFD700] to-[#D4AF37] text-white font-bold py-4 sm:py-5 min-h-[56px] sm:min-h-[60px] rounded-xl shadow-lg shadow-[#D4AF37]/30 hover:shadow-[#D4AF37]/50 hover:brightness-110 active:scale-[0.97] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 border-t border-white/20 text-base sm:text-lg touch-manipulation"
-              >
-                🔥 CONECTAR E INICIAR ANÁLISE →
-              </button>
-              <p className="text-[10px] sm:text-xs text-slate-400 text-center mt-2 flex items-center justify-center gap-1">
-                🔒 Ambiente Seguro e Sigiloso
-              </p>
-            </form>
-          ) : (
-            <div className="space-y-2.5 sm:space-y-3">
-              {/* Emotional context text before options */}
+
+              {/* ESPAÇAMENTO: 24px */}
+              <div className="h-6"></div>
+
+              {/* CARD DE EXPLICAÇÃO - Background roxo escuro */}
               {currentQuestion.emotionalContext && (
-                <motion.p
+                <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="text-xs sm:text-sm text-[#FFD700] text-center font-semibold mt-2 mb-3 sm:mb-4 px-2 leading-relaxed"
+                  className="bg-[#1a0d2e] border border-[#FFD700]/30 rounded-lg p-4 space-y-3"
                 >
-                  {currentQuestion.emotionalContext}
-                </motion.p>
-              )}
-              
-              {currentQuestion.options?.map((option, idx) => (
-                <motion.button
-                  key={idx}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.1 }}
-                  onClick={() => handleOptionClick(option)}
-                  disabled={isNavigating}
-                  className={`w-full text-left p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl transition-all duration-300 active:scale-[0.97] group relative overflow-hidden touch-manipulation min-h-[72px] sm:min-h-[80px] ${isNavigating ? 'cursor-not-allowed opacity-80' : 'cursor-pointer'} ${
-                    currentQuestion.singleButton 
-                      ? 'bg-gradient-to-br from-[#D4AF37] via-[#FFD700] to-[#D4AF37] text-white font-bold shadow-lg shadow-[#D4AF37]/30 hover:shadow-[#D4AF37]/50 hover:brightness-110 border-t border-white/20' 
-                      : 'bg-white/5 backdrop-blur-md border border-white/10 hover:border-[#D4AF37]/50 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]'
-                  }`}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/0 via-[#D4AF37]/5 to-[#D4AF37]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -translate-x-full group-hover:translate-x-full pointer-events-none"></div>
-                  <div className="flex items-center gap-3 sm:gap-4 relative z-10">
-                    {option.icon && <span className="text-[28px] sm:text-[32px] filter drop-shadow-md flex-shrink-0" aria-hidden="true">{option.icon}</span>}
-                    <div className="flex-1 min-w-0">
-                      <span className={`font-semibold transition-colors text-sm sm:text-base md:text-lg block leading-tight ${currentQuestion.singleButton ? 'text-white' : 'text-slate-200 group-hover:text-white'}`}>
-                        {option.label}
+                  <p className="text-sm sm:text-base text-white/90 leading-relaxed whitespace-pre-line">
+                    {currentQuestion.emotionalContext.split('\n\n').map((paragraph, i) => (
+                      <span key={i}>
+                        {paragraph.replace('847 linhagens', '').includes('847') ? (
+                          <>
+                            {paragraph.split('847')[0]}
+                            <strong className="text-[#FFD700]">847</strong>
+                            {paragraph.split('847')[1]}
+                          </>
+                        ) : (
+                          paragraph
+                        )}
+                        {i < currentQuestion.emotionalContext!.split('\n\n').length - 1 && <><br/><br/></>}
                       </span>
-                      {option.sublabel && (
-                        <span className={`text-xs sm:text-sm mt-1 sm:mt-1.5 block transition-colors leading-relaxed ${currentQuestion.singleButton ? 'text-white/90' : 'text-lavender-500 group-hover:text-slate-300'}`}>
-                          {option.sublabel}
-                        </span>
-                      )}
-                    </div>
-                    <ChevronRight className={`w-4 sm:w-5 h-4 sm:h-5 ml-auto flex-shrink-0 ${currentQuestion.singleButton ? 'text-white' : 'text-slate-500 group-hover:text-white'}`} aria-hidden="true" />
-                  </div>
-                </motion.button>
-              ))}
-              
-              {/* Validation text - italic, centered */}
-              {currentQuestion.validationText && (
-                <motion.p
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="text-xs sm:text-sm text-slate-300 text-center italic mt-3 sm:mt-4 px-2 leading-relaxed"
-                >
-                  {currentQuestion.validationText}
-                </motion.p>
+                    ))}
+                  </p>
+                </motion.div>
               )}
-              
-              {/* Warning text - red, bold, centered */}
-              {currentQuestion.warningText && (
-                <motion.p
+
+              {/* ESPAÇAMENTO: 24px */}
+              <div className="h-6"></div>
+
+              {/* TEXTO REASSURANCE */}
+              <p className="text-xs sm:text-sm text-[#4ade80] text-center leading-relaxed">
+                📱 Você vai receber seu diagnóstico gratuito na próxima tela. Sem compromisso. Sem pegar email.
+              </p>
+
+              {/* ESPAÇAMENTO: 32px */}
+              <div className="h-8"></div>
+
+              {/* CTA BOTÃO */}
+              <button 
+                type="submit"
+                disabled={!inputValue.trim() || inputValue.trim().length < 2}
+                className="w-full bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-black font-black py-5 px-8 rounded-full text-base sm:text-lg shadow-[0_8px_24px_rgba(255,215,0,0.3)] hover:scale-105 hover:shadow-[0_12px_32px_rgba(255,215,0,0.4)] active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              >
+                🔥 CONECTAR E INICIAR ANÁLISE →
+              </button>
+
+              {/* ESPAÇAMENTO: 24px */}
+              <div className="h-6"></div>
+
+              {/* RODAPÉ */}
+              <p className="text-xs text-white/60 text-center flex items-center justify-center gap-2">
+                🔒 100% Confidencial - Ninguém vai ver seu resultado
+              </p>
+            </form>
+          ) : (
+            // TELA 5: PERGUNTAS COM OPÇÕES
+            <div className="space-y-6">
+              {/* INSTRUÇÃO / Emotional Context */}
+              {currentQuestion.emotionalContext && (
+                <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="text-xs sm:text-sm text-red-400 text-center font-bold mt-3 sm:mt-4 px-3 sm:px-2 bg-red-950/30 border border-red-900/50 rounded-lg py-2.5 sm:py-3 leading-relaxed"
+                  transition={{ delay: 0.2 }}
+                  className="text-sm sm:text-base text-[#FFD700] font-medium border-l-4 border-[#FFD700] pl-3 py-2 leading-relaxed whitespace-pre-line"
                 >
-                  {currentQuestion.warningText}
-                </motion.p>
+                  {currentQuestion.emotionalContext.split('BRUTALMENTE').map((part, i) => (
+                    <span key={i}>
+                      {i > 0 && <strong className="text-[#FFD700] font-bold">BRUTALMENTE</strong>}
+                      {part}
+                    </span>
+                  ))}
+                </motion.div>
+              )}
+
+              {/* ESPAÇAMENTO: 40px */}
+              <div className="h-10"></div>
+
+              {/* OPÇÕES - Cards clicáveis */}
+              <div className="space-y-5">
+                {currentQuestion.options?.map((option, idx) => (
+                  <motion.button
+                    key={idx}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.1 + 0.3 }}
+                    onClick={() => handleOptionClick(option)}
+                    disabled={isNavigating}
+                    className={`w-full text-left rounded-2xl transition-all duration-200 group relative overflow-hidden ${
+                      isNavigating ? 'cursor-not-allowed opacity-60' : 'cursor-pointer hover:scale-[1.02] active:scale-[0.98]'
+                    } ${
+                      currentQuestion.singleButton 
+                        ? 'bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-black font-bold p-5 shadow-lg hover:shadow-xl'
+                        : 'bg-[#1a0d2e] border-2 border-[#3d2a5f] hover:border-[#FFD700] p-6'
+                    }`}
+                  >
+                    {/* Estrutura interna do card */}
+                    <div className="relative z-10 space-y-3">
+                      {/* Emoji + Headline */}
+                      <div className="flex items-start gap-3">
+                        {option.icon && (
+                          <span className="text-3xl sm:text-4xl flex-shrink-0">{option.icon}</span>
+                        )}
+                        <div className="flex-1 space-y-2">
+                          <p className={`text-base sm:text-lg font-bold leading-snug ${currentQuestion.singleButton ? 'text-black' : 'text-white'}`}>
+                            {option.label}
+                          </p>
+                          
+                          {/* Descrição expandida (sublabel) */}
+                          {option.sublabel && (
+                            <p className={`text-sm sm:text-base leading-relaxed ${currentQuestion.singleButton ? 'text-black/80' : 'text-white/85'}`}>
+                              {option.sublabel.split('FALHOU').map((part, i) => (
+                                <span key={i}>
+                                  {i > 0 && <strong className={currentQuestion.singleButton ? 'text-black' : 'text-white'}>FALHOU</strong>}
+                                  {part}
+                                </span>
+                              ))}
+                            </p>
+                          )}
+                        </div>
+                        
+                        {/* Seta no canto */}
+                        {!currentQuestion.singleButton && (
+                          <ChevronRight className="w-5 h-5 text-[#FFD700] flex-shrink-0 group-hover:translate-x-1 transition-transform" />
+                        )}
+                      </div>
+                    </div>
+                  </motion.button>
+                ))}
+              </div>
+
+              {/* ESPAÇAMENTO: 32px */}
+              <div className="h-8"></div>
+
+              {/* CARD DE ATENÇÃO ou TEXTO MOTIVACIONAL - Condicional */}
+              {currentQuestion.warningText && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="bg-[#1a0606] border-2 border-[#FF0000] rounded-xl p-5 space-y-3"
+                >
+                  <p className="text-base sm:text-lg font-bold text-white leading-relaxed whitespace-pre-line">
+                    {currentQuestion.warningText}
+                  </p>
+                </motion.div>
+              )}
+
+              {currentQuestion.validationText && !currentQuestion.warningText && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="bg-[#0a0520] border-l-4 border-[#FFD700] rounded-lg p-5"
+                >
+                  <p className="text-sm sm:text-base text-white/80 italic leading-relaxed">
+                    {currentQuestion.validationText}
+                  </p>
+                </motion.div>
               )}
             </div>
           )}

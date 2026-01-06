@@ -85,63 +85,62 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
   }, [quizPath]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6 max-w-lg mx-auto text-center space-y-10 relative z-10">
+    <div className="min-h-screen flex flex-col items-center justify-center px-6 max-w-lg mx-auto text-center space-y-8 relative z-10">
       
       {/* Background Glow */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none -z-10">
-         <div className={`w-[300px] h-[300px] ${quizPath === 'relationship' ? 'bg-purple-500/10' : 'bg-[#D4AF37]/10'} rounded-full blur-[80px] animate-pulse`}></div>
+         <div className="w-[300px] h-[300px] bg-[#FFD700]/10 rounded-full blur-[80px] animate-pulse"></div>
       </div>
 
+      {/* ÍCONE ANIMADO - ⚡ girando ou pulsando */}
       <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-        className={`w-24 h-24 rounded-full border-4 border-white/5 ${quizPath === 'relationship' ? 'border-t-purple-500 shadow-[0_0_50px_rgba(168,85,247,0.4)]' : 'border-t-[#D4AF37] shadow-[0_0_50px_rgba(212,175,55,0.4)]'} relative`}
+        animate={{ 
+          rotate: [0, 10, -10, 10, 0],
+          scale: [1, 1.1, 1, 1.1, 1]
+        }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        className="text-6xl sm:text-7xl md:text-8xl"
       >
-        <div className={`absolute inset-0 ${quizPath === 'relationship' ? 'bg-purple-500/10' : 'bg-[#D4AF37]/10'} rounded-full blur-xl`}></div>
+        ⚡
       </motion.div>
 
-      <div className="space-y-6 w-full">
-        <h2 className="text-xl font-serif text-white animate-pulse tracking-wide">
-          Analisando suas respostas...
+      {/* ESPAÇAMENTO: 32px */}
+      <div className="h-8"></div>
+
+      {/* TEXTO PRINCIPAL */}
+      <div className="space-y-4 w-full">
+        <h2 className="text-xl sm:text-2xl font-bold text-white">
+          Preparando Seu Quiz <span className="text-[#FFD700]">EXCLUSIVO</span>...
         </h2>
         
-        <div className="w-full bg-white/5 rounded-full h-4 overflow-hidden border border-white/10 shadow-inner">
-          <motion.div 
-            className={`${quizPath === 'relationship' ? 'bg-gradient-to-r from-purple-600 via-pink-400 to-purple-500 shadow-[0_0_20px_rgba(168,85,247,0.5)]' : 'bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.5)]'} h-full rounded-full`}
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-        
-        <div className="h-16 flex items-center justify-center gap-3 transition-all duration-300 bg-white/5 backdrop-blur-md p-4 rounded-xl border border-white/10">
-          <div className="p-2 bg-white/5 rounded-full">{stages[stage].icon}</div>
-          <span className="text-slate-200 font-medium text-sm text-left">
-            {stages[stage].text} <br/>
-            <span className={`${quizPath === 'relationship' ? 'text-purple-500' : 'text-[#D4AF37]'} font-bold text-xs tracking-widest uppercase`}>Progresso: {Math.round(progress)}%</span>
-          </span>
+        {/* ESPAÇAMENTO: 24px */}
+        <div className="h-6"></div>
+
+        {/* SUBTEXTO */}
+        <p className="text-base sm:text-lg text-[#4ade80] font-medium">
+          Pronto para começar!
+        </p>
+
+        {/* ESPAÇAMENTO: 32px */}
+        <div className="h-8"></div>
+
+        {/* BARRA DE PROGRESSO ANIMADA */}
+        <div className="w-full max-w-[300px] sm:max-w-[400px] mx-auto">
+          <div className="w-full bg-[#1a0d2e] rounded-full h-2 overflow-hidden border border-[#3d2a5f]">
+            <motion.div 
+              className="bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] h-full rounded-full"
+              animate={{
+                width: ["0%", "100%"]
+              }}
+              transition={{
+                duration: 2.5,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+          </div>
         </div>
       </div>
-
-      {/* Social Proof during loading - Retention tactic */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2 }}
-        className="bg-white/5 backdrop-blur-xl p-5 rounded-2xl border border-white/10 mt-8 shadow-lg max-w-sm"
-      >
-        <p className={`text-[10px] ${quizPath === 'relationship' ? 'text-purple-500' : 'text-[#D4AF37]'} font-bold uppercase tracking-wider mb-2 flex items-center gap-1`}>
-          <Star className={`w-3 h-3 ${quizPath === 'relationship' ? 'fill-purple-500' : 'fill-[#D4AF37]'}`} /> Depoimento recente
-        </p>
-        <motion.div
-          key={testimonialIndex}
-          initial={{ opacity: 0, y: 5 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -5 }}
-          transition={{ duration: 0.3 }}
-        >
-          <p className="text-slate-200 text-sm italic leading-relaxed">{currentTestimonial.text}</p>
-          <p className="text-slate-400 text-xs mt-2 text-right">– {currentTestimonial.author}</p>
-        </motion.div>
-      </motion.div>
     </div>
   );
 };
