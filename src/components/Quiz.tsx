@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { QuizQuestion, QuizPath, QuestionOption } from '../types';
-import { ChevronRight, Sparkles, Compass } from 'lucide-react';
+import { ChevronRight, Sparkles, Compass, AlertTriangle, Smartphone, Shield } from 'lucide-react';
 import { tracking } from '../utils/tracking';
 
 interface QuizProps {
@@ -320,9 +320,9 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const progress = PROGRESS_START_PERCENT + (currentIndex / activeQuestions.length) * PROGRESS_RANGE_PERCENT;
 
   return (
-    <div className="min-h-screen min-h-[100dvh] flex flex-col max-w-lg mx-auto px-4 sm:px-5 py-4 sm:py-6 relative z-10">
+    <div className="min-h-screen min-h-[100dvh] flex flex-col max-w-lg mx-auto px-4 sm:px-5 py-3 sm:py-4 relative z-10">
       {/* Progress Bar - Enhanced with better visibility */}
-      <div className="w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm rounded-full h-3 sm:h-4 mb-6 sm:mb-8 relative overflow-hidden border border-[#D4AF37]/20 shadow-lg">
+      <div className="w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm rounded-full h-2.5 sm:h-3 mb-4 sm:mb-5 relative overflow-hidden border border-[#D4AF37]/20 shadow-lg">
         <motion.div 
           className="bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] h-full rounded-full relative overflow-hidden"
           initial={{ width: 0 }}
@@ -346,7 +346,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           />
         </motion.div>
         {/* Progress percentage text */}
-        <div className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-[#D4AF37] drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+        <div className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 text-[10px] sm:text-xs font-bold text-[#D4AF37] drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
           {Math.round(progress)}%
         </div>
       </div>
@@ -360,13 +360,13 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           transition={{ duration: 0.3 }}
           className="flex-1 flex flex-col"
         >
-          <div className="mb-6 sm:mb-8 space-y-4">
+          <div className="mb-4 sm:mb-5 space-y-2 sm:space-y-3">
             {/* TAG PEQUENA - Enhanced with better styling */}
             {userName && currentIndex > 0 && (
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#D4AF37]/40 to-[#D4AF37]/30 backdrop-blur-md text-[#FFD700] px-5 py-2.5 rounded-full text-xs sm:text-sm font-black border-2 border-[#D4AF37]/50 relative overflow-hidden"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#D4AF37]/40 to-[#D4AF37]/30 backdrop-blur-md text-[#FFD700] px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-black border-2 border-[#D4AF37]/50 relative overflow-hidden"
                 style={{
                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 20px rgba(212, 175, 55, 0.3)',
                 }}
@@ -384,10 +384,10 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                     ease: "linear",
                   }}
                 >
-                  <Sparkles className="w-4 h-4 flex-shrink-0 drop-shadow-[0_0_4px_rgba(255,215,0,0.8)]" />
+                  <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0 drop-shadow-[0_0_4px_rgba(255,215,0,0.8)]" />
                 </motion.div>
                 <span className="whitespace-nowrap relative z-10 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
-                  💥 Pergunta exclusiva para {userName.split(' ')[0]}
+                  Pergunta exclusiva para {userName.split(' ')[0]}
                 </span>
               </motion.div>
             )}
@@ -398,7 +398,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="mb-4"
+                className="mb-2"
               >
                 <p className="text-[#FFD700] text-xs sm:text-sm font-bold uppercase tracking-wider text-center">
                   {currentQuestion.title}
@@ -406,11 +406,8 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               </motion.div>
             )}
 
-            {/* ESPAÇAMENTO: 32px */}
-            <div className="h-8"></div>
-
             {/* HEADLINE DA PERGUNTA */}
-            <h2 className="text-[22px] sm:text-[28px] md:text-[36px] font-bold text-white leading-tight text-center px-2">
+            <h2 className="text-[20px] sm:text-[24px] md:text-[30px] font-bold text-white leading-tight text-center px-2">
               <span dangerouslySetInnerHTML={{ __html: personalizeText(currentQuestion.text).replace('BLOQUEIO SEVERO', '<span class="text-[#FF4500]">BLOQUEIO SEVERO</span>').replace('6 MESES', '<span class="text-[#FF4500]">6 MESES</span>').replace('MAIOR MEDO', '<span class="text-[#FF4500]">MAIOR MEDO</span>').replace('ENERGIA', '<span class="text-[#FFD700]">ENERGIA</span>') }}></span>
             </h2>
 
@@ -420,22 +417,19 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 }}
-                className="text-base sm:text-lg text-white/90 text-center mt-4 px-2"
+                className="text-sm sm:text-base text-white/90 text-center mt-2 px-2"
               >
                 {currentQuestion.subtext}
               </motion.p>
             )}
           </div>
 
-          {/* ESPAÇAMENTO: 20-24px */}
-          <div className="h-6"></div>
-
           {currentQuestion.type === 'input' ? (
             // TELA 4: PERGUNTA 1 (NOME)
-            <form onSubmit={handleInputSubmit} className="space-y-6">
+            <form onSubmit={handleInputSubmit} className="space-y-4 sm:space-y-5">
               {/* LABEL DO INPUT */}
               <div className="text-left">
-                <label className="text-sm sm:text-base text-white/80 block mb-3">
+                <label className="text-sm sm:text-base text-white/80 block mb-2 sm:mb-3">
                   Digite seu primeiro nome:
                 </label>
                 
@@ -446,7 +440,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder={currentQuestion.placeholder}
-                    className="w-full bg-gradient-to-br from-[#1a0d2e] to-[#0f0520] backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-2xl p-5 pr-14 text-lg sm:text-xl text-white placeholder-white/40 focus:outline-none focus:border-[#FFD700] focus:ring-4 focus:ring-[#FFD700]/20 transition-all duration-300 shadow-lg hover:border-[#D4AF37]/50"
+                    className="w-full bg-gradient-to-br from-[#1a0d2e]/90 to-[#0f0520]/90 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl sm:rounded-2xl p-4 sm:p-5 pr-12 sm:pr-14 text-base sm:text-lg md:text-xl text-white placeholder-white/40 focus:outline-none focus:border-[#FFD700] focus:ring-4 focus:ring-[#FFD700]/20 transition-all duration-300 shadow-lg hover:border-[#D4AF37]/50"
                     autoFocus
                     autoComplete="name"
                     inputMode="text"
@@ -454,9 +448,9 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                       boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), inset 0 2px 4px 0 rgba(212, 175, 55, 0.05)',
                     }}
                   />
-                  {/* Animated emoji icon */}
-                  <motion.span 
-                    className="absolute right-5 top-1/2 -translate-y-1/2 text-3xl pointer-events-none"
+                  {/* Animated icon */}
+                  <motion.div 
+                    className="absolute right-4 sm:right-5 top-1/2 -translate-y-1/2 pointer-events-none"
                     animate={{
                       scale: [1, 1.1, 1],
                       rotate: [0, 5, -5, 0],
@@ -467,11 +461,11 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                       ease: "easeInOut",
                     }}
                   >
-                    🔮
-                  </motion.span>
+                    <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 text-[#D4AF37]" />
+                  </motion.div>
                   
                   {/* Focus glow effect */}
-                  <div className="absolute inset-0 rounded-2xl opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  <div className="absolute inset-0 rounded-xl sm:rounded-2xl opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"
                     style={{
                       boxShadow: '0 0 0 4px rgba(212, 175, 55, 0.1), 0 0 20px rgba(212, 175, 55, 0.2)',
                     }}
@@ -479,16 +473,13 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 </div>
               </div>
 
-              {/* ESPAÇAMENTO: 24px */}
-              <div className="h-6"></div>
-
               {/* CARD DE EXPLICAÇÃO - Enhanced premium styling */}
               {currentQuestion.emotionalContext && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="bg-gradient-to-br from-[#1a0d2e] to-[#0f0520] border-2 border-[#FFD700]/30 rounded-2xl p-5 sm:p-6 space-y-3 relative overflow-hidden group"
+                  className="bg-gradient-to-br from-[#1a0d2e]/90 to-[#0f0520]/90 border-2 border-[#FFD700]/30 rounded-xl sm:rounded-2xl p-3 sm:p-4 space-y-2 relative overflow-hidden group"
                   style={{
                     boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(212, 175, 55, 0.05), inset 0 1px 0 0 rgba(255, 255, 255, 0.05)',
                   }}
@@ -496,41 +487,41 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   {/* Subtle gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent opacity-50 pointer-events-none" />
                   
-                  <p className="text-sm sm:text-base text-white/90 leading-relaxed whitespace-pre-line relative z-10">
-                    {currentQuestion.emotionalContext.split('\n\n').map((paragraph, i) => (
-                      <span key={i}>
-                        {paragraph.replace('847 linhagens', '').includes('847') ? (
-                          <>
-                            {paragraph.split('847')[0]}
-                            <strong className="text-[#FFD700] font-bold">847</strong>
-                            {paragraph.split('847')[1]}
-                          </>
-                        ) : (
-                          paragraph
-                        )}
-                        {i < currentQuestion.emotionalContext!.split('\n\n').length - 1 && <><br/><br/></>}
-                      </span>
-                    ))}
-                  </p>
+                  <div className="flex items-start gap-2 relative z-10">
+                    <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-[#FFD700] flex-shrink-0 mt-0.5" />
+                    <p className="text-xs sm:text-sm md:text-base text-white/90 leading-relaxed whitespace-pre-line">
+                      {currentQuestion.emotionalContext.split('\n\n').map((paragraph, i) => (
+                        <span key={i}>
+                          {paragraph.replace('847 linhagens', '').includes('847') ? (
+                            <>
+                              {paragraph.split('847')[0]}
+                              <strong className="text-[#FFD700] font-bold">847</strong>
+                              {paragraph.split('847')[1]}
+                            </>
+                          ) : (
+                            paragraph
+                          )}
+                          {i < currentQuestion.emotionalContext!.split('\n\n').length - 1 && <><br/><br/></>}
+                        </span>
+                      ))}
+                    </p>
+                  </div>
                 </motion.div>
               )}
 
-              {/* ESPAÇAMENTO: 24px */}
-              <div className="h-6"></div>
-
               {/* TEXTO REASSURANCE */}
-              <p className="text-xs sm:text-sm text-[#4ade80] text-center leading-relaxed">
-                📱 Você vai receber seu diagnóstico gratuito na próxima tela. Sem compromisso. Sem pegar email.
-              </p>
-
-              {/* ESPAÇAMENTO: 32px */}
-              <div className="h-8"></div>
+              <div className="flex items-center justify-center gap-1.5 text-[#4ade80] text-center">
+                <Smartphone className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+                <p className="text-xs sm:text-sm leading-relaxed">
+                  Você vai receber seu diagnóstico gratuito na próxima tela. Sem compromisso. Sem pegar email.
+                </p>
+              </div>
 
               {/* CTA BOTÃO - Enhanced premium design */}
               <motion.button 
                 type="submit"
                 disabled={!inputValue.trim() || inputValue.trim().length < 2}
-                className="relative w-full bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] text-black font-black py-6 px-8 rounded-2xl text-lg sm:text-xl overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed"
+                className="relative w-full bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] text-black font-black py-4 sm:py-5 px-6 sm:px-8 rounded-xl sm:rounded-2xl text-base sm:text-lg overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 style={{
@@ -542,37 +533,35 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 
                 {/* Button content */}
                 <span className="relative z-10 flex items-center justify-center gap-2">
-                  <span className="text-2xl">🔥</span>
+                  <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
                   <span>CONECTAR E INICIAR ANÁLISE</span>
-                  <span className="text-xl">→</span>
+                  <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
                 </span>
                 
                 {/* Glow effect on hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl sm:rounded-2xl"
                   style={{
                     boxShadow: '0 0 30px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.2)',
                   }}
                 />
               </motion.button>
 
-              {/* ESPAÇAMENTO: 24px */}
-              <div className="h-6"></div>
-
               {/* RODAPÉ */}
-              <p className="text-xs text-white/60 text-center flex items-center justify-center gap-2">
-                🔒 100% Confidencial - Ninguém vai ver seu resultado
-              </p>
+              <div className="flex items-center justify-center gap-1.5 text-white/60 text-center">
+                <Shield className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <p className="text-xs">100% Confidencial - Ninguém vai ver seu resultado</p>
+              </div>
             </form>
           ) : (
             // TELA 5: PERGUNTAS COM OPÇÕES
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-5">
               {/* INSTRUÇÃO / Emotional Context */}
               {currentQuestion.emotionalContext && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="text-sm sm:text-base text-[#FFD700] font-medium border-l-4 border-[#FFD700] pl-3 py-2 leading-relaxed whitespace-pre-line"
+                  className="text-xs sm:text-sm md:text-base text-[#FFD700] font-medium border-l-4 border-[#FFD700] pl-3 py-2 leading-relaxed whitespace-pre-line"
                 >
                   {currentQuestion.emotionalContext.split('BRUTALMENTE').map((part, i) => (
                     <span key={i}>
