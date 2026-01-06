@@ -11,7 +11,7 @@ const faqs = [
   {
     id: 2,
     question: 'Isso tem a ver com alguma religião?',
-    answer: 'Não. É ciência ancestral e frequência vibracional (528Hz). Funciona independente da sua crença. O Mapa Xamânico é baseado em arquétipos universais e princípios energéticos que transcendem qualquer religião.',
+    answer: 'Olha: não tem NADA a ver com religião. É um protocolo energético neutro. Funciona pra católico, evangélico, ateu, agnóstico... qualquer um. O que importa é seguir os 7 dias.',
   },
   {
     id: 3,

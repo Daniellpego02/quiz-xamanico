@@ -64,19 +64,19 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       options: [
         { 
           label: "Continuar dependendo dos outros ou contando moedas", 
-          sublabel: "Olhar o preço de TUDO antes de pegar algo no mercado. Pedir dinheiro emprestado no fim do mês. Inventar desculpas pros amigos porque tá sem grana.", 
+          sublabel: "Olhar o preço de TUDO antes de comprar. Pedir dinheiro emprestado pro fim do mês. Inventar desculpa quando os amigos chamam pra sair.", 
           value: "dependency", 
           icon: "" 
         },
         { 
           label: "Envelhecer sem construir patrimônio real", 
-          sublabel: "Chegar aos 55 anos no mesmo apartamento ALUGADO. Ver seus filhos crescerem sem poder dar a educação que queria. Morrer sem deixar nada pra quem você ama.", 
+          sublabel: "Chegar aos 55 anos no mesmo apartamento ALUGADO. Ver seus filhos crescerem sem dar a educação que sonhou. Morrer sem deixar nada.", 
           value: "aging", 
           icon: "" 
         },
         { 
           label: "Ver minha família sofrer por causa da minha situação financeira", 
-          sublabel: "Olhar nos olhos do seu filho e dizer 'a gente não tem dinheiro pra isso agora'. Ver seus pais precisando de remédio e você sem condições de ajudar. Sentir que FALHOU como provedor(a).", 
+          sublabel: "Olhar no olho do seu filho e dizer 'não temos dinheiro pra isso agora'. Ver seus pais precisando de remédio, você sem condições. Sentir que FALHOU como provedor(a).", 
           value: "family", 
           icon: "" 
         },
@@ -89,9 +89,9 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       emotionalContext: "Qual desses cenários descreve SUA VIDA agora?",
       hasOtherOption: true,
       options: [
-        { label: "O dinheiro entra, mas EVAPORA em imprevistos", sublabel: "Entrou R$2.000 na conta. No dia seguinte já foi: carro quebrou, conta atrasada, 'emergência' do nada. Parece que tem um ralo sugando tudo SEMPRE.", value: "leak", icon: "" },
-        { label: "Trabalho 12 horas por dia, ganho pouco, acordo exausto", sublabel: "Você faz TUDO certo: trabalha duro, não gasta com besteira. Mas o salário NÃO sobe. Parece que tem um TETO invisível te impedindo de crescer.", value: "tired", icon: "" },
-        { label: "Tenho PAVOR que falte dinheiro", sublabel: "Você checa o saldo bancário 3x por dia antes de gastar qualquer coisa. Vive fazendo conta mental, com medo de faltar pra conta, pras crianças, pra tudo.", value: "fear", icon: "" },
+        { label: "O dinheiro entra, mas EVAPORA em imprevistos", sublabel: "Entrou R$2.000 na conta. No outro dia sumiu: carro quebrou, conta atrasada, 'emergência' do nada. Parece um ralo sugando tudo SEMPRE.", value: "leak", icon: "" },
+        { label: "Trabalho 12 horas por dia, ganho pouco, acordo exausto", sublabel: "Você faz TUDO certo: trabalha duro, não gasta bobagem. Mas o salário NÃO sobe. Parece ter um TETO invisível impedindo você de crescer.", value: "tired", icon: "" },
+        { label: "Tenho PAVOR que falte dinheiro", sublabel: "Você checa o saldo 3x por dia antes de gastar qualquer coisa. Vive fazendo conta mental com medo de faltar.", value: "fear", icon: "" },
       ]
     },
     {
@@ -112,7 +112,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       title: "PERGUNTA 6 DE 6",
       text: "O sistema identificou um bloqueio severo na sua frequência. Se existir um Protocolo de 7 dias para limpar isso COMPLETAMENTE, você está disposto(a) a seguir?",
       singleButton: true,
-      bridgeText: "Se você disser SIM aqui, o sistema gera seu mapa e libera o protocolo completo de 7 dias.",
+      bridgeText: "Se você disser SIM aqui, o sistema gera seu mapa PERSONALIZADO e libera o protocolo completo de 7 dias dentro do APP.",
       validationText: "A maioria das pessoas vive a vida inteira com esse bloqueio sem saber. Você não precisa ser uma delas.",
       options: [
         { label: "SIM, eu aceito receber meu Mapa e me desbloquear", value: "ready", icon: "" },
@@ -126,8 +126,9 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
 
   const getLoadingStages = () => [
     `Conectando à egrégora de ${userName}...`,
-    `Cruzando seu nome com ${CATALOGED_LINEAGES} linhagens brasileiras catalogadas...`,
-    "Calculando tipo de bloqueio ancestral...",
+    `Cruzando seu nome com ${CATALOGED_LINEAGES} linhagens brasileiras...`,
+    "Analisando padrões de 3 gerações...",
+    "Calculando tipo de bloqueio financeiro...",
     "Pronto para começar!"
   ];
 
@@ -510,7 +511,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               <div className="flex items-center justify-center gap-1.5 text-[#4ade80] text-center">
                 <Smartphone className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
                 <p className="text-xs sm:text-sm leading-relaxed">
-                  Você vai receber seu diagnóstico gratuito na próxima tela. Sem compromisso. Sem pegar email.
+                  Usamos apenas seu primeiro nome. Você continua 100% anônimo.
                 </p>
               </div>
 

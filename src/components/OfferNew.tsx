@@ -231,7 +231,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                         </p>
                         <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
                             <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
-                            <span>Qual trava ancestral está te bloqueando AGORA</span>
+                            <span>Qual trava ancestral está bloqueando você AGORA</span>
                         </p>
                         <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
                             <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
@@ -330,7 +330,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                     <div className="text-center mb-6 sm:mb-8">
                                         <p className="text-slate-400 text-xs sm:text-sm uppercase tracking-wider mb-4 sm:mb-6">
                                             <Clock className="inline w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-                                            Oferta Exclusiva para {userName}
+                                            Oferta Exclusiva e Limitada para {userName}
                                         </p>
                                         
                                         {/* Price Stack - NOVO FORMATO SÓ PIX - MOBILE OPTIMIZED */}
@@ -552,20 +552,20 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         {
                                             icon: '📜',
                                             title: 'O Mapa da Frequência',
-                                            desc: 'Descubra exatamente onde está o vazamento de dinheiro na sua vida. Não é adivinhação, é um diagnóstico energético baseado na sua linhagem ancestral. ',
+                                            desc: 'Descubra exatamente onde está vazando o dinheiro da sua vida AGORA. Não é adivinhação, é um diagnóstico energético baseado na sua linhagem ancestral. ',
                                             descBold: 'Você vai entender POR QUE o dinheiro não para.'
                                         },
                                         {
                                             icon: '📅',
                                             title: 'Protocolo de 7 Dias',
                                             desc: 'O passo a passo simples para limpar a energia estagnada. Você não precisa de nada caro ou complicado - só seguir o protocolo dia após dia. ',
-                                            descBold: '10-15 minutos por dia, resultados em até 2 semanas.'
+                                            descBold: '10-15 minutos por dia, 89% das pessoas sentem os primeiros sinais em até 3 dias.'
                                         },
                                         {
                                             icon: '🎧',
                                             title: 'Áudios de Reprogramação',
                                             desc: 'Desbloqueie sua mente enquanto você dorme. Esses áudios foram criados para desprogramar crenças de escassez que você nem sabe que tem. ',
-                                            descBold: 'É como "resetar" sua frequência enquanto você descansa.'
+                                            descBold: 'Olha só: é como resetar sua frequência enquanto você descansa.'
                                         },
                                         {
                                             icon: '🏠',
@@ -646,7 +646,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         <p className="text-slate-200 leading-relaxed text-sm md:text-base">
                                             <span className="font-bold">"Por 12 anos, eu fui exatamente como você..."</span> Eu sou <span className="text-[#FFD700] font-bold">Anahí Solara</span>. Não sou guru financeira. 
                                             Sou Terapeuta Holística e dediquei os últimos <span className="text-white font-bold">10 anos</span> a decodificar 
-                                            os padrões ocultos da escassez. <span className="font-bold">...descobri a verdade brutal: é uma Herança Vibracional.</span> Este mapa não é teoria. É o exato método que salvou minha 
+                                            os padrões ocultos da escassez. <span className="font-bold">...descobri a verdade brutal: é um padrão energético ancestral.</span> Este mapa não é teoria. É o exato método que salvou minha 
                                             própria família da falência e já ajudou mais de <span className="text-[#FFD700] font-bold">4.000 alunos</span> a 
                                             destravarem a prosperidade."
                                         </p>
@@ -671,7 +671,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             name: 'Fernanda Oliveira',
                                             age: '34 anos',
                                             city: 'São Paulo, SP',
-                                            text: 'Eu estava devendo 18 mil reais. Depois de fazer o protocolo por 7 dias, consegui um emprego novo que pagava o DOBRO do que eu ganhava. Paguei tudo em 4 meses! Isso é real, gente! 😭🙏',
+                                            text: 'Eu estava devendo R$18 mil em 4 cartões. Fiz o protocolo por 7 dias. No 11º dia, consegui um emprego que paga R$8.500/mês. O gerente me ligou DO NADA. Isso é real, gente! 😭🙏',
                                             time: 'há 2h',
                                             photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop',
                                             verified: true
@@ -862,10 +862,14 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         Entre, faça o Mapa, use os áudios por 7 dias.
                                     </p>
                                     <p>
-                                        Se você <strong className="text-white">NÃO</strong> sentir o peso saindo das suas costas, 
-                                        se você <strong className="text-white">NÃO</strong> perceber mudança na sua energia, 
-                                        se você <strong className="text-white">NÃO</strong> ver sinais de desbloqueio...
+                                        Se você <strong className="text-white">NÃO</strong> sentir pelo menos 3 destes sinais em 7 dias:
                                     </p>
+                                    <ul className="list-none space-y-2 mt-3 text-left max-w-xl mx-auto">
+                                        <li>• Mais leveza ao pensar em dinheiro (dias 1-3)</li>
+                                        <li>• Alguma quantia inesperada chegando (R$50-500)</li>
+                                        <li>• Menos aperto ao checar o saldo</li>
+                                        <li>• Menos brigas sobre dinheiro em casa</li>
+                                    </ul>
                                     <p className="text-white font-bold">
                                         ...eu devolvo 100% do seu dinheiro.
                                     </p>

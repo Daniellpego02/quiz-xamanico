@@ -127,7 +127,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           className="max-w-[600px] mx-auto"
         >
           <p className="text-xs sm:text-sm md:text-base text-white/90 leading-relaxed">
-            O Protocolo Xamânico usado por <strong className="text-[#FFD700] font-bold">4.387 brasileiros</strong>{' '}
+            O Protocolo Xamânico usado por <strong className="text-[#FFD700] font-bold">4.387 brasileiros em SP, RJ, MG, PR</strong>{' '}
             identifica <strong className="text-[#FFD700] font-bold">EXATAMENTE</strong> qual bloqueio financeiro ancestral{' '}
             está impedindo o dinheiro de chegar até você.
           </p>
@@ -141,7 +141,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           className="bg-gradient-to-r from-[#4ade80]/10 to-[#10b981]/10 border border-[#4ade80]/30 rounded-lg p-3 backdrop-blur-sm"
         >
           <p className="text-xs sm:text-sm md:text-base font-medium text-[#4ade80] leading-relaxed">
-            Em apenas 7 dias seguindo o protocolo: o dinheiro começa a fluir sem você precisar trabalhar mais.
+            Em apenas 7 dias seguindo o protocolo: o dinheiro está fluindo sem você precisar trabalhar mais.
           </p>
         </motion.div>
 
@@ -295,7 +295,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
               className="flex items-start gap-2"
             >
               <CheckCircle className="w-4 h-4 text-[#4ade80] flex-shrink-0 mt-0.5" />
-              <p><span className="text-[#FFD700] font-bold">R$5k-50k</span> aparecendo de forma inesperada</p>
+              <p><span className="text-[#FFD700] font-bold">R$5k-50k</span> chegando via Pix, clientes antigos pagando dívidas, propostas que você nem buscou</p>
             </motion.div>
             <motion.div 
               initial={{ x: -20, opacity: 0 }}
