@@ -23,15 +23,29 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
       exit={{ opacity: 0 }}
       className="flex flex-col min-h-[100dvh] max-w-lg mx-auto relative overflow-hidden"
     >
-      {/* TOPO */}
+      {/* TOPO - Enhanced with better styling */}
       <motion.div 
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="w-full bg-gradient-to-r from-[#1a0b2e] via-[#2d1b4e] to-[#1a0b2e] border-b border-[#D4AF37]/30 py-3 px-4 shadow-lg relative z-20"
+        className="w-full bg-gradient-to-r from-[#1a0b2e] via-[#2d1b4e] to-[#1a0b2e] border-b-2 border-[#D4AF37]/40 py-4 px-4 relative z-20"
+        style={{
+          boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 4px 20px rgba(212, 175, 55, 0.15)',
+        }}
       >
         <div className="flex items-center justify-center gap-3">
-          <Lock className="w-4 h-4 text-[#D4AF37] animate-pulse" />
-          <p className="text-[10px] font-medium text-[#D4AF37] tracking-[0.15em] uppercase">
+          <motion.div
+            animate={{
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <Lock className="w-5 h-5 text-[#D4AF37] drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]" />
+          </motion.div>
+          <p className="text-[11px] sm:text-xs font-bold text-[#D4AF37] tracking-[0.15em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
             🔒 DIAGNÓSTICO DE FREQUÊNCIA FINANCEIRA
           </p>
         </div>
@@ -59,19 +73,52 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           </p>
         </motion.div>
 
-        {/* ESPAÇAMENTO: 40px */}
-        <div className="h-10"></div>
+        {/* ESPAÇAMENTO: 24px */}
+        <div className="h-6"></div>
 
-        {/* PARÁGRAFO EXPLICATIVO */}
+        {/* CAIXA ROXA/DESTACADA - Card com borda (MOVIDO PARA CIMA) */}
+        <motion.div
+          initial={{ scale: 0.95, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="w-full bg-gradient-to-br from-[#1a0d2e] to-[#0a0520] border-[3px] border-[#FFD700] rounded-xl p-5 space-y-3 shadow-[0_0_20px_rgba(255,215,0,0.3)]"
+        >
+          <p className="text-lg sm:text-xl font-bold text-white">
+            📋 Responda 6 perguntas rápidas (2 minutos)
+          </p>
+          <p className="text-sm sm:text-base text-slate-200 font-semibold">Você vai descobrir:</p>
+          <div className="text-left space-y-2.5 text-sm sm:text-base text-slate-200">
+            <div className="flex items-start gap-2.5">
+              <span className="text-[#4ade80] text-lg flex-shrink-0 mt-0.5">✓</span>
+              <p>Qual bloqueio ancestral está drenando seu dinheiro</p>
+            </div>
+            <div className="flex items-start gap-2.5">
+              <span className="text-[#4ade80] text-lg flex-shrink-0 mt-0.5">✓</span>
+              <p>Onde ele começou na sua linhagem (e o ritual pra <strong className="text-white">PARAR</strong> hoje)</p>
+            </div>
+            <div className="flex items-start gap-2.5">
+              <span className="text-[#4ade80] text-lg flex-shrink-0 mt-0.5">✓</span>
+              <p>O protocolo de 7 dias que <strong className="text-[#FFD700]">89%</strong> sente funcionando nos 3 primeiros dias</p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ESPAÇAMENTO: 32px */}
+        <div className="h-8"></div>
+
+        {/* PARÁGRAFO EXPLICATIVO (MOVIDO PARA BAIXO) */}
         <motion.div
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2 }}
+          transition={{ delay: 0.25 }}
           className="max-w-[600px] mx-auto"
         >
           <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white leading-relaxed">
-            O Protocolo Xamânico usado por <strong className="text-[#FFD700] font-bold">4.387 brasileiros</strong>{' '}
-            identifica <strong className="text-[#FFD700] font-bold">EXATAMENTE</strong> qual bloqueio financeiro ancestral está impedindo o dinheiro de chegar até você.
+            O Protocolo Xamânico usado por <strong className="text-[#FFD700] font-bold">4.387 brasileiros</strong>
+            <br />
+            identifica <strong className="text-[#FFD700] font-bold">EXATAMENTE</strong> qual bloqueio financeiro ancestral
+            <br />
+            está impedindo o dinheiro de chegar até você.
           </p>
         </motion.div>
 
@@ -82,41 +129,11 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
         <motion.div
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.25 }}
+          transition={{ delay: 0.3 }}
         >
           <p className="text-sm sm:text-base md:text-lg font-medium text-[#4ade80] leading-relaxed">
             Em apenas 7 dias seguindo o protocolo: o dinheiro começa a fluir sem você precisar trabalhar mais.
           </p>
-        </motion.div>
-
-        {/* ESPAÇAMENTO: 32px */}
-        <div className="h-8"></div>
-
-        {/* CAIXA ROXA/DESTACADA - Card com borda */}
-        <motion.div
-          initial={{ scale: 0.95, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="w-full bg-gradient-to-br from-[#1a0d2e] to-[#0a0520] border-2 border-[#FFD700] rounded-xl p-6 space-y-4 shadow-lg"
-        >
-          <p className="text-lg sm:text-xl font-bold text-white">
-            📋 Responda 6 perguntas rápidas (2 minutos)
-          </p>
-          <p className="text-sm sm:text-base text-slate-200 font-medium">Você vai descobrir:</p>
-          <div className="text-left space-y-3 text-sm sm:text-base text-slate-200">
-            <div className="flex items-start gap-3">
-              <span className="text-[#4ade80] text-lg flex-shrink-0 mt-0.5">✓</span>
-              <p><strong className="text-white">EXATAMENTE</strong> qual bloqueio ancestral está drenando seu dinheiro</p>
-            </div>
-            <div className="flex items-start gap-3">
-              <span className="text-[#4ade80] text-lg flex-shrink-0 mt-0.5">✓</span>
-              <p>Por que começou na sua linhagem (e o ritual para <strong className="text-white">PARAR</strong> hoje)</p>
-            </div>
-            <div className="flex items-start gap-3">
-              <span className="text-[#4ade80] text-lg flex-shrink-0 mt-0.5">✓</span>
-              <p>O protocolo de 7 dias que <strong className="text-[#FFD700]">89%</strong> das pessoas sente funcionando nos primeiros 3 dias</p>
-            </div>
-          </div>
         </motion.div>
 
         {/* ESPAÇAMENTO: 24px */}
@@ -172,6 +189,11 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           transition={{ delay: 0.5 }}
           className="w-full space-y-4"
         >
+          {/* TÍTULO DO BLOCO */}
+          <p className="text-xl sm:text-2xl font-black text-white">
+            Onde você está hoje?
+          </p>
+          
           <div className="relative border-2 border-[#FFD700] rounded-2xl overflow-hidden shadow-lg">
             <img 
               src="/banner principal.png" 
