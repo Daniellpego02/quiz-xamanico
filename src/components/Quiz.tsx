@@ -320,9 +320,9 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const progress = PROGRESS_START_PERCENT + (currentIndex / activeQuestions.length) * PROGRESS_RANGE_PERCENT;
 
   return (
-    <div className="min-h-screen min-h-[100dvh] flex flex-col max-w-lg mx-auto px-4 sm:px-5 py-3 sm:py-4 relative z-10">
+    <div className="min-h-screen min-h-[100dvh] flex flex-col max-w-lg mx-auto px-4 sm:px-5 md:px-6 py-4 sm:py-5 md:py-6 relative z-10">
       {/* Progress Bar - Enhanced with better visibility */}
-      <div className="w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm rounded-full h-2.5 sm:h-3 mb-4 sm:mb-5 relative overflow-hidden border border-[#D4AF37]/20 shadow-lg">
+      <div className="w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm rounded-full h-2.5 sm:h-3 mb-5 sm:mb-6 relative overflow-hidden border border-[#D4AF37]/20 shadow-lg">
         <motion.div 
           className="bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] h-full rounded-full relative overflow-hidden"
           initial={{ width: 0 }}
@@ -360,7 +360,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           transition={{ duration: 0.3 }}
           className="flex-1 flex flex-col"
         >
-          <div className="mb-4 sm:mb-5 space-y-2 sm:space-y-3">
+          <div className="mb-5 sm:mb-6 space-y-3 sm:space-y-4">
             {/* TAG PEQUENA - Enhanced with better styling */}
             {userName && currentIndex > 0 && (
               <motion.div
@@ -426,10 +426,10 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
 
           {currentQuestion.type === 'input' ? (
             // TELA 4: PERGUNTA 1 (NOME)
-            <form onSubmit={handleInputSubmit} className="space-y-4 sm:space-y-5">
+            <form onSubmit={handleInputSubmit} className="space-y-5 sm:space-y-6">
               {/* LABEL DO INPUT */}
               <div className="text-left">
-                <label className="text-sm sm:text-base text-white/80 block mb-2 sm:mb-3">
+                <label className="text-sm sm:text-base text-white/80 block mb-3 sm:mb-4">
                   Digite seu primeiro nome:
                 </label>
                 
@@ -546,7 +546,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             </form>
           ) : (
             // TELA 5: PERGUNTAS COM OPÇÕES
-            <div className="space-y-4 sm:space-y-5">
+            <div className="space-y-5 sm:space-y-6">
               {/* INSTRUÇÃO / Emotional Context */}
               {currentQuestion.emotionalContext && (
                 <motion.div
@@ -564,8 +564,8 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 </motion.div>
               )}
 
-              {/* ESPAÇAMENTO: 40px */}
-              <div className="h-10"></div>
+              {/* ESPAÇAMENTO: 32px */}
+              <div className="h-8"></div>
 
               {/* Bridge text for question 6 */}
               {currentQuestion.bridgeText && (
