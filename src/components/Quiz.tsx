@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { QuizQuestion, QuizPath, QuestionOption } from '../types';
-import { ChevronRight, Sparkles, Compass, AlertTriangle, Smartphone, Shield } from 'lucide-react';
+import { ChevronRight, Sparkles, Compass, AlertTriangle, Smartphone, Shield, CheckCircle2 } from 'lucide-react';
 import { tracking } from '../utils/tracking';
 
 interface QuizProps {
@@ -16,6 +16,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const [showTuningScreen, setShowTuningScreen] = useState(false);
   const [activeQuestions, setActiveQuestions] = useState<QuizQuestion[]>([]);
   const [loadingStage, setLoadingStage] = useState(0);
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   // Constants
   const CATALOGED_LINEAGES = 847;
@@ -136,7 +137,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       
       const interval = setInterval(() => {
         setLoadingStage(prev => (prev + 1) % loadingStages.length);
-      }, 650);
+      }, 800); // Increased from 650ms to 800ms for better readability
       return () => clearInterval(interval);
     } else {
       // Reset loading stage when screen is hidden
@@ -163,11 +164,14 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
         const mergedQuestions = [...activeQuestions, ...financeQuestions];
         setActiveQuestions(mergedQuestions);
         setCurrentIndex(prev => prev + 1);
-    }, 4000);
+    }, 4500); // Increased from 4000ms to 4500ms for better suspense
   };
 
   const handleOptionClick = (option: QuestionOption) => {
     if (isNavigating) return;
+    
+    // Set selected option for visual feedback
+    setSelectedOption(option.value);
     setIsNavigating(true);
 
     // Pixel Inteligente - Rastreamento de Resposta e Progresso
@@ -193,10 +197,12 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       tracking.quiz.halfway();
     }
 
+    // Increased delay to 500ms for better "digest" time
     setTimeout(() => {
       const length = activeQuestions.length;
       if (currentIndex < length - 1) {
         setCurrentIndex(prev => prev + 1);
+        setSelectedOption(null); // Reset selection for next question
         setIsNavigating(false);
       } else {
         // Track quiz completion with enhanced tracking
@@ -204,7 +210,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
         tracking.meta.completeRegistration({ content_name: 'Quiz Completo', path: QUIZ_PATH });
         onComplete(QUIZ_PATH, userName);
       }
-    }, 250);
+    }, 500); // Increased from 250ms to 500ms
   };
 
   if (showTuningScreen) {
@@ -583,36 +589,55 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
 
               {/* OPÇÕES - Cards clicáveis com design premium */}
               <div className="space-y-3 sm:space-y-4">
-                {currentQuestion.options?.map((option, idx) => (
+                {currentQuestion.options?.map((option, idx) => {
+                  const isSelected = selectedOption === option.value;
+                  return (
                   <motion.button
                     key={idx}
                     initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    animate={{ 
+                      opacity: 1, 
+                      y: 0,
+                      scale: isSelected ? 0.98 : 1
+                    }}
                     transition={{ delay: idx * 0.08 + 0.3 }}
                     onClick={() => handleOptionClick(option)}
                     disabled={isNavigating}
-                    whileHover={!isNavigating ? { scale: 1.02, y: -2 } : {}}
+                    whileHover={!isNavigating && !isSelected ? { scale: 1.02, y: -2 } : {}}
                     whileTap={!isNavigating ? { scale: 0.98 } : {}}
                     className={`w-full text-left rounded-xl sm:rounded-2xl transition-all duration-300 group relative overflow-hidden ${
                       isNavigating ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'
                     } ${
-                      currentQuestion.singleButton 
-                        ? 'bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] text-black font-bold p-4 sm:p-5 border-none'
-                        : 'bg-gradient-to-br from-[#1a0d2e]/90 to-[#0f0520]/90 border-2 border-[#3d2a5f] hover:border-[#FFD700]/60 hover:bg-[#1a0d2e]/95 p-4 sm:p-5'
+                      isSelected
+                        ? 'border-3 border-[#FFD700] bg-[#1a0d2e]/95'
+                        : currentQuestion.singleButton 
+                          ? 'bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] text-black font-bold p-4 sm:p-5 border-none'
+                          : 'bg-gradient-to-br from-[#1a0d2e]/90 to-[#0f0520]/90 border-2 border-[#3d2a5f] hover:border-[#FFD700]/60 hover:bg-[#1a0d2e]/95 p-4 sm:p-5'
                     }`}
-                    style={currentQuestion.singleButton ? {
+                    style={isSelected ? {
+                      boxShadow: '0 0 30px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.25), 0 0 0 3px rgba(255, 215, 0, 0.8)',
+                    } : currentQuestion.singleButton ? {
                       boxShadow: '0 10px 40px rgba(255, 215, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
                     } : {
                       boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(212, 175, 55, 0.08)',
                     }}
                   >
                     {/* Shimmer effect for single button */}
-                    {currentQuestion.singleButton && (
+                    {currentQuestion.singleButton && !isSelected && (
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer" />
                     )}
                     
+                    {/* Selected state glow */}
+                    {isSelected && (
+                      <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="absolute inset-0 bg-gradient-to-br from-[#FFD700]/20 to-[#FFA500]/10 rounded-xl sm:rounded-2xl pointer-events-none"
+                      />
+                    )}
+                    
                     {/* Hover glow for regular cards */}
-                    {!currentQuestion.singleButton && (
+                    {!currentQuestion.singleButton && !isSelected && (
                       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl sm:rounded-2xl pointer-events-none"
                         style={{
                           boxShadow: '0 0 25px rgba(212, 175, 55, 0.25), inset 0 0 20px rgba(212, 175, 55, 0.08)',
@@ -642,8 +667,16 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                           )}
                         </div>
                         
-                        {/* Seta no canto */}
-                        {!currentQuestion.singleButton ? (
+                        {/* Checkmark or Arrow */}
+                        {isSelected ? (
+                          <motion.div
+                            initial={{ scale: 0, rotate: -180 }}
+                            animate={{ scale: 1, rotate: 0 }}
+                            transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                          >
+                            <CheckCircle2 className="w-6 h-6 text-[#FFD700] flex-shrink-0" />
+                          </motion.div>
+                        ) : !currentQuestion.singleButton ? (
                           <ChevronRight className="w-5 h-5 text-[#FFD700] flex-shrink-0 group-hover:translate-x-1 transition-transform" />
                         ) : (
                           <ChevronRight className="w-5 h-5 text-black flex-shrink-0 group-hover:translate-x-1 transition-transform" />
@@ -651,7 +684,8 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                       </div>
                     </div>
                   </motion.button>
-                ))}
+                );
+                })}
               </div>
 
               {/* "Nenhum desses" link for question 4 */}
