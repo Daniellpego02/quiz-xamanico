@@ -2,14 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Cosmic Background & Noise */
+/* Cosmic Background & Noise - Enhanced with Dynamic Gradient */
 body {
   background-color: #050505;
   background-image: 
-    radial-gradient(circle at 50% 0%, #2e1065 0%, #0f0529 50%, #000000 100%),
+    radial-gradient(ellipse at 20% 30%, rgba(46, 16, 101, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(15, 15, 46, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 50% 0%, #2d1b4e 0%, #1a0033 40%, #0f0529 70%, #000000 100%),
     url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
   background-attachment: fixed;
-  background-size: cover, auto;
+  background-size: 100% 100%, 100% 100%, 100% 100%, auto;
   color: #f1f5f9; /* slate-100 */
 }
 
@@ -80,13 +82,37 @@ html {
   }
 }
 
+/* Icon Pulse Animation - Performance optimized with transform */
+@keyframes iconPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+/* Fade In Up Animation */
+@keyframes fadeInUpSmooth {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Accessibility: Respect prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   .animate-mystical-stars,
   .animate-pulse,
   .animate-shimmer,
   .animate-glow-pulse,
-  .animate-float {
+  .animate-float,
+  .animate-icon-pulse,
+  .animate-fade-in-up {
     animation: none !important;
   }
 }
@@ -106,6 +132,14 @@ html {
 
 .animate-float {
   animation: float 3s ease-in-out infinite;
+}
+
+.animate-icon-pulse {
+  animation: iconPulse 3s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUpSmooth 0.4s ease-out;
 }
 
 /* Fade In Up Animation for Quiz Questions */
@@ -160,4 +194,19 @@ html {
     0 4px 6px -2px rgba(0, 0, 0, 0.1),
     0 0 0 1px rgba(212, 175, 55, 0.1),
     0 0 30px rgba(212, 175, 55, 0.15);
+}
+
+/* Golden Text Glow Effect */
+.text-glow-gold {
+  text-shadow: 
+    0 0 10px rgba(255, 215, 0, 0.3),
+    0 0 20px rgba(255, 215, 0, 0.1);
+}
+
+/* Strong Golden Text Glow */
+.text-glow-gold-strong {
+  text-shadow: 
+    0 0 15px rgba(255, 215, 0, 0.5),
+    0 0 30px rgba(255, 215, 0, 0.2),
+    0 2px 4px rgba(0, 0, 0, 0.3);
 }
