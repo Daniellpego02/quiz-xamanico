@@ -361,15 +361,34 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           className="flex-1 flex flex-col"
         >
           <div className="mb-6 sm:mb-8 space-y-4">
-            {/* TAG PEQUENA */}
+            {/* TAG PEQUENA - Enhanced with better styling */}
             {userName && currentIndex > 0 && (
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="inline-flex items-center gap-2 bg-[#D4AF37]/30 backdrop-blur-md text-[#FFD700] px-4 py-2 rounded-full text-xs sm:text-sm font-bold border border-[#D4AF37]/40"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#D4AF37]/40 to-[#D4AF37]/30 backdrop-blur-md text-[#FFD700] px-5 py-2.5 rounded-full text-xs sm:text-sm font-black border-2 border-[#D4AF37]/50 relative overflow-hidden"
+                style={{
+                  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 20px rgba(212, 175, 55, 0.3)',
+                }}
               >
-                <Sparkles className="w-3 h-3 flex-shrink-0" />
-                <span className="whitespace-nowrap">💥 Pergunta exclusiva para {userName.split(' ')[0]}</span>
+                {/* Subtle shine effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" />
+                
+                <motion.div
+                  animate={{
+                    rotate: [0, 360],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                >
+                  <Sparkles className="w-4 h-4 flex-shrink-0 drop-shadow-[0_0_4px_rgba(255,215,0,0.8)]" />
+                </motion.div>
+                <span className="whitespace-nowrap relative z-10 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
+                  💥 Pergunta exclusiva para {userName.split(' ')[0]}
+                </span>
               </motion.div>
             )}
             
@@ -690,15 +709,21 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               {/* ESPAÇAMENTO: 32px */}
               <div className="h-8"></div>
 
-              {/* CARD DE ATENÇÃO ou TEXTO MOTIVACIONAL - Condicional */}
+              {/* CARD DE ATENÇÃO ou TEXTO MOTIVACIONAL - Enhanced styling */}
               {currentQuestion.warningText && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
-                  className="bg-[#1a0606] border-2 border-[#FF0000] rounded-xl p-5 space-y-3"
+                  className="bg-gradient-to-br from-[#2a0606] to-[#1a0606] border-2 border-[#FF4500] rounded-2xl p-6 space-y-3 relative overflow-hidden"
+                  style={{
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 30px rgba(255, 69, 0, 0.2)',
+                  }}
                 >
-                  <p className="text-base sm:text-lg font-bold text-white leading-relaxed whitespace-pre-line">
+                  {/* Subtle glow overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#FF4500]/10 to-transparent opacity-50 pointer-events-none" />
+                  
+                  <p className="text-base sm:text-lg font-bold text-white leading-relaxed whitespace-pre-line relative z-10">
                     {currentQuestion.warningText}
                   </p>
                 </motion.div>
@@ -709,9 +734,15 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
-                  className="bg-[#0a0520] border-l-4 border-[#FFD700] rounded-lg p-5"
+                  className="bg-gradient-to-br from-[#0f0520] to-[#0a0520] border-l-4 border-[#FFD700] rounded-2xl p-6 relative overflow-hidden"
+                  style={{
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), inset 2px 0 10px rgba(212, 175, 55, 0.1)',
+                  }}
                 >
-                  <p className="text-sm sm:text-base text-white/80 italic leading-relaxed">
+                  {/* Subtle shine effect */}
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#FFD700] via-[#D4AF37] to-[#FFD700] opacity-80" />
+                  
+                  <p className="text-sm sm:text-base text-white/85 italic leading-relaxed relative z-10">
                     {currentQuestion.validationText}
                   </p>
                 </motion.div>

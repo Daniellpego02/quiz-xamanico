@@ -23,15 +23,29 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
       exit={{ opacity: 0 }}
       className="flex flex-col min-h-[100dvh] max-w-lg mx-auto relative overflow-hidden"
     >
-      {/* TOPO */}
+      {/* TOPO - Enhanced with better styling */}
       <motion.div 
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="w-full bg-gradient-to-r from-[#1a0b2e] via-[#2d1b4e] to-[#1a0b2e] border-b border-[#D4AF37]/30 py-3 px-4 shadow-lg relative z-20"
+        className="w-full bg-gradient-to-r from-[#1a0b2e] via-[#2d1b4e] to-[#1a0b2e] border-b-2 border-[#D4AF37]/40 py-4 px-4 relative z-20"
+        style={{
+          boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 4px 20px rgba(212, 175, 55, 0.15)',
+        }}
       >
         <div className="flex items-center justify-center gap-3">
-          <Lock className="w-4 h-4 text-[#D4AF37] animate-pulse" />
-          <p className="text-[10px] font-medium text-[#D4AF37] tracking-[0.15em] uppercase">
+          <motion.div
+            animate={{
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <Lock className="w-5 h-5 text-[#D4AF37] drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]" />
+          </motion.div>
+          <p className="text-[11px] sm:text-xs font-bold text-[#D4AF37] tracking-[0.15em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
             🔒 DIAGNÓSTICO DE FREQUÊNCIA FINANCEIRA
           </p>
         </div>
