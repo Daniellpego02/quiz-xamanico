@@ -17,6 +17,14 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const [activeQuestions, setActiveQuestions] = useState<QuizQuestion[]>([]);
   const [loadingStage, setLoadingStage] = useState(0);
 
+  // Constants
+  const CATALOGED_LINEAGES = 847;
+  const OTHER_OPTION: QuestionOption = { 
+    label: "Nenhum desses, meu problema é outro", 
+    value: "other", 
+    icon: "" 
+  };
+
   // Quiz path is now hardcoded to finance only (single flow strategy)
   const QUIZ_PATH: QuizPath = 'finance';
 
@@ -28,7 +36,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       text: "SEU NOME CARREGA A ENERGIA DA SUA LINHAGEM ANCESTRAL",
       type: "input",
       placeholder: "Ex: João",
-      emotionalContext: "⚠️ Sério: Seu nome ativa a FREQUÊNCIA EXATA da sua linhagem ancestral.\n\nQuando você digita seu nome, o sistema cruza com 847 linhagens brasileiras já catalogadas.\n\nIsso muda TUDO no seu diagnóstico."
+      emotionalContext: `⚠️ Sério: Seu nome ativa a FREQUÊNCIA EXATA da sua linhagem ancestral.\n\nQuando você digita seu nome, o sistema cruza com ${CATALOGED_LINEAGES} linhagens brasileiras já catalogadas.\n\nIsso muda TUDO no seu diagnóstico.`
     }
   ];
 
@@ -117,7 +125,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
 
   const getLoadingStages = () => [
     `Conectando à egrégora de ${userName}...`,
-    "Cruzando seu nome com 847 linhagens brasileiras catalogadas...",
+    `Cruzando seu nome com ${CATALOGED_LINEAGES} linhagens brasileiras catalogadas...`,
     "Calculando tipo de bloqueio ancestral...",
     "Pronto para começar!"
   ];
@@ -497,7 +505,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   className="text-center pt-2"
                 >
                   <button
-                    onClick={() => handleOptionClick({ label: "Nenhum desses, meu problema é outro", value: "other", icon: "" })}
+                    onClick={() => handleOptionClick(OTHER_OPTION)}
                     disabled={isNavigating}
                     className="text-sm text-white/60 hover:text-[#FFD700] underline transition-colors"
                   >
