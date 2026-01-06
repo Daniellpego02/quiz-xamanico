@@ -190,6 +190,41 @@ const OfferNew = ({ userName }: OfferProps) => {
                     </motion.div>
                 </motion.div>
 
+                {/* Pain Dimensionalization Section - PRIORITY 1 */}
+                <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 }}
+                    className="bg-gradient-to-br from-[#2a0606]/95 to-[#1a0606]/95 border-2 border-[#FF4500]/60 rounded-xl p-4 sm:p-5 mb-4 sm:mb-5"
+                >
+                    <div className="flex items-start gap-2 mb-3">
+                        <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-[#FF4500] flex-shrink-0 mt-0.5" />
+                        <p className="text-white font-bold text-sm sm:text-base">
+                            {userName && userName.trim() ? userName.split(' ')[0] : 'Você'}, este bloqueio está AGORA:
+                        </p>
+                    </div>
+                    <div className="space-y-2 text-slate-200 text-xs sm:text-sm ml-7">
+                        <p className="flex items-start gap-2">
+                            <span className="text-[#FF4500]">✗</span>
+                            <span>Drenando R$5-50 mil por mês da sua conta</span>
+                        </p>
+                        <p className="flex items-start gap-2">
+                            <span className="text-[#FF4500]">✗</span>
+                            <span>Criando autosabotagem financeira inconsciente</span>
+                        </p>
+                        <p className="flex items-start gap-2">
+                            <span className="text-[#FF4500]">✗</span>
+                            <span>Fazendo você trabalhar MAIS mas ganhar MENOS</span>
+                        </p>
+                    </div>
+                    <div className="mt-4 pt-3 border-t border-[#FF4500]/30">
+                        <p className="text-white text-xs sm:text-sm font-semibold flex items-center gap-2">
+                            <span>👇</span>
+                            <span>No vídeo abaixo, você vai descobrir EXATAMENTE como destruir esta trava em 7 dias:</span>
+                        </p>
+                    </div>
+                </motion.div>
+
                 {/* Urgency Microcopy Above Video - IMPROVED */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
@@ -204,7 +239,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                         </p>
                     </div>
                     <p className="text-xs text-slate-200">
-                        Por questões de personalização, mantemos cada diagnóstico ativo por apenas 24 horas.
+                        Por questões de personalização, seu diagnóstico expira em 24 horas.
                     </p>
                     <p className="text-xs text-[#FFD700] font-bold mt-1">
                         Assista AGORA antes que expire.
@@ -221,36 +256,36 @@ const OfferNew = ({ userName }: OfferProps) => {
                     <div className="flex items-center justify-center gap-2 mb-2.5 sm:mb-3">
                         <Sparkles className="w-4 h-4 text-[#FFD700]" />
                         <h3 className="text-center text-[#FFD700] font-bold text-xs sm:text-sm uppercase tracking-wider">
-                            NESTE VÍDEO VOCÊ VAI DESCOBRIR:
+                            NESTE VÍDEO VOCÊ ESTÁ DESCOBRINDO:
                         </h3>
                     </div>
                     <div className="space-y-1.5 sm:space-y-2 text-left max-w-lg mx-auto">
                         <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
                             <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
-                            <span>Por que o dinheiro entra e sai da sua vida</span>
+                            <span>Por que o dinheiro entra e sai da sua vida (e como quebrar esse ciclo em 7 dias usando o Protocolo Xamânico que 4.387 pessoas já usaram)</span>
                         </p>
                         <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
                             <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
-                            <span>Qual trava ancestral está bloqueando você AGORA</span>
+                            <span>Qual trava ancestral está bloqueando AGORA de R$5k a R$50k por mês</span>
                         </p>
                         <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
                             <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
-                            <span>O protocolo exato de 7 dias para limpar isso</span>
+                            <span>O protocolo exato de 7 dias para limpar isso — 89% relatam dinheiro inesperado (Pix, propostas, clientes antigos pagando) nos primeiros 3 dias</span>
                         </p>
                         <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
                             <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
-                            <span>Como ativar sua frequência de abundância</span>
+                            <span>Como ativar sua frequência para que o dinheiro chegue SEM você precisar trabalhar mais</span>
                         </p>
                     </div>
                     <div className="flex items-center justify-center gap-1.5 mt-2 sm:mt-3">
                         <Clock className="w-3.5 h-3.5 text-slate-400" />
                         <p className="text-center text-slate-400 text-xs">
-                            Duração: 2 minutos (assista até o fim)
+                            Em apenas 2 minutos você descobre EXATAMENTE qual trava está bloqueando de R$5k a R$50k todo mês
                         </p>
                     </div>
                 </motion.div>
 
-                {/* BLOCK 02: VSL VIDEO PLAYER */}
+                {/* BLOCK 02: VSL VIDEO PLAYER - Mobile Optimized Height */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -258,7 +293,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                     className="relative rounded-lg sm:rounded-2xl overflow-hidden border-2 border-[#D4AF37] shadow-[0_0_60px_rgba(212,175,55,0.4)] mb-4 sm:mb-6 mx-auto max-w-md"
                 >
                     <div className="bg-black flex items-center justify-center relative">
-                        <div className="w-full" style={{ aspectRatio: '9/16', maxWidth: '400px' }}>
+                        <div className="w-full max-h-[220px] sm:max-h-none" style={{ aspectRatio: '9/16', maxWidth: '400px' }}>
                             <vturb-smartplayer 
                                 id="vid-6953144d84040898eb13007a" 
                                 style={{ display: 'block', width: '100%', maxWidth: '400px', margin: '0 auto' }}
@@ -349,7 +384,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                 </p>
                                             </div>
 
-                                            {/* Linha 3: PREÇO GIGANTE VERDE NEON - Mobile Optimized - MELHORADO: dobro do tamanho, ultra brilho */}
+                                            {/* Linha 3: PREÇO GIGANTE VERDE NEON - Mobile Optimized - MELHORADO: muito maior em mobile */}
                                             <motion.div 
                                                 initial={{ scale: 0.7, opacity: 0 }}
                                                 animate={{ 
@@ -370,7 +405,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                         initial={{ opacity: 0, x: -20 }}
                                                         animate={{ opacity: 1, x: 0 }}
                                                         transition={{ delay: 0.8 }}
-                                                        className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" 
+                                                        className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" 
                                                         style={{ fontWeight: 900 }}
                                                     >
                                                         R$
@@ -386,7 +421,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                             duration: 0.5,
                                                             type: "spring"
                                                         }}
-                                                        className="text-7xl sm:text-8xl md:text-9xl lg:text-[12rem] font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" 
+                                                        className="text-8xl sm:text-9xl md:text-[10rem] lg:text-[12rem] font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" 
                                                         style={{ 
                                                             fontWeight: 900,
                                                             textShadow: '0 0 60px rgba(0,255,136,0.8), 0 0 100px rgba(0,255,136,0.4)'
@@ -695,13 +730,24 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             verified: true
                                         },
                                         {
+                                            name: 'Patrícia Lima',
+                                            age: '39 anos',
+                                            city: 'Salvador, BA',
+                                            text: 'Os áudios noturnos são INCRÍVEIS! Acordo com outra energia. Clientes começaram a aparecer do nada. Meu Instagram explodiu de vendas. Estou realizando sonhos que eu achava impossíveis! 💫',
+                                            time: 'há 3h',
+                                            photo: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=200&auto=format&fit=crop',
+                                            verified: true,
+                                            hiddenOnMobile: false
+                                        },
+                                        {
                                             name: 'Marcos Vinícius',
                                             age: '37 anos',
                                             city: 'Belo Horizonte, MG',
                                             text: 'Trabalho com vendas e estava em crise. Depois do Mapa, meu faturamento subiu 340% em 2 meses. Nunca tinha visto dinheiro entrar assim na minha vida. Recomendo demais! 🚀',
                                             time: 'há 1 dia',
                                             photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop',
-                                            verified: true
+                                            verified: true,
+                                            hiddenOnMobile: true
                                         },
                                         {
                                             name: 'Camila Rodrigues',
@@ -710,7 +756,8 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             text: 'Eu era cética, mas resolvi tentar. No 3º dia, recebi uma herança de uma tia distante que eu nem sabia que existia. R$ 47 mil! Fiquei em choque. Isso funciona MESMO! 😱💎',
                                             time: 'há 8h',
                                             photo: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop',
-                                            verified: true
+                                            verified: true,
+                                            hiddenOnMobile: true
                                         },
                                         {
                                             name: 'André Luiz',
@@ -719,16 +766,8 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             text: 'Eu tinha bloqueios ancestrais pesados (meu pai faliu 2 vezes). O Mapa me libertou disso. Hoje tenho minha empresa sólida e zero dívidas. Mudou minha vida e da minha família! 🙌',
                                             time: 'há 2 dias',
                                             photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop',
-                                            verified: true
-                                        },
-                                        {
-                                            name: 'Patrícia Lima',
-                                            age: '39 anos',
-                                            city: 'Salvador, BA',
-                                            text: 'Os áudios noturnos são INCRÍVEIS! Acordo com outra energia. Clientes começaram a aparecer do nada. Meu Instagram explodiu de vendas. Estou realizando sonhos que eu achava impossíveis! 💫',
-                                            time: 'há 3h',
-                                            photo: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=200&auto=format&fit=crop',
-                                            verified: true
+                                            verified: true,
+                                            hiddenOnMobile: true
                                         },
                                         {
                                             name: 'Seu Nome Aqui',
@@ -738,7 +777,8 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             time: '',
                                             photo: '',
                                             verified: false,
-                                            isPlaceholder: true
+                                            isPlaceholder: true,
+                                            hiddenOnMobile: true
                                         }
                                     ].map((testimonial, idx) => (
                                         <motion.div
@@ -750,7 +790,9 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                 testimonial.isPlaceholder 
                                                     ? 'from-[#3a2f0e] to-[#1a1a0a] border-2 border-dashed border-[#FFD700]/60 opacity-90' 
                                                     : 'from-[#1a1a1a] to-[#0d0d0d] border border-[#D4AF37]/30'
-                                            } rounded-2xl p-4 sm:p-5 hover:border-[#D4AF37]/60 transition-all hover:shadow-[0_0_30px_rgba(212,175,55,0.2)]`}
+                                            } rounded-2xl p-4 sm:p-5 hover:border-[#D4AF37]/60 transition-all hover:shadow-[0_0_30px_rgba(212,175,55,0.2)] ${
+                                                testimonial.hiddenOnMobile ? 'hidden md:block' : ''
+                                            }`}
                                         >
                                             <div className="flex items-start gap-3 sm:gap-4">
                                                 {/* Foto Real do Cliente ou Placeholder */}

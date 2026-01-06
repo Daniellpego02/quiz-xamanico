@@ -52,7 +52,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       singleButton: true,
       validationText: "A maioria das pessoas passa a vida inteira checando o saldo bancário antes de comprar QUALQUER coisa, vivendo no aperto, pedindo emprestado… sem saber que um bloqueio ancestral está causando isso. Você não precisa ser uma delas.",
       options: [
-        { label: "SIM, estou pronto(a) para destruir esse bloqueio", value: "ready", icon: "" },
+        { label: "SIM, quero destruir esse bloqueio agora", value: "ready", icon: "" },
       ]
     },
     {
@@ -115,7 +115,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       bridgeText: "Se você disser SIM aqui, o sistema gera seu mapa PERSONALIZADO e libera o protocolo completo de 7 dias dentro do APP.",
       validationText: "A maioria das pessoas vive a vida inteira com esse bloqueio sem saber. Você não precisa ser uma delas.",
       options: [
-        { label: "SIM, eu aceito receber meu Mapa e me desbloquear", value: "ready", icon: "" },
+        { label: "SIM, quero meu mapa agora", value: "ready", icon: "" },
       ]
     }
   ];
@@ -125,10 +125,8 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   }, []);
 
   const getLoadingStages = () => [
-    `Conectando à egrégora de ${userName}...`,
-    `Cruzando seu nome com ${CATALOGED_LINEAGES} linhagens brasileiras...`,
-    "Analisando padrões de 3 gerações...",
-    "Calculando tipo de bloqueio financeiro...",
+    `Identificando seu bloqueio ancestral específico...`,
+    `Gerando seu protocolo personalizado de 7 dias...`,
     "Pronto para começar!"
   ];
 
@@ -252,7 +250,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             }}
           >
             <Compass 
-              className="w-28 sm:w-36 md:w-40 h-28 sm:h-36 md:h-40 text-[#D4AF37] relative z-10 drop-shadow-[0_0_30px_rgba(212,175,55,0.8)]" 
+              className="w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 text-[#D4AF37] relative z-10 drop-shadow-[0_0_30px_rgba(212,175,55,0.8)]" 
               strokeWidth={1.5}
             />
           </motion.div>
@@ -283,14 +281,14 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className="text-slate-300 text-lg sm:text-xl min-h-[4rem] flex items-center justify-center px-4 font-medium"
+            className="text-slate-300 text-base sm:text-lg md:text-xl min-h-[4rem] flex items-center justify-center px-4 font-medium"
           >
             <strong className="text-[#FFD700]">{loadingStages[loadingStage]}</strong>
           </motion.p>
         </AnimatePresence>
         
-        {/* Enhanced progress bar */}
-        <div className="w-64 sm:w-80 md:w-96 h-2 bg-white/10 rounded-full mt-8 sm:mt-10 overflow-hidden mx-auto border border-[#D4AF37]/20">
+        {/* Enhanced progress bar - Mobile optimized */}
+        <div className="w-64 sm:w-80 md:w-96 h-1.5 sm:h-2 bg-white/10 rounded-full mt-8 sm:mt-10 overflow-hidden mx-auto border border-[#D4AF37]/20">
           <motion.div 
             className="h-full bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] relative overflow-hidden" 
             initial={{ width: "0%" }} 
@@ -413,8 +411,8 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               </motion.div>
             )}
 
-            {/* HEADLINE DA PERGUNTA */}
-            <h2 className="text-[22px] sm:text-[26px] md:text-[32px] lg:text-[36px] font-bold text-white leading-[1.3] text-center px-2 text-glow-gold">
+            {/* HEADLINE DA PERGUNTA - Mobile optimized */}
+            <h2 className="text-[20px] sm:text-[24px] md:text-[28px] lg:text-[32px] font-bold text-white leading-[1.25] text-center px-2 text-glow-gold">
               <span dangerouslySetInnerHTML={{ __html: personalizeText(currentQuestion.text).replace('BLOQUEIO SEVERO', '<span class="text-[#FF4500]">BLOQUEIO SEVERO</span>').replace('6 MESES', '<span class="text-[#FF4500]">6 MESES</span>').replace('MAIOR MEDO', '<span class="text-[#FF4500]">MAIOR MEDO</span>').replace('ENERGIA', '<span class="text-[#FFD700]">ENERGIA</span>') }}></span>
             </h2>
 
@@ -689,7 +687,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 })}
               </div>
 
-              {/* "Nenhum desses" link for question 4 */}
+              {/* "Nenhum desses" link for question 4 - Mobile optimized touch target */}
               {currentQuestion.hasOtherOption && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
@@ -700,7 +698,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   <button
                     onClick={() => handleOptionClick(OTHER_OPTION)}
                     disabled={isNavigating}
-                    className="text-sm text-white/60 hover:text-[#FFD700] underline transition-colors"
+                    className="text-sm text-white/60 hover:text-[#FFD700] underline transition-colors min-h-[44px] px-4 py-2"
                   >
                     Nenhum desses? Meu problema é outro.
                   </button>
