@@ -124,20 +124,70 @@ const OfferNew = ({ userName }: OfferProps) => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
                     className="text-center mb-4 sm:mb-5"
                 >
-                    <h1 className="text-lg sm:text-xl md:text-2xl font-black uppercase text-[#FFD700] mb-3 tracking-wide leading-tight px-2">
+                    <motion.h1 
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2, duration: 0.5 }}
+                        className="text-lg sm:text-xl md:text-2xl font-black uppercase text-[#FFD700] mb-3 tracking-wide leading-tight px-2 text-glow-gold-strong"
+                    >
                         <span className="break-words flex items-center justify-center gap-2">
-                            <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
+                            <motion.div
+                                animate={{ rotate: [0, 360] }}
+                                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                            >
+                                <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
+                            </motion.div>
                             {userName && userName.trim() ? `DIAGNÓSTICO DE ${userName.toUpperCase()} CONCLUÍDO` : 'SEU DIAGNÓSTICO CONCLUÍDO'}
                         </span>
-                        <span className="text-white block mt-2 text-base sm:text-lg md:text-xl">SEU BLOQUEIO ANCESTRAL FOI IDENTIFICADO</span>
-                    </h1>
+                        <motion.span 
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.5 }}
+                            className="text-white block mt-2 text-base sm:text-lg md:text-xl"
+                        >
+                            SEU BLOQUEIO ANCESTRAL FOI IDENTIFICADO
+                        </motion.span>
+                    </motion.h1>
                     
-                    {/* Type of Blockage Badge */}
-                    <div className="inline-block bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black font-bold text-xs sm:text-sm px-3 sm:px-5 py-2 rounded-lg sm:rounded-xl mt-3 shadow-lg">
-                        Tipo: Herança Vibracional de Escassez (Linhagem Materna)
-                    </div>
+                    {/* Type of Blockage Badge - Enhanced with bounce animation */}
+                    <motion.div 
+                        initial={{ scale: 0, opacity: 0 }}
+                        animate={{ 
+                            scale: [0, 1.1, 1],
+                            opacity: 1
+                        }}
+                        transition={{ 
+                            delay: 0.7,
+                            duration: 0.5,
+                            type: "spring",
+                            stiffness: 200,
+                            damping: 10
+                        }}
+                        className="inline-block bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black font-bold text-xs sm:text-sm px-3 sm:px-5 py-2 rounded-lg sm:rounded-xl mt-3 shadow-lg relative overflow-hidden"
+                        style={{
+                            boxShadow: '0 4px 20px rgba(212, 175, 55, 0.4), 0 0 40px rgba(212, 175, 55, 0.2)'
+                        }}
+                    >
+                        {/* Animated shine effect */}
+                        <motion.div
+                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                            animate={{
+                                x: ['-100%', '200%'],
+                            }}
+                            transition={{
+                                duration: 2,
+                                repeat: Infinity,
+                                ease: "linear",
+                                delay: 1
+                            }}
+                        />
+                        <span className="relative z-10">
+                            Tipo: Herança Vibracional de Escassez (Linhagem Materna)
+                        </span>
+                    </motion.div>
                 </motion.div>
 
                 {/* Urgency Microcopy Above Video - IMPROVED */}
@@ -300,13 +350,61 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             </div>
 
                                             {/* Linha 3: PREÇO GIGANTE VERDE NEON - Mobile Optimized - MELHORADO: dobro do tamanho, ultra brilho */}
-                                            <div className="my-6 sm:my-8">
+                                            <motion.div 
+                                                initial={{ scale: 0.7, opacity: 0 }}
+                                                animate={{ 
+                                                    scale: 1,
+                                                    opacity: 1
+                                                }}
+                                                transition={{ 
+                                                    delay: 0.6,
+                                                    duration: 0.6,
+                                                    type: "spring",
+                                                    stiffness: 150,
+                                                    damping: 12
+                                                }}
+                                                className="my-6 sm:my-8"
+                                            >
                                                 <div className="flex items-center justify-center gap-1">
-                                                    <span className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" style={{ fontWeight: 900 }}>R$</span>
-                                                    <span className="text-7xl sm:text-8xl md:text-9xl lg:text-[12rem] font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" style={{ fontWeight: 900 }}>27</span>
-                                                    <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] self-start mt-2 animate-pulse" style={{ fontWeight: 900 }}>,90</span>
+                                                    <motion.span 
+                                                        initial={{ opacity: 0, x: -20 }}
+                                                        animate={{ opacity: 1, x: 0 }}
+                                                        transition={{ delay: 0.8 }}
+                                                        className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" 
+                                                        style={{ fontWeight: 900 }}
+                                                    >
+                                                        R$
+                                                    </motion.span>
+                                                    <motion.span 
+                                                        initial={{ scale: 0.5, opacity: 0 }}
+                                                        animate={{ 
+                                                            scale: [0.5, 1.1, 1],
+                                                            opacity: 1
+                                                        }}
+                                                        transition={{ 
+                                                            delay: 0.9,
+                                                            duration: 0.5,
+                                                            type: "spring"
+                                                        }}
+                                                        className="text-7xl sm:text-8xl md:text-9xl lg:text-[12rem] font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" 
+                                                        style={{ 
+                                                            fontWeight: 900,
+                                                            textShadow: '0 0 60px rgba(0,255,136,0.8), 0 0 100px rgba(0,255,136,0.4)'
+                                                        }}
+                                                    >
+                                                        27
+                                                    </motion.span>
+                                                    <motion.span 
+                                                        initial={{ opacity: 0, x: 20 }}
+                                                        animate={{ opacity: 1, x: 0 }}
+                                                        transition={{ delay: 1.0 }}
+                                                        className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] self-start mt-2 animate-pulse" 
+                                                        style={{ fontWeight: 900 }}
+                                                    >
+                                                        ,90
+                                                    </motion.span>
                                                 </div>
-                                            </div>
+                                            </motion.div>
 
                                             {/* Linha 4: Microcopy */}
                                             <div className="mb-4 sm:mb-6">
