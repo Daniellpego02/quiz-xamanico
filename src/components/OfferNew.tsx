@@ -131,14 +131,14 @@ const OfferNew = ({ userName }: OfferProps) => {
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.5 }}
-                        className="text-lg sm:text-xl md:text-2xl font-black uppercase text-[#FFD700] mb-3 tracking-wide leading-tight px-2 text-glow-gold-strong"
+                        className="text-base sm:text-lg md:text-xl font-black uppercase text-[#FFD700] mb-3 tracking-wide leading-tight px-2 text-glow-gold-strong"
                     >
                         <span className="break-words flex items-center justify-center gap-2">
                             <motion.div
                                 animate={{ rotate: [0, 360] }}
                                 transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                             >
-                                <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
+                                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
                             </motion.div>
                             {userName && userName.trim() ? `DIAGNÓSTICO DE ${userName.toUpperCase()} CONCLUÍDO` : 'SEU DIAGNÓSTICO CONCLUÍDO'}
                         </span>
@@ -146,7 +146,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.5 }}
-                            className="text-white block mt-2 text-base sm:text-lg md:text-xl"
+                            className="text-white block mt-2 text-sm sm:text-base md:text-lg"
                         >
                             SEU BLOQUEIO ANCESTRAL FOI IDENTIFICADO
                         </motion.span>
@@ -225,25 +225,19 @@ const OfferNew = ({ userName }: OfferProps) => {
                     </div>
                 </motion.div>
 
-                {/* Urgency Microcopy Above Video - IMPROVED */}
+                {/* Urgency Microcopy Above Video - IMPROVED - More Compact */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.2 }}
-                    className="bg-gradient-to-r from-[#8B0000]/90 to-[#CC0000]/90 border border-red-500/50 rounded-lg px-3 sm:px-4 py-2 sm:py-3 mb-3 sm:mb-4 text-center"
+                    className="bg-gradient-to-r from-[#8B0000]/90 to-[#CC0000]/90 border border-red-500/50 rounded-lg px-3 sm:px-4 py-2 mb-3 sm:mb-4 text-center"
                 >
-                    <div className="flex items-start gap-2 justify-center mb-1.5">
-                        <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-white flex-shrink-0 mt-0.5" />
-                        <p className="text-xs sm:text-sm md:text-base text-white font-semibold">
-                            ATENÇÃO: Este vídeo contém a leitura PERSONALIZADA da sua frequência ancestral.
+                    <div className="flex items-center gap-2 justify-center">
+                        <Shield className="w-4 h-4 text-white flex-shrink-0" />
+                        <p className="text-[11px] sm:text-xs md:text-sm text-white font-semibold">
+                            ATENÇÃO: Vídeo personalizado expira em 24h. Assista AGORA!
                         </p>
                     </div>
-                    <p className="text-xs text-slate-200">
-                        Por questões de personalização, seu diagnóstico expira em 24 horas.
-                    </p>
-                    <p className="text-xs text-[#FFD700] font-bold mt-1">
-                        Assista AGORA antes que expire.
-                    </p>
                 </motion.div>
 
                 {/* Benefits List BEFORE Video */}
@@ -262,19 +256,19 @@ const OfferNew = ({ userName }: OfferProps) => {
                     <div className="space-y-1.5 sm:space-y-2 text-left max-w-lg mx-auto">
                         <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
                             <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
-                            <span>Por que o dinheiro entra e sai da sua vida (e como quebrar esse ciclo em 7 dias usando o Protocolo Xamânico que 4.387 pessoas já usaram)</span>
+                            <span>Por que o dinheiro entra e sai (e como quebrar esse ciclo em 7 dias)</span>
                         </p>
                         <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
                             <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
-                            <span>Qual trava ancestral está bloqueando AGORA de R$5k a R$50k por mês</span>
+                            <span>Qual trava está bloqueando AGORA de R$5k a R$50k por mês</span>
                         </p>
                         <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
                             <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
-                            <span>O protocolo exato de 7 dias para limpar isso — 89% relatam dinheiro inesperado (Pix, propostas, clientes antigos pagando) nos primeiros 3 dias</span>
+                            <span>O protocolo de 7 dias — 89% relatam dinheiro nos primeiros 3 dias</span>
                         </p>
                         <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
                             <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
-                            <span>Como ativar sua frequência para que o dinheiro chegue SEM você precisar trabalhar mais</span>
+                            <span>Como o dinheiro chega sem você precisar trabalhar mais</span>
                         </p>
                     </div>
                     <div className="flex items-center justify-center gap-1.5 mt-2 sm:mt-3">
@@ -293,10 +287,10 @@ const OfferNew = ({ userName }: OfferProps) => {
                     className="relative rounded-lg sm:rounded-2xl overflow-hidden border-2 border-[#D4AF37] shadow-[0_0_60px_rgba(212,175,55,0.4)] mb-4 sm:mb-6 mx-auto max-w-md"
                 >
                     <div className="bg-black flex items-center justify-center relative">
-                        <div className="w-full max-h-[220px] sm:max-h-none" style={{ aspectRatio: '9/16', maxWidth: '400px' }}>
+                        <div className="w-full" style={{ aspectRatio: '9/16', maxWidth: '100%', maxHeight: '220px' }}>
                             <vturb-smartplayer 
                                 id="vid-6953144d84040898eb13007a" 
-                                style={{ display: 'block', width: '100%', maxWidth: '400px', margin: '0 auto' }}
+                                style={{ display: 'block', width: '100%', height: '100%', maxWidth: '100%', maxHeight: '220px', margin: '0 auto' }}
                             ></vturb-smartplayer>
                         </div>
                     </div>
@@ -309,14 +303,14 @@ const OfferNew = ({ userName }: OfferProps) => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6 }}
-                    className="my-8 sm:my-10"
+                    className="my-6 sm:my-8 md:my-10"
                 >
-                    <div className="text-center mb-6">
-                        <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-3 leading-tight px-2">
+                    <div className="text-center mb-4 sm:mb-6">
+                        <h2 className="text-lg sm:text-xl md:text-2xl font-black text-white mb-2 sm:mb-3 leading-tight px-2">
                             EXISTE UMA "TRAVA ANCESTRAL" IMPEDINDO<br className="hidden sm:block" />
                             O DINHEIRO DE PARAR NA SUA MÃO?
                         </h2>
-                        <p className="text-base sm:text-lg text-slate-300 mb-6 px-2">
+                        <p className="text-sm sm:text-base md:text-lg text-slate-300 mb-4 sm:mb-6 px-2">
                             O Protocolo Xamânico revela onde está o vazamento.
                         </p>
                     </div>
@@ -324,20 +318,20 @@ const OfferNew = ({ userName }: OfferProps) => {
                     {/* Giant CTA Button */}
                     <button
                         onClick={handleCheckout}
-                        className="w-full md:w-[70%] mx-auto block bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] hover:brightness-110 text-black font-black text-lg sm:text-xl md:text-2xl py-5 sm:py-6 px-6 sm:px-8 rounded-2xl shadow-[0_8px_40px_rgba(212,175,55,0.6)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#FFD700] uppercase tracking-wide mb-4"
+                        className="w-full md:w-[70%] mx-auto block bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] hover:brightness-110 text-black font-black text-base sm:text-lg md:text-xl py-4 sm:py-5 md:py-6 px-4 sm:px-6 md:px-8 rounded-2xl shadow-[0_8px_40px_rgba(212,175,55,0.6)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#FFD700] uppercase tracking-wide mb-3 sm:mb-4"
                     >
                         🔥 QUERO INICIAR MEU DESBLOQUEIO AGORA →
                     </button>
 
                     {/* Micro-benefits below button */}
-                    <div className="text-center space-y-1 text-sm px-2">
+                    <div className="text-center space-y-1 text-xs sm:text-sm px-2">
                         <p className="text-emerald-400 font-semibold">✅ Pagamento Único de R$27,90 (PIX)</p>
                         <p className="text-emerald-400 font-semibold">✅ Acesso Vitalício | Garantia de 7 Dias</p>
                         <p className="text-emerald-400 font-semibold">✅ Mais de 4.300 mapas já gerados</p>
                     </div>
 
                     {/* Security badge */}
-                    <p className="text-center text-slate-400 text-xs mt-4">
+                    <p className="text-center text-slate-400 text-xs mt-3 sm:mt-4">
                         💳 Pagamento 100% seguro via PIX Banco Central
                     </p>
                 </motion.div>
@@ -384,7 +378,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                 </p>
                                             </div>
 
-                                            {/* Linha 3: PREÇO GIGANTE VERDE NEON - Mobile Optimized - MELHORADO: muito maior em mobile */}
+                                            {/* Linha 3: PREÇO GIGANTE VERDE NEON - Mobile Optimized - MUITO MAIOR */}
                                             <motion.div 
                                                 initial={{ scale: 0.7, opacity: 0 }}
                                                 animate={{ 
@@ -405,7 +399,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                         initial={{ opacity: 0, x: -20 }}
                                                         animate={{ opacity: 1, x: 0 }}
                                                         transition={{ delay: 0.8 }}
-                                                        className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" 
+                                                        className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" 
                                                         style={{ fontWeight: 900 }}
                                                     >
                                                         R$
@@ -421,7 +415,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                             duration: 0.5,
                                                             type: "spring"
                                                         }}
-                                                        className="text-8xl sm:text-9xl md:text-[10rem] lg:text-[12rem] font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" 
+                                                        className="text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" 
                                                         style={{ 
                                                             fontWeight: 900,
                                                             textShadow: '0 0 60px rgba(0,255,136,0.8), 0 0 100px rgba(0,255,136,0.4)'
@@ -433,7 +427,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                         initial={{ opacity: 0, x: 20 }}
                                                         animate={{ opacity: 1, x: 0 }}
                                                         transition={{ delay: 1.0 }}
-                                                        className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] self-start mt-2 animate-pulse" 
+                                                        className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] self-start mt-2 animate-pulse" 
                                                         style={{ fontWeight: 900 }}
                                                     >
                                                         ,90
@@ -465,16 +459,13 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         </p>
                                         <div className="text-white text-sm sm:text-base leading-relaxed space-y-2">
                                             <p>
-                                                Cada dia que você adia é um dia a mais vivendo com esse bloqueio financeiro.
-                                            </p>
-                                            <p className="font-bold text-base sm:text-lg">
-                                                Quanto tempo você vai esperar?
+                                                Cada dia adiado é um dia a mais com o bloqueio.
                                             </p>
                                             <p>
-                                                Mais 1 mês? Mais 1 ano? Mais 10 anos?
+                                                Mais 1 mês? Mais 1 ano?
                                             </p>
                                             <p className="text-[#FFD700] font-black text-lg sm:text-xl">
-                                                O momento de agir é AGORA.
+                                                O momento é AGORA.
                                             </p>
                                         </div>
                                     </div>
@@ -502,15 +493,15 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         <div className="text-slate-300 text-sm space-y-2 mb-4 text-left max-w-md mx-auto">
                                             <p className="flex items-start gap-2">
                                                 <span className="text-[#FFD700] flex-shrink-0">✨</span>
-                                                <span>Descobrir qual bloqueio ancestral trava seu dinheiro</span>
+                                                <span>Descobrir qual bloqueio ancestral trava R$5-50k todo mês</span>
                                             </p>
                                             <p className="flex items-start gap-2">
                                                 <span className="text-[#FFD700] flex-shrink-0">✨</span>
-                                                <span>Receber o ritual exato de 7 dias para limpar isso</span>
+                                                <span>Receber o protocolo de 7 dias usado por 4.387 pessoas</span>
                                             </p>
                                             <p className="flex items-start gap-2">
                                                 <span className="text-[#FFD700] flex-shrink-0">✨</span>
-                                                <span>Entender por que algumas pessoas atraem abundância e você não</span>
+                                                <span>Entender POR QUÊ o dinheiro nunca parou na sua mão</span>
                                             </p>
                                         </div>
                                         <p className="text-white text-base sm:text-lg font-bold mb-1">
@@ -564,17 +555,17 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 transition={{ delay: 0.6 }}
                                 className="mb-12"
                             >
-                                <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-center text-[#FFD700] mb-6 sm:mb-8 px-2">
+                                <h2 className="text-lg sm:text-xl md:text-2xl font-black text-center text-[#FFD700] mb-4 sm:mb-6 md:mb-8 px-2">
                                     O Que Você Vai Receber Imediatamente
                                 </h2>
 
                                 {/* Mockup Visual - Otimizado para Mobile */}
-                                <div className="flex justify-center mb-8 px-4 sm:px-6">
-                                    <div className="relative w-full max-w-[300px] sm:max-w-sm md:max-w-md lg:max-w-lg">
+                                <div className="flex justify-center mb-6 sm:mb-8 px-4 sm:px-6">
+                                    <div className="relative w-full max-w-[280px] sm:max-w-sm md:max-w-md lg:max-w-lg">
                                         <img 
                                             src="/mockup.png" 
                                             alt="Mapa Xamânico Completo"
-                                            className="w-full h-auto max-h-[500px] sm:max-h-[600px] md:max-h-none rounded-lg sm:rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.9)] object-contain mx-auto"
+                                            className="w-full h-auto max-h-[400px] sm:max-h-[500px] md:max-h-none rounded-lg sm:rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.9)] object-contain mx-auto"
                                             loading="lazy"
                                         />
                                         <div className="absolute -inset-2 sm:-inset-4 bg-gradient-to-br from-[#D4AF37]/20 to-[#FFD700]/20 blur-2xl sm:blur-3xl -z-10"></div>
@@ -616,12 +607,12 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             transition={{ delay: 0.8 + idx * 0.1 }}
                                             className="flex items-start gap-4 bg-gradient-to-br from-white/5 to-white/[0.02] border border-[#D4AF37]/30 rounded-xl p-3 sm:p-4 hover:border-[#D4AF37]/50 transition-all"
                                         >
-                                            <div className="flex-shrink-0 text-3xl sm:text-4xl">
+                                            <div className="flex-shrink-0 text-2xl sm:text-3xl md:text-4xl">
                                                 {item.icon}
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <p className="text-white font-bold text-base sm:text-lg mb-2">✅ {item.title}</p>
-                                                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                                                <p className="text-white font-bold text-sm sm:text-base md:text-lg mb-1.5 sm:mb-2">✅ {item.title}</p>
+                                                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed line-clamp-3 sm:line-clamp-none">
                                                     {item.desc}
                                                     <span className="font-bold text-white">{item.descBold}</span>
                                                 </p>
@@ -696,7 +687,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 transition={{ delay: 1.4 }}
                                 className="mb-12"
                             >
-                                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#FFD700] text-center mb-6 sm:mb-8 px-2">
+                                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-[#FFD700] text-center mb-4 sm:mb-6 px-2">
                                     💬 O que os alunos estão dizendo
                                 </h3>
 

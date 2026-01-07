@@ -100,11 +100,11 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           transition={{ delay: 0.1, duration: 0.6, ease: "easeOut" }}
           className="space-y-2"
         >
-          <h1 className="text-[24px] sm:text-[36px] md:text-[48px] lg:text-[56px] font-black text-white leading-[1.15] drop-shadow-2xl break-words">
+          <h1 className="text-[20px] sm:text-[28px] md:text-[40px] lg:text-[48px] font-black text-white leading-[1.15] drop-shadow-2xl break-words">
             Existe Uma <span className="text-[#FFD700]">"TRAVA ANCESTRAL"</span>{' '}
             <span className="text-[#FF4500]">SUFOCANDO</span>{' '}
             <span className="text-[#FFD700]">R$5-50 MIL</span>{' '}
-            da Sua Conta Bancária Todo Mês?
+            da Sua Conta Bancária?
           </h1>
           {/* SUBHEADLINE */}
           <p className="text-sm sm:text-base md:text-lg text-slate-300/70 leading-relaxed">
@@ -152,7 +152,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
               className="flex items-start gap-2"
             >
               <CheckCircle className="w-4 h-4 text-[#4ade80] flex-shrink-0 mt-0.5" />
-              <p>O protocolo de 7 dias que <strong className="text-[#FFD700]">89%</strong> relatam dinheiro inesperado (Pix, propostas, clientes antigos pagando) nos primeiros 3 dias</p>
+              <p>O protocolo de 7 dias que <strong className="text-[#FFD700]">89%</strong> relatam resultados nos primeiros 3 dias</p>
             </motion.div>
           </div>
         </motion.div>
@@ -165,9 +165,9 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           className="max-w-[600px] mx-auto"
         >
           <p className="text-xs sm:text-sm md:text-base text-white/90 leading-relaxed">
-            O Protocolo Xamânico usado por <strong className="text-[#FFD700] font-bold">4.387 brasileiros {!isLoadingState && `no ${userState}`}</strong>{' '}
-            identifica <strong className="text-[#FFD700] font-bold">EXATAMENTE</strong> qual bloqueio financeiro ancestral{' '}
-            está impedindo o dinheiro de chegar até você.
+            Usado por <strong className="text-[#FFD700] font-bold">4.387 brasileiros {!isLoadingState && `no ${userState}`}</strong>.
+            <br />
+            Identifica <strong className="text-[#FFD700] font-bold">EXATAMENTE</strong> o bloqueio que trava seu dinheiro.
           </p>
         </motion.div>
 
@@ -178,9 +178,12 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           transition={{ delay: 0.7, duration: 0.5 }}
           className="bg-gradient-to-r from-[#4ade80]/10 to-[#10b981]/10 border border-[#4ade80]/30 rounded-lg p-3 backdrop-blur-sm"
         >
-          <p className="text-xs sm:text-sm md:text-base font-medium text-[#4ade80] leading-relaxed">
-            Em 7 dias após desbloquear a trava ancestral: dinheiro chega sem você correr atrás (Pix inesperados, propostas que você nem buscou)
-          </p>
+          <div className="space-y-1 text-xs sm:text-sm md:text-base font-medium text-[#4ade80] leading-relaxed">
+            <p>✓ R$5k-50k via Pix inesperados</p>
+            <p>✓ Clientes antigos pagando dívidas</p>
+            <p>✓ Propostas chegando sem você buscar</p>
+            <p>✓ Dinheiro parando na conta</p>
+          </div>
         </motion.div>
 
         {/* HIGHLIGHT COM ÍCONE */}
@@ -234,7 +237,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             Onde você está hoje?
           </p>
           
-          <div className="relative border-2 border-[#FFD700]/60 rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(255,215,0,0.2)] max-h-[200px] sm:max-h-none">
+          <div className="relative border-2 border-[#FFD700]/60 rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(255,215,0,0.2)] max-h-[160px] sm:max-h-[200px] md:max-h-none">
             <img 
               src="/banner principal.png" 
               alt="Transformação - Antes e Depois" 
@@ -268,9 +271,14 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             </p>
           </div>
           {/* Compact text for mobile - 2 lines max */}
-          <p className="text-xs sm:text-sm text-[#4ade80] font-bold text-center">
-            VAGAS: <span className="text-[#FFD700]">12/50</span> | Próxima vaga só amanhã
-          </p>
+          <div className="text-center">
+            <p className="text-xs sm:text-sm text-white font-bold">
+              VAGAS: <span className="text-[#FFD700]">12/50</span>
+            </p>
+            <p className="text-[10px] sm:text-xs text-slate-300">
+              Próxima vaga só amanhã
+            </p>
+          </div>
         </motion.div>
 
         {/* CTA PRINCIPAL - Botão gigante */}
@@ -328,7 +336,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
               className="flex items-start gap-2"
             >
               <CheckCircle className="w-4 h-4 text-[#4ade80] flex-shrink-0 mt-0.5" />
-              <p><span className="text-[#FFD700] font-bold">R$5k-50k</span> chegando via Pix, clientes antigos pagando dívidas, propostas que você nem buscou</p>
+              <p>✓ <span className="text-[#FFD700] font-bold">R$5k-50k</span> via Pix inesperados</p>
             </motion.div>
             <motion.div 
               initial={{ x: -20, opacity: 0 }}
@@ -337,7 +345,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
               className="flex items-start gap-2"
             >
               <CheckCircle className="w-4 h-4 text-[#4ade80] flex-shrink-0 mt-0.5" />
-              <p>Fluxo de dinheiro que <strong className="text-white">NÃO PARA</strong></p>
+              <p>✓ Clientes antigos pagando dívidas</p>
             </motion.div>
             <motion.div 
               initial={{ x: -20, opacity: 0 }}
@@ -346,7 +354,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
               className="flex items-start gap-2"
             >
               <CheckCircle className="w-4 h-4 text-[#4ade80] flex-shrink-0 mt-0.5" />
-              <p>Raiva/culpa sobre dinheiro: <strong className="text-white">DESAPARECEU</strong></p>
+              <p>✓ Propostas chegando sem você buscar</p>
             </motion.div>
             <motion.div 
               initial={{ x: -20, opacity: 0 }}
@@ -355,12 +363,9 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
               className="flex items-start gap-2"
             >
               <CheckCircle className="w-4 h-4 text-[#4ade80] flex-shrink-0 mt-0.5" />
-              <p>Abundância chegando sem esforço</p>
+              <p>✓ Dinheiro parando na conta</p>
             </motion.div>
           </div>
-          <p className="text-xs text-slate-400 pt-1">
-            Nada de coincidência. Tudo é resultado de desbloquear a trava ancestral.
-          </p>
         </motion.div>
 
       </div>
