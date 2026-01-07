@@ -128,7 +128,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
       <motion.div 
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="w-full bg-gradient-to-r from-[#0a0510] via-[#1a0a2e] to-[#0a0510] border-b border-[#C9A227]/30 py-4 px-4 relative z-20"
+        className="w-full bg-gradient-to-r from-[#0a0510] via-[#1a0a2e] to-[#0a0510] border-b border-[#C9A227]/30 py-2 sm:py-4 px-4 relative z-20"
         style={{
           boxShadow: '0 4px 30px rgba(0, 0, 0, 0.5), 0 0 40px rgba(201, 162, 39, 0.1)',
         }}
@@ -156,7 +156,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
         </div>
       </motion.div>
 
-      <div className="flex-1 flex flex-col items-center justify-center px-3 sm:px-4 py-2 sm:py-3 md:py-6 space-y-2.5 sm:space-y-3 md:space-y-4 text-center relative z-10">
+      <div className="flex-1 flex flex-col items-center justify-center px-3 sm:px-4 py-1 sm:py-2 md:py-6 space-y-2.5 sm:space-y-3 md:space-y-4 text-center relative z-10 hero-section">
         {/* ═══ Ambient energy field ═══ */}
         <motion.div 
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] rounded-full pointer-events-none -z-10"
@@ -183,9 +183,9 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             <span className="text-[#C9A227] font-extrabold">R$5-50 MIL</span>{' '}
             da Sua Conta Bancária?
           </h1>
-          {/* SUBHEADLINE */}
+          {/* SUBHEADLINE - Updated per optimization requirements */}
           <p className="text-[13px] sm:text-sm md:text-base text-slate-300 leading-relaxed font-medium px-1">
-            Descubra como <strong className="text-white font-extrabold">DESTRUÍ-LA</strong> em 7 dias e destravar o fluxo de abundância <span className="text-[#4ade80] font-bold">AGORA</span>
+            Descubra como <strong className="text-white font-extrabold">DESTRUÍ-LA</strong> em 7 dias e destravar sua abundância <span className="text-[#4ade80] font-bold">AGORA</span>.
           </p>
         </motion.div>
 
@@ -268,12 +268,12 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           </div>
         </motion.div>
 
-        {/* ═══ IMAGEM BEFORE/AFTER ═══ */}
+        {/* ═══ IMAGEM BEFORE/AFTER - Hidden on mobile per optimization requirements ═══ */}
         <motion.div
           initial={{ scale: 0.95, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 0.5 }}
-          className="w-full space-y-1.5 sm:space-y-2 md:space-y-3"
+          className="w-full space-y-1.5 sm:space-y-2 md:space-y-3 hero-image"
         >
           <p className="text-sm sm:text-base md:text-lg font-black text-white">
             Onde você está hoje?
@@ -362,7 +362,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             onClick={handleStartClick} 
             pulse 
             size="lg"
-            className="w-full"
+            className="w-full cta-button-sticky"
           >
             <motion.span
               animate={{ 
@@ -375,6 +375,16 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             </motion.span>
             <span className="tracking-tight">DESCOBRIR MINHA TRAVA ANCESTRAL AGORA</span>
           </RitualButton>
+          
+          {/* Micro-copy below button - New addition per requirements */}
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.4, duration: 0.5 }}
+            className="text-center text-[11px] sm:text-xs text-slate-300 mt-2 px-2"
+          >
+            ✨ Junto com 4.387 brasileiros que já destravaram seus mapas
+          </motion.p>
         </motion.div>
 
         {/* ═══ CARD PROVA SOCIAL - Ritual testimonial container ═══ */}
