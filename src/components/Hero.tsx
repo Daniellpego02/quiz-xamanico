@@ -178,15 +178,12 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           transition={{ delay: 0.7, duration: 0.5 }}
           className="bg-gradient-to-r from-[#4ade80]/10 to-[#10b981]/10 border border-[#4ade80]/30 rounded-lg p-3 backdrop-blur-sm"
         >
-          <p className="text-xs sm:text-sm md:text-base font-medium text-[#4ade80] leading-relaxed">
-            ✓ R$5k-50k via Pix inesperados
-            <br />
-            ✓ Clientes antigos pagando dívidas
-            <br />
-            ✓ Propostas chegando sem você buscar
-            <br />
-            ✓ Dinheiro parando na conta
-          </p>
+          <div className="space-y-1 text-xs sm:text-sm md:text-base font-medium text-[#4ade80] leading-relaxed">
+            <p>✓ R$5k-50k via Pix inesperados</p>
+            <p>✓ Clientes antigos pagando dívidas</p>
+            <p>✓ Propostas chegando sem você buscar</p>
+            <p>✓ Dinheiro parando na conta</p>
+          </div>
         </motion.div>
 
         {/* HIGHLIGHT COM ÍCONE */}
