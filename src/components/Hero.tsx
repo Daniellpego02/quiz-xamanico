@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from './Button';
-import { Lock, CheckCircle, Clock, Mail, Shield, Smartphone, Sparkles, Compass, AlertTriangle, ChevronRight } from 'lucide-react';
+import { Lock, CheckCircle, Clock, Mail, Smartphone, Sparkles, Compass, AlertTriangle, ChevronRight } from 'lucide-react';
 import { tracking } from '../utils/tracking';
+import { SacredGeometry, RitualButton } from './ritual';
 
 interface HeroProps {
   onStart: () => void;
@@ -59,51 +59,79 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="flex flex-col min-h-[100dvh] max-w-lg mx-auto relative overflow-hidden"
+      className="flex flex-col min-h-[100dvh] max-w-lg mx-auto relative overflow-hidden portal-entrance"
     >
-      {/* TOPO - Enhanced with better styling */}
+      {/* ═══ SACRED GEOMETRY BACKGROUND ═══ */}
+      <SacredGeometry 
+        variant="mandala" 
+        size={600} 
+        opacity={0.04}
+        className="top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2"
+      />
+      <SacredGeometry 
+        variant="energy-field" 
+        size={400} 
+        opacity={0.15}
+        className="top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2"
+      />
+      
+      {/* ═══ TOPO - Ceremonial Header ═══ */}
       <motion.div 
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="w-full bg-gradient-to-r from-[#1a0b2e] via-[#2d1b4e] to-[#1a0b2e] border-b-2 border-[#D4AF37]/40 py-4 px-4 relative z-20"
+        className="w-full bg-gradient-to-r from-[#0a0510] via-[#1a0a2e] to-[#0a0510] border-b border-[#C9A227]/30 py-4 px-4 relative z-20"
         style={{
-          boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 4px 20px rgba(212, 175, 55, 0.15)',
+          boxShadow: '0 4px 30px rgba(0, 0, 0, 0.5), 0 0 40px rgba(201, 162, 39, 0.1)',
         }}
       >
+        {/* Decorative top line */}
+        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C9A227]/50 to-transparent" />
+        
         <div className="flex items-center justify-center gap-3">
           <motion.div
             animate={{
               scale: [1, 1.1, 1],
+              opacity: [0.8, 1, 0.8]
             }}
             transition={{
-              duration: 2,
+              duration: 3,
               repeat: Infinity,
               ease: "easeInOut",
             }}
           >
-            <Lock className="w-5 h-5 text-[#D4AF37] drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]" />
+            <Lock className="w-5 h-5 text-[#C9A227] drop-shadow-[0_0_12px_rgba(201,162,39,0.8)]" />
           </motion.div>
-          <p className="text-[11px] sm:text-xs font-bold text-[#D4AF37] tracking-[0.15em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
+          <p className="text-[11px] sm:text-xs font-ritual font-bold text-[#C9A227] tracking-[0.2em] uppercase ritual-text-glow">
             DIAGNÓSTICO DE FREQUÊNCIA FINANCEIRA
           </p>
         </div>
       </motion.div>
 
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-3 md:py-6 space-y-3 md:space-y-4 text-center relative z-10">
-        {/* Ambient glow effect */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-[#D4AF37]/10 rounded-full blur-[80px] pointer-events-none -z-10"></div>
+        {/* ═══ Ambient energy field ═══ */}
+        <motion.div 
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] rounded-full pointer-events-none -z-10"
+          style={{
+            background: 'radial-gradient(circle, rgba(201, 162, 39, 0.08) 0%, transparent 60%)'
+          }}
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.6, 1, 0.6]
+          }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        />
 
-        {/* HEADLINE PRINCIPAL */}
+        {/* ═══ HEADLINE PRINCIPAL - Ceremonial Typography ═══ */}
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.1, duration: 0.6, ease: "easeOut" }}
           className="space-y-2"
         >
-          <h1 className="text-[22px] sm:text-[30px] md:text-[42px] lg:text-[50px] font-black text-white leading-[1.1] drop-shadow-2xl break-words">
-            Existe Uma <span className="text-[#FFD700] underline decoration-2 decoration-[#FFD700]/50">"TRAVA ANCESTRAL"</span>{' '}
+          <h1 className="text-[22px] sm:text-[30px] md:text-[42px] lg:text-[50px] font-black text-white leading-[1.1] break-words ritual-text-glow">
+            Existe Uma <span className="text-[#C9A227] underline decoration-2 decoration-[#C9A227]/50">"TRAVA ANCESTRAL"</span>{' '}
             <span className="text-[#FF4500] animate-pulse">SUFOCANDO</span>{' '}
-            <span className="text-[#FFD700] font-extrabold">R$5-50 MIL</span>{' '}
+            <span className="text-[#C9A227] font-extrabold">R$5-50 MIL</span>{' '}
             da Sua Conta Bancária?
           </h1>
           {/* SUBHEADLINE */}
@@ -112,15 +140,19 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           </p>
         </motion.div>
 
-        {/* CAIXA DESTACADA - Card com glass effect - Reduced from 3 to 2 bullets */}
+        {/* ═══ RITUAL CARD - Sacred container ═══ */}
         <motion.div
           initial={{ scale: 0.95, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
-          className="w-full bg-gradient-to-br from-[#1a0d2e]/80 to-[#0a0520]/80 backdrop-blur-sm border-2 border-[#FFD700]/50 rounded-xl p-4 md:p-5 space-y-2.5 md:space-y-3 shadow-[0_0_30px_rgba(255,215,0,0.2)]"
+          className="w-full ritual-card p-4 md:p-5 space-y-2.5 md:space-y-3"
+          style={{
+            borderColor: 'rgba(201, 162, 39, 0.4)',
+            boxShadow: '0 0 40px rgba(201, 162, 39, 0.15), inset 0 1px 0 rgba(201, 162, 39, 0.1)'
+          }}
         >
           <div className="flex items-center justify-center gap-2">
-            <CheckCircle className="w-5 h-5 text-[#4ade80] animate-pulse" />
+            <CheckCircle className="w-5 h-5 text-[#4ade80] animate-energy-pulse" />
             <p className="text-base sm:text-lg md:text-xl font-extrabold text-white">
               Responda 6 perguntas rápidas <span className="text-[#4ade80]">(2 minutos)</span>
             </p>
@@ -143,12 +175,12 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
               className="flex items-start gap-2"
             >
               <CheckCircle className="w-4 h-4 text-[#4ade80] flex-shrink-0 mt-0.5" />
-              <p>O protocolo de 7 dias que <strong className="text-[#FFD700]">89%</strong> relatam resultados nos primeiros 3 dias</p>
+              <p>O protocolo de 7 dias que <strong className="text-[#C9A227]">89%</strong> relatam resultados nos primeiros 3 dias</p>
             </motion.div>
           </div>
         </motion.div>
 
-        {/* PARÁGRAFO EXPLICATIVO */}
+        {/* ═══ PARÁGRAFO EXPLICATIVO ═══ */}
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -156,38 +188,38 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           className="max-w-[600px] mx-auto"
         >
           <p className="text-xs sm:text-sm md:text-base text-white/90 leading-relaxed">
-            Usado por <strong className="text-[#FFD700] font-bold">4.387 brasileiros {!isLoadingState && `no ${userState}`}</strong>.
+            Usado por <strong className="text-[#C9A227] font-bold">4.387 brasileiros {!isLoadingState && `no ${userState}`}</strong>.
             <br />
-            Identifica <strong className="text-[#FFD700] font-bold">EXATAMENTE</strong> o bloqueio que trava seu dinheiro.
+            Identifica <strong className="text-[#C9A227] font-bold">EXATAMENTE</strong> o bloqueio que trava seu dinheiro.
           </p>
         </motion.div>
 
-        {/* LISTA DE CONFIANÇA - Grid 2x2 em mobile - Moved higher for better hierarchy */}
+        {/* ═══ LISTA DE CONFIANÇA - Ritual trust badges ═══ */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.5 }}
           className="grid grid-cols-2 gap-2 md:gap-3 w-full text-white/80 text-xs sm:text-sm"
         >
-          <div className="flex items-center justify-center gap-1.5 bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10">
-            <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#D4AF37]" />
+          <div className="flex items-center justify-center gap-1.5 bg-[#1a0a2e]/60 backdrop-blur-sm rounded-lg p-2 border border-[#C9A227]/20">
+            <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C9A227]" />
             <p>Menos de 2 min</p>
           </div>
-          <div className="flex items-center justify-center gap-1.5 bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10">
-            <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#D4AF37]" />
+          <div className="flex items-center justify-center gap-1.5 bg-[#1a0a2e]/60 backdrop-blur-sm rounded-lg p-2 border border-[#C9A227]/20">
+            <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C9A227]" />
             <p>Sem e-mail</p>
           </div>
-          <div className="flex items-center justify-center gap-1.5 bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10">
-            <Lock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#D4AF37]" />
+          <div className="flex items-center justify-center gap-1.5 bg-[#1a0a2e]/60 backdrop-blur-sm rounded-lg p-2 border border-[#C9A227]/20">
+            <Lock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C9A227]" />
             <p>100% privado</p>
           </div>
-          <div className="flex items-center justify-center gap-1.5 bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10">
-            <Smartphone className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#D4AF37]" />
+          <div className="flex items-center justify-center gap-1.5 bg-[#1a0a2e]/60 backdrop-blur-sm rounded-lg p-2 border border-[#C9A227]/20">
+            <Smartphone className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C9A227]" />
             <p>Resultado na tela</p>
           </div>
         </motion.div>
 
-        {/* IMAGEM BEFORE/AFTER - Optimized for mobile */}
+        {/* ═══ IMAGEM BEFORE/AFTER ═══ */}
         <motion.div
           initial={{ scale: 0.95, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -246,7 +278,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           {/* Compact text for mobile - 2 lines max */}
           <div className="text-center">
             <p className="text-xs sm:text-sm text-white font-bold">
-              SOMENTE <span className="text-[#FFD700] text-base sm:text-lg font-black">12 VAGAS</span> DISPONÍVEIS HOJE
+              SOMENTE <span className="text-[#C9A227] text-base sm:text-lg font-black">12 VAGAS</span> DISPONÍVEIS HOJE
             </p>
             <p className="text-[10px] sm:text-xs text-red-300 font-semibold mt-1">
               🔒 Próxima liberação apenas amanhã às 9h
@@ -254,54 +286,63 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           </div>
         </motion.div>
 
-        {/* CTA PRINCIPAL - Botão gigante com melhor hierarquia visual */}
+        {/* ═══ CTA PRINCIPAL - RITUAL ARTIFACT BUTTON ═══ */}
         <motion.div 
           initial={{ scale: 0.9, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.5, ease: "easeOut" }}
-          className="w-full relative group"
+          className="w-full relative"
         >
-          <div className="absolute -inset-1 bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] rounded-full blur-lg opacity-60 group-hover:opacity-90 transition duration-500 animate-pulse"></div>
-          <Button 
+          {/* Sacred glow behind button */}
+          <motion.div 
+            className="absolute -inset-2 rounded-2xl opacity-60"
+            style={{
+              background: 'radial-gradient(ellipse at center, rgba(201, 162, 39, 0.4) 0%, transparent 70%)'
+            }}
+            animate={{
+              scale: [1, 1.05, 1],
+              opacity: [0.4, 0.7, 0.4]
+            }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          />
+          
+          <RitualButton 
             onClick={handleStartClick} 
             pulse 
-            className="relative text-sm sm:text-base md:text-lg font-black py-5 sm:py-6 md:py-7 px-6 sm:px-8 md:px-12 w-full bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] text-black rounded-full shadow-[0_10px_30px_rgba(255,215,0,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200"
+            size="lg"
+            className="w-full"
           >
-            <span className="flex items-center justify-center gap-2">
-              <motion.span
-                animate={{ 
-                  x: [0, 5, 0],
-                  rotate: [0, 15, 0]
-                }}
-                transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
-              >
-                <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
-              </motion.span>
-              <span className="tracking-tight">DESCOBRIR MINHA TRAVA ANCESTRAL AGORA</span>
-              <motion.span
-                animate={{ x: [0, 5, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
-              >
-                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 font-bold" />
-              </motion.span>
-            </span>
-          </Button>
+            <motion.span
+              animate={{ 
+                rotate: [0, 15, 0],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
+            </motion.span>
+            <span className="tracking-tight">DESCOBRIR MINHA TRAVA ANCESTRAL AGORA</span>
+          </RitualButton>
         </motion.div>
 
-        {/* CARD PROVA SOCIAL */}
+        {/* ═══ CARD PROVA SOCIAL - Ritual testimonial container ═══ */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.3, duration: 0.5 }}
-          className="w-full bg-gradient-to-br from-[#1a0d2e]/90 to-[#0a0520]/90 backdrop-blur-sm border-2 border-[#4ade80]/60 rounded-xl p-4 md:p-5 space-y-2 md:space-y-3 shadow-[0_0_30px_rgba(74,222,128,0.2)]"
+          className="w-full ritual-card p-4 md:p-5 space-y-2 md:space-y-3"
+          style={{
+            borderColor: 'rgba(74, 222, 128, 0.4)',
+            boxShadow: '0 0 30px rgba(74, 222, 128, 0.15), inset 0 1px 0 rgba(74, 222, 128, 0.1)'
+          }}
         >
           <div className="flex items-center justify-center gap-2">
             <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-[#4ade80]" />
             <p className="text-base sm:text-lg md:text-xl font-black text-[#4ade80]">
-              JÁ DESTRAVARAM <span className="text-[#FFD700]">4.387+</span> PESSOAS
+              JÁ DESTRAVARAM <span className="text-[#C9A227]">4.387+</span> PESSOAS
             </p>
           </div>
-          <p className="text-sm sm:text-base md:text-lg font-bold text-[#FFD700]">
+          <p className="text-sm sm:text-base md:text-lg font-bold text-[#C9A227]">
             Resultados comuns no 1º mês:
           </p>
           <div className="text-left space-y-2 text-xs sm:text-sm md:text-base text-slate-300">
@@ -312,7 +353,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
               className="flex items-start gap-2"
             >
               <CheckCircle className="w-4 h-4 text-[#4ade80] flex-shrink-0 mt-0.5" />
-              <p>✓ <span className="text-[#FFD700] font-bold">R$5k-50k</span> via Pix inesperados</p>
+              <p>✓ <span className="text-[#C9A227] font-bold">R$5k-50k</span> via Pix inesperados</p>
             </motion.div>
             <motion.div 
               initial={{ x: -20, opacity: 0 }}

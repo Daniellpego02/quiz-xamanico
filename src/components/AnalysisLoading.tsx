@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Search, Brain, Heart, Wallet, CheckCircle2, Star } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Search, Brain, Heart, Wallet, CheckCircle2, AlertTriangle } from 'lucide-react';
 import { QuizPath } from '../types';
+import { SacredGeometry, ProgressRing } from './ritual';
 
 interface AnalysisLoadingProps {
   onComplete: () => void;
@@ -13,25 +14,26 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
   const [stage, setStage] = useState(0);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
 
-  // Stages adapted by quiz path
+  // Stages adapted by quiz path - THE CONFRONTATION (ACT III)
   const financeStages = [
-    { pct: 15, text: "🔍 Analisando suas respostas...", icon: <Search className="w-6 h-6 text-[#D4AF37]" /> },
-    { pct: 30, text: "Cruzando suas respostas com 847 padrões ancestrais catalogados...", icon: <Brain className="w-6 h-6 text-[#D4AF37]" /> },
-    { pct: 57, text: "⚠️ ALERTA: Bloqueio Ancestral Detectado", icon: <Heart className="w-6 h-6 text-red-400" /> },
-    { pct: 70, text: "Nível: CRÍTICO", icon: <Heart className="w-6 h-6 text-red-400" /> },
-    { pct: 90, text: "Gerando Protocolo Personalizado...", icon: <Wallet className="w-6 h-6 text-[#D4AF37]" /> },
-    { pct: 100, text: "CONCLUÍDO.", icon: <CheckCircle2 className="w-6 h-6 text-green-400" /> }
+    { pct: 15, text: "🔍 Analisando suas respostas...", icon: <Search className="w-6 h-6 text-[#C9A227]" />, intensity: 'low' },
+    { pct: 30, text: "Cruzando suas respostas com 847 padrões ancestrais catalogados...", icon: <Brain className="w-6 h-6 text-[#C9A227]" />, intensity: 'low' },
+    { pct: 57, text: "⚠️ ALERTA: Bloqueio Ancestral Detectado", icon: <AlertTriangle className="w-6 h-6 text-red-500" />, intensity: 'high' },
+    { pct: 70, text: "Nível: CRÍTICO", icon: <AlertTriangle className="w-6 h-6 text-red-500" />, intensity: 'critical' },
+    { pct: 90, text: "Gerando Protocolo Personalizado...", icon: <Wallet className="w-6 h-6 text-[#C9A227]" />, intensity: 'medium' },
+    { pct: 100, text: "CONCLUÍDO.", icon: <CheckCircle2 className="w-6 h-6 text-green-400" />, intensity: 'complete' }
   ];
 
   const relationshipStages = [
-    { pct: 20, text: "Identificando padrões emocionais...", icon: <Heart className="w-6 h-6 text-pink-400" /> },
-    { pct: 45, text: "Analisando bloqueios relacionais...", icon: <Brain className="w-6 h-6 text-purple-400" /> },
-    { pct: 70, text: "Detectando ciclos familiares...", icon: <Search className="w-6 h-6 text-blue-400" /> },
-    { pct: 95, text: "Gerando seu mapa afetivo...", icon: <Heart className="w-6 h-6 text-red-400" /> },
-    { pct: 100, text: "Pronto! Revelando seu perfil amoroso.", icon: <CheckCircle2 className="w-6 h-6 text-green-400" /> }
+    { pct: 20, text: "Identificando padrões emocionais...", icon: <Heart className="w-6 h-6 text-pink-400" />, intensity: 'low' },
+    { pct: 45, text: "Analisando bloqueios relacionais...", icon: <Brain className="w-6 h-6 text-purple-400" />, intensity: 'low' },
+    { pct: 70, text: "Detectando ciclos familiares...", icon: <Search className="w-6 h-6 text-blue-400" />, intensity: 'medium' },
+    { pct: 95, text: "Gerando seu mapa afetivo...", icon: <Heart className="w-6 h-6 text-red-400" />, intensity: 'high' },
+    { pct: 100, text: "Pronto! Revelando seu perfil amoroso.", icon: <CheckCircle2 className="w-6 h-6 text-green-400" />, intensity: 'complete' }
   ];
 
   const stages = quizPath === 'relationship' ? relationshipStages : financeStages;
+  const currentStage = stages[stage] || stages[0];
 
   // Rotating testimonials for finance path
   const testimonials = [
@@ -52,14 +54,13 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(timer);
-          setTimeout(onComplete, 1200); // Increased delay at 100% for more suspense
+          setTimeout(onComplete, 1200);
           return 100;
         }
-        // Slower progress speed for more suspense
-        const increment = Math.random() * 2 + 0.3; // Reduced from 3 + 0.5
+        const increment = Math.random() * 2 + 0.3;
         return Math.min(prev + increment, 100);
       });
-    }, 120); // Slightly slower interval for more dramatic effect
+    }, 120);
 
     return () => clearInterval(timer);
   }, [onComplete]);
@@ -84,63 +85,149 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
     }
   }, [quizPath]);
 
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6 max-w-lg mx-auto text-center space-y-8 relative z-10">
-      
-      {/* Background Glow */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none -z-10">
-         <div className="w-[300px] h-[300px] bg-[#FFD700]/10 rounded-full blur-[80px] animate-pulse"></div>
-      </div>
+  // Dynamic intensity colors
+  const getIntensityStyle = () => {
+    switch (currentStage.intensity) {
+      case 'critical':
+        return {
+          bgGlow: 'rgba(139, 37, 0, 0.3)',
+          textColor: 'text-red-500',
+          pulseColor: 'rgba(255, 69, 0, 0.4)'
+        };
+      case 'high':
+        return {
+          bgGlow: 'rgba(139, 37, 0, 0.2)',
+          textColor: 'text-orange-400',
+          pulseColor: 'rgba(255, 140, 0, 0.3)'
+        };
+      case 'complete':
+        return {
+          bgGlow: 'rgba(74, 222, 128, 0.2)',
+          textColor: 'text-green-400',
+          pulseColor: 'rgba(74, 222, 128, 0.3)'
+        };
+      default:
+        return {
+          bgGlow: 'rgba(201, 162, 39, 0.15)',
+          textColor: 'text-[#C9A227]',
+          pulseColor: 'rgba(201, 162, 39, 0.2)'
+        };
+    }
+  };
 
-      {/* ÍCONE ANIMADO - ⚡ girando ou pulsando - Mobile optimized */}
-      <motion.div
-        animate={{ 
-          rotate: [0, 10, -10, 10, 0],
-          scale: [1, 1.1, 1, 1.1, 1]
+  const intensityStyle = getIntensityStyle();
+
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center px-6 max-w-lg mx-auto text-center space-y-6 relative z-10">
+      
+      {/* ═══ SACRED GEOMETRY BACKGROUND - Intensifies with stage ═══ */}
+      <SacredGeometry 
+        variant="mandala" 
+        size={500} 
+        opacity={currentStage.intensity === 'critical' ? 0.08 : 0.04}
+        className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+      />
+      
+      {/* Dynamic background glow based on intensity */}
+      <motion.div 
+        className="absolute inset-0 flex items-center justify-center pointer-events-none -z-10"
+        animate={{
+          scale: [1, 1.1, 1],
+          opacity: [0.5, 0.8, 0.5]
         }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        className="text-5xl sm:text-6xl md:text-7xl"
       >
-        ⚡
+        <div 
+          className="w-[350px] h-[350px] rounded-full blur-[100px]"
+          style={{ background: `radial-gradient(circle, ${intensityStyle.bgGlow} 0%, transparent 70%)` }}
+        />
       </motion.div>
 
-      {/* ESPAÇAMENTO: 32px */}
-      <div className="h-8"></div>
-
-      {/* TEXTO PRINCIPAL */}
-      <div className="space-y-4 w-full">
-        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white">
-          Preparando Seu Quiz <span className="text-[#FFD700]">EXCLUSIVO</span>...
-        </h2>
+      {/* ═══ RITUAL SIGIL - Animated sacred symbol ═══ */}
+      <motion.div
+        className="relative"
+        animate={{ 
+          rotate: currentStage.intensity === 'critical' ? [0, 5, -5, 5, 0] : [0, 360],
+          scale: currentStage.intensity === 'critical' ? [1, 1.1, 1, 1.1, 1] : [1, 1.02, 1]
+        }}
+        transition={{ 
+          duration: currentStage.intensity === 'critical' ? 0.5 : 20, 
+          repeat: Infinity, 
+          ease: currentStage.intensity === 'critical' ? "easeInOut" : "linear"
+        }}
+      >
+        <SacredGeometry 
+          variant="sigil" 
+          size={120} 
+          opacity={0.6}
+          className="relative"
+        />
         
-        {/* ESPAÇAMENTO: 24px */}
-        <div className="h-6"></div>
+        {/* Center icon */}
+        <motion.div 
+          className="absolute inset-0 flex items-center justify-center"
+          animate={{
+            scale: [1, 1.15, 1],
+            opacity: [0.8, 1, 0.8]
+          }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        >
+          {currentStage.icon}
+        </motion.div>
+      </motion.div>
 
-        {/* SUBTEXTO */}
-        <p className="text-sm sm:text-base md:text-lg text-[#4ade80] font-medium">
-          Pronto para começar!
-        </p>
-
-        {/* ESPAÇAMENTO: 32px */}
-        <div className="h-8"></div>
-
-        {/* BARRA DE PROGRESSO ANIMADA */}
-        <div className="w-full max-w-[300px] sm:max-w-[400px] mx-auto">
-          <div className="w-full bg-[#1a0d2e] rounded-full h-2 overflow-hidden border border-[#3d2a5f]">
-            <motion.div 
-              className="bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] h-full rounded-full"
-              animate={{
-                width: ["0%", "100%"]
-              }}
-              transition={{
-                duration: 2.5,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-          </div>
-        </div>
+      {/* ═══ STAGE TEXT - Ceremonial revelation ═══ */}
+      <div className="space-y-4 w-full">
+        <AnimatePresence mode="wait">
+          <motion.h2 
+            key={stage}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className={`text-lg sm:text-xl md:text-2xl font-bold ${intensityStyle.textColor} ritual-text-glow`}
+          >
+            {currentStage.text}
+          </motion.h2>
+        </AnimatePresence>
+        
+        {/* Progress percentage */}
+        <motion.p 
+          className="text-white/60 text-sm font-ritual"
+          animate={{ opacity: [0.6, 1, 0.6] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          {Math.round(progress)}% concluído
+        </motion.p>
       </div>
+
+      {/* ═══ CIRCULAR PROGRESS - Sacred ring ═══ */}
+      <ProgressRing progress={progress} size={100} strokeWidth={4} />
+
+      {/* ═══ TESTIMONIAL - Social proof during loading ═══ */}
+      {quizPath === 'finance' && progress > 30 && progress < 90 && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="ritual-card p-4 mt-4 max-w-sm"
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={testimonialIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="text-left"
+            >
+              <p className="text-white/80 text-xs sm:text-sm italic leading-relaxed">
+                {currentTestimonial.text}
+              </p>
+              <p className="text-[#C9A227] text-xs mt-2 font-medium">
+                — {currentTestimonial.author}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+        </motion.div>
+      )}
     </div>
   );
 };

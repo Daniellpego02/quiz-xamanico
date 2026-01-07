@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { QuizQuestion, QuizPath, QuestionOption } from '../types';
 import { ChevronRight, Sparkles, Compass, AlertTriangle, Smartphone, Shield, CheckCircle2 } from 'lucide-react';
 import { tracking } from '../utils/tracking';
+import { SacredGeometry, ProgressRing, RitualButton, RitualOption } from './ritual';
 
 interface QuizProps {
   onComplete: (path: QuizPath, userName: string) => void;
@@ -230,19 +231,31 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     
     return (
       <div className="min-h-screen min-h-[100dvh] flex flex-col items-center justify-center px-5 sm:px-6 py-4 relative z-20 text-center">
-        {/* Enhanced icon with larger size and better animation */}
+        {/* ═══ SACRED GEOMETRY BACKGROUND ═══ */}
+        <SacredGeometry 
+          variant="mandala" 
+          size={500} 
+          opacity={0.06}
+          className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+        />
+        
+        {/* ═══ PORTAL ICON - Ceremonial compass ═══ */}
         <motion.div
           initial={{ scale: 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="relative mb-8 sm:mb-10"
         >
-          {/* Outer glow ring */}
+          {/* Outer sacred glow */}
           <motion.div 
-            className="absolute inset-0 bg-[#D4AF37] rounded-full blur-[100px] opacity-40"
+            className="absolute inset-0 rounded-full"
+            style={{
+              background: 'radial-gradient(circle, rgba(201, 162, 39, 0.3) 0%, transparent 70%)',
+              filter: 'blur(30px)'
+            }}
             animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.4, 0.6, 0.4],
+              scale: [1, 1.3, 1],
+              opacity: [0.4, 0.7, 0.4],
             }}
             transition={{
               duration: 3,
@@ -251,7 +264,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             }}
           />
           
-          {/* Icon with enhanced size and animations - Mobile optimized */}
+          {/* Rotating compass icon */}
           <motion.div
             animate={{
               rotate: [0, 360],
@@ -263,28 +276,33 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             }}
           >
             <Compass 
-              className="w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 lg:w-32 lg:h-32 text-[#D4AF37] relative z-10 drop-shadow-[0_0_30px_rgba(212,175,55,0.8)]" 
+              className="w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 lg:w-32 lg:h-32 text-[#C9A227] relative z-10 drop-shadow-[0_0_40px_rgba(201,162,39,0.8)]" 
               strokeWidth={1.5}
             />
           </motion.div>
           
-          {/* Inner pulse ring */}
-          <motion.div
-            className="absolute inset-0 border-4 border-[#D4AF37]/30 rounded-full"
-            animate={{
-              scale: [1, 1.5],
-              opacity: [0.5, 0],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeOut",
-            }}
-          />
+          {/* Expanding ritual rings */}
+          {[0, 1, 2].map((i) => (
+            <motion.div
+              key={i}
+              className="absolute inset-0 border border-[#C9A227] rounded-full"
+              style={{ opacity: 0.3 - i * 0.1 }}
+              animate={{
+                scale: [1, 1.5 + i * 0.3],
+                opacity: [0.3 - i * 0.1, 0],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeOut",
+                delay: i * 0.5,
+              }}
+            />
+          ))}
         </motion.div>
         
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-5 px-4 leading-tight tracking-tight">
-          Preparando seu Quiz <span className="text-[#D4AF37]">Personalizado</span>
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-5 px-4 leading-tight tracking-tight ritual-text-glow">
+          Preparando seu Quiz <span className="text-[#C9A227]">Personalizado</span>
         </h2>
         
         <AnimatePresence mode='wait'>
@@ -296,34 +314,13 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             transition={{ duration: 0.3 }}
             className="text-slate-300 text-base sm:text-lg md:text-xl min-h-[4.5rem] flex items-center justify-center px-4 font-medium leading-[1.5]"
           >
-            <strong className="text-[#FFD700]">{loadingStages[loadingStage]}</strong>
+            <strong className="text-[#C9A227]">{loadingStages[loadingStage]}</strong>
           </motion.p>
         </AnimatePresence>
         
-        {/* Enhanced progress bar - Mobile optimized */}
-        <div className="w-64 sm:w-80 md:w-96 h-2 sm:h-2.5 bg-white/10 rounded-full mt-8 sm:mt-10 overflow-hidden mx-auto border border-[#D4AF37]/20">
-          <motion.div 
-            className="h-full bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] relative overflow-hidden" 
-            initial={{ width: "0%" }} 
-            animate={{ width: "100%" }} 
-            transition={{ duration: 3.5, ease: "easeInOut" }}
-            style={{
-              boxShadow: '0 0 15px rgba(212, 175, 55, 0.6)',
-            }}
-          >
-            {/* Animated shine */}
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
-              animate={{
-                x: ['-100%', '200%'],
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-            />
-          </motion.div>
+        {/* ═══ CIRCULAR PROGRESS INDICATOR ═══ */}
+        <div className="mt-8 sm:mt-10">
+          <ProgressRing progress={(loadingStage / (loadingStages.length - 1)) * 100 || 10} size={100} />
         </div>
       </div>
     );
@@ -332,74 +329,46 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const currentQuestion = activeQuestions[currentIndex];
   if (!currentQuestion) return null;
 
-  // Progress bar constants
+  // Progress constants
   const PROGRESS_START_PERCENT = 10;
   const PROGRESS_RANGE_PERCENT = 90;
   const progress = PROGRESS_START_PERCENT + (currentIndex / activeQuestions.length) * PROGRESS_RANGE_PERCENT;
 
   return (
     <div className="min-h-screen min-h-[100dvh] flex flex-col max-w-lg mx-auto px-5 sm:px-6 md:px-8 py-5 sm:py-6 md:py-8 relative z-10">
-      {/* Progress Bar - Enhanced with better visibility, badge outside for better legibility */}
+      {/* ═══ SACRED PROGRESS INDICATOR - Circular with ritual markers ═══ */}
       <div className="mb-6 sm:mb-8">
         <motion.div 
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-3 sm:gap-4"
+          className="flex items-center justify-center gap-4 sm:gap-6"
         >
-          {/* Progress bar container */}
-          <div className="flex-1 bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm rounded-full h-4 sm:h-5 relative overflow-hidden border-2 border-[#D4AF37]/30 shadow-lg">
-            <motion.div 
-              className="bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] h-full rounded-full relative overflow-hidden"
-              initial={{ width: 0 }}
-              animate={{ width: `${progress}%` }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              style={{
-                boxShadow: '0 0 25px rgba(212, 175, 55, 0.7), 0 0 50px rgba(212, 175, 55, 0.4)',
-              }}
-            >
-              {/* Animated shine effect */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
-                animate={{
-                  x: ['-100%', '200%'],
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              />
-              {/* Pulsing glow at the end */}
-              <motion.div
-                className="absolute right-0 top-0 bottom-0 w-1 bg-white"
-                animate={{
-                  opacity: [0.5, 1, 0.5],
-                  boxShadow: [
-                    '0 0 5px rgba(255,255,255,0.5)',
-                    '0 0 15px rgba(255,255,255,1)',
-                    '0 0 5px rgba(255,255,255,0.5)'
-                  ]
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  repeatType: "reverse"
-                }}
-              />
-            </motion.div>
-          </div>
+          {/* Circular progress ring */}
+          <ProgressRing progress={progress} size={80} strokeWidth={4} />
           
-          {/* Progress percentage text - Outside bar for always-visible clarity */}
-          <motion.div 
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="bg-[#1a0d2e]/95 backdrop-blur-md px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-lg border-2 border-[#D4AF37]/40 shadow-lg min-w-[50px] sm:min-w-[55px] flex items-center justify-center"
-          >
-            <span className="text-sm sm:text-base font-black text-[#FFD700] drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] tracking-tight">
-              {Math.round(progress)}%
+          {/* Step indicators - ancestral markers */}
+          <div className="flex flex-col gap-1">
+            <span className="text-[#C9A227] text-xs font-ritual uppercase tracking-wider">
+              Pergunta {currentIndex + 1} de {activeQuestions.length}
             </span>
-          </motion.div>
+            <div className="flex gap-1.5">
+              {activeQuestions.map((_, idx) => (
+                <motion.div
+                  key={idx}
+                  className={`w-2 h-2 rounded-full ${
+                    idx < currentIndex 
+                      ? 'bg-[#C9A227] shadow-[0_0_8px_rgba(201,162,39,0.6)]' 
+                      : idx === currentIndex 
+                        ? 'bg-[#C9A227] animate-energy-pulse shadow-[0_0_12px_rgba(201,162,39,0.8)]'
+                        : 'bg-[#C9A227]/20'
+                  }`}
+                  initial={idx === currentIndex ? { scale: 0.8 } : {}}
+                  animate={idx === currentIndex ? { scale: [0.8, 1.2, 1] } : {}}
+                  transition={{ duration: 0.5 }}
+                />
+              ))}
+            </div>
+          </div>
         </motion.div>
       </div>
 
@@ -413,14 +382,14 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           className="flex-1 flex flex-col"
         >
           <div className="mb-6 sm:mb-8 space-y-4 sm:space-y-5">
-            {/* TAG PEQUENA - Enhanced with better styling */}
+            {/* ═══ TAG PEQUENA - Personalized ritual marker ═══ */}
             {userName && currentIndex > 0 && (
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#D4AF37]/40 to-[#D4AF37]/30 backdrop-blur-md text-[#FFD700] px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-black border-2 border-[#D4AF37]/50 relative overflow-hidden"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A227]/30 to-[#C9A227]/20 backdrop-blur-md text-[#C9A227] px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-ritual font-bold border border-[#C9A227]/40 relative overflow-hidden"
                 style={{
-                  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 20px rgba(212, 175, 55, 0.3)',
+                  boxShadow: '0 0 20px rgba(201, 162, 39, 0.2)',
                 }}
               >
                 {/* Subtle shine effect */}
@@ -452,18 +421,18 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 transition={{ delay: 0.1 }}
                 className="mb-3"
               >
-                <p className="text-[#FFE66D] text-[13px] sm:text-sm font-bold uppercase tracking-wider text-center drop-shadow-[0_2px_8px_rgba(255,230,109,0.4)]">
+                <p className="text-[#C9A227] text-[13px] sm:text-sm font-ritual font-bold uppercase tracking-wider text-center ritual-text-glow">
                   ✨ {currentQuestion.title}
                 </p>
               </motion.div>
             )}
 
-            {/* HEADLINE DA PERGUNTA - Improved readability with larger base sizes */}
-            <h2 className="text-[17px] sm:text-[21px] md:text-[26px] lg:text-[30px] font-bold text-white leading-[1.3] text-center px-2 text-glow-gold">
-              <span dangerouslySetInnerHTML={{ __html: personalizeText(currentQuestion.text).replace('BLOQUEIO SEVERO', '<span class="text-[#FF4500]">BLOQUEIO SEVERO</span>').replace('6 MESES', '<span class="text-[#FF4500]">6 MESES</span>').replace('MAIOR MEDO', '<span class="text-[#FF4500]">MAIOR MEDO</span>').replace('ENERGIA', '<span class="text-[#FFD700]">ENERGIA</span>') }}></span>
+            {/* ═══ HEADLINE DA PERGUNTA - Ceremonial invocation style ═══ */}
+            <h2 className="text-[17px] sm:text-[21px] md:text-[26px] lg:text-[30px] font-bold text-white leading-[1.3] text-center px-2 ritual-text-glow">
+              <span dangerouslySetInnerHTML={{ __html: personalizeText(currentQuestion.text).replace('BLOQUEIO SEVERO', '<span class="text-[#FF4500]">BLOQUEIO SEVERO</span>').replace('6 MESES', '<span class="text-[#FF4500]">6 MESES</span>').replace('MAIOR MEDO', '<span class="text-[#FF4500]">MAIOR MEDO</span>').replace('ENERGIA', '<span class="text-[#C9A227]">ENERGIA</span>') }}></span>
             </h2>
 
-            {/* Subtexto (para pergunta 2) - Better line-height */}
+            {/* Subtexto (para pergunta 2) */}
             {currentQuestion.subtext && (
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
@@ -477,7 +446,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           </div>
 
           {currentQuestion.type === 'input' ? (
-            // TELA 4: PERGUNTA 1 (NOME)
+            // ═══ TELA 4: PERGUNTA 1 (NOME) - Ritual name invocation ═══
             <form onSubmit={handleInputSubmit} className="space-y-6 sm:space-y-8">
               {/* LABEL DO INPUT */}
               <div className="text-left">
@@ -485,22 +454,22 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   Digite seu primeiro nome:
                 </label>
                 
-                {/* INPUT FIELD - Enhanced with premium styling and proper icon centering */}
+                {/* INPUT FIELD - Ritual styled input */}
                 <div className="relative group">
                   <input
                     type="text"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder={currentQuestion.placeholder}
-                    className="w-full bg-gradient-to-br from-[#1a0d2e]/90 to-[#0f0520]/90 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl sm:rounded-2xl p-4 sm:p-5 pr-14 sm:pr-16 text-[16px] sm:text-lg md:text-xl text-white placeholder-white/40 focus:outline-none focus:border-[#FFD700] focus:ring-4 focus:ring-[#FFD700]/20 transition-all duration-300 shadow-lg hover:border-[#D4AF37]/50 min-h-[56px] sm:min-h-[64px]"
+                    className="w-full bg-gradient-to-br from-[#1a0a2e]/90 to-[#0a0510]/90 backdrop-blur-sm border-2 border-[#C9A227]/30 rounded-xl sm:rounded-2xl p-4 sm:p-5 pr-14 sm:pr-16 text-[16px] sm:text-lg md:text-xl text-white placeholder-white/40 focus:outline-none focus:border-[#C9A227] focus:ring-4 focus:ring-[#C9A227]/20 transition-all duration-300 shadow-lg hover:border-[#C9A227]/50 min-h-[56px] sm:min-h-[64px]"
                     autoFocus
                     autoComplete="name"
                     inputMode="text"
                     style={{
-                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), inset 0 2px 4px 0 rgba(212, 175, 55, 0.05)',
+                      boxShadow: '0 0 30px rgba(0, 0, 0, 0.5), inset 0 2px 4px 0 rgba(201, 162, 39, 0.05)',
                     }}
                   />
-                  {/* Animated icon - Fixed vertical centering */}
+                  {/* Animated icon */}
                   <motion.div 
                     className="absolute right-4 sm:right-5 top-1/2 -translate-y-1/2 pointer-events-none flex items-center justify-center"
                     animate={{
