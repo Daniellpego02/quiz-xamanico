@@ -4,6 +4,7 @@ import { Shield, Clock, AlertTriangle, Sparkles, Lock, CheckCircle } from 'lucid
 import { FAQ } from './FAQ';
 import { tracking } from '../utils/tracking';
 import { SacredGeometry, RitualButton } from './ritual';
+import { SocialProofCarousel } from './SocialProofCarousel';
 
 interface OfferProps {
     userName: string;
@@ -901,22 +902,42 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 </div>
                             </motion.div>
 
-                            {/* BLOCK 04.5: SOCIAL PROOF - PIX NOTIFICATIONS - New Section */}
+                            {/* BLOCK 04.5: SOCIAL PROOF - PIX NOTIFICATIONS CAROUSEL */}
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 1.4 }}
-                                className="mb-12 social-proof-section"
+                                className="mb-12"
                             >
-                                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-[#4ade80] text-center mb-4">
-                                    💰 Pagamentos recebidos nas últimas 24h:
+                                <h3 className="text-lg sm:text-xl md:text-2xl font-black text-[#4ade80] text-center mb-4 sm:mb-6 px-2">
+                                    💰 Pagamentos Reais Recebidos nas Últimas 24h
                                 </h3>
-                                <div className="pix-notifications">
-                                    <div className="pix-placeholder">
-                                        <p className="text-sm">📸 Adicione prints de notificações PIX reais aqui</p>
-                                        <p className="text-xs mt-2 opacity-75">Caminho: /public/images/social-proof/</p>
-                                        <p className="text-xs mt-1 opacity-75">Os prints devem mostrar notificações de PIX recebidos com valores obscurecidos</p>
+                                <p className="text-slate-300 text-sm sm:text-base text-center mb-6 sm:mb-8 px-4">
+                                    Veja prints reais de notificações PIX de quem já está destravando a abundância
+                                </p>
+                                
+                                <SocialProofCarousel 
+                                    images={[
+                                        '/prova1.png',
+                                        '/prova2.png',
+                                        '/prova3.png',
+                                        '/prova4.png',
+                                        '/prova5.png',
+                                        '/prova6.png',
+                                        '/prova7.png',
+                                    ]}
+                                    autoPlayInterval={4000}
+                                />
+                                
+                                {/* Trust indicator */}
+                                <div className="flex items-center justify-center gap-2 mt-6 sm:mt-8">
+                                    <div className="relative flex h-3 w-3">
+                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4ade80] opacity-75"></span>
+                                        <span className="relative inline-flex rounded-full h-3 w-3 bg-[#4ade80] shadow-[0_0_12px_rgba(74,222,128,0.9)]"></span>
                                     </div>
+                                    <p className="text-slate-300 text-xs sm:text-sm font-semibold">
+                                        <span className="text-[#4ade80] font-bold">23 pessoas</span> compraram nas últimas 24h
+                                    </p>
                                 </div>
                             </motion.div>
 
