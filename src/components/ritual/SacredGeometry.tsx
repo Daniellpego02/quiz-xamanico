@@ -156,17 +156,21 @@ interface ProgressRingProps {
   size?: number;
   strokeWidth?: number;
   className?: string;
+  id?: string; // Unique ID to prevent SVG conflicts
 }
 
 export const ProgressRing: React.FC<ProgressRingProps> = ({
   progress,
   size = 120,
   strokeWidth = 4,
-  className = ''
+  className = '',
+  id
 }) => {
   const radius = (size - strokeWidth) / 2;
   const circumference = radius * 2 * Math.PI;
   const strokeDashoffset = circumference - (progress / 100) * circumference;
+  // Generate unique gradient ID to prevent conflicts with multiple instances
+  const gradientId = id || `goldGradient-${Math.random().toString(36).substr(2, 9)}`;
 
   return (
     <div className={`relative ${className}`} style={{ width: size, height: size }}>
@@ -211,7 +215,7 @@ export const ProgressRing: React.FC<ProgressRingProps> = ({
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="url(#goldGradient)"
+          stroke={`url(#${gradientId})`}
           strokeWidth={strokeWidth}
           strokeLinecap="round"
           strokeDasharray={circumference}
@@ -223,7 +227,7 @@ export const ProgressRing: React.FC<ProgressRingProps> = ({
         
         {/* Gradient definition */}
         <defs>
-          <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#8B7355" />
             <stop offset="50%" stopColor="#C9A227" />
             <stop offset="100%" stopColor="#D4AF37" />

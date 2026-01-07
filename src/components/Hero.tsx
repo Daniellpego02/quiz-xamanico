@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Lock, CheckCircle, Clock, Mail, Smartphone, Sparkles, Compass, AlertTriangle, ChevronRight } from 'lucide-react';
+import { Lock, CheckCircle, Clock, Mail, Smartphone, Sparkles, AlertTriangle } from 'lucide-react';
 import { tracking } from '../utils/tracking';
 import { SacredGeometry, RitualButton } from './ritual';
 
