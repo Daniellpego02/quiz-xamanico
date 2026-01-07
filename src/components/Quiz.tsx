@@ -17,6 +17,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const [activeQuestions, setActiveQuestions] = useState<QuizQuestion[]>([]);
   const [loadingStage, setLoadingStage] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [loadingScreenStartTime, setLoadingScreenStartTime] = useState<number>(0);
 
   // Constants
   const CATALOGED_LINEAGES = 847;
@@ -132,6 +133,10 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
 
   useEffect(() => {
     if (showTuningScreen) {
+      // Track loading screen view
+      tracking.engagement.loadingScreen('view');
+      setLoadingScreenStartTime(Date.now());
+      
       const loadingStages = getLoadingStages();
       
       const interval = setInterval(() => {
@@ -139,10 +144,16 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       }, 800); // Increased from 650ms to 800ms for improved pacing and suspense
       return () => clearInterval(interval);
     } else {
+      // Track loading screen completion if it was shown
+      if (loadingScreenStartTime > 0) {
+        const duration = (Date.now() - loadingScreenStartTime) / 1000; // Convert to seconds
+        tracking.engagement.loadingScreen('complete', duration);
+        setLoadingScreenStartTime(0);
+      }
       // Reset loading stage when screen is hidden
       setLoadingStage(0);
     }
-  }, [showTuningScreen, userName]);
+  }, [showTuningScreen, userName, loadingScreenStartTime]);
 
   const personalizeText = (text: string) => {
     return text.replace("{NAME}", userName ? userName.split(' ')[0] : "você");
