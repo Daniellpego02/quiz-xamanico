@@ -270,7 +270,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           />
         </motion.div>
         
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-4 px-4 leading-tight tracking-tight">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-5 px-4 leading-tight tracking-tight">
           Preparando seu Quiz <span className="text-[#D4AF37]">Personalizado</span>
         </h2>
         
@@ -281,14 +281,14 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className="text-slate-300 text-base sm:text-lg md:text-xl min-h-[4rem] flex items-center justify-center px-4 font-medium"
+            className="text-slate-300 text-base sm:text-lg md:text-xl min-h-[4.5rem] flex items-center justify-center px-4 font-medium leading-[1.5]"
           >
             <strong className="text-[#FFD700]">{loadingStages[loadingStage]}</strong>
           </motion.p>
         </AnimatePresence>
         
         {/* Enhanced progress bar - Mobile optimized */}
-        <div className="w-64 sm:w-80 md:w-96 h-1.5 sm:h-2 bg-white/10 rounded-full mt-8 sm:mt-10 overflow-hidden mx-auto border border-[#D4AF37]/20">
+        <div className="w-64 sm:w-80 md:w-96 h-2 sm:h-2.5 bg-white/10 rounded-full mt-8 sm:mt-10 overflow-hidden mx-auto border border-[#D4AF37]/20">
           <motion.div 
             className="h-full bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] relative overflow-hidden" 
             initial={{ width: "0%" }} 
@@ -411,18 +411,18 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               </motion.div>
             )}
 
-            {/* HEADLINE DA PERGUNTA - Mobile optimized */}
-            <h2 className="text-[16px] sm:text-[20px] md:text-[24px] lg:text-[28px] font-bold text-white leading-[1.25] text-center px-2 text-glow-gold">
+            {/* HEADLINE DA PERGUNTA - Improved readability with larger base sizes */}
+            <h2 className="text-[17px] sm:text-[21px] md:text-[26px] lg:text-[30px] font-bold text-white leading-[1.3] text-center px-2 text-glow-gold">
               <span dangerouslySetInnerHTML={{ __html: personalizeText(currentQuestion.text).replace('BLOQUEIO SEVERO', '<span class="text-[#FF4500]">BLOQUEIO SEVERO</span>').replace('6 MESES', '<span class="text-[#FF4500]">6 MESES</span>').replace('MAIOR MEDO', '<span class="text-[#FF4500]">MAIOR MEDO</span>').replace('ENERGIA', '<span class="text-[#FFD700]">ENERGIA</span>') }}></span>
             </h2>
 
-            {/* Subtexto (para pergunta 2) */}
+            {/* Subtexto (para pergunta 2) - Better line-height */}
             {currentQuestion.subtext && (
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 }}
-                className="text-sm sm:text-base md:text-lg text-white/90 text-center mt-3 px-2 leading-relaxed"
+                className="text-sm sm:text-base md:text-lg text-white/90 text-center mt-4 px-2 leading-[1.6]"
               >
                 {currentQuestion.subtext}
               </motion.p>
@@ -434,7 +434,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             <form onSubmit={handleInputSubmit} className="space-y-6 sm:space-y-8">
               {/* LABEL DO INPUT */}
               <div className="text-left">
-                <label className="text-sm sm:text-base text-white/80 block mb-3 sm:mb-4">
+                <label className="text-base sm:text-lg text-white/90 block mb-4 font-medium">
                   Digite seu primeiro nome:
                 </label>
                 
@@ -505,10 +505,10 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 </motion.div>
               )}
 
-              {/* TEXTO REASSURANCE */}
-              <div className="flex items-center justify-center gap-1.5 text-[#4ade80] text-center">
-                <Smartphone className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
-                <p className="text-xs sm:text-sm leading-relaxed">
+              {/* TEXTO REASSURANCE - Improved readability */}
+              <div className="flex items-center justify-center gap-2 text-[#4ade80] text-center">
+                <Smartphone className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                <p className="text-sm sm:text-base leading-relaxed">
                   Usamos apenas seu primeiro nome. Você continua 100% anônimo.
                 </p>
               </div>
@@ -542,10 +542,10 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 />
               </motion.button>
 
-              {/* RODAPÉ */}
-              <div className="flex items-center justify-center gap-1.5 text-white/60 text-center">
-                <Shield className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                <p className="text-xs">100% Confidencial - Ninguém vai ver seu resultado</p>
+              {/* RODAPÉ - Better readability */}
+              <div className="flex items-center justify-center gap-2 text-white/70 text-center">
+                <Shield className="w-4 h-4 sm:w-5 sm:h-5" />
+                <p className="text-sm">100% Confidencial - Ninguém vai ver seu resultado</p>
               </div>
             </form>
           ) : (
@@ -557,7 +557,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="text-[13px] sm:text-sm md:text-base text-[#FFD700] font-medium border-l-4 border-[#FFD700] pl-4 py-2 leading-[1.6] whitespace-pre-line bg-gradient-to-r from-[#FFD700]/10 to-transparent rounded-r-lg"
+                  className="text-sm sm:text-base md:text-lg text-[#FFD700] font-medium border-l-4 border-[#FFD700] pl-4 sm:pl-5 py-3 leading-[1.65] whitespace-pre-line bg-gradient-to-r from-[#FFD700]/10 to-transparent rounded-r-lg"
                 >
                   {currentQuestion.emotionalContext.split('BRUTALMENTE').map((part, i) => (
                     <span key={i}>
