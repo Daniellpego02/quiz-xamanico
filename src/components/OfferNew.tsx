@@ -289,7 +289,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                 >
                     <div className="bg-black flex items-center justify-center relative">
                         {/* Vertical video container: 9:16 aspect ratio, responsive height */}
-                        <div className="w-full relative" style={{ paddingBottom: '177.78%' /* 9:16 aspect ratio = 16/9 * 100% */ }}>
+                        <div className="w-full relative" style={{ paddingBottom: '177.78%' /* 9:16 aspect ratio = (16/9) * 100% */ }}>
                             <vturb-smartplayer 
                                 id="vid-6953144d84040898eb13007a" 
                                 style={{ 
