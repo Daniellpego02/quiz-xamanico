@@ -100,15 +100,15 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           transition={{ delay: 0.1, duration: 0.6, ease: "easeOut" }}
           className="space-y-2"
         >
-          <h1 className="text-[20px] sm:text-[28px] md:text-[40px] lg:text-[48px] font-black text-white leading-[1.15] drop-shadow-2xl break-words">
-            Existe Uma <span className="text-[#FFD700]">"TRAVA ANCESTRAL"</span>{' '}
-            <span className="text-[#FF4500]">SUFOCANDO</span>{' '}
-            <span className="text-[#FFD700]">R$5-50 MIL</span>{' '}
+          <h1 className="text-[22px] sm:text-[30px] md:text-[42px] lg:text-[50px] font-black text-white leading-[1.1] drop-shadow-2xl break-words">
+            Existe Uma <span className="text-[#FFD700] underline decoration-2 decoration-[#FFD700]/50">"TRAVA ANCESTRAL"</span>{' '}
+            <span className="text-[#FF4500] animate-pulse">SUFOCANDO</span>{' '}
+            <span className="text-[#FFD700] font-extrabold">R$5-50 MIL</span>{' '}
             da Sua Conta Bancária?
           </h1>
           {/* SUBHEADLINE */}
-          <p className="text-sm sm:text-base md:text-lg text-slate-300/70 leading-relaxed">
-            Descubra como <strong className="text-white">DESTRUÍ-LA</strong> em 7 dias e destravar o fluxo de abundância AGORA
+          <p className="text-sm sm:text-base md:text-lg text-slate-300 leading-relaxed font-medium">
+            Descubra como <strong className="text-white font-extrabold">DESTRUÍ-LA</strong> em 7 dias e destravar o fluxo de abundância <span className="text-[#4ade80] font-bold">AGORA</span>
           </p>
         </motion.div>
 
@@ -120,9 +120,9 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           className="w-full bg-gradient-to-br from-[#1a0d2e]/80 to-[#0a0520]/80 backdrop-blur-sm border-2 border-[#FFD700]/50 rounded-xl p-4 md:p-5 space-y-2.5 md:space-y-3 shadow-[0_0_30px_rgba(255,215,0,0.2)]"
         >
           <div className="flex items-center justify-center gap-2">
-            <CheckCircle className="w-5 h-5 text-[#FFD700]" />
-            <p className="text-base sm:text-lg md:text-xl font-bold text-white">
-              Responda 6 perguntas rápidas (2 minutos)
+            <CheckCircle className="w-5 h-5 text-[#4ade80] animate-pulse" />
+            <p className="text-base sm:text-lg md:text-xl font-extrabold text-white">
+              Responda 6 perguntas rápidas <span className="text-[#4ade80]">(2 minutos)</span>
             </p>
           </div>
           <p className="text-xs sm:text-sm text-slate-200 font-semibold">Você vai descobrir:</p>
@@ -257,56 +257,71 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           </div>
         </motion.div>
 
-        {/* CARD DE URGÊNCIA - Compact for mobile */}
+        {/* CARD DE URGÊNCIA - Compact for mobile com melhor design */}
         <motion.div
           initial={{ scale: 0.95, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           transition={{ delay: 1.1, duration: 0.5 }}
-          className="w-full bg-gradient-to-br from-[#1a0606]/90 to-[#0a0202]/90 backdrop-blur-sm border-2 border-[#FF0000]/60 rounded-lg p-3 md:p-4 space-y-2 shadow-[0_0_30px_rgba(255,0,0,0.2)]"
+          className="w-full bg-gradient-to-br from-[#2a0606]/95 to-[#0a0202]/95 backdrop-blur-sm border-2 border-[#FF0000]/70 rounded-lg p-3 md:p-4 space-y-2 shadow-[0_0_40px_rgba(255,0,0,0.3)]"
         >
           <div className="flex items-center justify-center gap-2">
-            <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-[#FF0000]" />
-            <p className="text-sm sm:text-base md:text-lg font-black text-[#FF0000]">
-              ATENÇÃO: VAGAS LIMITADAS
+            <motion.div
+              animate={{ 
+                scale: [1, 1.2, 1],
+                rotate: [0, 10, -10, 0]
+              }}
+              transition={{ 
+                duration: 2,
+                repeat: Infinity,
+                repeatType: "reverse"
+              }}
+            >
+              <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-[#FF0000]" />
+            </motion.div>
+            <p className="text-sm sm:text-base md:text-lg font-black text-[#FF0000] uppercase tracking-wide">
+              ⚠️ ATENÇÃO: VAGAS LIMITADAS
             </p>
           </div>
           {/* Compact text for mobile - 2 lines max */}
           <div className="text-center">
             <p className="text-xs sm:text-sm text-white font-bold">
-              VAGAS: <span className="text-[#FFD700]">12/50</span>
+              SOMENTE <span className="text-[#FFD700] text-base sm:text-lg font-black">12 VAGAS</span> DISPONÍVEIS HOJE
             </p>
-            <p className="text-[10px] sm:text-xs text-slate-300">
-              Próxima vaga só amanhã
+            <p className="text-[10px] sm:text-xs text-red-300 font-semibold mt-1">
+              🔒 Próxima liberação apenas amanhã às 9h
             </p>
           </div>
         </motion.div>
 
-        {/* CTA PRINCIPAL - Botão gigante */}
+        {/* CTA PRINCIPAL - Botão gigante com melhor hierarquia visual */}
         <motion.div 
           initial={{ scale: 0.9, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.5, ease: "easeOut" }}
           className="w-full relative group"
         >
-          <div className="absolute -inset-1 bg-gradient-to-r from-[#FFD700] to-[#FFA500] rounded-full blur-md opacity-50 group-hover:opacity-80 transition duration-500 animate-pulse"></div>
+          <div className="absolute -inset-1 bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] rounded-full blur-lg opacity-60 group-hover:opacity-90 transition duration-500 animate-pulse"></div>
           <Button 
             onClick={handleStartClick} 
             pulse 
-            className="relative text-sm sm:text-base md:text-lg font-black py-4 sm:py-5 md:py-6 px-6 sm:px-8 md:px-12 w-full bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-black rounded-full shadow-[0_8px_24px_rgba(255,215,0,0.3)] hover:scale-105 transition-transform duration-300"
+            className="relative text-sm sm:text-base md:text-lg font-black py-5 sm:py-6 md:py-7 px-6 sm:px-8 md:px-12 w-full bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] text-black rounded-full shadow-[0_10px_30px_rgba(255,215,0,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200"
           >
             <span className="flex items-center justify-center gap-2">
               <motion.span
-                animate={{ x: [0, 5, 0] }}
+                animate={{ 
+                  x: [0, 5, 0],
+                  rotate: [0, 15, 0]
+                }}
                 transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
               >
-                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
+                <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
               </motion.span>
-              <span>DESCOBRIR MINHA TRAVA ANCESTRAL AGORA</span>
+              <span className="tracking-tight">DESCOBRIR MINHA TRAVA ANCESTRAL AGORA</span>
               <motion.span
                 animate={{ x: [0, 5, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
               >
-                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 font-bold" />
               </motion.span>
             </span>
           </Button>

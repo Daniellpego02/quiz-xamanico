@@ -205,113 +205,158 @@ const OfferNew = ({ userName }: OfferProps) => {
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.5 }}
-                        className="text-base sm:text-lg md:text-xl font-black uppercase text-[#FFD700] mb-3 tracking-wide leading-tight px-2 text-glow-gold-strong"
+                        className="text-lg sm:text-xl md:text-2xl font-black uppercase text-[#FFD700] mb-3 tracking-wide leading-tight px-2 text-glow-gold-strong"
                     >
                         <span className="break-words flex items-center justify-center gap-2">
                             <motion.div
-                                animate={{ rotate: [0, 360] }}
+                                animate={{ 
+                                    rotate: [0, 360],
+                                    scale: [1, 1.2, 1]
+                                }}
                                 transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                             >
-                                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
+                                <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
                             </motion.div>
-                            {userName && userName.trim() ? `DIAGNÓSTICO DE ${userName.toUpperCase()} CONCLUÍDO` : 'SEU DIAGNÓSTICO CONCLUÍDO'}
+                            {userName && userName.trim() ? `⚡ DIAGNÓSTICO DE ${userName.toUpperCase()} CONCLUÍDO` : '⚡ SEU DIAGNÓSTICO CONCLUÍDO'}
                         </span>
                         <motion.span 
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.5 }}
-                            className="text-white block mt-2 text-sm sm:text-base md:text-lg"
+                            className="text-white block mt-2 text-base sm:text-lg md:text-xl"
                         >
-                            SEU BLOQUEIO ANCESTRAL FOI IDENTIFICADO
+                            🔓 SEU BLOQUEIO ANCESTRAL FOI IDENTIFICADO
                         </motion.span>
                     </motion.h1>
                     
-                    {/* Type of Blockage Badge - Enhanced with bounce animation */}
+                    {/* Type of Blockage Badge - Enhanced with bounce animation and better styling */}
                     <motion.div 
                         initial={{ scale: 0, opacity: 0 }}
                         animate={{ 
-                            scale: [0, 1.1, 1],
+                            scale: [0, 1.15, 1],
                             opacity: 1
                         }}
                         transition={{ 
                             delay: 0.7,
-                            duration: 0.5,
+                            duration: 0.6,
                             type: "spring",
-                            stiffness: 200,
-                            damping: 10
+                            stiffness: 250,
+                            damping: 12
                         }}
-                        className="inline-block bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black font-bold text-xs sm:text-sm px-3 sm:px-5 py-2 rounded-lg sm:rounded-xl mt-3 shadow-lg relative overflow-hidden"
+                        className="inline-block bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] text-black font-extrabold text-sm sm:text-base px-4 sm:px-6 py-2.5 rounded-xl sm:rounded-2xl mt-3 shadow-2xl relative overflow-hidden border-2 border-[#FFD700]"
                         style={{
-                            boxShadow: '0 4px 20px rgba(212, 175, 55, 0.4), 0 0 40px rgba(212, 175, 55, 0.2)'
+                            boxShadow: '0 6px 25px rgba(212, 175, 55, 0.5), 0 0 50px rgba(212, 175, 55, 0.3)'
                         }}
                     >
                         {/* Animated shine effect */}
                         <motion.div
-                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
                             animate={{
                                 x: ['-100%', '200%'],
                             }}
                             transition={{
-                                duration: 2,
+                                duration: 1.5,
                                 repeat: Infinity,
                                 ease: "linear",
                                 delay: 1
                             }}
                         />
-                        <span className="relative z-10">
-                            Tipo: Herança Vibracional de Escassez (Linhagem Materna)
+                        <span className="relative z-10 tracking-tight">
+                            🔥 Tipo: Herança Vibracional de Escassez (Linhagem Materna)
                         </span>
                     </motion.div>
                 </motion.div>
 
-                {/* Pain Dimensionalization Section - PRIORITY 1 - Improved readability */}
+                {/* Pain Dimensionalization Section - PRIORITY 1 - Improved readability and impact */}
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.15 }}
-                    className="bg-gradient-to-br from-[#2a0606]/95 to-[#1a0606]/95 border-2 border-[#FF4500]/60 rounded-xl p-5 sm:p-6 mb-5 sm:mb-6"
+                    className="bg-gradient-to-br from-[#2a0606]/98 to-[#1a0606]/98 border-2 border-[#FF4500]/70 rounded-xl p-5 sm:p-6 mb-5 sm:mb-6 shadow-[0_0_30px_rgba(255,69,0,0.3)]"
                 >
                     <div className="flex items-start gap-2.5 mb-4">
-                        <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-[#FF4500] flex-shrink-0 mt-1" />
-                        <p className="text-white font-bold text-base sm:text-lg leading-snug">
-                            {userName && userName.trim() ? userName.split(' ')[0] : 'Você'}, este bloqueio está AGORA:
+                        <motion.div
+                            animate={{ 
+                                scale: [1, 1.1, 1],
+                                rotate: [0, 5, -5, 0]
+                            }}
+                            transition={{ 
+                                duration: 2,
+                                repeat: Infinity,
+                                repeatType: "reverse"
+                            }}
+                        >
+                            <AlertTriangle className="w-6 h-6 sm:w-7 sm:h-7 text-[#FF4500] flex-shrink-0 mt-1" />
+                        </motion.div>
+                        <p className="text-white font-extrabold text-lg sm:text-xl leading-snug">
+                            ⚠️ {userName && userName.trim() ? userName.split(' ')[0] : 'Você'}, este bloqueio está AGORA:
                         </p>
                     </div>
-                    <div className="space-y-2.5 text-slate-200 text-sm sm:text-base ml-7 sm:ml-8">
-                        <p className="flex items-start gap-2 leading-relaxed">
-                            <span className="text-[#FF4500] font-bold">✗</span>
-                            <span>Drenando R$5-50 mil por mês da sua conta</span>
-                        </p>
-                        <p className="flex items-start gap-2 leading-relaxed">
-                            <span className="text-[#FF4500] font-bold">✗</span>
-                            <span>Criando autosabotagem financeira inconsciente</span>
-                        </p>
-                        <p className="flex items-start gap-2 leading-relaxed">
-                            <span className="text-[#FF4500] font-bold">✗</span>
-                            <span>Fazendo você trabalhar MAIS mas ganhar MENOS</span>
-                        </p>
+                    <div className="space-y-3 text-slate-200 text-sm sm:text-base ml-7 sm:ml-9">
+                        <motion.p 
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.3 }}
+                            className="flex items-start gap-2 leading-relaxed"
+                        >
+                            <span className="text-[#FF4500] font-extrabold text-lg">✗</span>
+                            <span className="font-semibold">Drenando <span className="text-[#FFD700] font-bold">R$5-50 mil por mês</span> da sua conta</span>
+                        </motion.p>
+                        <motion.p 
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.4 }}
+                            className="flex items-start gap-2 leading-relaxed"
+                        >
+                            <span className="text-[#FF4500] font-extrabold text-lg">✗</span>
+                            <span className="font-semibold">Criando <span className="text-red-400">autosabotagem financeira</span> inconsciente</span>
+                        </motion.p>
+                        <motion.p 
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.5 }}
+                            className="flex items-start gap-2 leading-relaxed"
+                        >
+                            <span className="text-[#FF4500] font-extrabold text-lg">✗</span>
+                            <span className="font-semibold">Fazendo você trabalhar <span className="text-orange-400">MAIS</span> mas ganhar <span className="text-red-400">MENOS</span></span>
+                        </motion.p>
                     </div>
-                    <div className="mt-5 pt-4 border-t border-[#FF4500]/30">
-                        <p className="text-white text-sm sm:text-base font-semibold flex items-center gap-2 leading-relaxed">
-                            <span>👇</span>
-                            <span>No vídeo abaixo, você vai descobrir EXATAMENTE como destruir esta trava em 7 dias:</span>
+                    <div className="mt-5 pt-4 border-t border-[#FF4500]/40">
+                        <p className="text-white text-base sm:text-lg font-bold flex items-center gap-2 leading-relaxed">
+                            <span className="text-2xl">👇</span>
+                            <span>No vídeo abaixo, você vai descobrir <span className="text-[#4ade80]">EXATAMENTE</span> como destruir esta trava em 7 dias:</span>
                         </p>
                     </div>
                 </motion.div>
 
-                {/* Urgency Microcopy Above Video - IMPROVED - More Compact */}
+                {/* Urgency Microcopy Above Video - IMPROVED - More Compact with stronger urgency */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.2 }}
-                    className="bg-gradient-to-r from-[#8B0000]/90 to-[#CC0000]/90 border border-red-500/50 rounded-lg px-3 sm:px-4 py-2 mb-3 sm:mb-4 text-center"
+                    className="bg-gradient-to-r from-[#8B0000]/95 to-[#CC0000]/95 border-2 border-red-500/60 rounded-xl px-4 sm:px-5 py-3 mb-3 sm:mb-4 text-center shadow-[0_0_30px_rgba(255,0,0,0.3)]"
                 >
-                    <div className="flex items-center gap-2 justify-center">
-                        <Shield className="w-4 h-4 text-white flex-shrink-0" />
-                        <p className="text-[11px] sm:text-xs md:text-sm text-white font-semibold">
-                            ATENÇÃO: Vídeo personalizado expira em 24h. Assista AGORA!
+                    <div className="flex items-center gap-2 justify-center mb-1">
+                        <motion.div
+                            animate={{ 
+                                scale: [1, 1.2, 1],
+                                rotate: [0, 10, -10, 0]
+                            }}
+                            transition={{ 
+                                duration: 1.5,
+                                repeat: Infinity,
+                                repeatType: "reverse"
+                            }}
+                        >
+                            <Shield className="w-5 h-5 text-white flex-shrink-0" />
+                        </motion.div>
+                        <p className="text-xs sm:text-sm md:text-base text-white font-black uppercase tracking-wide">
+                            ⏰ ATENÇÃO CRÍTICA
                         </p>
                     </div>
+                    <p className="text-[11px] sm:text-xs md:text-sm text-red-100 font-bold">
+                        Vídeo personalizado expira em <span className="text-[#FFD700] font-black">24 HORAS</span>. Assista AGORA!
+                    </p>
                 </motion.div>
 
                 {/* Benefits List BEFORE Video - Improved readability */}
@@ -399,13 +444,30 @@ const OfferNew = ({ userName }: OfferProps) => {
                         </p>
                     </div>
 
-                    {/* Giant CTA Button - Improved touch target and spacing */}
-                    <button
+                    {/* Giant CTA Button - Enhanced with better visual feedback */}
+                    <motion.button
                         onClick={handleCheckout}
-                        className="w-full md:w-[75%] mx-auto block bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] hover:brightness-110 text-black font-black text-base sm:text-lg md:text-xl py-5 sm:py-6 md:py-7 px-6 sm:px-8 md:px-10 rounded-2xl shadow-[0_8px_40px_rgba(212,175,55,0.6)] transition-all transform hover:scale-[1.02] active:scale-[0.98] border-2 border-[#FFD700] uppercase tracking-wide mb-4 sm:mb-5 min-h-[60px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#FFD700]/40"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full md:w-[75%] mx-auto block bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] hover:brightness-110 text-black font-black text-base sm:text-lg md:text-xl py-5 sm:py-6 md:py-7 px-6 sm:px-8 md:px-10 rounded-2xl shadow-[0_8px_40px_rgba(212,175,55,0.6)] transition-all border-2 border-[#FFD700] uppercase tracking-wide mb-4 sm:mb-5 min-h-[60px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#FFD700]/40 relative overflow-hidden"
                     >
-                        🔥 QUERO INICIAR MEU DESBLOQUEIO AGORA →
-                    </button>
+                        {/* Shine effect */}
+                        <motion.div
+                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                            animate={{
+                                x: ['-100%', '200%'],
+                            }}
+                            transition={{
+                                duration: 2,
+                                repeat: Infinity,
+                                ease: "linear",
+                                repeatDelay: 1
+                            }}
+                        />
+                        <span className="relative z-10">
+                            🔥 QUERO INICIAR MEU DESBLOQUEIO AGORA →
+                        </span>
+                    </motion.button>
 
                     {/* Micro-benefits below button */}
                     <div className="text-center space-y-1.5 text-xs sm:text-sm px-2">
@@ -536,75 +598,147 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         </div>
                                     </div>
 
-                                    {/* Emotional Urgency Box - YELLOW (not red panic) */}
-                                    <div className="bg-[#FFD700]/10 border-2 border-[#FFD700]/40 rounded-xl p-4 sm:p-5 mb-4">
-                                        <p className="text-[#FFD700] font-bold text-base sm:text-lg mb-3 flex items-center justify-center gap-2">
-                                            <span>⚡</span> ATENÇÃO:
+                                     {/* Emotional Urgency Box - Enhanced with better styling */}
+                                    <motion.div 
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ delay: 1.2 }}
+                                        className="bg-gradient-to-br from-[#FFD700]/15 to-[#FFA500]/10 border-2 border-[#FFD700]/50 rounded-xl p-4 sm:p-5 mb-4 sm:mb-5 shadow-[0_0_25px_rgba(255,215,0,0.2)]"
+                                    >
+                                        <p className="text-[#FFD700] font-black text-lg sm:text-xl mb-3 flex items-center justify-center gap-2">
+                                            <motion.span
+                                                animate={{ 
+                                                    scale: [1, 1.2, 1],
+                                                    rotate: [0, 10, -10, 0]
+                                                }}
+                                                transition={{ 
+                                                    duration: 1.5,
+                                                    repeat: Infinity,
+                                                    repeatType: "reverse"
+                                                }}
+                                            >
+                                                ⚡
+                                            </motion.span>
+                                            <span>DECISÃO CRÍTICA:</span>
                                         </p>
-                                        <div className="text-white text-sm sm:text-base leading-relaxed space-y-2">
-                                            <p>
-                                                Cada dia adiado é um dia a mais com o bloqueio.
+                                        <div className="text-white text-sm sm:text-base leading-relaxed space-y-2.5">
+                                            <p className="font-semibold">
+                                                Cada dia adiado é um dia a mais <span className="text-red-400 font-bold">com o bloqueio ativo</span>.
                                             </p>
-                                            <p>
-                                                Mais 1 mês? Mais 1 ano?
+                                            <p className="font-semibold">
+                                                Mais 1 mês? Mais 1 ano? <span className="text-orange-400 font-bold">Mais uma geração?</span>
                                             </p>
-                                            <p className="text-[#FFD700] font-black text-lg sm:text-xl">
-                                                O momento é AGORA.
+                                            <p className="text-[#FFD700] font-black text-lg sm:text-xl text-center mt-3">
+                                                🎯 O momento é AGORA.
                                             </p>
                                         </div>
-                                    </div>
+                                    </motion.div>
 
-                                    {/* Social Proof - Recent Purchases - MELHORADO: dot pulsante verde neon */}
-                                    <div className="text-center mb-4 sm:mb-5">
-                                        <p className="text-slate-300 text-sm mb-2 flex items-center justify-center gap-2">
-                                            <span className="relative flex h-2.5 w-2.5">
+                                    {/* Social Proof - Recent Purchases - Enhanced with better animation */}
+                                    <motion.div 
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 1.3 }}
+                                        className="text-center mb-4 sm:mb-5"
+                                    >
+                                        <p className="text-slate-300 text-sm sm:text-base mb-2 flex items-center justify-center gap-2 font-semibold">
+                                            <span className="relative flex h-3 w-3">
                                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00ff88] opacity-75"></span>
-                                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#00ff88] shadow-[0_0_10px_rgba(0,255,136,0.8)]"></span>
+                                                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00ff88] shadow-[0_0_12px_rgba(0,255,136,0.9)]"></span>
                                             </span>
-                                            👥 23 pessoas compraram nas últimas 24h
+                                            <span>👥 <span className="text-[#4ade80] font-bold">23 pessoas</span> compraram nas últimas 24h</span>
                                         </p>
                                         <div className="flex items-center justify-center flex-wrap gap-2 sm:gap-3 text-xs">
-                                            <span className="bg-white/5 px-2 sm:px-3 py-1 rounded-full">"Maria acabou de comprar há 2min"</span>
-                                            <span className="bg-white/5 px-2 sm:px-3 py-1 rounded-full">"João acabou de comprar há 8min"</span>
+                                            <motion.span 
+                                                initial={{ opacity: 0, scale: 0.9 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                transition={{ delay: 1.4 }}
+                                                className="bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/20"
+                                            >
+                                                💚 "Maria acabou de comprar há 2min"
+                                            </motion.span>
+                                            <motion.span 
+                                                initial={{ opacity: 0, scale: 0.9 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                transition={{ delay: 1.5 }}
+                                                className="bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/20"
+                                            >
+                                                💚 "João acabou de comprar há 8min"
+                                            </motion.span>
                                         </div>
-                                    </div>
+                                    </motion.div>
 
-                                    {/* EMOTIONAL CTA BEFORE BUTTON */}
-                                    <div className="text-center mb-5 px-2">
-                                        <p className="text-white text-base sm:text-lg font-bold mb-3">
-                                            Você está a UM CLIQUE de:
-                                        </p>
-                                        <div className="text-slate-300 text-sm space-y-2 mb-4 text-left max-w-md mx-auto">
-                                            <p className="flex items-start gap-2">
-                                                <span className="text-[#FFD700] flex-shrink-0">✨</span>
-                                                <span>Descobrir qual bloqueio ancestral trava R$5-50k todo mês</span>
-                                            </p>
-                                            <p className="flex items-start gap-2">
-                                                <span className="text-[#FFD700] flex-shrink-0">✨</span>
-                                                <span>Receber o protocolo de 7 dias usado por 4.387 pessoas</span>
-                                            </p>
-                                            <p className="flex items-start gap-2">
-                                                <span className="text-[#FFD700] flex-shrink-0">✨</span>
-                                                <span>Entender POR QUÊ o dinheiro nunca parou na sua mão</span>
-                                            </p>
-                                        </div>
-                                        <p className="text-white text-base sm:text-lg font-bold mb-1">
-                                            A pergunta é:
-                                        </p>
-                                        <p className="text-slate-300 text-sm sm:text-base mb-3">
-                                            Você vai continuar vivendo com esse bloqueio...<br />
-                                            <span className="text-white font-bold">...ou vai fazer algo HOJE?</span>
-                                        </p>
-                                    </div>
-
-                                    {/* CTA BUTTON COM ÍCONE PIX - Mobile Optimized */}
-                                    <button
-                                        onClick={handleCheckout}
-                                        className="w-full bg-gradient-to-r from-[#00FF41] to-[#00CC33] hover:from-[#00CC33] hover:to-[#00FF41] text-black font-black text-base sm:text-lg md:text-xl py-5 md:py-6 px-4 md:px-8 rounded-2xl shadow-[0_0_40px_rgba(0,255,65,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 uppercase tracking-wide mb-3 flex items-center justify-center gap-2 md:gap-3"
+                                    {/* EMOTIONAL CTA BEFORE BUTTON - Enhanced */}
+                                    <motion.div 
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 1.4 }}
+                                        className="text-center mb-5 px-2"
                                     >
-                                        <span className="text-2xl md:text-3xl flex-shrink-0">🔷</span>
-                                        <span className="leading-tight">GERAR MEU ACESSO AGORA (PIX)</span>
-                                    </button>
+                                        <p className="text-white text-lg sm:text-xl font-black mb-3">
+                                            ✨ Você está a <span className="text-[#4ade80]">UM CLIQUE</span> de:
+                                        </p>
+                                        <div className="text-slate-300 text-sm sm:text-base space-y-2.5 mb-5 text-left max-w-md mx-auto">
+                                            <motion.p 
+                                                initial={{ opacity: 0, x: -10 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: 1.5 }}
+                                                className="flex items-start gap-2"
+                                            >
+                                                <span className="text-[#FFD700] flex-shrink-0 text-lg">✓</span>
+                                                <span className="font-medium">Descobrir qual bloqueio ancestral trava <span className="text-[#FFD700] font-bold">R$5-50k</span> todo mês</span>
+                                            </motion.p>
+                                            <motion.p 
+                                                initial={{ opacity: 0, x: -10 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: 1.6 }}
+                                                className="flex items-start gap-2"
+                                            >
+                                                <span className="text-[#FFD700] flex-shrink-0 text-lg">✓</span>
+                                                <span className="font-medium">Receber o protocolo de 7 dias usado por <span className="text-[#4ade80] font-bold">4.387 pessoas</span></span>
+                                            </motion.p>
+                                            <motion.p 
+                                                initial={{ opacity: 0, x: -10 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: 1.7 }}
+                                                className="flex items-start gap-2"
+                                            >
+                                                <span className="text-[#FFD700] flex-shrink-0 text-lg">✓</span>
+                                                <span className="font-medium">Entender <span className="text-white font-bold">POR QUÊ</span> o dinheiro nunca parou na sua mão</span>
+                                            </motion.p>
+                                        </div>
+                                        <p className="text-white text-lg sm:text-xl font-black mb-2">
+                                            💭 A pergunta é:
+                                        </p>
+                                        <p className="text-slate-300 text-base sm:text-lg mb-3 font-semibold">
+                                            Você vai continuar vivendo com esse bloqueio...<br />
+                                            <span className="text-white font-black text-lg">...ou vai fazer algo HOJE?</span>
+                                        </p>
+                                    </motion.div>
+
+                                    {/* CTA BUTTON COM ÍCONE PIX - Mobile Optimized with enhanced animation */}
+                                    <motion.button
+                                        onClick={handleCheckout}
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        className="w-full bg-gradient-to-r from-[#00FF41] to-[#00CC33] hover:from-[#00CC33] hover:to-[#00FF41] text-black font-black text-base sm:text-lg md:text-xl py-5 md:py-6 px-4 md:px-8 rounded-2xl shadow-[0_0_40px_rgba(0,255,65,0.6)] transition-all uppercase tracking-wide mb-3 flex items-center justify-center gap-2 md:gap-3 relative overflow-hidden border-2 border-[#00FF41]"
+                                    >
+                                        {/* Shine effect */}
+                                        <motion.div
+                                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                                            animate={{
+                                                x: ['-100%', '200%'],
+                                            }}
+                                            transition={{
+                                                duration: 2,
+                                                repeat: Infinity,
+                                                ease: "linear",
+                                                repeatDelay: 0.5
+                                            }}
+                                        />
+                                        <span className="text-2xl md:text-3xl flex-shrink-0 relative z-10">🔷</span>
+                                        <span className="leading-tight relative z-10">GERAR MEU ACESSO AGORA (PIX)</span>
+                                    </motion.button>
 
                                     {/* Subtexto do Botão */}
                                     <p className="text-center text-[#00FF41] text-sm font-semibold flex items-center justify-center gap-2">

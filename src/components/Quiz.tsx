@@ -35,10 +35,10 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     {
       id: 0,
       title: "PERGUNTA 1 DE 6",
-      text: "SEU NOME CARREGA A ENERGIA DA SUA LINHAGEM ANCESTRAL",
+      text: "SEU NOME ATIVA A FREQUÊNCIA EXATA DA SUA LINHAGEM ANCESTRAL",
       type: "input",
       placeholder: "Ex: João",
-      emotionalContext: `Seu nome ativa a frequência da sua linhagem ancestral.\n\nO sistema cruza com ${CATALOGED_LINEAGES} linhagens brasileiras catalogadas.`
+      emotionalContext: `⚡ Seu nome carrega energia poderosa.\n\nO sistema identifica padrões em ${CATALOGED_LINEAGES} linhagens brasileiras catalogadas.\n\n✨ Isso muda TUDO no seu diagnóstico.`
     }
   ];
 
@@ -47,37 +47,37 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     {
       id: 1,
       title: "PERGUNTA 2 DE 6",
-      text: "O SISTEMA DETECTOU UM BLOQUEIO SEVERO NA SUA ENERGIA FINANCEIRA.",
-      subtext: "Existe um Protocolo Xamânico de 7 dias que limpa esse bloqueio COMPLETAMENTE.",
-      emotionalContext: "A pergunta é:\n\nVocê está disposto(a) a seguir o protocolo... mesmo que isso signifique ROMPER padrões que sua família carrega há gerações?",
+      text: "⚠️ SISTEMA DETECTOU BLOQUEIO SEVERO NA SUA ENERGIA FINANCEIRA",
+      subtext: "Existe um Protocolo Xamânico de 7 dias que LIMPA esse bloqueio COMPLETAMENTE.",
+      emotionalContext: "A pergunta é:\n\n💎 Você está disposto(a) a seguir o protocolo... mesmo que isso signifique ROMPER padrões que sua família carrega há gerações?",
       singleButton: true,
-      validationText: "A maioria vive checando o saldo antes de comprar QUALQUER coisa, pedindo emprestado todo mês... sem saber que um bloqueio ancestral causa isso. Você não precisa ser uma delas.",
+      validationText: "A maioria vive checando o saldo antes de comprar QUALQUER coisa, pedindo emprestado todo mês... sem saber que um bloqueio ancestral causa isso. 🔓 Você não precisa ser uma delas.",
       options: [
-        { label: "SIM, quero destruir esse bloqueio agora", value: "ready", icon: "" },
+        { label: "✓ SIM, quero destruir esse bloqueio agora", value: "ready", icon: "" },
       ]
     },
     {
       id: 2,
       title: "PERGUNTA 3 DE 6",
-      text: "SE NADA MUDAR NOS PRÓXIMOS 6 MESES, QUAL É O SEU MAIOR MEDO?",
-      emotionalContext: "→ Seja BRUTALMENTE honesto. Essa resposta define qual tipo de bloqueio ancestral o protocolo vai atacar primeiro.",
-      warningText: "ATENÇÃO: Essa resposta é A MAIS IMPORTANTE do diagnóstico.\n\nO que você escolher aqui define:\n• Qual tipo de bloqueio ancestral será revelado\n• Qual protocolo de limpeza você vai receber\n• Quantos dias até começar a sentir o desbloqueio\n\nA maioria escolhe a opção 1 ou 3. Mas seja honesto com VOCÊ, não com o que \"deveria\" sentir.",
+      text: "SE NADA MUDAR NOS PRÓXIMOS 6 MESES... QUAL É O SEU MAIOR MEDO?",
+      emotionalContext: "🎯 Seja BRUTALMENTE honesto. Essa resposta define qual bloqueio ancestral o protocolo vai atacar primeiro.",
+      warningText: "⚡ ATENÇÃO: Essa é A RESPOSTA MAIS IMPORTANTE do diagnóstico.\n\n🔮 O que você escolher aqui define:\n• Qual tipo de bloqueio ancestral será revelado\n• Qual protocolo de limpeza você vai receber\n• Quantos dias até começar a sentir o desbloqueio\n\n💭 A maioria escolhe opção 1 ou 3. Mas seja honesto com VOCÊ, não com o que \"deveria\" sentir.",
       options: [
         { 
           label: "Continuar dependendo dos outros ou contando moedas", 
-          sublabel: "Olhar o preço de TUDO antes de comprar. Pedir dinheiro emprestado pro fim do mês. Inventar desculpa quando os amigos chamam pra sair.", 
+          sublabel: "💸 Olhar o preço de TUDO antes de comprar. Pedir dinheiro emprestado pro fim do mês. Inventar desculpa quando os amigos chamam pra sair.", 
           value: "dependency", 
           icon: "" 
         },
         { 
           label: "Envelhecer sem construir patrimônio real", 
-          sublabel: "Chegar aos 55 anos no mesmo apartamento ALUGADO. Ver seus filhos crescerem sem dar a educação que sonhou. Morrer sem deixar nada.", 
+          sublabel: "🏠 Chegar aos 55 anos no mesmo apartamento ALUGADO. Ver seus filhos crescerem sem dar a educação que sonhou. Morrer sem deixar nada.", 
           value: "aging", 
           icon: "" 
         },
         { 
           label: "Ver minha família sofrer por causa da minha situação financeira", 
-          sublabel: "Olhar no olho do seu filho e dizer 'não temos dinheiro pra isso agora'. Ver seus pais precisando de remédio, você sem condições. Sentir que FALHOU como provedor(a).", 
+          sublabel: "💔 Olhar no olho do seu filho e dizer 'não temos dinheiro pra isso agora'. Ver seus pais precisando de remédio, você sem condições. Sentir que FALHOU como provedor(a).", 
           value: "family", 
           icon: "" 
         },
@@ -339,37 +339,62 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
 
   return (
     <div className="min-h-screen min-h-[100dvh] flex flex-col max-w-lg mx-auto px-5 sm:px-6 md:px-8 py-5 sm:py-6 md:py-8 relative z-10">
-      {/* Progress Bar - Enhanced with better visibility and proper alignment */}
-      <div className="w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm rounded-full h-3 sm:h-3.5 mb-6 sm:mb-8 relative overflow-visible border border-[#D4AF37]/20 shadow-lg flex items-center">
+      {/* Progress Bar - Enhanced with better visibility, animations and proper alignment */}
+      <motion.div 
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm rounded-full h-3.5 sm:h-4 mb-6 sm:mb-8 relative overflow-visible border-2 border-[#D4AF37]/30 shadow-lg flex items-center"
+      >
         <motion.div 
           className="bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] h-full rounded-full relative overflow-hidden"
           initial={{ width: 0 }}
           animate={{ width: `${progress}%` }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
           style={{
-            boxShadow: '0 0 20px rgba(212, 175, 55, 0.6), 0 0 40px rgba(212, 175, 55, 0.3)',
+            boxShadow: '0 0 25px rgba(212, 175, 55, 0.7), 0 0 50px rgba(212, 175, 55, 0.4)',
           }}
         >
           {/* Animated shine effect */}
           <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
             animate={{
               x: ['-100%', '200%'],
             }}
             transition={{
-              duration: 2,
+              duration: 1.5,
               repeat: Infinity,
               ease: "linear",
             }}
           />
+          {/* Pulsing glow at the end */}
+          <motion.div
+            className="absolute right-0 top-0 bottom-0 w-1 bg-white"
+            animate={{
+              opacity: [0.5, 1, 0.5],
+              boxShadow: [
+                '0 0 5px rgba(255,255,255,0.5)',
+                '0 0 15px rgba(255,255,255,1)',
+                '0 0 5px rgba(255,255,255,0.5)'
+              ]
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              repeatType: "reverse"
+            }}
+          />
         </motion.div>
-        {/* Progress percentage text - Fixed alignment and framing */}
-        <div className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 bg-[#1a0d2e]/90 backdrop-blur-sm px-2 py-0.5 rounded-md border border-[#D4AF37]/30">
-          <span className="text-xs sm:text-sm font-black text-[#FFD700] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] tracking-tight">
+        {/* Progress percentage text - Enhanced with better styling */}
+        <motion.div 
+          initial={{ scale: 0.8 }}
+          animate={{ scale: 1 }}
+          className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 bg-[#1a0d2e]/95 backdrop-blur-md px-2.5 py-1 rounded-lg border-2 border-[#D4AF37]/40 shadow-lg"
+        >
+          <span className="text-xs sm:text-sm font-black text-[#FFD700] drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] tracking-tight">
             {Math.round(progress)}%
           </span>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       <AnimatePresence mode='wait'>
         <motion.div
