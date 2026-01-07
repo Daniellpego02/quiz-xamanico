@@ -21,7 +21,7 @@ const socialProofImages = [
   '/prova7.png',
 ];
 
-export const SocialProof: React.FC<SocialProofProps> = ({ onNext, quizPath = 'finance' }) => {
+export const SocialProof: React.FC<SocialProofProps> = ({ onNext }) => {
   return (
     <motion.div 
       initial={{ opacity: 0 }}

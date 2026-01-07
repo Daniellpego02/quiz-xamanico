@@ -307,9 +307,9 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           initial={{ scale: 0.95, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           transition={{ delay: 1.1, duration: 0.5 }}
-          className="w-full bg-gradient-to-br from-[#2a0606]/95 to-[#0a0202]/95 backdrop-blur-sm border-2 border-[#FF0000]/70 rounded-lg p-2 sm:p-3 md:p-4 space-y-1 sm:space-y-2 shadow-[0_0_40px_rgba(255,0,0,0.3)] hidden sm:block"
+          className="w-full bg-gradient-to-br from-[#2a0606]/95 to-[#0a0202]/95 backdrop-blur-sm border-2 border-[#FF0000]/70 rounded-lg p-3 md:p-4 space-y-2 shadow-[0_0_40px_rgba(255,0,0,0.3)] hidden sm:block"
         >
-          <div className="flex items-center justify-center gap-1.5 sm:gap-2">
+          <div className="flex items-center justify-center gap-2">
             <motion.div
               animate={{ 
                 scale: [1, 1.2, 1],
@@ -321,18 +321,17 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
                 repeatType: "reverse"
               }}
             >
-              <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-[#FF0000] flex-shrink-0" />
+              <AlertTriangle className="w-5 h-5 text-[#FF0000] flex-shrink-0" />
             </motion.div>
-            <p className="text-[12px] sm:text-sm md:text-base font-black text-[#FF0000] uppercase tracking-wide">
+            <p className="text-sm md:text-base font-black text-[#FF0000] uppercase tracking-wide">
               ⚠️ ATENÇÃO: VAGAS LIMITADAS
             </p>
           </div>
-          {/* Compact text for mobile - 2 lines max */}
           <div className="text-center">
-            <p className="text-[11px] sm:text-xs text-white font-bold">
-              SOMENTE <span className="text-[#C9A227] text-sm sm:text-base font-black">12 VAGAS</span> DISPONÍVEIS HOJE
+            <p className="text-xs text-white font-bold">
+              SOMENTE <span className="text-[#C9A227] text-base font-black">12 VAGAS</span> DISPONÍVEIS HOJE
             </p>
-            <p className="text-[9px] sm:text-[10px] text-red-300 font-semibold mt-0.5 sm:mt-1">
+            <p className="text-[10px] text-red-300 font-semibold mt-1">
               🔒 Próxima liberação apenas amanhã às 9h
             </p>
           </div>
