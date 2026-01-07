@@ -142,7 +142,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       
       const interval = setInterval(() => {
         setLoadingStage(prev => (prev + 1) % loadingStages.length);
-      }, 2500); // Increased from 800ms to 2500ms for more realistic timing per stage
+      }, 1800); // Middle ground: 1800ms (1.8s) per stage = ~5.4s total, balancing perceived value with user patience
       
       return () => clearInterval(interval);
     } else {
@@ -176,7 +176,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
         const mergedQuestions = [...activeQuestions, ...financeQuestions];
         setActiveQuestions(mergedQuestions);
         setCurrentIndex(prev => prev + 1);
-    }, 8000); // Increased from 4500ms to 8000ms for better suspense and perceived value
+    }, 6000); // Middle ground: 6s total (balanced between suspense and patience)
   };
 
   const handleOptionClick = (option: QuestionOption) => {
@@ -209,7 +209,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       tracking.quiz.halfway();
     }
 
-    // Increased delay to 900ms for better "digest" time and satisfaction
+    // Increased delay to 750ms for better "digest" time and satisfaction (balanced with responsiveness)
     setTimeout(() => {
       const length = activeQuestions.length;
       if (currentIndex < length - 1) {
@@ -222,7 +222,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
         tracking.meta.completeRegistration({ content_name: 'Quiz Completo', path: QUIZ_PATH });
         onComplete(QUIZ_PATH, userName);
       }
-    }, 900); // Increased from 500ms to 900ms for better user satisfaction
+    }, 750); // Balanced: 750ms provides feedback without feeling sluggish
   };
 
   if (showTuningScreen) {

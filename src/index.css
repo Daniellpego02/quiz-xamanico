@@ -193,7 +193,24 @@ html {
 
 /* Improved readability for all text */
 p, li, span, div {
-  line-height: 1.6;
+  line-height: 1.65; /* Increased from 1.6 for better readability */
+}
+
+/* Better base text sizing - Minimum 16px to prevent iOS zoom */
+.text-base {
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+/* Enhanced text sizes for better hierarchy */
+.text-sm {
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.text-lg {
+  font-size: 18px;
+  line-height: 1.65;
 }
 
 /* Better contrast for light text on dark backgrounds */
