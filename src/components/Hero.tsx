@@ -84,7 +84,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             <Lock className="w-5 h-5 text-[#D4AF37] drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]" />
           </motion.div>
           <p className="text-[11px] sm:text-xs font-bold text-[#D4AF37] tracking-[0.15em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
-            🔒 DIAGNÓSTICO DE FREQUÊNCIA FINANCEIRA
+            DIAGNÓSTICO DE FREQUÊNCIA FINANCEIRA
           </p>
         </div>
       </motion.div>
