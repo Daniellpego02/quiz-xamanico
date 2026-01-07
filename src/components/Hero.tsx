@@ -100,11 +100,11 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           transition={{ delay: 0.1, duration: 0.6, ease: "easeOut" }}
           className="space-y-2"
         >
-          <h1 className="text-[24px] sm:text-[36px] md:text-[48px] lg:text-[56px] font-black text-white leading-[1.15] drop-shadow-2xl break-words">
+          <h1 className="text-[20px] sm:text-[28px] md:text-[40px] lg:text-[48px] font-black text-white leading-[1.15] drop-shadow-2xl break-words">
             Existe Uma <span className="text-[#FFD700]">"TRAVA ANCESTRAL"</span>{' '}
             <span className="text-[#FF4500]">SUFOCANDO</span>{' '}
             <span className="text-[#FFD700]">R$5-50 MIL</span>{' '}
-            da Sua Conta Bancária Todo Mês?
+            da Sua Conta Bancária?
           </h1>
           {/* SUBHEADLINE */}
           <p className="text-sm sm:text-base md:text-lg text-slate-300/70 leading-relaxed">
@@ -234,7 +234,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             Onde você está hoje?
           </p>
           
-          <div className="relative border-2 border-[#FFD700]/60 rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(255,215,0,0.2)] max-h-[200px] sm:max-h-none">
+          <div className="relative border-2 border-[#FFD700]/60 rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(255,215,0,0.2)] max-h-[160px] sm:max-h-[200px] md:max-h-none">
             <img 
               src="/banner principal.png" 
               alt="Transformação - Antes e Depois" 
@@ -268,9 +268,14 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             </p>
           </div>
           {/* Compact text for mobile - 2 lines max */}
-          <p className="text-xs sm:text-sm text-[#4ade80] font-bold text-center">
-            VAGAS: <span className="text-[#FFD700]">12/50</span> | Próxima vaga só amanhã
-          </p>
+          <div className="text-center">
+            <p className="text-xs sm:text-sm text-white font-bold">
+              VAGAS: <span className="text-[#FFD700]">12/50</span>
+            </p>
+            <p className="text-[10px] sm:text-xs text-slate-300">
+              Próxima vaga só amanhã
+            </p>
+          </div>
         </motion.div>
 
         {/* CTA PRINCIPAL - Botão gigante */}

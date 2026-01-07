@@ -131,14 +131,14 @@ const OfferNew = ({ userName }: OfferProps) => {
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.5 }}
-                        className="text-lg sm:text-xl md:text-2xl font-black uppercase text-[#FFD700] mb-3 tracking-wide leading-tight px-2 text-glow-gold-strong"
+                        className="text-base sm:text-lg md:text-xl font-black uppercase text-[#FFD700] mb-3 tracking-wide leading-tight px-2 text-glow-gold-strong"
                     >
                         <span className="break-words flex items-center justify-center gap-2">
                             <motion.div
                                 animate={{ rotate: [0, 360] }}
                                 transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                             >
-                                <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
+                                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
                             </motion.div>
                             {userName && userName.trim() ? `DIAGNÓSTICO DE ${userName.toUpperCase()} CONCLUÍDO` : 'SEU DIAGNÓSTICO CONCLUÍDO'}
                         </span>
@@ -146,7 +146,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.5 }}
-                            className="text-white block mt-2 text-base sm:text-lg md:text-xl"
+                            className="text-white block mt-2 text-sm sm:text-base md:text-lg"
                         >
                             SEU BLOQUEIO ANCESTRAL FOI IDENTIFICADO
                         </motion.span>
@@ -293,10 +293,10 @@ const OfferNew = ({ userName }: OfferProps) => {
                     className="relative rounded-lg sm:rounded-2xl overflow-hidden border-2 border-[#D4AF37] shadow-[0_0_60px_rgba(212,175,55,0.4)] mb-4 sm:mb-6 mx-auto max-w-md"
                 >
                     <div className="bg-black flex items-center justify-center relative">
-                        <div className="w-full max-h-[220px] sm:max-h-none" style={{ aspectRatio: '9/16', maxWidth: '400px' }}>
+                        <div className="w-full" style={{ aspectRatio: '9/16', maxWidth: '100%', maxHeight: '220px' }}>
                             <vturb-smartplayer 
                                 id="vid-6953144d84040898eb13007a" 
-                                style={{ display: 'block', width: '100%', maxWidth: '400px', margin: '0 auto' }}
+                                style={{ display: 'block', width: '100%', height: '100%', maxWidth: '100%', maxHeight: '220px', margin: '0 auto' }}
                             ></vturb-smartplayer>
                         </div>
                     </div>
@@ -309,14 +309,14 @@ const OfferNew = ({ userName }: OfferProps) => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6 }}
-                    className="my-8 sm:my-10"
+                    className="my-6 sm:my-8 md:my-10"
                 >
-                    <div className="text-center mb-6">
-                        <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-3 leading-tight px-2">
+                    <div className="text-center mb-4 sm:mb-6">
+                        <h2 className="text-lg sm:text-xl md:text-2xl font-black text-white mb-2 sm:mb-3 leading-tight px-2">
                             EXISTE UMA "TRAVA ANCESTRAL" IMPEDINDO<br className="hidden sm:block" />
                             O DINHEIRO DE PARAR NA SUA MÃO?
                         </h2>
-                        <p className="text-base sm:text-lg text-slate-300 mb-6 px-2">
+                        <p className="text-sm sm:text-base md:text-lg text-slate-300 mb-4 sm:mb-6 px-2">
                             O Protocolo Xamânico revela onde está o vazamento.
                         </p>
                     </div>
@@ -324,20 +324,20 @@ const OfferNew = ({ userName }: OfferProps) => {
                     {/* Giant CTA Button */}
                     <button
                         onClick={handleCheckout}
-                        className="w-full md:w-[70%] mx-auto block bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] hover:brightness-110 text-black font-black text-lg sm:text-xl md:text-2xl py-5 sm:py-6 px-6 sm:px-8 rounded-2xl shadow-[0_8px_40px_rgba(212,175,55,0.6)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#FFD700] uppercase tracking-wide mb-4"
+                        className="w-full md:w-[70%] mx-auto block bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] hover:brightness-110 text-black font-black text-base sm:text-lg md:text-xl py-4 sm:py-5 md:py-6 px-4 sm:px-6 md:px-8 rounded-2xl shadow-[0_8px_40px_rgba(212,175,55,0.6)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#FFD700] uppercase tracking-wide mb-3 sm:mb-4"
                     >
                         🔥 QUERO INICIAR MEU DESBLOQUEIO AGORA →
                     </button>
 
                     {/* Micro-benefits below button */}
-                    <div className="text-center space-y-1 text-sm px-2">
+                    <div className="text-center space-y-1 text-xs sm:text-sm px-2">
                         <p className="text-emerald-400 font-semibold">✅ Pagamento Único de R$27,90 (PIX)</p>
                         <p className="text-emerald-400 font-semibold">✅ Acesso Vitalício | Garantia de 7 Dias</p>
                         <p className="text-emerald-400 font-semibold">✅ Mais de 4.300 mapas já gerados</p>
                     </div>
 
                     {/* Security badge */}
-                    <p className="text-center text-slate-400 text-xs mt-4">
+                    <p className="text-center text-slate-400 text-xs mt-3 sm:mt-4">
                         💳 Pagamento 100% seguro via PIX Banco Central
                     </p>
                 </motion.div>
@@ -384,7 +384,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                 </p>
                                             </div>
 
-                                            {/* Linha 3: PREÇO GIGANTE VERDE NEON - Mobile Optimized - MELHORADO: muito maior em mobile */}
+                                            {/* Linha 3: PREÇO GIGANTE VERDE NEON - Mobile Optimized - MUITO MAIOR */}
                                             <motion.div 
                                                 initial={{ scale: 0.7, opacity: 0 }}
                                                 animate={{ 
@@ -405,7 +405,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                         initial={{ opacity: 0, x: -20 }}
                                                         animate={{ opacity: 1, x: 0 }}
                                                         transition={{ delay: 0.8 }}
-                                                        className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" 
+                                                        className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" 
                                                         style={{ fontWeight: 900 }}
                                                     >
                                                         R$
@@ -421,7 +421,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                             duration: 0.5,
                                                             type: "spring"
                                                         }}
-                                                        className="text-8xl sm:text-9xl md:text-[10rem] lg:text-[12rem] font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" 
+                                                        className="text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] animate-pulse" 
                                                         style={{ 
                                                             fontWeight: 900,
                                                             textShadow: '0 0 60px rgba(0,255,136,0.8), 0 0 100px rgba(0,255,136,0.4)'
@@ -433,7 +433,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                         initial={{ opacity: 0, x: 20 }}
                                                         animate={{ opacity: 1, x: 0 }}
                                                         transition={{ delay: 1.0 }}
-                                                        className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] self-start mt-2 animate-pulse" 
+                                                        className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,136,1)] self-start mt-2 animate-pulse" 
                                                         style={{ fontWeight: 900 }}
                                                     >
                                                         ,90
@@ -696,7 +696,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 transition={{ delay: 1.4 }}
                                 className="mb-12"
                             >
-                                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#FFD700] text-center mb-6 sm:mb-8 px-2">
+                                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-[#FFD700] text-center mb-4 sm:mb-6 px-2">
                                     💬 O que os alunos estão dizendo
                                 </h3>
 

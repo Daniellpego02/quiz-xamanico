@@ -412,7 +412,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             )}
 
             {/* HEADLINE DA PERGUNTA - Mobile optimized */}
-            <h2 className="text-[20px] sm:text-[24px] md:text-[28px] lg:text-[32px] font-bold text-white leading-[1.25] text-center px-2 text-glow-gold">
+            <h2 className="text-[16px] sm:text-[20px] md:text-[24px] lg:text-[28px] font-bold text-white leading-[1.25] text-center px-2 text-glow-gold">
               <span dangerouslySetInnerHTML={{ __html: personalizeText(currentQuestion.text).replace('BLOQUEIO SEVERO', '<span class="text-[#FF4500]">BLOQUEIO SEVERO</span>').replace('6 MESES', '<span class="text-[#FF4500]">6 MESES</span>').replace('MAIOR MEDO', '<span class="text-[#FF4500]">MAIOR MEDO</span>').replace('ENERGIA', '<span class="text-[#FFD700]">ENERGIA</span>') }}></span>
             </h2>
 
@@ -604,14 +604,14 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                     disabled={isNavigating}
                     whileHover={!isNavigating && !isSelected ? { scale: 1.02, y: -2 } : {}}
                     whileTap={!isNavigating ? { scale: 0.98 } : {}}
-                    className={`w-full text-left rounded-xl sm:rounded-2xl transition-all duration-300 group relative overflow-hidden ${
+                    className={`w-full text-left rounded-xl sm:rounded-2xl transition-all duration-300 group relative overflow-hidden min-h-[44px] max-h-[90px] ${
                       isNavigating ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'
                     } ${
                       isSelected
                         ? 'border-[3px] border-[#FFD700] bg-[#1a0d2e]/95'
                         : currentQuestion.singleButton 
-                          ? 'bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] text-black font-bold p-4 sm:p-5 border-none'
-                          : 'bg-gradient-to-br from-[#1a0d2e]/90 to-[#0f0520]/90 border-2 border-[#3d2a5f] hover:border-[#FFD700]/60 hover:bg-[#1a0d2e]/95 p-4 sm:p-5'
+                          ? 'bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] text-black font-bold p-3 sm:p-4 md:p-5 border-none'
+                          : 'bg-gradient-to-br from-[#1a0d2e]/90 to-[#0f0520]/90 border-2 border-[#3d2a5f] hover:border-[#FFD700]/60 hover:bg-[#1a0d2e]/95 p-3 sm:p-4 md:p-5'
                     }`}
                     style={isSelected ? {
                       boxShadow: '0 0 30px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.25), 0 0 0 3px rgba(255, 215, 0, 0.8)',
@@ -649,13 +649,13 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                       {/* Headline */}
                       <div className="flex items-start gap-2 sm:gap-3">
                         <div className="flex-1 space-y-1.5">
-                          <p className={`text-sm sm:text-base md:text-lg font-bold leading-snug ${currentQuestion.singleButton ? 'text-black' : 'text-white'}`}>
+                          <p className={`text-[13px] sm:text-sm md:text-base font-bold leading-snug ${currentQuestion.singleButton ? 'text-black' : 'text-white'}`}>
                             {option.label}
                           </p>
                           
-                          {/* Descrição expandida (sublabel) */}
+                          {/* Descrição expandida (sublabel) - Truncate on mobile */}
                           {option.sublabel && (
-                            <p className={`text-[13px] sm:text-sm leading-[1.6] ${currentQuestion.singleButton ? 'text-black/80' : 'text-white/90'}`}>
+                            <p className={`text-[12px] sm:text-[13px] md:text-sm leading-[1.5] line-clamp-2 ${currentQuestion.singleButton ? 'text-black/80' : 'text-white/90'}`}>
                               {option.sublabel.split('FALHOU').map((part, i) => (
                                 <span key={i}>
                                   {i > 0 && <strong className={currentQuestion.singleButton ? 'text-black' : 'text-white'}>FALHOU</strong>}
