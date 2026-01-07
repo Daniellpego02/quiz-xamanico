@@ -326,8 +326,8 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
 
   return (
     <div className="min-h-screen min-h-[100dvh] flex flex-col max-w-lg mx-auto px-5 sm:px-6 md:px-8 py-5 sm:py-6 md:py-8 relative z-10">
-      {/* Progress Bar - Enhanced with better visibility */}
-      <div className="w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm rounded-full h-3 sm:h-3.5 mb-6 sm:mb-8 relative overflow-hidden border border-[#D4AF37]/20 shadow-lg">
+      {/* Progress Bar - Enhanced with better visibility and proper alignment */}
+      <div className="w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm rounded-full h-3 sm:h-3.5 mb-6 sm:mb-8 relative overflow-visible border border-[#D4AF37]/20 shadow-lg flex items-center">
         <motion.div 
           className="bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] h-full rounded-full relative overflow-hidden"
           initial={{ width: 0 }}
@@ -350,9 +350,11 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             }}
           />
         </motion.div>
-        {/* Progress percentage text */}
-        <div className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 text-xs sm:text-sm font-bold text-[#D4AF37] drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
-          {Math.round(progress)}%
+        {/* Progress percentage text - Fixed alignment and framing */}
+        <div className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 bg-[#1a0d2e]/90 backdrop-blur-sm px-2 py-0.5 rounded-md border border-[#D4AF37]/30">
+          <span className="text-xs sm:text-sm font-black text-[#FFD700] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] tracking-tight">
+            {Math.round(progress)}%
+          </span>
         </div>
       </div>
 
@@ -438,14 +440,14 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   Digite seu primeiro nome:
                 </label>
                 
-                {/* INPUT FIELD - Enhanced with premium styling */}
+                {/* INPUT FIELD - Enhanced with premium styling and proper icon centering */}
                 <div className="relative group">
                   <input
                     type="text"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder={currentQuestion.placeholder}
-                    className="w-full bg-gradient-to-br from-[#1a0d2e]/90 to-[#0f0520]/90 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl sm:rounded-2xl p-4 sm:p-5 pr-12 sm:pr-14 text-[16px] sm:text-lg md:text-xl text-white placeholder-white/40 focus:outline-none focus:border-[#FFD700] focus:ring-4 focus:ring-[#FFD700]/20 transition-all duration-300 shadow-lg hover:border-[#D4AF37]/50 min-h-[44px]"
+                    className="w-full bg-gradient-to-br from-[#1a0d2e]/90 to-[#0f0520]/90 backdrop-blur-sm border-2 border-[#D4AF37]/30 rounded-xl sm:rounded-2xl p-4 sm:p-5 pr-14 sm:pr-16 text-[16px] sm:text-lg md:text-xl text-white placeholder-white/40 focus:outline-none focus:border-[#FFD700] focus:ring-4 focus:ring-[#FFD700]/20 transition-all duration-300 shadow-lg hover:border-[#D4AF37]/50 min-h-[56px] sm:min-h-[64px]"
                     autoFocus
                     autoComplete="name"
                     inputMode="text"
@@ -453,9 +455,18 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                       boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), inset 0 2px 4px 0 rgba(212, 175, 55, 0.05)',
                     }}
                   />
-                  {/* Animated icon */}
+                  {/* Animated icon - Fixed vertical centering */}
                   <motion.div 
-                    className="absolute right-4 sm:right-5 top-1/2 -translate-y-1/2 pointer-events-none animate-icon-pulse"
+                    className="absolute right-4 sm:right-5 top-1/2 -translate-y-1/2 pointer-events-none flex items-center justify-center"
+                    animate={{
+                      scale: [1, 1.1, 1],
+                      opacity: [0.8, 1, 0.8],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
                   >
                     <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 text-[#D4AF37] drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]" />
                   </motion.div>
@@ -586,7 +597,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               {/* ESPAÇAMENTO: 24px (if bridge text exists) */}
               {currentQuestion.bridgeText && <div className="h-6"></div>}
 
-              {/* OPÇÕES - Cards clicáveis com design premium e melhor espaçamento */}
+              {/* OPÇÕES - Cards clicáveis com design premium, espaçamento consistente e interações polidas */}
               <div className="space-y-4 sm:space-y-5">
                 {currentQuestion.options?.map((option, idx) => {
                   const isSelected = selectedOption === option.value;
@@ -602,28 +613,35 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                     transition={{ delay: idx * 0.08 + 0.3 }}
                     onClick={() => handleOptionClick(option)}
                     disabled={isNavigating}
-                    whileHover={!isNavigating && !isSelected ? { scale: 1.02, y: -2 } : {}}
-                    whileTap={!isNavigating ? { scale: 0.98 } : {}}
-                    className={`w-full text-left rounded-xl sm:rounded-2xl transition-all duration-300 group relative overflow-hidden min-h-[60px] ${
+                    whileHover={!isNavigating && !isSelected ? { 
+                      scale: 1.02, 
+                      y: -3,
+                      transition: { duration: 0.2 }
+                    } : {}}
+                    whileTap={!isNavigating ? { 
+                      scale: 0.97,
+                      transition: { duration: 0.1 }
+                    } : {}}
+                    className={`w-full text-left rounded-xl sm:rounded-2xl transition-all duration-200 group relative overflow-hidden ${
                       isNavigating ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'
                     } ${
                       isSelected
-                        ? 'border-[3px] border-[#FFD700] bg-[#1a0d2e]/95 p-4 sm:p-5 md:p-6'
+                        ? 'border-[3px] border-[#FFD700] bg-gradient-to-br from-[#2a1d4e]/95 to-[#1a0d2e]/95 p-5 sm:p-6 md:p-7'
                         : currentQuestion.singleButton 
-                          ? 'bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] text-black font-bold p-5 sm:p-6 md:p-7 border-none'
-                          : 'bg-gradient-to-br from-[#1a0d2e]/90 to-[#0f0520]/90 border-2 border-[#3d2a5f] hover:border-[#FFD700]/60 hover:bg-[#1a0d2e]/95 p-4 sm:p-5 md:p-6'
+                          ? 'bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] text-black font-bold p-5 sm:p-6 md:p-7 border-none hover:brightness-110'
+                          : 'bg-gradient-to-br from-[#1a0d2e]/90 to-[#0f0520]/90 border-2 border-[#3d2a5f] hover:border-[#FFD700]/70 hover:bg-gradient-to-br hover:from-[#2a1d4e]/90 hover:to-[#1a0d2e]/90 p-5 sm:p-6 md:p-7'
                     }`}
                     style={isSelected ? {
-                      boxShadow: '0 0 30px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.25), 0 0 0 3px rgba(255, 215, 0, 0.8)',
+                      boxShadow: '0 0 30px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.25), 0 0 0 3px rgba(255, 215, 0, 0.8), inset 0 1px 0 rgba(255, 215, 0, 0.2)',
                     } : currentQuestion.singleButton ? {
                       boxShadow: '0 10px 40px rgba(255, 215, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
                     } : {
-                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(212, 175, 55, 0.08)',
+                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(212, 175, 55, 0.08)',
                     }}
                   >
                     {/* Shimmer effect for single button */}
                     {currentQuestion.singleButton && !isSelected && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent group-hover:animate-shimmer" />
                     )}
                     
                     {/* Selected state glow */}
@@ -637,28 +655,31 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                     
                     {/* Hover glow for regular cards */}
                     {!currentQuestion.singleButton && !isSelected && (
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl sm:rounded-2xl pointer-events-none"
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-xl sm:rounded-2xl pointer-events-none"
                         style={{
-                          boxShadow: '0 0 25px rgba(212, 175, 55, 0.25), inset 0 0 20px rgba(212, 175, 55, 0.08)',
+                          boxShadow: '0 0 30px rgba(212, 175, 55, 0.3), inset 0 0 25px rgba(212, 175, 55, 0.1)',
                         }}
                       />
                     )}
                     
-                    {/* Estrutura interna do card */}
-                    <div className="relative z-10 space-y-2.5">
+                    {/* Active/pressed state */}
+                    <div className="absolute inset-0 opacity-0 group-active:opacity-100 transition-opacity duration-100 rounded-xl sm:rounded-2xl pointer-events-none bg-black/10" />
+                    
+                    {/* Estrutura interna do card com melhor hierarquia visual */}
+                    <div className="relative z-10 space-y-3">
                       {/* Headline */}
-                      <div className="flex items-start gap-3 sm:gap-4">
-                        <div className="flex-1 space-y-2">
-                          <p className={`text-sm sm:text-base md:text-lg font-bold leading-snug ${currentQuestion.singleButton ? 'text-black' : 'text-white'}`}>
+                      <div className="flex items-start gap-4 sm:gap-5">
+                        <div className="flex-1 space-y-2.5">
+                          <p className={`text-base sm:text-lg md:text-xl font-bold leading-snug ${currentQuestion.singleButton ? 'text-black' : 'text-white'}`}>
                             {option.label}
                           </p>
                           
-                          {/* Descrição expandida (sublabel) - Better line clamping */}
+                          {/* Descrição expandida (sublabel) - Melhor espaçamento e legibilidade */}
                           {option.sublabel && (
-                            <p className={`text-xs sm:text-sm md:text-base leading-relaxed line-clamp-3 ${currentQuestion.singleButton ? 'text-black/80' : 'text-white/90'}`}>
+                            <p className={`text-sm sm:text-base md:text-lg leading-relaxed ${currentQuestion.singleButton ? 'text-black/75' : 'text-white/85'}`}>
                               {option.sublabel.split('FALHOU').map((part, i) => (
                                 <span key={i}>
-                                  {i > 0 && <strong className={currentQuestion.singleButton ? 'text-black' : 'text-white'}>FALHOU</strong>}
+                                  {i > 0 && <strong className={`font-bold ${currentQuestion.singleButton ? 'text-black' : 'text-[#FFD700]'}`}>FALHOU</strong>}
                                   {part}
                                 </span>
                               ))}
@@ -666,19 +687,20 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                           )}
                         </div>
                         
-                        {/* Checkmark or Arrow - Larger touch target */}
+                        {/* Checkmark or Arrow - Animação aprimorada */}
                         {isSelected ? (
                           <motion.div
                             initial={{ scale: 0, rotate: -180 }}
                             animate={{ scale: 1, rotate: 0 }}
-                            transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                            transition={{ type: "spring", stiffness: 250, damping: 18 }}
+                            className="flex-shrink-0"
                           >
-                            <CheckCircle2 className="w-7 h-7 text-[#FFD700] flex-shrink-0" />
+                            <CheckCircle2 className="w-7 h-7 sm:w-8 sm:h-8 text-[#FFD700] drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]" />
                           </motion.div>
                         ) : !currentQuestion.singleButton ? (
-                          <ChevronRight className="w-6 h-6 text-[#FFD700] flex-shrink-0 group-hover:translate-x-1 transition-transform" />
+                          <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 text-[#FFD700] flex-shrink-0 group-hover:translate-x-2 transition-transform duration-200" />
                         ) : (
-                          <ChevronRight className="w-6 h-6 text-black flex-shrink-0 group-hover:translate-x-1 transition-transform" />
+                          <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 text-black flex-shrink-0 group-hover:translate-x-2 transition-transform duration-200" />
                         )}
                       </div>
                     </div>
