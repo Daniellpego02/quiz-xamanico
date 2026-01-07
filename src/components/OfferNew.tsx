@@ -213,8 +213,24 @@ const OfferNew = ({ userName }: OfferProps) => {
             <SacredGeometry 
                 variant="mandala" 
                 size={600} 
-                opacity={0.03}
+                opacity={0.04}
                 className="fixed top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-5"
+            />
+            
+            {/* Second sacred geometry for depth */}
+            <SacredGeometry 
+                variant="sigil" 
+                size={400} 
+                opacity={0.03}
+                className="fixed bottom-1/4 right-0 -translate-x-1/4 translate-y-1/4 -z-5"
+            />
+            
+            {/* Portal effect at bottom */}
+            <SacredGeometry 
+                variant="portal" 
+                size={300} 
+                opacity={0.05}
+                className="fixed bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 -z-5"
             />
 
             <div className="max-w-[800px] mx-auto px-3 sm:px-4 py-3 sm:py-5 relative z-10">

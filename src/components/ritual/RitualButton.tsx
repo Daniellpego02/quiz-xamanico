@@ -122,7 +122,7 @@ export const RitualButton: React.FC<RitualButtonProps> = ({
   // Default: artifact variant
   return (
     <motion.button
-      whileHover={!disabled ? { scale: 1.02, y: -3 } : {}}
+      whileHover={!disabled ? { scale: 1.03, y: -4 } : {}}
       whileTap={!disabled ? { scale: 0.97 } : {}}
       className={`
         relative overflow-hidden
@@ -137,18 +137,35 @@ export const RitualButton: React.FC<RitualButtonProps> = ({
       disabled={disabled}
       {...props}
     >
+      {/* Background glow effect */}
+      <motion.span
+        className="absolute -inset-2 rounded-2xl bg-[#C9A227]/10 blur-xl pointer-events-none"
+        animate={{
+          opacity: [0.3, 0.6, 0.3],
+          scale: [0.95, 1.05, 0.95]
+        }}
+        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      
       {/* Shimmer effect */}
       <motion.span
-        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent"
         animate={{ x: ['-100%', '200%'] }}
         transition={{ duration: 2, repeat: Infinity, ease: 'linear', repeatDelay: 1 }}
+      />
+      
+      {/* Edge glow on hover */}
+      <motion.span
+        className="absolute inset-0 rounded-xl border-2 border-[#C9A227]/0 pointer-events-none"
+        whileHover={{ borderColor: 'rgba(201, 162, 39, 0.5)' }}
+        transition={{ duration: 0.3 }}
       />
       
       <span className="relative z-10 flex items-center justify-center gap-3">
         {children}
         {withIcon && (
           <motion.span
-            animate={{ x: [0, 5, 0] }}
+            animate={{ x: [0, 6, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
           >
             <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />

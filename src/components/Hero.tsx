@@ -75,6 +75,30 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
         className="top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2"
       />
       
+      {/* ═══ AMBIENT PARTICLES ═══ */}
+      {[...Array(8)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-1 h-1 rounded-full bg-[#C9A227]/40 pointer-events-none"
+          style={{
+            left: `${15 + (i * 10)}%`,
+            top: `${20 + (i % 3) * 25}%`
+          }}
+          animate={{
+            y: [0, -30, 0],
+            x: [0, (i % 2 === 0 ? 10 : -10), 0],
+            opacity: [0.2, 0.6, 0.2],
+            scale: [1, 1.5, 1]
+          }}
+          transition={{
+            duration: 4 + i * 0.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: i * 0.3
+          }}
+        />
+      ))}
+      
       {/* ═══ TOPO - Ceremonial Header ═══ */}
       <motion.div 
         initial={{ y: -50, opacity: 0 }}
