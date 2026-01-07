@@ -277,16 +277,14 @@ input, textarea {
   font-size: 16px;
 }
 
-/* Smooth transitions for better UX */
-* {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-
-/* Disable transitions on page load */
-.preload * {
-  transition: none !important;
+/* Smooth transitions for better UX - Only for interactive elements */
+@media (prefers-reduced-motion: no-preference) {
+  button, a, input, textarea, select,
+  [role="button"], [role="tab"], [role="option"] {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
 }
 
 /* Better mobile scrolling - Modern browsers handle this automatically */
