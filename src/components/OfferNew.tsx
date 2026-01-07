@@ -1306,7 +1306,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                         animate={{ y: 0, opacity: 1 }}
                         exit={{ y: 100, opacity: 0 }}
                         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                        className="fixed bottom-0 left-0 right-0 z-50 md:hidden safe-area-bottom"
+                        className="fixed bottom-0 left-0 right-0 z-50 md:hidden"
                         style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
                     >
                         <div className="bg-gradient-to-r from-[#FFB700] via-[#FFA500] to-[#FFB700] shadow-[0_-4px_20px_rgba(0,0,0,0.3)] px-3 py-2.5">
