@@ -910,10 +910,10 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 className="mb-12"
                             >
                                 <h3 className="text-lg sm:text-xl md:text-2xl font-black text-[#4ade80] text-center mb-4 sm:mb-6 px-2">
-                                    💰 Pagamentos Reais Recebidos nas Últimas 24h
+                                    💰 Relatos Reais de Quem Já Destravou a Abundância
                                 </h3>
                                 <p className="text-slate-300 text-sm sm:text-base text-center mb-6 sm:mb-8 px-4">
-                                    Veja prints reais de notificações PIX de quem já está destravando a abundância
+                                    Veja conversas reais de WhatsApp de alunos que aplicaram o protocolo e já estão sentindo a diferença no bolso e na energia
                                 </p>
                                 
                                 <SocialProofCarousel 
