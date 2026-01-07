@@ -270,7 +270,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           />
         </motion.div>
         
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-4 px-4 leading-tight tracking-tight">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-5 px-4 leading-tight tracking-tight">
           Preparando seu Quiz <span className="text-[#D4AF37]">Personalizado</span>
         </h2>
         
@@ -281,14 +281,14 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className="text-slate-300 text-base sm:text-lg md:text-xl min-h-[4rem] flex items-center justify-center px-4 font-medium"
+            className="text-slate-300 text-base sm:text-lg md:text-xl min-h-[4.5rem] flex items-center justify-center px-4 font-medium leading-[1.5]"
           >
             <strong className="text-[#FFD700]">{loadingStages[loadingStage]}</strong>
           </motion.p>
         </AnimatePresence>
         
         {/* Enhanced progress bar - Mobile optimized */}
-        <div className="w-64 sm:w-80 md:w-96 h-1.5 sm:h-2 bg-white/10 rounded-full mt-8 sm:mt-10 overflow-hidden mx-auto border border-[#D4AF37]/20">
+        <div className="w-64 sm:w-80 md:w-96 h-2 sm:h-2.5 bg-white/10 rounded-full mt-8 sm:mt-10 overflow-hidden mx-auto border border-[#D4AF37]/20">
           <motion.div 
             className="h-full bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] relative overflow-hidden" 
             initial={{ width: "0%" }} 
@@ -325,9 +325,9 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const progress = PROGRESS_START_PERCENT + (currentIndex / activeQuestions.length) * PROGRESS_RANGE_PERCENT;
 
   return (
-    <div className="min-h-screen min-h-[100dvh] flex flex-col max-w-lg mx-auto px-4 sm:px-5 md:px-6 py-4 sm:py-5 md:py-6 relative z-10">
+    <div className="min-h-screen min-h-[100dvh] flex flex-col max-w-lg mx-auto px-5 sm:px-6 md:px-8 py-5 sm:py-6 md:py-8 relative z-10">
       {/* Progress Bar - Enhanced with better visibility */}
-      <div className="w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm rounded-full h-2.5 sm:h-3 mb-5 sm:mb-6 relative overflow-hidden border border-[#D4AF37]/20 shadow-lg">
+      <div className="w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm rounded-full h-3 sm:h-3.5 mb-6 sm:mb-8 relative overflow-hidden border border-[#D4AF37]/20 shadow-lg">
         <motion.div 
           className="bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] h-full rounded-full relative overflow-hidden"
           initial={{ width: 0 }}
@@ -351,7 +351,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           />
         </motion.div>
         {/* Progress percentage text */}
-        <div className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-[#D4AF37] drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+        <div className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 text-xs sm:text-sm font-bold text-[#D4AF37] drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
           {Math.round(progress)}%
         </div>
       </div>
@@ -365,7 +365,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           transition={{ duration: 0.3 }}
           className="flex-1 flex flex-col"
         >
-          <div className="mb-5 sm:mb-6 space-y-3 sm:space-y-4">
+          <div className="mb-6 sm:mb-8 space-y-4 sm:space-y-5">
             {/* TAG PEQUENA - Enhanced with better styling */}
             {userName && currentIndex > 0 && (
               <motion.div
@@ -411,18 +411,18 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               </motion.div>
             )}
 
-            {/* HEADLINE DA PERGUNTA - Mobile optimized */}
-            <h2 className="text-[16px] sm:text-[20px] md:text-[24px] lg:text-[28px] font-bold text-white leading-[1.25] text-center px-2 text-glow-gold">
+            {/* HEADLINE DA PERGUNTA - Improved readability with larger base sizes */}
+            <h2 className="text-[17px] sm:text-[21px] md:text-[26px] lg:text-[30px] font-bold text-white leading-[1.3] text-center px-2 text-glow-gold">
               <span dangerouslySetInnerHTML={{ __html: personalizeText(currentQuestion.text).replace('BLOQUEIO SEVERO', '<span class="text-[#FF4500]">BLOQUEIO SEVERO</span>').replace('6 MESES', '<span class="text-[#FF4500]">6 MESES</span>').replace('MAIOR MEDO', '<span class="text-[#FF4500]">MAIOR MEDO</span>').replace('ENERGIA', '<span class="text-[#FFD700]">ENERGIA</span>') }}></span>
             </h2>
 
-            {/* Subtexto (para pergunta 2) */}
+            {/* Subtexto (para pergunta 2) - Better line-height */}
             {currentQuestion.subtext && (
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 }}
-                className="text-sm sm:text-base md:text-lg text-white/90 text-center mt-3 px-2 leading-relaxed"
+                className="text-sm sm:text-base md:text-lg text-white/90 text-center mt-4 px-2 leading-[1.6]"
               >
                 {currentQuestion.subtext}
               </motion.p>
@@ -431,10 +431,10 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
 
           {currentQuestion.type === 'input' ? (
             // TELA 4: PERGUNTA 1 (NOME)
-            <form onSubmit={handleInputSubmit} className="space-y-5 sm:space-y-6">
+            <form onSubmit={handleInputSubmit} className="space-y-6 sm:space-y-8">
               {/* LABEL DO INPUT */}
               <div className="text-left">
-                <label className="text-sm sm:text-base text-white/80 block mb-3 sm:mb-4">
+                <label className="text-base sm:text-lg text-white/90 block mb-4 font-medium">
                   Digite seu primeiro nome:
                 </label>
                 
@@ -505,19 +505,19 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 </motion.div>
               )}
 
-              {/* TEXTO REASSURANCE */}
-              <div className="flex items-center justify-center gap-1.5 text-[#4ade80] text-center">
-                <Smartphone className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
-                <p className="text-xs sm:text-sm leading-relaxed">
+              {/* TEXTO REASSURANCE - Improved readability */}
+              <div className="flex items-center justify-center gap-2 text-[#4ade80] text-center">
+                <Smartphone className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                <p className="text-sm sm:text-base leading-relaxed">
                   Usamos apenas seu primeiro nome. Você continua 100% anônimo.
                 </p>
               </div>
 
-              {/* CTA BOTÃO - Enhanced premium design */}
+              {/* CTA BOTÃO - Enhanced premium design with better touch target */}
               <motion.button 
                 type="submit"
                 disabled={!inputValue.trim() || inputValue.trim().length < 2}
-                className="relative w-full bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] text-black font-black py-4 sm:py-5 px-6 sm:px-8 rounded-xl sm:rounded-2xl text-base sm:text-lg overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] transition-transform duration-150"
+                className="relative w-full bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] text-black font-black py-5 sm:py-6 px-6 sm:px-8 rounded-xl sm:rounded-2xl text-base sm:text-lg md:text-xl overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] transition-transform duration-150 min-h-[60px]"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 style={{
@@ -528,7 +528,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer" />
                 
                 {/* Button content */}
-                <span className="relative z-10 flex items-center justify-center gap-2">
+                <span className="relative z-10 flex items-center justify-center gap-2.5 sm:gap-3">
                   <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
                   <span>CONECTAR E INICIAR ANÁLISE</span>
                   <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -542,22 +542,22 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 />
               </motion.button>
 
-              {/* RODAPÉ */}
-              <div className="flex items-center justify-center gap-1.5 text-white/60 text-center">
-                <Shield className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                <p className="text-xs">100% Confidencial - Ninguém vai ver seu resultado</p>
+              {/* RODAPÉ - Better readability */}
+              <div className="flex items-center justify-center gap-2 text-white/70 text-center">
+                <Shield className="w-4 h-4 sm:w-5 sm:h-5" />
+                <p className="text-sm">100% Confidencial - Ninguém vai ver seu resultado</p>
               </div>
             </form>
           ) : (
             // TELA 5: PERGUNTAS COM OPÇÕES
-            <div className="space-y-5 sm:space-y-6">
+            <div className="space-y-6 sm:space-y-8">
               {/* INSTRUÇÃO / Emotional Context */}
               {currentQuestion.emotionalContext && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="text-[13px] sm:text-sm md:text-base text-[#FFD700] font-medium border-l-4 border-[#FFD700] pl-4 py-2 leading-[1.6] whitespace-pre-line bg-gradient-to-r from-[#FFD700]/10 to-transparent rounded-r-lg"
+                  className="text-sm sm:text-base md:text-lg text-[#FFD700] font-medium border-l-4 border-[#FFD700] pl-4 sm:pl-5 py-3 leading-[1.65] whitespace-pre-line bg-gradient-to-r from-[#FFD700]/10 to-transparent rounded-r-lg"
                 >
                   {currentQuestion.emotionalContext.split('BRUTALMENTE').map((part, i) => (
                     <span key={i}>
@@ -586,8 +586,8 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               {/* ESPAÇAMENTO: 24px (if bridge text exists) */}
               {currentQuestion.bridgeText && <div className="h-6"></div>}
 
-              {/* OPÇÕES - Cards clicáveis com design premium */}
-              <div className="space-y-3 sm:space-y-4">
+              {/* OPÇÕES - Cards clicáveis com design premium e melhor espaçamento */}
+              <div className="space-y-4 sm:space-y-5">
                 {currentQuestion.options?.map((option, idx) => {
                   const isSelected = selectedOption === option.value;
                   return (
@@ -604,14 +604,14 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                     disabled={isNavigating}
                     whileHover={!isNavigating && !isSelected ? { scale: 1.02, y: -2 } : {}}
                     whileTap={!isNavigating ? { scale: 0.98 } : {}}
-                    className={`w-full text-left rounded-xl sm:rounded-2xl transition-all duration-300 group relative overflow-hidden min-h-[44px] max-h-[90px] ${
+                    className={`w-full text-left rounded-xl sm:rounded-2xl transition-all duration-300 group relative overflow-hidden min-h-[60px] ${
                       isNavigating ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'
                     } ${
                       isSelected
-                        ? 'border-[3px] border-[#FFD700] bg-[#1a0d2e]/95'
+                        ? 'border-[3px] border-[#FFD700] bg-[#1a0d2e]/95 p-4 sm:p-5 md:p-6'
                         : currentQuestion.singleButton 
-                          ? 'bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] text-black font-bold p-3 sm:p-4 md:p-5 border-none'
-                          : 'bg-gradient-to-br from-[#1a0d2e]/90 to-[#0f0520]/90 border-2 border-[#3d2a5f] hover:border-[#FFD700]/60 hover:bg-[#1a0d2e]/95 p-3 sm:p-4 md:p-5'
+                          ? 'bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] text-black font-bold p-5 sm:p-6 md:p-7 border-none'
+                          : 'bg-gradient-to-br from-[#1a0d2e]/90 to-[#0f0520]/90 border-2 border-[#3d2a5f] hover:border-[#FFD700]/60 hover:bg-[#1a0d2e]/95 p-4 sm:p-5 md:p-6'
                     }`}
                     style={isSelected ? {
                       boxShadow: '0 0 30px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.25), 0 0 0 3px rgba(255, 215, 0, 0.8)',
@@ -645,17 +645,17 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                     )}
                     
                     {/* Estrutura interna do card */}
-                    <div className="relative z-10 space-y-2">
+                    <div className="relative z-10 space-y-2.5">
                       {/* Headline */}
-                      <div className="flex items-start gap-2 sm:gap-3">
-                        <div className="flex-1 space-y-1.5">
-                          <p className={`text-[13px] sm:text-sm md:text-base font-bold leading-snug ${currentQuestion.singleButton ? 'text-black' : 'text-white'}`}>
+                      <div className="flex items-start gap-3 sm:gap-4">
+                        <div className="flex-1 space-y-2">
+                          <p className={`text-sm sm:text-base md:text-lg font-bold leading-snug ${currentQuestion.singleButton ? 'text-black' : 'text-white'}`}>
                             {option.label}
                           </p>
                           
-                          {/* Descrição expandida (sublabel) - Truncate on mobile */}
+                          {/* Descrição expandida (sublabel) - Better line clamping */}
                           {option.sublabel && (
-                            <p className={`text-[12px] sm:text-[13px] md:text-sm leading-[1.5] line-clamp-2 ${currentQuestion.singleButton ? 'text-black/80' : 'text-white/90'}`}>
+                            <p className={`text-xs sm:text-sm md:text-base leading-relaxed line-clamp-3 ${currentQuestion.singleButton ? 'text-black/80' : 'text-white/90'}`}>
                               {option.sublabel.split('FALHOU').map((part, i) => (
                                 <span key={i}>
                                   {i > 0 && <strong className={currentQuestion.singleButton ? 'text-black' : 'text-white'}>FALHOU</strong>}
@@ -666,19 +666,19 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                           )}
                         </div>
                         
-                        {/* Checkmark or Arrow */}
+                        {/* Checkmark or Arrow - Larger touch target */}
                         {isSelected ? (
                           <motion.div
                             initial={{ scale: 0, rotate: -180 }}
                             animate={{ scale: 1, rotate: 0 }}
                             transition={{ type: "spring", stiffness: 200, damping: 15 }}
                           >
-                            <CheckCircle2 className="w-6 h-6 text-[#FFD700] flex-shrink-0" />
+                            <CheckCircle2 className="w-7 h-7 text-[#FFD700] flex-shrink-0" />
                           </motion.div>
                         ) : !currentQuestion.singleButton ? (
-                          <ChevronRight className="w-5 h-5 text-[#FFD700] flex-shrink-0 group-hover:translate-x-1 transition-transform" />
+                          <ChevronRight className="w-6 h-6 text-[#FFD700] flex-shrink-0 group-hover:translate-x-1 transition-transform" />
                         ) : (
-                          <ChevronRight className="w-5 h-5 text-black flex-shrink-0 group-hover:translate-x-1 transition-transform" />
+                          <ChevronRight className="w-6 h-6 text-black flex-shrink-0 group-hover:translate-x-1 transition-transform" />
                         )}
                       </div>
                     </div>
@@ -687,31 +687,31 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 })}
               </div>
 
-              {/* "Nenhum desses" link for question 4 - Mobile optimized touch target */}
+              {/* "Nenhum desses" link for question 4 - Better touch target and spacing */}
               {currentQuestion.hasOtherOption && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
-                  className="text-center pt-1"
+                  className="text-center pt-3 sm:pt-4"
                 >
                   <button
                     onClick={() => handleOptionClick(OTHER_OPTION)}
                     disabled={isNavigating}
-                    className="text-sm text-white/60 hover:text-[#FFD700] underline transition-colors min-h-[44px] px-4 py-2"
+                    className="text-sm sm:text-base text-white/70 hover:text-[#FFD700] underline transition-colors min-h-[48px] px-6 py-3 rounded-lg hover:bg-white/5"
                   >
                     Nenhum desses? Meu problema é outro.
                   </button>
                 </motion.div>
               )}
 
-              {/* CARD DE ATENÇÃO ou TEXTO MOTIVACIONAL - Enhanced styling */}
+              {/* CARD DE ATENÇÃO ou TEXTO MOTIVACIONAL - Enhanced styling with better spacing */}
               {currentQuestion.warningText && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
-                  className="bg-gradient-to-br from-[#2a0606]/90 to-[#1a0606]/90 border-2 border-[#FF4500]/60 rounded-xl sm:rounded-2xl p-3 sm:p-4 space-y-2 relative overflow-hidden"
+                  className="bg-gradient-to-br from-[#2a0606]/90 to-[#1a0606]/90 border-2 border-[#FF4500]/60 rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 space-y-3 relative overflow-hidden mt-4 sm:mt-5"
                   style={{
                     boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 30px rgba(255, 69, 0, 0.2)',
                   }}
@@ -719,9 +719,9 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   {/* Subtle glow overlay */}
                   <div className="absolute inset-0 bg-gradient-to-br from-[#FF4500]/10 to-transparent opacity-50 pointer-events-none" />
                   
-                  <div className="flex items-start gap-2 relative z-10">
-                    <AlertTriangle className="w-5 h-5 text-[#FF4500] flex-shrink-0 mt-0.5" />
-                    <p className="text-sm sm:text-base font-bold text-white leading-relaxed whitespace-pre-line">
+                  <div className="flex items-start gap-3 relative z-10">
+                    <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-[#FF4500] flex-shrink-0 mt-1" />
+                    <p className="text-sm sm:text-base md:text-lg font-bold text-white leading-relaxed whitespace-pre-line">
                       {currentQuestion.warningText}
                     </p>
                   </div>

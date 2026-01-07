@@ -190,35 +190,35 @@ const OfferNew = ({ userName }: OfferProps) => {
                     </motion.div>
                 </motion.div>
 
-                {/* Pain Dimensionalization Section - PRIORITY 1 */}
+                {/* Pain Dimensionalization Section - PRIORITY 1 - Improved readability */}
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.15 }}
-                    className="bg-gradient-to-br from-[#2a0606]/95 to-[#1a0606]/95 border-2 border-[#FF4500]/60 rounded-xl p-4 sm:p-5 mb-4 sm:mb-5"
+                    className="bg-gradient-to-br from-[#2a0606]/95 to-[#1a0606]/95 border-2 border-[#FF4500]/60 rounded-xl p-5 sm:p-6 mb-5 sm:mb-6"
                 >
-                    <div className="flex items-start gap-2 mb-3">
-                        <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-[#FF4500] flex-shrink-0 mt-0.5" />
-                        <p className="text-white font-bold text-sm sm:text-base">
+                    <div className="flex items-start gap-2.5 mb-4">
+                        <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-[#FF4500] flex-shrink-0 mt-1" />
+                        <p className="text-white font-bold text-base sm:text-lg leading-snug">
                             {userName && userName.trim() ? userName.split(' ')[0] : 'Você'}, este bloqueio está AGORA:
                         </p>
                     </div>
-                    <div className="space-y-2 text-slate-200 text-xs sm:text-sm ml-7">
-                        <p className="flex items-start gap-2">
-                            <span className="text-[#FF4500]">✗</span>
+                    <div className="space-y-2.5 text-slate-200 text-sm sm:text-base ml-7 sm:ml-8">
+                        <p className="flex items-start gap-2 leading-relaxed">
+                            <span className="text-[#FF4500] font-bold">✗</span>
                             <span>Drenando R$5-50 mil por mês da sua conta</span>
                         </p>
-                        <p className="flex items-start gap-2">
-                            <span className="text-[#FF4500]">✗</span>
+                        <p className="flex items-start gap-2 leading-relaxed">
+                            <span className="text-[#FF4500] font-bold">✗</span>
                             <span>Criando autosabotagem financeira inconsciente</span>
                         </p>
-                        <p className="flex items-start gap-2">
-                            <span className="text-[#FF4500]">✗</span>
+                        <p className="flex items-start gap-2 leading-relaxed">
+                            <span className="text-[#FF4500] font-bold">✗</span>
                             <span>Fazendo você trabalhar MAIS mas ganhar MENOS</span>
                         </p>
                     </div>
-                    <div className="mt-4 pt-3 border-t border-[#FF4500]/30">
-                        <p className="text-white text-xs sm:text-sm font-semibold flex items-center gap-2">
+                    <div className="mt-5 pt-4 border-t border-[#FF4500]/30">
+                        <p className="text-white text-sm sm:text-base font-semibold flex items-center gap-2 leading-relaxed">
                             <span>👇</span>
                             <span>No vídeo abaixo, você vai descobrir EXATAMENTE como destruir esta trava em 7 dias:</span>
                         </p>
@@ -240,57 +240,67 @@ const OfferNew = ({ userName }: OfferProps) => {
                     </div>
                 </motion.div>
 
-                {/* Benefits List BEFORE Video */}
+                {/* Benefits List BEFORE Video - Improved readability */}
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="bg-gradient-to-br from-[#D4AF37]/10 to-[#FFD700]/5 border-2 border-[#D4AF37]/30 rounded-lg sm:rounded-xl p-3 sm:p-4 mb-4 sm:mb-5"
+                    className="bg-gradient-to-br from-[#D4AF37]/10 to-[#FFD700]/5 border-2 border-[#D4AF37]/30 rounded-lg sm:rounded-xl p-4 sm:p-5 mb-5 sm:mb-6"
                 >
-                    <div className="flex items-center justify-center gap-2 mb-2.5 sm:mb-3">
-                        <Sparkles className="w-4 h-4 text-[#FFD700]" />
-                        <h3 className="text-center text-[#FFD700] font-bold text-xs sm:text-sm uppercase tracking-wider">
+                    <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4">
+                        <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-[#FFD700]" />
+                        <h3 className="text-center text-[#FFD700] font-bold text-sm sm:text-base uppercase tracking-wider">
                             NESTE VÍDEO VOCÊ ESTÁ DESCOBRINDO:
                         </h3>
                     </div>
-                    <div className="space-y-1.5 sm:space-y-2 text-left max-w-lg mx-auto">
-                        <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
-                            <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
+                    <div className="space-y-2 sm:space-y-2.5 text-left max-w-lg mx-auto">
+                        <p className="text-slate-200 text-sm sm:text-base flex items-start gap-2 leading-relaxed">
+                            <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-400 flex-shrink-0 mt-0.5" />
                             <span>Por que o dinheiro entra e sai (e como quebrar esse ciclo em 7 dias)</span>
                         </p>
-                        <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
-                            <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
+                        <p className="text-slate-200 text-sm sm:text-base flex items-start gap-2 leading-relaxed">
+                            <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-400 flex-shrink-0 mt-0.5" />
                             <span>Qual trava está bloqueando AGORA de R$5k a R$50k por mês</span>
                         </p>
-                        <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
-                            <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
+                        <p className="text-slate-200 text-sm sm:text-base flex items-start gap-2 leading-relaxed">
+                            <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-400 flex-shrink-0 mt-0.5" />
                             <span>O protocolo de 7 dias — 89% relatam dinheiro nos primeiros 3 dias</span>
                         </p>
-                        <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
-                            <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
+                        <p className="text-slate-200 text-sm sm:text-base flex items-start gap-2 leading-relaxed">
+                            <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-400 flex-shrink-0 mt-0.5" />
                             <span>Como o dinheiro chega sem você precisar trabalhar mais</span>
                         </p>
                     </div>
-                    <div className="flex items-center justify-center gap-1.5 mt-2 sm:mt-3">
-                        <Clock className="w-3.5 h-3.5 text-slate-400" />
-                        <p className="text-center text-slate-400 text-xs">
+                    <div className="flex items-center justify-center gap-2 mt-3 sm:mt-4">
+                        <Clock className="w-4 h-4 text-slate-400" />
+                        <p className="text-center text-slate-400 text-xs sm:text-sm">
                             Em apenas 2 minutos você descobre EXATAMENTE qual trava está bloqueando de R$5k a R$50k todo mês
                         </p>
                     </div>
                 </motion.div>
 
-                {/* BLOCK 02: VSL VIDEO PLAYER - Mobile Optimized Height */}
+                {/* BLOCK 02: VSL VIDEO PLAYER - Properly Sized for Vertical Video (9:16) */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4 }}
-                    className="relative rounded-lg sm:rounded-2xl overflow-hidden border-2 border-[#D4AF37] shadow-[0_0_60px_rgba(212,175,55,0.4)] mb-4 sm:mb-6 mx-auto max-w-md"
+                    className="relative rounded-lg sm:rounded-2xl overflow-hidden border-2 border-[#D4AF37] shadow-[0_0_60px_rgba(212,175,55,0.4)] mb-6 sm:mb-8 mx-auto w-full"
+                    style={{ maxWidth: 'min(450px, 100%)' }}
                 >
                     <div className="bg-black flex items-center justify-center relative">
-                        <div className="w-full" style={{ aspectRatio: '9/16', maxWidth: '100%', maxHeight: '220px' }}>
+                        {/* Vertical video container: 9:16 aspect ratio (portrait), responsive height */}
+                        {/* For 9:16 ratio, we need height = (16/9) * width, so paddingBottom = (16/9) * 100% = 177.78% */}
+                        <div className="w-full relative" style={{ paddingBottom: '177.78%' }}>
                             <vturb-smartplayer 
                                 id="vid-6953144d84040898eb13007a" 
-                                style={{ display: 'block', width: '100%', height: '100%', maxWidth: '100%', maxHeight: '220px', margin: '0 auto' }}
+                                style={{ 
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    width: '100%',
+                                    height: '100%',
+                                    display: 'block'
+                                }}
                             ></vturb-smartplayer>
                         </div>
                     </div>
@@ -315,16 +325,16 @@ const OfferNew = ({ userName }: OfferProps) => {
                         </p>
                     </div>
 
-                    {/* Giant CTA Button */}
+                    {/* Giant CTA Button - Improved touch target and spacing */}
                     <button
                         onClick={handleCheckout}
-                        className="w-full md:w-[70%] mx-auto block bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] hover:brightness-110 text-black font-black text-base sm:text-lg md:text-xl py-4 sm:py-5 md:py-6 px-4 sm:px-6 md:px-8 rounded-2xl shadow-[0_8px_40px_rgba(212,175,55,0.6)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#FFD700] uppercase tracking-wide mb-3 sm:mb-4"
+                        className="w-full md:w-[75%] mx-auto block bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] hover:brightness-110 text-black font-black text-base sm:text-lg md:text-xl py-5 sm:py-6 md:py-7 px-6 sm:px-8 md:px-10 rounded-2xl shadow-[0_8px_40px_rgba(212,175,55,0.6)] transition-all transform hover:scale-[1.02] active:scale-[0.98] border-2 border-[#FFD700] uppercase tracking-wide mb-4 sm:mb-5 min-h-[60px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#FFD700]/40"
                     >
                         🔥 QUERO INICIAR MEU DESBLOQUEIO AGORA →
                     </button>
 
                     {/* Micro-benefits below button */}
-                    <div className="text-center space-y-1 text-xs sm:text-sm px-2">
+                    <div className="text-center space-y-1.5 text-xs sm:text-sm px-2">
                         <p className="text-emerald-400 font-semibold">✅ Pagamento Único de R$27,90 (PIX)</p>
                         <p className="text-emerald-400 font-semibold">✅ Acesso Vitalício | Garantia de 7 Dias</p>
                         <p className="text-emerald-400 font-semibold">✅ Mais de 4.300 mapas já gerados</p>
