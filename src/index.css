@@ -814,9 +814,9 @@ input, textarea {
 
 /* Mobile Touch Targets - Accessibility */
 @media (max-width: 768px) {
-  button, 
-  a[role="button"], 
-  .clickable {
+  .mobile-touch-target,
+  button:not(.no-touch-target), 
+  a[role="button"]:not(.no-touch-target) {
     min-height: 44px;
     min-width: 44px;
   }
@@ -826,14 +826,4 @@ input, textarea {
 .text-high-contrast {
   color: #ffffff;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-}
-
-/* Loading Performance - Lazy Loading Support */
-img[loading="lazy"] {
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-img[loading="lazy"].loaded {
-  opacity: 1;
 }

@@ -802,7 +802,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                     </motion.div>
 
                                     {/* Subtexto do Botão */}
-                                    <p className="text-center text-[#00FF41] text-sm font-semibold flex items-center justify-center gap-2">
+                                    <p className="text-center text-[#28A745] text-sm font-semibold flex items-center justify-center gap-2">
                                         <Lock className="w-4 h-4" />
                                         ⚡ Acesso Liberado em Até 2 Minutos
                                     </p>
