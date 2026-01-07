@@ -256,19 +256,19 @@ const OfferNew = ({ userName }: OfferProps) => {
                     <div className="space-y-1.5 sm:space-y-2 text-left max-w-lg mx-auto">
                         <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
                             <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
-                            <span>Por que o dinheiro entra e sai da sua vida (e como quebrar esse ciclo em 7 dias usando o Protocolo Xamânico que 4.387 pessoas já usaram)</span>
+                            <span>Por que o dinheiro entra e sai (e como quebrar esse ciclo em 7 dias)</span>
                         </p>
                         <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
                             <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
-                            <span>Qual trava ancestral está bloqueando AGORA de R$5k a R$50k por mês</span>
+                            <span>Qual trava está bloqueando AGORA de R$5k a R$50k por mês</span>
                         </p>
                         <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
                             <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
-                            <span>O protocolo exato de 7 dias para limpar isso — 89% relatam dinheiro inesperado (Pix, propostas, clientes antigos pagando) nos primeiros 3 dias</span>
+                            <span>O protocolo de 7 dias — 89% relatam dinheiro nos primeiros 3 dias</span>
                         </p>
                         <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
                             <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
-                            <span>Como ativar sua frequência para que o dinheiro chegue SEM você precisar trabalhar mais</span>
+                            <span>Como o dinheiro chega sem você precisar trabalhar mais</span>
                         </p>
                     </div>
                     <div className="flex items-center justify-center gap-1.5 mt-2 sm:mt-3">
@@ -459,16 +459,13 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         </p>
                                         <div className="text-white text-sm sm:text-base leading-relaxed space-y-2">
                                             <p>
-                                                Cada dia que você adia é um dia a mais vivendo com esse bloqueio financeiro.
-                                            </p>
-                                            <p className="font-bold text-base sm:text-lg">
-                                                Quanto tempo você vai esperar?
+                                                Cada dia adiado é um dia a mais com o bloqueio.
                                             </p>
                                             <p>
-                                                Mais 1 mês? Mais 1 ano? Mais 10 anos?
+                                                Mais 1 mês? Mais 1 ano?
                                             </p>
                                             <p className="text-[#FFD700] font-black text-lg sm:text-xl">
-                                                O momento de agir é AGORA.
+                                                O momento é AGORA.
                                             </p>
                                         </div>
                                     </div>
@@ -496,15 +493,15 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         <div className="text-slate-300 text-sm space-y-2 mb-4 text-left max-w-md mx-auto">
                                             <p className="flex items-start gap-2">
                                                 <span className="text-[#FFD700] flex-shrink-0">✨</span>
-                                                <span>Descobrir qual bloqueio ancestral trava seu dinheiro</span>
+                                                <span>Descobrir qual bloqueio ancestral trava R$5-50k todo mês</span>
                                             </p>
                                             <p className="flex items-start gap-2">
                                                 <span className="text-[#FFD700] flex-shrink-0">✨</span>
-                                                <span>Receber o ritual exato de 7 dias para limpar isso</span>
+                                                <span>Receber o protocolo de 7 dias usado por 4.387 pessoas</span>
                                             </p>
                                             <p className="flex items-start gap-2">
                                                 <span className="text-[#FFD700] flex-shrink-0">✨</span>
-                                                <span>Entender por que algumas pessoas atraem abundância e você não</span>
+                                                <span>Entender POR QUÊ o dinheiro nunca parou na sua mão</span>
                                             </p>
                                         </div>
                                         <p className="text-white text-base sm:text-lg font-bold mb-1">

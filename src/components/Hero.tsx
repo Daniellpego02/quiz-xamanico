@@ -152,7 +152,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
               className="flex items-start gap-2"
             >
               <CheckCircle className="w-4 h-4 text-[#4ade80] flex-shrink-0 mt-0.5" />
-              <p>O protocolo de 7 dias que <strong className="text-[#FFD700]">89%</strong> relatam dinheiro inesperado (Pix, propostas, clientes antigos pagando) nos primeiros 3 dias</p>
+              <p>O protocolo de 7 dias que <strong className="text-[#FFD700]">89%</strong> relatam resultados nos primeiros 3 dias</p>
             </motion.div>
           </div>
         </motion.div>
@@ -165,9 +165,9 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           className="max-w-[600px] mx-auto"
         >
           <p className="text-xs sm:text-sm md:text-base text-white/90 leading-relaxed">
-            O Protocolo Xamânico usado por <strong className="text-[#FFD700] font-bold">4.387 brasileiros {!isLoadingState && `no ${userState}`}</strong>{' '}
-            identifica <strong className="text-[#FFD700] font-bold">EXATAMENTE</strong> qual bloqueio financeiro ancestral{' '}
-            está impedindo o dinheiro de chegar até você.
+            Usado por <strong className="text-[#FFD700] font-bold">4.387 brasileiros {!isLoadingState && `no ${userState}`}</strong>.
+            <br />
+            Identifica <strong className="text-[#FFD700] font-bold">EXATAMENTE</strong> o bloqueio que trava seu dinheiro.
           </p>
         </motion.div>
 
@@ -179,7 +179,13 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           className="bg-gradient-to-r from-[#4ade80]/10 to-[#10b981]/10 border border-[#4ade80]/30 rounded-lg p-3 backdrop-blur-sm"
         >
           <p className="text-xs sm:text-sm md:text-base font-medium text-[#4ade80] leading-relaxed">
-            Em 7 dias após desbloquear a trava ancestral: dinheiro chega sem você correr atrás (Pix inesperados, propostas que você nem buscou)
+            ✓ R$5k-50k via Pix inesperados
+            <br />
+            ✓ Clientes antigos pagando dívidas
+            <br />
+            ✓ Propostas chegando sem você buscar
+            <br />
+            ✓ Dinheiro parando na conta
           </p>
         </motion.div>
 
@@ -333,7 +339,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
               className="flex items-start gap-2"
             >
               <CheckCircle className="w-4 h-4 text-[#4ade80] flex-shrink-0 mt-0.5" />
-              <p><span className="text-[#FFD700] font-bold">R$5k-50k</span> chegando via Pix, clientes antigos pagando dívidas, propostas que você nem buscou</p>
+              <p>✓ <span className="text-[#FFD700] font-bold">R$5k-50k</span> via Pix inesperados</p>
             </motion.div>
             <motion.div 
               initial={{ x: -20, opacity: 0 }}
@@ -342,7 +348,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
               className="flex items-start gap-2"
             >
               <CheckCircle className="w-4 h-4 text-[#4ade80] flex-shrink-0 mt-0.5" />
-              <p>Fluxo de dinheiro que <strong className="text-white">NÃO PARA</strong></p>
+              <p>✓ Clientes antigos pagando dívidas</p>
             </motion.div>
             <motion.div 
               initial={{ x: -20, opacity: 0 }}
@@ -351,7 +357,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
               className="flex items-start gap-2"
             >
               <CheckCircle className="w-4 h-4 text-[#4ade80] flex-shrink-0 mt-0.5" />
-              <p>Raiva/culpa sobre dinheiro: <strong className="text-white">DESAPARECEU</strong></p>
+              <p>✓ Propostas chegando sem você buscar</p>
             </motion.div>
             <motion.div 
               initial={{ x: -20, opacity: 0 }}
@@ -360,12 +366,9 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
               className="flex items-start gap-2"
             >
               <CheckCircle className="w-4 h-4 text-[#4ade80] flex-shrink-0 mt-0.5" />
-              <p>Abundância chegando sem esforço</p>
+              <p>✓ Dinheiro parando na conta</p>
             </motion.div>
           </div>
-          <p className="text-xs text-slate-400 pt-1">
-            Nada de coincidência. Tudo é resultado de desbloquear a trava ancestral.
-          </p>
         </motion.div>
 
       </div>

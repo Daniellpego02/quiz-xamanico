@@ -37,7 +37,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       text: "SEU NOME CARREGA A ENERGIA DA SUA LINHAGEM ANCESTRAL",
       type: "input",
       placeholder: "Ex: João",
-      emotionalContext: `Sério: Seu nome ativa a FREQUÊNCIA EXATA da sua linhagem ancestral.\n\nQuando você digita seu nome, o sistema cruza com ${CATALOGED_LINEAGES} linhagens brasileiras já catalogadas.\n\nIsso muda TUDO no seu diagnóstico.`
+      emotionalContext: `Seu nome ativa a frequência da sua linhagem ancestral.\n\nO sistema cruza com ${CATALOGED_LINEAGES} linhagens brasileiras catalogadas.`
     }
   ];
 
@@ -50,7 +50,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       subtext: "Existe um Protocolo Xamânico de 7 dias que limpa esse bloqueio COMPLETAMENTE.",
       emotionalContext: "A pergunta é:\n\nVocê está disposto(a) a seguir o protocolo... mesmo que isso signifique ROMPER padrões que sua família carrega há gerações?",
       singleButton: true,
-      validationText: "A maioria das pessoas passa a vida inteira checando o saldo bancário antes de comprar QUALQUER coisa, vivendo no aperto, pedindo emprestado… sem saber que um bloqueio ancestral está causando isso. Você não precisa ser uma delas.",
+      validationText: "A maioria vive checando o saldo antes de comprar QUALQUER coisa, pedindo emprestado todo mês... sem saber que um bloqueio ancestral causa isso. Você não precisa ser uma delas.",
       options: [
         { label: "SIM, quero destruir esse bloqueio agora", value: "ready", icon: "" },
       ]
