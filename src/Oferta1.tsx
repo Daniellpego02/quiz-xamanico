@@ -529,12 +529,12 @@ export default function Oferta1({ userName }: Oferta1Props) {
             </p>
           </div>
 
-          {/* SECTION 10: Main CTA Button */}
-          <div className="mb-6">
+          {/* SECTION 10: Main CTA Button - Improved touch target */}
+          <div className="mb-8">
             <button
               onClick={handleAccept}
               disabled={isProcessing}
-              className="w-full max-w-[600px] mx-auto block bg-gradient-to-r from-[#7c3aed] to-[#a855f7] hover:from-[#6d28d9] hover:to-[#9333ea] disabled:from-[#7c3aed]/70 disabled:to-[#a855f7]/70 text-white font-black text-lg md:text-xl py-5 md:py-6 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] disabled:scale-100 disabled:cursor-not-allowed"
+              className="w-full max-w-[600px] mx-auto block bg-gradient-to-r from-[#7c3aed] to-[#a855f7] hover:from-[#6d28d9] hover:to-[#9333ea] disabled:from-[#7c3aed]/70 disabled:to-[#a855f7]/70 text-white font-black text-base sm:text-lg md:text-xl py-5 sm:py-6 md:py-7 px-6 sm:px-8 rounded-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] disabled:scale-100 disabled:cursor-not-allowed min-h-[60px] focus:outline-none focus-visible:ring-4 focus-visible:ring-purple-500/40"
               style={{
                 boxShadow: '0 8px 24px rgba(124, 58, 237, 0.5)',
                 letterSpacing: '0.5px'
@@ -550,8 +550,8 @@ export default function Oferta1({ userName }: Oferta1Props) {
               )}
             </button>
             
-            {/* IMPROVED microcopy below button */}
-            <div className="text-center mt-3 space-y-1">
+            {/* IMPROVED microcopy below button with better spacing */}
+            <div className="text-center mt-4 space-y-1.5">
               <p className="text-xs md:text-sm text-[#aaaaaa]">
                 ✓ Pagamento 1 clique via PIX
               </p>
@@ -564,11 +564,11 @@ export default function Oferta1({ userName }: Oferta1Props) {
             </div>
           </div>
 
-          {/* SECTION 11: Decline Button */}
-          <div className="text-center mb-12">
+          {/* SECTION 11: Decline Button - Better touch target */}
+          <div className="text-center mb-12 mt-6">
             <button
               onClick={handleDecline}
-              className="text-sm text-[#666666] hover:text-[#ef4444] underline transition-colors"
+              className="text-sm sm:text-base text-[#666666] hover:text-[#ef4444] underline transition-colors min-h-[48px] px-6 py-3 rounded-lg hover:bg-white/5"
             >
               Não, prefiro fazer sozinho e arriscar travar no processo
             </button>

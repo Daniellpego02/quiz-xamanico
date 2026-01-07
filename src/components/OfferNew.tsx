@@ -279,18 +279,27 @@ const OfferNew = ({ userName }: OfferProps) => {
                     </div>
                 </motion.div>
 
-                {/* BLOCK 02: VSL VIDEO PLAYER - Mobile Optimized Height */}
+                {/* BLOCK 02: VSL VIDEO PLAYER - Properly Sized for Vertical Video (9:16) */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4 }}
-                    className="relative rounded-lg sm:rounded-2xl overflow-hidden border-2 border-[#D4AF37] shadow-[0_0_60px_rgba(212,175,55,0.4)] mb-4 sm:mb-6 mx-auto max-w-md"
+                    className="relative rounded-lg sm:rounded-2xl overflow-hidden border-2 border-[#D4AF37] shadow-[0_0_60px_rgba(212,175,55,0.4)] mb-6 sm:mb-8 mx-auto w-full"
+                    style={{ maxWidth: 'min(450px, 100%)' }}
                 >
                     <div className="bg-black flex items-center justify-center relative">
-                        <div className="w-full" style={{ aspectRatio: '9/16', maxWidth: '100%', maxHeight: '220px' }}>
+                        {/* Vertical video container: 9:16 aspect ratio, responsive height */}
+                        <div className="w-full relative" style={{ paddingBottom: '177.78%' /* 9:16 aspect ratio = 16/9 * 100% */ }}>
                             <vturb-smartplayer 
                                 id="vid-6953144d84040898eb13007a" 
-                                style={{ display: 'block', width: '100%', height: '100%', maxWidth: '100%', maxHeight: '220px', margin: '0 auto' }}
+                                style={{ 
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    width: '100%',
+                                    height: '100%',
+                                    display: 'block'
+                                }}
                             ></vturb-smartplayer>
                         </div>
                     </div>
@@ -315,16 +324,16 @@ const OfferNew = ({ userName }: OfferProps) => {
                         </p>
                     </div>
 
-                    {/* Giant CTA Button */}
+                    {/* Giant CTA Button - Improved touch target and spacing */}
                     <button
                         onClick={handleCheckout}
-                        className="w-full md:w-[70%] mx-auto block bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] hover:brightness-110 text-black font-black text-base sm:text-lg md:text-xl py-4 sm:py-5 md:py-6 px-4 sm:px-6 md:px-8 rounded-2xl shadow-[0_8px_40px_rgba(212,175,55,0.6)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#FFD700] uppercase tracking-wide mb-3 sm:mb-4"
+                        className="w-full md:w-[75%] mx-auto block bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] hover:brightness-110 text-black font-black text-base sm:text-lg md:text-xl py-5 sm:py-6 md:py-7 px-6 sm:px-8 md:px-10 rounded-2xl shadow-[0_8px_40px_rgba(212,175,55,0.6)] transition-all transform hover:scale-[1.02] active:scale-[0.98] border-2 border-[#FFD700] uppercase tracking-wide mb-4 sm:mb-5 min-h-[60px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#FFD700]/40"
                     >
                         🔥 QUERO INICIAR MEU DESBLOQUEIO AGORA →
                     </button>
 
                     {/* Micro-benefits below button */}
-                    <div className="text-center space-y-1 text-xs sm:text-sm px-2">
+                    <div className="text-center space-y-1.5 text-xs sm:text-sm px-2">
                         <p className="text-emerald-400 font-semibold">✅ Pagamento Único de R$27,90 (PIX)</p>
                         <p className="text-emerald-400 font-semibold">✅ Acesso Vitalício | Garantia de 7 Dias</p>
                         <p className="text-emerald-400 font-semibold">✅ Mais de 4.300 mapas já gerados</p>
