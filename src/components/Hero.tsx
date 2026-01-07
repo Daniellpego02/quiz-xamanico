@@ -20,14 +20,30 @@ const ESTADOS_BR: Record<string, string> = {
 };
 
 export const Hero: React.FC<HeroProps> = ({ onStart }) => {
-  const [userState, setUserState] = useState<string>('SP, RJ, MG, PR');
+  const [userState, setUserState] = useState<string>('Brasil');
   const [isLoadingState, setIsLoadingState] = useState(true);
 
   useEffect(() => {
     // Detectar estado do usuário via geolocalização IP
     const detectUserState = async () => {
       try {
-        // Tenta usar API de geolocalização gratuita
+        // Try ipinfo.io first (more reliable and has better rate limits)
+        const ipinfoResponse = await fetch('https://ipinfo.io/json?token=');
+        if (ipinfoResponse.ok) {
+          const ipinfoData = await ipinfoResponse.json();
+          if (ipinfoData.region) {
+            // ipinfo.io returns full state names for Brazil
+            setUserState(ipinfoData.region);
+            setIsLoadingState(false);
+            return;
+          }
+        }
+      } catch (error) {
+        console.log('ipinfo.io geolocation failed, trying ipapi.co');
+      }
+
+      try {
+        // Fallback to ipapi.co
         const response = await fetch('https://ipapi.co/json/');
         const data = await response.json();
         
@@ -37,8 +53,8 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           setUserState(data.region);
         }
       } catch (error) {
-        // Fallback: mantém os estados padrão
-        console.log('Geolocation detection skipped');
+        // If all APIs fail, use generic 'Brasil'
+        console.log('Geolocation detection failed, using default');
       } finally {
         setIsLoadingState(false);
       }
@@ -152,8 +168,8 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           transition={{ delay: 0.1, duration: 0.6, ease: "easeOut" }}
           className="space-y-2"
         >
-          <h1 className="text-[20px] sm:text-[26px] md:text-[36px] lg:text-[42px] font-black text-white leading-[1.15] break-words ritual-text-glow">
-            Existe Uma <span className="text-[#C9A227] underline decoration-2 decoration-[#C9A227]/50">"TRAVA ANCESTRAL"</span>{' '}
+          <h1 className="text-[20px] sm:text-[26px] md:text-[36px] lg:text-[42px] font-black text-white leading-[1.25] break-words ritual-text-glow">
+            Existe Uma <span className="text-[#C9A227] inline-block" style={{ textDecoration: 'underline', textDecorationColor: 'rgba(201, 162, 39, 0.5)', textDecorationThickness: '2px', textUnderlineOffset: '4px', textDecorationSkipInk: 'none' }}>"TRAVA ANCESTRAL"</span>{' '}
             <span className="text-[#FF4500] animate-pulse">SUFOCANDO</span>{' '}
             <span className="text-[#C9A227] font-extrabold">R$5-50 MIL</span>{' '}
             da Sua Conta Bancária?
@@ -254,12 +270,15 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             Onde você está hoje?
           </p>
           
-          <div className="relative border-2 border-[#FFD700]/60 rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(255,215,0,0.2)] max-h-[140px] sm:max-h-[180px] md:max-h-none">
-            <img 
-              src="/banner principal.png" 
-              alt="Transformação - Antes e Depois" 
-              className="w-full h-auto object-cover"
-            />
+          <div className="relative border-2 border-[#FFD700]/60 rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(255,215,0,0.2)] w-full">
+            <div className="relative w-full" style={{ paddingBottom: '50%' }}>
+              <img 
+                src="/banner principal.png" 
+                alt="Transformação - Antes e Depois" 
+                className="absolute top-0 left-0 w-full h-full object-contain"
+                style={{ objectFit: 'contain', maxHeight: '100%' }}
+              />
+            </div>
           </div>
           <div className="space-y-0.5 sm:space-y-1">
             <p className="text-[11px] sm:text-xs font-bold text-[#FF4500]">
