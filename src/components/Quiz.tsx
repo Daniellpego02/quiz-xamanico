@@ -238,7 +238,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             }}
           />
           
-          {/* Icon with enhanced size and animations */}
+          {/* Icon with enhanced size and animations - Mobile optimized */}
           <motion.div
             animate={{
               rotate: [0, 360],
@@ -250,7 +250,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             }}
           >
             <Compass 
-              className="w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 text-[#D4AF37] relative z-10 drop-shadow-[0_0_30px_rgba(212,175,55,0.8)]" 
+              className="w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 lg:w-32 lg:h-32 text-[#D4AF37] relative z-10 drop-shadow-[0_0_30px_rgba(212,175,55,0.8)]" 
               strokeWidth={1.5}
             />
           </motion.div>
@@ -270,7 +270,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           />
         </motion.div>
         
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-4 px-4 leading-tight tracking-tight">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-4 px-4 leading-tight tracking-tight">
           Preparando seu Quiz <span className="text-[#D4AF37]">Personalizado</span>
         </h2>
         

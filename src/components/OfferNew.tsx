@@ -225,25 +225,19 @@ const OfferNew = ({ userName }: OfferProps) => {
                     </div>
                 </motion.div>
 
-                {/* Urgency Microcopy Above Video - IMPROVED */}
+                {/* Urgency Microcopy Above Video - IMPROVED - More Compact */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.2 }}
-                    className="bg-gradient-to-r from-[#8B0000]/90 to-[#CC0000]/90 border border-red-500/50 rounded-lg px-3 sm:px-4 py-2 sm:py-3 mb-3 sm:mb-4 text-center"
+                    className="bg-gradient-to-r from-[#8B0000]/90 to-[#CC0000]/90 border border-red-500/50 rounded-lg px-3 sm:px-4 py-2 mb-3 sm:mb-4 text-center"
                 >
-                    <div className="flex items-start gap-2 justify-center mb-1.5">
-                        <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-white flex-shrink-0 mt-0.5" />
-                        <p className="text-xs sm:text-sm md:text-base text-white font-semibold">
-                            ATENÇÃO: Este vídeo contém a leitura PERSONALIZADA da sua frequência ancestral.
+                    <div className="flex items-center gap-2 justify-center">
+                        <Shield className="w-4 h-4 text-white flex-shrink-0" />
+                        <p className="text-[11px] sm:text-xs md:text-sm text-white font-semibold">
+                            ATENÇÃO: Vídeo personalizado expira em 24h. Assista AGORA!
                         </p>
                     </div>
-                    <p className="text-xs text-slate-200">
-                        Por questões de personalização, seu diagnóstico expira em 24 horas.
-                    </p>
-                    <p className="text-xs text-[#FFD700] font-bold mt-1">
-                        Assista AGORA antes que expire.
-                    </p>
                 </motion.div>
 
                 {/* Benefits List BEFORE Video */}
@@ -564,17 +558,17 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 transition={{ delay: 0.6 }}
                                 className="mb-12"
                             >
-                                <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-center text-[#FFD700] mb-6 sm:mb-8 px-2">
+                                <h2 className="text-lg sm:text-xl md:text-2xl font-black text-center text-[#FFD700] mb-4 sm:mb-6 md:mb-8 px-2">
                                     O Que Você Vai Receber Imediatamente
                                 </h2>
 
                                 {/* Mockup Visual - Otimizado para Mobile */}
-                                <div className="flex justify-center mb-8 px-4 sm:px-6">
-                                    <div className="relative w-full max-w-[300px] sm:max-w-sm md:max-w-md lg:max-w-lg">
+                                <div className="flex justify-center mb-6 sm:mb-8 px-4 sm:px-6">
+                                    <div className="relative w-full max-w-[280px] sm:max-w-sm md:max-w-md lg:max-w-lg">
                                         <img 
                                             src="/mockup.png" 
                                             alt="Mapa Xamânico Completo"
-                                            className="w-full h-auto max-h-[500px] sm:max-h-[600px] md:max-h-none rounded-lg sm:rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.9)] object-contain mx-auto"
+                                            className="w-full h-auto max-h-[400px] sm:max-h-[500px] md:max-h-none rounded-lg sm:rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.9)] object-contain mx-auto"
                                             loading="lazy"
                                         />
                                         <div className="absolute -inset-2 sm:-inset-4 bg-gradient-to-br from-[#D4AF37]/20 to-[#FFD700]/20 blur-2xl sm:blur-3xl -z-10"></div>
@@ -616,12 +610,12 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             transition={{ delay: 0.8 + idx * 0.1 }}
                                             className="flex items-start gap-4 bg-gradient-to-br from-white/5 to-white/[0.02] border border-[#D4AF37]/30 rounded-xl p-3 sm:p-4 hover:border-[#D4AF37]/50 transition-all"
                                         >
-                                            <div className="flex-shrink-0 text-3xl sm:text-4xl">
+                                            <div className="flex-shrink-0 text-2xl sm:text-3xl md:text-4xl">
                                                 {item.icon}
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <p className="text-white font-bold text-base sm:text-lg mb-2">✅ {item.title}</p>
-                                                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                                                <p className="text-white font-bold text-sm sm:text-base md:text-lg mb-1.5 sm:mb-2">✅ {item.title}</p>
+                                                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed line-clamp-3 sm:line-clamp-none">
                                                     {item.desc}
                                                     <span className="font-bold text-white">{item.descBold}</span>
                                                 </p>

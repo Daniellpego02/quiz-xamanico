@@ -92,14 +92,14 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
          <div className="w-[300px] h-[300px] bg-[#FFD700]/10 rounded-full blur-[80px] animate-pulse"></div>
       </div>
 
-      {/* ÍCONE ANIMADO - ⚡ girando ou pulsando */}
+      {/* ÍCONE ANIMADO - ⚡ girando ou pulsando - Mobile optimized */}
       <motion.div
         animate={{ 
           rotate: [0, 10, -10, 10, 0],
           scale: [1, 1.1, 1, 1.1, 1]
         }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        className="text-6xl sm:text-7xl md:text-8xl"
+        className="text-5xl sm:text-6xl md:text-7xl"
       >
         ⚡
       </motion.div>
@@ -109,7 +109,7 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
 
       {/* TEXTO PRINCIPAL */}
       <div className="space-y-4 w-full">
-        <h2 className="text-xl sm:text-2xl font-bold text-white">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white">
           Preparando Seu Quiz <span className="text-[#FFD700]">EXCLUSIVO</span>...
         </h2>
         
@@ -117,7 +117,7 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
         <div className="h-6"></div>
 
         {/* SUBTEXTO */}
-        <p className="text-base sm:text-lg text-[#4ade80] font-medium">
+        <p className="text-sm sm:text-base md:text-lg text-[#4ade80] font-medium">
           Pronto para começar!
         </p>
 
