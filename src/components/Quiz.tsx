@@ -35,10 +35,10 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     {
       id: 0,
       title: "PERGUNTA 1 DE 6",
-      text: "SEU NOME CARREGA A ENERGIA DA SUA LINHAGEM ANCESTRAL",
+      text: "SEU NOME ATIVA A FREQUÊNCIA EXATA DA SUA LINHAGEM ANCESTRAL",
       type: "input",
       placeholder: "Ex: João",
-      emotionalContext: `Seu nome ativa a frequência da sua linhagem ancestral.\n\nO sistema cruza com ${CATALOGED_LINEAGES} linhagens brasileiras catalogadas.`
+      emotionalContext: `⚡ Seu nome carrega energia poderosa.\n\nO sistema identifica padrões em ${CATALOGED_LINEAGES} linhagens brasileiras catalogadas.\n\n✨ Isso muda TUDO no seu diagnóstico.`
     }
   ];
 
@@ -47,37 +47,37 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     {
       id: 1,
       title: "PERGUNTA 2 DE 6",
-      text: "O SISTEMA DETECTOU UM BLOQUEIO SEVERO NA SUA ENERGIA FINANCEIRA.",
-      subtext: "Existe um Protocolo Xamânico de 7 dias que limpa esse bloqueio COMPLETAMENTE.",
-      emotionalContext: "A pergunta é:\n\nVocê está disposto(a) a seguir o protocolo... mesmo que isso signifique ROMPER padrões que sua família carrega há gerações?",
+      text: "⚠️ SISTEMA DETECTOU BLOQUEIO SEVERO NA SUA ENERGIA FINANCEIRA",
+      subtext: "Existe um Protocolo Xamânico de 7 dias que LIMPA esse bloqueio COMPLETAMENTE.",
+      emotionalContext: "A pergunta é:\n\n💎 Você está disposto(a) a seguir o protocolo... mesmo que isso signifique ROMPER padrões que sua família carrega há gerações?",
       singleButton: true,
-      validationText: "A maioria vive checando o saldo antes de comprar QUALQUER coisa, pedindo emprestado todo mês... sem saber que um bloqueio ancestral causa isso. Você não precisa ser uma delas.",
+      validationText: "A maioria vive checando o saldo antes de comprar QUALQUER coisa, pedindo emprestado todo mês... sem saber que um bloqueio ancestral causa isso. 🔓 Você não precisa ser uma delas.",
       options: [
-        { label: "SIM, quero destruir esse bloqueio agora", value: "ready", icon: "" },
+        { label: "✓ SIM, quero destruir esse bloqueio agora", value: "ready", icon: "" },
       ]
     },
     {
       id: 2,
       title: "PERGUNTA 3 DE 6",
-      text: "SE NADA MUDAR NOS PRÓXIMOS 6 MESES, QUAL É O SEU MAIOR MEDO?",
-      emotionalContext: "→ Seja BRUTALMENTE honesto. Essa resposta define qual tipo de bloqueio ancestral o protocolo vai atacar primeiro.",
-      warningText: "ATENÇÃO: Essa resposta é A MAIS IMPORTANTE do diagnóstico.\n\nO que você escolher aqui define:\n• Qual tipo de bloqueio ancestral será revelado\n• Qual protocolo de limpeza você vai receber\n• Quantos dias até começar a sentir o desbloqueio\n\nA maioria escolhe a opção 1 ou 3. Mas seja honesto com VOCÊ, não com o que \"deveria\" sentir.",
+      text: "SE NADA MUDAR NOS PRÓXIMOS 6 MESES... QUAL É O SEU MAIOR MEDO?",
+      emotionalContext: "🎯 Seja BRUTALMENTE honesto. Essa resposta define qual bloqueio ancestral o protocolo vai atacar primeiro.",
+      warningText: "⚡ ATENÇÃO: Essa é A RESPOSTA MAIS IMPORTANTE do diagnóstico.\n\n🔮 O que você escolher aqui define:\n• Qual tipo de bloqueio ancestral será revelado\n• Qual protocolo de limpeza você vai receber\n• Quantos dias até começar a sentir o desbloqueio\n\n💭 A maioria escolhe opção 1 ou 3. Mas seja honesto com VOCÊ, não com o que \"deveria\" sentir.",
       options: [
         { 
           label: "Continuar dependendo dos outros ou contando moedas", 
-          sublabel: "Olhar o preço de TUDO antes de comprar. Pedir dinheiro emprestado pro fim do mês. Inventar desculpa quando os amigos chamam pra sair.", 
+          sublabel: "💸 Olhar o preço de TUDO antes de comprar. Pedir dinheiro emprestado pro fim do mês. Inventar desculpa quando os amigos chamam pra sair.", 
           value: "dependency", 
           icon: "" 
         },
         { 
           label: "Envelhecer sem construir patrimônio real", 
-          sublabel: "Chegar aos 55 anos no mesmo apartamento ALUGADO. Ver seus filhos crescerem sem dar a educação que sonhou. Morrer sem deixar nada.", 
+          sublabel: "🏠 Chegar aos 55 anos no mesmo apartamento ALUGADO. Ver seus filhos crescerem sem dar a educação que sonhou. Morrer sem deixar nada.", 
           value: "aging", 
           icon: "" 
         },
         { 
           label: "Ver minha família sofrer por causa da minha situação financeira", 
-          sublabel: "Olhar no olho do seu filho e dizer 'não temos dinheiro pra isso agora'. Ver seus pais precisando de remédio, você sem condições. Sentir que FALHOU como provedor(a).", 
+          sublabel: "💔 Olhar no olho do seu filho e dizer 'não temos dinheiro pra isso agora'. Ver seus pais precisando de remédio, você sem condições. Sentir que FALHOU como provedor(a).", 
           value: "family", 
           icon: "" 
         },
