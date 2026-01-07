@@ -16,6 +16,8 @@ interface OfferProps {
 const OfferNew = ({ userName }: OfferProps) => {
     const [showOfferContent, setShowOfferContent] = useState(false);
     const [showFloatingButton, setShowFloatingButton] = useState(false);
+    const [scrollDepthTracked, setScrollDepthTracked] = useState<Record<number, boolean>>({});
+    const [vslWatchedPercent, setVslWatchedPercent] = useState(0);
     
     // Price configuration - PIX ONLY (À VISTA)
     // Updated price anchoring: From R$ 497,00 (session value) to R$ 27,90
@@ -24,6 +26,61 @@ const OfferNew = ({ userName }: OfferProps) => {
     // Track result page view on component mount
     useEffect(() => {
         tracking.result.view('Mapa Xamânico', 100);
+    }, []);
+
+    // NOVO: Scroll depth tracking with throttling for performance
+    useEffect(() => {
+        let ticking = false;
+        
+        const handleScroll = () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const windowHeight = window.innerHeight;
+                    const documentHeight = document.documentElement.scrollHeight;
+                    const scrollTop = window.scrollY;
+                    const scrollPercent = Math.round((scrollTop / (documentHeight - windowHeight)) * 100);
+
+                    // Track depth milestones: 25%, 50%, 75%, 100%
+                    const milestones = [25, 50, 75, 100];
+                    milestones.forEach(milestone => {
+                        if (scrollPercent >= milestone && !scrollDepthTracked[milestone]) {
+                            tracking.engagement.scrollDepth(milestone);
+                            setScrollDepthTracked(prev => ({ ...prev, [milestone]: true }));
+                        }
+                    });
+
+                    // Show floating button after 500px of scroll
+                    if (scrollTop > 500) {
+                        setShowFloatingButton(true);
+                    } else {
+                        setShowFloatingButton(false);
+                    }
+                    
+                    ticking = false;
+                });
+                
+                ticking = true;
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [scrollDepthTracked]);
+
+    // NOVO: VSL tracking (to be connected with SmartPlayer)
+    useEffect(() => {
+        // This will be enhanced when SmartPlayer API is available
+        // For now, set up placeholder for video tracking
+        const vslTitle = 'Mapa Xamânico Reveal';
+        
+        // TODO: Connect with SmartPlayer events
+        // player.on('play', () => tracking.vsl.playStart(vslTitle));
+        // player.on('timeupdate', (time, duration) => {
+        //   const percent = Math.round((time / duration) * 100);
+        //   if (percent >= 25 && !tracked25) tracking.vsl.progress(vslTitle, 25, time);
+        //   // ... more milestones
+        // });
+        
     }, []);
 
     // Load video player script
@@ -70,23 +127,20 @@ const OfferNew = ({ userName }: OfferProps) => {
         };
     }, []);
 
-    // NOVO: Scroll tracking para botão flutuante (apenas mobile)
+    // NOVO: Scroll tracking para botão flutuante
     useEffect(() => {
-        const handleScroll = () => {
-            // Mostrar após 500px de scroll
-            if (window.scrollY > 500) {
-                setShowFloatingButton(true);
-            } else {
-                setShowFloatingButton(false);
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        // Scroll tracking is now handled in the scroll depth tracking useEffect above
+        // This comment remains for backward compatibility
     }, []);
 
     const handleCheckout = () => {
-        // Track add to cart before redirecting
+        // Get current scroll depth for tracking
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        const scrollTop = window.scrollY;
+        const currentScrollDepth = Math.round((scrollTop / (documentHeight - windowHeight)) * 100);
+
+        // Track add to cart with enhanced context
         tracking.purchase.addToCart({
             productName: 'Mapa Xamânico - Curso Completo',
             productPrice: 27.90,
@@ -94,14 +148,34 @@ const OfferNew = ({ userName }: OfferProps) => {
             email: 'unknown@email.com'
         });
         
+        // Track CTA click with position and context
+        tracking.funnel.clickCTA(
+            'QUERO INICIAR MEU DESBLOQUEIO AGORA',
+            'main_offer',
+            currentScrollDepth
+        );
+        
         window.location.href = 'https://www.seguropagamentos.com.br/mapa-xamanico';
     };
 
-    // NOVO: Scroll suave até checkout
+    // NOVO: Scroll suave até checkout com tracking
     const scrollToCheckout = () => {
+        // Get current scroll depth for accurate tracking
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        const scrollTop = window.scrollY;
+        const currentScrollDepth = Math.round((scrollTop / (documentHeight - windowHeight)) * 100);
+        
         const checkoutElement = document.getElementById('checkout-section');
         if (checkoutElement) {
             checkoutElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Track floating button click with actual scroll depth
+            tracking.funnel.clickCTA(
+                'DESBLOQUEAR AGORA - R$27,90',
+                'floating_mobile',
+                currentScrollDepth
+            );
         } else {
             // Fallback: redirecionar para checkout
             handleCheckout();

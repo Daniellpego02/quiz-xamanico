@@ -440,7 +440,7 @@ const tracking = {
      * Track result page view - fires when user sees their quiz result
      */
     view(resultType?: string, resultScore?: number): void {
-      trackEvent('resultado_view', {
+      trackEvent('result_view', {
         quiz_name: 'Mapa Xamânico',
         result_type: resultType || 'Unknown',
         result_score: resultScore || 0
@@ -519,24 +519,39 @@ const tracking = {
   },
 
   /**
-   * Offer and Sales Funnel Events (Legacy - maintained for backward compatibility)
+   * Offer and Sales Funnel Events
    */
   funnel: {
     /**
      * Track offer page view
      */
     viewOffer(offerName: string): void {
+      trackEvent('offer_view', {
+        quiz_name: 'Mapa Xamânico',
+        offer_name: offerName
+      });
+      
+      // Also fire Meta ViewContent for backward compatibility
       trackMetaPixelEvent('ViewContent', { content_name: offerName });
     },
 
     /**
-     * Track CTA button click
+     * Track CTA button click with position and context
      */
-    clickCTA(ctaName: string): void {
+    clickCTA(ctaName: string, position?: string, scrollDepth?: number): void {
+      trackEvent('cta_clicked', {
+        quiz_name: 'Mapa Xamânico',
+        cta_name: ctaName,
+        cta_position: position || 'unknown',
+        scroll_depth_at_click: scrollDepth || 0
+      });
+      
+      // Also fire custom Meta event for backward compatibility
       trackMetaPixelEvent(
         'CTAClick',
         {
           content_name: ctaName,
+          cta_position: position,
         },
         true
       );
@@ -546,6 +561,12 @@ const tracking = {
      * Track upsell view
      */
     viewUpsell(upsellName: string): void {
+      trackEvent('upsell_view', {
+        quiz_name: 'Mapa Xamânico',
+        upsell_name: upsellName
+      });
+      
+      // Also fire custom Meta event for backward compatibility
       trackMetaPixelEvent(
         'ViewUpsell',
         {
@@ -559,6 +580,12 @@ const tracking = {
      * Track downsell view
      */
     viewDownsell(downsellName: string): void {
+      trackEvent('downsell_view', {
+        quiz_name: 'Mapa Xamânico',
+        downsell_name: downsellName
+      });
+      
+      // Also fire custom Meta event for backward compatibility
       trackMetaPixelEvent(
         'ViewDownsell',
         {
@@ -566,6 +593,136 @@ const tracking = {
         },
         true
       );
+    },
+  },
+
+  /**
+   * VSL (Video Sales Letter) Tracking
+   * Track video engagement for conversion optimization
+   */
+  vsl: {
+    /**
+     * Track when VSL starts playing
+     */
+    playStart(vslTitle: string): void {
+      trackEvent('vsl_play_start', {
+        quiz_name: 'Mapa Xamânico',
+        vsl_title: vslTitle
+      });
+    },
+
+    /**
+     * Track VSL progress milestones (25%, 50%, 75%, 100%)
+     */
+    progress(vslTitle: string, progressPercent: number, watchTimeSeconds: number): void {
+      trackEvent('vsl_progress', {
+        quiz_name: 'Mapa Xamânico',
+        vsl_title: vslTitle,
+        progress_percent: progressPercent,
+        watch_time_seconds: watchTimeSeconds
+      });
+    },
+
+    /**
+     * Track when VSL is paused
+     */
+    paused(vslTitle: string, pausedAtPercent: number, watchTimeSeconds: number): void {
+      trackEvent('vsl_paused', {
+        quiz_name: 'Mapa Xamânico',
+        vsl_title: vslTitle,
+        paused_at_percent: pausedAtPercent,
+        watch_time_seconds: watchTimeSeconds
+      });
+    },
+
+    /**
+     * Track when VSL is resumed after pause
+     */
+    resumed(vslTitle: string, resumedAtPercent: number): void {
+      trackEvent('vsl_resumed', {
+        quiz_name: 'Mapa Xamânico',
+        vsl_title: vslTitle,
+        resumed_at_percent: resumedAtPercent
+      });
+    },
+
+    /**
+     * Track VSL completion
+     */
+    completed(vslTitle: string, totalWatchTimeSeconds: number): void {
+      trackEvent('vsl_completed', {
+        quiz_name: 'Mapa Xamânico',
+        vsl_title: vslTitle,
+        total_watch_time_seconds: totalWatchTimeSeconds
+      });
+    },
+  },
+
+  /**
+   * Scroll Depth and Page Engagement Tracking
+   */
+  engagement: {
+    /**
+     * Track scroll depth on offer page
+     */
+    scrollDepth(depthPercent: number, reachedSection?: string): void {
+      trackEvent('offer_scroll_depth', {
+        quiz_name: 'Mapa Xamânico',
+        depth_percent: depthPercent,
+        reached_section: reachedSection || 'unknown'
+      });
+    },
+
+    /**
+     * Track FAQ item interaction
+     */
+    faqClicked(questionNumber: number, questionText: string, action: 'opened' | 'closed'): void {
+      trackEvent('faq_item_clicked', {
+        quiz_name: 'Mapa Xamânico',
+        question_number: questionNumber,
+        question_text: questionText,
+        action: action
+      });
+    },
+
+    /**
+     * Track loading screen view and completion
+     */
+    loadingScreen(action: 'view' | 'complete', durationSeconds?: number): void {
+      // Validate action parameter to prevent injection
+      const validActions = ['view', 'complete'];
+      if (!validActions.includes(action)) {
+        console.error('[Tracking] Invalid loading screen action:', action);
+        return;
+      }
+      
+      trackEvent(`loading_screen_${action}`, {
+        quiz_name: 'Mapa Xamânico',
+        loading_type: 'quiz_personalization',
+        loading_duration_seconds: durationSeconds || 0
+      });
+    },
+
+    /**
+     * Track quiz abandonment
+     */
+    quizAbandoned(lastQuestionReached: number, completionPercent: number, timeSpentSeconds: number): void {
+      trackEvent('quiz_abandoned', {
+        quiz_name: 'Mapa Xamânico',
+        last_question_reached: lastQuestionReached,
+        completion_percent: completionPercent,
+        time_spent_seconds: timeSpentSeconds
+      });
+    },
+
+    /**
+     * Track hero page view with dwell time
+     */
+    heroPageView(dwellTimeSeconds?: number): void {
+      trackEvent('hero_page_view', {
+        quiz_name: 'Mapa Xamânico',
+        dwell_time_seconds: dwellTimeSeconds || 0
+      });
     },
   },
 
