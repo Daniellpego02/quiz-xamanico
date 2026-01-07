@@ -22,8 +22,8 @@ const OfferNew = ({ userName }: OfferProps) => {
     const [vslWatchedPercent, setVslWatchedPercent] = useState(0);
     
     // Price configuration - PIX ONLY (À VISTA)
-    // Updated price anchoring: From R$ 497,00 (session value) to R$ 27,90
-    const priceOld = "497,00";
+    // Updated price anchoring: From R$ 197,00 to R$ 27,90
+    const priceOld = "197,00";
 
     // Track result page view on component mount
     useEffect(() => {
@@ -510,13 +510,13 @@ const OfferNew = ({ userName }: OfferProps) => {
                             pulse
                             className="w-full"
                         >
-                            🔥 QUERO INICIAR MEU DESBLOQUEIO AGORA
+                            QUERO DESTRAVAR MINHA TRAVA ANCESTRAL AGORA
                         </RitualButton>
                     </div>
 
                     {/* Micro-benefits below button */}
                     <div className="text-center space-y-1 text-[11px] sm:text-xs px-1">
-                        <p className="text-emerald-400 font-semibold">✅ Pagamento Único de R$27,90 (PIX)</p>
+                        <p className="text-emerald-400 font-semibold">✅ Pagamento via PIX, com liberação automática do protocolo em poucos minutos.</p>
                         <p className="text-emerald-400 font-semibold">✅ Acesso Vitalício | Garantia de 7 Dias</p>
                         <p className="text-emerald-400 font-semibold">✅ Mais de 4.300 mapas já gerados</p>
                     </div>
@@ -781,7 +781,6 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                 repeatDelay: 0.5
                                             }}
                                         />
-                                        <span className="text-2xl md:text-3xl flex-shrink-0 relative z-10">🔥</span>
                                         <span className="leading-tight relative z-10">QUERO DESTRAVAR MINHA TRAVA ANCESTRAL AGORA</span>
                                     </motion.button>
 
