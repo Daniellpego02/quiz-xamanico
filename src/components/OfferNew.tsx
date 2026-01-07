@@ -902,7 +902,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 </div>
                             </motion.div>
 
-                            {/* BLOCK 04.5: SOCIAL PROOF - PIX NOTIFICATIONS CAROUSEL */}
+                            {/* BLOCK 04.5: SOCIAL PROOF - WHATSAPP PRINTS CAROUSEL */}
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -910,10 +910,10 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 className="mb-12"
                             >
                                 <h3 className="text-lg sm:text-xl md:text-2xl font-black text-[#4ade80] text-center mb-4 sm:mb-6 px-2">
-                                    💰 Relatos Reais de Quem Já Destravou a Abundância
+                                    Relatos Reais de Quem Já Destravou a Trava Ancestral
                                 </h3>
                                 <p className="text-slate-300 text-sm sm:text-base text-center mb-6 sm:mb-8 px-4">
-                                    Veja conversas reais de WhatsApp de alunos que aplicaram o protocolo e já estão sentindo a diferença no bolso e na energia
+                                    Veja prints de conversas no WhatsApp de pessoas comuns que fizeram o Mapa Xamânico, seguiram o protocolo e já começaram a sentir mudanças na energia e no bolso.
                                 </p>
                                 
                                 <SocialProofCarousel 
@@ -941,327 +941,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 </div>
                             </motion.div>
 
-                            {/* CTA #2 - AFTER "WHAT YOU RECEIVE" */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 1.0 }}
-                                className="mb-12 text-center"
-                            >
-                                <button
-                                    onClick={handleCheckout}
-                                    className="w-full md:w-[60%] mx-auto block bg-gradient-to-r from-[#C9A227] via-[#C9A227] to-[#C9A227] hover:brightness-110 text-black font-black text-lg sm:text-xl py-5 px-6 sm:px-8 rounded-2xl shadow-[0_8px_30px_rgba(212,175,55,0.5)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#C9A227] uppercase tracking-wide mb-3"
-                                >
-                                    QUERO ACESSAR TUDO ISSO AGORA →
-                                </button>
-                                <p className="text-slate-400 text-sm">
-                                    Acesso imediato após pagamento | R$27,90 no PIX
-                                </p>
-                            </motion.div>
-
-                            {/* BLOCK 05: TESTIMONIALS (Moved before Authority for better flow) */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 1.2 }}
-                                className="mb-12 bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] border border-[#C9A227]/30 rounded-2xl p-8"
-                            >
-                                <h3 className="text-xl md:text-2xl font-bold text-[#C9A227] text-center mb-6">
-                                    Quem guiará sua jornada?
-                                </h3>
-                                
-                                <div className="flex flex-col md:flex-row items-center gap-6">
-                                    {/* Expert Photo */}
-                                    <div className="relative flex-shrink-0">
-                                        <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#C9A227]">
-                                            <img 
-                                                src="/expert.jpg" 
-                                                alt="Anahí Solara"
-                                                className="w-full h-full object-cover"
-                                                onError={(e) => {
-                                                    e.currentTarget.src = "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=388&auto=format&fit=crop";
-                                                }}
-                                            />
-                                        </div>
-                                        <div className="absolute -inset-2 bg-[#C9A227]/20 blur-xl -z-10"></div>
-                                    </div>
-
-                                    {/* Expert Bio - Enhanced with Bold for Scannability */}
-                                    <div className="flex-1 text-center md:text-left">
-                                        <p className="text-slate-200 leading-relaxed text-sm md:text-base">
-                                            <span className="font-bold">"Por 12 anos, eu fui exatamente como você..."</span> Eu sou <span className="text-[#C9A227] font-bold">Anahí Solara</span>. Não sou guru financeira. 
-                                            Sou Terapeuta Holística e dediquei os últimos <span className="text-white font-bold">10 anos</span> a decodificar 
-                                            os padrões ocultos da escassez. <span className="font-bold">...descobri a verdade brutal: é um padrão energético ancestral.</span> Este mapa não é teoria. É o exato método que salvou minha 
-                                            própria família da falência e já ajudou mais de <span className="text-[#C9A227] font-bold">4.000 alunos</span> a 
-                                            destravarem a prosperidade."
-                                        </p>
-                                    </div>
-                                </div>
-                            </motion.div>
-
-                            {/* BLOCK 06: SOCIAL PROOF - 7 REVIEWS COM FOTOS REAIS */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 1.4 }}
-                                className="mb-12"
-                            >
-                                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-[#C9A227] text-center mb-4 sm:mb-6 px-2">
-                                    💬 O que os alunos estão dizendo
-                                </h3>
-
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 max-w-4xl mx-auto">
-                                    {[
-                                        {
-                                            name: 'Fernanda Oliveira',
-                                            age: '34 anos',
-                                            city: 'São Paulo, SP',
-                                            text: 'Eu estava devendo R$18 mil em 4 cartões. Fiz o protocolo por 7 dias. No 11º dia, consegui um emprego que paga R$8.500/mês. O gerente me ligou DO NADA. Isso é real, gente! 😭🙏',
-                                            time: 'há 2h',
-                                            photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop',
-                                            verified: true
-                                        },
-                                        {
-                                            name: 'Ricardo Mendes',
-                                            age: '41 anos',
-                                            city: 'Rio de Janeiro, RJ',
-                                            text: 'Sou empresário e estava em crise há 2 anos. No 5º dia do mapa, fechei um contrato de R$ 85 mil que estava travado há meses. Coincidência? Não acredito mais nisso! 💰',
-                                            time: 'há 5h',
-                                            photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop',
-                                            verified: true
-                                        },
-                                        {
-                                            name: 'Juliana Santos',
-                                            age: '28 anos',
-                                            city: 'Curitiba, PR',
-                                            text: 'Meu marido estava desempregado há 8 meses. Fizemos o ritual juntos e em 11 dias ele recebeu 3 propostas de emprego! Escolhemos a melhor. Gratidão infinita! ✨',
-                                            time: 'há 1 dia',
-                                            photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop',
-                                            verified: true
-                                        },
-                                        {
-                                            name: 'Patrícia Lima',
-                                            age: '39 anos',
-                                            city: 'Salvador, BA',
-                                            text: 'Os áudios noturnos são INCRÍVEIS! Acordo com outra energia. Clientes começaram a aparecer do nada. Meu Instagram explodiu de vendas. Estou realizando sonhos que eu achava impossíveis! 💫',
-                                            time: 'há 3h',
-                                            photo: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=200&auto=format&fit=crop',
-                                            verified: true,
-                                            hiddenOnMobile: false
-                                        },
-                                        {
-                                            name: 'Marcos Vinícius',
-                                            age: '37 anos',
-                                            city: 'Belo Horizonte, MG',
-                                            text: 'Trabalho com vendas e estava em crise. Depois do Mapa, meu faturamento subiu 340% em 2 meses. Nunca tinha visto dinheiro entrar assim na minha vida. Recomendo demais! 🚀',
-                                            time: 'há 1 dia',
-                                            photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop',
-                                            verified: true,
-                                            hiddenOnMobile: true
-                                        },
-                                        {
-                                            name: 'Camila Rodrigues',
-                                            age: '31 anos',
-                                            city: 'Porto Alegre, RS',
-                                            text: 'Eu era cética, mas resolvi tentar. No 3º dia, recebi uma herança de uma tia distante que eu nem sabia que existia. R$ 47 mil! Fiquei em choque. Isso funciona MESMO! 😱💎',
-                                            time: 'há 8h',
-                                            photo: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop',
-                                            verified: true,
-                                            hiddenOnMobile: true
-                                        },
-                                        {
-                                            name: 'André Luiz',
-                                            age: '45 anos',
-                                            city: 'Brasília, DF',
-                                            text: 'Eu tinha bloqueios ancestrais pesados (meu pai faliu 2 vezes). O Mapa me libertou disso. Hoje tenho minha empresa sólida e zero dívidas. Mudou minha vida e da minha família! 🙌',
-                                            time: 'há 2 dias',
-                                            photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop',
-                                            verified: true,
-                                            hiddenOnMobile: true
-                                        },
-                                        {
-                                            name: 'Seu Nome Aqui',
-                                            age: 'Sua Cidade',
-                                            city: '',
-                                            text: 'Este pode ser o SEU resultado em 7 dias.\n\n"Em uma semana, recebi [SEU VALOR AQUI] de forma inesperada..."',
-                                            time: '',
-                                            photo: '',
-                                            verified: false,
-                                            isPlaceholder: true,
-                                            hiddenOnMobile: true
-                                        }
-                                    ].map((testimonial, idx) => (
-                                        <motion.div
-                                            key={idx}
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: 1.6 + idx * 0.1 }}
-                                            className={`bg-gradient-to-br ${
-                                                testimonial.isPlaceholder 
-                                                    ? 'from-[#3a2f0e] to-[#1a1a0a] border-2 border-dashed border-[#C9A227]/60 opacity-90' 
-                                                    : 'from-[#1a1a1a] to-[#0d0d0d] border border-[#C9A227]/30'
-                                            } rounded-2xl p-4 sm:p-5 hover:border-[#C9A227]/60 transition-all hover:shadow-[0_0_30px_rgba(212,175,55,0.2)] ${
-                                                testimonial.hiddenOnMobile ? 'hidden md:block' : ''
-                                            }`}
-                                        >
-                                            <div className="flex items-start gap-3 sm:gap-4">
-                                                {/* Foto Real do Cliente ou Placeholder */}
-                                                <div className="flex-shrink-0">
-                                                    {testimonial.isPlaceholder ? (
-                                                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-dashed border-[#C9A227] bg-[#C9A227]/10 flex items-center justify-center text-2xl">
-                                                            ?
-                                                        </div>
-                                                    ) : (
-                                                        <img 
-                                                            src={testimonial.photo}
-                                                            alt={testimonial.name}
-                                                            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-[#C9A227]"
-                                                            onError={(e) => {
-                                                                e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonial.name)}&background=D4AF37&color=000&size=200`;
-                                                            }}
-                                                        />
-                                                    )}
-                                                </div>
-                                                <div className="flex-1 min-w-0">
-                                                    <div className="mb-2">
-                                                        <div className="flex items-center gap-2 mb-1">
-                                                            <p className={`font-bold text-sm sm:text-base truncate ${
-                                                                testimonial.isPlaceholder ? 'text-[#C9A227]' : 'text-white'
-                                                            }`}>
-                                                                {testimonial.name}
-                                                            </p>
-                                                            {/* NOVO: Badge Verificado */}
-                                                            {testimonial.verified && (
-                                                                <span className="inline-flex items-center gap-1 bg-green-600 text-white text-[8px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full flex-shrink-0">
-                                                                    ✓ VERIFICADO
-                                                                </span>
-                                                            )}
-                                                        </div>
-                                                        <p className="text-slate-400 text-[10px] sm:text-xs">
-                                                            {testimonial.age}{testimonial.city && ` • ${testimonial.city}`}
-                                                        </p>
-                                                    </div>
-                                                    <p className={`text-xs sm:text-sm leading-relaxed mb-3 whitespace-pre-line ${
-                                                        testimonial.isPlaceholder ? 'text-[#C9A227]/80 italic' : 'text-slate-200'
-                                                    }`}>
-                                                        {testimonial.text}
-                                                    </p>
-                                                    {testimonial.isPlaceholder ? (
-                                                        <button
-                                                            onClick={handleCheckout}
-                                                            className="w-full bg-gradient-to-r from-[#C9A227] to-[#FFA500] hover:brightness-110 text-black font-bold text-xs sm:text-sm py-2 px-4 rounded-lg transition-all transform hover:scale-105 active:scale-95"
-                                                        >
-                                                            QUERO MEU RESULTADO →
-                                                        </button>
-                                                    ) : (
-                                                        <div className="flex items-center justify-between gap-2">
-                                                            <div className="flex gap-1">
-                                                                {[...Array(5)].map((_, i) => (
-                                                                    <span key={i} className="text-[#C9A227] text-xs sm:text-sm">⭐</span>
-                                                                ))}
-                                                            </div>
-                                                            <p className="text-slate-500 text-[10px] sm:text-xs whitespace-nowrap">{testimonial.time}</p>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </motion.div>
-                                    ))}
-                                </div>
-                            </motion.div>
-
-                            {/* CTA #3 - AFTER TESTIMONIALS */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 1.6 }}
-                                className="mb-12 text-center"
-                            >
-                                <button
-                                    onClick={handleCheckout}
-                                    className="w-full md:w-[60%] mx-auto block bg-gradient-to-r from-[#C9A227] via-[#C9A227] to-[#C9A227] hover:brightness-110 text-black font-black text-lg sm:text-xl py-5 px-6 sm:px-8 rounded-2xl shadow-[0_8px_30px_rgba(212,175,55,0.5)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#C9A227] uppercase tracking-wide mb-3"
-                                >
-                                    QUERO MEU RESULTADO TAMBÉM →
-                                </button>
-                                <p className="text-slate-400 text-sm">
-                                    Junte-se a mais de 4.300 pessoas que já desbloquearam
-                                </p>
-                            </motion.div>
-
-                            {/* BLOCK 07: GUARANTEE */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 1.8 }}
-                                className="mb-12 bg-gradient-to-br from-emerald-950/40 to-green-900/20 border-2 border-emerald-500/40 rounded-2xl p-6 sm:p-8 text-center"
-                            >
-                                <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-emerald-400 to-green-500 border-4 border-emerald-300 shadow-[0_0_30px_rgba(16,185,129,0.6)] mx-auto mb-4 sm:mb-6">
-                                    <div className="text-center">
-                                        <p className="text-white text-[10px] sm:text-xs font-black">GARANTIA</p>
-                                        <p className="text-white text-xl sm:text-2xl font-black leading-none">7</p>
-                                        <p className="text-white text-[10px] sm:text-xs font-black">DIAS</p>
-                                    </div>
-                                </div>
-
-                                <h3 className="text-xl sm:text-2xl font-bold text-emerald-300 mb-4">
-                                    GARANTIA BLINDADA DE RESULTADO
-                                </h3>
-                                <div className="text-slate-200 text-sm sm:text-base leading-relaxed space-y-3 max-w-2xl mx-auto px-2">
-                                    <p className="font-semibold text-white">
-                                        Você não tem risco nenhum.
-                                    </p>
-                                    <p>
-                                        Entre, faça o Mapa, use os áudios por 7 dias.
-                                    </p>
-                                    <p>
-                                        Se você <strong className="text-white">NÃO</strong> sentir pelo menos 3 destes sinais em 7 dias:
-                                    </p>
-                                    <ul className="list-none space-y-2 mt-3 text-left max-w-xl mx-auto">
-                                        <li>• Mais leveza ao pensar em dinheiro (dias 1-3)</li>
-                                        <li>• Alguma quantia inesperada chegando (R$50-500)</li>
-                                        <li>• Menos aperto ao checar o saldo</li>
-                                        <li>• Menos brigas sobre dinheiro em casa</li>
-                                    </ul>
-                                    <p className="text-white font-bold">
-                                        ...eu devolvo 100% do seu dinheiro.
-                                    </p>
-                                    <p>
-                                        Sem perguntas. Sem burocracia. Basta um e-mail.
-                                    </p>
-                                    <p className="text-emerald-300 font-bold text-lg sm:text-xl mt-4">
-                                        Ou seja: o risco é TODO MEU.
-                                    </p>
-                                </div>
-
-                                {/* "Why I Offer This" Box */}
-                                <div className="mt-8 bg-[#C9A227]/10 backdrop-blur-md border-2 border-[#C9A227]/30 rounded-xl p-4 sm:p-6 max-w-2xl mx-auto">
-                                    <h4 className="text-[#C9A227] font-bold text-base sm:text-lg mb-3 flex items-center justify-center gap-2">
-                                        <span>💡</span> POR QUE OFEREÇO ISSO?
-                                    </h4>
-                                    <p className="text-slate-200 text-sm sm:text-base leading-relaxed mb-3">
-                                        Porque EU SEI que funciona. Mais de 4.300 pessoas já fizeram e 92% relatam mudança em até 14 dias.
-                                    </p>
-                                    <p className="text-emerald-300 font-semibold">
-                                        Se não funcionar com você (raro), eu não mereço seu dinheiro.
-                                    </p>
-                                    <p className="text-white font-bold mt-2">
-                                        Ou seja: o risco é TODO MEU.
-                                    </p>
-                                </div>
-
-                                {/* CTA Button after Guarantee */}
-                                <button
-                                    onClick={handleCheckout}
-                                    className="mt-6 w-full md:w-auto mx-auto block bg-gradient-to-r from-[#C9A227] via-[#C9A227] to-[#C9A227] hover:brightness-110 text-black font-black text-base sm:text-lg py-4 sm:py-5 px-8 sm:px-12 rounded-2xl shadow-[0_8px_30px_rgba(212,175,55,0.5)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#C9A227] uppercase tracking-wide"
-                                >
-                                    QUERO COMEÇAR SEM RISCO AGORA
-                                </button>
-                                <p className="text-slate-400 text-xs sm:text-sm mt-3">
-                                    7 dias para testar | Devolução total se não funcionar
-                                </p>
-                            </motion.div>
-
-                            {/* BLOCK 08: BIO ANAHÍ - Moved AFTER Guarantee */}
+                            {/* BLOCK 05: QUEM GUIARÁ SUA JORNADA - Complete authority section */}
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -1361,6 +1041,94 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 </button>
                                 <p className="text-slate-400 text-xs sm:text-sm mt-3 text-center">
                                     Acesso em 2 minutos • Garantia 7 dias • 100% seguro
+                                </p>
+                            </motion.div>
+
+                            {/* BLOCK 06: GUARANTEE */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 1.8 }}
+                                className="mb-12 bg-gradient-to-br from-emerald-950/40 to-green-900/20 border-2 border-emerald-500/40 rounded-2xl p-6 sm:p-8 text-center"
+                            >
+                                <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-emerald-400 to-green-500 border-4 border-emerald-300 shadow-[0_0_30px_rgba(16,185,129,0.6)] mx-auto mb-4 sm:mb-6">
+                                    <div className="text-center">
+                                        <p className="text-white text-[10px] sm:text-xs font-black">GARANTIA</p>
+                                        <p className="text-white text-xl sm:text-2xl font-black leading-none">7</p>
+                                        <p className="text-white text-[10px] sm:text-xs font-black">DIAS</p>
+                                    </div>
+                                </div>
+
+                                <h3 className="text-xl sm:text-2xl font-bold text-emerald-300 mb-4">
+                                    GARANTIA BLINDADA DE RESULTADO
+                                </h3>
+                                <div className="text-slate-200 text-sm sm:text-base leading-relaxed space-y-3 max-w-2xl mx-auto px-2">
+                                    <p className="font-semibold text-white">
+                                        Você não tem risco nenhum.
+                                    </p>
+                                    <p>
+                                        Entre, faça o Mapa, use os áudios por 7 dias.
+                                    </p>
+                                    <p>
+                                        Se você <strong className="text-white">NÃO</strong> sentir pelo menos 3 destes sinais em 7 dias:
+                                    </p>
+                                    <ul className="list-none space-y-2 mt-3 text-left max-w-xl mx-auto">
+                                        <li>• Mais leveza ao pensar em dinheiro (dias 1-3)</li>
+                                        <li>• Alguma quantia inesperada chegando (R$50-500)</li>
+                                        <li>• Menos aperto ao checar o saldo</li>
+                                        <li>• Menos brigas sobre dinheiro em casa</li>
+                                    </ul>
+                                    <p className="text-white font-bold">
+                                        ...eu devolvo 100% do seu dinheiro.
+                                    </p>
+                                    <p>
+                                        Sem perguntas. Sem burocracia. Basta um e-mail.
+                                    </p>
+                                    <p className="text-emerald-300 font-bold text-lg sm:text-xl mt-4">
+                                        Ou seja: o risco é TODO MEU.
+                                    </p>
+                                </div>
+
+                                {/* "Why I Offer This" Box */}
+                                <div className="mt-8 bg-[#C9A227]/10 backdrop-blur-md border-2 border-[#C9A227]/30 rounded-xl p-4 sm:p-6 max-w-2xl mx-auto">
+                                    <h4 className="text-[#C9A227] font-bold text-base sm:text-lg mb-3 flex items-center justify-center gap-2">
+                                        <span>💡</span> POR QUE OFEREÇO ISSO?
+                                    </h4>
+                                    <p className="text-slate-200 text-sm sm:text-base leading-relaxed mb-3">
+                                        Porque EU SEI que funciona. Mais de 4.300 pessoas já fizeram e 92% relatam mudança em até 14 dias.
+                                    </p>
+                                    <p className="text-emerald-300 font-semibold">
+                                        Se não funcionar com você (raro), eu não mereço seu dinheiro.
+                                    </p>
+                                    <p className="text-white font-bold mt-2">
+                                        Ou seja: o risco é TODO MEU.
+                                    </p>
+                                </div>
+
+                                {/* CTA Button after Guarantee */}
+                                <button
+                                    onClick={handleCheckout}
+                                    className="mt-6 w-full md:w-auto mx-auto block bg-gradient-to-r from-[#C9A227] via-[#C9A227] to-[#C9A227] hover:brightness-110 text-black font-black text-base sm:text-lg py-4 sm:py-5 px-8 sm:px-12 rounded-2xl shadow-[0_8px_30px_rgba(212,175,55,0.5)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#C9A227] uppercase tracking-wide"
+                                >
+                                    QUERO COMEÇAR SEM RISCO AGORA
+                                </button>
+                                <p className="text-slate-400 text-xs sm:text-sm mt-3">
+                                    7 dias para testar | Devolução total se não funcionar
+                                </p>
+                            </motion.div>
+
+                            {/* FAQ Intro Text */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 2.2 }}
+                                className="mb-8 text-center"
+                            >
+                                <p className="text-white text-lg sm:text-xl font-bold mb-2">
+                                    Ainda ficou alguma dúvida antes de destravar sua trava ancestral?
+                                </p>
+                                <p className="text-slate-300 text-sm sm:text-base">
+                                    Veja abaixo as respostas para as perguntas que mais chegam todos os dias sobre o Mapa Xamânico Oficial.
                                 </p>
                             </motion.div>
 
