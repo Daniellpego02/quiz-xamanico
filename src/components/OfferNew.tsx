@@ -444,13 +444,30 @@ const OfferNew = ({ userName }: OfferProps) => {
                         </p>
                     </div>
 
-                    {/* Giant CTA Button - Improved touch target and spacing */}
-                    <button
+                    {/* Giant CTA Button - Enhanced with better visual feedback */}
+                    <motion.button
                         onClick={handleCheckout}
-                        className="w-full md:w-[75%] mx-auto block bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] hover:brightness-110 text-black font-black text-base sm:text-lg md:text-xl py-5 sm:py-6 md:py-7 px-6 sm:px-8 md:px-10 rounded-2xl shadow-[0_8px_40px_rgba(212,175,55,0.6)] transition-all transform hover:scale-[1.02] active:scale-[0.98] border-2 border-[#FFD700] uppercase tracking-wide mb-4 sm:mb-5 min-h-[60px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#FFD700]/40"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full md:w-[75%] mx-auto block bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] hover:brightness-110 text-black font-black text-base sm:text-lg md:text-xl py-5 sm:py-6 md:py-7 px-6 sm:px-8 md:px-10 rounded-2xl shadow-[0_8px_40px_rgba(212,175,55,0.6)] transition-all border-2 border-[#FFD700] uppercase tracking-wide mb-4 sm:mb-5 min-h-[60px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#FFD700]/40 relative overflow-hidden"
                     >
-                        🔥 QUERO INICIAR MEU DESBLOQUEIO AGORA →
-                    </button>
+                        {/* Shine effect */}
+                        <motion.div
+                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                            animate={{
+                                x: ['-100%', '200%'],
+                            }}
+                            transition={{
+                                duration: 2,
+                                repeat: Infinity,
+                                ease: "linear",
+                                repeatDelay: 1
+                            }}
+                        />
+                        <span className="relative z-10">
+                            🔥 QUERO INICIAR MEU DESBLOQUEIO AGORA →
+                        </span>
+                    </motion.button>
 
                     {/* Micro-benefits below button */}
                     <div className="text-center space-y-1.5 text-xs sm:text-sm px-2">
@@ -699,14 +716,29 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         </p>
                                     </motion.div>
 
-                                    {/* CTA BUTTON COM ÍCONE PIX - Mobile Optimized */}
-                                    <button
+                                    {/* CTA BUTTON COM ÍCONE PIX - Mobile Optimized with enhanced animation */}
+                                    <motion.button
                                         onClick={handleCheckout}
-                                        className="w-full bg-gradient-to-r from-[#00FF41] to-[#00CC33] hover:from-[#00CC33] hover:to-[#00FF41] text-black font-black text-base sm:text-lg md:text-xl py-5 md:py-6 px-4 md:px-8 rounded-2xl shadow-[0_0_40px_rgba(0,255,65,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 uppercase tracking-wide mb-3 flex items-center justify-center gap-2 md:gap-3"
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        className="w-full bg-gradient-to-r from-[#00FF41] to-[#00CC33] hover:from-[#00CC33] hover:to-[#00FF41] text-black font-black text-base sm:text-lg md:text-xl py-5 md:py-6 px-4 md:px-8 rounded-2xl shadow-[0_0_40px_rgba(0,255,65,0.6)] transition-all uppercase tracking-wide mb-3 flex items-center justify-center gap-2 md:gap-3 relative overflow-hidden border-2 border-[#00FF41]"
                                     >
-                                        <span className="text-2xl md:text-3xl flex-shrink-0">🔷</span>
-                                        <span className="leading-tight">GERAR MEU ACESSO AGORA (PIX)</span>
-                                    </button>
+                                        {/* Shine effect */}
+                                        <motion.div
+                                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                                            animate={{
+                                                x: ['-100%', '200%'],
+                                            }}
+                                            transition={{
+                                                duration: 2,
+                                                repeat: Infinity,
+                                                ease: "linear",
+                                                repeatDelay: 0.5
+                                            }}
+                                        />
+                                        <span className="text-2xl md:text-3xl flex-shrink-0 relative z-10">🔷</span>
+                                        <span className="leading-tight relative z-10">GERAR MEU ACESSO AGORA (PIX)</span>
+                                    </motion.button>
 
                                     {/* Subtexto do Botão */}
                                     <p className="text-center text-[#00FF41] text-sm font-semibold flex items-center justify-center gap-2">
