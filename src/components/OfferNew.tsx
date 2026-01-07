@@ -190,35 +190,35 @@ const OfferNew = ({ userName }: OfferProps) => {
                     </motion.div>
                 </motion.div>
 
-                {/* Pain Dimensionalization Section - PRIORITY 1 */}
+                {/* Pain Dimensionalization Section - PRIORITY 1 - Improved readability */}
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.15 }}
-                    className="bg-gradient-to-br from-[#2a0606]/95 to-[#1a0606]/95 border-2 border-[#FF4500]/60 rounded-xl p-4 sm:p-5 mb-4 sm:mb-5"
+                    className="bg-gradient-to-br from-[#2a0606]/95 to-[#1a0606]/95 border-2 border-[#FF4500]/60 rounded-xl p-5 sm:p-6 mb-5 sm:mb-6"
                 >
-                    <div className="flex items-start gap-2 mb-3">
-                        <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-[#FF4500] flex-shrink-0 mt-0.5" />
-                        <p className="text-white font-bold text-sm sm:text-base">
+                    <div className="flex items-start gap-2.5 mb-4">
+                        <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-[#FF4500] flex-shrink-0 mt-1" />
+                        <p className="text-white font-bold text-base sm:text-lg leading-snug">
                             {userName && userName.trim() ? userName.split(' ')[0] : 'Você'}, este bloqueio está AGORA:
                         </p>
                     </div>
-                    <div className="space-y-2 text-slate-200 text-xs sm:text-sm ml-7">
-                        <p className="flex items-start gap-2">
-                            <span className="text-[#FF4500]">✗</span>
+                    <div className="space-y-2.5 text-slate-200 text-sm sm:text-base ml-7 sm:ml-8">
+                        <p className="flex items-start gap-2 leading-relaxed">
+                            <span className="text-[#FF4500] font-bold">✗</span>
                             <span>Drenando R$5-50 mil por mês da sua conta</span>
                         </p>
-                        <p className="flex items-start gap-2">
-                            <span className="text-[#FF4500]">✗</span>
+                        <p className="flex items-start gap-2 leading-relaxed">
+                            <span className="text-[#FF4500] font-bold">✗</span>
                             <span>Criando autosabotagem financeira inconsciente</span>
                         </p>
-                        <p className="flex items-start gap-2">
-                            <span className="text-[#FF4500]">✗</span>
+                        <p className="flex items-start gap-2 leading-relaxed">
+                            <span className="text-[#FF4500] font-bold">✗</span>
                             <span>Fazendo você trabalhar MAIS mas ganhar MENOS</span>
                         </p>
                     </div>
-                    <div className="mt-4 pt-3 border-t border-[#FF4500]/30">
-                        <p className="text-white text-xs sm:text-sm font-semibold flex items-center gap-2">
+                    <div className="mt-5 pt-4 border-t border-[#FF4500]/30">
+                        <p className="text-white text-sm sm:text-base font-semibold flex items-center gap-2 leading-relaxed">
                             <span>👇</span>
                             <span>No vídeo abaixo, você vai descobrir EXATAMENTE como destruir esta trava em 7 dias:</span>
                         </p>
@@ -240,40 +240,40 @@ const OfferNew = ({ userName }: OfferProps) => {
                     </div>
                 </motion.div>
 
-                {/* Benefits List BEFORE Video */}
+                {/* Benefits List BEFORE Video - Improved readability */}
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="bg-gradient-to-br from-[#D4AF37]/10 to-[#FFD700]/5 border-2 border-[#D4AF37]/30 rounded-lg sm:rounded-xl p-3 sm:p-4 mb-4 sm:mb-5"
+                    className="bg-gradient-to-br from-[#D4AF37]/10 to-[#FFD700]/5 border-2 border-[#D4AF37]/30 rounded-lg sm:rounded-xl p-4 sm:p-5 mb-5 sm:mb-6"
                 >
-                    <div className="flex items-center justify-center gap-2 mb-2.5 sm:mb-3">
-                        <Sparkles className="w-4 h-4 text-[#FFD700]" />
-                        <h3 className="text-center text-[#FFD700] font-bold text-xs sm:text-sm uppercase tracking-wider">
+                    <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4">
+                        <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-[#FFD700]" />
+                        <h3 className="text-center text-[#FFD700] font-bold text-sm sm:text-base uppercase tracking-wider">
                             NESTE VÍDEO VOCÊ ESTÁ DESCOBRINDO:
                         </h3>
                     </div>
-                    <div className="space-y-1.5 sm:space-y-2 text-left max-w-lg mx-auto">
-                        <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
-                            <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
+                    <div className="space-y-2 sm:space-y-2.5 text-left max-w-lg mx-auto">
+                        <p className="text-slate-200 text-sm sm:text-base flex items-start gap-2 leading-relaxed">
+                            <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-400 flex-shrink-0 mt-0.5" />
                             <span>Por que o dinheiro entra e sai (e como quebrar esse ciclo em 7 dias)</span>
                         </p>
-                        <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
-                            <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
+                        <p className="text-slate-200 text-sm sm:text-base flex items-start gap-2 leading-relaxed">
+                            <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-400 flex-shrink-0 mt-0.5" />
                             <span>Qual trava está bloqueando AGORA de R$5k a R$50k por mês</span>
                         </p>
-                        <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
-                            <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
+                        <p className="text-slate-200 text-sm sm:text-base flex items-start gap-2 leading-relaxed">
+                            <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-400 flex-shrink-0 mt-0.5" />
                             <span>O protocolo de 7 dias — 89% relatam dinheiro nos primeiros 3 dias</span>
                         </p>
-                        <p className="text-slate-200 text-xs sm:text-sm flex items-start gap-2">
-                            <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-400 flex-shrink-0 mt-0.5" />
+                        <p className="text-slate-200 text-sm sm:text-base flex items-start gap-2 leading-relaxed">
+                            <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-400 flex-shrink-0 mt-0.5" />
                             <span>Como o dinheiro chega sem você precisar trabalhar mais</span>
                         </p>
                     </div>
-                    <div className="flex items-center justify-center gap-1.5 mt-2 sm:mt-3">
-                        <Clock className="w-3.5 h-3.5 text-slate-400" />
-                        <p className="text-center text-slate-400 text-xs">
+                    <div className="flex items-center justify-center gap-2 mt-3 sm:mt-4">
+                        <Clock className="w-4 h-4 text-slate-400" />
+                        <p className="text-center text-slate-400 text-xs sm:text-sm">
                             Em apenas 2 minutos você descobre EXATAMENTE qual trava está bloqueando de R$5k a R$50k todo mês
                         </p>
                     </div>
