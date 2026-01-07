@@ -135,13 +135,15 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     if (showTuningScreen) {
       // Track loading screen view
       tracking.engagement.loadingScreen('view');
-      setLoadingScreenStartTime(Date.now());
+      const startTime = Date.now();
+      setLoadingScreenStartTime(startTime);
       
       const loadingStages = getLoadingStages();
       
       const interval = setInterval(() => {
         setLoadingStage(prev => (prev + 1) % loadingStages.length);
       }, 800); // Increased from 650ms to 800ms for improved pacing and suspense
+      
       return () => clearInterval(interval);
     } else {
       // Track loading screen completion if it was shown
@@ -153,7 +155,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       // Reset loading stage when screen is hidden
       setLoadingStage(0);
     }
-  }, [showTuningScreen, userName, loadingScreenStartTime]);
+  }, [showTuningScreen, userName]);
 
   const personalizeText = (text: string) => {
     return text.replace("{NAME}", userName ? userName.split(' ')[0] : "você");

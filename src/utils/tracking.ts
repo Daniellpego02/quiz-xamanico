@@ -689,6 +689,13 @@ const tracking = {
      * Track loading screen view and completion
      */
     loadingScreen(action: 'view' | 'complete', durationSeconds?: number): void {
+      // Validate action parameter to prevent injection
+      const validActions = ['view', 'complete'];
+      if (!validActions.includes(action)) {
+        console.error('[Tracking] Invalid loading screen action:', action);
+        return;
+      }
+      
       trackEvent(`loading_screen_${action}`, {
         quiz_name: 'Mapa Xamânico',
         loading_type: 'quiz_personalization',

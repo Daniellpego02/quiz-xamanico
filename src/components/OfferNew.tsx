@@ -28,32 +28,42 @@ const OfferNew = ({ userName }: OfferProps) => {
         tracking.result.view('Mapa Xamânico', 100);
     }, []);
 
-    // NOVO: Scroll depth tracking
+    // NOVO: Scroll depth tracking with throttling for performance
     useEffect(() => {
+        let ticking = false;
+        
         const handleScroll = () => {
-            const windowHeight = window.innerHeight;
-            const documentHeight = document.documentElement.scrollHeight;
-            const scrollTop = window.scrollY;
-            const scrollPercent = Math.round((scrollTop / (documentHeight - windowHeight)) * 100);
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const windowHeight = window.innerHeight;
+                    const documentHeight = document.documentElement.scrollHeight;
+                    const scrollTop = window.scrollY;
+                    const scrollPercent = Math.round((scrollTop / (documentHeight - windowHeight)) * 100);
 
-            // Track depth milestones: 25%, 50%, 75%, 100%
-            const milestones = [25, 50, 75, 100];
-            milestones.forEach(milestone => {
-                if (scrollPercent >= milestone && !scrollDepthTracked[milestone]) {
-                    tracking.engagement.scrollDepth(milestone);
-                    setScrollDepthTracked(prev => ({ ...prev, [milestone]: true }));
-                }
-            });
+                    // Track depth milestones: 25%, 50%, 75%, 100%
+                    const milestones = [25, 50, 75, 100];
+                    milestones.forEach(milestone => {
+                        if (scrollPercent >= milestone && !scrollDepthTracked[milestone]) {
+                            tracking.engagement.scrollDepth(milestone);
+                            setScrollDepthTracked(prev => ({ ...prev, [milestone]: true }));
+                        }
+                    });
 
-            // Show floating button after 500px of scroll
-            if (scrollTop > 500) {
-                setShowFloatingButton(true);
-            } else {
-                setShowFloatingButton(false);
+                    // Show floating button after 500px of scroll
+                    if (scrollTop > 500) {
+                        setShowFloatingButton(true);
+                    } else {
+                        setShowFloatingButton(false);
+                    }
+                    
+                    ticking = false;
+                });
+                
+                ticking = true;
             }
         };
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, [scrollDepthTracked]);
 
@@ -150,15 +160,21 @@ const OfferNew = ({ userName }: OfferProps) => {
 
     // NOVO: Scroll suave até checkout com tracking
     const scrollToCheckout = () => {
+        // Get current scroll depth for accurate tracking
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        const scrollTop = window.scrollY;
+        const currentScrollDepth = Math.round((scrollTop / (documentHeight - windowHeight)) * 100);
+        
         const checkoutElement = document.getElementById('checkout-section');
         if (checkoutElement) {
             checkoutElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
             
-            // Track floating button click
+            // Track floating button click with actual scroll depth
             tracking.funnel.clickCTA(
                 'DESBLOQUEAR AGORA - R$27,90',
                 'floating_mobile',
-                0 // Will be at top when floating button is visible
+                currentScrollDepth
             );
         } else {
             // Fallback: redirecionar para checkout
