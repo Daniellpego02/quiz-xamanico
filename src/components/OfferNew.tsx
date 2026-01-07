@@ -557,12 +557,8 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         <div className="space-y-2 sm:space-y-3">
                                             {/* Linha 1: Ancoragem de Preço - Updated per requirements */}
                                             <div>
-                                                <p className="text-slate-400 text-sm sm:text-base mb-2">
-                                                    O valor normal deste protocolo é de{' '}
-                                                    <span className="text-slate-500 line-through font-bold">R$ 197,00</span>
-                                                </p>
-                                                <p className="text-white text-base sm:text-lg font-semibold">
-                                                    Mas, pelo nível crítico do seu diagnóstico, você acessa hoje por apenas:
+                                                <p className="text-white text-base sm:text-lg font-semibold mb-2">
+                                                    De <span className="text-slate-500 line-through font-bold">R$ 197,00</span> por apenas R$ 27,90 hoje
                                                 </p>
                                             </div>
 
@@ -633,7 +629,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             {/* Linha 4: Microcopy */}
                                             <div className="mb-4 sm:mb-6">
                                                 <p className="text-white text-lg sm:text-xl md:text-2xl font-bold px-2">
-                                                    Pagamento Único. Acesso Vitalício.
+                                                    Apenas 1 pagamento para ter acesso vitalício ao protocolo de 7 dias de desbloqueio xamânico financeiro.
                                                 </p>
                                             </div>
 
@@ -786,7 +782,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             }}
                                         />
                                         <span className="text-2xl md:text-3xl flex-shrink-0 relative z-10">🔥</span>
-                                        <span className="leading-tight relative z-10">QUERO DESTRUIR MINHA TRAVA ANCESTRAL AGORA</span>
+                                        <span className="leading-tight relative z-10">QUERO DESTRAVAR MINHA TRAVA ANCESTRAL AGORA</span>
                                     </motion.button>
 
                                     {/* 7 Days Guarantee Badge - New addition per requirements */}
@@ -796,16 +792,16 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         transition={{ delay: 1.6 }}
                                         className="flex justify-center mb-3"
                                     >
-                                        <div className="guarantee-badge">
-                                            <Shield className="w-5 h-5" />
-                                            <span>Garantia de 7 Dias - 100% Seguro</span>
+                                        <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-full px-4 py-2 flex items-center gap-2">
+                                            <Shield className="w-5 h-5 text-emerald-400" />
+                                            <span className="text-emerald-300 font-semibold text-sm">Coberto por garantia incondicional de 7 dias</span>
                                         </div>
                                     </motion.div>
 
                                     {/* Subtexto do Botão */}
-                                    <p className="text-center text-[#28A745] text-sm font-semibold flex items-center justify-center gap-2">
+                                    <p className="text-center text-emerald-400 text-sm font-semibold flex items-center justify-center gap-2">
                                         <Lock className="w-4 h-4" />
-                                        ⚡ Acesso Liberado em Até 2 Minutos
+                                        Pagamento via PIX, com liberação automática do protocolo em poucos minutos.
                                     </p>
 
                                     {/* Trust Badge - SÓ PIX - Mobile Optimized */}
@@ -826,6 +822,25 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         <p className="text-[10px] text-slate-500">A plataforma de pagamentos mais segura do Brasil</p>
                                     </div>
                                 </div>
+                            </motion.div>
+
+                            {/* BLOCK 03.5: SPEED BONUS - NEW ADDITION */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.5 }}
+                                className="mb-12 bg-gradient-to-br from-[#C9A227]/20 to-[#FFA500]/10 border-2 border-[#C9A227]/50 rounded-2xl p-6 sm:p-8 text-center"
+                            >
+                                <div className="inline-flex items-center justify-center gap-2 mb-4">
+                                    <Sparkles className="w-6 h-6 text-[#C9A227]" />
+                                    <h3 className="text-lg sm:text-xl font-black text-[#C9A227]">
+                                        Bônus de Velocidade (por tempo limitado)
+                                    </h3>
+                                    <Sparkles className="w-6 h-6 text-[#C9A227]" />
+                                </div>
+                                <p className="text-white text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                                    Quem garantir o acesso hoje ao Mapa Xamânico Oficial recebe gratuitamente o <span className="font-bold text-[#C9A227]">Áudio de Ativação de Prosperidade Imediata</span>, para potencializar o seu protocolo nos primeiros dias.
+                                </p>
                             </motion.div>
 
                             {/* BLOCK 04: TANGIBILIZAÇÃO - O QUE ELE RECEBE */}
@@ -909,11 +924,11 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 transition={{ delay: 1.4 }}
                                 className="mb-12"
                             >
-                                <h3 className="text-lg sm:text-xl md:text-2xl font-black text-[#4ade80] text-center mb-4 sm:mb-6 px-2">
-                                    💰 Relatos Reais de Quem Já Destravou a Abundância
+                                <h3 className="text-lg sm:text-xl md:text-2xl font-black text-[#C9A227] text-center mb-4 sm:mb-6 px-2">
+                                    Relatos Reais de Quem Já Destravou a Trava Ancestral
                                 </h3>
                                 <p className="text-slate-300 text-sm sm:text-base text-center mb-6 sm:mb-8 px-4">
-                                    Veja conversas reais de WhatsApp de alunos que aplicaram o protocolo e já estão sentindo a diferença no bolso e na energia
+                                    Veja prints de conversas no WhatsApp de pessoas comuns que fizeram o Mapa Xamânico, seguiram o protocolo e já começaram a sentir mudanças na energia e no bolso.
                                 </p>
                                 
                                 <SocialProofCarousel 
@@ -957,46 +972,6 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 <p className="text-slate-400 text-sm">
                                     Acesso imediato após pagamento | R$27,90 no PIX
                                 </p>
-                            </motion.div>
-
-                            {/* BLOCK 05: TESTIMONIALS (Moved before Authority for better flow) */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 1.2 }}
-                                className="mb-12 bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] border border-[#C9A227]/30 rounded-2xl p-8"
-                            >
-                                <h3 className="text-xl md:text-2xl font-bold text-[#C9A227] text-center mb-6">
-                                    Quem guiará sua jornada?
-                                </h3>
-                                
-                                <div className="flex flex-col md:flex-row items-center gap-6">
-                                    {/* Expert Photo */}
-                                    <div className="relative flex-shrink-0">
-                                        <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#C9A227]">
-                                            <img 
-                                                src="/expert.jpg" 
-                                                alt="Anahí Solara"
-                                                className="w-full h-full object-cover"
-                                                onError={(e) => {
-                                                    e.currentTarget.src = "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=388&auto=format&fit=crop";
-                                                }}
-                                            />
-                                        </div>
-                                        <div className="absolute -inset-2 bg-[#C9A227]/20 blur-xl -z-10"></div>
-                                    </div>
-
-                                    {/* Expert Bio - Enhanced with Bold for Scannability */}
-                                    <div className="flex-1 text-center md:text-left">
-                                        <p className="text-slate-200 leading-relaxed text-sm md:text-base">
-                                            <span className="font-bold">"Por 12 anos, eu fui exatamente como você..."</span> Eu sou <span className="text-[#C9A227] font-bold">Anahí Solara</span>. Não sou guru financeira. 
-                                            Sou Terapeuta Holística e dediquei os últimos <span className="text-white font-bold">10 anos</span> a decodificar 
-                                            os padrões ocultos da escassez. <span className="font-bold">...descobri a verdade brutal: é um padrão energético ancestral.</span> Este mapa não é teoria. É o exato método que salvou minha 
-                                            própria família da falência e já ajudou mais de <span className="text-[#C9A227] font-bold">4.000 alunos</span> a 
-                                            destravarem a prosperidade."
-                                        </p>
-                                    </div>
-                                </div>
                             </motion.div>
 
                             {/* BLOCK 06: SOCIAL PROOF - 7 REVIEWS COM FOTOS REAIS */}
@@ -1204,32 +1179,14 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 </div>
 
                                 <h3 className="text-xl sm:text-2xl font-bold text-emerald-300 mb-4">
-                                    GARANTIA BLINDADA DE RESULTADO
+                                    Garantia Incondicional de 7 Dias
                                 </h3>
                                 <div className="text-slate-200 text-sm sm:text-base leading-relaxed space-y-3 max-w-2xl mx-auto px-2">
-                                    <p className="font-semibold text-white">
-                                        Você não tem risco nenhum.
+                                    <p>
+                                        Você tem 7 dias inteiros para assistir ao conteúdo, aplicar os rituais e sentir na prática a energia do protocolo.
                                     </p>
                                     <p>
-                                        Entre, faça o Mapa, use os áudios por 7 dias.
-                                    </p>
-                                    <p>
-                                        Se você <strong className="text-white">NÃO</strong> sentir pelo menos 3 destes sinais em 7 dias:
-                                    </p>
-                                    <ul className="list-none space-y-2 mt-3 text-left max-w-xl mx-auto">
-                                        <li>• Mais leveza ao pensar em dinheiro (dias 1-3)</li>
-                                        <li>• Alguma quantia inesperada chegando (R$50-500)</li>
-                                        <li>• Menos aperto ao checar o saldo</li>
-                                        <li>• Menos brigas sobre dinheiro em casa</li>
-                                    </ul>
-                                    <p className="text-white font-bold">
-                                        ...eu devolvo 100% do seu dinheiro.
-                                    </p>
-                                    <p>
-                                        Sem perguntas. Sem burocracia. Basta um e-mail.
-                                    </p>
-                                    <p className="text-emerald-300 font-bold text-lg sm:text-xl mt-4">
-                                        Ou seja: o risco é TODO MEU.
+                                        Se nesse período você não sentir que o Mapa Xamânico Oficial te ajudou a enxergar suas travas ancestrais com mais clareza e iniciar um processo real de desbloqueio, basta enviar uma mensagem e o seu investimento é devolvido 100%. Sem burocracia, sem perguntas.
                                     </p>
                                 </div>
 
@@ -1269,7 +1226,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 className="mb-12 bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] border border-[#C9A227]/30 rounded-2xl p-6 sm:p-8"
                             >
                                 <h3 className="text-xl sm:text-2xl md:text-2xl font-bold text-[#C9A227] text-center mb-6">
-                                    QUEM GUIARÁ SUA JORNADA?
+                                    Quem é a Guardiã do Mapa Xamânico Oficial?
                                 </h3>
                                 
                                 <div className="flex flex-col md:flex-row items-center gap-6">
@@ -1288,79 +1245,54 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         <div className="absolute -inset-2 bg-[#C9A227]/20 blur-xl -z-10"></div>
                                     </div>
 
-                                    {/* Expert Bio - MELHORADO: Com resultados pessoais dela */}
+                                    {/* Expert Bio - NEW COPY per requirements */}
                                     <div className="flex-1 text-center md:text-left">
-                                        <p className="text-[#C9A227] font-bold text-lg sm:text-xl mb-3">
-                                            Anahí Solara
-                                        </p>
                                         <p className="text-slate-200 leading-relaxed text-sm sm:text-base mb-4">
-                                            <span className="font-bold">"Por 12 anos, eu fui exatamente como você..."</span>
-                                        </p>
-                                        <p className="text-slate-200 leading-relaxed text-sm sm:text-base mb-4">
-                                            Trabalhava, trabalhava... mas o dinheiro sumia.
-                                        </p>
-                                        <p className="text-slate-200 leading-relaxed text-sm sm:text-base mb-4">
-                                            Até que em 2012, descobri a verdade: <span className="font-bold text-[#C9A227]">minha Herança Vibracional de Escassez</span> (linhagem paterna).
+                                            Anahi Solara é a guardiã por trás do Mapa Xamânico Oficial, unindo anos de estudo em xamanismo, terapias energéticas e desbloqueio financeiro para criar um protocolo simples e profundo de 7 dias.
                                         </p>
                                         
-                                        {/* NOVO: Resultados pessoais dela */}
-                                        <div className="bg-[#C9A227]/10 border-l-4 border-[#C9A227] rounded-r-lg p-4 my-6">
-                                            <p className="text-white font-bold text-sm sm:text-base mb-3">
-                                                Em 90 dias após fazer o protocolo, minha vida virou:
+                                        {/* Bullets de autoridade */}
+                                        <div className="space-y-3 mb-6">
+                                            <p className="text-slate-200 text-sm sm:text-base flex items-start gap-2">
+                                                <span className="text-[#C9A227] flex-shrink-0 text-lg">✓</span>
+                                                <span><span className="text-[#C9A227] font-bold">+4.300 pessoas</span> guiadas em processos de desbloqueio de travas ancestrais ligadas ao dinheiro.</span>
                                             </p>
-                                            <div className="space-y-2 text-slate-200 text-xs sm:text-sm">
-                                                <p className="flex items-start gap-2">
-                                                    <span className="text-[#C9A227] flex-shrink-0">→</span>
-                                                    <span>Uma dívida de R$43 mil foi perdoada (inexplicavelmente!)</span>
-                                                </p>
-                                                <p className="flex items-start gap-2">
-                                                    <span className="text-[#C9A227] flex-shrink-0">→</span>
-                                                    <span>Recebi contrato de R$120 mil que estava travado há 2 anos</span>
-                                                </p>
-                                                <p className="flex items-start gap-2">
-                                                    <span className="text-[#C9A227] flex-shrink-0">→</span>
-                                                    <span>Comprei minha primeira casa (à vista!) com dinheiro que "apareceu" de formas inesperadas</span>
-                                                </p>
-                                            </div>
+                                            <p className="text-slate-200 text-sm sm:text-base flex items-start gap-2">
+                                                <span className="text-[#C9A227] flex-shrink-0 text-lg">✓</span>
+                                                <span>Formação em práticas xamânicas e terapias de reconexão com a linhagem familiar.</span>
+                                            </p>
+                                            <p className="text-slate-200 text-sm sm:text-base flex items-start gap-2">
+                                                <span className="text-[#C9A227] flex-shrink-0 text-lg">✓</span>
+                                                <span>Experiência prática ajudando pessoas a sair de ciclos de dívidas, autosabotagem e sensação de "dinheiro que evapora".</span>
+                                            </p>
                                         </div>
                                         
-                                        <p className="text-slate-200 leading-relaxed text-sm sm:text-base mb-4">
-                                            Não sou guru financeira. Sou Terapeuta Holística que <span className="font-bold text-white">VIVEU essa transformação na pele</span>...
-                                        </p>
-                                        <p className="text-slate-200 leading-relaxed text-sm sm:text-base">
-                                            ...e agora ensino o mesmo protocolo que salvou minha família da falência e já ajudou <span className="text-[#C9A227] font-bold">4.000+ alunos</span> a destravar prosperidade.
-                                        </p>
-                                        <p className="text-[#C9A227] font-bold text-sm sm:text-base mt-4 italic">
-                                            Este mapa não é teoria. É o método exato que funcionou <span className="underline">COMIGO PRIMEIRO</span>.
+                                        {/* Mini-story */}
+                                        <div className="bg-[#C9A227]/10 border-l-4 border-[#C9A227] rounded-r-lg p-4 mb-6">
+                                            <p className="text-slate-200 leading-relaxed text-sm sm:text-base mb-3">
+                                                Durante anos, Anahi via o mesmo padrão se repetir: pessoas espiritualmente abertas, mas financeiramente travadas. Sentiam culpa ao ganhar dinheiro, medo de cobrar, vergonha de prosperar mais do que a própria família.
+                                            </p>
+                                            <p className="text-slate-200 leading-relaxed text-sm sm:text-base">
+                                                Ao aprofundar seus estudos em xamanismo e linhagens familiares, ela percebeu que muitos desses bloqueios não eram "defeitos pessoais", mas travas vibracionais herdadas. Foi daí que nasceu o Mapa Xamânico Oficial: um diagnóstico claro da trava ancestral + um protocolo simples, em 7 dias, para começar a liberar essa energia e abrir espaço para a abundância.
+                                            </p>
+                                        </div>
+                                        
+                                        {/* Fechamento */}
+                                        <p className="text-[#C9A227] font-bold text-sm sm:text-base italic">
+                                            O objetivo da Anahi com este protocolo é que você nunca mais olhe para dinheiro do mesmo jeito depois desses 7 dias.
                                         </p>
                                     </div>
                                 </div>
 
-                                {/* Credentials Badges */}
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-8">
-                                    <div className="flex items-center gap-2 text-sm bg-[#C9A227]/10 rounded-lg p-3 justify-center">
-                                        <span className="text-xl">💼</span>
-                                        <span className="text-slate-300">Terapeuta Holística há 10+ anos</span>
-                                    </div>
-                                    <div className="flex items-center gap-2 text-sm bg-[#C9A227]/10 rounded-lg p-3 justify-center">
-                                        <span className="text-xl">📚</span>
-                                        <span className="text-slate-300">Especialista em Xamanismo Financeiro</span>
-                                    </div>
-                                    <div className="flex items-center gap-2 text-sm bg-[#C9A227]/10 rounded-lg p-3 justify-center">
-                                        <span className="text-xl">👥</span>
-                                        <span className="text-slate-300">Mais de 4.000 alunos transformados</span>
-                                    </div>
-                                </div>
-
-                                {/* CTA after Bio - MELHORADO: novo copy */}
+                                {/* CTA after Bio */}
                                 <button
                                     onClick={handleCheckout}
                                     className="mt-6 w-full md:w-auto mx-auto block bg-gradient-to-r from-[#C9A227] via-[#C9A227] to-[#C9A227] hover:brightness-110 text-black font-black text-base sm:text-lg py-4 sm:py-5 px-8 sm:px-12 rounded-2xl shadow-[0_8px_30px_rgba(212,175,55,0.5)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#C9A227] uppercase tracking-wide"
                                 >
-                                    🚀 QUERO ENTRAR PARA OS 4.300+ QUE JÁ DESBLOQUEARAM →
+                                    QUERO DESTRAVAR MINHA TRAVA ANCESTRAL AGORA
                                 </button>
                                 <p className="text-slate-400 text-xs sm:text-sm mt-3 text-center">
-                                    Acesso em 2 minutos • Garantia 7 dias • 100% seguro
+                                    Pagamento via PIX, com liberação automática do protocolo em poucos minutos.
                                 </p>
                             </motion.div>
 

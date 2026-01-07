@@ -57,15 +57,20 @@ export const FAQ = () => {
       className="my-16 py-12"
     >
       <div className="max-w-3xl mx-auto px-4">
-        {/* Section Title */}
-        <motion.h2
+        {/* Section Title with intro */}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-black text-center text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] mb-12"
+          className="text-center mb-8"
         >
-          PERGUNTAS FREQUENTES
-        </motion.h2>
+          <h2 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] mb-4">
+            Ainda ficou alguma dúvida antes de destravar sua trava ancestral?
+          </h2>
+          <p className="text-slate-300 text-sm sm:text-base">
+            Veja abaixo as respostas para as perguntas que mais chegam todos os dias sobre o Mapa Xamânico Oficial.
+          </p>
+        </motion.div>
 
         {/* FAQ Items - Show only priority 1 on mobile */}
         <div className="space-y-4">
