@@ -339,37 +339,62 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
 
   return (
     <div className="min-h-screen min-h-[100dvh] flex flex-col max-w-lg mx-auto px-5 sm:px-6 md:px-8 py-5 sm:py-6 md:py-8 relative z-10">
-      {/* Progress Bar - Enhanced with better visibility and proper alignment */}
-      <div className="w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm rounded-full h-3 sm:h-3.5 mb-6 sm:mb-8 relative overflow-visible border border-[#D4AF37]/20 shadow-lg flex items-center">
+      {/* Progress Bar - Enhanced with better visibility, animations and proper alignment */}
+      <motion.div 
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm rounded-full h-3.5 sm:h-4 mb-6 sm:mb-8 relative overflow-visible border-2 border-[#D4AF37]/30 shadow-lg flex items-center"
+      >
         <motion.div 
           className="bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] h-full rounded-full relative overflow-hidden"
           initial={{ width: 0 }}
           animate={{ width: `${progress}%` }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
           style={{
-            boxShadow: '0 0 20px rgba(212, 175, 55, 0.6), 0 0 40px rgba(212, 175, 55, 0.3)',
+            boxShadow: '0 0 25px rgba(212, 175, 55, 0.7), 0 0 50px rgba(212, 175, 55, 0.4)',
           }}
         >
           {/* Animated shine effect */}
           <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
             animate={{
               x: ['-100%', '200%'],
             }}
             transition={{
-              duration: 2,
+              duration: 1.5,
               repeat: Infinity,
               ease: "linear",
             }}
           />
+          {/* Pulsing glow at the end */}
+          <motion.div
+            className="absolute right-0 top-0 bottom-0 w-1 bg-white"
+            animate={{
+              opacity: [0.5, 1, 0.5],
+              boxShadow: [
+                '0 0 5px rgba(255,255,255,0.5)',
+                '0 0 15px rgba(255,255,255,1)',
+                '0 0 5px rgba(255,255,255,0.5)'
+              ]
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              repeatType: "reverse"
+            }}
+          />
         </motion.div>
-        {/* Progress percentage text - Fixed alignment and framing */}
-        <div className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 bg-[#1a0d2e]/90 backdrop-blur-sm px-2 py-0.5 rounded-md border border-[#D4AF37]/30">
-          <span className="text-xs sm:text-sm font-black text-[#FFD700] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] tracking-tight">
+        {/* Progress percentage text - Enhanced with better styling */}
+        <motion.div 
+          initial={{ scale: 0.8 }}
+          animate={{ scale: 1 }}
+          className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 bg-[#1a0d2e]/95 backdrop-blur-md px-2.5 py-1 rounded-lg border-2 border-[#D4AF37]/40 shadow-lg"
+        >
+          <span className="text-xs sm:text-sm font-black text-[#FFD700] drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] tracking-tight">
             {Math.round(progress)}%
           </span>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       <AnimatePresence mode='wait'>
         <motion.div

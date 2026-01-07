@@ -581,66 +581,123 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         </div>
                                     </div>
 
-                                    {/* Emotional Urgency Box - YELLOW (not red panic) */}
-                                    <div className="bg-[#FFD700]/10 border-2 border-[#FFD700]/40 rounded-xl p-4 sm:p-5 mb-4">
-                                        <p className="text-[#FFD700] font-bold text-base sm:text-lg mb-3 flex items-center justify-center gap-2">
-                                            <span>⚡</span> ATENÇÃO:
+                                     {/* Emotional Urgency Box - Enhanced with better styling */}
+                                    <motion.div 
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ delay: 1.2 }}
+                                        className="bg-gradient-to-br from-[#FFD700]/15 to-[#FFA500]/10 border-2 border-[#FFD700]/50 rounded-xl p-4 sm:p-5 mb-4 sm:mb-5 shadow-[0_0_25px_rgba(255,215,0,0.2)]"
+                                    >
+                                        <p className="text-[#FFD700] font-black text-lg sm:text-xl mb-3 flex items-center justify-center gap-2">
+                                            <motion.span
+                                                animate={{ 
+                                                    scale: [1, 1.2, 1],
+                                                    rotate: [0, 10, -10, 0]
+                                                }}
+                                                transition={{ 
+                                                    duration: 1.5,
+                                                    repeat: Infinity,
+                                                    repeatType: "reverse"
+                                                }}
+                                            >
+                                                ⚡
+                                            </motion.span>
+                                            <span>DECISÃO CRÍTICA:</span>
                                         </p>
-                                        <div className="text-white text-sm sm:text-base leading-relaxed space-y-2">
-                                            <p>
-                                                Cada dia adiado é um dia a mais com o bloqueio.
+                                        <div className="text-white text-sm sm:text-base leading-relaxed space-y-2.5">
+                                            <p className="font-semibold">
+                                                Cada dia adiado é um dia a mais <span className="text-red-400 font-bold">com o bloqueio ativo</span>.
                                             </p>
-                                            <p>
-                                                Mais 1 mês? Mais 1 ano?
+                                            <p className="font-semibold">
+                                                Mais 1 mês? Mais 1 ano? <span className="text-orange-400 font-bold">Mais uma geração?</span>
                                             </p>
-                                            <p className="text-[#FFD700] font-black text-lg sm:text-xl">
-                                                O momento é AGORA.
+                                            <p className="text-[#FFD700] font-black text-lg sm:text-xl text-center mt-3">
+                                                🎯 O momento é AGORA.
                                             </p>
                                         </div>
-                                    </div>
+                                    </motion.div>
 
-                                    {/* Social Proof - Recent Purchases - MELHORADO: dot pulsante verde neon */}
-                                    <div className="text-center mb-4 sm:mb-5">
-                                        <p className="text-slate-300 text-sm mb-2 flex items-center justify-center gap-2">
-                                            <span className="relative flex h-2.5 w-2.5">
+                                    {/* Social Proof - Recent Purchases - Enhanced with better animation */}
+                                    <motion.div 
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 1.3 }}
+                                        className="text-center mb-4 sm:mb-5"
+                                    >
+                                        <p className="text-slate-300 text-sm sm:text-base mb-2 flex items-center justify-center gap-2 font-semibold">
+                                            <span className="relative flex h-3 w-3">
                                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00ff88] opacity-75"></span>
-                                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#00ff88] shadow-[0_0_10px_rgba(0,255,136,0.8)]"></span>
+                                                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00ff88] shadow-[0_0_12px_rgba(0,255,136,0.9)]"></span>
                                             </span>
-                                            👥 23 pessoas compraram nas últimas 24h
+                                            <span>👥 <span className="text-[#4ade80] font-bold">23 pessoas</span> compraram nas últimas 24h</span>
                                         </p>
                                         <div className="flex items-center justify-center flex-wrap gap-2 sm:gap-3 text-xs">
-                                            <span className="bg-white/5 px-2 sm:px-3 py-1 rounded-full">"Maria acabou de comprar há 2min"</span>
-                                            <span className="bg-white/5 px-2 sm:px-3 py-1 rounded-full">"João acabou de comprar há 8min"</span>
+                                            <motion.span 
+                                                initial={{ opacity: 0, scale: 0.9 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                transition={{ delay: 1.4 }}
+                                                className="bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/20"
+                                            >
+                                                💚 "Maria acabou de comprar há 2min"
+                                            </motion.span>
+                                            <motion.span 
+                                                initial={{ opacity: 0, scale: 0.9 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                transition={{ delay: 1.5 }}
+                                                className="bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/20"
+                                            >
+                                                💚 "João acabou de comprar há 8min"
+                                            </motion.span>
                                         </div>
-                                    </div>
+                                    </motion.div>
 
-                                    {/* EMOTIONAL CTA BEFORE BUTTON */}
-                                    <div className="text-center mb-5 px-2">
-                                        <p className="text-white text-base sm:text-lg font-bold mb-3">
-                                            Você está a UM CLIQUE de:
+                                    {/* EMOTIONAL CTA BEFORE BUTTON - Enhanced */}
+                                    <motion.div 
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 1.4 }}
+                                        className="text-center mb-5 px-2"
+                                    >
+                                        <p className="text-white text-lg sm:text-xl font-black mb-3">
+                                            ✨ Você está a <span className="text-[#4ade80]">UM CLIQUE</span> de:
                                         </p>
-                                        <div className="text-slate-300 text-sm space-y-2 mb-4 text-left max-w-md mx-auto">
-                                            <p className="flex items-start gap-2">
-                                                <span className="text-[#FFD700] flex-shrink-0">✨</span>
-                                                <span>Descobrir qual bloqueio ancestral trava R$5-50k todo mês</span>
-                                            </p>
-                                            <p className="flex items-start gap-2">
-                                                <span className="text-[#FFD700] flex-shrink-0">✨</span>
-                                                <span>Receber o protocolo de 7 dias usado por 4.387 pessoas</span>
-                                            </p>
-                                            <p className="flex items-start gap-2">
-                                                <span className="text-[#FFD700] flex-shrink-0">✨</span>
-                                                <span>Entender POR QUÊ o dinheiro nunca parou na sua mão</span>
-                                            </p>
+                                        <div className="text-slate-300 text-sm sm:text-base space-y-2.5 mb-5 text-left max-w-md mx-auto">
+                                            <motion.p 
+                                                initial={{ opacity: 0, x: -10 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: 1.5 }}
+                                                className="flex items-start gap-2"
+                                            >
+                                                <span className="text-[#FFD700] flex-shrink-0 text-lg">✓</span>
+                                                <span className="font-medium">Descobrir qual bloqueio ancestral trava <span className="text-[#FFD700] font-bold">R$5-50k</span> todo mês</span>
+                                            </motion.p>
+                                            <motion.p 
+                                                initial={{ opacity: 0, x: -10 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: 1.6 }}
+                                                className="flex items-start gap-2"
+                                            >
+                                                <span className="text-[#FFD700] flex-shrink-0 text-lg">✓</span>
+                                                <span className="font-medium">Receber o protocolo de 7 dias usado por <span className="text-[#4ade80] font-bold">4.387 pessoas</span></span>
+                                            </motion.p>
+                                            <motion.p 
+                                                initial={{ opacity: 0, x: -10 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: 1.7 }}
+                                                className="flex items-start gap-2"
+                                            >
+                                                <span className="text-[#FFD700] flex-shrink-0 text-lg">✓</span>
+                                                <span className="font-medium">Entender <span className="text-white font-bold">POR QUÊ</span> o dinheiro nunca parou na sua mão</span>
+                                            </motion.p>
                                         </div>
-                                        <p className="text-white text-base sm:text-lg font-bold mb-1">
-                                            A pergunta é:
+                                        <p className="text-white text-lg sm:text-xl font-black mb-2">
+                                            💭 A pergunta é:
                                         </p>
-                                        <p className="text-slate-300 text-sm sm:text-base mb-3">
+                                        <p className="text-slate-300 text-base sm:text-lg mb-3 font-semibold">
                                             Você vai continuar vivendo com esse bloqueio...<br />
-                                            <span className="text-white font-bold">...ou vai fazer algo HOJE?</span>
+                                            <span className="text-white font-black text-lg">...ou vai fazer algo HOJE?</span>
                                         </p>
-                                    </div>
+                                    </motion.div>
 
                                     {/* CTA BUTTON COM ÍCONE PIX - Mobile Optimized */}
                                     <button
