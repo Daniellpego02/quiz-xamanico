@@ -112,7 +112,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           </p>
         </motion.div>
 
-        {/* CAIXA DESTACADA - Card com glass effect */}
+        {/* CAIXA DESTACADA - Card com glass effect - Reduced from 3 to 2 bullets */}
         <motion.div
           initial={{ scale: 0.95, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -143,15 +143,6 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
               className="flex items-start gap-2"
             >
               <CheckCircle className="w-4 h-4 text-[#4ade80] flex-shrink-0 mt-0.5" />
-              <p>Onde ele começou na sua linhagem (e o ritual pra <strong className="text-white">PARAR</strong> hoje)</p>
-            </motion.div>
-            <motion.div 
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.4 }}
-              className="flex items-start gap-2"
-            >
-              <CheckCircle className="w-4 h-4 text-[#4ade80] flex-shrink-0 mt-0.5" />
               <p>O protocolo de 7 dias que <strong className="text-[#FFD700]">89%</strong> relatam resultados nos primeiros 3 dias</p>
             </motion.div>
           </div>
@@ -171,41 +162,11 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           </p>
         </motion.div>
 
-        {/* BENEFÍCIO CURTO */}
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.7, duration: 0.5 }}
-          className="bg-gradient-to-r from-[#4ade80]/10 to-[#10b981]/10 border border-[#4ade80]/30 rounded-lg p-3 backdrop-blur-sm"
-        >
-          <div className="space-y-1 text-xs sm:text-sm md:text-base font-medium text-[#4ade80] leading-relaxed">
-            <p>✓ R$5k-50k via Pix inesperados</p>
-            <p>✓ Clientes antigos pagando dívidas</p>
-            <p>✓ Propostas chegando sem você buscar</p>
-            <p>✓ Dinheiro parando na conta</p>
-          </div>
-        </motion.div>
-
-        {/* HIGHLIGHT COM ÍCONE */}
-        <motion.div
-          initial={{ scale: 0.95, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.8, duration: 0.5 }}
-          className="w-full bg-gradient-to-r from-[#8B0000]/20 to-[#FF4500]/20 border border-[#FF4500]/40 rounded-lg p-3 backdrop-blur-sm"
-        >
-          <div className="flex items-start gap-2">
-            <Sparkles className="w-5 h-5 text-[#FF6347] flex-shrink-0 mt-0.5" />
-            <p className="text-xs sm:text-sm md:text-base font-bold text-[#FF6347] leading-relaxed">
-              Você vai descobrir uma <strong className="text-white">VERDADE BRUTAL</strong> sobre por que o dinheiro nunca ficou na mão... até agora.
-            </p>
-          </div>
-        </motion.div>
-
-        {/* LISTA DE CONFIANÇA - Grid 2x2 em mobile */}
+        {/* LISTA DE CONFIANÇA - Grid 2x2 em mobile - Moved higher for better hierarchy */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9, duration: 0.5 }}
+          transition={{ delay: 0.7, duration: 0.5 }}
           className="grid grid-cols-2 gap-2 md:gap-3 w-full text-white/80 text-xs sm:text-sm"
         >
           <div className="flex items-center justify-center gap-1.5 bg-white/5 backdrop-blur-sm rounded-lg p-2 border border-white/10">

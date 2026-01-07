@@ -65,19 +65,19 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       options: [
         { 
           label: "Continuar dependendo dos outros ou contando moedas", 
-          sublabel: "💸 Olhar o preço de TUDO antes de comprar. Pedir dinheiro emprestado pro fim do mês. Inventar desculpa quando os amigos chamam pra sair.", 
+          sublabel: "💸 Sem liberdade financeira. Sempre devendo. Sempre limitado.", 
           value: "dependency", 
           icon: "" 
         },
         { 
           label: "Envelhecer sem construir patrimônio real", 
-          sublabel: "🏠 Chegar aos 55 anos no mesmo apartamento ALUGADO. Ver seus filhos crescerem sem dar a educação que sonhou. Morrer sem deixar nada.", 
+          sublabel: "🏠 Chegar aos 55 anos sem casa própria. Morrer sem deixar nada.", 
           value: "aging", 
           icon: "" 
         },
         { 
           label: "Ver minha família sofrer por causa da minha situação financeira", 
-          sublabel: "💔 Olhar no olho do seu filho e dizer 'não temos dinheiro pra isso agora'. Ver seus pais precisando de remédio, você sem condições. Sentir que FALHOU como provedor(a).", 
+          sublabel: "💔 Não poder ajudar quando precisam. Sentir que FALHOU.", 
           value: "family", 
           icon: "" 
         },
@@ -90,9 +90,9 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       emotionalContext: "Qual desses cenários descreve SUA VIDA agora?",
       hasOtherOption: true,
       options: [
-        { label: "O dinheiro entra, mas EVAPORA em imprevistos", sublabel: "Entrou R$2.000 na conta. No outro dia sumiu: carro quebrou, conta atrasada, 'emergência' do nada. Parece um ralo sugando tudo SEMPRE.", value: "leak", icon: "" },
-        { label: "Trabalho 12 horas por dia, ganho pouco, acordo exausto", sublabel: "Você faz TUDO certo: trabalha duro, não gasta bobagem. Mas o salário NÃO sobe. Parece ter um TETO invisível impedindo você de crescer.", value: "tired", icon: "" },
-        { label: "Tenho PAVOR que falte dinheiro", sublabel: "Você checa o saldo 3x por dia antes de gastar qualquer coisa. Vive fazendo conta mental com medo de faltar.", value: "fear", icon: "" },
+        { label: "O dinheiro entra, mas EVAPORA em imprevistos", sublabel: "💸 Tudo que entra, sai. Emergências sem parar. Parece um ralo.", value: "leak", icon: "" },
+        { label: "Trabalho 12 horas por dia, ganho pouco, acordo exausto", sublabel: "⚡ Faz tudo certo mas o salário NÃO sobe. Teto invisível bloqueando.", value: "tired", icon: "" },
+        { label: "Tenho PAVOR que falte dinheiro", sublabel: "😰 Checa o saldo 3x ao dia. Vive com medo de faltar.", value: "fear", icon: "" },
       ]
     },
     {
@@ -103,9 +103,9 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       emotionalContext: "→ Essa resposta revela a RAIZ do seu bloqueio ancestral.",
       validationText: "Isso não é culpa sua. É um padrão que sua família carrega há gerações. Você só recebeu. Agora pode ser quem rompe esse ciclo.",
       options: [
-        { label: "Histórico de dívidas, falências ou lutas financeiras brutais.", sublabel: "Seu avô passou aperto. Seu pai passou aperto. Agora VOCÊ passa aperto. O mesmo ciclo há 3 gerações. Dívida, conta atrasada, falta de dinheiro... sempre.", value: "heavy", icon: "" },
-        { label: "Pessoas honestas, trabalhadoras... mas que NUNCA enriqueceram.", sublabel: "Trabalharam 40 anos em empresa, se aposentaram com 1 salário mínimo. Viveram apertando a vida inteira. Morreram sem ter casa própria. Honestidade não trouxe abundância.", value: "honest", icon: "" },
-        { label: "Tinha dinheiro, mas MUITA briga, traição e desarmonia familiar.", sublabel: "A casa tinha grana, mas era um campo de guerra. Gritos, traições, brigas por dinheiro. Você cresceu associando \"ter dinheiro\" = \"sofrer emocionalmente\". Riqueza com conflito.", value: "conflict", icon: "" },
+        { label: "Histórico de dívidas, falências ou lutas financeiras brutais.", sublabel: "⚠️ Avô, pai, você... mesmo ciclo há 3 gerações. Sempre endividado.", value: "heavy", icon: "" },
+        { label: "Pessoas honestas, trabalhadoras... mas que NUNCA enriqueceram.", sublabel: "💼 40 anos trabalhando, 1 salário mínimo na aposentadoria. Honestidade não trouxe abundância.", value: "honest", icon: "" },
+        { label: "Tinha dinheiro, mas MUITA briga, traição e desarmonia familiar.", sublabel: "💰 Grana sim, mas guerra emocional. Ter dinheiro = sofrer.", value: "conflict", icon: "" },
       ]
     },
     {
@@ -142,7 +142,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       
       const interval = setInterval(() => {
         setLoadingStage(prev => (prev + 1) % loadingStages.length);
-      }, 800); // Increased from 650ms to 800ms for improved pacing and suspense
+      }, 1800); // Middle ground: 1800ms (1.8s) per stage = ~5.4s total, balancing perceived value with user patience
       
       return () => clearInterval(interval);
     } else {
@@ -176,7 +176,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
         const mergedQuestions = [...activeQuestions, ...financeQuestions];
         setActiveQuestions(mergedQuestions);
         setCurrentIndex(prev => prev + 1);
-    }, 4500); // Increased from 4000ms to 4500ms for better suspense
+    }, 6000); // Middle ground: 6s total (balanced between suspense and patience)
   };
 
   const handleOptionClick = (option: QuestionOption) => {
@@ -209,7 +209,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       tracking.quiz.halfway();
     }
 
-    // Increased delay to 500ms for better "digest" time
+    // Increased delay to 750ms for better "digest" time and satisfaction (balanced with responsiveness)
     setTimeout(() => {
       const length = activeQuestions.length;
       if (currentIndex < length - 1) {
@@ -222,7 +222,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
         tracking.meta.completeRegistration({ content_name: 'Quiz Completo', path: QUIZ_PATH });
         onComplete(QUIZ_PATH, userName);
       }
-    }, 500); // Increased from 250ms to 500ms
+    }, 750); // Balanced: 750ms provides feedback without feeling sluggish
   };
 
   if (showTuningScreen) {
@@ -339,62 +339,69 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
 
   return (
     <div className="min-h-screen min-h-[100dvh] flex flex-col max-w-lg mx-auto px-5 sm:px-6 md:px-8 py-5 sm:py-6 md:py-8 relative z-10">
-      {/* Progress Bar - Enhanced with better visibility, animations and proper alignment */}
-      <motion.div 
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm rounded-full h-3.5 sm:h-4 mb-6 sm:mb-8 relative overflow-visible border-2 border-[#D4AF37]/30 shadow-lg flex items-center"
-      >
+      {/* Progress Bar - Enhanced with better visibility, badge outside for better legibility */}
+      <div className="mb-6 sm:mb-8">
         <motion.div 
-          className="bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] h-full rounded-full relative overflow-hidden"
-          initial={{ width: 0 }}
-          animate={{ width: `${progress}%` }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          style={{
-            boxShadow: '0 0 25px rgba(212, 175, 55, 0.7), 0 0 50px rgba(212, 175, 55, 0.4)',
-          }}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex items-center gap-3 sm:gap-4"
         >
-          {/* Animated shine effect */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
-            animate={{
-              x: ['-100%', '200%'],
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          />
-          {/* Pulsing glow at the end */}
-          <motion.div
-            className="absolute right-0 top-0 bottom-0 w-1 bg-white"
-            animate={{
-              opacity: [0.5, 1, 0.5],
-              boxShadow: [
-                '0 0 5px rgba(255,255,255,0.5)',
-                '0 0 15px rgba(255,255,255,1)',
-                '0 0 5px rgba(255,255,255,0.5)'
-              ]
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              repeatType: "reverse"
-            }}
-          />
+          {/* Progress bar container */}
+          <div className="flex-1 bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm rounded-full h-4 sm:h-5 relative overflow-hidden border-2 border-[#D4AF37]/30 shadow-lg">
+            <motion.div 
+              className="bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] h-full rounded-full relative overflow-hidden"
+              initial={{ width: 0 }}
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              style={{
+                boxShadow: '0 0 25px rgba(212, 175, 55, 0.7), 0 0 50px rgba(212, 175, 55, 0.4)',
+              }}
+            >
+              {/* Animated shine effect */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+                animate={{
+                  x: ['-100%', '200%'],
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+              />
+              {/* Pulsing glow at the end */}
+              <motion.div
+                className="absolute right-0 top-0 bottom-0 w-1 bg-white"
+                animate={{
+                  opacity: [0.5, 1, 0.5],
+                  boxShadow: [
+                    '0 0 5px rgba(255,255,255,0.5)',
+                    '0 0 15px rgba(255,255,255,1)',
+                    '0 0 5px rgba(255,255,255,0.5)'
+                  ]
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  repeatType: "reverse"
+                }}
+              />
+            </motion.div>
+          </div>
+          
+          {/* Progress percentage text - Outside bar for always-visible clarity */}
+          <motion.div 
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="bg-[#1a0d2e]/95 backdrop-blur-md px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-lg border-2 border-[#D4AF37]/40 shadow-lg min-w-[50px] sm:min-w-[55px] flex items-center justify-center"
+          >
+            <span className="text-sm sm:text-base font-black text-[#FFD700] drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] tracking-tight">
+              {Math.round(progress)}%
+            </span>
+          </motion.div>
         </motion.div>
-        {/* Progress percentage text - Enhanced with better styling */}
-        <motion.div 
-          initial={{ scale: 0.8 }}
-          animate={{ scale: 1 }}
-          className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 bg-[#1a0d2e]/95 backdrop-blur-md px-2.5 py-1 rounded-lg border-2 border-[#D4AF37]/40 shadow-lg"
-        >
-          <span className="text-xs sm:text-sm font-black text-[#FFD700] drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] tracking-tight">
-            {Math.round(progress)}%
-          </span>
-        </motion.div>
-      </motion.div>
+      </div>
 
       <AnimatePresence mode='wait'>
         <motion.div
@@ -518,21 +525,21 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 </div>
               </div>
 
-              {/* CARD DE EXPLICAÇÃO - Enhanced premium styling */}
+              {/* CARD DE EXPLICAÇÃO - Standardized with border-left style for consistency */}
               {currentQuestion.emotionalContext && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="bg-gradient-to-br from-[#1a0d2e]/90 to-[#0f0520]/90 border-2 border-[#FFD700]/30 rounded-xl sm:rounded-2xl p-3 sm:p-4 space-y-2 relative overflow-hidden group"
+                  className="border-l-4 border-[#FFD700] bg-gradient-to-r from-[#1a0d2e]/90 to-[#0f0520]/90 rounded-r-xl sm:rounded-r-2xl pl-4 sm:pl-5 pr-3 sm:pr-4 py-3 sm:py-4 relative overflow-hidden"
                   style={{
-                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(212, 175, 55, 0.05), inset 0 1px 0 0 rgba(255, 255, 255, 0.05)',
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), inset 2px 0 10px rgba(212, 175, 55, 0.1)',
                   }}
                 >
-                  {/* Subtle gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent opacity-50 pointer-events-none" />
+                  {/* Subtle glow on left edge */}
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#FFD700] via-[#D4AF37] to-[#FFD700] opacity-80" />
                   
-                  <div className="flex items-start gap-2 relative z-10">
+                  <div className="flex items-start gap-3 relative z-10">
                     <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-[#FFD700] flex-shrink-0 mt-0.5" />
                     <p className="text-xs sm:text-sm md:text-base text-white/90 leading-relaxed whitespace-pre-line">
                       {currentQuestion.emotionalContext.split('\n\n').map((paragraph, i) => (
@@ -644,9 +651,9 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                     key={idx}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ 
-                      opacity: 1, 
+                      opacity: isNavigating && !isSelected ? 0.3 : 1, 
                       y: 0,
-                      scale: isSelected ? 0.98 : 1
+                      scale: isSelected ? 1.02 : 1
                     }}
                     transition={{ delay: idx * 0.08 + 0.3 }}
                     onClick={() => handleOptionClick(option)}
@@ -670,7 +677,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                           : 'bg-gradient-to-br from-[#1a0d2e]/90 to-[#0f0520]/90 border-2 border-[#3d2a5f] hover:border-[#FFD700]/70 hover:bg-gradient-to-br hover:from-[#2a1d4e]/90 hover:to-[#1a0d2e]/90 p-5 sm:p-6 md:p-7'
                     }`}
                     style={isSelected ? {
-                      boxShadow: '0 0 30px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.25), 0 0 0 3px rgba(255, 215, 0, 0.8), inset 0 1px 0 rgba(255, 215, 0, 0.2)',
+                      boxShadow: '0 0 40px rgba(255, 215, 0, 0.7), 0 0 80px rgba(255, 215, 0, 0.35), 0 0 0 4px rgba(255, 215, 0, 0.9), inset 0 2px 0 rgba(255, 215, 0, 0.3)',
                     } : currentQuestion.singleButton ? {
                       boxShadow: '0 10px 40px rgba(255, 215, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
                     } : {
@@ -725,15 +732,15 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                           )}
                         </div>
                         
-                        {/* Checkmark or Arrow - Animação aprimorada */}
+                        {/* Checkmark or Arrow - Enhanced animation for better satisfaction */}
                         {isSelected ? (
                           <motion.div
-                            initial={{ scale: 0, rotate: -180 }}
-                            animate={{ scale: 1, rotate: 0 }}
-                            transition={{ type: "spring", stiffness: 250, damping: 18 }}
+                            initial={{ scale: 0, rotate: -180, opacity: 0 }}
+                            animate={{ scale: 1, rotate: 0, opacity: 1 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 }}
                             className="flex-shrink-0"
                           >
-                            <CheckCircle2 className="w-7 h-7 sm:w-8 sm:h-8 text-[#FFD700] drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]" />
+                            <CheckCircle2 className="w-8 h-8 sm:w-9 sm:h-9 text-[#FFD700] drop-shadow-[0_0_12px_rgba(255,215,0,1)]" />
                           </motion.div>
                         ) : !currentQuestion.singleButton ? (
                           <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 text-[#FFD700] flex-shrink-0 group-hover:translate-x-2 transition-transform duration-200" />
