@@ -1,17 +1,18 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { Check, Shield, Clock, AlertTriangle, Headphones, FileText, Sparkles, Lock, CheckCircle } from 'lucide-react';
+import { Shield, Clock, AlertTriangle, Sparkles, Lock, CheckCircle } from 'lucide-react';
 import { FAQ } from './FAQ';
 import { tracking } from '../utils/tracking';
+import { SacredGeometry, RitualButton } from './ritual';
 
 interface OfferProps {
     userName: string;
 }
 
 /**
- * OFFER PAGE - PROFESSIONAL CONVERSION OPTIMIZATION
- * Following the complete technical specification for high-converting sales page
- * Architecture: Dark Mode + Gold Accents + Psychological Conversion Triggers
+ * OFFER PAGE - ACT IV: THE REVELATION & ACT V: THE INITIATION
+ * Ceremonial sacred reveal experience - NOT a SaaS conversion page
+ * Architecture: Deep mystical darkness + Aged gold accents + Ritual energy
  */
 const OfferNew = ({ userName }: OfferProps) => {
     const [showOfferContent, setShowOfferContent] = useState(false);
@@ -183,18 +184,41 @@ const OfferNew = ({ userName }: OfferProps) => {
     };
 
     return (
-        <div className="min-h-screen relative overflow-hidden text-white bg-[#000000]">
-            {/* Dark Forest Background with Mystical Effects */}
+        <div className="min-h-screen relative overflow-hidden text-white bg-[#050208]">
+            {/* ═══ SACRED RITUAL BACKGROUND - Deep ceremonial darkness ═══ */}
             <div className="fixed inset-0 -z-10">
-                <div className="absolute inset-0 bg-gradient-to-b from-[#021a0a] via-[#000000] to-[#021a0a]"></div>
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#D4AF37]/3 rounded-full blur-[150px] animate-pulse"></div>
-                <div className="absolute inset-0 opacity-[0.02]" style={{
+                {/* Void gradient base */}
+                <div className="absolute inset-0 bg-gradient-to-b from-[#0a0510] via-[#050208] to-[#0a0510]"></div>
+                
+                {/* Sacred energy field */}
+                <motion.div 
+                    className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full"
+                    style={{
+                        background: 'radial-gradient(circle, rgba(201, 162, 39, 0.08) 0%, transparent 60%)'
+                    }}
+                    animate={{
+                        scale: [1, 1.1, 1],
+                        opacity: [0.5, 0.8, 0.5]
+                    }}
+                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                />
+                
+                {/* Ancient grain texture */}
+                <div className="absolute inset-0 opacity-[0.03]" style={{
                     backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
                 }}></div>
             </div>
+            
+            {/* Rotating sacred geometry in background */}
+            <SacredGeometry 
+                variant="mandala" 
+                size={600} 
+                opacity={0.03}
+                className="fixed top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-5"
+            />
 
-            <div className="max-w-[800px] mx-auto px-4 py-4 sm:py-6">
-                {/* BLOCK 01: HERO SECTION - Dynamic Headline */}
+            <div className="max-w-[800px] mx-auto px-4 py-4 sm:py-6 relative z-10">
+                {/* ═══ BLOCK 01: HERO SECTION - THE REVELATION (ACT IV) ═══ */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -205,7 +229,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.5 }}
-                        className="text-lg sm:text-xl md:text-2xl font-black uppercase text-[#FFD700] mb-3 tracking-wide leading-tight px-2 text-glow-gold-strong"
+                        className="text-lg sm:text-xl md:text-2xl font-black uppercase text-[#C9A227] mb-3 tracking-wide leading-tight px-2 ritual-text-glow"
                     >
                         <span className="break-words flex items-center justify-center gap-2">
                             <motion.div
@@ -213,7 +237,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                     rotate: [0, 360],
                                     scale: [1, 1.2, 1]
                                 }}
-                                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                             >
                                 <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
                             </motion.div>
@@ -229,7 +253,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                         </motion.span>
                     </motion.h1>
                     
-                    {/* Type of Blockage Badge - Enhanced with bounce animation and better styling */}
+                    {/* ═══ Type of Blockage Badge - Ritual seal style ═══ */}
                     <motion.div 
                         initial={{ scale: 0, opacity: 0 }}
                         animate={{ 
@@ -243,36 +267,40 @@ const OfferNew = ({ userName }: OfferProps) => {
                             stiffness: 250,
                             damping: 12
                         }}
-                        className="inline-block bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] text-black font-extrabold text-sm sm:text-base px-4 sm:px-6 py-2.5 rounded-xl sm:rounded-2xl mt-3 shadow-2xl relative overflow-hidden border-2 border-[#FFD700]"
+                        className="inline-block bg-gradient-to-r from-[#8B7355] via-[#C9A227] to-[#8B7355] text-[#0a0510] font-extrabold text-sm sm:text-base px-4 sm:px-6 py-2.5 rounded-xl sm:rounded-2xl mt-3 relative overflow-hidden border-2 border-[#C9A227]/60"
                         style={{
-                            boxShadow: '0 6px 25px rgba(212, 175, 55, 0.5), 0 0 50px rgba(212, 175, 55, 0.3)'
+                            boxShadow: '0 0 40px rgba(201, 162, 39, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.2), inset 0 -2px 4px rgba(0, 0, 0, 0.3)'
                         }}
                     >
                         {/* Animated shine effect */}
                         <motion.div
-                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
                             animate={{
                                 x: ['-100%', '200%'],
                             }}
                             transition={{
-                                duration: 1.5,
+                                duration: 2,
                                 repeat: Infinity,
                                 ease: "linear",
                                 delay: 1
                             }}
                         />
-                        <span className="relative z-10 tracking-tight">
+                        <span className="relative z-10 tracking-tight font-ritual">
                             🔥 Tipo: Herança Vibracional de Escassez (Linhagem Materna)
                         </span>
                     </motion.div>
                 </motion.div>
 
-                {/* Pain Dimensionalization Section - PRIORITY 1 - Improved readability and impact */}
+                {/* ═══ Pain Dimensionalization Section - Ritual warning ═══ */}
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.15 }}
-                    className="bg-gradient-to-br from-[#2a0606]/98 to-[#1a0606]/98 border-2 border-[#FF4500]/70 rounded-xl p-5 sm:p-6 mb-5 sm:mb-6 shadow-[0_0_30px_rgba(255,69,0,0.3)]"
+                    className="ritual-card p-5 sm:p-6 mb-5 sm:mb-6"
+                    style={{
+                        borderColor: 'rgba(139, 37, 0, 0.6)',
+                        boxShadow: '0 0 40px rgba(139, 37, 0, 0.2), inset 0 1px 0 rgba(139, 37, 0, 0.2)'
+                    }}
                 >
                     <div className="flex items-start gap-2.5 mb-4">
                         <motion.div
@@ -300,7 +328,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                             className="flex items-start gap-2 leading-relaxed"
                         >
                             <span className="text-[#FF4500] font-extrabold text-lg">✗</span>
-                            <span className="font-semibold">Drenando <span className="text-[#FFD700] font-bold">R$5-50 mil por mês</span> da sua conta</span>
+                            <span className="font-semibold">Drenando <span className="text-[#C9A227] font-bold">R$5-50 mil por mês</span> da sua conta</span>
                         </motion.p>
                         <motion.p 
                             initial={{ opacity: 0, x: -10 }}
@@ -355,7 +383,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                         </p>
                     </div>
                     <p className="text-[11px] sm:text-xs md:text-sm text-red-100 font-bold">
-                        Vídeo personalizado expira em <span className="text-[#FFD700] font-black">24 HORAS</span>. Assista AGORA!
+                        Vídeo personalizado expira em <span className="text-[#C9A227] font-black">24 HORAS</span>. Assista AGORA!
                     </p>
                 </motion.div>
 
@@ -364,11 +392,11 @@ const OfferNew = ({ userName }: OfferProps) => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="bg-gradient-to-br from-[#D4AF37]/10 to-[#FFD700]/5 border-2 border-[#D4AF37]/30 rounded-lg sm:rounded-xl p-4 sm:p-5 mb-5 sm:mb-6"
+                    className="bg-gradient-to-br from-[#C9A227]/10 to-[#C9A227]/5 border-2 border-[#C9A227]/30 rounded-lg sm:rounded-xl p-4 sm:p-5 mb-5 sm:mb-6"
                 >
                     <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4">
-                        <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-[#FFD700]" />
-                        <h3 className="text-center text-[#FFD700] font-bold text-sm sm:text-base uppercase tracking-wider">
+                        <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-[#C9A227]" />
+                        <h3 className="text-center text-[#C9A227] font-bold text-sm sm:text-base uppercase tracking-wider">
                             NESTE VÍDEO VOCÊ ESTÁ DESCOBRINDO:
                         </h3>
                     </div>
@@ -403,7 +431,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4 }}
-                    className="relative rounded-lg sm:rounded-2xl overflow-hidden border-2 border-[#D4AF37] shadow-[0_0_60px_rgba(212,175,55,0.4)] mb-6 sm:mb-8 mx-auto w-full"
+                    className="relative rounded-lg sm:rounded-2xl overflow-hidden border-2 border-[#C9A227] shadow-[0_0_60px_rgba(212,175,55,0.4)] mb-6 sm:mb-8 mx-auto w-full"
                     style={{ maxWidth: 'min(450px, 100%)' }}
                 >
                     <div className="bg-black flex items-center justify-center relative">
@@ -424,7 +452,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                         </div>
                     </div>
                     {/* Glow effect */}
-                    <div className="absolute -inset-2 bg-[#D4AF37]/20 blur-xl -z-10"></div>
+                    <div className="absolute -inset-2 bg-[#C9A227]/20 blur-xl -z-10"></div>
                 </motion.div>
 
                 {/* CTA #1 - IMMEDIATELY AFTER VSL (ALWAYS VISIBLE) */}
@@ -444,30 +472,30 @@ const OfferNew = ({ userName }: OfferProps) => {
                         </p>
                     </div>
 
-                    {/* Giant CTA Button - Enhanced with better visual feedback */}
-                    <motion.button
-                        onClick={handleCheckout}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="w-full md:w-[75%] mx-auto block bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] hover:brightness-110 text-black font-black text-base sm:text-lg md:text-xl py-5 sm:py-6 md:py-7 px-6 sm:px-8 md:px-10 rounded-2xl shadow-[0_8px_40px_rgba(212,175,55,0.6)] transition-all border-2 border-[#FFD700] uppercase tracking-wide mb-4 sm:mb-5 min-h-[60px] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#FFD700]/40 relative overflow-hidden"
-                    >
-                        {/* Shine effect */}
-                        <motion.div
-                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                    {/* ═══ GIANT CTA BUTTON - Ritual artifact style ═══ */}
+                    <div className="relative w-full md:w-[75%] mx-auto mb-4 sm:mb-5">
+                        {/* Sacred glow behind button */}
+                        <motion.div 
+                            className="absolute -inset-2 rounded-2xl"
+                            style={{
+                                background: 'radial-gradient(ellipse at center, rgba(201, 162, 39, 0.3) 0%, transparent 70%)'
+                            }}
                             animate={{
-                                x: ['-100%', '200%'],
+                                scale: [1, 1.05, 1],
+                                opacity: [0.4, 0.7, 0.4]
                             }}
-                            transition={{
-                                duration: 2,
-                                repeat: Infinity,
-                                ease: "linear",
-                                repeatDelay: 1
-                            }}
+                            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                         />
-                        <span className="relative z-10">
-                            🔥 QUERO INICIAR MEU DESBLOQUEIO AGORA →
-                        </span>
-                    </motion.button>
+                        
+                        <RitualButton 
+                            onClick={handleCheckout}
+                            size="lg"
+                            pulse
+                            className="w-full"
+                        >
+                            🔥 QUERO INICIAR MEU DESBLOQUEIO AGORA
+                        </RitualButton>
+                    </div>
 
                     {/* Micro-benefits below button */}
                     <div className="text-center space-y-1.5 text-xs sm:text-sm px-2">
@@ -482,7 +510,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                     </p>
                 </motion.div>
 
-                {/* BLOCK 03: THE OFFER - Hidden until video timing */}
+                {/* ═══ BLOCK 03: THE OFFER - ACT V: THE INITIATION ═══ */}
                 <AnimatePresence>
                     {showOfferContent && (
                         <motion.div
@@ -496,10 +524,10 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.4 }}
-                                className="bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] border-2 border-[#D4AF37] rounded-3xl p-4 sm:p-6 md:p-8 mb-8 relative overflow-hidden"
+                                className="bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] border-2 border-[#C9A227] rounded-3xl p-4 sm:p-6 md:p-8 mb-8 relative overflow-hidden"
                             >
                                 {/* Pulsing glow */}
-                                <div className="absolute -inset-1 bg-gradient-to-r from-[#D4AF37] to-[#FFD700] rounded-3xl blur-lg opacity-20 animate-pulse"></div>
+                                <div className="absolute -inset-1 bg-gradient-to-r from-[#C9A227] to-[#C9A227] rounded-3xl blur-lg opacity-20 animate-pulse"></div>
                                 
                                 <div className="relative">
                                     <div className="text-center mb-6 sm:mb-8">
@@ -589,10 +617,10 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             </div>
 
                                             {/* Justificativa do "Só PIX" */}
-                                            <div className="bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-xl p-3 sm:p-4 mb-4 sm:mb-6">
+                                            <div className="bg-[#C9A227]/10 border border-[#C9A227]/30 rounded-xl p-3 sm:p-4 mb-4 sm:mb-6">
                                                 <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
                                                     Para manter o valor acessível em R$ 27,90, nós removemos as taxas de cartão de crédito e boletos bancários. 
-                                                    O pagamento é <span className="text-[#FFD700] font-bold">exclusivo via PIX</span> para ativação imediata no sistema.
+                                                    O pagamento é <span className="text-[#C9A227] font-bold">exclusivo via PIX</span> para ativação imediata no sistema.
                                                 </p>
                                             </div>
                                         </div>
@@ -603,9 +631,9 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         initial={{ opacity: 0, scale: 0.95 }}
                                         animate={{ opacity: 1, scale: 1 }}
                                         transition={{ delay: 1.2 }}
-                                        className="bg-gradient-to-br from-[#FFD700]/15 to-[#FFA500]/10 border-2 border-[#FFD700]/50 rounded-xl p-4 sm:p-5 mb-4 sm:mb-5 shadow-[0_0_25px_rgba(255,215,0,0.2)]"
+                                        className="bg-gradient-to-br from-[#C9A227]/15 to-[#FFA500]/10 border-2 border-[#C9A227]/50 rounded-xl p-4 sm:p-5 mb-4 sm:mb-5 shadow-[0_0_25px_rgba(255,215,0,0.2)]"
                                     >
-                                        <p className="text-[#FFD700] font-black text-lg sm:text-xl mb-3 flex items-center justify-center gap-2">
+                                        <p className="text-[#C9A227] font-black text-lg sm:text-xl mb-3 flex items-center justify-center gap-2">
                                             <motion.span
                                                 animate={{ 
                                                     scale: [1, 1.2, 1],
@@ -628,7 +656,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             <p className="font-semibold">
                                                 Mais 1 mês? Mais 1 ano? <span className="text-orange-400 font-bold">Mais uma geração?</span>
                                             </p>
-                                            <p className="text-[#FFD700] font-black text-lg sm:text-xl text-center mt-3">
+                                            <p className="text-[#C9A227] font-black text-lg sm:text-xl text-center mt-3">
                                                 🎯 O momento é AGORA.
                                             </p>
                                         </div>
@@ -685,8 +713,8 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                 transition={{ delay: 1.5 }}
                                                 className="flex items-start gap-2"
                                             >
-                                                <span className="text-[#FFD700] flex-shrink-0 text-lg">✓</span>
-                                                <span className="font-medium">Descobrir qual bloqueio ancestral trava <span className="text-[#FFD700] font-bold">R$5-50k</span> todo mês</span>
+                                                <span className="text-[#C9A227] flex-shrink-0 text-lg">✓</span>
+                                                <span className="font-medium">Descobrir qual bloqueio ancestral trava <span className="text-[#C9A227] font-bold">R$5-50k</span> todo mês</span>
                                             </motion.p>
                                             <motion.p 
                                                 initial={{ opacity: 0, x: -10 }}
@@ -694,7 +722,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                 transition={{ delay: 1.6 }}
                                                 className="flex items-start gap-2"
                                             >
-                                                <span className="text-[#FFD700] flex-shrink-0 text-lg">✓</span>
+                                                <span className="text-[#C9A227] flex-shrink-0 text-lg">✓</span>
                                                 <span className="font-medium">Receber o protocolo de 7 dias usado por <span className="text-[#4ade80] font-bold">4.387 pessoas</span></span>
                                             </motion.p>
                                             <motion.p 
@@ -703,7 +731,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                 transition={{ delay: 1.7 }}
                                                 className="flex items-start gap-2"
                                             >
-                                                <span className="text-[#FFD700] flex-shrink-0 text-lg">✓</span>
+                                                <span className="text-[#C9A227] flex-shrink-0 text-lg">✓</span>
                                                 <span className="font-medium">Entender <span className="text-white font-bold">POR QUÊ</span> o dinheiro nunca parou na sua mão</span>
                                             </motion.p>
                                         </div>
@@ -773,7 +801,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 transition={{ delay: 0.6 }}
                                 className="mb-12"
                             >
-                                <h2 className="text-lg sm:text-xl md:text-2xl font-black text-center text-[#FFD700] mb-4 sm:mb-6 md:mb-8 px-2">
+                                <h2 className="text-lg sm:text-xl md:text-2xl font-black text-center text-[#C9A227] mb-4 sm:mb-6 md:mb-8 px-2">
                                     O Que Você Vai Receber Imediatamente
                                 </h2>
 
@@ -786,7 +814,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             className="w-full h-auto max-h-[400px] sm:max-h-[500px] md:max-h-none rounded-lg sm:rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.9)] object-contain mx-auto"
                                             loading="lazy"
                                         />
-                                        <div className="absolute -inset-2 sm:-inset-4 bg-gradient-to-br from-[#D4AF37]/20 to-[#FFD700]/20 blur-2xl sm:blur-3xl -z-10"></div>
+                                        <div className="absolute -inset-2 sm:-inset-4 bg-gradient-to-br from-[#C9A227]/20 to-[#C9A227]/20 blur-2xl sm:blur-3xl -z-10"></div>
                                     </div>
                                 </div>
 
@@ -823,7 +851,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             initial={{ opacity: 0, x: -20 }}
                                             animate={{ opacity: 1, x: 0 }}
                                             transition={{ delay: 0.8 + idx * 0.1 }}
-                                            className="flex items-start gap-4 bg-gradient-to-br from-white/5 to-white/[0.02] border border-[#D4AF37]/30 rounded-xl p-3 sm:p-4 hover:border-[#D4AF37]/50 transition-all"
+                                            className="flex items-start gap-4 bg-gradient-to-br from-white/5 to-white/[0.02] border border-[#C9A227]/30 rounded-xl p-3 sm:p-4 hover:border-[#C9A227]/50 transition-all"
                                         >
                                             <div className="flex-shrink-0 text-2xl sm:text-3xl md:text-4xl">
                                                 {item.icon}
@@ -849,7 +877,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                             >
                                 <button
                                     onClick={handleCheckout}
-                                    className="w-full md:w-[60%] mx-auto block bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] hover:brightness-110 text-black font-black text-lg sm:text-xl py-5 px-6 sm:px-8 rounded-2xl shadow-[0_8px_30px_rgba(212,175,55,0.5)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#FFD700] uppercase tracking-wide mb-3"
+                                    className="w-full md:w-[60%] mx-auto block bg-gradient-to-r from-[#C9A227] via-[#C9A227] to-[#C9A227] hover:brightness-110 text-black font-black text-lg sm:text-xl py-5 px-6 sm:px-8 rounded-2xl shadow-[0_8px_30px_rgba(212,175,55,0.5)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#C9A227] uppercase tracking-wide mb-3"
                                 >
                                     QUERO ACESSAR TUDO ISSO AGORA →
                                 </button>
@@ -863,16 +891,16 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 1.2 }}
-                                className="mb-12 bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] border border-[#D4AF37]/30 rounded-2xl p-8"
+                                className="mb-12 bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] border border-[#C9A227]/30 rounded-2xl p-8"
                             >
-                                <h3 className="text-xl md:text-2xl font-bold text-[#FFD700] text-center mb-6">
+                                <h3 className="text-xl md:text-2xl font-bold text-[#C9A227] text-center mb-6">
                                     Quem guiará sua jornada?
                                 </h3>
                                 
                                 <div className="flex flex-col md:flex-row items-center gap-6">
                                     {/* Expert Photo */}
                                     <div className="relative flex-shrink-0">
-                                        <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#D4AF37]">
+                                        <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#C9A227]">
                                             <img 
                                                 src="/expert.jpg" 
                                                 alt="Anahí Solara"
@@ -882,16 +910,16 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                 }}
                                             />
                                         </div>
-                                        <div className="absolute -inset-2 bg-[#D4AF37]/20 blur-xl -z-10"></div>
+                                        <div className="absolute -inset-2 bg-[#C9A227]/20 blur-xl -z-10"></div>
                                     </div>
 
                                     {/* Expert Bio - Enhanced with Bold for Scannability */}
                                     <div className="flex-1 text-center md:text-left">
                                         <p className="text-slate-200 leading-relaxed text-sm md:text-base">
-                                            <span className="font-bold">"Por 12 anos, eu fui exatamente como você..."</span> Eu sou <span className="text-[#FFD700] font-bold">Anahí Solara</span>. Não sou guru financeira. 
+                                            <span className="font-bold">"Por 12 anos, eu fui exatamente como você..."</span> Eu sou <span className="text-[#C9A227] font-bold">Anahí Solara</span>. Não sou guru financeira. 
                                             Sou Terapeuta Holística e dediquei os últimos <span className="text-white font-bold">10 anos</span> a decodificar 
                                             os padrões ocultos da escassez. <span className="font-bold">...descobri a verdade brutal: é um padrão energético ancestral.</span> Este mapa não é teoria. É o exato método que salvou minha 
-                                            própria família da falência e já ajudou mais de <span className="text-[#FFD700] font-bold">4.000 alunos</span> a 
+                                            própria família da falência e já ajudou mais de <span className="text-[#C9A227] font-bold">4.000 alunos</span> a 
                                             destravarem a prosperidade."
                                         </p>
                                     </div>
@@ -905,7 +933,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 transition={{ delay: 1.4 }}
                                 className="mb-12"
                             >
-                                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-[#FFD700] text-center mb-4 sm:mb-6 px-2">
+                                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-[#C9A227] text-center mb-4 sm:mb-6 px-2">
                                     💬 O que os alunos estão dizendo
                                 </h3>
 
@@ -997,9 +1025,9 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             transition={{ delay: 1.6 + idx * 0.1 }}
                                             className={`bg-gradient-to-br ${
                                                 testimonial.isPlaceholder 
-                                                    ? 'from-[#3a2f0e] to-[#1a1a0a] border-2 border-dashed border-[#FFD700]/60 opacity-90' 
-                                                    : 'from-[#1a1a1a] to-[#0d0d0d] border border-[#D4AF37]/30'
-                                            } rounded-2xl p-4 sm:p-5 hover:border-[#D4AF37]/60 transition-all hover:shadow-[0_0_30px_rgba(212,175,55,0.2)] ${
+                                                    ? 'from-[#3a2f0e] to-[#1a1a0a] border-2 border-dashed border-[#C9A227]/60 opacity-90' 
+                                                    : 'from-[#1a1a1a] to-[#0d0d0d] border border-[#C9A227]/30'
+                                            } rounded-2xl p-4 sm:p-5 hover:border-[#C9A227]/60 transition-all hover:shadow-[0_0_30px_rgba(212,175,55,0.2)] ${
                                                 testimonial.hiddenOnMobile ? 'hidden md:block' : ''
                                             }`}
                                         >
@@ -1007,14 +1035,14 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                 {/* Foto Real do Cliente ou Placeholder */}
                                                 <div className="flex-shrink-0">
                                                     {testimonial.isPlaceholder ? (
-                                                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-dashed border-[#FFD700] bg-[#FFD700]/10 flex items-center justify-center text-2xl">
+                                                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-dashed border-[#C9A227] bg-[#C9A227]/10 flex items-center justify-center text-2xl">
                                                             ?
                                                         </div>
                                                     ) : (
                                                         <img 
                                                             src={testimonial.photo}
                                                             alt={testimonial.name}
-                                                            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-[#D4AF37]"
+                                                            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-[#C9A227]"
                                                             onError={(e) => {
                                                                 e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonial.name)}&background=D4AF37&color=000&size=200`;
                                                             }}
@@ -1025,7 +1053,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                     <div className="mb-2">
                                                         <div className="flex items-center gap-2 mb-1">
                                                             <p className={`font-bold text-sm sm:text-base truncate ${
-                                                                testimonial.isPlaceholder ? 'text-[#FFD700]' : 'text-white'
+                                                                testimonial.isPlaceholder ? 'text-[#C9A227]' : 'text-white'
                                                             }`}>
                                                                 {testimonial.name}
                                                             </p>
@@ -1041,14 +1069,14 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                         </p>
                                                     </div>
                                                     <p className={`text-xs sm:text-sm leading-relaxed mb-3 whitespace-pre-line ${
-                                                        testimonial.isPlaceholder ? 'text-[#FFD700]/80 italic' : 'text-slate-200'
+                                                        testimonial.isPlaceholder ? 'text-[#C9A227]/80 italic' : 'text-slate-200'
                                                     }`}>
                                                         {testimonial.text}
                                                     </p>
                                                     {testimonial.isPlaceholder ? (
                                                         <button
                                                             onClick={handleCheckout}
-                                                            className="w-full bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:brightness-110 text-black font-bold text-xs sm:text-sm py-2 px-4 rounded-lg transition-all transform hover:scale-105 active:scale-95"
+                                                            className="w-full bg-gradient-to-r from-[#C9A227] to-[#FFA500] hover:brightness-110 text-black font-bold text-xs sm:text-sm py-2 px-4 rounded-lg transition-all transform hover:scale-105 active:scale-95"
                                                         >
                                                             QUERO MEU RESULTADO →
                                                         </button>
@@ -1056,7 +1084,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                         <div className="flex items-center justify-between gap-2">
                                                             <div className="flex gap-1">
                                                                 {[...Array(5)].map((_, i) => (
-                                                                    <span key={i} className="text-[#FFD700] text-xs sm:text-sm">⭐</span>
+                                                                    <span key={i} className="text-[#C9A227] text-xs sm:text-sm">⭐</span>
                                                                 ))}
                                                             </div>
                                                             <p className="text-slate-500 text-[10px] sm:text-xs whitespace-nowrap">{testimonial.time}</p>
@@ -1078,7 +1106,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                             >
                                 <button
                                     onClick={handleCheckout}
-                                    className="w-full md:w-[60%] mx-auto block bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] hover:brightness-110 text-black font-black text-lg sm:text-xl py-5 px-6 sm:px-8 rounded-2xl shadow-[0_8px_30px_rgba(212,175,55,0.5)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#FFD700] uppercase tracking-wide mb-3"
+                                    className="w-full md:w-[60%] mx-auto block bg-gradient-to-r from-[#C9A227] via-[#C9A227] to-[#C9A227] hover:brightness-110 text-black font-black text-lg sm:text-xl py-5 px-6 sm:px-8 rounded-2xl shadow-[0_8px_30px_rgba(212,175,55,0.5)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#C9A227] uppercase tracking-wide mb-3"
                                 >
                                     QUERO MEU RESULTADO TAMBÉM →
                                 </button>
@@ -1133,8 +1161,8 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 </div>
 
                                 {/* "Why I Offer This" Box */}
-                                <div className="mt-8 bg-[#FFD700]/10 backdrop-blur-md border-2 border-[#FFD700]/30 rounded-xl p-4 sm:p-6 max-w-2xl mx-auto">
-                                    <h4 className="text-[#FFD700] font-bold text-base sm:text-lg mb-3 flex items-center justify-center gap-2">
+                                <div className="mt-8 bg-[#C9A227]/10 backdrop-blur-md border-2 border-[#C9A227]/30 rounded-xl p-4 sm:p-6 max-w-2xl mx-auto">
+                                    <h4 className="text-[#C9A227] font-bold text-base sm:text-lg mb-3 flex items-center justify-center gap-2">
                                         <span>💡</span> POR QUE OFEREÇO ISSO?
                                     </h4>
                                     <p className="text-slate-200 text-sm sm:text-base leading-relaxed mb-3">
@@ -1151,7 +1179,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 {/* CTA Button after Guarantee */}
                                 <button
                                     onClick={handleCheckout}
-                                    className="mt-6 w-full md:w-auto mx-auto block bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] hover:brightness-110 text-black font-black text-base sm:text-lg py-4 sm:py-5 px-8 sm:px-12 rounded-2xl shadow-[0_8px_30px_rgba(212,175,55,0.5)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#FFD700] uppercase tracking-wide"
+                                    className="mt-6 w-full md:w-auto mx-auto block bg-gradient-to-r from-[#C9A227] via-[#C9A227] to-[#C9A227] hover:brightness-110 text-black font-black text-base sm:text-lg py-4 sm:py-5 px-8 sm:px-12 rounded-2xl shadow-[0_8px_30px_rgba(212,175,55,0.5)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#C9A227] uppercase tracking-wide"
                                 >
                                     QUERO COMEÇAR SEM RISCO AGORA
                                 </button>
@@ -1165,16 +1193,16 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 2.0 }}
-                                className="mb-12 bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] border border-[#D4AF37]/30 rounded-2xl p-6 sm:p-8"
+                                className="mb-12 bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] border border-[#C9A227]/30 rounded-2xl p-6 sm:p-8"
                             >
-                                <h3 className="text-xl sm:text-2xl md:text-2xl font-bold text-[#FFD700] text-center mb-6">
+                                <h3 className="text-xl sm:text-2xl md:text-2xl font-bold text-[#C9A227] text-center mb-6">
                                     QUEM GUIARÁ SUA JORNADA?
                                 </h3>
                                 
                                 <div className="flex flex-col md:flex-row items-center gap-6">
                                     {/* Expert Photo */}
                                     <div className="relative flex-shrink-0">
-                                        <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#D4AF37]">
+                                        <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#C9A227]">
                                             <img 
                                                 src="/expert.jpg" 
                                                 alt="Anahí Solara"
@@ -1184,12 +1212,12 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                 }}
                                             />
                                         </div>
-                                        <div className="absolute -inset-2 bg-[#D4AF37]/20 blur-xl -z-10"></div>
+                                        <div className="absolute -inset-2 bg-[#C9A227]/20 blur-xl -z-10"></div>
                                     </div>
 
                                     {/* Expert Bio - MELHORADO: Com resultados pessoais dela */}
                                     <div className="flex-1 text-center md:text-left">
-                                        <p className="text-[#FFD700] font-bold text-lg sm:text-xl mb-3">
+                                        <p className="text-[#C9A227] font-bold text-lg sm:text-xl mb-3">
                                             Anahí Solara
                                         </p>
                                         <p className="text-slate-200 leading-relaxed text-sm sm:text-base mb-4">
@@ -1199,25 +1227,25 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             Trabalhava, trabalhava... mas o dinheiro sumia.
                                         </p>
                                         <p className="text-slate-200 leading-relaxed text-sm sm:text-base mb-4">
-                                            Até que em 2012, descobri a verdade: <span className="font-bold text-[#FFD700]">minha Herança Vibracional de Escassez</span> (linhagem paterna).
+                                            Até que em 2012, descobri a verdade: <span className="font-bold text-[#C9A227]">minha Herança Vibracional de Escassez</span> (linhagem paterna).
                                         </p>
                                         
                                         {/* NOVO: Resultados pessoais dela */}
-                                        <div className="bg-[#FFD700]/10 border-l-4 border-[#FFD700] rounded-r-lg p-4 my-6">
+                                        <div className="bg-[#C9A227]/10 border-l-4 border-[#C9A227] rounded-r-lg p-4 my-6">
                                             <p className="text-white font-bold text-sm sm:text-base mb-3">
                                                 Em 90 dias após fazer o protocolo, minha vida virou:
                                             </p>
                                             <div className="space-y-2 text-slate-200 text-xs sm:text-sm">
                                                 <p className="flex items-start gap-2">
-                                                    <span className="text-[#FFD700] flex-shrink-0">→</span>
+                                                    <span className="text-[#C9A227] flex-shrink-0">→</span>
                                                     <span>Uma dívida de R$43 mil foi perdoada (inexplicavelmente!)</span>
                                                 </p>
                                                 <p className="flex items-start gap-2">
-                                                    <span className="text-[#FFD700] flex-shrink-0">→</span>
+                                                    <span className="text-[#C9A227] flex-shrink-0">→</span>
                                                     <span>Recebi contrato de R$120 mil que estava travado há 2 anos</span>
                                                 </p>
                                                 <p className="flex items-start gap-2">
-                                                    <span className="text-[#FFD700] flex-shrink-0">→</span>
+                                                    <span className="text-[#C9A227] flex-shrink-0">→</span>
                                                     <span>Comprei minha primeira casa (à vista!) com dinheiro que "apareceu" de formas inesperadas</span>
                                                 </p>
                                             </div>
@@ -1227,9 +1255,9 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             Não sou guru financeira. Sou Terapeuta Holística que <span className="font-bold text-white">VIVEU essa transformação na pele</span>...
                                         </p>
                                         <p className="text-slate-200 leading-relaxed text-sm sm:text-base">
-                                            ...e agora ensino o mesmo protocolo que salvou minha família da falência e já ajudou <span className="text-[#FFD700] font-bold">4.000+ alunos</span> a destravar prosperidade.
+                                            ...e agora ensino o mesmo protocolo que salvou minha família da falência e já ajudou <span className="text-[#C9A227] font-bold">4.000+ alunos</span> a destravar prosperidade.
                                         </p>
-                                        <p className="text-[#FFD700] font-bold text-sm sm:text-base mt-4 italic">
+                                        <p className="text-[#C9A227] font-bold text-sm sm:text-base mt-4 italic">
                                             Este mapa não é teoria. É o método exato que funcionou <span className="underline">COMIGO PRIMEIRO</span>.
                                         </p>
                                     </div>
@@ -1237,15 +1265,15 @@ const OfferNew = ({ userName }: OfferProps) => {
 
                                 {/* Credentials Badges */}
                                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-8">
-                                    <div className="flex items-center gap-2 text-sm bg-[#D4AF37]/10 rounded-lg p-3 justify-center">
+                                    <div className="flex items-center gap-2 text-sm bg-[#C9A227]/10 rounded-lg p-3 justify-center">
                                         <span className="text-xl">💼</span>
                                         <span className="text-slate-300">Terapeuta Holística há 10+ anos</span>
                                     </div>
-                                    <div className="flex items-center gap-2 text-sm bg-[#D4AF37]/10 rounded-lg p-3 justify-center">
+                                    <div className="flex items-center gap-2 text-sm bg-[#C9A227]/10 rounded-lg p-3 justify-center">
                                         <span className="text-xl">📚</span>
                                         <span className="text-slate-300">Especialista em Xamanismo Financeiro</span>
                                     </div>
-                                    <div className="flex items-center gap-2 text-sm bg-[#D4AF37]/10 rounded-lg p-3 justify-center">
+                                    <div className="flex items-center gap-2 text-sm bg-[#C9A227]/10 rounded-lg p-3 justify-center">
                                         <span className="text-xl">👥</span>
                                         <span className="text-slate-300">Mais de 4.000 alunos transformados</span>
                                     </div>
@@ -1254,7 +1282,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 {/* CTA after Bio - MELHORADO: novo copy */}
                                 <button
                                     onClick={handleCheckout}
-                                    className="mt-6 w-full md:w-auto mx-auto block bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] hover:brightness-110 text-black font-black text-base sm:text-lg py-4 sm:py-5 px-8 sm:px-12 rounded-2xl shadow-[0_8px_30px_rgba(212,175,55,0.5)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#FFD700] uppercase tracking-wide"
+                                    className="mt-6 w-full md:w-auto mx-auto block bg-gradient-to-r from-[#C9A227] via-[#C9A227] to-[#C9A227] hover:brightness-110 text-black font-black text-base sm:text-lg py-4 sm:py-5 px-8 sm:px-12 rounded-2xl shadow-[0_8px_30px_rgba(212,175,55,0.5)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#C9A227] uppercase tracking-wide"
                                 >
                                     🚀 QUERO ENTRAR PARA OS 4.300+ QUE JÁ DESBLOQUEARAM →
                                 </button>
