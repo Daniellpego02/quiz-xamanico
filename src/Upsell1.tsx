@@ -88,7 +88,7 @@ export default function Upsell1({ userName = 'você' }: Upsell1Props) {
     // Track upsell acceptance
     tracking.purchase.addToCart({
       productName: 'Upsell 1 - Mentoria Individual',
-      productPrice: PRICING.upsell1.value,
+      productPrice: parseFloat(PRICING.upsell1.offer.replace(',', '.')),
       productId: 'upsell1-mentoria',
       email: 'unknown@email.com'
     });
@@ -107,7 +107,7 @@ export default function Upsell1({ userName = 'você' }: Upsell1Props) {
     // Track exit popup acceptance
     tracking.purchase.addToCart({
       productName: 'Upsell 1 - Mentoria Individual (Exit Popup)',
-      productPrice: PRICING.upsell1.exitPopup,
+      productPrice: parseFloat(PRICING.upsell1.exitPopupDiscount.replace(',', '.')),
       productId: 'upsell1-mentoria-exit',
       email: 'unknown@email.com'
     });
