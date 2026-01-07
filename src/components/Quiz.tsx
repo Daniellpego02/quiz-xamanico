@@ -102,7 +102,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       text: "O XAMANISMO FINANCEIRO DESCOBRIU QUE 87% DOS PADRÕES FINANCEIROS SE REPETEM POR 3 GERAÇÕES.",
       subtext: "Olhando para seus PAIS ou AVÓS, o que você vê?",
       emotionalContext: "→ Essa resposta revela a RAIZ do seu bloqueio ancestral.",
-      validationText: "Isso não é culpa sua. É um padrão que sua família carrega há gerações. Você só recebeu. Agora pode ser quem rompe esse ciclo.",
+      validationText: "{NAME}, estamos quase lá. O sistema está cruzando seus dados ancestrais com os padrões de escassez detectados... A resposta final é reveladora.",
       options: [
         { label: "Histórico de dívidas, falências ou lutas financeiras brutais.", sublabel: "⚠️ Avô, pai, você... mesmo ciclo há 3 gerações. Sempre endividado.", value: "heavy", icon: "" },
         { label: "Pessoas honestas, trabalhadoras... mas que NUNCA enriqueceram.", sublabel: "💼 40 anos trabalhando, 1 salário mínimo na aposentadoria. Honestidade não trouxe abundância.", value: "honest", icon: "" },
@@ -636,7 +636,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                       scale: 0.97,
                       transition: { duration: 0.1 }
                     } : {}}
-                    className={`w-full text-left rounded-xl sm:rounded-2xl transition-all duration-200 group relative overflow-hidden min-h-[56px] ${
+                    className={`w-full quiz-option text-left rounded-xl sm:rounded-2xl transition-all duration-200 group relative overflow-hidden min-h-[56px] ${
                       isNavigating ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'
                     } ${
                       isSelected

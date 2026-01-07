@@ -4,6 +4,7 @@ import { Shield, Clock, AlertTriangle, Sparkles, Lock, CheckCircle } from 'lucid
 import { FAQ } from './FAQ';
 import { tracking } from '../utils/tracking';
 import { SacredGeometry, RitualButton } from './ritual';
+import { SocialProofCarousel } from './SocialProofCarousel';
 
 interface OfferProps {
     userName: string;
@@ -554,10 +555,14 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         
                                         {/* Price Stack - NOVO FORMATO SÓ PIX - MOBILE OPTIMIZED */}
                                         <div className="space-y-2 sm:space-y-3">
-                                            {/* Linha 1: Ancoragem (Valor Antigo) - MELHORADO: menor e mais apagado */}
+                                            {/* Linha 1: Ancoragem de Preço - Updated per requirements */}
                                             <div>
-                                                <p className="text-slate-500 text-[10px] sm:text-xs line-through opacity-60">
-                                                    Valor da Sessão Individual: R$ {priceOld}
+                                                <p className="text-slate-400 text-sm sm:text-base mb-2">
+                                                    O valor normal deste protocolo é de{' '}
+                                                    <span className="text-slate-500 line-through font-bold">R$ 197,00</span>
+                                                </p>
+                                                <p className="text-white text-base sm:text-lg font-semibold">
+                                                    Mas, pelo nível crítico do seu diagnóstico, você acessa hoje por apenas:
                                                 </p>
                                             </div>
 
@@ -760,12 +765,12 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         </p>
                                     </motion.div>
 
-                                    {/* CTA BUTTON COM ÍCONE PIX - Mobile Optimized with enhanced animation */}
+                                    {/* CTA BUTTON COM ÍCONE PIX - Mobile Optimized with enhanced animation - Updated to green per requirements */}
                                     <motion.button
                                         onClick={handleCheckout}
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.95 }}
-                                        className="w-full bg-gradient-to-r from-[#00FF41] to-[#00CC33] hover:from-[#00CC33] hover:to-[#00FF41] text-black font-black text-base sm:text-lg md:text-xl py-5 md:py-6 px-4 md:px-8 rounded-2xl shadow-[0_0_40px_rgba(0,255,65,0.6)] transition-all uppercase tracking-wide mb-3 flex items-center justify-center gap-2 md:gap-3 relative overflow-hidden border-2 border-[#00FF41]"
+                                        className="w-full bg-gradient-to-r from-[#28A745] to-[#20923A] hover:from-[#20923A] hover:to-[#28A745] text-white font-black text-base sm:text-lg md:text-xl py-5 md:py-6 px-4 md:px-8 rounded-2xl shadow-[0_0_40px_rgba(40,167,69,0.6)] transition-all uppercase tracking-wide mb-3 flex items-center justify-center gap-2 md:gap-3 relative overflow-hidden border-2 border-[#28A745]"
                                     >
                                         {/* Shine effect */}
                                         <motion.div
@@ -780,12 +785,25 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                 repeatDelay: 0.5
                                             }}
                                         />
-                                        <span className="text-2xl md:text-3xl flex-shrink-0 relative z-10">🔷</span>
-                                        <span className="leading-tight relative z-10">GERAR MEU ACESSO AGORA (PIX)</span>
+                                        <span className="text-2xl md:text-3xl flex-shrink-0 relative z-10">🔥</span>
+                                        <span className="leading-tight relative z-10">QUERO DESTRUIR MINHA TRAVA ANCESTRAL AGORA</span>
                                     </motion.button>
 
+                                    {/* 7 Days Guarantee Badge - New addition per requirements */}
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ delay: 1.6 }}
+                                        className="flex justify-center mb-3"
+                                    >
+                                        <div className="guarantee-badge">
+                                            <Shield className="w-5 h-5" />
+                                            <span>Garantia de 7 Dias - 100% Seguro</span>
+                                        </div>
+                                    </motion.div>
+
                                     {/* Subtexto do Botão */}
-                                    <p className="text-center text-[#00FF41] text-sm font-semibold flex items-center justify-center gap-2">
+                                    <p className="text-center text-[#28A745] text-sm font-semibold flex items-center justify-center gap-2">
                                         <Lock className="w-4 h-4" />
                                         ⚡ Acesso Liberado em Até 2 Minutos
                                     </p>
@@ -834,24 +852,24 @@ const OfferNew = ({ userName }: OfferProps) => {
                                     </div>
                                 </div>
 
-                                {/* Benefits Bullets */}
+                                {/* Benefits Bullets - Enhanced as Premium Cards with Icons */}
                                 <div className="space-y-4 max-w-2xl mx-auto">
                                     {[
                                         {
-                                            icon: '📜',
-                                            title: 'O Mapa da Frequência',
+                                            icon: '🗺️',
+                                            title: 'Mapa Xamânico Personalizado',
                                             desc: 'Descubra exatamente onde está vazando o dinheiro da sua vida AGORA. Não é adivinhação, é um diagnóstico energético baseado na sua linhagem ancestral. ',
                                             descBold: 'Você vai entender POR QUE o dinheiro não para.'
                                         },
                                         {
-                                            icon: '📅',
+                                            icon: '🔮',
                                             title: 'Protocolo de 7 Dias',
                                             desc: 'O passo a passo simples para limpar a energia estagnada. Você não precisa de nada caro ou complicado - só seguir o protocolo dia após dia. ',
                                             descBold: '10-15 minutos por dia, 89% das pessoas sentem os primeiros sinais em até 3 dias.'
                                         },
                                         {
-                                            icon: '🎧',
-                                            title: 'Áudios de Reprogramação',
+                                            icon: '💰',
+                                            title: 'Mantras de Abundância',
                                             desc: 'Desbloqueie sua mente enquanto você dorme. Esses áudios foram criados para desprogramar crenças de escassez que você nem sabe que tem. ',
                                             descBold: 'Olha só: é como resetar sua frequência enquanto você descansa.'
                                         },
@@ -867,20 +885,59 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             initial={{ opacity: 0, x: -20 }}
                                             animate={{ opacity: 1, x: 0 }}
                                             transition={{ delay: 0.8 + idx * 0.1 }}
-                                            className="flex items-start gap-4 bg-gradient-to-br from-white/5 to-white/[0.02] border border-[#C9A227]/30 rounded-xl p-3 sm:p-4 hover:border-[#C9A227]/50 transition-all"
+                                            className="offer-card flex items-start gap-4"
                                         >
-                                            <div className="flex-shrink-0 text-2xl sm:text-3xl md:text-4xl">
+                                            <div className="card-icon">
                                                 {item.icon}
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <p className="text-white font-bold text-sm sm:text-base md:text-lg mb-1.5 sm:mb-2">✅ {item.title}</p>
-                                                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed line-clamp-3 sm:line-clamp-none">
+                                                <h3 className="text-white font-bold text-sm sm:text-base md:text-lg mb-1.5 sm:mb-2">✅ {item.title}</h3>
+                                                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
                                                     {item.desc}
                                                     <span className="font-bold text-white">{item.descBold}</span>
                                                 </p>
                                             </div>
                                         </motion.div>
                                     ))}
+                                </div>
+                            </motion.div>
+
+                            {/* BLOCK 04.5: SOCIAL PROOF - PIX NOTIFICATIONS CAROUSEL */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 1.4 }}
+                                className="mb-12"
+                            >
+                                <h3 className="text-lg sm:text-xl md:text-2xl font-black text-[#4ade80] text-center mb-4 sm:mb-6 px-2">
+                                    💰 Pagamentos Reais Recebidos nas Últimas 24h
+                                </h3>
+                                <p className="text-slate-300 text-sm sm:text-base text-center mb-6 sm:mb-8 px-4">
+                                    Veja prints reais de notificações PIX de quem já está destravando a abundância
+                                </p>
+                                
+                                <SocialProofCarousel 
+                                    images={[
+                                        '/prova1.png',
+                                        '/prova2.png',
+                                        '/prova3.png',
+                                        '/prova4.png',
+                                        '/prova5.png',
+                                        '/prova6.png',
+                                        '/prova7.png',
+                                    ]}
+                                    autoPlayInterval={4000}
+                                />
+                                
+                                {/* Trust indicator */}
+                                <div className="flex items-center justify-center gap-2 mt-6 sm:mt-8">
+                                    <div className="relative flex h-3 w-3">
+                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4ade80] opacity-75"></span>
+                                        <span className="relative inline-flex rounded-full h-3 w-3 bg-[#4ade80] shadow-[0_0_12px_rgba(74,222,128,0.9)]"></span>
+                                    </div>
+                                    <p className="text-slate-300 text-xs sm:text-sm font-semibold">
+                                        <span className="text-[#4ade80] font-bold">23 pessoas</span> compraram nas últimas 24h
+                                    </p>
                                 </div>
                             </motion.div>
 
