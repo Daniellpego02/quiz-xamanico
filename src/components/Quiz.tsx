@@ -525,21 +525,21 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 </div>
               </div>
 
-              {/* CARD DE EXPLICAÇÃO - Enhanced premium styling */}
+              {/* CARD DE EXPLICAÇÃO - Standardized with border-left style for consistency */}
               {currentQuestion.emotionalContext && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="bg-gradient-to-br from-[#1a0d2e]/90 to-[#0f0520]/90 border-2 border-[#FFD700]/30 rounded-xl sm:rounded-2xl p-3 sm:p-4 space-y-2 relative overflow-hidden group"
+                  className="border-l-4 border-[#FFD700] bg-gradient-to-r from-[#1a0d2e]/90 to-[#0f0520]/90 rounded-r-xl sm:rounded-r-2xl pl-4 sm:pl-5 pr-3 sm:pr-4 py-3 sm:py-4 relative overflow-hidden"
                   style={{
-                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(212, 175, 55, 0.05), inset 0 1px 0 0 rgba(255, 255, 255, 0.05)',
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), inset 2px 0 10px rgba(212, 175, 55, 0.1)',
                   }}
                 >
-                  {/* Subtle gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 to-transparent opacity-50 pointer-events-none" />
+                  {/* Subtle glow on left edge */}
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#FFD700] via-[#D4AF37] to-[#FFD700] opacity-80" />
                   
-                  <div className="flex items-start gap-2 relative z-10">
+                  <div className="flex items-start gap-3 relative z-10">
                     <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-[#FFD700] flex-shrink-0 mt-0.5" />
                     <p className="text-xs sm:text-sm md:text-base text-white/90 leading-relaxed whitespace-pre-line">
                       {currentQuestion.emotionalContext.split('\n\n').map((paragraph, i) => (
