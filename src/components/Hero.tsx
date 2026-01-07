@@ -19,6 +19,15 @@ const ESTADOS_BR: Record<string, string> = {
   'SP': 'São Paulo', 'SE': 'Sergipe', 'TO': 'Tocantins'
 };
 
+// Style for headline underline - extracted for maintainability
+const headlineUnderlineStyle: React.CSSProperties = {
+  textDecoration: 'underline',
+  textDecorationColor: 'rgba(201, 162, 39, 0.5)',
+  textDecorationThickness: '2px',
+  textUnderlineOffset: '4px',
+  textDecorationSkipInk: 'none'
+};
+
 export const Hero: React.FC<HeroProps> = ({ onStart }) => {
   const [userState, setUserState] = useState<string>('Brasil');
   const [isLoadingState, setIsLoadingState] = useState(true);
@@ -28,7 +37,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
     const detectUserState = async () => {
       try {
         // Try ipinfo.io first (more reliable and has better rate limits)
-        const ipinfoResponse = await fetch('https://ipinfo.io/json?token=');
+        const ipinfoResponse = await fetch('https://ipinfo.io/json');
         if (ipinfoResponse.ok) {
           const ipinfoData = await ipinfoResponse.json();
           if (ipinfoData.region) {
@@ -169,7 +178,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           className="space-y-2"
         >
           <h1 className="text-[20px] sm:text-[26px] md:text-[36px] lg:text-[42px] font-black text-white leading-[1.25] break-words ritual-text-glow">
-            Existe Uma <span className="text-[#C9A227] inline-block" style={{ textDecoration: 'underline', textDecorationColor: 'rgba(201, 162, 39, 0.5)', textDecorationThickness: '2px', textUnderlineOffset: '4px', textDecorationSkipInk: 'none' }}>"TRAVA ANCESTRAL"</span>{' '}
+            Existe Uma <span className="text-[#C9A227] inline-block" style={headlineUnderlineStyle}>"TRAVA ANCESTRAL"</span>{' '}
             <span className="text-[#FF4500] animate-pulse">SUFOCANDO</span>{' '}
             <span className="text-[#C9A227] font-extrabold">R$5-50 MIL</span>{' '}
             da Sua Conta Bancária?

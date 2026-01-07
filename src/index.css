@@ -203,20 +203,18 @@ html {
   }
   
   /* Better underline rendering on mobile */
-  h1 span[style*="text-decoration"] {
-    text-decoration-thickness: 2px !important;
-    text-underline-offset: 3px !important;
+  h1 .inline-block {
+    line-height: 1.35;
+    padding-bottom: 2px;
   }
 }
 
 /* Improved mobile underline support for all screen sizes */
 @media (max-width: 768px) {
-  h1 span[style*="text-decoration"] {
+  h1 .inline-block {
     -webkit-text-decoration-skip: none;
     text-decoration-skip-ink: none;
-    display: inline-block;
     line-height: 1.3;
-    padding-bottom: 2px;
   }
 }
 
