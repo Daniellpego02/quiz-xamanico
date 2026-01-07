@@ -107,7 +107,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
         </div>
       </motion.div>
 
-      <div className="flex-1 flex flex-col items-center justify-center px-4 py-3 md:py-6 space-y-3 md:space-y-4 text-center relative z-10">
+      <div className="flex-1 flex flex-col items-center justify-center px-3 sm:px-4 py-2 sm:py-3 md:py-6 space-y-2.5 sm:space-y-3 md:space-y-4 text-center relative z-10">
         {/* ═══ Ambient energy field ═══ */}
         <motion.div 
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] rounded-full pointer-events-none -z-10"
@@ -128,14 +128,14 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           transition={{ delay: 0.1, duration: 0.6, ease: "easeOut" }}
           className="space-y-2"
         >
-          <h1 className="text-[22px] sm:text-[30px] md:text-[42px] lg:text-[50px] font-black text-white leading-[1.1] break-words ritual-text-glow">
+          <h1 className="text-[20px] sm:text-[26px] md:text-[36px] lg:text-[42px] font-black text-white leading-[1.15] break-words ritual-text-glow">
             Existe Uma <span className="text-[#C9A227] underline decoration-2 decoration-[#C9A227]/50">"TRAVA ANCESTRAL"</span>{' '}
             <span className="text-[#FF4500] animate-pulse">SUFOCANDO</span>{' '}
             <span className="text-[#C9A227] font-extrabold">R$5-50 MIL</span>{' '}
             da Sua Conta Bancária?
           </h1>
           {/* SUBHEADLINE */}
-          <p className="text-sm sm:text-base md:text-lg text-slate-300 leading-relaxed font-medium">
+          <p className="text-[13px] sm:text-sm md:text-base text-slate-300 leading-relaxed font-medium px-1">
             Descubra como <strong className="text-white font-extrabold">DESTRUÍ-LA</strong> em 7 dias e destravar o fluxo de abundância <span className="text-[#4ade80] font-bold">AGORA</span>
           </p>
         </motion.div>
@@ -145,20 +145,20 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           initial={{ scale: 0.95, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
-          className="w-full ritual-card p-4 md:p-5 space-y-2.5 md:space-y-3"
+          className="w-full ritual-card p-3 sm:p-4 md:p-5 space-y-2 sm:space-y-2.5 md:space-y-3"
           style={{
             borderColor: 'rgba(201, 162, 39, 0.4)',
             boxShadow: '0 0 40px rgba(201, 162, 39, 0.15), inset 0 1px 0 rgba(201, 162, 39, 0.1)'
           }}
         >
           <div className="flex items-center justify-center gap-2">
-            <CheckCircle className="w-5 h-5 text-[#4ade80] animate-energy-pulse" />
-            <p className="text-base sm:text-lg md:text-xl font-extrabold text-white">
+            <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[#4ade80] animate-energy-pulse flex-shrink-0" />
+            <p className="text-[14px] sm:text-base md:text-lg font-extrabold text-white">
               Responda 6 perguntas rápidas <span className="text-[#4ade80]">(2 minutos)</span>
             </p>
           </div>
-          <p className="text-xs sm:text-sm text-slate-200 font-semibold">Você vai descobrir:</p>
-          <div className="text-left space-y-2 text-xs sm:text-sm md:text-base text-slate-200">
+          <p className="text-[11px] sm:text-xs text-slate-200 font-semibold">Você vai descobrir:</p>
+          <div className="text-left space-y-1.5 sm:space-y-2 text-[12px] sm:text-sm md:text-base text-slate-200">
             <motion.div 
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
@@ -199,23 +199,23 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.5 }}
-          className="grid grid-cols-2 gap-2 md:gap-3 w-full text-white/80 text-xs sm:text-sm"
+          className="grid grid-cols-2 gap-1.5 sm:gap-2 md:gap-3 w-full text-white/80 text-[11px] sm:text-xs"
         >
-          <div className="flex items-center justify-center gap-1.5 bg-[#1a0a2e]/60 backdrop-blur-sm rounded-lg p-2 border border-[#C9A227]/20">
-            <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C9A227]" />
-            <p>Menos de 2 min</p>
+          <div className="flex items-center justify-center gap-1 sm:gap-1.5 bg-[#1a0a2e]/60 backdrop-blur-sm rounded-lg p-1.5 sm:p-2 border border-[#C9A227]/20">
+            <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#C9A227] flex-shrink-0" />
+            <p className="truncate">Menos de 2 min</p>
           </div>
-          <div className="flex items-center justify-center gap-1.5 bg-[#1a0a2e]/60 backdrop-blur-sm rounded-lg p-2 border border-[#C9A227]/20">
-            <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C9A227]" />
-            <p>Sem e-mail</p>
+          <div className="flex items-center justify-center gap-1 sm:gap-1.5 bg-[#1a0a2e]/60 backdrop-blur-sm rounded-lg p-1.5 sm:p-2 border border-[#C9A227]/20">
+            <Mail className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#C9A227] flex-shrink-0" />
+            <p className="truncate">Sem e-mail</p>
           </div>
-          <div className="flex items-center justify-center gap-1.5 bg-[#1a0a2e]/60 backdrop-blur-sm rounded-lg p-2 border border-[#C9A227]/20">
-            <Lock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C9A227]" />
-            <p>100% privado</p>
+          <div className="flex items-center justify-center gap-1 sm:gap-1.5 bg-[#1a0a2e]/60 backdrop-blur-sm rounded-lg p-1.5 sm:p-2 border border-[#C9A227]/20">
+            <Lock className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#C9A227] flex-shrink-0" />
+            <p className="truncate">100% privado</p>
           </div>
-          <div className="flex items-center justify-center gap-1.5 bg-[#1a0a2e]/60 backdrop-blur-sm rounded-lg p-2 border border-[#C9A227]/20">
-            <Smartphone className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C9A227]" />
-            <p>Resultado na tela</p>
+          <div className="flex items-center justify-center gap-1 sm:gap-1.5 bg-[#1a0a2e]/60 backdrop-blur-sm rounded-lg p-1.5 sm:p-2 border border-[#C9A227]/20">
+            <Smartphone className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#C9A227] flex-shrink-0" />
+            <p className="truncate">Resultado na tela</p>
           </div>
         </motion.div>
 
@@ -224,28 +224,28 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           initial={{ scale: 0.95, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 0.5 }}
-          className="w-full space-y-2 md:space-y-3"
+          className="w-full space-y-1.5 sm:space-y-2 md:space-y-3"
         >
-          <p className="text-base sm:text-lg md:text-xl font-black text-white">
+          <p className="text-sm sm:text-base md:text-lg font-black text-white">
             Onde você está hoje?
           </p>
           
-          <div className="relative border-2 border-[#FFD700]/60 rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(255,215,0,0.2)] max-h-[160px] sm:max-h-[200px] md:max-h-none">
+          <div className="relative border-2 border-[#FFD700]/60 rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(255,215,0,0.2)] max-h-[140px] sm:max-h-[180px] md:max-h-none">
             <img 
               src="/banner principal.png" 
               alt="Transformação - Antes e Depois" 
               className="w-full h-auto object-cover"
             />
           </div>
-          <div className="space-y-1">
-            <p className="text-xs sm:text-sm font-bold text-[#FF4500]">
+          <div className="space-y-0.5 sm:space-y-1">
+            <p className="text-[11px] sm:text-xs font-bold text-[#FF4500]">
               Você está no lado ESQUERDO?
             </p>
-            <div className="flex items-center justify-center gap-2">
-              <p className="text-sm sm:text-base font-bold text-[#4ade80]">
+            <div className="flex items-center justify-center gap-1.5 sm:gap-2">
+              <p className="text-[12px] sm:text-sm font-bold text-[#4ade80]">
                 Vamos levar você para o lado DIREITO em 7 dias!
               </p>
-              <Compass className="w-4 h-4 sm:w-5 sm:h-5 text-[#4ade80]" />
+              <Compass className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#4ade80] flex-shrink-0" />
             </div>
           </div>
         </motion.div>
@@ -255,9 +255,9 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           initial={{ scale: 0.95, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           transition={{ delay: 1.1, duration: 0.5 }}
-          className="w-full bg-gradient-to-br from-[#2a0606]/95 to-[#0a0202]/95 backdrop-blur-sm border-2 border-[#FF0000]/70 rounded-lg p-3 md:p-4 space-y-2 shadow-[0_0_40px_rgba(255,0,0,0.3)]"
+          className="w-full bg-gradient-to-br from-[#2a0606]/95 to-[#0a0202]/95 backdrop-blur-sm border-2 border-[#FF0000]/70 rounded-lg p-2.5 sm:p-3 md:p-4 space-y-1.5 sm:space-y-2 shadow-[0_0_40px_rgba(255,0,0,0.3)]"
         >
-          <div className="flex items-center justify-center gap-2">
+          <div className="flex items-center justify-center gap-1.5 sm:gap-2">
             <motion.div
               animate={{ 
                 scale: [1, 1.2, 1],
@@ -269,18 +269,18 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
                 repeatType: "reverse"
               }}
             >
-              <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-[#FF0000]" />
+              <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-[#FF0000] flex-shrink-0" />
             </motion.div>
-            <p className="text-sm sm:text-base md:text-lg font-black text-[#FF0000] uppercase tracking-wide">
+            <p className="text-[12px] sm:text-sm md:text-base font-black text-[#FF0000] uppercase tracking-wide">
               ⚠️ ATENÇÃO: VAGAS LIMITADAS
             </p>
           </div>
           {/* Compact text for mobile - 2 lines max */}
           <div className="text-center">
-            <p className="text-xs sm:text-sm text-white font-bold">
-              SOMENTE <span className="text-[#C9A227] text-base sm:text-lg font-black">12 VAGAS</span> DISPONÍVEIS HOJE
+            <p className="text-[11px] sm:text-xs text-white font-bold">
+              SOMENTE <span className="text-[#C9A227] text-sm sm:text-base font-black">12 VAGAS</span> DISPONÍVEIS HOJE
             </p>
-            <p className="text-[10px] sm:text-xs text-red-300 font-semibold mt-1">
+            <p className="text-[9px] sm:text-[10px] text-red-300 font-semibold mt-0.5 sm:mt-1">
               🔒 Próxima liberação apenas amanhã às 9h
             </p>
           </div>
@@ -330,22 +330,22 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.3, duration: 0.5 }}
-          className="w-full ritual-card p-4 md:p-5 space-y-2 md:space-y-3"
+          className="w-full ritual-card p-3 sm:p-4 md:p-5 space-y-1.5 sm:space-y-2 md:space-y-3"
           style={{
             borderColor: 'rgba(74, 222, 128, 0.4)',
             boxShadow: '0 0 30px rgba(74, 222, 128, 0.15), inset 0 1px 0 rgba(74, 222, 128, 0.1)'
           }}
         >
-          <div className="flex items-center justify-center gap-2">
-            <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-[#4ade80]" />
-            <p className="text-base sm:text-lg md:text-xl font-black text-[#4ade80]">
+          <div className="flex items-center justify-center gap-1.5 sm:gap-2">
+            <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[#4ade80] flex-shrink-0" />
+            <p className="text-[13px] sm:text-base md:text-lg font-black text-[#4ade80]">
               JÁ DESTRAVARAM <span className="text-[#C9A227]">4.387+</span> PESSOAS
             </p>
           </div>
-          <p className="text-sm sm:text-base md:text-lg font-bold text-[#C9A227]">
+          <p className="text-[12px] sm:text-sm md:text-base font-bold text-[#C9A227]">
             Resultados comuns no 1º mês:
           </p>
-          <div className="text-left space-y-2 text-xs sm:text-sm md:text-base text-slate-300">
+          <div className="text-left space-y-1.5 sm:space-y-2 text-[11px] sm:text-sm md:text-base text-slate-300">
             <motion.div 
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}

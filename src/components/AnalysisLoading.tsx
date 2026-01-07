@@ -118,12 +118,12 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
   const intensityStyle = getIntensityStyle();
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6 max-w-lg mx-auto text-center space-y-6 relative z-10">
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 max-w-lg mx-auto text-center space-y-4 sm:space-y-6 relative z-10">
       
       {/* ═══ SACRED GEOMETRY BACKGROUND - Intensifies with stage ═══ */}
       <SacredGeometry 
         variant="mandala" 
-        size={500} 
+        size={400} 
         opacity={currentStage.intensity === 'critical' ? 0.08 : 0.04}
         className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
       />
@@ -138,7 +138,7 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
       >
         <div 
-          className="w-[350px] h-[350px] rounded-full blur-[100px]"
+          className="w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] rounded-full blur-[80px] sm:blur-[100px]"
           style={{ background: `radial-gradient(circle, ${intensityStyle.bgGlow} 0%, transparent 70%)` }}
         />
       </motion.div>
@@ -158,7 +158,7 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
       >
         <SacredGeometry 
           variant="sigil" 
-          size={120} 
+          size={100} 
           opacity={0.6}
           className="relative"
         />
@@ -177,14 +177,14 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
       </motion.div>
 
       {/* ═══ STAGE TEXT - Ceremonial revelation ═══ */}
-      <div className="space-y-4 w-full">
+      <div className="space-y-3 sm:space-y-4 w-full">
         <AnimatePresence mode="wait">
           <motion.h2 
             key={stage}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className={`text-lg sm:text-xl md:text-2xl font-bold ${intensityStyle.textColor} ritual-text-glow`}
+            className={`text-base sm:text-lg md:text-xl font-bold ${intensityStyle.textColor} ritual-text-glow px-2`}
           >
             {currentStage.text}
           </motion.h2>
@@ -192,7 +192,7 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
         
         {/* Progress percentage */}
         <motion.p 
-          className="text-white/60 text-sm font-ritual"
+          className="text-white/60 text-xs sm:text-sm font-ritual"
           animate={{ opacity: [0.6, 1, 0.6] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
@@ -201,14 +201,14 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
       </div>
 
       {/* ═══ CIRCULAR PROGRESS - Sacred ring ═══ */}
-      <ProgressRing progress={progress} size={100} strokeWidth={4} />
+      <ProgressRing progress={progress} size={80} strokeWidth={3} />
 
       {/* ═══ TESTIMONIAL - Social proof during loading ═══ */}
       {quizPath === 'finance' && progress > 30 && progress < 90 && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="ritual-card p-4 mt-4 max-w-sm"
+          className="ritual-card p-3 sm:p-4 mt-3 sm:mt-4 max-w-sm"
         >
           <AnimatePresence mode="wait">
             <motion.div
@@ -218,10 +218,10 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
               exit={{ opacity: 0 }}
               className="text-left"
             >
-              <p className="text-white/80 text-xs sm:text-sm italic leading-relaxed">
+              <p className="text-white/80 text-[11px] sm:text-xs italic leading-relaxed">
                 {currentTestimonial.text}
               </p>
-              <p className="text-[#C9A227] text-xs mt-2 font-medium">
+              <p className="text-[#C9A227] text-[10px] sm:text-xs mt-1.5 sm:mt-2 font-medium">
                 — {currentTestimonial.author}
               </p>
             </motion.div>

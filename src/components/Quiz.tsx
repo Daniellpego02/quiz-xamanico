@@ -230,11 +230,11 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     const loadingStages = getLoadingStages();
     
     return (
-      <div className="min-h-screen min-h-[100dvh] flex flex-col items-center justify-center px-5 sm:px-6 py-4 relative z-20 text-center">
+      <div className="min-h-screen min-h-[100dvh] flex flex-col items-center justify-center px-4 sm:px-6 py-4 relative z-20 text-center">
         {/* ═══ SACRED GEOMETRY BACKGROUND ═══ */}
         <SacredGeometry 
           variant="mandala" 
-          size={500} 
+          size={400} 
           opacity={0.06}
           className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         />
@@ -244,7 +244,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           initial={{ scale: 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="relative mb-8 sm:mb-10"
+          className="relative mb-6 sm:mb-8"
         >
           {/* Outer sacred glow */}
           <motion.div 
@@ -276,7 +276,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             }}
           >
             <Compass 
-              className="w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 lg:w-32 lg:h-32 text-[#C9A227] relative z-10 drop-shadow-[0_0_40px_rgba(201,162,39,0.8)]" 
+              className="w-14 h-14 sm:w-18 sm:h-18 md:w-24 md:h-24 text-[#C9A227] relative z-10 drop-shadow-[0_0_40px_rgba(201,162,39,0.8)]" 
               strokeWidth={1.5}
             />
           </motion.div>
@@ -301,7 +301,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           ))}
         </motion.div>
         
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-5 px-4 leading-tight tracking-tight ritual-text-glow">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-black text-white mb-4 px-3 leading-tight tracking-tight ritual-text-glow">
           Preparando seu Quiz <span className="text-[#C9A227]">Personalizado</span>
         </h2>
         
@@ -312,15 +312,15 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className="text-slate-300 text-base sm:text-lg md:text-xl min-h-[4.5rem] flex items-center justify-center px-4 font-medium leading-[1.5]"
+            className="text-slate-300 text-sm sm:text-base md:text-lg min-h-[3.5rem] flex items-center justify-center px-3 font-medium leading-[1.5]"
           >
             <strong className="text-[#C9A227]">{loadingStages[loadingStage]}</strong>
           </motion.p>
         </AnimatePresence>
         
         {/* ═══ CIRCULAR PROGRESS INDICATOR ═══ */}
-        <div className="mt-8 sm:mt-10">
-          <ProgressRing progress={(loadingStage / (loadingStages.length - 1)) * 100 || 10} size={100} />
+        <div className="mt-6 sm:mt-8">
+          <ProgressRing progress={(loadingStage / (loadingStages.length - 1)) * 100 || 10} size={80} />
         </div>
       </div>
     );
@@ -335,16 +335,16 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const progress = PROGRESS_START_PERCENT + (currentIndex / activeQuestions.length) * PROGRESS_RANGE_PERCENT;
 
   return (
-    <div className="min-h-screen min-h-[100dvh] flex flex-col max-w-lg mx-auto px-5 sm:px-6 md:px-8 py-5 sm:py-6 md:py-8 relative z-10">
+    <div className="min-h-screen min-h-[100dvh] flex flex-col max-w-lg mx-auto px-4 sm:px-5 md:px-8 py-4 sm:py-5 md:py-8 relative z-10">
       {/* ═══ SACRED PROGRESS INDICATOR - Circular with ritual markers ═══ */}
-      <div className="mb-6 sm:mb-8">
+      <div className="mb-4 sm:mb-6 md:mb-8">
         <motion.div 
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           className="flex items-center justify-center gap-4 sm:gap-6"
         >
           {/* Circular progress ring */}
-          <ProgressRing progress={progress} size={80} strokeWidth={4} />
+          <ProgressRing progress={progress} size={70} strokeWidth={3} />
           
           {/* Step indicators - ancestral markers */}
           <div className="flex flex-col gap-1">
@@ -381,13 +381,13 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           transition={{ duration: 0.3 }}
           className="flex-1 flex flex-col"
         >
-          <div className="mb-6 sm:mb-8 space-y-4 sm:space-y-5">
+          <div className="mb-4 sm:mb-6 md:mb-8 space-y-3 sm:space-y-4">
             {/* ═══ TAG PEQUENA - Personalized ritual marker ═══ */}
             {userName && currentIndex > 0 && (
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A227]/30 to-[#C9A227]/20 backdrop-blur-md text-[#C9A227] px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-ritual font-bold border border-[#C9A227]/40 relative overflow-hidden"
+                className="inline-flex items-center gap-1.5 sm:gap-2 bg-gradient-to-r from-[#C9A227]/30 to-[#C9A227]/20 backdrop-blur-md text-[#C9A227] px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-ritual font-bold border border-[#C9A227]/40 relative overflow-hidden"
                 style={{
                   boxShadow: '0 0 20px rgba(201, 162, 39, 0.2)',
                 }}
@@ -419,16 +419,16 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="mb-3"
+                className="mb-2"
               >
-                <p className="text-[#C9A227] text-[13px] sm:text-sm font-ritual font-bold uppercase tracking-wider text-center ritual-text-glow">
+                <p className="text-[#C9A227] text-[11px] sm:text-xs font-ritual font-bold uppercase tracking-wider text-center ritual-text-glow">
                   ✨ {currentQuestion.title}
                 </p>
               </motion.div>
             )}
 
             {/* ═══ HEADLINE DA PERGUNTA - Ceremonial invocation style ═══ */}
-            <h2 className="text-[17px] sm:text-[21px] md:text-[26px] lg:text-[30px] font-bold text-white leading-[1.3] text-center px-2 ritual-text-glow">
+            <h2 className="text-[15px] sm:text-[18px] md:text-[22px] lg:text-[26px] font-bold text-white leading-[1.35] text-center px-1 ritual-text-glow">
               <span dangerouslySetInnerHTML={{ __html: personalizeText(currentQuestion.text).replace('BLOQUEIO SEVERO', '<span class="text-[#FF4500]">BLOQUEIO SEVERO</span>').replace('6 MESES', '<span class="text-[#FF4500]">6 MESES</span>').replace('MAIOR MEDO', '<span class="text-[#FF4500]">MAIOR MEDO</span>').replace('ENERGIA', '<span class="text-[#C9A227]">ENERGIA</span>') }}></span>
             </h2>
 
@@ -612,7 +612,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               {currentQuestion.bridgeText && <div className="h-6"></div>}
 
               {/* OPÇÕES - Cards clicáveis com design premium, espaçamento consistente e interações polidas */}
-              <div className="space-y-4 sm:space-y-5">
+              <div className="space-y-3 sm:space-y-4">
                 {currentQuestion.options?.map((option, idx) => {
                   const isSelected = selectedOption === option.value;
                   return (
@@ -636,14 +636,14 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                       scale: 0.97,
                       transition: { duration: 0.1 }
                     } : {}}
-                    className={`w-full text-left rounded-xl sm:rounded-2xl transition-all duration-200 group relative overflow-hidden ${
+                    className={`w-full text-left rounded-xl sm:rounded-2xl transition-all duration-200 group relative overflow-hidden min-h-[56px] ${
                       isNavigating ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'
                     } ${
                       isSelected
-                        ? 'border-[3px] border-[#FFD700] bg-gradient-to-br from-[#2a1d4e]/95 to-[#1a0d2e]/95 p-5 sm:p-6 md:p-7'
+                        ? 'border-[3px] border-[#FFD700] bg-gradient-to-br from-[#2a1d4e]/95 to-[#1a0d2e]/95 p-4 sm:p-5 md:p-6'
                         : currentQuestion.singleButton 
-                          ? 'bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] text-black font-bold p-5 sm:p-6 md:p-7 border-none hover:brightness-110'
-                          : 'bg-gradient-to-br from-[#1a0d2e]/90 to-[#0f0520]/90 border-2 border-[#3d2a5f] hover:border-[#FFD700]/70 hover:bg-gradient-to-br hover:from-[#2a1d4e]/90 hover:to-[#1a0d2e]/90 p-5 sm:p-6 md:p-7'
+                          ? 'bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] text-black font-bold p-4 sm:p-5 md:p-6 border-none hover:brightness-110'
+                          : 'bg-gradient-to-br from-[#1a0d2e]/90 to-[#0f0520]/90 border-2 border-[#3d2a5f] hover:border-[#FFD700]/70 hover:bg-gradient-to-br hover:from-[#2a1d4e]/90 hover:to-[#1a0d2e]/90 p-4 sm:p-5 md:p-6'
                     }`}
                     style={isSelected ? {
                       boxShadow: '0 0 40px rgba(255, 215, 0, 0.7), 0 0 80px rgba(255, 215, 0, 0.35), 0 0 0 4px rgba(255, 215, 0, 0.9), inset 0 2px 0 rgba(255, 215, 0, 0.3)',
@@ -680,17 +680,17 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                     <div className="absolute inset-0 opacity-0 group-active:opacity-100 transition-opacity duration-100 rounded-xl sm:rounded-2xl pointer-events-none bg-black/10" />
                     
                     {/* Estrutura interna do card com melhor hierarquia visual */}
-                    <div className="relative z-10 space-y-3">
+                    <div className="relative z-10 space-y-2">
                       {/* Headline */}
-                      <div className="flex items-start gap-4 sm:gap-5">
-                        <div className="flex-1 space-y-2.5">
-                          <p className={`text-base sm:text-lg md:text-xl font-bold leading-snug ${currentQuestion.singleButton ? 'text-black' : 'text-white'}`}>
+                      <div className="flex items-start gap-3">
+                        <div className="flex-1 space-y-1.5 sm:space-y-2">
+                          <p className={`text-sm sm:text-base md:text-lg font-bold leading-snug ${currentQuestion.singleButton ? 'text-black' : 'text-white'}`}>
                             {option.label}
                           </p>
                           
                           {/* Descrição expandida (sublabel) - Melhor espaçamento e legibilidade */}
                           {option.sublabel && (
-                            <p className={`text-sm sm:text-base md:text-lg leading-relaxed ${currentQuestion.singleButton ? 'text-black/75' : 'text-white/85'}`}>
+                            <p className={`text-[12px] sm:text-sm md:text-base leading-relaxed ${currentQuestion.singleButton ? 'text-black/75' : 'text-white/85'}`}>
                               {option.sublabel.split('FALHOU').map((part, i) => (
                                 <span key={i}>
                                   {i > 0 && <strong className={`font-bold ${currentQuestion.singleButton ? 'text-black' : 'text-[#FFD700]'}`}>FALHOU</strong>}

@@ -217,21 +217,21 @@ const OfferNew = ({ userName }: OfferProps) => {
                 className="fixed top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-5"
             />
 
-            <div className="max-w-[800px] mx-auto px-4 py-4 sm:py-6 relative z-10">
+            <div className="max-w-[800px] mx-auto px-3 sm:px-4 py-3 sm:py-5 relative z-10">
                 {/* ═══ BLOCK 01: HERO SECTION - THE REVELATION (ACT IV) ═══ */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="text-center mb-4 sm:mb-5"
+                    className="text-center mb-3 sm:mb-4"
                 >
                     <motion.h1 
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.5 }}
-                        className="text-lg sm:text-xl md:text-2xl font-black uppercase text-[#C9A227] mb-3 tracking-wide leading-tight px-2 ritual-text-glow"
+                        className="text-base sm:text-lg md:text-xl font-black uppercase text-[#C9A227] mb-2 tracking-wide leading-tight px-1 ritual-text-glow"
                     >
-                        <span className="break-words flex items-center justify-center gap-2">
+                        <span className="break-words flex items-center justify-center gap-1.5 sm:gap-2">
                             <motion.div
                                 animate={{ 
                                     rotate: [0, 360],
@@ -239,15 +239,15 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 }}
                                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                             >
-                                <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
+                                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
                             </motion.div>
-                            {userName && userName.trim() ? `⚡ DIAGNÓSTICO DE ${userName.toUpperCase()} CONCLUÍDO` : '⚡ SEU DIAGNÓSTICO CONCLUÍDO'}
+                            <span className="text-[14px] sm:text-base">{userName && userName.trim() ? `⚡ DIAGNÓSTICO DE ${userName.toUpperCase()} CONCLUÍDO` : '⚡ SEU DIAGNÓSTICO CONCLUÍDO'}</span>
                         </span>
                         <motion.span 
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.5 }}
-                            className="text-white block mt-2 text-base sm:text-lg md:text-xl"
+                            className="text-white block mt-1.5 text-[13px] sm:text-base md:text-lg"
                         >
                             🔓 SEU BLOQUEIO ANCESTRAL FOI IDENTIFICADO
                         </motion.span>
@@ -267,7 +267,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                             stiffness: 250,
                             damping: 12
                         }}
-                        className="inline-block bg-gradient-to-r from-[#8B7355] via-[#C9A227] to-[#8B7355] text-[#0a0510] font-extrabold text-sm sm:text-base px-4 sm:px-6 py-2.5 rounded-xl sm:rounded-2xl mt-3 relative overflow-hidden border-2 border-[#C9A227]/60"
+                        className="inline-block bg-gradient-to-r from-[#8B7355] via-[#C9A227] to-[#8B7355] text-[#0a0510] font-extrabold text-[11px] sm:text-sm px-3 sm:px-5 py-2 rounded-lg sm:rounded-xl mt-2 relative overflow-hidden border-2 border-[#C9A227]/60"
                         style={{
                             boxShadow: '0 0 40px rgba(201, 162, 39, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.2), inset 0 -2px 4px rgba(0, 0, 0, 0.3)'
                         }}
@@ -296,13 +296,13 @@ const OfferNew = ({ userName }: OfferProps) => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.15 }}
-                    className="ritual-card p-5 sm:p-6 mb-5 sm:mb-6"
+                    className="ritual-card p-3 sm:p-4 md:p-5 mb-4 sm:mb-5"
                     style={{
                         borderColor: 'rgba(139, 37, 0, 0.6)',
                         boxShadow: '0 0 40px rgba(139, 37, 0, 0.2), inset 0 1px 0 rgba(139, 37, 0, 0.2)'
                     }}
                 >
-                    <div className="flex items-start gap-2.5 mb-4">
+                    <div className="flex items-start gap-2 mb-3">
                         <motion.div
                             animate={{ 
                                 scale: [1, 1.1, 1],
@@ -314,13 +314,13 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 repeatType: "reverse"
                             }}
                         >
-                            <AlertTriangle className="w-6 h-6 sm:w-7 sm:h-7 text-[#FF4500] flex-shrink-0 mt-1" />
+                            <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-[#FF4500] flex-shrink-0 mt-0.5" />
                         </motion.div>
-                        <p className="text-white font-extrabold text-lg sm:text-xl leading-snug">
+                        <p className="text-white font-extrabold text-sm sm:text-base md:text-lg leading-snug">
                             ⚠️ {userName && userName.trim() ? userName.split(' ')[0] : 'Você'}, este bloqueio está AGORA:
                         </p>
                     </div>
-                    <div className="space-y-3 text-slate-200 text-sm sm:text-base ml-7 sm:ml-9">
+                    <div className="space-y-2 sm:space-y-2.5 text-slate-200 text-[12px] sm:text-sm ml-6 sm:ml-8">
                         <motion.p 
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
@@ -349,9 +349,9 @@ const OfferNew = ({ userName }: OfferProps) => {
                             <span className="font-semibold">Fazendo você trabalhar <span className="text-orange-400">MAIS</span> mas ganhar <span className="text-red-400">MENOS</span></span>
                         </motion.p>
                     </div>
-                    <div className="mt-5 pt-4 border-t border-[#FF4500]/40">
-                        <p className="text-white text-base sm:text-lg font-bold flex items-center gap-2 leading-relaxed">
-                            <span className="text-2xl">👇</span>
+                    <div className="mt-4 pt-3 border-t border-[#FF4500]/40">
+                        <p className="text-white text-[13px] sm:text-sm md:text-base font-bold flex items-center gap-2 leading-relaxed">
+                            <span className="text-xl flex-shrink-0">👇</span>
                             <span>No vídeo abaixo, você vai descobrir <span className="text-[#4ade80]">EXATAMENTE</span> como destruir esta trava em 7 dias:</span>
                         </p>
                     </div>
@@ -460,20 +460,20 @@ const OfferNew = ({ userName }: OfferProps) => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6 }}
-                    className="my-6 sm:my-8 md:my-10"
+                    className="my-4 sm:my-6 md:my-8"
                 >
-                    <div className="text-center mb-4 sm:mb-6">
-                        <h2 className="text-lg sm:text-xl md:text-2xl font-black text-white mb-2 sm:mb-3 leading-tight px-2">
+                    <div className="text-center mb-3 sm:mb-5">
+                        <h2 className="text-[15px] sm:text-lg md:text-xl font-black text-white mb-2 leading-tight px-1">
                             EXISTE UMA "TRAVA ANCESTRAL" IMPEDINDO<br className="hidden sm:block" />
                             O DINHEIRO DE PARAR NA SUA MÃO?
                         </h2>
-                        <p className="text-sm sm:text-base md:text-lg text-slate-300 mb-4 sm:mb-6 px-2">
+                        <p className="text-[13px] sm:text-sm md:text-base text-slate-300 mb-3 sm:mb-5 px-1">
                             O Protocolo Xamânico revela onde está o vazamento.
                         </p>
                     </div>
 
                     {/* ═══ GIANT CTA BUTTON - Ritual artifact style ═══ */}
-                    <div className="relative w-full md:w-[75%] mx-auto mb-4 sm:mb-5">
+                    <div className="relative w-full md:w-[75%] mx-auto mb-3 sm:mb-4">
                         {/* Sacred glow behind button */}
                         <motion.div 
                             className="absolute -inset-2 rounded-2xl"
@@ -498,14 +498,14 @@ const OfferNew = ({ userName }: OfferProps) => {
                     </div>
 
                     {/* Micro-benefits below button */}
-                    <div className="text-center space-y-1.5 text-xs sm:text-sm px-2">
+                    <div className="text-center space-y-1 text-[11px] sm:text-xs px-1">
                         <p className="text-emerald-400 font-semibold">✅ Pagamento Único de R$27,90 (PIX)</p>
                         <p className="text-emerald-400 font-semibold">✅ Acesso Vitalício | Garantia de 7 Dias</p>
                         <p className="text-emerald-400 font-semibold">✅ Mais de 4.300 mapas já gerados</p>
                     </div>
 
                     {/* Security badge */}
-                    <p className="text-center text-slate-400 text-xs mt-3 sm:mt-4">
+                    <p className="text-center text-slate-400 text-[10px] sm:text-xs mt-2 sm:mt-3">
                         💳 Pagamento 100% seguro via PIX Banco Central
                     </p>
                 </motion.div>
@@ -1306,12 +1306,13 @@ const OfferNew = ({ userName }: OfferProps) => {
                         animate={{ y: 0, opacity: 1 }}
                         exit={{ y: 100, opacity: 0 }}
                         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                        className="fixed bottom-0 left-0 right-0 z-50 md:hidden"
+                        className="fixed bottom-0 left-0 right-0 z-50 md:hidden safe-area-bottom"
+                        style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
                     >
-                        <div className="bg-gradient-to-r from-[#FFB700] via-[#FFA500] to-[#FFB700] shadow-[0_-4px_20px_rgba(0,0,0,0.3)] px-4 py-3">
+                        <div className="bg-gradient-to-r from-[#FFB700] via-[#FFA500] to-[#FFB700] shadow-[0_-4px_20px_rgba(0,0,0,0.3)] px-3 py-2.5">
                             <button
                                 onClick={scrollToCheckout}
-                                className="w-full bg-black/20 hover:bg-black/30 backdrop-blur-sm text-white font-black text-base py-4 px-6 rounded-xl transition-all transform active:scale-95 flex items-center justify-center gap-2"
+                                className="w-full bg-black/20 hover:bg-black/30 backdrop-blur-sm text-white font-black text-sm sm:text-base py-3.5 px-4 rounded-xl transition-all transform active:scale-95 flex items-center justify-center gap-2 min-h-[48px]"
                             >
                                 🔥 DESBLOQUEAR AGORA - R$27,90 →
                             </button>

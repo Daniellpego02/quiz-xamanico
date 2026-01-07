@@ -26,9 +26,9 @@ export const RitualButton: React.FC<RitualButtonProps> = ({
   ...props
 }) => {
   const sizeClasses = {
-    sm: 'py-3 px-5 text-sm',
-    md: 'py-4 px-8 text-base sm:text-lg',
-    lg: 'py-5 px-10 text-lg sm:text-xl'
+    sm: 'py-3 px-4 text-sm min-h-[44px]',
+    md: 'py-3.5 sm:py-4 px-6 sm:px-8 text-sm sm:text-base md:text-lg min-h-[48px]',
+    lg: 'py-4 sm:py-5 px-6 sm:px-10 text-base sm:text-lg md:text-xl min-h-[52px]'
   };
 
   if (variant === 'seal') {
