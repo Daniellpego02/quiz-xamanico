@@ -1,0 +1,124 @@
+/**
+ * Tracking Configuration
+ * 
+ * Centralized configuration for all tracking services.
+ * These values can be overridden by environment variables in production.
+ */
+
+// ============================================================================
+// META PIXEL (FACEBOOK ADS)
+// ============================================================================
+export const META_PIXEL_ID = '1908080873443730';
+
+// ============================================================================
+// GOOGLE ANALYTICS (GA4)
+// ============================================================================
+export const GA4_MEASUREMENT_ID = 'G-M78M3RH56H';
+
+// ============================================================================
+// MICROSOFT CLARITY
+// ============================================================================
+export const CLARITY_PROJECT_ID = 'uq1qfi7fwi';
+
+// ============================================================================
+// UTMFY
+// ============================================================================
+export const UTMFY_PIXEL_ID = '69346cfb70f1cd636eb5e31c';
+
+// ============================================================================
+// VTURB VIDEO PLAYER
+// ============================================================================
+export const VTURB_API_TOKEN = '3032350019e84cd96c6e18de4a3f7cc45ea9952635eb0965e836022905ddc2a4';
+
+// VTurb embed base URL
+export const VTURB_EMBED_BASE_URL = 'https://scripts.converteai.net';
+
+// ============================================================================
+// PRODUCT CONFIGURATION
+// ============================================================================
+export const PRODUCT_CONFIG = {
+  // Main product
+  main: {
+    name: 'Mapa Xamânico',
+    value: 97.00,
+    currency: 'BRL',
+  },
+  // Upsell 1
+  upsell1: {
+    name: 'Ritual Completo',
+    value: 197.00,
+    currency: 'BRL',
+  },
+  // Downsell 1
+  downsell1: {
+    name: 'Oferta Especial',
+    value: 47.00,
+    currency: 'BRL',
+  },
+};
+
+// ============================================================================
+// LEAD SCORING THRESHOLDS
+// ============================================================================
+export const LEAD_SCORE_THRESHOLDS = {
+  // Score below this is disqualified (value: 0)
+  disqualified: 30,
+  // Score between disqualified and hot is warm (value: 10)
+  warm: 70,
+  // Score above warm threshold is hot (value: 100)
+  hot: 100,
+};
+
+// ============================================================================
+// VIDEO TRACKING CONFIGURATION
+// ============================================================================
+export const VIDEO_CONFIG = {
+  // Milestone percentages to track
+  milestones: [25, 50, 75, 95],
+  // Pitch time in seconds (set this to your actual pitch moment)
+  // Example: 15 minutes 30 seconds = 930 seconds
+  pitchTimeSeconds: undefined as number | undefined,
+};
+
+// ============================================================================
+// TRACKING FEATURE FLAGS
+// ============================================================================
+export const TRACKING_FEATURES = {
+  // Enable/disable lead scoring
+  leadScoring: true,
+  // Enable/disable video tracking
+  videoTracking: true,
+  // Enable/disable enhanced event deduplication
+  eventDeduplication: true,
+  // Enable/disable Clarity custom tags
+  clarityTags: true,
+  // Enable/disable GA4 enhanced events
+  ga4EnhancedEvents: true,
+  // Enable/disable console logging in development
+  devLogging: true,
+};
+
+// ============================================================================
+// HELPER FUNCTIONS
+// ============================================================================
+
+/**
+ * Check if we're in development mode
+ */
+export function isDevelopment(): boolean {
+  return import.meta.env?.DEV === true;
+}
+
+/**
+ * Check if tracking feature is enabled
+ */
+export function isFeatureEnabled(feature: keyof typeof TRACKING_FEATURES): boolean {
+  return TRACKING_FEATURES[feature] === true;
+}
+
+/**
+ * Get product config by key
+ */
+export function getProductConfig(key: keyof typeof PRODUCT_CONFIG) {
+  return PRODUCT_CONFIG[key];
+}
