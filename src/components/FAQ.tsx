@@ -5,28 +5,23 @@ import { useState } from 'react';
 const faqs = [
   {
     id: 1,
-    question: 'Tenho pouco tempo, consigo fazer?',
-    answer: 'Sim. O protocolo foi desenhado para ser feito em 12 min/dia. É sobre frequência, não volume de trabalho. Você pode ouvir enquanto se arruma pela manhã ou antes de dormir.',
+    question: 'Preciso ter alguma religião?',
+    answer: 'Não. O protocolo é baseado em física quântica e ancestralidade, funciona independente da sua crença.',
   },
   {
     id: 2,
-    question: 'Isso tem a ver com alguma religião?',
-    answer: 'Não. É ciência ancestral e frequência vibracional (528Hz). Funciona independente da sua crença. O Mapa Xamânico é baseado em arquétipos universais e princípios energéticos que transcendem qualquer religião.',
+    question: 'Funciona no meu celular?',
+    answer: 'Sim. O acesso é enviado por e-mail e você pode abrir os áudios e o mapa em qualquer celular (Android ou iPhone).',
   },
   {
     id: 3,
-    question: 'Como recebo o acesso ao Mapa?',
-    answer: 'O acesso é imediato e 100% online. Assim que o pagamento for aprovado, você recebe um e-mail com seu login e senha para nossa Área de Membros exclusiva.',
+    question: 'Quanto tempo demora para ter resultado?',
+    answer: 'Muitos alunos, como o Carlos, relatam alívio imediato e destravamento financeiro nos primeiros 3 a 7 dias.',
   },
   {
     id: 4,
-    question: 'E se não funcionar para mim?',
-    answer: 'Você tem 7 dias de garantia incondicional. Se não sentir mudança, devolvemos seu dinheiro. Sem perguntas, sem burocracia. O risco é todo nosso, porque sabemos que o método funciona.',
-  },
-  {
-    id: 5,
-    question: 'Por quanto tempo terei acesso?',
-    answer: 'Adquirindo hoje nessa oferta especial, seu acesso é VITALÍCIO. Você pode refazer o ciclo de 7 dias quantas vezes quiser e terá direito a todas as atualizações futuras gratuitamente.',
+    question: 'E se eu não gostar?',
+    answer: 'Você tem 7 dias de garantia incondicional. Seu risco é zero.',
   },
 ];
 
