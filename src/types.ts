@@ -22,16 +22,10 @@ export interface QuizQuestion {
   id: number;
   title: string;
   text: string;
-  subtext?: string; // Additional explanatory text below the main text
   type?: 'select' | 'input';
   placeholder?: string;
   options?: QuestionOption[];
   singleButton?: boolean; // For questions with only one option (e.g., readiness confirmation)
-  validationText?: string; // Italic text below options for emotional validation
-  warningText?: string; // Red warning text below options for importance
-  emotionalContext?: string; // Emotional context text before options
-  hasOtherOption?: boolean; // For question 4 - shows "other" as a link below cards
-  bridgeText?: string; // Bridge text shown before button (for question 6)
 }
 
 declare global {

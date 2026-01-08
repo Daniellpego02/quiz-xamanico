@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Brain, Heart, Wallet, CheckCircle2, AlertTriangle } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Search, Brain, Heart, Wallet, CheckCircle2, Star } from 'lucide-react';
 import { QuizPath } from '../types';
-import { SacredGeometry, ProgressRing } from './ritual';
 
 interface AnalysisLoadingProps {
   onComplete: () => void;
@@ -12,55 +11,43 @@ interface AnalysisLoadingProps {
 export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, quizPath = 'finance' }) => {
   const [progress, setProgress] = useState(0);
   const [stage, setStage] = useState(0);
-  const [testimonialIndex, setTestimonialIndex] = useState(0);
 
-  // Stages adapted by quiz path - THE CONFRONTATION (ACT III)
+  // Stages adapted by quiz path
   const financeStages = [
-    { pct: 15, text: "🔍 Analisando suas respostas...", icon: <Search className="w-6 h-6 text-[#C9A227]" />, intensity: 'low' },
-    { pct: 30, text: "Cruzando suas respostas com 847 padrões ancestrais catalogados...", icon: <Brain className="w-6 h-6 text-[#C9A227]" />, intensity: 'low' },
-    { pct: 57, text: "⚠️ ALERTA: Bloqueio Ancestral Detectado", icon: <AlertTriangle className="w-6 h-6 text-red-500" />, intensity: 'high' },
-    { pct: 70, text: "Nível: CRÍTICO", icon: <AlertTriangle className="w-6 h-6 text-red-500" />, intensity: 'critical' },
-    { pct: 90, text: "Gerando Protocolo Personalizado...", icon: <Wallet className="w-6 h-6 text-[#C9A227]" />, intensity: 'medium' },
-    { pct: 100, text: "CONCLUÍDO.", icon: <CheckCircle2 className="w-6 h-6 text-green-400" />, intensity: 'complete' }
+    { pct: 15, text: "Conectando à egrégora...", icon: <Search className="w-6 h-6 text-[#D4AF37]" /> },
+    { pct: 35, text: "Analisando respostas de frequência...", icon: <Brain className="w-6 h-6 text-[#D4AF37]" /> },
+    { pct: 60, text: "Bloqueio Ancestral Detectado: Nível Alto...", icon: <Heart className="w-6 h-6 text-red-400" /> },
+    { pct: 85, text: "Gerando Protocolo de Solução...", icon: <Wallet className="w-6 h-6 text-[#D4AF37]" /> },
+    { pct: 100, text: "CONCLUÍDO.", icon: <CheckCircle2 className="w-6 h-6 text-green-400" /> }
   ];
 
   const relationshipStages = [
-    { pct: 20, text: "Identificando padrões emocionais...", icon: <Heart className="w-6 h-6 text-pink-400" />, intensity: 'low' },
-    { pct: 45, text: "Analisando bloqueios relacionais...", icon: <Brain className="w-6 h-6 text-purple-400" />, intensity: 'low' },
-    { pct: 70, text: "Detectando ciclos familiares...", icon: <Search className="w-6 h-6 text-blue-400" />, intensity: 'medium' },
-    { pct: 95, text: "Gerando seu mapa afetivo...", icon: <Heart className="w-6 h-6 text-red-400" />, intensity: 'high' },
-    { pct: 100, text: "Pronto! Revelando seu perfil amoroso.", icon: <CheckCircle2 className="w-6 h-6 text-green-400" />, intensity: 'complete' }
+    { pct: 20, text: "Identificando padrões emocionais...", icon: <Heart className="w-6 h-6 text-pink-400" /> },
+    { pct: 45, text: "Analisando bloqueios relacionais...", icon: <Brain className="w-6 h-6 text-purple-400" /> },
+    { pct: 70, text: "Detectando ciclos familiares...", icon: <Search className="w-6 h-6 text-blue-400" /> },
+    { pct: 95, text: "Gerando seu mapa afetivo...", icon: <Heart className="w-6 h-6 text-red-400" /> },
+    { pct: 100, text: "Pronto! Revelando seu perfil amoroso.", icon: <CheckCircle2 className="w-6 h-6 text-green-400" /> }
   ];
 
   const stages = quizPath === 'relationship' ? relationshipStages : financeStages;
-  const currentStage = stages[stage] || stages[0];
 
-  // Rotating testimonials for finance path
-  const testimonials = [
-    { text: "\"Segui o protocolo por 3 dias. No 4º dia recebi R$1.850 que NÃO esperava (cliente antigo pagou dívida de 2 anos). O mapa mostrou EXATAMENTE onde estava meu bloqueio. Funcionou.\"", author: "@RafaelaNascimento7, São Paulo/SP", time: "há 2 dias" },
-    { text: "\"Em 7 dias consegui um emprego novo que pagava o DOBRO!\"", author: "@FernandaOliveira", time: "há 5 dias" },
-    { text: "\"Fechei um contrato de R$ 85 mil que estava travado há meses.\"", author: "@RicardoMendes", time: "há 1 semana" },
-    { text: "\"Finalmente entendi porque o dinheiro sempre sumia.\"", author: "@JulianaCostaRJ", time: "há 3 dias" },
-  ];
-
-  const relationshipTestimonial = { text: "\"Descobri porque sempre escolho errado. Libertador!\"", author: "@FernandaCoelho" };
-
-  const currentTestimonial = quizPath === 'relationship' 
-    ? relationshipTestimonial 
-    : testimonials[testimonialIndex];
+  const testimonial = quizPath === 'relationship' 
+    ? { text: "\"Descobri porque sempre escolho errado. Libertador!\"", author: "@FernandaCoelho" }
+    : { text: "\"Adorei meu Mapa! Completo e fácil de entender.\"", author: "@RafaelaNascimento7" };
 
   useEffect(() => {
     const timer = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(timer);
-          setTimeout(onComplete, 1200);
+          setTimeout(onComplete, 800); // Small delay at 100% before switch
           return 100;
         }
-        const increment = Math.random() * 2 + 0.3;
+        // Nonlinear progress speed
+        const increment = Math.random() * 3 + 0.5;
         return Math.min(prev + increment, 100);
       });
-    }, 120);
+    }, 100);
 
     return () => clearInterval(timer);
   }, [onComplete]);
@@ -68,166 +55,62 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
   // Update text stage based on progress
   useEffect(() => {
     if (progress < 15) setStage(0);
-    else if (progress < 30) setStage(1);
-    else if (progress < 50) setStage(2);
-    else if (progress < 70) setStage(3);
-    else if (progress < 90) setStage(4);
-    else setStage(5);
+    else if (progress < 35) setStage(1);
+    else if (progress < 60) setStage(2);
+    else if (progress < 85) setStage(3);
+    else setStage(4);
   }, [progress]);
 
-  // Rotate testimonials every 3 seconds (only for finance path)
-  useEffect(() => {
-    if (quizPath === 'finance') {
-      const interval = setInterval(() => {
-        setTestimonialIndex((prev) => (prev + 1) % testimonials.length);
-      }, 3000);
-      return () => clearInterval(interval);
-    }
-  }, [quizPath]);
-
-  // Dynamic intensity colors
-  const getIntensityStyle = () => {
-    switch (currentStage.intensity) {
-      case 'critical':
-        return {
-          bgGlow: 'rgba(139, 37, 0, 0.3)',
-          textColor: 'text-red-500',
-          pulseColor: 'rgba(255, 69, 0, 0.4)'
-        };
-      case 'high':
-        return {
-          bgGlow: 'rgba(139, 37, 0, 0.2)',
-          textColor: 'text-orange-400',
-          pulseColor: 'rgba(255, 140, 0, 0.3)'
-        };
-      case 'complete':
-        return {
-          bgGlow: 'rgba(74, 222, 128, 0.2)',
-          textColor: 'text-green-400',
-          pulseColor: 'rgba(74, 222, 128, 0.3)'
-        };
-      default:
-        return {
-          bgGlow: 'rgba(201, 162, 39, 0.15)',
-          textColor: 'text-[#C9A227]',
-          pulseColor: 'rgba(201, 162, 39, 0.2)'
-        };
-    }
-  };
-
-  const intensityStyle = getIntensityStyle();
-
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 max-w-lg mx-auto text-center space-y-4 sm:space-y-6 relative z-10">
+    <div className="min-h-screen flex flex-col items-center justify-center px-6 max-w-lg mx-auto text-center space-y-10 relative z-10">
       
-      {/* ═══ SACRED GEOMETRY BACKGROUND - Intensifies with stage ═══ */}
-      <SacredGeometry 
-        variant="mandala" 
-        size={400} 
-        opacity={currentStage.intensity === 'critical' ? 0.08 : 0.04}
-        className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-      />
-      
-      {/* Dynamic background glow based on intensity */}
-      <motion.div 
-        className="absolute inset-0 flex items-center justify-center pointer-events-none -z-10"
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.5, 0.8, 0.5]
-        }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <div 
-          className="w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] rounded-full blur-[80px] sm:blur-[100px]"
-          style={{ background: `radial-gradient(circle, ${intensityStyle.bgGlow} 0%, transparent 70%)` }}
-        />
-      </motion.div>
-
-      {/* ═══ RITUAL SIGIL - Animated sacred symbol ═══ */}
-      <motion.div
-        className="relative"
-        animate={{ 
-          rotate: currentStage.intensity === 'critical' ? [0, 5, -5, 5, 0] : [0, 360],
-          scale: currentStage.intensity === 'critical' ? [1, 1.1, 1, 1.1, 1] : [1, 1.02, 1]
-        }}
-        transition={{ 
-          duration: currentStage.intensity === 'critical' ? 0.5 : 20, 
-          repeat: Infinity, 
-          ease: currentStage.intensity === 'critical' ? "easeInOut" : "linear"
-        }}
-      >
-        <SacredGeometry 
-          variant="sigil" 
-          size={100} 
-          opacity={0.6}
-          className="relative"
-        />
-        
-        {/* Center icon */}
-        <motion.div 
-          className="absolute inset-0 flex items-center justify-center"
-          animate={{
-            scale: [1, 1.15, 1],
-            opacity: [0.8, 1, 0.8]
-          }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-        >
-          {currentStage.icon}
-        </motion.div>
-      </motion.div>
-
-      {/* ═══ STAGE TEXT - Ceremonial revelation ═══ */}
-      <div className="space-y-3 sm:space-y-4 w-full">
-        <AnimatePresence mode="wait">
-          <motion.h2 
-            key={stage}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className={`text-base sm:text-lg md:text-xl font-bold ${intensityStyle.textColor} ritual-text-glow px-2`}
-          >
-            {currentStage.text}
-          </motion.h2>
-        </AnimatePresence>
-        
-        {/* Progress percentage */}
-        <motion.p 
-          className="text-white/60 text-xs sm:text-sm font-ritual"
-          animate={{ opacity: [0.6, 1, 0.6] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          {Math.round(progress)}% concluído
-        </motion.p>
+      {/* Background Glow */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none -z-10">
+         <div className={`w-[300px] h-[300px] ${quizPath === 'relationship' ? 'bg-purple-500/10' : 'bg-[#D4AF37]/10'} rounded-full blur-[80px] animate-pulse`}></div>
       </div>
 
-      {/* ═══ CIRCULAR PROGRESS - Sacred ring ═══ */}
-      <ProgressRing progress={progress} size={80} strokeWidth={3} />
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+        className={`w-24 h-24 rounded-full border-4 border-white/5 ${quizPath === 'relationship' ? 'border-t-purple-500 shadow-[0_0_50px_rgba(168,85,247,0.4)]' : 'border-t-[#D4AF37] shadow-[0_0_50px_rgba(212,175,55,0.4)]'} relative`}
+      >
+        <div className={`absolute inset-0 ${quizPath === 'relationship' ? 'bg-purple-500/10' : 'bg-[#D4AF37]/10'} rounded-full blur-xl`}></div>
+      </motion.div>
 
-      {/* ═══ TESTIMONIAL - Social proof during loading ═══ */}
-      {quizPath === 'finance' && progress > 30 && progress < 90 && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="ritual-card p-3 sm:p-4 mt-3 sm:mt-4 max-w-sm"
-        >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={testimonialIndex}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="text-left"
-            >
-              <p className="text-white/80 text-[11px] sm:text-xs italic leading-relaxed">
-                {currentTestimonial.text}
-              </p>
-              <p className="text-[#C9A227] text-[10px] sm:text-xs mt-1.5 sm:mt-2 font-medium">
-                — {currentTestimonial.author}
-              </p>
-            </motion.div>
-          </AnimatePresence>
-        </motion.div>
-      )}
+      <div className="space-y-6 w-full">
+        <h2 className="text-xl font-serif text-white animate-pulse tracking-wide">
+          Analisando suas respostas...
+        </h2>
+        
+        <div className="w-full bg-white/5 rounded-full h-4 overflow-hidden border border-white/10 shadow-inner">
+          <motion.div 
+            className={`${quizPath === 'relationship' ? 'bg-gradient-to-r from-purple-600 via-pink-400 to-purple-500 shadow-[0_0_20px_rgba(168,85,247,0.5)]' : 'bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.5)]'} h-full rounded-full`}
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+        
+        <div className="h-16 flex items-center justify-center gap-3 transition-all duration-300 bg-white/5 backdrop-blur-md p-4 rounded-xl border border-white/10">
+          <div className="p-2 bg-white/5 rounded-full">{stages[stage].icon}</div>
+          <span className="text-slate-200 font-medium text-sm text-left">
+            {stages[stage].text} <br/>
+            <span className={`${quizPath === 'relationship' ? 'text-purple-500' : 'text-[#D4AF37]'} font-bold text-xs tracking-widest uppercase`}>Progresso: {Math.round(progress)}%</span>
+          </span>
+        </div>
+      </div>
+
+      {/* Social Proof during loading - Retention tactic */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2 }}
+        className="bg-white/5 backdrop-blur-xl p-5 rounded-2xl border border-white/10 mt-8 shadow-lg max-w-sm"
+      >
+        <p className={`text-[10px] ${quizPath === 'relationship' ? 'text-purple-500' : 'text-[#D4AF37]'} font-bold uppercase tracking-wider mb-2 flex items-center gap-1`}>
+          <Star className={`w-3 h-3 ${quizPath === 'relationship' ? 'fill-purple-500' : 'fill-[#D4AF37]'}`} /> Depoimento recente
+        </p>
+        <p className="text-slate-200 text-sm italic leading-relaxed">{testimonial.text}</p>
+        <p className="text-slate-400 text-xs mt-2 text-right">– {testimonial.author}</p>
+      </motion.div>
     </div>
   );
 };

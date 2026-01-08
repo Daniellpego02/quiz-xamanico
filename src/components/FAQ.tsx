@@ -7,37 +7,26 @@ const faqs = [
     id: 1,
     question: 'Tenho pouco tempo, consigo fazer?',
     answer: 'Sim. O protocolo foi desenhado para ser feito em 12 min/dia. É sobre frequência, não volume de trabalho. Você pode ouvir enquanto se arruma pela manhã ou antes de dormir.',
-    priority: 1
   },
   {
     id: 2,
-    question: 'E se não funcionar para mim?',
-    answer: 'Você tem 7 dias de garantia incondicional. Se não sentir mudança, devolvemos seu dinheiro. Sem perguntas, sem burocracia. O risco é todo nosso, porque sabemos que o método funciona.',
-    priority: 1
+    question: 'Isso tem a ver com alguma religião?',
+    answer: 'Não. É ciência ancestral e frequência vibracional (528Hz). Funciona independente da sua crença. O Mapa Xamânico é baseado em arquétipos universais e princípios energéticos que transcendem qualquer religião.',
   },
   {
     id: 3,
     question: 'Como recebo o acesso ao Mapa?',
     answer: 'O acesso é imediato e 100% online. Assim que o pagamento for aprovado, você recebe um e-mail com seu login e senha para nossa Área de Membros exclusiva.',
-    priority: 1
   },
   {
     id: 4,
-    question: 'Isso tem a ver com alguma religião?',
-    answer: 'Olha: não tem NADA a ver com religião. É um protocolo energético neutro. Funciona pra católico, evangélico, ateu, agnóstico... qualquer um. O que importa é seguir os 7 dias.',
-    priority: 2
+    question: 'E se não funcionar para mim?',
+    answer: 'Você tem 7 dias de garantia incondicional. Se não sentir mudança, devolvemos seu dinheiro. Sem perguntas, sem burocracia. O risco é todo nosso, porque sabemos que o método funciona.',
   },
   {
     id: 5,
-    question: 'Preciso ter experiência com xamanismo ou espiritualidade?',
-    answer: 'Não! O protocolo foi criado para iniciantes absolutos. Você recebe tudo passo a passo: Vídeos explicativos (linguagem simples), Áudios guiados (só apertar play), Rituais com materiais da sua casa. Se você sabe apertar play em um áudio e seguir instruções simples, você consegue fazer. Mais de 70% dos nossos alunos nunca tinham feito NADA de espiritual antes. E funcionou.',
-    priority: 2
-  },
-  {
-    id: 6,
     question: 'Por quanto tempo terei acesso?',
     answer: 'Adquirindo hoje nessa oferta especial, seu acesso é VITALÍCIO. Você pode refazer o ciclo de 7 dias quantas vezes quiser e terá direito a todas as atualizações futuras gratuitamente.',
-    priority: 2
   },
 ];
 
@@ -67,7 +56,7 @@ export const FAQ = () => {
           PERGUNTAS FREQUENTES
         </motion.h2>
 
-        {/* FAQ Items - Show only priority 1 on mobile */}
+        {/* FAQ Items */}
         <div className="space-y-4">
           {faqs.map((faq, index) => (
             <motion.div
@@ -76,7 +65,7 @@ export const FAQ = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className={`relative ${faq.priority === 2 ? 'hidden md:block' : ''}`}
+              className="relative"
             >
               {/* Glow effect when open */}
               {openId === faq.id && (

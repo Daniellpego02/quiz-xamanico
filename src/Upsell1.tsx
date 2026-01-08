@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, X, Shield, Star, AlertCircle, Heart, Flame, Lock, Award, ChevronRight } from 'lucide-react';
 import { PRICING, CHECKOUT_URLS, TIMER_DURATIONS } from './constants/pricing';
-import { tracking } from './utils/tracking';
 
 interface Upsell1Props {
   userName?: string;
@@ -14,11 +13,6 @@ export default function Upsell1({ userName = 'você' }: Upsell1Props) {
 
   const firstName = userName ? userName.split(' ')[0] : 'você';
   const firstNameUpper = firstName.toUpperCase();
-
-  // Track upsell page view
-  useEffect(() => {
-    tracking.funnel.viewUpsell('Upsell 1 - Mentoria Individual');
-  }, []);
 
   // Countdown timer
   useEffect(() => {
@@ -85,33 +79,14 @@ export default function Upsell1({ userName = 'você' }: Upsell1Props) {
   };
 
   const handleAccept = () => {
-    // Track upsell acceptance
-    tracking.purchase.addToCart({
-      productName: 'Upsell 1 - Mentoria Individual',
-      productPrice: parseFloat(PRICING.upsell1.offer.replace(',', '.')),
-      productId: 'upsell1-mentoria',
-      email: 'unknown@email.com'
-    });
-    
     window.location.href = CHECKOUT_URLS.upsell1.main;
   };
 
   const handleDecline = () => {
-    // Track upsell decline
-    tracking.funnel.clickCTA('Upsell 1 - Declined');
-    
     window.location.href = '/down1';
   };
 
   const handleExitAccept = () => {
-    // Track exit popup acceptance
-    tracking.purchase.addToCart({
-      productName: 'Upsell 1 - Mentoria Individual (Exit Popup)',
-      productPrice: parseFloat(PRICING.upsell1.exitPopupDiscount.replace(',', '.')),
-      productId: 'upsell1-mentoria-exit',
-      email: 'unknown@email.com'
-    });
-    
     window.location.href = CHECKOUT_URLS.upsell1.exitPopup;
   };
 

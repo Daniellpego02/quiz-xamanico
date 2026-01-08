@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { QuizQuestion, QuizPath, QuestionOption } from '../types';
-import { ChevronRight, Sparkles, Compass, AlertTriangle, Smartphone, Shield, CheckCircle2 } from 'lucide-react';
+import { ChevronRight, Sparkles, Compass } from 'lucide-react';
 import { tracking } from '../utils/tracking';
-import { SacredGeometry, ProgressRing, RitualButton, RitualOption } from './ritual';
 
 interface QuizProps {
   onComplete: (path: QuizPath, userName: string) => void;
@@ -17,16 +16,6 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const [showTuningScreen, setShowTuningScreen] = useState(false);
   const [activeQuestions, setActiveQuestions] = useState<QuizQuestion[]>([]);
   const [loadingStage, setLoadingStage] = useState(0);
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [loadingScreenStartTime, setLoadingScreenStartTime] = useState<number>(0);
-
-  // Constants
-  const CATALOGED_LINEAGES = 847;
-  const OTHER_OPTION: QuestionOption = { 
-    label: "Nenhum desses, meu problema é outro", 
-    value: "other", 
-    icon: "" 
-  };
 
   // Quiz path is now hardcoded to finance only (single flow strategy)
   const QUIZ_PATH: QuizPath = 'finance';
@@ -35,11 +24,10 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const initialQuestions: QuizQuestion[] = [
     {
       id: 0,
-      title: "PERGUNTA 1 DE 6",
-      text: "SEU NOME ATIVA A FREQUÊNCIA EXATA DA SUA LINHAGEM ANCESTRAL",
+      title: "CALIBRAGEM ENERGÉTICA",
+      text: "Para quem os portais de abundância devem ser abertos hoje?",
       type: "input",
-      placeholder: "Ex: João",
-      emotionalContext: `⚡ Seu nome carrega energia poderosa.\n\nO sistema identifica padrões em ${CATALOGED_LINEAGES} linhagens brasileiras catalogadas.\n\n✨ Isso muda TUDO no seu diagnóstico.`
+      placeholder: "Digite seu primeiro nome..."
     }
   ];
 
@@ -47,77 +35,41 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const financeQuestions: QuizQuestion[] = [
     {
       id: 1,
-      title: "PERGUNTA 2 DE 6",
-      text: "⚠️ SISTEMA DETECTOU BLOQUEIO SEVERO NA SUA ENERGIA FINANCEIRA",
-      subtext: "Existe um Protocolo Xamânico de 7 dias que LIMPA esse bloqueio COMPLETAMENTE.",
-      emotionalContext: "A pergunta é:\n\n💎 Você está disposto(a) a seguir o protocolo... mesmo que isso signifique ROMPER padrões que sua família carrega há gerações?",
-      singleButton: true,
-      validationText: "A maioria vive checando o saldo antes de comprar QUALQUER coisa, pedindo emprestado todo mês... sem saber que um bloqueio ancestral causa isso. 🔓 Você não precisa ser uma delas.",
+      title: "P1 — O SINTOMA",
+      text: "Vamos analisar seu padrão atual, {NAME}. Como você descreve sua relação com o dinheiro hoje?",
       options: [
-        { label: "✓ SIM, quero destruir esse bloqueio agora", value: "ready", icon: "" },
+        { label: "O dinheiro entra e some (imprevistos constantes).", sublabel: "Parece que tenho um ralo energético", value: "leak", icon: "💸" },
+        { label: "Trabalho muito, ganho pouco e sinto cansaço crônico.", sublabel: "O esforço não se transforma em resultado", value: "tired", icon: "😰" },
+        { label: "Tenho medo de faltar e vivo economizando cada centavo.", sublabel: "Sinto sempre que vai acabar", value: "fear", icon: "😨" },
       ]
     },
     {
       id: 2,
-      title: "PERGUNTA 3 DE 6",
-      text: "SE NADA MUDAR NOS PRÓXIMOS 6 MESES... QUAL É O SEU MAIOR MEDO?",
-      emotionalContext: "🎯 Seja BRUTALMENTE honesto. Essa resposta define qual bloqueio ancestral o protocolo vai atacar primeiro.",
-      warningText: "⚡ ATENÇÃO: Essa é A RESPOSTA MAIS IMPORTANTE do diagnóstico.\n\n🔮 O que você escolher aqui define:\n• Qual tipo de bloqueio ancestral será revelado\n• Qual protocolo de limpeza você vai receber\n• Quantos dias até começar a sentir o desbloqueio\n\n💭 A maioria escolhe opção 1 ou 3. Mas seja honesto com VOCÊ, não com o que \"deveria\" sentir.",
+      title: "P2 — A CAUSA (ANCESTRALIDADE)",
+      text: "O Xamanismo Financeiro ensina que padrões se repetem. Olhando para seus pais ou avós, o que você vê?",
       options: [
-        { 
-          label: "Continuar dependendo dos outros ou contando moedas", 
-          sublabel: "💸 Sem liberdade financeira. Sempre devendo. Sempre limitado.", 
-          value: "dependency", 
-          icon: "" 
-        },
-        { 
-          label: "Envelhecer sem construir patrimônio real", 
-          sublabel: "🏠 Chegar aos 55 anos sem casa própria. Morrer sem deixar nada.", 
-          value: "aging", 
-          icon: "" 
-        },
-        { 
-          label: "Ver minha família sofrer por causa da minha situação financeira", 
-          sublabel: "💔 Não poder ajudar quando precisam. Sentir que FALHOU.", 
-          value: "family", 
-          icon: "" 
-        },
+        { label: "Histórico de dívidas, falências ou lutas financeiras pesadas.", value: "heavy", icon: "💔" },
+        { label: "Pessoas honestas, mas que nunca enriqueceram.", value: "honest", icon: "🙏" },
+        { label: "Havia dinheiro, mas muitas brigas e desarmonia familiar.", value: "conflict", icon: "⚡" },
       ]
     },
     {
       id: 3,
-      title: "PERGUNTA 4 DE 6",
-      text: "{NAME}, QUAL DESSAS VERDADES MAIS DÓI QUANDO VOCÊ PENSA NELA?",
-      emotionalContext: "Qual desses cenários descreve SUA VIDA agora?",
-      hasOtherOption: true,
+      title: "P3 — A AGITAÇÃO (O CUSTO EMOCIONAL)",
+      text: "Se nada mudar nos próximos 6 meses, qual é o seu maior medo, {NAME}?",
       options: [
-        { label: "O dinheiro entra, mas EVAPORA em imprevistos", sublabel: "💸 Tudo que entra, sai. Emergências sem parar. Parece um ralo.", value: "leak", icon: "" },
-        { label: "Trabalho 12 horas por dia, ganho pouco, acordo exausto", sublabel: "⚡ Faz tudo certo mas o salário NÃO sobe. Teto invisível bloqueando.", value: "tired", icon: "" },
-        { label: "Tenho PAVOR que falte dinheiro", sublabel: "😰 Checa o saldo 3x ao dia. Vive com medo de faltar.", value: "fear", icon: "" },
+        { label: "Continuar dependendo dos outros ou contando moedas.", value: "dependency", icon: "😔" },
+        { label: "Envelhecer sem construir nenhum patrimônio real.", value: "aging", icon: "⏰" },
+        { label: "Ver minha família passar necessidade por minha causa.", value: "family", icon: "💔" },
       ]
     },
     {
       id: 4,
-      title: "PERGUNTA 5 DE 6",
-      text: "O XAMANISMO FINANCEIRO DESCOBRIU QUE 87% DOS PADRÕES FINANCEIROS SE REPETEM POR 3 GERAÇÕES.",
-      subtext: "Olhando para seus PAIS ou AVÓS, o que você vê?",
-      emotionalContext: "→ Essa resposta revela a RAIZ do seu bloqueio ancestral.",
-      validationText: "{NAME}, estamos quase lá. O sistema está cruzando seus dados ancestrais com os padrões de escassez detectados... A resposta final é reveladora.",
-      options: [
-        { label: "Histórico de dívidas, falências ou lutas financeiras brutais.", sublabel: "⚠️ Avô, pai, você... mesmo ciclo há 3 gerações. Sempre endividado.", value: "heavy", icon: "" },
-        { label: "Pessoas honestas, trabalhadoras... mas que NUNCA enriqueceram.", sublabel: "💼 40 anos trabalhando, 1 salário mínimo na aposentadoria. Honestidade não trouxe abundância.", value: "honest", icon: "" },
-        { label: "Tinha dinheiro, mas MUITA briga, traição e desarmonia familiar.", sublabel: "💰 Grana sim, mas guerra emocional. Ter dinheiro = sofrer.", value: "conflict", icon: "" },
-      ]
-    },
-    {
-      id: 5,
-      title: "PERGUNTA 6 DE 6",
-      text: "O sistema identificou um bloqueio severo na sua frequência. Se existir um Protocolo de 7 dias para limpar isso COMPLETAMENTE, você está disposto(a) a seguir?",
+      title: "P4 — O COMPROMISSO",
+      text: "O sistema identificou um bloqueio severo na sua frequência. Se existir um Protocolo de 7 dias para limpar isso, você está disposto(a) a seguir?",
       singleButton: true,
-      bridgeText: "Se você disser SIM aqui, o sistema gera seu mapa PERSONALIZADO e libera o protocolo completo de 7 dias dentro do APP.",
-      validationText: "A maioria das pessoas vive a vida inteira com esse bloqueio sem saber. Você não precisa ser uma delas.",
       options: [
-        { label: "SIM, quero meu mapa agora", value: "ready", icon: "" },
+        { label: "SIM, eu aceito receber meu Mapa e me desbloquear.", value: "ready", icon: "🔥" },
       ]
     }
   ];
@@ -127,32 +79,22 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   }, []);
 
   const getLoadingStages = () => [
-    `Identificando seu bloqueio ancestral específico...`,
-    `Gerando seu protocolo personalizado de 7 dias...`,
-    "Pronto para começar!"
+    `Conectando à egrégora de ${userName}...`,
+    "Analisando respostas de frequência...",
+    "Bloqueio Ancestral Detectado: Nível Alto...",
+    "Gerando Protocolo de Solução...",
+    "CONCLUÍDO."
   ];
 
   useEffect(() => {
     if (showTuningScreen) {
-      // Track loading screen view
-      tracking.engagement.loadingScreen('view');
-      const startTime = Date.now();
-      setLoadingScreenStartTime(startTime);
-      
       const loadingStages = getLoadingStages();
       
       const interval = setInterval(() => {
         setLoadingStage(prev => (prev + 1) % loadingStages.length);
-      }, 1800); // Middle ground: 1800ms (1.8s) per stage = ~5.4s total, balancing perceived value with user patience
-      
+      }, 800);
       return () => clearInterval(interval);
     } else {
-      // Track loading screen completion if it was shown
-      if (loadingScreenStartTime > 0) {
-        const duration = (Date.now() - loadingScreenStartTime) / 1000; // Convert to seconds
-        tracking.engagement.loadingScreen('complete', duration);
-        setLoadingScreenStartTime(0);
-      }
       // Reset loading stage when screen is hidden
       setLoadingStage(0);
     }
@@ -177,14 +119,11 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
         const mergedQuestions = [...activeQuestions, ...financeQuestions];
         setActiveQuestions(mergedQuestions);
         setCurrentIndex(prev => prev + 1);
-    }, 6000); // Middle ground: 6s total (balanced between suspense and patience)
+    }, 3500);
   };
 
   const handleOptionClick = (option: QuestionOption) => {
     if (isNavigating) return;
-    
-    // Set selected option for visual feedback
-    setSelectedOption(option.value);
     setIsNavigating(true);
 
     // Pixel Inteligente - Rastreamento de Resposta e Progresso
@@ -210,117 +149,46 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       tracking.quiz.halfway();
     }
 
-    // Increased delay to 750ms for better "digest" time and satisfaction (balanced with responsiveness)
     setTimeout(() => {
       const length = activeQuestions.length;
       if (currentIndex < length - 1) {
         setCurrentIndex(prev => prev + 1);
-        setSelectedOption(null); // Reset selection for next question
         setIsNavigating(false);
       } else {
-        // Track quiz completion with enhanced tracking
-        tracking.quiz.complete(QUIZ_PATH, userName, activeQuestions.length);
         tracking.meta.completeRegistration({ content_name: 'Quiz Completo', path: QUIZ_PATH });
         onComplete(QUIZ_PATH, userName);
       }
-    }, 750); // Balanced: 750ms provides feedback without feeling sluggish
+    }, 250);
   };
 
   if (showTuningScreen) {
     const loadingStages = getLoadingStages();
     
     return (
-      <div className="min-h-screen min-h-[100dvh] flex flex-col items-center justify-center px-4 sm:px-6 py-4 relative z-20 text-center">
-        {/* ═══ SACRED GEOMETRY BACKGROUND ═══ */}
-        <SacredGeometry 
-          variant="mandala" 
-          size={400} 
-          opacity={0.06}
-          className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-        />
-        
-        {/* ═══ PORTAL ICON - Ceremonial compass ═══ */}
+      <div className="min-h-screen flex flex-col items-center justify-center px-6 relative z-20 text-center">
         <motion.div
-          initial={{ scale: 0.5, opacity: 0 }}
+          initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="relative mb-6 sm:mb-8"
+          className="relative"
         >
-          {/* Outer sacred glow */}
-          <motion.div 
-            className="absolute inset-0 rounded-full"
-            style={{
-              background: 'radial-gradient(circle, rgba(201, 162, 39, 0.3) 0%, transparent 70%)',
-              filter: 'blur(30px)'
-            }}
-            animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.4, 0.7, 0.4],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-          
-          {/* Rotating compass icon */}
-          <motion.div
-            animate={{
-              rotate: [0, 360],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          >
-            <Compass 
-              className="w-14 h-14 sm:w-18 sm:h-18 md:w-24 md:h-24 text-[#C9A227] relative z-10 drop-shadow-[0_0_40px_rgba(201,162,39,0.8)]" 
-              strokeWidth={1.5}
-            />
-          </motion.div>
-          
-          {/* Expanding ritual rings */}
-          {[0, 1, 2].map((i) => (
-            <motion.div
-              key={i}
-              className="absolute inset-0 border border-[#C9A227] rounded-full"
-              style={{ opacity: 0.3 - i * 0.1 }}
-              animate={{
-                scale: [1, 1.5 + i * 0.3],
-                opacity: [0.3 - i * 0.1, 0],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeOut",
-                delay: i * 0.5,
-              }}
-            />
-          ))}
+            <div className="absolute inset-0 bg-[#D4AF37] rounded-full blur-[80px] opacity-40 animate-pulse"></div>
+            <Compass className="w-24 h-24 text-[#D4AF37] mx-auto mb-6 relative z-10 animate-pulse" />
         </motion.div>
         
-        <h2 className="text-lg sm:text-xl md:text-2xl font-black text-white mb-4 px-3 leading-tight tracking-tight ritual-text-glow">
-          Preparando seu Quiz <span className="text-[#C9A227]">Personalizado</span>
-        </h2>
-        
+        <h2 className="text-2xl font-serif text-white mb-2">Acessando Frequência Vibracional...</h2>
         <AnimatePresence mode='wait'>
           <motion.p
             key={loadingStage}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
-            className="text-slate-300 text-sm sm:text-base md:text-lg min-h-[3.5rem] flex items-center justify-center px-3 font-medium leading-[1.5]"
+            className="text-slate-300 text-lg min-h-[3rem] flex items-center justify-center"
           >
-            <strong className="text-[#C9A227]">{loadingStages[loadingStage]}</strong>
+            <strong className="text-[#D4AF37]">{loadingStages[loadingStage]}</strong>
           </motion.p>
         </AnimatePresence>
-        
-        {/* ═══ CIRCULAR PROGRESS INDICATOR ═══ */}
-        <div className="mt-6 sm:mt-8">
-          <ProgressRing progress={(loadingStage / (loadingStages.length - 1)) * 100 || 10} size={80} />
+        <div className="w-64 h-1 bg-white/10 rounded-full mt-8 overflow-hidden mx-auto">
+            <motion.div className="h-full bg-[#D4AF37]" initial={{ width: "0%" }} animate={{ width: "100%" }} transition={{ duration: 3, ease: "easeInOut" }} />
         </div>
       </div>
     );
@@ -329,47 +197,20 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const currentQuestion = activeQuestions[currentIndex];
   if (!currentQuestion) return null;
 
-  // Progress constants
+  // Progress bar constants
   const PROGRESS_START_PERCENT = 10;
   const PROGRESS_RANGE_PERCENT = 90;
   const progress = PROGRESS_START_PERCENT + (currentIndex / activeQuestions.length) * PROGRESS_RANGE_PERCENT;
 
   return (
-    <div className="min-h-screen min-h-[100dvh] flex flex-col max-w-lg mx-auto px-4 sm:px-5 md:px-8 py-4 sm:py-5 md:py-8 relative z-10">
-      {/* ═══ SACRED PROGRESS INDICATOR - Circular with ritual markers ═══ */}
-      <div className="mb-4 sm:mb-6 md:mb-8">
+    <div className="min-h-screen flex flex-col max-w-lg mx-auto px-4 py-6 relative z-10">
+      <div className="w-full bg-white/5 backdrop-blur-sm rounded-full h-3 mb-8 relative overflow-hidden border border-white/10 shadow-inner">
         <motion.div 
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex items-center justify-center gap-4 sm:gap-6"
-        >
-          {/* Circular progress ring */}
-          <ProgressRing progress={progress} size={70} strokeWidth={3} />
-          
-          {/* Step indicators - ancestral markers */}
-          <div className="flex flex-col gap-1">
-            <span className="text-[#C9A227] text-xs font-ritual uppercase tracking-wider">
-              Pergunta {currentIndex + 1} de {activeQuestions.length}
-            </span>
-            <div className="flex gap-1.5">
-              {activeQuestions.map((_, idx) => (
-                <motion.div
-                  key={idx}
-                  className={`w-2 h-2 rounded-full ${
-                    idx < currentIndex 
-                      ? 'bg-[#C9A227] shadow-[0_0_8px_rgba(201,162,39,0.6)]' 
-                      : idx === currentIndex 
-                        ? 'bg-[#C9A227] animate-energy-pulse shadow-[0_0_12px_rgba(201,162,39,0.8)]'
-                        : 'bg-[#C9A227]/20'
-                  }`}
-                  initial={idx === currentIndex ? { scale: 0.8 } : {}}
-                  animate={idx === currentIndex ? { scale: [0.8, 1.2, 1] } : {}}
-                  transition={{ duration: 0.5 }}
-                />
-              ))}
-            </div>
-          </div>
-        </motion.div>
+          className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] h-full rounded-full shadow-[0_0_15px_rgba(212,175,55,0.5)]"
+          initial={{ width: 0 }}
+          animate={{ width: `${progress}%` }}
+          transition={{ duration: 0.5 }}
+        />
       </div>
 
       <AnimatePresence mode='wait'>
@@ -381,407 +222,92 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           transition={{ duration: 0.3 }}
           className="flex-1 flex flex-col"
         >
-          <div className="mb-4 sm:mb-6 md:mb-8 space-y-3 sm:space-y-4">
-            {/* ═══ TAG PEQUENA - Personalized ritual marker ═══ */}
+          <div className="mb-6">
+            {/* Show name badge for exclusivity if user has provided name and it's not the first question */}
             {userName && currentIndex > 0 && (
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="inline-flex items-center gap-1.5 sm:gap-2 bg-gradient-to-r from-[#C9A227]/30 to-[#C9A227]/20 backdrop-blur-md text-[#C9A227] px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-ritual font-bold border border-[#C9A227]/40 relative overflow-hidden"
-                style={{
-                  boxShadow: '0 0 20px rgba(201, 162, 39, 0.2)',
-                }}
+                className="inline-flex items-center gap-2 bg-[#D4AF37]/10 backdrop-blur-md text-[#D4AF37] px-4 py-2 rounded-full text-xs font-bold border border-[#D4AF37]/20 shadow-lg mb-4"
               >
-                {/* Subtle shine effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" />
-                
-                <motion.div
-                  animate={{
-                    rotate: [0, 360],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                >
-                  <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0 drop-shadow-[0_0_4px_rgba(255,215,0,0.8)]" />
-                </motion.div>
-                <span className="whitespace-nowrap relative z-10 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
-                  Pergunta exclusiva para {userName.split(' ')[0]}
-                </span>
+                <Sparkles className="w-3 h-3" />
+                <span>Pergunta exclusiva para {userName.split(' ')[0]}</span>
               </motion.div>
             )}
-            
-            {/* Título da pergunta (TAG) */}
-            {currentQuestion.title && (
+            {currentQuestion.id === 0 && (
               <motion.div
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
                 className="mb-2"
               >
-                <p className="text-[#C9A227] text-[11px] sm:text-xs font-ritual font-bold uppercase tracking-wider text-center ritual-text-glow">
-                  ✨ {currentQuestion.title}
+                <p className="text-[#D4AF37] text-xs md:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-1">
+                  ⚡ CALIBRAGEM VIBRACIONAL
                 </p>
               </motion.div>
             )}
-
-            {/* ═══ HEADLINE DA PERGUNTA - Ceremonial invocation style ═══ */}
-            <h2 className="text-[15px] sm:text-[18px] md:text-[22px] lg:text-[26px] font-bold text-white leading-[1.35] text-center px-1 ritual-text-glow">
-              <span dangerouslySetInnerHTML={{ __html: personalizeText(currentQuestion.text).replace('BLOQUEIO SEVERO', '<span class="text-[#FF4500]">BLOQUEIO SEVERO</span>').replace('6 MESES', '<span class="text-[#FF4500]">6 MESES</span>').replace('MAIOR MEDO', '<span class="text-[#FF4500]">MAIOR MEDO</span>').replace('ENERGIA', '<span class="text-[#C9A227]">ENERGIA</span>') }}></span>
+            <h2 className="text-xl md:text-2xl font-serif font-bold text-white leading-snug drop-shadow-lg" dangerouslySetInnerHTML={{ __html: personalizeText(currentQuestion.text) }}>
             </h2>
-
-            {/* Subtexto (para pergunta 2) */}
-            {currentQuestion.subtext && (
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15 }}
-                className="text-sm sm:text-base md:text-lg text-white/90 text-center mt-4 px-2 leading-[1.6]"
-              >
-                {currentQuestion.subtext}
-              </motion.p>
-            )}
           </div>
 
           {currentQuestion.type === 'input' ? (
-            // ═══ TELA 4: PERGUNTA 1 (NOME) - Ritual name invocation ═══
-            <form onSubmit={handleInputSubmit} className="space-y-6 sm:space-y-8">
-              {/* LABEL DO INPUT */}
-              <div className="text-left">
-                <label className="text-base sm:text-lg text-white/90 block mb-4 font-medium">
-                  Digite seu primeiro nome:
-                </label>
-                
-                {/* INPUT FIELD - Ritual styled input */}
-                <div className="relative group">
-                  <input
-                    type="text"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    placeholder={currentQuestion.placeholder}
-                    className="w-full bg-gradient-to-br from-[#1a0a2e]/90 to-[#0a0510]/90 backdrop-blur-sm border-2 border-[#C9A227]/30 rounded-xl sm:rounded-2xl p-4 sm:p-5 pr-14 sm:pr-16 text-[16px] sm:text-lg md:text-xl text-white placeholder-white/40 focus:outline-none focus:border-[#C9A227] focus:ring-4 focus:ring-[#C9A227]/20 transition-all duration-300 shadow-lg hover:border-[#C9A227]/50 min-h-[56px] sm:min-h-[64px]"
-                    autoFocus
-                    autoComplete="name"
-                    inputMode="text"
-                    style={{
-                      boxShadow: '0 0 30px rgba(0, 0, 0, 0.5), inset 0 2px 4px 0 rgba(201, 162, 39, 0.05)',
-                    }}
-                  />
-                  {/* Animated icon */}
-                  <motion.div 
-                    className="absolute right-4 sm:right-5 top-1/2 -translate-y-1/2 pointer-events-none flex items-center justify-center"
-                    animate={{
-                      scale: [1, 1.1, 1],
-                      opacity: [0.8, 1, 0.8],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 text-[#D4AF37] drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]" />
-                  </motion.div>
-                  
-                  {/* Focus glow effect */}
-                  <div className="absolute inset-0 rounded-xl sm:rounded-2xl opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"
-                    style={{
-                      boxShadow: '0 0 0 4px rgba(212, 175, 55, 0.1), 0 0 20px rgba(212, 175, 55, 0.2)',
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* CARD DE EXPLICAÇÃO - Standardized with border-left style for consistency */}
-              {currentQuestion.emotionalContext && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="border-l-4 border-[#FFD700] bg-gradient-to-r from-[#1a0d2e]/90 to-[#0f0520]/90 rounded-r-xl sm:rounded-r-2xl pl-4 sm:pl-5 pr-3 sm:pr-4 py-3 sm:py-4 relative overflow-hidden"
-                  style={{
-                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), inset 2px 0 10px rgba(212, 175, 55, 0.1)',
-                  }}
-                >
-                  {/* Subtle glow on left edge */}
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#FFD700] via-[#D4AF37] to-[#FFD700] opacity-80" />
-                  
-                  <div className="flex items-start gap-3 relative z-10">
-                    <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-[#FFD700] flex-shrink-0 mt-0.5" />
-                    <p className="text-xs sm:text-sm md:text-base text-white/90 leading-relaxed whitespace-pre-line">
-                      {currentQuestion.emotionalContext.split('\n\n').map((paragraph, i) => (
-                        <span key={i}>
-                          {paragraph.replace('847 linhagens', '').includes('847') ? (
-                            <>
-                              {paragraph.split('847')[0]}
-                              <strong className="text-[#FFD700] font-bold">847</strong>
-                              {paragraph.split('847')[1]}
-                            </>
-                          ) : (
-                            paragraph
-                          )}
-                          {i < currentQuestion.emotionalContext!.split('\n\n').length - 1 && <><br/><br/></>}
-                        </span>
-                      ))}
-                    </p>
-                  </div>
-                </motion.div>
-              )}
-
-              {/* TEXTO REASSURANCE - Improved readability */}
-              <div className="flex items-center justify-center gap-2 text-[#4ade80] text-center">
-                <Smartphone className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                <p className="text-sm sm:text-base leading-relaxed">
-                  Usamos apenas seu primeiro nome. Você continua 100% anônimo.
-                </p>
-              </div>
-
-              {/* CTA BOTÃO - Enhanced premium design with better touch target */}
-              <motion.button 
-                type="submit"
-                disabled={!inputValue.trim() || inputValue.trim().length < 2}
-                className="relative w-full bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] text-black font-black py-5 sm:py-6 px-6 sm:px-8 rounded-xl sm:rounded-2xl text-base sm:text-lg md:text-xl overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] transition-transform duration-150 min-h-[60px]"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                style={{
-                  boxShadow: '0 10px 40px rgba(255, 215, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
-                }}
-              >
-                {/* Shimmer effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer" />
-                
-                {/* Button content */}
-                <span className="relative z-10 flex items-center justify-center gap-2.5 sm:gap-3">
-                  <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
-                  <span>CONECTAR E INICIAR ANÁLISE</span>
-                  <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
-                </span>
-                
-                {/* Glow effect on hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl sm:rounded-2xl"
-                  style={{
-                    boxShadow: '0 0 30px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.2)',
-                  }}
+            <form onSubmit={handleInputSubmit} className="space-y-4 mt-4">
+              <div className="relative">
+                <input
+                  type="text"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  placeholder={currentQuestion.placeholder}
+                  className="w-full bg-white/10 border border-white/20 rounded-xl p-5 text-lg text-white placeholder-slate-400 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all text-center"
+                  autoFocus
                 />
-              </motion.button>
-
-              {/* RODAPÉ - Better readability */}
-              <div className="flex items-center justify-center gap-2 text-white/70 text-center">
-                <Shield className="w-4 h-4 sm:w-5 sm:h-5" />
-                <p className="text-sm">100% Confidencial - Ninguém vai ver seu resultado</p>
+                <Sparkles className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#D4AF37] animate-pulse" />
               </div>
+              <button 
+                type="submit"
+                disabled={!inputValue.trim()}
+                className="w-full bg-gradient-to-br from-[#D4AF37] via-[#FFD700] to-[#D4AF37] text-white font-bold py-4 rounded-xl shadow-lg shadow-[#D4AF37]/30 hover:shadow-[#D4AF37]/50 hover:brightness-110 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 border-t border-white/20"
+              >
+                CONECTAR E INICIAR ANÁLISE
+                <ChevronRight className="w-5 h-5" />
+              </button>
+              <p className="text-xs text-slate-400 text-center mt-2 flex items-center justify-center gap-1">
+                🔒 Ambiente Seguro e Sigiloso
+              </p>
             </form>
           ) : (
-            // TELA 5: PERGUNTAS COM OPÇÕES
-            <div className="space-y-6 sm:space-y-8">
-              {/* INSTRUÇÃO / Emotional Context */}
-              {currentQuestion.emotionalContext && (
-                <motion.div
+            <div className="space-y-3">
+              {currentQuestion.options?.map((option, idx) => (
+                <motion.button
+                  key={idx}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="text-sm sm:text-base md:text-lg text-[#FFD700] font-medium border-l-4 border-[#FFD700] pl-4 sm:pl-5 py-3 leading-[1.65] whitespace-pre-line bg-gradient-to-r from-[#FFD700]/10 to-transparent rounded-r-lg"
+                  transition={{ delay: idx * 0.1 }}
+                  onClick={() => handleOptionClick(option)}
+                  disabled={isNavigating}
+                  className={`w-full text-left p-5 rounded-2xl transition-all active:scale-[0.98] group relative overflow-hidden ${isNavigating ? 'cursor-not-allowed opacity-80' : 'cursor-pointer'} ${
+                    currentQuestion.singleButton 
+                      ? 'bg-gradient-to-br from-[#D4AF37] via-[#FFD700] to-[#D4AF37] text-white font-bold shadow-lg shadow-[#D4AF37]/30 hover:shadow-[#D4AF37]/50 hover:brightness-110 border-t border-white/20' 
+                      : 'bg-white/5 backdrop-blur-md border border-white/10 hover:border-[#D4AF37]/50 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]'
+                  }`}
                 >
-                  {currentQuestion.emotionalContext.split('BRUTALMENTE').map((part, i) => (
-                    <span key={i}>
-                      {i > 0 && <strong className="text-[#FFD700] font-bold">BRUTALMENTE</strong>}
-                      {part}
-                    </span>
-                  ))}
-                </motion.div>
-              )}
-
-              {/* ESPAÇAMENTO: 32px */}
-              <div className="h-8"></div>
-
-              {/* Bridge text for question 6 */}
-              {currentQuestion.bridgeText && (
-                <motion.p
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.25 }}
-                  className="text-sm sm:text-base text-white/90 text-center leading-relaxed"
-                >
-                  {currentQuestion.bridgeText}
-                </motion.p>
-              )}
-
-              {/* ESPAÇAMENTO: 24px (if bridge text exists) */}
-              {currentQuestion.bridgeText && <div className="h-6"></div>}
-
-              {/* OPÇÕES - Cards clicáveis com design premium, espaçamento consistente e interações polidas */}
-              <div className="space-y-3 sm:space-y-4">
-                {currentQuestion.options?.map((option, idx) => {
-                  const isSelected = selectedOption === option.value;
-                  return (
-                  <motion.button
-                    key={idx}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ 
-                      opacity: isNavigating && !isSelected ? 0.3 : 1, 
-                      y: 0,
-                      scale: isSelected ? 1.02 : 1
-                    }}
-                    transition={{ delay: idx * 0.08 + 0.3 }}
-                    onClick={() => handleOptionClick(option)}
-                    disabled={isNavigating}
-                    whileHover={!isNavigating && !isSelected ? { 
-                      scale: 1.02, 
-                      y: -3,
-                      transition: { duration: 0.2 }
-                    } : {}}
-                    whileTap={!isNavigating ? { 
-                      scale: 0.97,
-                      transition: { duration: 0.1 }
-                    } : {}}
-                    className={`w-full quiz-option text-left rounded-xl sm:rounded-2xl transition-all duration-200 group relative overflow-hidden min-h-[56px] ${
-                      isNavigating ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'
-                    } ${
-                      isSelected
-                        ? 'border-[3px] border-[#FFD700] bg-gradient-to-br from-[#2a1d4e]/95 to-[#1a0d2e]/95 p-4 sm:p-5 md:p-6'
-                        : currentQuestion.singleButton 
-                          ? 'bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] text-black font-bold p-4 sm:p-5 md:p-6 border-none hover:brightness-110'
-                          : 'bg-gradient-to-br from-[#1a0d2e]/90 to-[#0f0520]/90 border-2 border-[#3d2a5f] hover:border-[#FFD700]/70 hover:bg-gradient-to-br hover:from-[#2a1d4e]/90 hover:to-[#1a0d2e]/90 p-4 sm:p-5 md:p-6'
-                    }`}
-                    style={isSelected ? {
-                      boxShadow: '0 0 40px rgba(255, 215, 0, 0.7), 0 0 80px rgba(255, 215, 0, 0.35), 0 0 0 4px rgba(255, 215, 0, 0.9), inset 0 2px 0 rgba(255, 215, 0, 0.3)',
-                    } : currentQuestion.singleButton ? {
-                      boxShadow: '0 10px 40px rgba(255, 215, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
-                    } : {
-                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(212, 175, 55, 0.08)',
-                    }}
-                  >
-                    {/* Shimmer effect for single button */}
-                    {currentQuestion.singleButton && !isSelected && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent group-hover:animate-shimmer" />
-                    )}
-                    
-                    {/* Selected state glow */}
-                    {isSelected && (
-                      <motion.div 
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="absolute inset-0 bg-gradient-to-br from-[#FFD700]/20 to-[#FFA500]/10 rounded-xl sm:rounded-2xl pointer-events-none"
-                      />
-                    )}
-                    
-                    {/* Hover glow for regular cards */}
-                    {!currentQuestion.singleButton && !isSelected && (
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-xl sm:rounded-2xl pointer-events-none"
-                        style={{
-                          boxShadow: '0 0 30px rgba(212, 175, 55, 0.3), inset 0 0 25px rgba(212, 175, 55, 0.1)',
-                        }}
-                      />
-                    )}
-                    
-                    {/* Active/pressed state */}
-                    <div className="absolute inset-0 opacity-0 group-active:opacity-100 transition-opacity duration-100 rounded-xl sm:rounded-2xl pointer-events-none bg-black/10" />
-                    
-                    {/* Estrutura interna do card com melhor hierarquia visual */}
-                    <div className="relative z-10 space-y-2">
-                      {/* Headline */}
-                      <div className="flex items-start gap-3">
-                        <div className="flex-1 space-y-1.5 sm:space-y-2">
-                          <p className={`text-sm sm:text-base md:text-lg font-bold leading-snug ${currentQuestion.singleButton ? 'text-black' : 'text-white'}`}>
-                            {option.label}
-                          </p>
-                          
-                          {/* Descrição expandida (sublabel) - Melhor espaçamento e legibilidade */}
-                          {option.sublabel && (
-                            <p className={`text-[12px] sm:text-sm md:text-base leading-relaxed ${currentQuestion.singleButton ? 'text-black/75' : 'text-white/85'}`}>
-                              {option.sublabel.split('FALHOU').map((part, i) => (
-                                <span key={i}>
-                                  {i > 0 && <strong className={`font-bold ${currentQuestion.singleButton ? 'text-black' : 'text-[#FFD700]'}`}>FALHOU</strong>}
-                                  {part}
-                                </span>
-                              ))}
-                            </p>
-                          )}
-                        </div>
-                        
-                        {/* Checkmark or Arrow - Enhanced animation for better satisfaction */}
-                        {isSelected ? (
-                          <motion.div
-                            initial={{ scale: 0, rotate: -180, opacity: 0 }}
-                            animate={{ scale: 1, rotate: 0, opacity: 1 }}
-                            transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 }}
-                            className="flex-shrink-0"
-                          >
-                            <CheckCircle2 className="w-8 h-8 sm:w-9 sm:h-9 text-[#FFD700] drop-shadow-[0_0_12px_rgba(255,215,0,1)]" />
-                          </motion.div>
-                        ) : !currentQuestion.singleButton ? (
-                          <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 text-[#FFD700] flex-shrink-0 group-hover:translate-x-2 transition-transform duration-200" />
-                        ) : (
-                          <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 text-black flex-shrink-0 group-hover:translate-x-2 transition-transform duration-200" />
-                        )}
-                      </div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/0 via-[#D4AF37]/5 to-[#D4AF37]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -translate-x-full group-hover:translate-x-full"></div>
+                  <div className="flex items-center gap-4 relative z-10">
+                    <span className="text-3xl filter drop-shadow-md" aria-hidden="true">{option.icon}</span>
+                    <div className="flex-1">
+                      <span className={`font-medium transition-colors text-lg block ${currentQuestion.singleButton ? 'text-white' : 'text-slate-200 group-hover:text-white'}`}>
+                        {option.label}
+                      </span>
+                      {option.sublabel && (
+                        <span className={`text-sm mt-1 block transition-colors ${currentQuestion.singleButton ? 'text-white/90' : 'text-slate-400 group-hover:text-slate-300'}`}>
+                          {option.sublabel}
+                        </span>
+                      )}
                     </div>
-                  </motion.button>
-                );
-                })}
-              </div>
-
-              {/* "Nenhum desses" link for question 4 - Better touch target and spacing */}
-              {currentQuestion.hasOtherOption && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="text-center pt-3 sm:pt-4"
-                >
-                  <button
-                    onClick={() => handleOptionClick(OTHER_OPTION)}
-                    disabled={isNavigating}
-                    className="text-sm sm:text-base text-white/70 hover:text-[#FFD700] underline transition-colors min-h-[48px] px-6 py-3 rounded-lg hover:bg-white/5"
-                  >
-                    Nenhum desses? Meu problema é outro.
-                  </button>
-                </motion.div>
-              )}
-
-              {/* CARD DE ATENÇÃO ou TEXTO MOTIVACIONAL - Enhanced styling with better spacing */}
-              {currentQuestion.warningText && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                  className="bg-gradient-to-br from-[#2a0606]/90 to-[#1a0606]/90 border-2 border-[#FF4500]/60 rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 space-y-3 relative overflow-hidden mt-4 sm:mt-5"
-                  style={{
-                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 30px rgba(255, 69, 0, 0.2)',
-                  }}
-                >
-                  {/* Subtle glow overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#FF4500]/10 to-transparent opacity-50 pointer-events-none" />
-                  
-                  <div className="flex items-start gap-3 relative z-10">
-                    <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-[#FF4500] flex-shrink-0 mt-1" />
-                    <p className="text-sm sm:text-base md:text-lg font-bold text-white leading-relaxed whitespace-pre-line">
-                      {currentQuestion.warningText}
-                    </p>
+                    <ChevronRight className={`w-4 h-4 ml-auto shrink-0 ${currentQuestion.singleButton ? 'text-white' : 'text-slate-500 group-hover:text-white'}`} aria-hidden="true" />
                   </div>
-                </motion.div>
-              )}
-
-              {currentQuestion.validationText && !currentQuestion.warningText && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                  className="bg-gradient-to-br from-[#0f0520]/90 to-[#0a0520]/90 border-l-4 border-[#FFD700] rounded-xl sm:rounded-2xl p-3 sm:p-4 relative overflow-hidden"
-                  style={{
-                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), inset 2px 0 10px rgba(212, 175, 55, 0.1)',
-                  }}
-                >
-                  {/* Subtle shine effect */}
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#FFD700] via-[#D4AF37] to-[#FFD700] opacity-80" />
-                  
-                  <p className="text-xs sm:text-sm md:text-base text-white/85 italic leading-relaxed relative z-10">
-                    {currentQuestion.validationText}
-                  </p>
-                </motion.div>
-              )}
+                </motion.button>
+              ))}
             </div>
           )}
         </motion.div>
