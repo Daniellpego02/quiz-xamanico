@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import { Check, Shield, Clock, AlertTriangle, Headphones, FileText, Sparkles, Lock } from 'lucide-react';
+import { useEffect, useState, useRef } from 'react';
+import { Check, Shield, Clock, AlertTriangle, Headphones, FileText, Sparkles, Lock, ChevronLeft, ChevronRight } from 'lucide-react';
 import { FAQ } from './FAQ';
 
 interface OfferProps {
@@ -14,10 +14,51 @@ interface OfferProps {
  */
 const OfferNew = ({ userName }: OfferProps) => {
     const [showOfferContent, setShowOfferContent] = useState(false);
+    const [currentProofIndex, setCurrentProofIndex] = useState(0);
+    const [timeLeft, setTimeLeft] = useState(15 * 60); // 15 minutes in seconds
+    const carouselRef = useRef<HTMLDivElement>(null);
     
     // Price configuration - PIX ONLY (À VISTA)
     // Updated price anchoring: From R$ 497,00 (session value) to R$ 27,90
     const priceOld = "497,00";
+    
+    // Social proof images
+    const socialProofImages = [
+        '/prova1.png',
+        '/prova2.png',
+        '/prova3.png',
+        '/prova4.png',
+        '/prova5.png',
+        '/prova6.png',
+        '/prova7.png'
+    ];
+    
+    const nextProof = () => {
+        setCurrentProofIndex((prev) => (prev + 1) % socialProofImages.length);
+    };
+    
+    const prevProof = () => {
+        setCurrentProofIndex((prev) => (prev - 1 + socialProofImages.length) % socialProofImages.length);
+    };
+    
+    // Format time for display
+    const formatTime = (seconds: number) => {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    };
+    
+    // Countdown timer effect
+    useEffect(() => {
+        const countdown = setInterval(() => {
+            setTimeLeft((prev) => {
+                if (prev <= 0) return 0;
+                return prev - 1;
+            });
+        }, 1000);
+        
+        return () => clearInterval(countdown);
+    }, []);
 
     // Load video player script
     useEffect(() => {
@@ -69,6 +110,16 @@ const OfferNew = ({ userName }: OfferProps) => {
 
     return (
         <div className="min-h-screen relative overflow-hidden text-white bg-[#000000]">
+            {/* Urgency Bar with Timer at the top - Red/Orange */}
+            <div className="sticky top-0 z-50 bg-gradient-to-r from-red-900 via-orange-800 to-red-900 border-b border-red-500/50">
+                <div className="max-w-4xl mx-auto px-4 py-2 flex items-center justify-center gap-2 text-center">
+                    <span className="text-white text-sm font-bold animate-pulse">⏰</span>
+                    <span className="text-white text-sm sm:text-base font-semibold">
+                        OFERTA EXPIRA EM: <span className="text-yellow-300 font-black">{formatTime(timeLeft)}</span>
+                    </span>
+                </div>
+            </div>
+            
             {/* Dark Forest Background with Mystical Effects */}
             <div className="fixed inset-0 -z-10">
                 <div className="absolute inset-0 bg-gradient-to-b from-[#021a0a] via-[#000000] to-[#021a0a]"></div>
@@ -79,26 +130,26 @@ const OfferNew = ({ userName }: OfferProps) => {
             </div>
 
             <div className="max-w-[800px] mx-auto px-4 py-8">
-                {/* BLOCK 01: HERO SECTION - Dynamic Headline */}
+                {/* BLOCK 01: HERO SECTION - New Headline Structure */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="text-center mb-6"
                 >
-                    <div className="inline-flex items-center gap-2 bg-red-900/40 border border-red-500/50 px-4 py-2 rounded-full mb-4">
-                        <AlertTriangle className="w-4 h-4 text-red-400 animate-pulse" />
-                        <span className="text-red-400 text-sm font-bold uppercase tracking-wider">ALERTA: Padrão de Escassez Hereditária Detectado</span>
+                    {/* Pre-Headline - Yellow */}
+                    <div className="inline-flex items-center gap-2 bg-yellow-900/40 border border-yellow-500/50 px-4 py-2 rounded-full mb-4">
+                        <AlertTriangle className="w-4 h-4 text-yellow-400 animate-pulse" />
+                        <span className="text-yellow-400 text-sm font-bold uppercase tracking-wider">⚠️ DIAGNÓSTICO CONCLUÍDO: BLOQUEIO HEREDITÁRIO CONFIRMADO</span>
                     </div>
-                    <h1 className="text-xl sm:text-2xl md:text-3xl font-black uppercase text-white mb-4 tracking-wide leading-tight px-2">
-                        <span className="break-words">
-                            {userName && userName.trim() ? `${userName.toUpperCase()}, SUA LEITURA ENERGÉTICA CONFIRMOU O QUE EU TEMIA:` : 'SUA LEITURA ENERGÉTICA CONFIRMOU O QUE EU TEMIA:'}
-                        </span>
+                    
+                    {/* Main Headline - White */}
+                    <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-white mb-4 tracking-wide leading-tight px-2">
+                        Como Quebrar o "Contrato de Pobreza" dos seus Antepassados em 7 Dias e Liberar o Fluxo de Dinheiro.
                     </h1>
-                    <p className="text-base sm:text-lg text-slate-200 leading-relaxed max-w-2xl mx-auto px-2">
-                        Você não tem problema em ganhar dinheiro. Seu problema é <span className="text-[#D4AF37] font-bold">energético</span>: Você carrega um <span className="text-[#D4AF37] font-bold">"Voto de Pobreza Oculto"</span> feito por um antepassado, e está honrando isso inconscientemente.
-                    </p>
-                    <p className="text-sm sm:text-base text-red-400 font-semibold mt-4 px-2">
-                        ⚠️ Se não quebrarmos esse contrato etérico em 7 dias, a tendência é que os próximos 6 meses sejam de perdas financeiras ainda maiores.
+                    
+                    {/* Sub-headline - Light Gray */}
+                    <p className="text-sm sm:text-base text-slate-400 leading-relaxed max-w-2xl mx-auto px-2">
+                        (Não feche essa página. Seu diagnóstico expira em 15 minutos).
                     </p>
                 </motion.div>
 
@@ -133,6 +184,25 @@ const OfferNew = ({ userName }: OfferProps) => {
                     <div className="absolute -inset-2 bg-[#D4AF37]/20 blur-xl -z-10"></div>
                 </motion.div>
 
+                {/* CTA Button Below Video - Green Neon */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    className="text-center mb-8"
+                >
+                    <button
+                        onClick={handleCheckout}
+                        className="w-full max-w-md mx-auto bg-gradient-to-r from-[#00FF41] to-[#00CC33] hover:from-[#00CC33] hover:to-[#00FF41] text-black font-black text-base sm:text-lg md:text-xl py-5 md:py-6 px-4 md:px-8 rounded-2xl shadow-[0_0_40px_rgba(0,255,65,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 uppercase tracking-wide"
+                    >
+                        QUERO BAIXAR MEU PROTOCOLO DE DESBLOQUEIO
+                    </button>
+                    <p className="text-center text-slate-400 text-sm mt-3 flex items-center justify-center gap-2">
+                        <Lock className="w-4 h-4" />
+                        🔒 Acesso imediato e seguro
+                    </p>
+                </motion.div>
+
                 {/* BLOCK 03: THE OFFER - Hidden until video timing */}
                 <AnimatePresence>
                     {showOfferContent && (
@@ -158,19 +228,20 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             Oferta Exclusiva para {userName}
                                         </p>
                                         
-                                        {/* Price Stack - NOVO FORMATO SÓ PIX - MOBILE OPTIMIZED */}
+                                        {/* Price Stack - NOVO FORMATO */}
                                         <div className="space-y-2 sm:space-y-3">
-                                            {/* Linha 1: Ancoragem (Valor Antigo) */}
+                                            {/* Linha 1: Ancoragem (Valor Antigo) - Riscado */}
                                             <div>
-                                                <p className="text-slate-500 text-xs sm:text-sm line-through">
-                                                    Valor da Sessão Individual: R$ {priceOld}
+                                                <p className="text-slate-500 text-lg sm:text-xl line-through">
+                                                    De R$ {priceOld}
                                                 </p>
+                                                <p className="text-slate-400 text-xs">(Valor real da mentoria)</p>
                                             </div>
 
-                                            {/* Linha 2: Justificativa do PIX */}
+                                            {/* Linha 2: Preço Destaque */}
                                             <div className="my-3 sm:my-4">
-                                                <p className="text-white text-base sm:text-lg md:text-xl font-semibold px-2">
-                                                    Isento de Taxas Bancárias (Somente PIX):
+                                                <p className="text-[#FFD700] text-base sm:text-lg font-semibold px-2">
+                                                    Por apenas:
                                                 </p>
                                             </div>
 
@@ -183,18 +254,10 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                 </div>
                                             </div>
 
-                                            {/* Linha 4: Microcopy */}
+                                            {/* Linha 4: Justificativa do Preço */}
                                             <div className="mb-4 sm:mb-6">
-                                                <p className="text-white text-lg sm:text-xl md:text-2xl font-bold px-2">
-                                                    Pagamento Único. Acesso Vitalício.
-                                                </p>
-                                            </div>
-
-                                            {/* Justificativa do "Só PIX" */}
-                                            <div className="bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-xl p-3 sm:p-4 mb-4 sm:mb-6">
-                                                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                                                    Para manter o valor acessível em R$ 27,90, nós removemos as taxas de cartão de crédito e boletos bancários. 
-                                                    O pagamento é <span className="text-[#FFD700] font-bold">exclusivo via PIX</span> para ativação imediata no sistema.
+                                                <p className="text-slate-300 text-sm sm:text-base px-2">
+                                                    Taxa única de contribuição energética. Sem mensalidades.
                                                 </p>
                                             </div>
                                         </div>
@@ -213,30 +276,29 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         </div>
                                     </div>
 
-                                    {/* CTA BUTTON COM ÍCONE PIX - Mobile Optimized */}
+                                    {/* CTA BUTTON - GERAR MEU ACESSO AGORA */}
                                     <button
                                         onClick={handleCheckout}
                                         className="w-full bg-gradient-to-r from-[#00FF41] to-[#00CC33] hover:from-[#00CC33] hover:to-[#00FF41] text-black font-black text-base sm:text-lg md:text-xl py-5 md:py-6 px-4 md:px-8 rounded-2xl shadow-[0_0_40px_rgba(0,255,65,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 uppercase tracking-wide mb-3 flex items-center justify-center gap-2 md:gap-3"
                                     >
-                                        <span className="text-2xl md:text-3xl flex-shrink-0">🔷</span>
-                                        <span className="leading-tight">QUERO QUEBRAR O CONTRATO E RECEBER MEU MAPA</span>
+                                        <span className="leading-tight">GERAR MEU ACESSO AGORA (PIX OU CARTÃO)</span>
                                     </button>
 
                                     {/* Subtexto do Botão */}
-                                    <p className="text-center text-[#00FF41] text-sm font-semibold flex items-center justify-center gap-2">
+                                    <p className="text-center text-slate-300 text-sm font-semibold flex items-center justify-center gap-2">
                                         <Lock className="w-4 h-4" />
-                                        ⚡ Acesso Liberado em Até 2 Minutos
+                                        🔒 Acesso imediato e seguro
                                     </p>
 
-                                    {/* Trust Badge - SÓ PIX - Mobile Optimized */}
+                                    {/* Trust Badge - Compra Segura, Dados Protegidos */}
                                     <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mt-6">
                                         <div className="flex items-center gap-2 bg-white/10 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm">
                                             <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 flex-shrink-0" />
-                                            <span className="text-slate-300 font-semibold whitespace-nowrap">Site Seguro SSL</span>
+                                            <span className="text-slate-300 font-semibold whitespace-nowrap">Compra Segura</span>
                                         </div>
-                                        <div className="flex items-center gap-2 bg-[#32BCAD]/20 px-3 sm:px-4 py-2 rounded-lg border border-[#32BCAD]/50 text-xs sm:text-sm">
-                                            <span className="text-xl sm:text-2xl flex-shrink-0">🔷</span>
-                                            <span className="text-white font-bold whitespace-nowrap">PIX Oficial</span>
+                                        <div className="flex items-center gap-2 bg-emerald-500/20 px-3 sm:px-4 py-2 rounded-lg border border-emerald-500/50 text-xs sm:text-sm">
+                                            <Lock className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 flex-shrink-0" />
+                                            <span className="text-white font-bold whitespace-nowrap">Dados Protegidos</span>
                                         </div>
                                     </div>
                                 </div>
@@ -270,23 +332,23 @@ const OfferNew = ({ userName }: OfferProps) => {
                                     {[
                                         {
                                             icon: FileText,
-                                            title: 'O Mapa da Frequência',
-                                            desc: 'Descubra exatamente onde está o vazamento de dinheiro na sua vida.'
-                                        },
-                                        {
-                                            icon: Sparkles,
-                                            title: 'Protocolo de 7 Dias',
-                                            desc: 'O passo a passo simples para limpar a energia estagnada.'
+                                            title: 'Mapa da Frequência Pessoal',
+                                            desc: 'Descubra exatamente onde está a trava na sua linhagem.'
                                         },
                                         {
                                             icon: Headphones,
-                                            title: 'Áudios de Reprogramação',
-                                            desc: 'Desbloqueie sua mente enquanto você dorme.'
+                                            title: 'Protocolo de 7 Dias (Áudio)',
+                                            desc: 'O passo a passo guiado para fazer a limpeza sem esforço.'
+                                        },
+                                        {
+                                            icon: Sparkles,
+                                            title: 'Áudios de Reprogramação Binaural',
+                                            desc: 'Basta ouvir 15min antes de dormir para recalibrar sua mente.'
                                         },
                                         {
                                             icon: Shield,
-                                            title: 'Bônus: Ritual de Blindagem da Casa',
-                                            desc: 'Proteja seu espaço das energias de escassez.'
+                                            title: 'Ritual de Blindagem',
+                                            desc: 'Para impedir que a inveja ou dívidas voltem a entrar.'
                                         }
                                     ].map((item, idx) => (
                                         <motion.div
@@ -335,20 +397,16 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         <div className="absolute -inset-2 bg-[#D4AF37]/20 blur-xl -z-10"></div>
                                     </div>
 
-                                    {/* Expert Bio - Enhanced with Bold for Scannability */}
+                                    {/* Expert Bio - New Copy */}
                                     <div className="flex-1 text-center md:text-left">
                                         <p className="text-slate-200 leading-relaxed text-sm md:text-base">
-                                            <span className="font-bold">"Por 12 anos, eu fui exatamente como você..."</span> Eu sou <span className="text-[#FFD700] font-bold">Anahí Solara</span>. Não sou guru financeira. 
-                                            Sou Terapeuta Holística e dediquei os últimos <span className="text-white font-bold">10 anos</span> a decodificar 
-                                            os padrões ocultos da escassez. <span className="font-bold">...descobri a verdade brutal: é uma Herança Vibracional.</span> Este mapa não é teoria. É o exato método que salvou minha 
-                                            própria família da falência e já ajudou mais de <span className="text-[#FFD700] font-bold">4.000 alunos</span> a 
-                                            destravarem a prosperidade."
+                                            Sou <span className="text-[#FFD700] font-bold">Anahí Solara</span>, terapeuta holística e especialista em <span className="text-white font-bold">Quebra de Contratos Ancestrais</span>. Minha missão não é te dar 'mais um curso', e sim usar a <span className="text-[#FFD700] font-bold">tecnologia vibracional</span> para limpar o caminho do dinheiro na sua vida. Já ajudei mais de <span className="text-[#FFD700] font-bold">4.000 pessoas</span> a saírem da estagnação usando este mesmo protocolo.
                                         </p>
                                     </div>
                                 </div>
                             </motion.div>
 
-                            {/* BLOCK 06: SOCIAL PROOF - 7 REVIEWS COM FOTOS REAIS */}
+                            {/* BLOCK 06: SOCIAL PROOF - WhatsApp Prints */}
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -356,109 +414,80 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 className="mb-12"
                             >
                                 <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#FFD700] text-center mb-6 sm:mb-8 px-2">
-                                    💬 O que os alunos estão dizendo
+                                    Veja o que acontece quando a Trava Ancestral é quebrada:
                                 </h3>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 max-w-4xl mx-auto">
-                                    {[
-                                        {
-                                            name: 'Fernanda Oliveira',
-                                            age: '34 anos',
-                                            city: 'São Paulo, SP',
-                                            text: 'Eu estava devendo 18 mil reais. Depois de fazer o protocolo por 7 dias, consegui um emprego novo que pagava o DOBRO do que eu ganhava. Paguei tudo em 4 meses! Isso é real, gente! 😭🙏',
-                                            time: 'há 2h',
-                                            photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop'
-                                        },
-                                        {
-                                            name: 'Ricardo Mendes',
-                                            age: '41 anos',
-                                            city: 'Rio de Janeiro, RJ',
-                                            text: 'Sou empresário e estava em crise há 2 anos. No 5º dia do mapa, fechei um contrato de R$ 85 mil que estava travado há meses. Coincidência? Não acredito mais nisso! 💰',
-                                            time: 'há 5h',
-                                            photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop'
-                                        },
-                                        {
-                                            name: 'Juliana Santos',
-                                            age: '28 anos',
-                                            city: 'Curitiba, PR',
-                                            text: 'Meu marido estava desempregado há 8 meses. Fizemos o ritual juntos e em 11 dias ele recebeu 3 propostas de emprego! Escolhemos a melhor. Gratidão infinita! ✨',
-                                            time: 'há 1 dia',
-                                            photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop'
-                                        },
-                                        {
-                                            name: 'Marcos Vinícius',
-                                            age: '37 anos',
-                                            city: 'Belo Horizonte, MG',
-                                            text: 'Trabalho com vendas e estava em crise. Depois do Mapa, meu faturamento subiu 340% em 2 meses. Nunca tinha visto dinheiro entrar assim na minha vida. Recomendo demais! 🚀',
-                                            time: 'há 1 dia',
-                                            photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop'
-                                        },
-                                        {
-                                            name: 'Camila Rodrigues',
-                                            age: '31 anos',
-                                            city: 'Porto Alegre, RS',
-                                            text: 'Eu era cética, mas resolvi tentar. No 3º dia, recebi uma herança de uma tia distante que eu nem sabia que existia. R$ 47 mil! Fiquei em choque. Isso funciona MESMO! 😱💎',
-                                            time: 'há 8h',
-                                            photo: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop'
-                                        },
-                                        {
-                                            name: 'André Luiz',
-                                            age: '45 anos',
-                                            city: 'Brasília, DF',
-                                            text: 'Eu tinha bloqueios ancestrais pesados (meu pai faliu 2 vezes). O Mapa me libertou disso. Hoje tenho minha empresa sólida e zero dívidas. Mudou minha vida e da minha família! 🙌',
-                                            time: 'há 2 dias',
-                                            photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop'
-                                        },
-                                        {
-                                            name: 'Patrícia Lima',
-                                            age: '39 anos',
-                                            city: 'Salvador, BA',
-                                            text: 'Os áudios noturnos são INCRÍVEIS! Acordo com outra energia. Clientes começaram a aparecer do nada. Meu Instagram explodiu de vendas. Estou realizando sonhos que eu achava impossíveis! 💫',
-                                            time: 'há 3h',
-                                            photo: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=200&auto=format&fit=crop'
-                                        }
-                                    ].map((testimonial, idx) => (
-                                        <motion.div
-                                            key={idx}
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: 1.6 + idx * 0.1 }}
-                                            className="bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] border border-[#D4AF37]/30 rounded-2xl p-4 sm:p-5 hover:border-[#D4AF37]/60 transition-all hover:shadow-[0_0_30px_rgba(212,175,55,0.2)]"
+                                {/* WhatsApp Prints Carousel */}
+                                <div className="relative max-w-2xl mx-auto px-4">
+                                    {/* Main Image Display */}
+                                    <div 
+                                        ref={carouselRef}
+                                        className="relative overflow-hidden rounded-2xl border-2 border-[#D4AF37]/50 shadow-[0_0_40px_rgba(212,175,55,0.3)] bg-black/50"
+                                    >
+                                        <motion.img
+                                            key={currentProofIndex}
+                                            initial={{ opacity: 0, x: 100 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: -100 }}
+                                            transition={{ duration: 0.3 }}
+                                            src={socialProofImages[currentProofIndex]}
+                                            alt={`Prova social ${currentProofIndex + 1}`}
+                                            className="w-full h-auto"
+                                        />
+                                        
+                                        {/* Navigation Buttons */}
+                                        <button 
+                                            onClick={prevProof}
+                                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full transition-all"
+                                            aria-label="Anterior"
                                         >
-                                            <div className="flex items-start gap-3 sm:gap-4">
-                                                {/* Foto Real do Cliente */}
-                                                <div className="flex-shrink-0">
-                                                    <img 
-                                                        src={testimonial.photo}
-                                                        alt={testimonial.name}
-                                                        className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-[#D4AF37]"
-                                                        onError={(e) => {
-                                                            e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonial.name)}&background=D4AF37&color=000&size=200`;
-                                                        }}
-                                                    />
-                                                </div>
-                                                <div className="flex-1 min-w-0">
-                                                    <div className="mb-2">
-                                                        <p className="text-white font-bold text-sm sm:text-base mb-1 truncate">{testimonial.name}</p>
-                                                        <p className="text-slate-400 text-[10px] sm:text-xs">
-                                                            {testimonial.age} • {testimonial.city}
-                                                        </p>
-                                                    </div>
-                                                    <p className="text-slate-200 text-xs sm:text-sm leading-relaxed mb-3">
-                                                        {testimonial.text}
-                                                    </p>
-                                                    <div className="flex items-center justify-between gap-2">
-                                                        <div className="flex gap-1">
-                                                            {[...Array(5)].map((_, i) => (
-                                                                <span key={i} className="text-[#FFD700] text-xs sm:text-sm">⭐</span>
-                                                            ))}
-                                                        </div>
-                                                        <p className="text-slate-500 text-[10px] sm:text-xs whitespace-nowrap">{testimonial.time}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </motion.div>
-                                    ))}
+                                            <ChevronLeft className="w-6 h-6" />
+                                        </button>
+                                        <button 
+                                            onClick={nextProof}
+                                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full transition-all"
+                                            aria-label="Próximo"
+                                        >
+                                            <ChevronRight className="w-6 h-6" />
+                                        </button>
+                                    </div>
+
+                                    {/* Dots Indicator */}
+                                    <div className="flex justify-center gap-2 mt-4">
+                                        {socialProofImages.map((_, idx) => (
+                                            <button
+                                                key={idx}
+                                                onClick={() => setCurrentProofIndex(idx)}
+                                                className={`w-2 h-2 rounded-full transition-all ${
+                                                    idx === currentProofIndex 
+                                                        ? 'bg-[#FFD700] w-4' 
+                                                        : 'bg-white/30 hover:bg-white/50'
+                                                }`}
+                                                aria-label={`Ir para prova ${idx + 1}`}
+                                            />
+                                        ))}
+                                    </div>
+
+                                    {/* Thumbnail Grid */}
+                                    <div className="grid grid-cols-7 gap-2 mt-4">
+                                        {socialProofImages.map((img, idx) => (
+                                            <button
+                                                key={idx}
+                                                onClick={() => setCurrentProofIndex(idx)}
+                                                className={`rounded-lg overflow-hidden border-2 transition-all ${
+                                                    idx === currentProofIndex 
+                                                        ? 'border-[#FFD700] shadow-[0_0_10px_rgba(212,175,55,0.5)]' 
+                                                        : 'border-transparent opacity-60 hover:opacity-100'
+                                                }`}
+                                            >
+                                                <img 
+                                                    src={img} 
+                                                    alt={`Miniatura ${idx + 1}`}
+                                                    className="w-full h-auto"
+                                                />
+                                            </button>
+                                        ))}
+                                    </div>
                                 </div>
                             </motion.div>
 
@@ -478,13 +507,11 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 </div>
 
                                 <h3 className="text-xl sm:text-2xl font-bold text-emerald-300 mb-4">
-                                    GARANTIA BLINDADA DE RESULTADO
+                                    Garantia Blindada de Resultado ou Reembolso
                                 </h3>
                                 <div className="text-slate-200 text-sm sm:text-base leading-relaxed space-y-3 max-w-2xl mx-auto px-2">
                                     <p className="font-semibold text-white">
-                                        "Você não tem risco nenhum. Entre, faça o Mapa, use os áudios por 7 dias. 
-                                        Se você não sentir o peso saindo das suas costas, eu devolvo 100% do seu dinheiro. 
-                                        Sem perguntas. Basta um e-mail."
+                                        Eu confio tanto no poder deste Protocolo que assumo o risco. Acesse, ouça os áudios e faça o teste por 7 dias. Se você não sentir um peso saindo das suas costas ou não ver movimentação financeira acontecer, eu devolvo 100% do seu dinheiro. Sem perguntas, sem burocracia. É preto no branco.
                                     </p>
                                 </div>
                             </motion.div>
