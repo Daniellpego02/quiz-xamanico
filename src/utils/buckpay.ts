@@ -441,7 +441,9 @@ export function parseWebhookPayload(payload: string): BuckPayWebhookPayload | nu
   try {
     return JSON.parse(payload) as BuckPayWebhookPayload;
   } catch (error) {
-    console.error('[BuckPay] Error parsing webhook payload:', error);
+    // Include truncated payload for debugging
+    const truncatedPayload = payload.length > 200 ? payload.substring(0, 200) + '...' : payload;
+    console.error('[BuckPay] Error parsing webhook payload:', error, 'Payload:', truncatedPayload);
     return null;
   }
 }

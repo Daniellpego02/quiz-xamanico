@@ -77,8 +77,19 @@ export const VTurbTracker: React.FC<VTurbTrackerProps> = ({
   
   // Handle messages from VTurb player iframe
   const handleMessage = useCallback((event: MessageEvent) => {
-    // Verify the message is from VTurb
-    if (!event.origin.includes('vturb') && !event.origin.includes('cdn')) {
+    // Verify the message is from VTurb/ConverteAI domains
+    // Using strict domain validation for security
+    const allowedDomains = [
+      'https://scripts.converteai.net',
+      'https://cdn.converteai.net',
+      'https://player.converteai.net',
+    ];
+    
+    const isAllowedOrigin = allowedDomains.some(domain => 
+      event.origin === domain || event.origin.startsWith(domain)
+    );
+    
+    if (!isAllowedOrigin) {
       return;
     }
     

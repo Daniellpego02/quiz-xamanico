@@ -310,11 +310,14 @@ export function loadTrackingState(): TrackingState | null {
     const state = JSON.parse(stored) as TrackingState;
     
     // Check if session is still valid (30 minutes)
-    const lastEvent = state.eventHistory[state.eventHistory.length - 1];
-    if (lastEvent && Date.now() - lastEvent.timestamp > SESSION_DURATION_MS) {
-      // Session expired, generate new session ID but keep user ID
-      state.sessionId = generateSessionId();
-      state.eventHistory = [];
+    // Only check if there are events in history
+    if (state.eventHistory && state.eventHistory.length > 0) {
+      const lastEvent = state.eventHistory[state.eventHistory.length - 1];
+      if (lastEvent && Date.now() - lastEvent.timestamp > SESSION_DURATION_MS) {
+        // Session expired, generate new session ID but keep user ID
+        state.sessionId = generateSessionId();
+        state.eventHistory = [];
+      }
     }
     
     return state;
