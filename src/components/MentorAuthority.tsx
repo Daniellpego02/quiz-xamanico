@@ -88,45 +88,29 @@ export const MentorAuthority = () => {
 
               <div className="space-y-4 text-slate-200 text-base md:text-lg leading-relaxed">
                 <p>
-                  Por <strong className="text-white">12 anos</strong>, eu fui exatamente como você.
+                  Por <strong className="text-white">12 anos</strong>, eu fui exatamente como você: trabalhava 14h por dia, mas o dinheiro sempre fugia. Eu achava que era azar.
                 </p>
 
                 <p>
-                  Trabalhava, trabalhava... mas o dinheiro sumia.
+                  Até que, em uma <strong className="text-[#FFD700]">imersão profunda com Xamãs nos Andes</strong>, descobri a verdade brutal: a pobreza não é falta de esforço. É uma <strong className="text-white">Herança Vibracional</strong>.
                 </p>
 
                 <p>
-                  Não sou guru financeira. Sou Terapeuta Holística e dediquei os últimos 10 anos a decodificar os padrões ocultos da escassez.
+                  Foi para quebrar esse ciclo de escassez que eu criei o <strong className="text-[#FFD700]">MAPA XAMÂNICO</strong>.
                 </p>
 
                 <p>
-                  ...descobri a verdade brutal: é uma <strong className="text-[#FFD700]">Herança Vibracional</strong>.
+                  Ele não é um livro de autoajuda. O Mapa é a sistematização de tudo que aprendi para identificar e desativar os <strong className="text-white">Arquétipos de Bloqueio</strong> que impedem sua prosperidade.
                 </p>
 
                 <p>
-                  Este mapa não é teoria. É o exato método que salvou minha própria família da falência e já ajudou mais de <strong className="text-[#FFD700]">4.000 alunos</strong> a destravarem a prosperidade.
+                  Hoje, com mais de <strong className="text-[#FFD700]">20.000 alunos destravados em 15 países</strong>, minha missão é te entregar esse mesmo "Código de Desbloqueio" que salvou a minha vida financeira.
                 </p>
 
                 <div className="bg-[#FFD700]/10 border-l-4 border-[#FFD700] rounded-r-lg p-4 mt-6">
                   <p className="text-[#FFD700] font-bold text-lg italic">
                     O que você está prestes a acessar é a chave que eu gostaria de ter recebido há 10 anos.
                   </p>
-                </div>
-
-                {/* Credentials badges */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-6">
-                  <div className="flex items-center gap-2 text-sm">
-                    <span className="text-[#FFD700]">💼</span>
-                    <span className="text-slate-300">Terapeuta Holística há 10+ anos</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm">
-                    <span className="text-[#FFD700]">📚</span>
-                    <span className="text-slate-300">Especialista em Xamanismo Financeiro</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm">
-                    <span className="text-[#FFD700]">👥</span>
-                    <span className="text-slate-300">Mais de 4.000 alunos transformados</span>
-                  </div>
                 </div>
               </div>
             </motion.div>
