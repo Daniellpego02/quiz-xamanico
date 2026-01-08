@@ -44,13 +44,13 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           className="space-y-4"
         >
           <h1 className="text-2xl md:text-3xl font-serif font-black text-white leading-[1.15] drop-shadow-2xl">
-            Existe uma <span className="text-[#D4AF37]">"Trava Ancestral"</span> impedindo o dinheiro de parar na sua mão?
+            Por que você trabalha tanto, mas o dinheiro parece <span className="text-[#D4AF37]">"evaporar"</span> da sua mão antes do dia 30?
           </h1>
           <h2 className="text-base md:text-lg text-slate-200 leading-relaxed max-w-md mx-auto font-normal">
-            O Protocolo Xamânico revela onde está o vazamento.
+            Não é má gestão, nem azar. O Xamanismo revela que você pode estar carregando uma <strong className="text-[#D4AF37]">"Lealdade Invisível"</strong> à pobreza dos seus antepassados.
           </h2>
           <p className="text-sm md:text-base text-slate-300 leading-relaxed max-w-md mx-auto">
-            Responda a <strong className="text-white">4 perguntas simples</strong> para mapear sua assinatura energética e descobrir como desbloquear seu fluxo de prosperidade em <strong className="text-white">7 dias</strong>.
+            Responda a <strong className="text-white">4 perguntas simples</strong> para rastrear sua Lealdade Invisível e descobrir como desbloquear seu fluxo de prosperidade em <strong className="text-white">7 dias</strong>.
           </p>
         </motion.div>
 
@@ -62,7 +62,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
         >
           <div className="absolute -inset-0.5 bg-gradient-to-r from-[#D4AF37] to-[#FFD700] rounded-xl blur opacity-40 group-hover:opacity-70 transition duration-1000 animate-pulse"></div>
           <Button onClick={handleStartClick} pulse className="relative text-base md:text-lg py-4 w-full shadow-[0_0_30px_rgba(212,175,55,0.3)] border-t border-white/20">
-            QUERO INICIAR MEU MAPEAMENTO AGORA
+            QUERO RASTREAR MINHA LEALDADE INVISÍVEL AGORA
           </Button>
           <p className="text-[10px] text-slate-400 mt-2 uppercase tracking-widest flex items-center justify-center gap-1">
             <Lock className="w-3 h-3" /> 🔒 Análise confidencial e baseada em princípios milenares. Mais de 4.300 mapas gerados.

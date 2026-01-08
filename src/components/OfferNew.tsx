@@ -85,13 +85,21 @@ const OfferNew = ({ userName }: OfferProps) => {
                     animate={{ opacity: 1, y: 0 }}
                     className="text-center mb-6"
                 >
-                    <h1 className="text-xl sm:text-2xl md:text-3xl font-black uppercase text-[#FFD700] mb-4 tracking-wide leading-tight px-2">
+                    <div className="inline-flex items-center gap-2 bg-red-900/40 border border-red-500/50 px-4 py-2 rounded-full mb-4">
+                        <AlertTriangle className="w-4 h-4 text-red-400 animate-pulse" />
+                        <span className="text-red-400 text-sm font-bold uppercase tracking-wider">ALERTA: Padrão de Escassez Hereditária Detectado</span>
+                    </div>
+                    <h1 className="text-xl sm:text-2xl md:text-3xl font-black uppercase text-white mb-4 tracking-wide leading-tight px-2">
                         <span className="break-words">
-                            {userName && userName.trim() ? `DIAGNÓSTICO DE ${userName.toUpperCase()} CONCLUÍDO:` : 'SEU DIAGNÓSTICO ESTÁ CONCLUÍDO:'}
+                            {userName && userName.trim() ? `${userName.toUpperCase()}, SUA LEITURA ENERGÉTICA CONFIRMOU O QUE EU TEMIA:` : 'SUA LEITURA ENERGÉTICA CONFIRMOU O QUE EU TEMIA:'}
                         </span>
-                        <br className="hidden sm:block"/>
-                        <span className="text-white block mt-2">SEU BLOQUEIO ANCESTRAL FOI IDENTIFICADO</span>
                     </h1>
+                    <p className="text-base sm:text-lg text-slate-200 leading-relaxed max-w-2xl mx-auto px-2">
+                        Você não tem problema em ganhar dinheiro. Seu problema é <span className="text-[#D4AF37] font-bold">energético</span>: Você carrega um <span className="text-[#D4AF37] font-bold">"Voto de Pobreza Oculto"</span> feito por um antepassado, e está honrando isso inconscientemente.
+                    </p>
+                    <p className="text-sm sm:text-base text-red-400 font-semibold mt-4 px-2">
+                        ⚠️ Se não quebrarmos esse contrato etérico em 7 dias, a tendência é que os próximos 6 meses sejam de perdas financeiras ainda maiores.
+                    </p>
                 </motion.div>
 
                 {/* Urgency Microcopy Above Video */}
@@ -102,7 +110,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                     className="bg-gradient-to-r from-[#8B0000] to-[#CC0000] border border-red-500/50 rounded-lg px-4 py-2 mb-4 text-center"
                 >
                     <p className="text-sm md:text-base text-white font-semibold">
-                        🔒 Este vídeo contém a leitura da sua frequência e será deletado do servidor em breve.
+                        🔒 Este vídeo contém a leitura da sua frequência energética e será deletado do servidor em breve.
                     </p>
                 </motion.div>
 
@@ -211,7 +219,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         className="w-full bg-gradient-to-r from-[#00FF41] to-[#00CC33] hover:from-[#00CC33] hover:to-[#00FF41] text-black font-black text-base sm:text-lg md:text-xl py-5 md:py-6 px-4 md:px-8 rounded-2xl shadow-[0_0_40px_rgba(0,255,65,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 uppercase tracking-wide mb-3 flex items-center justify-center gap-2 md:gap-3"
                                     >
                                         <span className="text-2xl md:text-3xl flex-shrink-0">🔷</span>
-                                        <span className="leading-tight">GERAR MEU ACESSO AGORA (PIX)</span>
+                                        <span className="leading-tight">QUERO QUEBRAR O CONTRATO E RECEBER MEU MAPA</span>
                                     </button>
 
                                     {/* Subtexto do Botão */}
