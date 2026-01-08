@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { Check, Shield, Clock, AlertTriangle, Headphones, FileText, Sparkles, Lock, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Check, Shield, Clock, AlertTriangle, Headphones, FileText, Sparkles, Lock, ChevronLeft, ChevronRight, Briefcase, Layers, Users } from 'lucide-react';
 import { FAQ } from './FAQ';
 
 interface OfferProps {
@@ -338,24 +338,24 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 <div className="space-y-4 max-w-2xl mx-auto">
                                     {[
                                         {
+                                            icon: Sparkles,
+                                            title: 'Acesso ao Portal Mobile (Estilo App)',
+                                            desc: 'Plataforma exclusiva que funciona em qualquer celular (Android ou iPhone) sem precisar baixar nada pesado nem ocupar memória.'
+                                        },
+                                        {
                                             icon: FileText,
-                                            title: 'Mapa da Frequência Pessoal',
-                                            desc: 'Descubra exatamente onde está a trava na sua linhagem.'
+                                            title: 'O Mapa Xamânico Digital (PDF)',
+                                            desc: 'Seu diagnóstico escrito completo para ler e consultar onde estiver.'
                                         },
                                         {
                                             icon: Headphones,
-                                            title: 'Protocolo de 7 Dias (Áudio)',
-                                            desc: 'O passo a passo guiado para fazer a limpeza sem esforço.'
-                                        },
-                                        {
-                                            icon: Sparkles,
                                             title: 'Áudios de Reprogramação Binaural',
-                                            desc: 'Basta ouvir 15min antes de dormir para recalibrar sua mente.'
+                                            desc: 'Terapia sonora passiva. Basta dar o play, fechar os olhos e deixar a frequência limpar sua mente.'
                                         },
                                         {
                                             icon: Shield,
-                                            title: 'Ritual de Blindagem',
-                                            desc: 'Para impedir que a inveja ou dívidas voltem a entrar.'
+                                            title: 'Protocolo Prático de 7 Dias',
+                                            desc: 'O passo a passo guiado para quebrar o contrato de escassez em uma semana.'
                                         }
                                     ].map((item, idx) => (
                                         <motion.div
@@ -377,21 +377,22 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 </div>
                             </motion.div>
 
-                            {/* BLOCK 05: EXPERT AUTHORITY */}
+                            {/* BLOCK 05: EXPERT AUTHORITY - Redesigned Story-Style */}
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 1.2 }}
-                                className="mb-12 bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] border border-[#D4AF37]/30 rounded-2xl p-8"
+                                className="mb-12 bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] border-2 border-[#D4AF37] rounded-2xl p-6 sm:p-8"
                             >
-                                <h3 className="text-xl md:text-2xl font-bold text-[#FFD700] text-center mb-6">
-                                    Quem guiará sua jornada?
+                                {/* Title - Yellow, Centered */}
+                                <h3 className="text-xl md:text-2xl font-bold text-[#FFD700] text-center mb-6 uppercase tracking-wide">
+                                    QUEM GUIARÁ SUA JORNADA?
                                 </h3>
                                 
-                                <div className="flex flex-col md:flex-row items-center gap-6">
-                                    {/* Expert Photo */}
+                                <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
+                                    {/* Expert Photo - Round, Left on desktop, Top on mobile */}
                                     <div className="relative flex-shrink-0">
-                                        <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#D4AF37]">
+                                        <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-[#D4AF37] shadow-[0_0_30px_rgba(212,175,55,0.4)]">
                                             <img 
                                                 src="/expert.jpg" 
                                                 alt="Anahí Solara"
@@ -404,12 +405,67 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         <div className="absolute -inset-2 bg-[#D4AF37]/20 blur-xl -z-10"></div>
                                     </div>
 
-                                    {/* Expert Bio - New Copy */}
-                                    <div className="flex-1 text-center md:text-left">
-                                        <p className="text-slate-200 leading-relaxed text-sm md:text-base">
-                                            Sou <span className="text-[#FFD700] font-bold">Anahí Solara</span>, terapeuta holística e especialista em <span className="text-white font-bold">Quebra de Contratos Ancestrais</span>. Minha missão não é te dar 'mais um curso', e sim usar a <span className="text-[#FFD700] font-bold">tecnologia vibracional</span> para limpar o caminho do dinheiro na sua vida. Já ajudei mais de <span className="text-[#FFD700] font-bold">4.000 pessoas</span> a saírem da estagnação usando este mesmo protocolo.
+                                    {/* Expert Bio - Story Style */}
+                                    <div className="flex-1 text-center md:text-left space-y-4">
+                                        {/* Expert Name */}
+                                        <p className="text-[#FFD700] font-bold text-xl md:text-2xl">
+                                            Anahí Solara
                                         </p>
+                                        
+                                        {/* Impact Subtitle - White, Quotes, Bold */}
+                                        <p className="text-white font-bold text-base md:text-lg italic">
+                                            "Por 12 anos, eu fui exatamente como você."
+                                        </p>
+                                        
+                                        {/* Story Paragraphs */}
+                                        <div className="space-y-3 text-slate-300 text-sm md:text-base leading-relaxed">
+                                            <p>
+                                                "Trabalhava, trabalhava... mas o dinheiro sumia."
+                                            </p>
+                                            <p>
+                                                "Não sou guru financeira. Sou Terapeuta Holística e dediquei os últimos 10 anos a decodificar os padrões ocultos da escassez."
+                                            </p>
+                                            <p>
+                                                "...descobri a <span className="text-white font-bold">verdade brutal: é uma Herança Vibracional.</span>"
+                                            </p>
+                                            <p>
+                                                "Este mapa não é teoria. É o exato método que salvou minha própria família da falência e já ajudou mais de <span className="text-[#FFD700] font-bold">4.000 alunos</span> a destravarem a prosperidade."
+                                            </p>
+                                        </div>
                                     </div>
+                                </div>
+
+                                {/* Authority Badges - 3 Icons Side by Side */}
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
+                                    <div className="flex items-center gap-3 bg-white/5 border border-[#D4AF37]/30 rounded-xl p-4 justify-center sm:justify-start">
+                                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#FFD700] flex items-center justify-center">
+                                            <Briefcase className="w-5 h-5 text-black" />
+                                        </div>
+                                        <span className="text-slate-200 text-sm font-medium">Terapeuta Holística há 10+ anos</span>
+                                    </div>
+                                    <div className="flex items-center gap-3 bg-white/5 border border-[#D4AF37]/30 rounded-xl p-4 justify-center sm:justify-start">
+                                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#FFD700] flex items-center justify-center">
+                                            <Layers className="w-5 h-5 text-black" />
+                                        </div>
+                                        <span className="text-slate-200 text-sm font-medium">Especialista em Xamanismo Financeiro</span>
+                                    </div>
+                                    <div className="flex items-center gap-3 bg-white/5 border border-[#D4AF37]/30 rounded-xl p-4 justify-center sm:justify-start">
+                                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#FFD700] flex items-center justify-center">
+                                            <Users className="w-5 h-5 text-black" />
+                                        </div>
+                                        <span className="text-slate-200 text-sm font-medium">Mais de 4.000 alunos transformados</span>
+                                    </div>
+                                </div>
+
+                                {/* CTA Button - Gold */}
+                                <div className="mt-8 text-center">
+                                    <button
+                                        onClick={handleCheckout}
+                                        aria-label="Quero ser guiado por Anahí Solara agora"
+                                        className="w-full sm:w-auto bg-gradient-to-r from-[#D4AF37] to-[#FFD700] hover:from-[#FFD700] hover:to-[#D4AF37] text-black font-black text-base sm:text-lg py-4 px-8 rounded-xl shadow-[0_0_30px_rgba(212,175,55,0.5)] transition-all transform hover:scale-[1.02] active:scale-95 uppercase tracking-wide"
+                                    >
+                                        QUERO SER GUIADO POR ANAHÍ AGORA
+                                    </button>
                                 </div>
                             </motion.div>
 
