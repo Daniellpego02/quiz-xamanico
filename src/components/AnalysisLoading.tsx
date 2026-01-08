@@ -14,11 +14,11 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
 
   // Stages adapted by quiz path
   const financeStages = [
-    { pct: 15, text: "Conectando à egrégora...", icon: <Search className="w-6 h-6 text-[#D4AF37]" /> },
-    { pct: 35, text: "Analisando respostas de frequência...", icon: <Brain className="w-6 h-6 text-[#D4AF37]" /> },
-    { pct: 60, text: "Bloqueio Ancestral Detectado: Nível Alto...", icon: <Heart className="w-6 h-6 text-red-400" /> },
+    { pct: 15, text: "Iniciando conexão com sua frequência...", icon: <Search className="w-6 h-6 text-[#D4AF37]" /> },
+    { pct: 35, text: "Lendo registros da sua linhagem energética...", icon: <Brain className="w-6 h-6 text-[#D4AF37]" /> },
+    { pct: 60, text: "Padrão de Escassez Hereditária Detectado: Nível Alto...", icon: <Heart className="w-6 h-6 text-red-400" /> },
     { pct: 85, text: "Gerando Protocolo de Solução...", icon: <Wallet className="w-6 h-6 text-[#D4AF37]" /> },
-    { pct: 100, text: "CONCLUÍDO.", icon: <CheckCircle2 className="w-6 h-6 text-green-400" /> }
+    { pct: 100, text: "LEITURA CONCLUÍDA.", icon: <CheckCircle2 className="w-6 h-6 text-green-400" /> }
   ];
 
   const relationshipStages = [
@@ -33,7 +33,7 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
 
   const testimonial = quizPath === 'relationship' 
     ? { text: "\"Descobri porque sempre escolho errado. Libertador!\"", author: "@FernandaCoelho" }
-    : { text: "\"Adorei meu Mapa! Completo e fácil de entender.\"", author: "@RafaelaNascimento7" };
+    : { text: "\"Cara, eu achava que era papo furado. Fiz o ritual de limpeza na segunda-feira. Na quarta, recebi um PIX de uma dívida que eu dava como perdida há 2 anos. Chega arrepiei.\"", author: "@Marcos_V77" };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -79,7 +79,7 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
 
       <div className="space-y-6 w-full">
         <h2 className="text-xl font-serif text-white animate-pulse tracking-wide">
-          Analisando suas respostas...
+          Realizando sua leitura energética...
         </h2>
         
         <div className="w-full bg-white/5 rounded-full h-4 overflow-hidden border border-white/10 shadow-inner">

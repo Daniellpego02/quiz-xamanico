@@ -24,10 +24,10 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const initialQuestions: QuizQuestion[] = [
     {
       id: 0,
-      title: "CALIBRAGEM ENERGÉTICA",
-      text: "Para quem os portais de abundância devem ser abertos hoje?",
+      title: "CONEXÃO ENERGÉTICA",
+      text: "Para acessar os registros da sua linhagem energética, eu preciso me conectar à sua frequência. Digite seu Nome de Batismo abaixo:",
       type: "input",
-      placeholder: "Digite seu primeiro nome..."
+      placeholder: "Digite seu nome de batismo..."
     }
   ];
 
@@ -35,22 +35,22 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const financeQuestions: QuizQuestion[] = [
     {
       id: 1,
-      title: "P1 — O SINTOMA",
-      text: "Vamos analisar seu padrão atual, {NAME}. Como você descreve sua relação com o dinheiro hoje?",
+      title: "P1 — O RALO ENERGÉTICO",
+      text: "{NAME}, qual desses padrões mais te representa?",
       options: [
-        { label: "O dinheiro entra e some (imprevistos constantes).", sublabel: "Parece que tenho um ralo energético", value: "leak", icon: "💸" },
-        { label: "Trabalho muito, ganho pouco e sinto cansaço crônico.", sublabel: "O esforço não se transforma em resultado", value: "tired", icon: "😰" },
-        { label: "Tenho medo de faltar e vivo economizando cada centavo.", sublabel: "Sinto sempre que vai acabar", value: "fear", icon: "😨" },
+        { label: "Montanha Russa: Ganho dinheiro, mas logo surge um imprevisto (carro quebra, dívida antiga) e volto para o zero.", sublabel: "O ciclo de altos e baixos constantes", value: "leak", icon: "🎢" },
+        { label: "Bloqueio do Merecimento: Tenho vergonha de cobrar e sinto que devo trabalhar de graça para ser 'uma boa pessoa'.", sublabel: "Dificuldade em receber pelo meu valor", value: "tired", icon: "😔" },
+        { label: "Teto de Vidro: Chego até um certo valor mensal, mas nunca consigo passar dele, não importa o quanto eu me esforce.", sublabel: "Um limite invisível que me prende", value: "fear", icon: "🔒" },
       ]
     },
     {
       id: 2,
-      title: "P2 — A CAUSA (ANCESTRALIDADE)",
-      text: "O Xamanismo Financeiro ensina que padrões se repetem. Olhando para seus pais ou avós, o que você vê?",
+      title: "P2 — A HERANÇA FAMILIAR",
+      text: "Na sua família, ser 'rico' era visto como algo negativo, pecaminoso ou motivo de brigas?",
       options: [
-        { label: "Histórico de dívidas, falências ou lutas financeiras pesadas.", value: "heavy", icon: "💔" },
-        { label: "Pessoas honestas, mas que nunca enriqueceram.", value: "honest", icon: "🙏" },
-        { label: "Havia dinheiro, mas muitas brigas e desarmonia familiar.", value: "conflict", icon: "⚡" },
+        { label: "Sim, cresci ouvindo que rico é ganancioso e dinheiro não traz felicidade.", value: "heavy", icon: "💔" },
+        { label: "Sim, meus pais brigavam muito por falta de dinheiro e isso me traumatizou.", value: "honest", icon: "😢" },
+        { label: "Não, mas eles trabalhavam até a exaustão e nunca descansavam.", value: "conflict", icon: "😰" },
       ]
     },
     {
@@ -66,7 +66,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     {
       id: 4,
       title: "P4 — O COMPROMISSO",
-      text: "O sistema identificou um bloqueio severo na sua frequência. Se existir um Protocolo de 7 dias para limpar isso, você está disposto(a) a seguir?",
+      text: "O Oráculo identificou um bloqueio severo na sua frequência. Se existir um Protocolo de 7 dias para limpar isso, você está disposto(a) a seguir?",
       singleButton: true,
       options: [
         { label: "SIM, eu aceito receber meu Mapa e me desbloquear.", value: "ready", icon: "🔥" },
@@ -79,11 +79,11 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   }, []);
 
   const getLoadingStages = () => [
-    `Conectando à egrégora de ${userName}...`,
-    "Analisando respostas de frequência...",
-    "Bloqueio Ancestral Detectado: Nível Alto...",
+    `Iniciando conexão com a frequência de ${userName}...`,
+    "Lendo registros da sua linhagem energética...",
+    "Padrão de Escassez Hereditária Detectado: Nível Alto...",
     "Gerando Protocolo de Solução...",
-    "CONCLUÍDO."
+    "LEITURA CONCLUÍDA."
   ];
 
   useEffect(() => {
@@ -175,7 +175,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             <Compass className="w-24 h-24 text-[#D4AF37] mx-auto mb-6 relative z-10 animate-pulse" />
         </motion.div>
         
-        <h2 className="text-2xl font-serif text-white mb-2">Acessando Frequência Vibracional...</h2>
+        <h2 className="text-2xl font-serif text-white mb-2">Iniciando Conexão Energética...</h2>
         <AnimatePresence mode='wait'>
           <motion.p
             key={loadingStage}
@@ -242,7 +242,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 className="mb-2"
               >
                 <p className="text-[#D4AF37] text-xs md:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-1">
-                  ⚡ CALIBRAGEM VIBRACIONAL
+                  ⚡ CONEXÃO ENERGÉTICA
                 </p>
               </motion.div>
             )}
@@ -268,7 +268,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 disabled={!inputValue.trim()}
                 className="w-full bg-gradient-to-br from-[#D4AF37] via-[#FFD700] to-[#D4AF37] text-white font-bold py-4 rounded-xl shadow-lg shadow-[#D4AF37]/30 hover:shadow-[#D4AF37]/50 hover:brightness-110 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 border-t border-white/20"
               >
-                CONECTAR E INICIAR ANÁLISE
+                INICIAR CONEXÃO ENERGÉTICA
                 <ChevronRight className="w-5 h-5" />
               </button>
               <p className="text-xs text-slate-400 text-center mt-2 flex items-center justify-center gap-1">
