@@ -3,6 +3,9 @@
  * 
  * Centralized configuration for all tracking services.
  * These values can be overridden by environment variables in production.
+ * 
+ * SECURITY NOTE: In production, sensitive tokens should be stored in
+ * environment variables (VITE_* prefix for Vite apps).
  */
 
 // ============================================================================
@@ -28,10 +31,27 @@ export const UTMFY_PIXEL_ID = '69346cfb70f1cd636eb5e31c';
 // ============================================================================
 // VTURB VIDEO PLAYER
 // ============================================================================
-export const VTURB_API_TOKEN = '3032350019e84cd96c6e18de4a3f7cc45ea9952635eb0965e836022905ddc2a4';
+// IMPORTANT: Set VITE_VTURB_API_TOKEN in your environment variables
+export const VTURB_API_TOKEN = import.meta.env?.VITE_VTURB_API_TOKEN || '';
 
 // VTurb embed base URL
 export const VTURB_EMBED_BASE_URL = 'https://scripts.converteai.net';
+
+// ============================================================================
+// BUCKPAY PAYMENT GATEWAY (RealTech API)
+// ============================================================================
+export const BUCKPAY_CONFIG = {
+  // Secret key for server-side operations
+  // IMPORTANT: Set VITE_BUCKPAY_SECRET_KEY in your environment variables
+  secretKey: import.meta.env?.VITE_BUCKPAY_SECRET_KEY || '',
+  // API base URL (RealTech)
+  apiUrl: 'https://api.realtechdev.com.br',
+  // User-Agent header (IMPORTANT: Get this from your account manager)
+  // IMPORTANT: Set VITE_BUCKPAY_USER_AGENT in your environment variables
+  userAgent: import.meta.env?.VITE_BUCKPAY_USER_AGENT || '',
+  // Webhook endpoint (configure in BuckPay dashboard)
+  webhookPath: '/api/webhooks/buckpay',
+};
 
 // ============================================================================
 // PRODUCT CONFIGURATION

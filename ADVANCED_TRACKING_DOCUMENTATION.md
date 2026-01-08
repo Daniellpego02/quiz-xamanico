@@ -10,6 +10,7 @@ This document describes the **Advanced Tracking Architecture** implemented for t
 - **Value-Based Optimization** for Meta campaigns
 - **Video Engagement Tracking** (VTurb)
 - **Cross-platform Analytics** (Meta Pixel, GA4, Clarity)
+- **BuckPay Payment Integration** for purchase tracking
 
 ---
 
@@ -81,7 +82,7 @@ This document describes the **Advanced Tracking Architecture** implemented for t
 ### 4. VTurb Video Player
 | Property | Value |
 |----------|-------|
-| **API Token** | `3032350019e84cd96c6e18de4a3f7cc45ea9952635eb0965e836022905ddc2a4` |
+| **API Token** | `3032350...` (configured in env) |
 | **Purpose** | Video engagement tracking |
 
 ### 5. UTMFY
@@ -89,6 +90,13 @@ This document describes the **Advanced Tracking Architecture** implemented for t
 |----------|-------|
 | **Pixel ID** | `69346cfb70f1cd636eb5e31c` |
 | **Purpose** | UTM parameter capture and attribution |
+
+### 6. BuckPay Payment Gateway
+| Property | Value |
+|----------|-------|
+| **Secret Key** | `sk_live_...` (configured in env) |
+| **API URL** | `https://api.buckpay.com.br` |
+| **Purpose** | Payment processing and purchase tracking |
 
 ---
 
@@ -103,7 +111,8 @@ src/
 │   └── useTrackingState.ts     # React hook for tracking
 ├── utils/
 │   ├── tracking.ts             # Legacy tracking (basic)
-│   └── advancedTracking.ts     # Advanced tracking system
+│   ├── advancedTracking.ts     # Advanced tracking system
+│   └── buckpay.ts              # BuckPay integration
 └── components/
     └── VTurbTracker.tsx        # VTurb video component
 ```
@@ -317,6 +326,136 @@ To enable server-side tracking, you need:
 1. **Meta Access Token** - Generate in Events Manager
 2. **Server Endpoint** - Edge Function to forward events
 3. **IP Address** - Captured on server side
+
+---
+
+## BuckPay Integration (RealTech API)
+
+A integração com BuckPay usa a API RealTech para pagamentos via PIX.
+
+**API Endpoint:** `https://api.realtechdev.com.br`
+
+### Configuração de Ambiente
+
+```bash
+# .env ou variáveis de ambiente na Vercel
+VITE_BUCKPAY_SECRET_KEY=sk_live_xxx
+VITE_BUCKPAY_USER_AGENT=seu-user-agent  # Solicite ao seu gerente de contas
+VITE_VTURB_API_TOKEN=seu-token-vturb
+```
+
+### Track Checkout Start (Client-Side)
+
+```typescript
+import { buckpay } from '../utils/buckpay';
+
+// When user clicks "Buy Now"
+const handleBuyClick = () => {
+  buckpay.trackCheckoutStart('main'); // or 'upsell1', 'downsell1'
+  buckpay.trackPaymentMethodSelected(); // Track PIX selection
+};
+```
+
+### Criar Transação PIX (Server-Side Only)
+
+```typescript
+// Em uma Edge Function ou API Route (NÃO no cliente!)
+import { buckpay } from '../utils/buckpay';
+
+export async function POST(req: Request) {
+  const { name, email, phone, document } = await req.json();
+  
+  // Build request
+  const request = buckpay.buildCreateTransactionRequest(
+    { name, email, phone, document },
+    97.00, // Valor em BRL
+    'main', // Product key
+    'Oferta Principal' // Offer name (opcional)
+  );
+  
+  try {
+    const response = await buckpay.createPixTransaction(request);
+    
+    // Retorna código PIX e QR code
+    return Response.json({
+      pixCode: response.data.pix?.code,
+      qrCodeBase64: response.data.pix?.qrcode_base64,
+      transactionId: response.data.id,
+      externalId: request.external_id,
+    });
+  } catch (error) {
+    return Response.json({ error: error.message }, { status: 500 });
+  }
+}
+```
+
+### Handle Webhooks (Server-Side)
+
+```typescript
+// Em /api/webhooks/buckpay
+import { buckpay } from '../utils/buckpay';
+
+export async function POST(req: Request) {
+  const payload = await req.text();
+  
+  // Parse webhook
+  const event = buckpay.parseWebhookPayload(payload);
+  
+  if (!event) {
+    return new Response('Invalid payload', { status: 400 });
+  }
+  
+  // Handle event (tracks automatically)
+  buckpay.handleWebhookEvent(event);
+  
+  // Webhook events:
+  // - transaction.created: PIX gerado, aguardando pagamento
+  // - transaction.processed: Pagamento confirmado (status: paid)
+  
+  return new Response('OK');
+}
+```
+
+### Consultar Status da Transação
+
+```typescript
+// Verificar se pagamento foi confirmado
+const transaction = await buckpay.getTransactionByExternalId('order_xxx');
+
+if (transaction.data.status === 'paid') {
+  // Pagamento confirmado!
+  // Liberar acesso ao produto
+}
+```
+
+### Estrutura do Webhook (Referência)
+
+**transaction.created (PIX Gerado):**
+```json
+{
+  "event": "transaction.created",
+  "data": {
+    "id": "uuid",
+    "status": "pending",
+    "payment_method": "pix",
+    "total_amount": 9700,  // centavos
+    "buyer": { "name": "...", "email": "..." },
+    "tracking": { "utm_source": "...", ... }
+  }
+}
+```
+
+**transaction.processed (Pago):**
+```json
+{
+  "event": "transaction.processed",
+  "data": {
+    "id": "uuid",
+    "status": "paid",
+    ...
+  }
+}
+```
 
 ---
 
