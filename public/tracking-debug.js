@@ -1,501 +1,808 @@
-/**
- * 🎯 TRACKING DEBUG TOOL - VISUAL & INTERACTIVE
- * 
- * Como usar:
- * 1. Abra seu site no navegador
- * 2. Abra o Console (F12)
- * 3. Cole este script e pressione ENTER
- * 4. Um painel visual vai aparecer mostrando status de tudo
- */
-
 (function() {
   'use strict';
 
-  // ============================================================================
-  // CONFIGURAÇÃO
-  // ============================================================================
-  
+  // Configuration
   const CONFIG = {
-    META_PIXEL_ID: '1908080873443730',
-    GA4_ID: 'G-M78M3RH56H',
-    CLARITY_ID: 'uq1qfi7fwi',
+    maxEvents: 50,
+    autoExpand: false,
+    position: 'bottom-right',
+    theme: {
+      primary: '#FFD700',
+      secondary: '#FFA500',
+      background: '#1a1a1a',
+      surface: '#2d2d2d',
+      text: '#ffffff',
+      textMuted: '#a0a0a0',
+      success: '#4ade80',
+      error: '#f87171',
+      warning: '#fbbf24'
+    }
   };
 
-  // ============================================================================
-  // CRIAR PAINEL VISUAL
-  // ============================================================================
-  
-  function createDebugPanel() {
-    // Remove painel anterior se existir
-    const existing = document.getElementById('tracking-debug-panel');
-    if (existing) existing.remove();
+  // State management
+  const state = {
+    events: [],
+    isVisible: true,
+    isMinimized: false,
+    activeTab: 'events',
+    pixelStatus: {
+      metaPixel: false,
+      ga4: false,
+      clarity: false
+    }
+  };
 
+  // Create debug panel
+  function createDebugPanel() {
     const panel = document.createElement('div');
     panel.id = 'tracking-debug-panel';
-    panel.style.cssText = `
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      width: 400px;
-      max-height: 90vh;
-      overflow-y: auto;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      border: 2px solid #D4AF37;
-      border-radius: 12px;
-      padding: 20px;
-      z-index: 999999;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      box-shadow: 0 8px 32px rgba(212, 175, 55, 0.3);
-    `;
-
     panel.innerHTML = `
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-        <h3 style="margin: 0; color: #D4AF37; font-size: 18px;">
-          🎯 Tracking Monitor
-        </h3>
-        <button id="close-debug-panel" style="
-          background: #D4AF37;
+      <style>
+        #tracking-debug-panel {
+          position: fixed;
+          ${CONFIG.position.includes('bottom') ? 'bottom: 20px;' : 'top: 20px;'}
+          ${CONFIG.position.includes('right') ? 'right: 20px;' : 'left: 20px;'}
+          width: 420px;
+          max-height: 600px;
+          background: ${CONFIG.theme.background};
+          border: 2px solid ${CONFIG.theme.primary};
+          border-radius: 12px;
+          box-shadow: 0 8px 32px rgba(255, 215, 0, 0.3);
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          z-index: 999999;
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+          transition: all 0.3s ease;
+        }
+
+        #tracking-debug-panel.minimized {
+          max-height: 50px;
+        }
+
+        .debug-header {
+          background: linear-gradient(135deg, ${CONFIG.theme.primary}, ${CONFIG.theme.secondary});
+          color: ${CONFIG.theme.background};
+          padding: 12px 16px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          cursor: move;
+          user-select: none;
+          font-weight: bold;
+          font-size: 14px;
+        }
+
+        .debug-header-title {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .debug-header-controls {
+          display: flex;
+          gap: 8px;
+        }
+
+        .debug-btn {
+          background: rgba(0, 0, 0, 0.3);
           border: none;
-          color: #1a1a2e;
-          padding: 5px 12px;
+          color: ${CONFIG.theme.background};
+          width: 24px;
+          height: 24px;
+          border-radius: 4px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 16px;
+          transition: background 0.2s;
+        }
+
+        .debug-btn:hover {
+          background: rgba(0, 0, 0, 0.5);
+        }
+
+        .debug-tabs {
+          display: flex;
+          background: ${CONFIG.theme.surface};
+          border-bottom: 1px solid ${CONFIG.theme.primary};
+        }
+
+        .debug-tab {
+          flex: 1;
+          padding: 10px;
+          background: transparent;
+          border: none;
+          color: ${CONFIG.theme.textMuted};
+          cursor: pointer;
+          font-size: 12px;
+          font-weight: 500;
+          transition: all 0.2s;
+          border-bottom: 3px solid transparent;
+        }
+
+        .debug-tab:hover {
+          color: ${CONFIG.theme.primary};
+        }
+
+        .debug-tab.active {
+          color: ${CONFIG.theme.primary};
+          border-bottom-color: ${CONFIG.theme.primary};
+        }
+
+        .debug-content {
+          flex: 1;
+          overflow-y: auto;
+          padding: 12px;
+          font-size: 11px;
+          color: ${CONFIG.theme.text};
+        }
+
+        .debug-content::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        .debug-content::-webkit-scrollbar-track {
+          background: ${CONFIG.theme.background};
+        }
+
+        .debug-content::-webkit-scrollbar-thumb {
+          background: ${CONFIG.theme.primary};
+          border-radius: 4px;
+        }
+
+        .debug-section {
+          display: none;
+        }
+
+        .debug-section.active {
+          display: block;
+        }
+
+        .status-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 10px;
+          margin-bottom: 16px;
+        }
+
+        .status-card {
+          background: ${CONFIG.theme.surface};
+          padding: 12px;
+          border-radius: 8px;
+          border-left: 4px solid ${CONFIG.theme.textMuted};
+        }
+
+        .status-card.active {
+          border-left-color: ${CONFIG.theme.success};
+        }
+
+        .status-card-title {
+          font-size: 10px;
+          color: ${CONFIG.theme.textMuted};
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          margin-bottom: 4px;
+        }
+
+        .status-card-value {
+          font-size: 14px;
+          font-weight: bold;
+          color: ${CONFIG.theme.text};
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        }
+
+        .status-indicator {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: ${CONFIG.theme.error};
+          animation: pulse 2s infinite;
+        }
+
+        .status-indicator.active {
+          background: ${CONFIG.theme.success};
+        }
+
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+
+        .event-item {
+          background: ${CONFIG.theme.surface};
+          margin-bottom: 8px;
+          border-radius: 6px;
+          border-left: 4px solid ${CONFIG.theme.primary};
+          overflow: hidden;
+          transition: all 0.2s;
+        }
+
+        .event-item:hover {
+          box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+        }
+
+        .event-header {
+          padding: 10px 12px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          cursor: pointer;
+          user-select: none;
+        }
+
+        .event-title {
+          font-weight: bold;
+          color: ${CONFIG.theme.primary};
+          font-size: 12px;
+        }
+
+        .event-meta {
+          display: flex;
+          gap: 8px;
+          align-items: center;
+          font-size: 10px;
+          color: ${CONFIG.theme.textMuted};
+        }
+
+        .event-type-badge {
+          background: ${CONFIG.theme.primary};
+          color: ${CONFIG.theme.background};
+          padding: 2px 6px;
+          border-radius: 3px;
+          font-size: 9px;
+          font-weight: bold;
+          text-transform: uppercase;
+        }
+
+        .event-type-badge.meta { background: #1877f2; }
+        .event-type-badge.ga4 { background: #e37400; }
+        .event-type-badge.clarity { background: #0078d4; }
+
+        .event-details {
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.3s ease;
+        }
+
+        .event-details.expanded {
+          max-height: 400px;
+        }
+
+        .event-details-content {
+          padding: 12px;
+          background: rgba(0, 0, 0, 0.3);
+          border-top: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .event-details pre {
+          margin: 0;
+          white-space: pre-wrap;
+          word-wrap: break-word;
+          color: ${CONFIG.theme.text};
+          font-size: 10px;
+          line-height: 1.5;
+        }
+
+        .data-item {
+          background: ${CONFIG.theme.surface};
+          padding: 8px 12px;
+          margin-bottom: 6px;
+          border-radius: 4px;
+          border-left: 3px solid ${CONFIG.theme.secondary};
+        }
+
+        .data-item-key {
+          color: ${CONFIG.theme.primary};
+          font-weight: bold;
+          margin-bottom: 4px;
+          font-size: 11px;
+        }
+
+        .data-item-value {
+          color: ${CONFIG.theme.text};
+          word-break: break-all;
+          font-size: 10px;
+          font-family: 'Courier New', monospace;
+        }
+
+        .empty-state {
+          text-align: center;
+          padding: 40px 20px;
+          color: ${CONFIG.theme.textMuted};
+        }
+
+        .empty-state-icon {
+          font-size: 48px;
+          margin-bottom: 12px;
+          opacity: 0.3;
+        }
+
+        .clear-btn {
+          background: ${CONFIG.theme.error};
+          color: white;
+          border: none;
+          padding: 8px 16px;
           border-radius: 6px;
           cursor: pointer;
+          font-size: 11px;
           font-weight: bold;
-        ">✕</button>
-      </div>
-      
-      <div id="debug-content" style="color: #fff; font-size: 14px;">
-        <div style="text-align: center; padding: 20px;">
-          <div style="font-size: 40px;">⏳</div>
-          <p>Verificando...</p>
+          margin-top: 8px;
+          transition: all 0.2s;
+        }
+
+        .clear-btn:hover {
+          opacity: 0.8;
+          transform: translateY(-1px);
+        }
+
+        .timestamp {
+          color: ${CONFIG.theme.textMuted};
+          font-size: 9px;
+        }
+      </style>
+
+      <div class="debug-header">
+        <div class="debug-header-title">
+          <span>✨</span>
+          <span>Tracking Debug Panel</span>
+        </div>
+        <div class="debug-header-controls">
+          <button class="debug-btn" id="minimize-btn" title="Minimize">−</button>
+          <button class="debug-btn" id="close-btn" title="Close">×</button>
         </div>
       </div>
-      
-      <div id="events-log" style="
-        margin-top: 15px;
-        padding-top: 15px;
-        border-top: 1px solid rgba(212, 175, 55, 0.3);
-        max-height: 300px;
-        overflow-y: auto;
-      ">
-        <h4 style="color: #D4AF37; margin: 0 0 10px 0; font-size: 14px;">
-          📊 Eventos Capturados
-        </h4>
-        <div id="events-list" style="font-size: 12px;"></div>
+
+      <div class="debug-tabs">
+        <button class="debug-tab active" data-tab="events">Events</button>
+        <button class="debug-tab" data-tab="status">Status</button>
+        <button class="debug-tab" data-tab="storage">Storage</button>
+        <button class="debug-tab" data-tab="cookies">Cookies</button>
+      </div>
+
+      <div class="debug-content">
+        <!-- Events Tab -->
+        <div class="debug-section active" id="events-section">
+          <div id="events-list"></div>
+          <div id="events-empty" class="empty-state">
+            <div class="empty-state-icon">📊</div>
+            <div>No events captured yet</div>
+            <div style="font-size: 10px; margin-top: 8px;">Tracking events will appear here in real-time</div>
+          </div>
+        </div>
+
+        <!-- Status Tab -->
+        <div class="debug-section" id="status-section">
+          <div class="status-grid">
+            <div class="status-card" id="status-meta">
+              <div class="status-card-title">Meta Pixel</div>
+              <div class="status-card-value">
+                <span class="status-indicator"></span>
+                <span>Inactive</span>
+              </div>
+            </div>
+            <div class="status-card" id="status-ga4">
+              <div class="status-card-title">Google Analytics 4</div>
+              <div class="status-card-value">
+                <span class="status-indicator"></span>
+                <span>Inactive</span>
+              </div>
+            </div>
+            <div class="status-card" id="status-clarity">
+              <div class="status-card-title">Microsoft Clarity</div>
+              <div class="status-card-value">
+                <span class="status-indicator"></span>
+                <span>Inactive</span>
+              </div>
+            </div>
+            <div class="status-card">
+              <div class="status-card-title">Total Events</div>
+              <div class="status-card-value">
+                <span style="color: ${CONFIG.theme.primary};">📈</span>
+                <span id="total-events">0</span>
+              </div>
+            </div>
+          </div>
+          <div id="status-details"></div>
+        </div>
+
+        <!-- Storage Tab -->
+        <div class="debug-section" id="storage-section">
+          <div id="storage-list"></div>
+        </div>
+
+        <!-- Cookies Tab -->
+        <div class="debug-section" id="cookies-section">
+          <div id="cookies-list"></div>
+        </div>
       </div>
     `;
 
     document.body.appendChild(panel);
-
-    // Botão fechar
-    document.getElementById('close-debug-panel').onclick = () => {
-      panel.remove();
-      stopMonitoring();
-    };
-
-    return panel;
+    attachEventListeners();
+    makeElementDraggable(panel);
   }
 
-  // ============================================================================
-  // VERIFICAÇÕES
-  // ============================================================================
-  
-  function checkPixels() {
-    const results = {
-      metaPixel: {
-        loaded: typeof window.fbq === 'function',
-        id: CONFIG.META_PIXEL_ID,
-      },
-      ga4: {
-        loaded: typeof window.gtag === 'function',
-        id: CONFIG.GA4_ID,
-      },
-      clarity: {
-        loaded: typeof window.clarity === 'function',
-        id: CONFIG.CLARITY_ID,
-      },
-    };
+  // Make panel draggable
+  function makeElementDraggable(element) {
+    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    const header = element.querySelector('.debug-header');
 
-    return results;
+    header.onmousedown = dragMouseDown;
+
+    function dragMouseDown(e) {
+      e.preventDefault();
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      document.onmouseup = closeDragElement;
+      document.onmousemove = elementDrag;
+    }
+
+    function elementDrag(e) {
+      e.preventDefault();
+      pos1 = pos3 - e.clientX;
+      pos2 = pos4 - e.clientY;
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      element.style.top = (element.offsetTop - pos2) + "px";
+      element.style.left = (element.offsetLeft - pos1) + "px";
+      element.style.bottom = 'auto';
+      element.style.right = 'auto';
+    }
+
+    function closeDragElement() {
+      document.onmouseup = null;
+      document.onmousemove = null;
+    }
   }
 
-  function checkLocalStorage() {
-    const keys = Object.keys(localStorage);
-    const trackingKeys = keys.filter(k => 
-      k.includes('track') || 
-      k.includes('utm') || 
-      k.includes('quiz') ||
-      k.includes('advanced')
-    );
-
-    return {
-      found: trackingKeys.length > 0,
-      keys: trackingKeys,
-      data: trackingKeys.map(k => ({
-        key: k,
-        value: localStorage.getItem(k)
-      }))
-    };
-  }
-
-  function checkCookies() {
-    const cookies = document.cookie.split(';').reduce((acc, cookie) => {
-      const [key, value] = cookie.trim().split('=');
-      acc[key] = value;
-      return acc;
-    }, {});
-
-    return {
-      fbp: cookies._fbp || null,
-      fbc: cookies._fbc || null,
-      ga: cookies._ga || null,
-    };
-  }
-
-  function checkUTMParams() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const utmParams = {};
-    
-    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(param => {
-      const value = urlParams.get(param);
-      if (value) utmParams[param] = value;
+  // Attach event listeners
+  function attachEventListeners() {
+    // Tab switching
+    document.querySelectorAll('.debug-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const tabName = tab.dataset.tab;
+        switchTab(tabName);
+      });
     });
 
-    return {
-      found: Object.keys(utmParams).length > 0,
-      params: utmParams
+    // Minimize button
+    document.getElementById('minimize-btn').addEventListener('click', () => {
+      state.isMinimized = !state.isMinimized;
+      const panel = document.getElementById('tracking-debug-panel');
+      panel.classList.toggle('minimized');
+      document.getElementById('minimize-btn').textContent = state.isMinimized ? '+' : '−';
+    });
+
+    // Close button
+    document.getElementById('close-btn').addEventListener('click', () => {
+      document.getElementById('tracking-debug-panel').remove();
+    });
+  }
+
+  // Switch tabs
+  function switchTab(tabName) {
+    state.activeTab = tabName;
+
+    // Update tab buttons
+    document.querySelectorAll('.debug-tab').forEach(tab => {
+      tab.classList.toggle('active', tab.dataset.tab === tabName);
+    });
+
+    // Update sections
+    document.querySelectorAll('.debug-section').forEach(section => {
+      section.classList.remove('active');
+    });
+    document.getElementById(`${tabName}-section`).classList.add('active');
+
+    // Refresh content
+    if (tabName === 'storage') updateStorageView();
+    if (tabName === 'cookies') updateCookiesView();
+    if (tabName === 'status') updateStatusView();
+  }
+
+  // Add event to list
+  function addEvent(eventData) {
+    const event = {
+      ...eventData,
+      timestamp: new Date().toISOString(),
+      id: Date.now() + Math.random()
     };
+
+    state.events.unshift(event);
+    if (state.events.length > CONFIG.maxEvents) {
+      state.events = state.events.slice(0, CONFIG.maxEvents);
+    }
+
+    updateEventsView();
+    updateStatusView();
   }
 
-  // ============================================================================
-  // RENDERIZAR RESULTADOS
-  // ============================================================================
-  
-  function renderResults() {
-    const pixels = checkPixels();
-    const storage = checkLocalStorage();
-    const cookies = checkCookies();
-    const utm = checkUTMParams();
-
-    const content = document.getElementById('debug-content');
-    
-    const statusIcon = (condition) => condition ? '✅' : '❌';
-    const statusColor = (condition) => condition ? '#4ade80' : '#f87171';
-
-    content.innerHTML = `
-      <!-- PIXELS -->
-      <div style="margin-bottom: 15px;">
-        <h4 style="color: #D4AF37; margin: 0 0 10px 0; font-size: 14px;">
-          📡 Pixels Carregados
-        </h4>
-        
-        <div style="margin-bottom: 8px; padding: 8px; background: rgba(255,255,255,0.05); border-radius: 6px;">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span>Meta Pixel</span>
-            <span style="color: ${statusColor(pixels.metaPixel.loaded)}; font-weight: bold;">
-              ${statusIcon(pixels.metaPixel.loaded)}
-            </span>
-          </div>
-          <div style="font-size: 11px; color: #999; margin-top: 4px;">
-            ID: ${pixels.metaPixel.id}
-          </div>
-        </div>
-
-        <div style="margin-bottom: 8px; padding: 8px; background: rgba(255,255,255,0.05); border-radius: 6px;">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span>Google Analytics</span>
-            <span style="color: ${statusColor(pixels.ga4.loaded)}; font-weight: bold;">
-              ${statusIcon(pixels.ga4.loaded)}
-            </span>
-          </div>
-          <div style="font-size: 11px; color: #999; margin-top: 4px;">
-            ID: ${pixels.ga4.id}
-          </div>
-        </div>
-
-        <div style="padding: 8px; background: rgba(255,255,255,0.05); border-radius: 6px;">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span>Microsoft Clarity</span>
-            <span style="color: ${statusColor(pixels.clarity.loaded)}; font-weight: bold;">
-              ${statusIcon(pixels.clarity.loaded)}
-            </span>
-          </div>
-          <div style="font-size: 11px; color: #999; margin-top: 4px;">
-            ID: ${pixels.clarity.id}
-          </div>
-        </div>
-      </div>
-
-      <!-- LOCALSTORAGE -->
-      <div style="margin-bottom: 15px;">
-        <h4 style="color: #D4AF37; margin: 0 0 10px 0; font-size: 14px;">
-          💾 LocalStorage
-        </h4>
-        <div style="padding: 8px; background: rgba(255,255,255,0.05); border-radius: 6px;">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span>Dados Persistidos</span>
-            <span style="color: ${statusColor(storage.found)}; font-weight: bold;">
-              ${statusIcon(storage.found)}
-            </span>
-          </div>
-          ${storage.found ? `
-            <div style="font-size: 11px; color: #999; margin-top: 8px;">
-              Chaves encontradas: ${storage.keys.length}
-              <ul style="margin: 5px 0; padding-left: 20px;">
-                ${storage.keys.map(k => `<li style="margin: 2px 0;">${k}</li>`).join('')}
-              </ul>
-            </div>
-          ` : '<div style="font-size: 11px; color: #999; margin-top: 4px;">Nenhum dado encontrado</div>'}
-        </div>
-      </div>
-
-      <!-- COOKIES -->
-      <div style="margin-bottom: 15px;">
-        <h4 style="color: #D4AF37; margin: 0 0 10px 0; font-size: 14px;">
-          🍪 Cookies de Tracking
-        </h4>
-        <div style="padding: 8px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 12px;">
-          <div style="margin-bottom: 6px;">
-            <span style="color: #999;">_fbp:</span> 
-            <span style="color: ${cookies.fbp ? '#4ade80' : '#f87171'};">
-              ${cookies.fbp || '❌ Não encontrado'}
-            </span>
-          </div>
-          <div style="margin-bottom: 6px;">
-            <span style="color: #999;">_fbc:</span> 
-            <span style="color: ${cookies.fbc ? '#4ade80' : '#999'};">
-              ${cookies.fbc || 'N/A (normal se não veio de ad)'}
-            </span>
-          </div>
-          <div>
-            <span style="color: #999;">_ga:</span> 
-            <span style="color: ${cookies.ga ? '#4ade80' : '#f87171'};">
-              ${cookies.ga || '❌ Não encontrado'}
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <!-- UTM PARAMS -->
-      <div>
-        <h4 style="color: #D4AF37; margin: 0 0 10px 0; font-size: 14px;">
-          🔗 Parâmetros UTM
-        </h4>
-        <div style="padding: 8px; background: rgba(255,255,255,0.05); border-radius: 6px;">
-          ${utm.found ? `
-            <div style="font-size: 12px;">
-              ${Object.entries(utm.params).map(([k, v]) => `
-                <div style="margin-bottom: 4px;">
-                  <span style="color: #D4AF37;">${k}:</span> ${v}
-                </div>
-              `).join('')}
-            </div>
-          ` : `
-            <div style="font-size: 12px; color: #999;">
-              ℹ️ Nenhum parâmetro UTM na URL atual
-            </div>
-          `}
-        </div>
-      </div>
-    `;
-  }
-
-  // ============================================================================
-  // MONITORAR EVENTOS
-  // ============================================================================
-  
-  let eventCount = 0;
-  const maxEvents = 50;
-  let isMonitoring = false;
-
-  function addEventToLog(type, eventName, params) {
-    if (!isMonitoring) return;
-
-    eventCount++;
+  // Update events view
+  function updateEventsView() {
     const eventsList = document.getElementById('events-list');
-    if (!eventsList) return;
+    const eventsEmpty = document.getElementById('events-empty');
+    const totalEventsEl = document.getElementById('total-events');
 
-    const time = new Date().toLocaleTimeString();
-    const eventDiv = document.createElement('div');
-    eventDiv.style.cssText = `
-      margin-bottom: 8px;
-      padding: 8px;
-      background: rgba(212, 175, 55, 0.1);
-      border-left: 3px solid #D4AF37;
-      border-radius: 4px;
-      animation: slideIn 0.3s ease-out;
-    `;
+    if (state.events.length === 0) {
+      eventsList.style.display = 'none';
+      eventsEmpty.style.display = 'block';
+      totalEventsEl.textContent = '0';
+      return;
+    }
 
-    const paramsStr = params ? JSON.stringify(params, null, 2) : '';
-    
-    eventDiv.innerHTML = `
-      <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-        <span style="color: #D4AF37; font-weight: bold;">${type}</span>
-        <span style="color: #999; font-size: 11px;">${time}</span>
+    eventsList.style.display = 'block';
+    eventsEmpty.style.display = 'none';
+    totalEventsEl.textContent = state.events.length;
+
+    eventsList.innerHTML = state.events.map(event => `
+      <div class="event-item">
+        <div class="event-header" onclick="this.nextElementSibling.classList.toggle('expanded')">
+          <div>
+            <div class="event-title">${escapeHtml(event.name)}</div>
+            <div class="timestamp">${formatTimestamp(event.timestamp)}</div>
+          </div>
+          <div class="event-meta">
+            <span class="event-type-badge ${event.type}">${event.type.toUpperCase()}</span>
+          </div>
+        </div>
+        <div class="event-details">
+          <div class="event-details-content">
+            <pre>${JSON.stringify(event.data, null, 2)}</pre>
+          </div>
+        </div>
       </div>
-      <div style="color: #fff; margin-bottom: 4px;">${eventName}</div>
-      ${paramsStr ? `
-        <details style="margin-top: 6px;">
-          <summary style="color: #999; cursor: pointer; font-size: 11px;">Ver parâmetros</summary>
-          <pre style="
-            color: #4ade80; 
-            font-size: 10px; 
-            margin: 6px 0 0 0; 
-            padding: 6px; 
-            background: rgba(0,0,0,0.3); 
-            border-radius: 4px;
-            overflow-x: auto;
-          ">${paramsStr}</pre>
-        </details>
-      ` : ''}
-    `;
+    `).join('');
 
-    eventsList.insertBefore(eventDiv, eventsList.firstChild);
-
-    // Limitar número de eventos
-    while (eventsList.children.length > maxEvents) {
-      eventsList.removeChild(eventsList.lastChild);
-    }
-
-    // Update badge
-    updateEventBadge();
-  }
-
-  function updateEventBadge() {
-    const badge = document.getElementById('event-badge');
-    if (badge) {
-      badge.textContent = eventCount;
+    // Add clear button
+    if (!document.getElementById('clear-events-btn')) {
+      const clearBtn = document.createElement('button');
+      clearBtn.id = 'clear-events-btn';
+      clearBtn.className = 'clear-btn';
+      clearBtn.textContent = 'Clear All Events';
+      clearBtn.onclick = () => {
+        state.events = [];
+        updateEventsView();
+      };
+      eventsList.appendChild(clearBtn);
     }
   }
 
-  function interceptFbq() {
-    if (typeof window.fbq !== 'function') return;
-
-    const originalFbq = window.fbq;
-    window.fbq = new Proxy(originalFbq, {
-      apply: function(target, thisArg, args) {
-        const [action, eventName, params] = args;
-        addEventToLog('📘 Meta Pixel', `${action}: ${eventName}`, params);
-        return target.apply(thisArg, args);
+  // Update status view
+  function updateStatusView() {
+    // Update pixel status cards
+    ['meta', 'ga4', 'clarity'].forEach(type => {
+      const card = document.getElementById(`status-${type}`);
+      const isActive = state.pixelStatus[type === 'meta' ? 'metaPixel' : type];
+      const indicator = card.querySelector('.status-indicator');
+      const text = card.querySelector('.status-card-value span:last-child');
+      
+      if (isActive) {
+        card.classList.add('active');
+        indicator.classList.add('active');
+        text.textContent = 'Active';
+      } else {
+        card.classList.remove('active');
+        indicator.classList.remove('active');
+        text.textContent = 'Inactive';
       }
     });
+
+    // Update status details
+    const statusDetails = document.getElementById('status-details');
+    const metaEvents = state.events.filter(e => e.type === 'meta').length;
+    const ga4Events = state.events.filter(e => e.type === 'ga4').length;
+    const clarityEvents = state.events.filter(e => e.type === 'clarity').length;
+
+    statusDetails.innerHTML = `
+      <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid ${CONFIG.theme.surface};">
+        <div style="color: ${CONFIG.theme.textMuted}; font-size: 10px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Event Breakdown</div>
+        ${metaEvents > 0 ? `<div class="data-item"><div class="data-item-key">Meta Pixel Events</div><div class="data-item-value">${metaEvents}</div></div>` : ''}
+        ${ga4Events > 0 ? `<div class="data-item"><div class="data-item-key">GA4 Events</div><div class="data-item-value">${ga4Events}</div></div>` : ''}
+        ${clarityEvents > 0 ? `<div class="data-item"><div class="data-item-key">Clarity Events</div><div class="data-item-value">${clarityEvents}</div></div>` : ''}
+      </div>
+    `;
   }
 
-  function interceptGtag() {
-    if (typeof window.gtag !== 'function') return;
+  // Update storage view
+  function updateStorageView() {
+    const storageList = document.getElementById('storage-list');
+    const items = [];
 
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      const value = localStorage.getItem(key);
+      items.push({ key, value });
+    }
+
+    if (items.length === 0) {
+      storageList.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📦</div><div>No localStorage data</div></div>';
+      return;
+    }
+
+    storageList.innerHTML = items.map(item => `
+      <div class="data-item">
+        <div class="data-item-key">${escapeHtml(item.key)}</div>
+        <div class="data-item-value">${escapeHtml(item.value)}</div>
+      </div>
+    `).join('');
+  }
+
+  // Update cookies view
+  function updateCookiesView() {
+    const cookiesList = document.getElementById('cookies-list');
+    const cookies = document.cookie.split(';').map(c => {
+      const [key, ...valueParts] = c.trim().split('=');
+      return { key, value: valueParts.join('=') };
+    }).filter(c => c.key);
+
+    if (cookies.length === 0) {
+      cookiesList.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🍪</div><div>No cookies found</div></div>';
+      return;
+    }
+
+    cookiesList.innerHTML = cookies.map(cookie => `
+      <div class="data-item">
+        <div class="data-item-key">${escapeHtml(cookie.key)}</div>
+        <div class="data-item-value">${escapeHtml(decodeURIComponent(cookie.value))}</div>
+      </div>
+    `).join('');
+  }
+
+  // Utility functions
+  function escapeHtml(text) {
+    const map = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#039;'
+    };
+    return String(text).replace(/[&<>"']/g, m => map[m]);
+  }
+
+  function formatTimestamp(timestamp) {
+    const date = new Date(timestamp);
+    return date.toLocaleTimeString() + '.' + String(date.getMilliseconds()).padStart(3, '0');
+  }
+
+  // Intercept Meta Pixel events
+  function interceptMetaPixel() {
+    const originalFbq = window.fbq;
+    if (originalFbq) {
+      state.pixelStatus.metaPixel = true;
+      window.fbq = function(...args) {
+        const [command, eventName, data] = args;
+        if (command === 'track' || command === 'trackCustom') {
+          addEvent({
+            type: 'meta',
+            name: eventName,
+            data: data || {},
+            command
+          });
+        }
+        return originalFbq.apply(this, args);
+      };
+      // Copy properties
+      Object.keys(originalFbq).forEach(key => {
+        window.fbq[key] = originalFbq[key];
+      });
+    } else {
+      // Set up listener for when fbq loads
+      Object.defineProperty(window, 'fbq', {
+        configurable: true,
+        enumerable: true,
+        get() {
+          return this._fbq;
+        },
+        set(value) {
+          this._fbq = value;
+          state.pixelStatus.metaPixel = true;
+          interceptMetaPixel();
+        }
+      });
+    }
+  }
+
+  // Intercept GA4 events
+  function interceptGA4() {
     const originalGtag = window.gtag;
-    window.gtag = new Proxy(originalGtag, {
-      apply: function(target, thisArg, args) {
+    if (originalGtag) {
+      state.pixelStatus.ga4 = true;
+      window.gtag = function(...args) {
         const [command, ...params] = args;
         if (command === 'event') {
-          addEventToLog('📊 GA4', params[0], params[1]);
+          const [eventName, data] = params;
+          addEvent({
+            type: 'ga4',
+            name: eventName,
+            data: data || {},
+            command
+          });
         }
-        return target.apply(thisArg, args);
-      }
-    });
-  }
-
-  function startMonitoring() {
-    isMonitoring = true;
-    interceptFbq();
-    interceptGtag();
-    
-    console.log('%c🎯 Tracking Monitor ATIVADO', 'color: #D4AF37; font-size: 16px; font-weight: bold;');
-    console.log('%cEventos serão capturados e exibidos no painel', 'color: #4ade80;');
-  }
-
-  function stopMonitoring() {
-    isMonitoring = false;
-    console.log('%c🛑 Tracking Monitor DESATIVADO', 'color: #f87171; font-size: 14px;');
-  }
-
-  // ============================================================================
-  // ADICIONAR CSS DE ANIMAÇÃO
-  // ============================================================================
-  
-  function injectStyles() {
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes slideIn {
-        from {
-          opacity: 0;
-          transform: translateX(20px);
+        return originalGtag.apply(this, args);
+      };
+    } else {
+      // Set up listener for when gtag loads
+      Object.defineProperty(window, 'gtag', {
+        configurable: true,
+        enumerable: true,
+        get() {
+          return this._gtag;
+        },
+        set(value) {
+          this._gtag = value;
+          state.pixelStatus.ga4 = true;
+          interceptGA4();
         }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
-      
-      #tracking-debug-panel::-webkit-scrollbar {
-        width: 8px;
-      }
-      
-      #tracking-debug-panel::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 4px;
-      }
-      
-      #tracking-debug-panel::-webkit-scrollbar-thumb {
-        background: #D4AF37;
-        border-radius: 4px;
-      }
-      
-      #events-log::-webkit-scrollbar {
-        width: 6px;
-      }
-      
-      #events-log::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 3px;
-      }
-      
-      #events-log::-webkit-scrollbar-thumb {
-        background: rgba(212, 175, 55, 0.5);
-        border-radius: 3px;
-      }
-    `;
-    document.head.appendChild(style);
+      });
+    }
   }
 
-  // ============================================================================
-  // INICIAR
-  // ============================================================================
-  
+  // Intercept Clarity events
+  function interceptClarity() {
+    const originalClarity = window.clarity;
+    if (originalClarity) {
+      state.pixelStatus.clarity = true;
+      window.clarity = function(...args) {
+        const [command, ...params] = args;
+        addEvent({
+          type: 'clarity',
+          name: command,
+          data: params,
+          command
+        });
+        return originalClarity.apply(this, args);
+      };
+    } else {
+      // Set up listener for when clarity loads
+      Object.defineProperty(window, 'clarity', {
+        configurable: true,
+        enumerable: true,
+        get() {
+          return this._clarity;
+        },
+        set(value) {
+          this._clarity = value;
+          state.pixelStatus.clarity = true;
+          interceptClarity();
+        }
+      });
+    }
+  }
+
+  // Initialize
   function init() {
-    injectStyles();
-    createDebugPanel();
-    renderResults();
-    startMonitoring();
-
-    // Adicionar badge de eventos no título
-    const title = document.querySelector('#tracking-debug-panel h3');
-    if (title) {
-      const badge = document.createElement('span');
-      badge.id = 'event-badge';
-      badge.style.cssText = `
-        background: #4ade80;
-        color: #1a1a2e;
-        padding: 2px 8px;
-        border-radius: 12px;
-        font-size: 12px;
-        margin-left: 8px;
-      `;
-      badge.textContent = '0';
-      title.appendChild(badge);
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+      return;
     }
 
-    console.log('%c╔════════════════════════════════════════════╗', 'color: #D4AF37;');
-    console.log('%c║   🎯 TRACKING DEBUG TOOL ATIVADO          ║', 'color: #D4AF37; font-weight: bold;');
-    console.log('%c╚════════════════════════════════════════════╝', 'color: #D4AF37;');
-    console.log('');
-    console.log('%c📊 Painel visual aberto no canto superior direito', 'color: #4ade80;');
-    console.log('%c🔍 Todos os eventos de tracking estão sendo monitorados', 'color: #4ade80;');
-    console.log('');
-    console.log('%cPara fechar: clique no X no painel', 'color: #999;');
+    createDebugPanel();
+    interceptMetaPixel();
+    interceptGA4();
+    interceptClarity();
+
+    // Add keyboard shortcut (Ctrl+Shift+D) to toggle panel
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.shiftKey && e.key === 'D') {
+        const panel = document.getElementById('tracking-debug-panel');
+        if (panel) {
+          panel.style.display = panel.style.display === 'none' ? 'flex' : 'none';
+        }
+      }
+    });
+
+    console.log('%c✨ Tracking Debug Panel Loaded', 
+      `background: ${CONFIG.theme.primary}; color: ${CONFIG.theme.background}; padding: 8px 16px; border-radius: 4px; font-weight: bold;`);
+    console.log('%cPress Ctrl+Shift+D to toggle the debug panel', 
+      `color: ${CONFIG.theme.primary}; font-size: 12px;`);
   }
 
-  // Iniciar tudo
+  // Start initialization
   init();
 })();
