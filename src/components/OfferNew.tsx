@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { Check, Shield, Clock, AlertTriangle, Headphones, FileText, Sparkles, Lock, ChevronLeft, ChevronRight } from 'lucide-react';
 import { FAQ } from './FAQ';
 
@@ -12,25 +12,27 @@ interface OfferProps {
  * Following the complete technical specification for high-converting sales page
  * Architecture: Dark Mode + Gold Accents + Psychological Conversion Triggers
  */
+// Configuration constants
+const COUNTDOWN_DURATION_SECONDS = 15 * 60; // 15 minutes
+
 const OfferNew = ({ userName }: OfferProps) => {
     const [showOfferContent, setShowOfferContent] = useState(false);
     const [currentProofIndex, setCurrentProofIndex] = useState(0);
-    const [timeLeft, setTimeLeft] = useState(15 * 60); // 15 minutes in seconds
-    const carouselRef = useRef<HTMLDivElement>(null);
+    const [timeLeft, setTimeLeft] = useState(COUNTDOWN_DURATION_SECONDS);
     
     // Price configuration - PIX ONLY (À VISTA)
     // Updated price anchoring: From R$ 497,00 (session value) to R$ 27,90
     const priceOld = "497,00";
     
-    // Social proof images
+    // Social proof images with descriptions
     const socialProofImages = [
-        '/prova1.png',
-        '/prova2.png',
-        '/prova3.png',
-        '/prova4.png',
-        '/prova5.png',
-        '/prova6.png',
-        '/prova7.png'
+        { src: '/prova1.png', alt: 'Depoimento WhatsApp de cliente satisfeito 1' },
+        { src: '/prova2.png', alt: 'Depoimento WhatsApp de cliente satisfeito 2' },
+        { src: '/prova3.png', alt: 'Depoimento WhatsApp de cliente satisfeito 3' },
+        { src: '/prova4.png', alt: 'Depoimento WhatsApp de cliente satisfeito 4' },
+        { src: '/prova5.png', alt: 'Depoimento WhatsApp de cliente satisfeito 5' },
+        { src: '/prova6.png', alt: 'Depoimento WhatsApp de cliente satisfeito 6' },
+        { src: '/prova7.png', alt: 'Depoimento WhatsApp de cliente satisfeito 7' }
     ];
     
     const nextProof = () => {
@@ -50,15 +52,20 @@ const OfferNew = ({ userName }: OfferProps) => {
     
     // Countdown timer effect
     useEffect(() => {
+        if (timeLeft <= 0) return;
+        
         const countdown = setInterval(() => {
             setTimeLeft((prev) => {
-                if (prev <= 0) return 0;
+                if (prev <= 1) {
+                    clearInterval(countdown);
+                    return 0;
+                }
                 return prev - 1;
             });
         }, 1000);
         
         return () => clearInterval(countdown);
-    }, []);
+    }, [timeLeft]);
 
     // Load video player script
     useEffect(() => {
@@ -421,7 +428,6 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 <div className="relative max-w-2xl mx-auto px-4">
                                     {/* Main Image Display */}
                                     <div 
-                                        ref={carouselRef}
                                         className="relative overflow-hidden rounded-2xl border-2 border-[#D4AF37]/50 shadow-[0_0_40px_rgba(212,175,55,0.3)] bg-black/50"
                                     >
                                         <motion.img
@@ -430,8 +436,8 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             animate={{ opacity: 1, x: 0 }}
                                             exit={{ opacity: 0, x: -100 }}
                                             transition={{ duration: 0.3 }}
-                                            src={socialProofImages[currentProofIndex]}
-                                            alt={`Prova social ${currentProofIndex + 1}`}
+                                            src={socialProofImages[currentProofIndex].src}
+                                            alt={socialProofImages[currentProofIndex].alt}
                                             className="w-full h-auto"
                                         />
                                         
@@ -463,7 +469,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                         ? 'bg-[#FFD700] w-4' 
                                                         : 'bg-white/30 hover:bg-white/50'
                                                 }`}
-                                                aria-label={`Ir para prova ${idx + 1}`}
+                                                aria-label={`Ir para depoimento ${idx + 1}`}
                                             />
                                         ))}
                                     </div>
@@ -481,8 +487,8 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                 }`}
                                             >
                                                 <img 
-                                                    src={img} 
-                                                    alt={`Miniatura ${idx + 1}`}
+                                                    src={img.src} 
+                                                    alt={`Miniatura: ${img.alt}`}
                                                     className="w-full h-auto"
                                                 />
                                             </button>
