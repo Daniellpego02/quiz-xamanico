@@ -338,24 +338,24 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 <div className="space-y-4 max-w-2xl mx-auto">
                                     {[
                                         {
+                                            icon: Sparkles,
+                                            title: 'Acesso ao Portal Mobile (Estilo App)',
+                                            desc: 'Plataforma exclusiva que funciona em qualquer celular (Android ou iPhone) sem precisar baixar nada pesado nem ocupar memória.'
+                                        },
+                                        {
                                             icon: FileText,
-                                            title: 'Mapa da Frequência Pessoal',
-                                            desc: 'Descubra exatamente onde está a trava na sua linhagem.'
+                                            title: 'O Mapa Xamânico Digital (PDF)',
+                                            desc: 'Seu diagnóstico escrito completo para ler e consultar onde estiver.'
                                         },
                                         {
                                             icon: Headphones,
-                                            title: 'Protocolo de 7 Dias (Áudio)',
-                                            desc: 'O passo a passo guiado para fazer a limpeza sem esforço.'
-                                        },
-                                        {
-                                            icon: Sparkles,
                                             title: 'Áudios de Reprogramação Binaural',
-                                            desc: 'Basta ouvir 15min antes de dormir para recalibrar sua mente.'
+                                            desc: 'Terapia sonora passiva. Basta dar o play, fechar os olhos e deixar a frequência limpar sua mente.'
                                         },
                                         {
                                             icon: Shield,
-                                            title: 'Ritual de Blindagem',
-                                            desc: 'Para impedir que a inveja ou dívidas voltem a entrar.'
+                                            title: 'Protocolo Prático de 7 Dias',
+                                            desc: 'O passo a passo guiado para quebrar o contrato de escassez em uma semana.'
                                         }
                                     ].map((item, idx) => (
                                         <motion.div
