@@ -207,7 +207,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                     >
                         {/* Shine effect */}
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-                        <span className="relative z-10">🔓 LIBERAR MEU PROTOCOLO DE DESBLOQUEIO</span>
+                        <span className="relative z-10">🔓 LIBERAR MEU MAPA XAMÂNICO AGORA</span>
                     </button>
                     <p className="text-center text-slate-400 text-sm mt-3 flex items-center justify-center gap-2">
                         <Lock className="w-4 h-4" />
