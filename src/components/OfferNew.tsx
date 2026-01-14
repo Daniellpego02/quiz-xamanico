@@ -13,12 +13,15 @@ interface OfferProps {
  * Architecture: Dark Mode + Gold Accents + Psychological Conversion Triggers
  */
 // Configuration constants
-const COUNTDOWN_DURATION_SECONDS = 15 * 60; // 15 minutes
+const COUNTDOWN_DURATION_SECONDS = 24 * 60 * 60; // 24 hours
 
 const OfferNew = ({ userName }: OfferProps) => {
     const [showOfferContent, setShowOfferContent] = useState(false);
     const [currentProofIndex, setCurrentProofIndex] = useState(0);
+    const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
     const [timeLeft, setTimeLeft] = useState(COUNTDOWN_DURATION_SECONDS);
+    const [availableSlots, setAvailableSlots] = useState(12);
+    const totalSlots = 50;
     
     // Price configuration - PIX ONLY (À VISTA)
     // Updated price anchoring: From R$ 497,00 (session value) to R$ 27,90
@@ -35,6 +38,25 @@ const OfferNew = ({ userName }: OfferProps) => {
         { src: '/prova7.png', alt: 'Depoimento WhatsApp de cliente satisfeito 7' }
     ];
     
+    // Video testimonials
+    const videoTestimonials = [
+        { 
+            id: '67801a38e9abf1da2b7e1dc8',
+            embedUrl: 'https://cdn.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/67801a38e9abf1da2b7e1dc8/embed.html',
+            name: 'Depoimento em Vídeo 1'
+        },
+        { 
+            id: '67801a6ee9abf1da2b7e1e1a',
+            embedUrl: 'https://cdn.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/67801a6ee9abf1da2b7e1e1a/embed.html',
+            name: 'Depoimento em Vídeo 2'
+        },
+        { 
+            id: '67801a86e9abf1da2b7e1e4a',
+            embedUrl: 'https://cdn.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/67801a86e9abf1da2b7e1e4a/embed.html',
+            name: 'Depoimento em Vídeo 3'
+        }
+    ];
+    
     const nextProof = () => {
         setCurrentProofIndex((prev) => (prev + 1) % socialProofImages.length);
     };
@@ -43,11 +65,20 @@ const OfferNew = ({ userName }: OfferProps) => {
         setCurrentProofIndex((prev) => (prev - 1 + socialProofImages.length) % socialProofImages.length);
     };
     
+    const nextVideo = () => {
+        setCurrentVideoIndex((prev) => (prev + 1) % videoTestimonials.length);
+    };
+    
+    const prevVideo = () => {
+        setCurrentVideoIndex((prev) => (prev - 1 + videoTestimonials.length) % videoTestimonials.length);
+    };
+    
     // Format time for display
     const formatTime = (seconds: number) => {
-        const mins = Math.floor(seconds / 60);
+        const hours = Math.floor(seconds / 3600);
+        const mins = Math.floor((seconds % 3600) / 60);
         const secs = seconds % 60;
-        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     };
     
     // Countdown timer effect
@@ -144,20 +175,35 @@ const OfferNew = ({ userName }: OfferProps) => {
                     className="text-center mb-6"
                 >
                     {/* Pre-Headline - Yellow */}
-                    <div className="inline-flex items-center gap-2 bg-yellow-900/40 border border-yellow-500/50 px-4 py-2 rounded-full mb-4">
-                        <AlertTriangle className="w-4 h-4 text-yellow-400 animate-pulse" />
-                        <span className="text-yellow-400 text-sm font-bold uppercase tracking-wider">⚠️ DIAGNÓSTICO CONCLUÍDO: BLOQUEIO HEREDITÁRIO CONFIRMADO</span>
+                    <div className="inline-flex items-center gap-2 bg-red-900/40 border border-red-500/50 px-4 py-2 rounded-full mb-4">
+                        <AlertTriangle className="w-4 h-4 text-red-400 animate-pulse" />
+                        <span className="text-red-400 text-sm font-bold uppercase tracking-wider">🔥 ATENÇÃO</span>
                     </div>
                     
                     {/* Main Headline - White */}
                     <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-white mb-4 tracking-wide leading-tight px-2">
-                        Como Quebrar o "Contrato de Pobreza" dos seus Antepassados em 7 Dias e Liberar o Fluxo de Dinheiro.
+                        Seu Dinheiro Está Desaparecendo por Culpa dos Seus Ancestrais<br/>
+                        <span className="text-[#FFD700]">(E Ninguém Te Contou Como Parar Isso em 7 Dias)</span>
                     </h1>
                     
                     {/* Sub-headline - Light Gray */}
-                    <p className="text-sm sm:text-base text-slate-400 leading-relaxed max-w-2xl mx-auto px-2">
-                        (Não feche essa página. Seu diagnóstico expira em 15 minutos).
+                    <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto px-2 mb-4">
+                        Descubra o Padrão Invisível que Seus Pais, Avós e Bisavós Deixaram Para Você Herdar a Pobreza... E Como Desbloqueá-lo HOJE MESMO
                     </p>
+                    
+                    {/* Urgency + Social Proof Banner */}
+                    <div className="bg-gradient-to-r from-red-900/20 to-orange-900/20 border border-red-500/30 rounded-xl p-4 max-w-2xl mx-auto mb-4">
+                        <p className="text-white font-bold text-base sm:text-lg mb-2">
+                            ⏰ AVISO: Esta Oferta Expira em 24 Horas
+                        </p>
+                        <p className="text-slate-300 text-sm">
+                            <span className="text-[#FFD700] font-bold">12.847 Pessoas</span> Já Desbloquearam Seu Fluxo de Abundância<br/>
+                            (E Estão Vendo Mudanças REAIS em Suas Contas Bancárias)
+                        </p>
+                        <p className="text-white font-semibold text-base mt-3">
+                            Agora é a Sua Vez...
+                        </p>
+                    </div>
                 </motion.div>
 
                 {/* Urgency Microcopy Above Video */}
@@ -200,13 +246,15 @@ const OfferNew = ({ userName }: OfferProps) => {
                 >
                     <button
                         onClick={handleCheckout}
-                        className="w-full max-w-md mx-auto bg-gradient-to-r from-[#00FF41] to-[#00CC33] hover:from-[#00CC33] hover:to-[#00FF41] text-black font-black text-base sm:text-lg md:text-xl py-5 md:py-6 px-4 md:px-8 rounded-2xl shadow-[0_0_40px_rgba(0,255,65,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 uppercase tracking-wide"
+                        className="w-full max-w-md mx-auto bg-gradient-to-r from-[#00FF41] to-[#00CC33] hover:from-[#00CC33] hover:to-[#00FF41] text-black font-black text-base sm:text-lg md:text-xl py-5 md:py-6 px-4 md:px-8 rounded-2xl shadow-[0_0_40px_rgba(0,255,65,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 uppercase tracking-wide relative overflow-hidden group"
                     >
-                        QUERO BAIXAR MEU PROTOCOLO DE DESBLOQUEIO
+                        {/* Shine effect */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                        <span className="relative z-10">🔓 QUERO DESBLOQUEAR AGORA</span>
                     </button>
                     <p className="text-center text-slate-400 text-sm mt-3 flex items-center justify-center gap-2">
                         <Lock className="w-4 h-4" />
-                        🔒 Acesso imediato e seguro
+                        🔒 Acesso imediato e seguro • R$ 27,90
                     </p>
                 </motion.div>
 
@@ -286,9 +334,13 @@ const OfferNew = ({ userName }: OfferProps) => {
                                     {/* CTA BUTTON - GERAR MEU ACESSO AGORA */}
                                     <button
                                         onClick={handleCheckout}
-                                        className="w-full bg-gradient-to-r from-[#00FF41] to-[#00CC33] hover:from-[#00CC33] hover:to-[#00FF41] text-black font-black text-base sm:text-lg md:text-xl py-5 md:py-6 px-4 md:px-8 rounded-2xl shadow-[0_0_40px_rgba(0,255,65,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 uppercase tracking-wide mb-3 flex items-center justify-center gap-2 md:gap-3"
+                                        className="w-full bg-gradient-to-r from-[#00FF41] to-[#00CC33] hover:from-[#00CC33] hover:to-[#00FF41] text-black font-black text-base sm:text-lg md:text-xl py-5 md:py-6 px-4 md:px-8 rounded-2xl shadow-[0_0_40px_rgba(0,255,65,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 uppercase tracking-wide mb-3 flex flex-col items-center justify-center gap-1 relative overflow-hidden group"
                                     >
-                                        <span className="leading-tight">GERAR MEU ACESSO AGORA (PIX OU CARTÃO)</span>
+                                        {/* Shine effect */}
+                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                                        
+                                        <span className="leading-tight relative z-10">🔓 SIM! QUERO DESBLOQUEAR AGORA</span>
+                                        <small className="font-normal text-xs relative z-10">Liberar meu acesso imediato por R$ 27,90</small>
                                     </button>
 
                                     {/* Subtexto do Botão */}
@@ -311,6 +363,57 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 </div>
                             </motion.div>
 
+                            {/* SCARCITY SECTION - Limited Slots Indicator */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.5 }}
+                                className="mb-8 bg-gradient-to-br from-red-950/40 to-orange-900/20 border-2 border-red-500/40 rounded-2xl p-4 sm:p-6"
+                            >
+                                <div className="flex items-start gap-3 mb-4">
+                                    <AlertTriangle className="w-6 h-6 sm:w-8 sm:h-8 text-red-500 flex-shrink-0 animate-pulse" />
+                                    <div className="flex-1 min-w-0">
+                                        <p className="text-red-400 font-bold text-base sm:text-lg mb-2">
+                                            ⚠️ APENAS {availableSlots} VAGAS DISPONÍVEIS
+                                        </p>
+                                        <p className="text-slate-300 text-sm">
+                                            {totalSlots - availableSlots} pessoas já acessaram hoje
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                {/* Progress Bar */}
+                                <div className="w-full h-3 bg-black/40 rounded-full overflow-hidden border border-red-500/30">
+                                    <div 
+                                        className="h-full bg-gradient-to-r from-red-500 to-orange-500 transition-all duration-1000"
+                                        style={{ width: `${((totalSlots - availableSlots) / totalSlots) * 100}%` }}
+                                    ></div>
+                                </div>
+                            </motion.div>
+
+                            {/* SOCIAL PROOF STATS */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.6 }}
+                                className="mb-12"
+                            >
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                    <div className="bg-gradient-to-br from-[#D4AF37]/10 to-[#FFD700]/5 border-2 border-[#D4AF37]/30 rounded-xl p-4 text-center">
+                                        <p className="text-3xl sm:text-4xl font-black text-[#FFD700] mb-2">12.847+</p>
+                                        <p className="text-slate-300 text-sm">Pessoas já desbloquearam</p>
+                                    </div>
+                                    <div className="bg-gradient-to-br from-[#D4AF37]/10 to-[#FFD700]/5 border-2 border-[#D4AF37]/30 rounded-xl p-4 text-center">
+                                        <p className="text-3xl sm:text-4xl font-black text-[#FFD700] mb-2">4.9⭐</p>
+                                        <p className="text-slate-300 text-sm">Avaliação média (2.140 reviews)</p>
+                                    </div>
+                                    <div className="bg-gradient-to-br from-[#D4AF37]/10 to-[#FFD700]/5 border-2 border-[#D4AF37]/30 rounded-xl p-4 text-center">
+                                        <p className="text-3xl sm:text-4xl font-black text-[#FFD700] mb-2">100%</p>
+                                        <p className="text-slate-300 text-sm">Satisfação garantida</p>
+                                    </div>
+                                </div>
+                            </motion.div>
+
                             {/* BLOCK 04: TANGIBILIZAÇÃO - O QUE ELE RECEBE */}
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
@@ -319,61 +422,233 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 className="mb-12"
                             >
                                 <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-center text-[#FFD700] mb-6 sm:mb-8 px-2">
-                                    O Que Você Vai Receber Imediatamente
+                                    🎁 O Que Você Vai Receber HOJE (Acesso Imediato)
                                 </h2>
 
-                                {/* Mockup Visual */}
-                                <div className="flex justify-center mb-8">
-                                    <div className="relative max-w-md w-full px-4">
-                                        <img 
-                                            src="/mockup.png" 
-                                            alt="Mapa Xamânico Completo"
-                                            className="w-full h-auto rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.9)]"
-                                        />
-                                        <div className="absolute -inset-4 bg-gradient-to-br from-[#D4AF37]/20 to-[#FFD700]/20 blur-3xl -z-10"></div>
+                                {/* Benefits Cards with Values */}
+                                <div className="space-y-6 max-w-3xl mx-auto">
+                                    {/* Benefit 1 */}
+                                    <div className="bg-gradient-to-br from-purple-900/20 to-purple-800/10 border-l-4 border-purple-500 rounded-xl p-4 sm:p-6">
+                                        <div className="flex justify-between items-center mb-4">
+                                            <h3 className="text-white font-bold text-lg sm:text-xl">📖 Mapa Xamânico Diagnóstico (Digital)</h3>
+                                            <span className="bg-yellow-900/30 text-[#FFD700] px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap">
+                                                R$ 197 GRÁTIS
+                                            </span>
+                                        </div>
+                                        <div className="space-y-3 text-slate-300 text-sm sm:text-base">
+                                            <p>
+                                                Leitura energética completa de <span className="text-white font-semibold">32 páginas</span> que identifica seus padrões hereditários e bloqueios invisíveis herdados dos seus ancestrais.
+                                            </p>
+                                            <p>
+                                                <span className="text-[#FFD700] font-semibold">O que você vai descobrir:</span>
+                                            </p>
+                                            <ul className="space-y-2 ml-4">
+                                                <li>• Qual o tipo de bloqueio ancestral você carrega</li>
+                                                <li>• De qual geração veio esse padrão</li>
+                                                <li>• Por que você SEMPRE trabalha mas o dinheiro nunca rende</li>
+                                                <li>• Como esse bloqueio está afetando sua vida agora</li>
+                                            </ul>
+                                            <div className="bg-yellow-900/20 border-l-[3px] border-[#FFD700] p-3 mt-4">
+                                                <p className="text-white font-semibold">
+                                                    💡 Impacto: Você finalmente entende POR QUÊ dinheiro nunca sobra... não importa quanto você ganhe.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Benefit 2 */}
+                                    <div className="bg-gradient-to-br from-purple-900/20 to-purple-800/10 border-l-4 border-purple-500 rounded-xl p-4 sm:p-6">
+                                        <div className="flex justify-between items-center mb-4">
+                                            <h3 className="text-white font-bold text-lg sm:text-xl">🎧 Áudio de Reprogramação Binaural (17 min)</h3>
+                                            <span className="bg-yellow-900/30 text-[#FFD700] px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap">
+                                                R$ 147 GRÁTIS
+                                            </span>
+                                        </div>
+                                        <div className="space-y-3 text-slate-300 text-sm sm:text-base">
+                                            <p>
+                                                Tecnologia de <span className="text-white font-semibold">ondas binaurais</span> que trabalha diretamente no seu subconsciente enquanto você dorme ou relaxa.
+                                            </p>
+                                            <p>
+                                                <span className="text-[#FFD700] font-semibold">Como funciona:</span>
+                                            </p>
+                                            <ul className="space-y-2 ml-4">
+                                                <li>• Coloque o áudio para tocar antes de dormir</li>
+                                                <li>• As frequências específicas (432Hz + 528Hz) dissolvem bloqueios energéticos</li>
+                                                <li>• Seu cérebro entra em modo receptivo theta (sono REM)</li>
+                                                <li>• Reprogramação acontece durante a noite</li>
+                                            </ul>
+                                            <div className="bg-green-900/20 border-l-[3px] border-green-500 p-3 mt-4">
+                                                <p className="text-green-400 font-semibold">
+                                                    ✅ Resultado: Pessoas relatam sensação de "peso saindo das costas" já nos primeiros 3-7 dias. Movimento financeiro inesperado em 14-21 dias.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Benefit 3 */}
+                                    <div className="bg-gradient-to-br from-purple-900/20 to-purple-800/10 border-l-4 border-purple-500 rounded-xl p-4 sm:p-6">
+                                        <div className="flex justify-between items-center mb-4">
+                                            <h3 className="text-white font-bold text-lg sm:text-xl">📋 Protocolo de 7 Dias (Passo a Passo)</h3>
+                                            <span className="bg-yellow-900/30 text-[#FFD700] px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap">
+                                                R$ 247 GRÁTIS
+                                            </span>
+                                        </div>
+                                        <div className="space-y-3 text-slate-300 text-sm sm:text-base">
+                                            <p>
+                                                Roteiro prático que desativa o "contrato de pobreza" ancestral em <span className="text-white font-semibold">apenas 7 dias</span>.
+                                            </p>
+                                            <p>
+                                                <span className="text-[#FFD700] font-semibold">Cronograma diário:</span>
+                                            </p>
+                                            <div className="space-y-2">
+                                                <div className="bg-white/5 p-3 rounded">
+                                                    <h4 className="text-white font-semibold text-sm mb-1">Dia 1-2: Identificação</h4>
+                                                    <p className="text-slate-400 text-xs">Leia seu mapa + identifique o padrão ancestral exato</p>
+                                                </div>
+                                                <div className="bg-white/5 p-3 rounded">
+                                                    <h4 className="text-white font-semibold text-sm mb-1">Dia 3-4: Limpeza</h4>
+                                                    <p className="text-slate-400 text-xs">Áudio binaural 2x/dia + ritual da carteira (5 min)</p>
+                                                </div>
+                                                <div className="bg-white/5 p-3 rounded">
+                                                    <h4 className="text-white font-semibold text-sm mb-1">Dia 5-7: Ancoragem</h4>
+                                                    <p className="text-slate-400 text-xs">Protocolo de abundância + visualização guiada (10 min)</p>
+                                                </div>
+                                            </div>
+                                            <div className="bg-green-900/20 border-l-[3px] border-green-500 p-3 mt-4">
+                                                <p className="text-green-400 font-semibold">
+                                                    ✅ Resultado: Sentimento de leveza emocional + sincronicidades financeiras (PIX inesperado, proposta nova, promoção).
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Benefit 4 */}
+                                    <div className="bg-gradient-to-br from-purple-900/20 to-purple-800/10 border-l-4 border-purple-500 rounded-xl p-4 sm:p-6">
+                                        <div className="flex justify-between items-center mb-4">
+                                            <h3 className="text-white font-bold text-lg sm:text-xl">📱 Acesso ao Portal Mobile</h3>
+                                            <span className="bg-yellow-900/30 text-[#FFD700] px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap">
+                                                INCLUSO
+                                            </span>
+                                        </div>
+                                        <div className="space-y-3 text-slate-300 text-sm sm:text-base">
+                                            <p>
+                                                Plataforma online estilo app que funciona em <span className="text-white font-semibold">qualquer celular</span> (iPhone ou Android) sem precisar baixar nada.
+                                            </p>
+                                            <ul className="space-y-2 ml-4">
+                                                <li>• Acesso vitalício 24/7</li>
+                                                <li>• Funciona offline (baixe os áudios)</li>
+                                                <li>• Interface intuitiva e fácil</li>
+                                                <li>• Suporte técnico incluso</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    {/* Total Value Box */}
+                                    <div className="bg-gradient-to-br from-yellow-900/20 to-yellow-800/10 border-2 border-[#FFD700]/30 rounded-xl p-6 text-center">
+                                        <p className="text-slate-300 text-sm mb-2">Valor Total do Pacote:</p>
+                                        <p className="text-slate-400 line-through text-xl mb-2">R$ 591,00</p>
+                                        <p className="text-white text-base mb-3">HOJE você paga apenas:</p>
+                                        <p className="text-[#FFD700] text-4xl sm:text-5xl font-black mb-3">R$ 27,90</p>
+                                        <p className="text-green-400 text-lg font-semibold">
+                                            💰 Você economiza R$ 563,10 (95% OFF)
+                                        </p>
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            {/* NEW SECTION: O QUE ACONTECE AGORA */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 1.0 }}
+                                className="mb-12 bg-gradient-to-br from-blue-900/20 to-blue-800/10 border-2 border-blue-500/30 rounded-2xl p-6 sm:p-8"
+                            >
+                                <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-center text-blue-400 mb-6">
+                                    ⏱️ O QUE ACONTECE DEPOIS QUE VOCÊ CLICAR NO BOTÃO?
+                                </h2>
+                                
+                                <div className="space-y-4 max-w-2xl mx-auto">
+                                    {/* Step 1 */}
+                                    <div className="flex gap-4 items-start">
+                                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
+                                            1
+                                        </div>
+                                        <div className="flex-1">
+                                            <h3 className="text-white font-bold text-base sm:text-lg mb-1">
+                                                Você vai para a página de pagamento seguro
+                                            </h3>
+                                            <p className="text-slate-300 text-sm">
+                                                Aceita PIX (aprovação em 5 seg) ou Cartão (até 12x). Ambiente 100% criptografado.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Step 2 */}
+                                    <div className="flex gap-4 items-start">
+                                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
+                                            2
+                                        </div>
+                                        <div className="flex-1">
+                                            <h3 className="text-white font-bold text-base sm:text-lg mb-1">
+                                                Pagamento confirmado = Acesso liberado na hora
+                                            </h3>
+                                            <p className="text-slate-300 text-sm">
+                                                Você recebe um e-mail com o link de acesso. Clica, entra na plataforma, e TUDO já está lá.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Step 3 */}
+                                    <div className="flex gap-4 items-start">
+                                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
+                                            3
+                                        </div>
+                                        <div className="flex-1">
+                                            <h3 className="text-white font-bold text-base sm:text-lg mb-1">
+                                                Primeira noite: Você ouve o áudio antes de dormir
+                                            </h3>
+                                            <p className="text-slate-300 text-sm">
+                                                17 minutos. Coloca fone ou deixa tocando baixinho. Seu cérebro começa a reprogramação.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Step 4 */}
+                                    <div className="flex gap-4 items-start">
+                                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
+                                            4
+                                        </div>
+                                        <div className="flex-1">
+                                            <h3 className="text-white font-bold text-base sm:text-lg mb-1">
+                                                Dias 1-7: Você segue o protocolo simples
+                                            </h3>
+                                            <p className="text-slate-300 text-sm">
+                                                Leitura do mapa (20 min) + áudios diários (17 min) + ritual rápido (5 min).
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Step 5 */}
+                                    <div className="flex gap-4 items-start">
+                                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white font-bold">
+                                            ✓
+                                        </div>
+                                        <div className="flex-1">
+                                            <h3 className="text-green-400 font-bold text-base sm:text-lg mb-1">
+                                                Resultado: Você sente a mudança
+                                            </h3>
+                                            <p className="text-slate-300 text-sm">
+                                                Peso emocional sai. Dinheiro que estava "preso" se move. Oportunidades aparecem. <span className="text-white font-semibold">Você finalmente respira.</span>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
 
-                                {/* Benefits Bullets */}
-                                <div className="space-y-4 max-w-2xl mx-auto">
-                                    {[
-                                        {
-                                            icon: Sparkles,
-                                            title: 'Acesso ao Portal Mobile (Estilo App)',
-                                            desc: 'Plataforma exclusiva que funciona em qualquer celular (Android ou iPhone) sem precisar baixar nada pesado nem ocupar memória.'
-                                        },
-                                        {
-                                            icon: FileText,
-                                            title: 'O Mapa Xamânico Digital (PDF)',
-                                            desc: 'Seu diagnóstico escrito completo para ler e consultar onde estiver.'
-                                        },
-                                        {
-                                            icon: Headphones,
-                                            title: 'Áudios de Reprogramação Binaural',
-                                            desc: 'Terapia sonora passiva. Basta dar o play, fechar os olhos e deixar a frequência limpar sua mente.'
-                                        },
-                                        {
-                                            icon: Shield,
-                                            title: 'Protocolo Prático de 7 Dias',
-                                            desc: 'O passo a passo guiado para quebrar o contrato de escassez em uma semana.'
-                                        }
-                                    ].map((item, idx) => (
-                                        <motion.div
-                                            key={idx}
-                                            initial={{ opacity: 0, x: -20 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ delay: 0.8 + idx * 0.1 }}
-                                            className="flex items-start gap-4 bg-white/5 border border-[#D4AF37]/30 rounded-xl p-3 sm:p-4"
-                                        >
-                                            <div className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-[#00FF41] to-[#00CC33] flex items-center justify-center">
-                                                <Check className="w-5 h-5 sm:w-6 sm:h-6 text-black" />
-                                            </div>
-                                            <div className="flex-1 min-w-0">
-                                                <p className="text-white font-bold text-base sm:text-lg mb-1">✅ {item.title}</p>
-                                                <p className="text-slate-300 text-xs sm:text-sm">{item.desc}</p>
-                                            </div>
-                                        </motion.div>
-                                    ))}
+                                {/* Time estimate */}
+                                <div className="mt-6 text-center">
+                                    <p className="text-slate-400 text-sm">
+                                        ⏰ Do clique até o primeiro áudio: <span className="text-white font-bold">menos de 5 minutos</span>
+                                    </p>
                                 </div>
                             </motion.div>
 
@@ -461,10 +736,10 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 <div className="mt-8 text-center">
                                     <button
                                         onClick={handleCheckout}
-                                        aria-label="Quero ser guiado por Anahí Solara agora"
+                                        aria-label="Quero desbloquear agora"
                                         className="w-full sm:w-auto bg-gradient-to-r from-[#D4AF37] to-[#FFD700] hover:from-[#FFD700] hover:to-[#D4AF37] text-black font-black text-base sm:text-lg py-4 px-8 rounded-xl shadow-[0_0_30px_rgba(212,175,55,0.5)] transition-all transform hover:scale-[1.02] active:scale-95 uppercase tracking-wide"
                                     >
-                                        QUERO SER GUIADO POR ANAHÍ AGORA
+                                        🔓 QUERO DESBLOQUEAR AGORA
                                     </button>
                                 </div>
                             </motion.div>
@@ -477,61 +752,82 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 className="mb-12"
                             >
                                 <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#FFD700] text-center mb-6 sm:mb-8 px-2">
-                                    Veja o que acontece quando a Trava Ancestral é quebrada:
+                                    💬 Veja o que acontece quando a Trava Ancestral é quebrada:
                                 </h3>
 
-                                {/* WhatsApp Prints Carousel */}
+                                {/* WhatsApp Prints Carousel - Mobile Optimized */}
                                 <div className="relative max-w-2xl mx-auto px-4">
                                     {/* Main Image Display */}
                                     <div 
                                         className="relative overflow-hidden rounded-2xl border-2 border-[#D4AF37]/50 shadow-[0_0_40px_rgba(212,175,55,0.3)] bg-black/50"
                                     >
-                                        <motion.img
-                                            key={currentProofIndex}
-                                            initial={{ opacity: 0, x: 100 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            exit={{ opacity: 0, x: -100 }}
-                                            transition={{ duration: 0.3 }}
-                                            src={socialProofImages[currentProofIndex].src}
-                                            alt={socialProofImages[currentProofIndex].alt}
-                                            className="w-full h-auto"
-                                        />
+                                        <AnimatePresence mode="wait">
+                                            <motion.img
+                                                key={currentProofIndex}
+                                                initial={{ opacity: 0, x: 100 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                exit={{ opacity: 0, x: -100 }}
+                                                transition={{ duration: 0.3 }}
+                                                src={socialProofImages[currentProofIndex].src}
+                                                alt={socialProofImages[currentProofIndex].alt}
+                                                className="w-full h-auto object-contain"
+                                                loading="lazy"
+                                            />
+                                        </AnimatePresence>
                                         
-                                        {/* Navigation Buttons */}
+                                        {/* Navigation Buttons - Desktop */}
                                         <button 
                                             onClick={prevProof}
-                                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full transition-all"
+                                            className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-all items-center justify-center backdrop-blur-sm z-10"
                                             aria-label="Anterior"
                                         >
                                             <ChevronLeft className="w-6 h-6" />
                                         </button>
                                         <button 
                                             onClick={nextProof}
-                                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full transition-all"
+                                            className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-all items-center justify-center backdrop-blur-sm z-10"
                                             aria-label="Próximo"
                                         >
                                             <ChevronRight className="w-6 h-6" />
                                         </button>
                                     </div>
 
-                                    {/* Dots Indicator */}
-                                    <div className="flex justify-center gap-2 mt-4">
+                                    {/* Dots Indicator - All Devices */}
+                                    <div className="flex justify-center gap-2 mt-6">
                                         {socialProofImages.map((_, idx) => (
                                             <button
                                                 key={idx}
                                                 onClick={() => setCurrentProofIndex(idx)}
-                                                className={`w-2 h-2 rounded-full transition-all ${
+                                                className={`transition-all rounded-full ${
                                                     idx === currentProofIndex 
-                                                        ? 'bg-[#FFD700] w-4' 
-                                                        : 'bg-white/30 hover:bg-white/50'
+                                                        ? 'bg-[#FFD700] w-8 h-3' 
+                                                        : 'bg-white/30 hover:bg-white/50 w-3 h-3'
                                                 }`}
                                                 aria-label={`Ir para depoimento ${idx + 1}`}
                                             />
                                         ))}
                                     </div>
 
-                                    {/* Thumbnail Grid */}
-                                    <div className="grid grid-cols-7 gap-2 mt-4">
+                                    {/* Mobile Navigation Buttons */}
+                                    <div className="flex sm:hidden justify-center gap-4 mt-6">
+                                        <button 
+                                            onClick={prevProof}
+                                            className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] hover:from-[#FFD700] hover:to-[#D4AF37] text-black p-4 rounded-full transition-all shadow-lg"
+                                            aria-label="Anterior"
+                                        >
+                                            <ChevronLeft className="w-6 h-6" />
+                                        </button>
+                                        <button 
+                                            onClick={nextProof}
+                                            className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] hover:from-[#FFD700] hover:to-[#D4AF37] text-black p-4 rounded-full transition-all shadow-lg"
+                                            aria-label="Próximo"
+                                        >
+                                            <ChevronRight className="w-6 h-6" />
+                                        </button>
+                                    </div>
+
+                                    {/* Thumbnail Grid - Desktop Only */}
+                                    <div className="hidden md:grid grid-cols-7 gap-2 mt-6">
                                         {socialProofImages.map((img, idx) => (
                                             <button
                                                 key={idx}
@@ -545,10 +841,108 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                 <img 
                                                     src={img.src} 
                                                     alt={`Miniatura: ${img.alt}`}
-                                                    className="w-full h-auto"
+                                                    className="w-full h-auto object-cover"
+                                                    loading="lazy"
                                                 />
                                             </button>
                                         ))}
+                                    </div>
+
+                                    {/* Image Counter - Mobile */}
+                                    <div className="text-center mt-4">
+                                        <p className="text-slate-400 text-sm">
+                                            Depoimento {currentProofIndex + 1} de {socialProofImages.length}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Video Testimonials Carousel - Mobile Optimized */}
+                                <div className="mt-12 max-w-4xl mx-auto px-4">
+                                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#FFD700] text-center mb-6 sm:mb-8 px-2">
+                                        🎥 Veja Depoimentos Reais em Vídeo
+                                    </h3>
+                                    
+                                    <div className="relative">
+                                        {/* Video Container - Mobile First */}
+                                        <div className="relative rounded-2xl overflow-hidden border-2 border-[#D4AF37]/50 shadow-[0_0_40px_rgba(212,175,55,0.3)] bg-black">
+                                            <AnimatePresence mode="wait">
+                                                <motion.div
+                                                    key={currentVideoIndex}
+                                                    initial={{ opacity: 0, scale: 0.95 }}
+                                                    animate={{ opacity: 1, scale: 1 }}
+                                                    exit={{ opacity: 0, scale: 0.95 }}
+                                                    transition={{ duration: 0.3 }}
+                                                    className="w-full aspect-video"
+                                                >
+                                                    <iframe
+                                                        src={videoTestimonials[currentVideoIndex].embedUrl}
+                                                        title={videoTestimonials[currentVideoIndex].name}
+                                                        className="w-full h-full"
+                                                        style={{ border: 'none', overflow: 'hidden' }}
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                        sandbox="allow-scripts allow-same-origin allow-presentation"
+                                                        allowFullScreen
+                                                    />
+                                                </motion.div>
+                                            </AnimatePresence>
+                                            
+                                            {/* Navigation Buttons - Desktop */}
+                                            <button 
+                                                onClick={prevVideo}
+                                                className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-all items-center justify-center backdrop-blur-sm z-10"
+                                                aria-label="Vídeo anterior"
+                                            >
+                                                <ChevronLeft className="w-6 h-6" />
+                                            </button>
+                                            <button 
+                                                onClick={nextVideo}
+                                                className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-all items-center justify-center backdrop-blur-sm z-10"
+                                                aria-label="Próximo vídeo"
+                                            >
+                                                <ChevronRight className="w-6 h-6" />
+                                            </button>
+                                        </div>
+
+                                        {/* Dots Indicator - All Devices */}
+                                        <div className="flex justify-center gap-2 mt-6">
+                                            {videoTestimonials.map((_, idx) => (
+                                                <button
+                                                    key={idx}
+                                                    onClick={() => setCurrentVideoIndex(idx)}
+                                                    className={`transition-all rounded-full ${
+                                                        idx === currentVideoIndex 
+                                                            ? 'bg-[#FFD700] w-8 h-3' 
+                                                            : 'bg-white/30 hover:bg-white/50 w-3 h-3'
+                                                    }`}
+                                                    aria-label={`Ver depoimento em vídeo ${idx + 1}`}
+                                                />
+                                            ))}
+                                        </div>
+
+                                        {/* Mobile Navigation Buttons */}
+                                        <div className="flex sm:hidden justify-center gap-4 mt-6">
+                                            <button 
+                                                onClick={prevVideo}
+                                                className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] hover:from-[#FFD700] hover:to-[#D4AF37] text-black p-4 rounded-full transition-all shadow-lg"
+                                                aria-label="Vídeo anterior"
+                                            >
+                                                <ChevronLeft className="w-6 h-6" />
+                                            </button>
+                                            <button 
+                                                onClick={nextVideo}
+                                                className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] hover:from-[#FFD700] hover:to-[#D4AF37] text-black p-4 rounded-full transition-all shadow-lg"
+                                                aria-label="Próximo vídeo"
+                                            >
+                                                <ChevronRight className="w-6 h-6" />
+                                            </button>
+                                        </div>
+
+                                        {/* Video Counter */}
+                                        <div className="text-center mt-4">
+                                            <p className="text-slate-400 text-sm">
+                                                Vídeo {currentVideoIndex + 1} de {videoTestimonials.length}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </motion.div>
