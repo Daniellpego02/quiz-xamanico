@@ -38,22 +38,31 @@ const OfferNew = ({ userName }: OfferProps) => {
         { src: '/prova7.png', alt: 'Depoimento WhatsApp de cliente satisfeito 7' }
     ];
     
-    // Video testimonials
+    // Video testimonials - Updated with new VTURB smartplayer IDs
     const videoTestimonials = [
         { 
-            id: '67801a38e9abf1da2b7e1dc8',
-            embedUrl: 'https://cdn.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/67801a38e9abf1da2b7e1dc8/embed.html',
+            id: '6966f78072fa6d1f6fe3580b',
+            playerId: 'vid-6966f78072fa6d1f6fe3580b',
+            scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f78072fa6d1f6fe3580b/v4/player.js',
             name: 'Depoimento em Vídeo 1'
         },
         { 
-            id: '67801a6ee9abf1da2b7e1e1a',
-            embedUrl: 'https://cdn.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/67801a6ee9abf1da2b7e1e1a/embed.html',
+            id: '6966f6bc1fad4f3937c2eac9',
+            playerId: 'vid-6966f6bc1fad4f3937c2eac9',
+            scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f6bc1fad4f3937c2eac9/v4/player.js',
             name: 'Depoimento em Vídeo 2'
         },
         { 
-            id: '67801a86e9abf1da2b7e1e4a',
-            embedUrl: 'https://cdn.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/67801a86e9abf1da2b7e1e4a/embed.html',
+            id: '6966f6b835a1be1be44c9daf',
+            playerId: 'vid-6966f6b835a1be1be44c9daf',
+            scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f6b835a1be1be44c9daf/v4/player.js',
             name: 'Depoimento em Vídeo 3'
+        },
+        { 
+            id: '6966f8a76af1a10bf01e6dc4',
+            playerId: 'vid-6966f8a76af1a10bf01e6dc4',
+            scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f8a76af1a10bf01e6dc4/v4/player.js',
+            name: 'Depoimento em Vídeo 4'
         }
     ];
     
@@ -107,7 +116,12 @@ const OfferNew = ({ userName }: OfferProps) => {
         const preloadLinks = [
             { href: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6953144d84040898eb13007a/v4/player.js', as: 'script' },
             { href: 'https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js', as: 'script' },
-            { href: 'https://cdn.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/6953140fba8707e946bf11ea/main.m3u8', as: 'fetch' }
+            { href: 'https://cdn.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/6953140fba8707e946bf11ea/main.m3u8', as: 'fetch' },
+            // Preload video testimonial player scripts
+            { href: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f78072fa6d1f6fe3580b/v4/player.js', as: 'script' },
+            { href: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f6bc1fad4f3937c2eac9/v4/player.js', as: 'script' },
+            { href: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f6b835a1be1be44c9daf/v4/player.js', as: 'script' },
+            { href: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f8a76af1a10bf01e6dc4/v4/player.js', as: 'script' }
         ];
 
         const preloadElements: HTMLLinkElement[] = [];
@@ -128,6 +142,16 @@ const OfferNew = ({ userName }: OfferProps) => {
         playerScript.async = true;
         document.head.appendChild(playerScript);
 
+        // Load video testimonial scripts
+        const testimonialScripts: HTMLScriptElement[] = [];
+        videoTestimonials.forEach(video => {
+            const script = document.createElement('script');
+            script.src = video.scriptUrl;
+            script.async = true;
+            document.head.appendChild(script);
+            testimonialScripts.push(script);
+        });
+
         // Simulate video timing - Show offer content after 4:15 (255 seconds)
         // In production, this should be triggered by actual video events
         const timer = setTimeout(() => {
@@ -139,6 +163,7 @@ const OfferNew = ({ userName }: OfferProps) => {
             optimizationScript.remove();
             playerScript.remove();
             preloadElements.forEach(el => el.remove());
+            testimonialScripts.forEach(el => el.remove());
         };
     }, []);
 
@@ -875,25 +900,18 @@ const OfferNew = ({ userName }: OfferProps) => {
                                     <div className="relative">
                                         {/* Video Container - Mobile First */}
                                         <div className="relative rounded-2xl overflow-hidden border-2 border-[#D4AF37]/50 shadow-[0_0_40px_rgba(212,175,55,0.3)] bg-black">
-                                            <AnimatePresence mode="wait">
-                                                <motion.div
-                                                    key={currentVideoIndex}
-                                                    initial={{ opacity: 0, scale: 0.95 }}
-                                                    animate={{ opacity: 1, scale: 1 }}
-                                                    exit={{ opacity: 0, scale: 0.95 }}
-                                                    transition={{ duration: 0.3 }}
-                                                    className="w-full aspect-video"
+                                            {/* Render all videos and show/hide based on currentVideoIndex */}
+                                            {videoTestimonials.map((video, idx) => (
+                                                <div
+                                                    key={video.id}
+                                                    style={{ display: idx === currentVideoIndex ? 'block' : 'none' }}
                                                 >
-                                                    <iframe
-                                                        src={videoTestimonials[currentVideoIndex].embedUrl}
-                                                        title={videoTestimonials[currentVideoIndex].name}
-                                                        className="w-full h-full"
-                                                        style={{ border: 'none', overflow: 'hidden' }}
-                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                        allowFullScreen
-                                                    />
-                                                </motion.div>
-                                            </AnimatePresence>
+                                                    <vturb-smartplayer 
+                                                        id={video.playerId}
+                                                        style={{ display: 'block', margin: '0 auto', width: '100%', maxWidth: '400px' }}
+                                                    ></vturb-smartplayer>
+                                                </div>
+                                            ))}
                                             
                                             {/* Navigation Buttons - Desktop */}
                                             <button 
