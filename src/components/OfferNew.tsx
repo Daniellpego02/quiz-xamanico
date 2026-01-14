@@ -425,6 +425,16 @@ const OfferNew = ({ userName }: OfferProps) => {
                                     🎁 O Que Você Vai Receber HOJE (Acesso Imediato)
                                 </h2>
 
+                                {/* Mockup Image */}
+                                <div className="mb-8 flex justify-center">
+                                    <img 
+                                        src="/mockup.png" 
+                                        alt="Mockup do Mapa Xamânico" 
+                                        className="w-full max-w-md rounded-2xl shadow-[0_0_40px_rgba(212,175,55,0.3)] border-2 border-[#D4AF37]/50"
+                                        loading="lazy"
+                                    />
+                                </div>
+
                                 {/* Benefits Cards with Values */}
                                 <div className="space-y-6 max-w-3xl mx-auto">
                                     {/* Benefit 1 */}
@@ -880,7 +890,6 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                         className="w-full h-full"
                                                         style={{ border: 'none', overflow: 'hidden' }}
                                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                        sandbox="allow-scripts allow-same-origin allow-presentation"
                                                         allowFullScreen
                                                     />
                                                 </motion.div>
