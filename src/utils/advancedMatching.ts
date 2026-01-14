@@ -128,12 +128,21 @@ export function normalizePhone(phone: string, defaultCountryCode: string = '55')
   // Remove leading zeros
   const withoutLeadingZeros = digitsOnly.replace(/^0+/, '');
   
-  // Add country code if not present
-  if (!withoutLeadingZeros.startsWith(defaultCountryCode)) {
-    return defaultCountryCode + withoutLeadingZeros;
+  // Check if number already starts with the default country code
+  if (withoutLeadingZeros.startsWith(defaultCountryCode)) {
+    return withoutLeadingZeros;
   }
   
-  return withoutLeadingZeros;
+  // Check if number appears to already have a different country code
+  // Most country codes are 1-3 digits
+  // For Brazil: local numbers are typically 10-11 digits, so with country code = 12-13 digits
+  if (withoutLeadingZeros.length >= 12) {
+    // Likely already has a country code, return as is
+    return withoutLeadingZeros;
+  }
+  
+  // Add default country code
+  return defaultCountryCode + withoutLeadingZeros;
 }
 
 /**

@@ -54,14 +54,15 @@ import type { CAPICustomData } from '../../src/utils/capi';
 
 /**
  * Get Meta API Access Token from environment
- * IMPORTANT: Set VITE_META_ACCESS_TOKEN in your environment variables
+ * IMPORTANT: Set META_ACCESS_TOKEN in your environment variables
+ * Note: Do NOT use VITE_ prefix as it exposes the token to client-side
  */
 function getAccessToken(): string {
-  const token = process.env.VITE_META_ACCESS_TOKEN || process.env.META_ACCESS_TOKEN;
+  const token = process.env.META_ACCESS_TOKEN;
   
   if (!token) {
     throw new Error(
-      'Meta Access Token not configured. Set VITE_META_ACCESS_TOKEN or META_ACCESS_TOKEN environment variable.'
+      'Meta Access Token not configured. Set META_ACCESS_TOKEN environment variable (without VITE_ prefix for security).'
     );
   }
   
@@ -72,7 +73,7 @@ function getAccessToken(): string {
  * Get Meta Pixel ID from environment
  */
 function getPixelId(): string {
-  return process.env.VITE_META_PIXEL_ID || process.env.META_PIXEL_ID || '1908080873443730';
+  return process.env.META_PIXEL_ID || '1908080873443730';
 }
 
 // ============================================================================

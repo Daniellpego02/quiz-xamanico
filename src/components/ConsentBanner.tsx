@@ -179,10 +179,10 @@ export function ConsentBanner({ onConsentGiven, onConsentDeclined }: ConsentBann
         timestamp: Date.now(),
         version: CONSENT_VERSION,
       });
+    } else {
+      // Only reload if no callback provided (backward compatibility)
+      window.location.reload();
     }
-
-    // Reload page to initialize tracking
-    window.location.reload();
   };
 
   const handleAcceptEssential = () => {

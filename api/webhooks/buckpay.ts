@@ -23,13 +23,13 @@ interface BuckPayWebhookPayload {
 }
 
 function getAccessToken(): string {
-  const token = process.env.VITE_META_ACCESS_TOKEN || process.env.META_ACCESS_TOKEN;
+  const token = process.env.META_ACCESS_TOKEN;
   if (!token) throw new Error('Meta Access Token not configured');
   return token;
 }
 
 function getPixelId(): string {
-  return process.env.VITE_META_PIXEL_ID || process.env.META_PIXEL_ID || '1908080873443730';
+  return process.env.META_PIXEL_ID || '1908080873443730';
 }
 
 async function trackPurchaseEvent(payload: BuckPayWebhookPayload): Promise<void> {

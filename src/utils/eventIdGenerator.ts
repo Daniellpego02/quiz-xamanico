@@ -89,7 +89,7 @@ export function isValidEventId(eventId: string): boolean {
  * Extract timestamp from event ID (if available)
  * 
  * @param eventId - Event ID to extract timestamp from
- * @returns Unix timestamp in seconds, or null if not extractable
+ * @returns Unix timestamp in milliseconds, or null if not extractable
  */
 export function extractTimestampFromEventId(eventId: string): number | null {
   if (!isValidEventId(eventId)) {
@@ -100,8 +100,9 @@ export function extractTimestampFromEventId(eventId: string): number | null {
   const match = eventId.match(/^evt_([a-z0-9]+)_[a-z0-9]+$/);
   if (match && match[1]) {
     try {
+      // Parse base36 timestamp (already in milliseconds from Date.now())
       const timestamp = parseInt(match[1], 36);
-      return Math.floor(timestamp / 1000);
+      return timestamp;
     } catch {
       return null;
     }

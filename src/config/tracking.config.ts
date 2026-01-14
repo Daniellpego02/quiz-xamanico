@@ -15,10 +15,11 @@ export const META_PIXEL_ID = '1908080873443730';
 
 /**
  * Meta Conversions API (CAPI) Access Token
- * IMPORTANT: Set VITE_META_ACCESS_TOKEN in your environment variables
+ * IMPORTANT: Set META_ACCESS_TOKEN in your environment variables
+ * WARNING: Do NOT use VITE_ prefix as it would expose the token to client-side
  * Generate token at: https://developers.facebook.com/tools/accesstoken/
  */
-export const META_ACCESS_TOKEN = import.meta.env?.VITE_META_ACCESS_TOKEN || '';
+export const META_ACCESS_TOKEN = import.meta.env?.META_ACCESS_TOKEN || '';
 
 /**
  * Meta Test Event Code
