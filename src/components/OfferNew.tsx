@@ -910,9 +910,9 @@ const OfferNew = ({ userName }: OfferProps) => {
                                     
                                     <div className="relative bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] rounded-3xl p-4 sm:p-6 md:p-8 border-2 border-[#D4AF37]/30">
                                         {/* Video Container - Properly contained */}
-                                        <div className="relative rounded-2xl overflow-hidden border-2 border-[#D4AF37]/50 shadow-[0_0_40px_rgba(212,175,55,0.3)] bg-black mx-auto" style={{ maxWidth: '500px' }}>
+                                        <div className="relative rounded-2xl overflow-hidden border-2 border-[#D4AF37]/50 shadow-[0_0_40px_rgba(212,175,55,0.3)] bg-black mx-auto max-w-[500px]">
                                             {/* Render all videos and show/hide based on currentVideoIndex */}
-                                            <div className="relative w-full" style={{ aspectRatio: '9/16', maxHeight: '600px' }}>
+                                            <div className="relative w-full aspect-[9/16] max-h-[600px]">
                                                 {videoTestimonials.map((video, idx) => (
                                                     <div
                                                         key={video.id}
@@ -920,7 +920,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                     >
                                                         <vturb-smartplayer 
                                                             id={video.playerId}
-                                                            style={{ display: 'block', width: '100%', height: '100%' }}
+                                                            className="block w-full h-full"
                                                         ></vturb-smartplayer>
                                                     </div>
                                                 ))}
