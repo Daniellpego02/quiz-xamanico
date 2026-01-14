@@ -113,18 +113,10 @@ const OfferNew = ({ userName }: OfferProps) => {
         optimizationScript.innerHTML = '!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);';
         document.head.appendChild(optimizationScript);
 
-        // Generate preload links for video testimonials from the array
-        const testimonialPreloads = videoTestimonials.map(video => ({
-            href: video.scriptUrl,
-            as: 'script'
-        }));
-
         const preloadLinks = [
             { href: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6953144d84040898eb13007a/v4/player.js', as: 'script' },
             { href: 'https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js', as: 'script' },
-            { href: 'https://cdn.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/6953140fba8707e946bf11ea/main.m3u8', as: 'fetch' },
-            // Preload video testimonial player scripts (generated from videoTestimonials array)
-            ...testimonialPreloads
+            { href: 'https://cdn.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/6953140fba8707e946bf11ea/main.m3u8', as: 'fetch' }
         ];
 
         const preloadElements: HTMLLinkElement[] = [];
@@ -145,16 +137,6 @@ const OfferNew = ({ userName }: OfferProps) => {
         playerScript.async = true;
         document.head.appendChild(playerScript);
 
-        // Load video testimonial scripts
-        const testimonialScripts: HTMLScriptElement[] = [];
-        videoTestimonials.forEach(video => {
-            const script = document.createElement('script');
-            script.src = video.scriptUrl;
-            script.async = true;
-            document.head.appendChild(script);
-            testimonialScripts.push(script);
-        });
-
         // Simulate video timing - Show offer content after 4:15 (255 seconds)
         // In production, this should be triggered by actual video events
         const timer = setTimeout(() => {
@@ -166,9 +148,26 @@ const OfferNew = ({ userName }: OfferProps) => {
             optimizationScript.remove();
             playerScript.remove();
             preloadElements.forEach(el => el.remove());
-            testimonialScripts.forEach(el => el.remove());
         };
     }, []);
+
+    // Load video testimonial scripts only when offer content is shown
+    useEffect(() => {
+        if (!showOfferContent) return;
+
+        const testimonialScripts: HTMLScriptElement[] = [];
+        videoTestimonials.forEach(video => {
+            const script = document.createElement('script');
+            script.src = video.scriptUrl;
+            script.async = true;
+            document.head.appendChild(script);
+            testimonialScripts.push(script);
+        });
+
+        return () => {
+            testimonialScripts.forEach(el => el.remove());
+        };
+    }, [showOfferContent]);
 
     const handleCheckout = () => {
         window.location.href = 'https://www.seguropagamentos.com.br/mapa-xamanico';
@@ -894,39 +893,50 @@ const OfferNew = ({ userName }: OfferProps) => {
                                     </div>
                                 </div>
 
-                                {/* Video Testimonials Carousel - Mobile Optimized */}
-                                <div className="mt-12 max-w-4xl mx-auto px-4">
+                            </motion.div>
+
+                            {/* BLOCK 06.5: VIDEO TESTIMONIALS CAROUSEL - Positioned after text testimonials */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 1.6 }}
+                                className="mb-12"
+                            >
+                                {/* Video Testimonials Section - Beautiful and Harmonious */}
+                                <div className="max-w-4xl mx-auto px-4">
                                     <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#FFD700] text-center mb-6 sm:mb-8 px-2">
                                         🎥 Veja Depoimentos Reais em Vídeo
                                     </h3>
                                     
-                                    <div className="relative">
-                                        {/* Video Container - Mobile First */}
-                                        <div className="relative rounded-2xl overflow-hidden border-2 border-[#D4AF37]/50 shadow-[0_0_40px_rgba(212,175,55,0.3)] bg-black">
+                                    <div className="relative bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] rounded-3xl p-4 sm:p-6 md:p-8 border-2 border-[#D4AF37]/30">
+                                        {/* Video Container - Properly contained */}
+                                        <div className="relative rounded-2xl overflow-hidden border-2 border-[#D4AF37]/50 shadow-[0_0_40px_rgba(212,175,55,0.3)] bg-black mx-auto" style={{ maxWidth: '500px' }}>
                                             {/* Render all videos and show/hide based on currentVideoIndex */}
-                                            {videoTestimonials.map((video, idx) => (
-                                                <div
-                                                    key={video.id}
-                                                    className={idx === currentVideoIndex ? 'block' : 'hidden'}
-                                                >
-                                                    <vturb-smartplayer 
-                                                        id={video.playerId}
-                                                        className="block mx-auto w-full max-w-[400px]"
-                                                    ></vturb-smartplayer>
-                                                </div>
-                                            ))}
+                                            <div className="relative w-full" style={{ aspectRatio: '9/16', maxHeight: '600px' }}>
+                                                {videoTestimonials.map((video, idx) => (
+                                                    <div
+                                                        key={video.id}
+                                                        className={`absolute inset-0 transition-opacity duration-300 ${idx === currentVideoIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                                                    >
+                                                        <vturb-smartplayer 
+                                                            id={video.playerId}
+                                                            style={{ display: 'block', width: '100%', height: '100%' }}
+                                                        ></vturb-smartplayer>
+                                                    </div>
+                                                ))}
+                                            </div>
                                             
                                             {/* Navigation Buttons - Desktop */}
                                             <button 
                                                 onClick={prevVideo}
-                                                className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-all items-center justify-center backdrop-blur-sm z-10"
+                                                className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-all items-center justify-center backdrop-blur-sm z-20 border border-[#D4AF37]/30 hover:border-[#FFD700]"
                                                 aria-label="Vídeo anterior"
                                             >
                                                 <ChevronLeft className="w-6 h-6" />
                                             </button>
                                             <button 
                                                 onClick={nextVideo}
-                                                className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-all items-center justify-center backdrop-blur-sm z-10"
+                                                className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-all items-center justify-center backdrop-blur-sm z-20 border border-[#D4AF37]/30 hover:border-[#FFD700]"
                                                 aria-label="Próximo vídeo"
                                             >
                                                 <ChevronRight className="w-6 h-6" />
@@ -941,7 +951,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                     onClick={() => setCurrentVideoIndex(idx)}
                                                     className={`transition-all rounded-full ${
                                                         idx === currentVideoIndex 
-                                                            ? 'bg-[#FFD700] w-8 h-3' 
+                                                            ? 'bg-[#FFD700] w-8 h-3 shadow-[0_0_10px_rgba(255,215,0,0.5)]' 
                                                             : 'bg-white/30 hover:bg-white/50 w-3 h-3'
                                                     }`}
                                                     aria-label={`Ver depoimento em vídeo ${idx + 1}`}
@@ -972,6 +982,14 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             <p className="text-slate-400 text-sm">
                                                 Vídeo {currentVideoIndex + 1} de {videoTestimonials.length}
                                             </p>
+                                        </div>
+
+                                        {/* Trust indicator */}
+                                        <div className="mt-6 text-center">
+                                            <div className="inline-flex items-center gap-2 bg-emerald-500/20 border border-emerald-500/40 rounded-full px-4 py-2">
+                                                <Check className="w-4 h-4 text-emerald-400" />
+                                                <span className="text-emerald-400 text-xs sm:text-sm font-semibold">Depoimentos Reais Verificados</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
