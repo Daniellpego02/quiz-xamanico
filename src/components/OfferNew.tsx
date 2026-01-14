@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { Check, Shield, Clock, AlertTriangle, Headphones, FileText, Sparkles, Lock, ChevronLeft, ChevronRight, Briefcase, Layers, Users } from 'lucide-react';
 import { FAQ } from './FAQ';
 
@@ -22,6 +22,10 @@ const OfferNew = ({ userName }: OfferProps) => {
     const [timeLeft, setTimeLeft] = useState(COUNTDOWN_DURATION_SECONDS);
     const [availableSlots, setAvailableSlots] = useState(12);
     const totalSlots = 50;
+    
+    // Track which video player scripts have been loaded (lazy-load)
+    const [loadedVideoScripts, setLoadedVideoScripts] = useState<Set<number>>(new Set([0])); // Load first video immediately
+    const videoSectionRef = useRef<HTMLDivElement>(null);
     
     // Price configuration - PIX ONLY (À VISTA)
     // Updated price anchoring: From R$ 497,00 (session value) to R$ 27,90
@@ -74,13 +78,50 @@ const OfferNew = ({ userName }: OfferProps) => {
         setCurrentProofIndex((prev) => (prev - 1 + socialProofImages.length) % socialProofImages.length);
     };
     
-    const nextVideo = () => {
-        setCurrentVideoIndex((prev) => (prev + 1) % videoTestimonials.length);
-    };
+    // Lazy-load video player script when navigating to a new video
+    const loadVideoScript = useCallback((videoIndex: number) => {
+        // Check if already loaded using the setter's prev state to avoid stale closure
+        setLoadedVideoScripts(prev => {
+            if (prev.has(videoIndex)) return prev;
+            
+            const video = videoTestimonials[videoIndex];
+            if (!video) return prev;
+            
+            const script = document.createElement('script');
+            script.src = video.scriptUrl;
+            script.async = true;
+            script.onerror = () => {
+                console.error(`Failed to load video script: ${video.scriptUrl}`);
+            };
+            document.head.appendChild(script);
+            
+            return new Set([...prev, videoIndex]);
+        });
+    }, [videoTestimonials]);
     
-    const prevVideo = () => {
-        setCurrentVideoIndex((prev) => (prev - 1 + videoTestimonials.length) % videoTestimonials.length);
-    };
+    const nextVideo = useCallback(() => {
+        setCurrentVideoIndex((prev) => {
+            const nextIndex = (prev + 1) % videoTestimonials.length;
+            // Lazy-load the next video script
+            loadVideoScript(nextIndex);
+            return nextIndex;
+        });
+    }, [videoTestimonials.length, loadVideoScript]);
+    
+    const prevVideo = useCallback(() => {
+        setCurrentVideoIndex((prev) => {
+            const prevIndex = (prev - 1 + videoTestimonials.length) % videoTestimonials.length;
+            // Lazy-load the previous video script
+            loadVideoScript(prevIndex);
+            return prevIndex;
+        });
+    }, [videoTestimonials.length, loadVideoScript]);
+    
+    // Handle direct video selection (dots)
+    const selectVideo = useCallback((index: number) => {
+        loadVideoScript(index);
+        setCurrentVideoIndex(index);
+    }, [loadVideoScript]);
     
     // Format time for display
     const formatTime = (seconds: number) => {
@@ -109,22 +150,17 @@ const OfferNew = ({ userName }: OfferProps) => {
 
     // Load video player script
     useEffect(() => {
+        // Performance timing script (only once globally)
         const optimizationScript = document.createElement('script');
         optimizationScript.innerHTML = '!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);';
         document.head.appendChild(optimizationScript);
 
-        // Generate preload links for video testimonials from the array
-        const testimonialPreloads = videoTestimonials.map(video => ({
-            href: video.scriptUrl,
-            as: 'script'
-        }));
-
+        // Only preload main VSL player script and smartplayer web component (no m3u8 preloads)
         const preloadLinks = [
             { href: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6953144d84040898eb13007a/v4/player.js', as: 'script' },
             { href: 'https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js', as: 'script' },
-            { href: 'https://cdn.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/6953140fba8707e946bf11ea/main.m3u8', as: 'fetch' },
-            // Preload video testimonial player scripts (generated from videoTestimonials array)
-            ...testimonialPreloads
+            // Preload only the first testimonial video script (others will be lazy-loaded)
+            { href: videoTestimonials[0].scriptUrl, as: 'script' }
         ];
 
         const preloadElements: HTMLLinkElement[] = [];
@@ -133,27 +169,38 @@ const OfferNew = ({ userName }: OfferProps) => {
             preloadLink.rel = 'preload';
             preloadLink.href = link.href;
             preloadLink.as = link.as;
-            if (link.as === 'fetch') {
-                preloadLink.setAttribute('crossorigin', 'anonymous');
-            }
             document.head.appendChild(preloadLink);
             preloadElements.push(preloadLink);
         });
 
+        // DNS prefetch for converteai domains (only once)
+        const dnsPrefetchDomains = [
+            'https://cdn.converteai.net',
+            'https://scripts.converteai.net',
+            'https://images.converteai.net',
+            'https://api.vturb.com.br'
+        ];
+        
+        const dnsPrefetchElements: HTMLLinkElement[] = [];
+        dnsPrefetchDomains.forEach(domain => {
+            const dnsPrefetch = document.createElement('link');
+            dnsPrefetch.rel = 'dns-prefetch';
+            dnsPrefetch.href = domain;
+            document.head.appendChild(dnsPrefetch);
+            dnsPrefetchElements.push(dnsPrefetch);
+        });
+
+        // Load main VSL player script
         const playerScript = document.createElement('script');
         playerScript.src = 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6953144d84040898eb13007a/v4/player.js';
         playerScript.async = true;
         document.head.appendChild(playerScript);
 
-        // Load video testimonial scripts
-        const testimonialScripts: HTMLScriptElement[] = [];
-        videoTestimonials.forEach(video => {
-            const script = document.createElement('script');
-            script.src = video.scriptUrl;
-            script.async = true;
-            document.head.appendChild(script);
-            testimonialScripts.push(script);
-        });
+        // Load only the first testimonial video script immediately (lazy-load others on navigation)
+        const firstTestimonialScript = document.createElement('script');
+        firstTestimonialScript.src = videoTestimonials[0].scriptUrl;
+        firstTestimonialScript.async = true;
+        document.head.appendChild(firstTestimonialScript);
 
         // Simulate video timing - Show offer content after 4:15 (255 seconds)
         // In production, this should be triggered by actual video events
@@ -165,8 +212,9 @@ const OfferNew = ({ userName }: OfferProps) => {
             clearTimeout(timer);
             optimizationScript.remove();
             playerScript.remove();
+            firstTestimonialScript.remove();
             preloadElements.forEach(el => el.remove());
-            testimonialScripts.forEach(el => el.remove());
+            dnsPrefetchElements.forEach(el => el.remove());
         };
     }, []);
 
@@ -195,53 +243,53 @@ const OfferNew = ({ userName }: OfferProps) => {
                 }}></div>
             </div>
 
-            <div className="max-w-[800px] mx-auto px-4 py-8">
+            <div className="max-w-[800px] mx-auto px-4 py-4 sm:py-8">
                 {/* BLOCK 01: HERO SECTION - New Headline Structure */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-center mb-6"
+                    className="text-center mb-4 sm:mb-6"
                 >
                     {/* Pre-Headline - Yellow */}
-                    <div className="inline-flex items-center gap-2 bg-red-900/40 border border-red-500/50 px-4 py-2 rounded-full mb-4">
-                        <AlertTriangle className="w-4 h-4 text-red-400 animate-pulse" />
-                        <span className="text-red-400 text-sm font-bold uppercase tracking-wider">🔥 ATENÇÃO</span>
+                    <div className="inline-flex items-center gap-2 bg-red-900/40 border border-red-500/50 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full mb-3 sm:mb-4">
+                        <AlertTriangle className="w-3 h-3 sm:w-4 sm:h-4 text-red-400 animate-pulse" />
+                        <span className="text-red-400 text-xs sm:text-sm font-bold uppercase tracking-wider">🔥 ATENÇÃO</span>
                     </div>
                     
                     {/* Main Headline - White */}
-                    <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-white mb-4 tracking-wide leading-tight px-2">
+                    <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-black text-white mb-3 sm:mb-4 tracking-wide leading-tight px-2">
                         Seu Dinheiro Está Desaparecendo por Culpa dos Seus Ancestrais<br/>
                         <span className="text-[#FFD700]">(E Ninguém Te Contou Como Parar Isso em 7 Dias)</span>
                     </h1>
                     
-                    {/* Sub-headline - Light Gray */}
-                    <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto px-2 mb-4">
+                    {/* Sub-headline - Light Gray - Hidden on very small screens to save space */}
+                    <p className="hidden sm:block text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto px-2 mb-4">
                         Descubra o Padrão Invisível que Seus Pais, Avós e Bisavós Deixaram Para Você Herdar a Pobreza... E Como Desbloqueá-lo HOJE MESMO
                     </p>
                     
-                    {/* Urgency + Social Proof Banner */}
-                    <div className="bg-gradient-to-r from-red-900/20 to-orange-900/20 border border-red-500/30 rounded-xl p-4 max-w-2xl mx-auto mb-4">
-                        <p className="text-white font-bold text-base sm:text-lg mb-2">
+                    {/* Urgency + Social Proof Banner - Compact on mobile */}
+                    <div className="bg-gradient-to-r from-red-900/20 to-orange-900/20 border border-red-500/30 rounded-xl p-3 sm:p-4 max-w-2xl mx-auto mb-3 sm:mb-4">
+                        <p className="text-white font-bold text-sm sm:text-lg mb-1 sm:mb-2">
                             ⏰ AVISO: Esta Oferta Expira em 24 Horas
                         </p>
-                        <p className="text-slate-300 text-sm">
-                            <span className="text-[#FFD700] font-bold">12.847 Pessoas</span> Já Desbloquearam Seu Fluxo de Abundância<br/>
-                            (E Estão Vendo Mudanças REAIS em Suas Contas Bancárias)
+                        <p className="text-slate-300 text-xs sm:text-sm">
+                            <span className="text-[#FFD700] font-bold">12.847 Pessoas</span> Já Desbloquearam Seu Fluxo de Abundância
+                            <span className="hidden sm:inline"><br/>(E Estão Vendo Mudanças REAIS em Suas Contas Bancárias)</span>
                         </p>
-                        <p className="text-white font-semibold text-base mt-3">
+                        <p className="text-white font-semibold text-sm sm:text-base mt-2 sm:mt-3">
                             Agora é a Sua Vez...
                         </p>
                     </div>
                 </motion.div>
 
-                {/* Urgency Microcopy Above Video */}
+                {/* Urgency Microcopy Above Video - More compact on mobile */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.2 }}
-                    className="bg-gradient-to-r from-[#8B0000] to-[#CC0000] border border-red-500/50 rounded-lg px-4 py-2 mb-4 text-center"
+                    className="bg-gradient-to-r from-[#8B0000] to-[#CC0000] border border-red-500/50 rounded-lg px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4 text-center"
                 >
-                    <p className="text-sm md:text-base text-white font-semibold">
+                    <p className="text-xs sm:text-sm md:text-base text-white font-semibold">
                         🔒 Este vídeo contém a leitura da sua frequência energética e será deletado do servidor em breve.
                     </p>
                 </motion.div>
@@ -251,10 +299,11 @@ const OfferNew = ({ userName }: OfferProps) => {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4 }}
-                    className="relative rounded-2xl overflow-hidden border-2 border-[#D4AF37] shadow-[0_0_60px_rgba(212,175,55,0.4)] mb-8 mx-auto max-w-md"
+                    className="relative rounded-2xl overflow-hidden border-2 border-[#D4AF37] shadow-[0_0_60px_rgba(212,175,55,0.4)] mb-6 sm:mb-8 mx-auto max-w-md"
                 >
                     <div className="bg-black flex items-center justify-center relative">
-                        <div className="w-full" style={{ aspectRatio: '9/16', maxWidth: '400px' }}>
+                        {/* Video container with max-height on mobile to prevent excessive scrolling */}
+                        <div className="w-full max-h-[70vh] sm:max-h-none" style={{ aspectRatio: '9/16', maxWidth: '400px' }}>
                             <vturb-smartplayer 
                                 id="vid-6953144d84040898eb13007a" 
                                 style={{ display: 'block', width: '100%', maxWidth: '400px', margin: '0 auto' }}
@@ -895,26 +944,31 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 </div>
 
                                 {/* Video Testimonials Carousel - Mobile Optimized */}
-                                <div className="mt-12 max-w-4xl mx-auto px-4">
-                                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#FFD700] text-center mb-6 sm:mb-8 px-2">
+                                <div ref={videoSectionRef} className="mt-8 sm:mt-12 max-w-4xl mx-auto px-4">
+                                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#FFD700] text-center mb-4 sm:mb-8 px-2">
                                         🎥 Veja Depoimentos Reais em Vídeo
                                     </h3>
                                     
                                     <div className="relative">
-                                        {/* Video Container - Mobile First */}
+                                        {/* Video Container - Mobile First with 9:16 aspect ratio (vertical video) */}
                                         <div className="relative rounded-2xl overflow-hidden border-2 border-[#D4AF37]/50 shadow-[0_0_40px_rgba(212,175,55,0.3)] bg-black">
-                                            {/* Render all videos and show/hide based on currentVideoIndex */}
-                                            {videoTestimonials.map((video, idx) => (
-                                                <div
-                                                    key={video.id}
-                                                    className={idx === currentVideoIndex ? 'block' : 'hidden'}
-                                                >
-                                                    <vturb-smartplayer 
-                                                        id={video.playerId}
-                                                        className="block mx-auto w-full max-w-[400px]"
-                                                    ></vturb-smartplayer>
-                                                </div>
-                                            ))}
+                                            {/* Aspect ratio container with max-height to prevent CLS and excessive scrolling */}
+                                            <div className="relative w-full max-h-[60vh] sm:max-h-[70vh]" style={{ aspectRatio: '9/16', maxWidth: '400px', margin: '0 auto' }}>
+                                                {/* Only render videos that have been loaded (lazy-loading) */}
+                                                {videoTestimonials.map((video, idx) => 
+                                                    loadedVideoScripts.has(idx) ? (
+                                                        <div
+                                                            key={video.id}
+                                                            className={`absolute inset-0 ${idx === currentVideoIndex ? 'block' : 'hidden'}`}
+                                                        >
+                                                            <vturb-smartplayer 
+                                                                id={video.playerId}
+                                                                style={{ display: 'block', width: '100%', maxWidth: '400px', margin: '0 auto' }}
+                                                            ></vturb-smartplayer>
+                                                        </div>
+                                                    ) : null
+                                                )}
+                                            </div>
                                             
                                             {/* Navigation Buttons - Desktop */}
                                             <button 
@@ -938,7 +992,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             {videoTestimonials.map((_, idx) => (
                                                 <button
                                                     key={idx}
-                                                    onClick={() => setCurrentVideoIndex(idx)}
+                                                    onClick={() => selectVideo(idx)}
                                                     className={`transition-all rounded-full ${
                                                         idx === currentVideoIndex 
                                                             ? 'bg-[#FFD700] w-8 h-3' 
