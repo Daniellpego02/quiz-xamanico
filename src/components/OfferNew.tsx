@@ -113,15 +113,18 @@ const OfferNew = ({ userName }: OfferProps) => {
         optimizationScript.innerHTML = '!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);';
         document.head.appendChild(optimizationScript);
 
+        // Generate preload links for video testimonials from the array
+        const testimonialPreloads = videoTestimonials.map(video => ({
+            href: video.scriptUrl,
+            as: 'script'
+        }));
+
         const preloadLinks = [
             { href: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6953144d84040898eb13007a/v4/player.js', as: 'script' },
             { href: 'https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js', as: 'script' },
             { href: 'https://cdn.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/6953140fba8707e946bf11ea/main.m3u8', as: 'fetch' },
-            // Preload video testimonial player scripts
-            { href: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f78072fa6d1f6fe3580b/v4/player.js', as: 'script' },
-            { href: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f6bc1fad4f3937c2eac9/v4/player.js', as: 'script' },
-            { href: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f6b835a1be1be44c9daf/v4/player.js', as: 'script' },
-            { href: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f8a76af1a10bf01e6dc4/v4/player.js', as: 'script' }
+            // Preload video testimonial player scripts (generated from videoTestimonials array)
+            ...testimonialPreloads
         ];
 
         const preloadElements: HTMLLinkElement[] = [];
@@ -904,11 +907,11 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             {videoTestimonials.map((video, idx) => (
                                                 <div
                                                     key={video.id}
-                                                    style={{ display: idx === currentVideoIndex ? 'block' : 'none' }}
+                                                    className={idx === currentVideoIndex ? 'block' : 'hidden'}
                                                 >
                                                     <vturb-smartplayer 
                                                         id={video.playerId}
-                                                        style={{ display: 'block', margin: '0 auto', width: '100%', maxWidth: '400px' }}
+                                                        className="block mx-auto w-full max-w-[400px]"
                                                     ></vturb-smartplayer>
                                                 </div>
                                             ))}
