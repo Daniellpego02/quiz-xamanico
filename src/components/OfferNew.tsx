@@ -147,20 +147,35 @@ const OfferNew = ({ userName }: OfferProps) => {
                     className="text-center mb-6"
                 >
                     {/* Pre-Headline - Yellow */}
-                    <div className="inline-flex items-center gap-2 bg-yellow-900/40 border border-yellow-500/50 px-4 py-2 rounded-full mb-4">
-                        <AlertTriangle className="w-4 h-4 text-yellow-400 animate-pulse" />
-                        <span className="text-yellow-400 text-sm font-bold uppercase tracking-wider">⚠️ DIAGNÓSTICO CONCLUÍDO: BLOQUEIO HEREDITÁRIO CONFIRMADO</span>
+                    <div className="inline-flex items-center gap-2 bg-red-900/40 border border-red-500/50 px-4 py-2 rounded-full mb-4">
+                        <AlertTriangle className="w-4 h-4 text-red-400 animate-pulse" />
+                        <span className="text-red-400 text-sm font-bold uppercase tracking-wider">🔥 ATENÇÃO</span>
                     </div>
                     
                     {/* Main Headline - White */}
                     <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-white mb-4 tracking-wide leading-tight px-2">
-                        Como Quebrar o "Contrato de Pobreza" dos seus Antepassados em 7 Dias e Liberar o Fluxo de Dinheiro.
+                        Seu Dinheiro Está Desaparecendo por Culpa dos Seus Ancestrais<br/>
+                        <span className="text-[#FFD700]">(E Ninguém Te Contou Como Parar Isso em 7 Dias)</span>
                     </h1>
                     
                     {/* Sub-headline - Light Gray */}
-                    <p className="text-sm sm:text-base text-slate-400 leading-relaxed max-w-2xl mx-auto px-2">
-                        (Não feche essa página. Seu diagnóstico expira em 15 minutos).
+                    <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto px-2 mb-4">
+                        Descubra o Padrão Invisível que Seus Pais, Avós e Bisavós Deixaram Para Você Herdar a Pobreza... E Como Desbloqueá-lo HOJE MESMO
                     </p>
+                    
+                    {/* Urgency + Social Proof Banner */}
+                    <div className="bg-gradient-to-r from-red-900/20 to-orange-900/20 border border-red-500/30 rounded-xl p-4 max-w-2xl mx-auto mb-4">
+                        <p className="text-white font-bold text-base sm:text-lg mb-2">
+                            ⏰ AVISO: Esta Oferta Expira em 24 Horas
+                        </p>
+                        <p className="text-slate-300 text-sm">
+                            <span className="text-[#FFD700] font-bold">12.847 Pessoas</span> Já Desbloquearam Seu Fluxo de Abundância<br/>
+                            (E Estão Vendo Mudanças REAIS em Suas Contas Bancárias)
+                        </p>
+                        <p className="text-white font-semibold text-base mt-3">
+                            Agora é a Sua Vez...
+                        </p>
+                    </div>
                 </motion.div>
 
                 {/* Urgency Microcopy Above Video */}
@@ -207,7 +222,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                     >
                         {/* Shine effect */}
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-                        <span className="relative z-10">🔓 LIBERAR MEU MAPA XAMÂNICO AGORA</span>
+                        <span className="relative z-10">🔓 QUERO DESBLOQUEAR AGORA</span>
                     </button>
                     <p className="text-center text-slate-400 text-sm mt-3 flex items-center justify-center gap-2">
                         <Lock className="w-4 h-4" />
@@ -296,8 +311,8 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         {/* Shine effect */}
                                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
                                         
-                                        <span className="leading-tight relative z-10">🔓 SIM! LIBERAR MEU MAPA XAMÂNICO</span>
-                                        <small className="font-normal text-xs relative z-10">Acesso imediato após o pagamento • R$ 27,90</small>
+                                        <span className="leading-tight relative z-10">🔓 SIM! QUERO DESBLOQUEAR AGORA</span>
+                                        <small className="font-normal text-xs relative z-10">Liberar meu acesso imediato por R$ 27,90</small>
                                     </button>
 
                                     {/* Subtexto do Botão */}
@@ -379,61 +394,233 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 className="mb-12"
                             >
                                 <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-center text-[#FFD700] mb-6 sm:mb-8 px-2">
-                                    O Que Você Vai Receber Imediatamente
+                                    🎁 O Que Você Vai Receber HOJE (Acesso Imediato)
                                 </h2>
 
-                                {/* Mockup Visual */}
-                                <div className="flex justify-center mb-8">
-                                    <div className="relative max-w-md w-full px-4">
-                                        <img 
-                                            src="/mockup.png" 
-                                            alt="Mapa Xamânico Completo"
-                                            className="w-full h-auto rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.9)]"
-                                        />
-                                        <div className="absolute -inset-4 bg-gradient-to-br from-[#D4AF37]/20 to-[#FFD700]/20 blur-3xl -z-10"></div>
+                                {/* Benefits Cards with Values */}
+                                <div className="space-y-6 max-w-3xl mx-auto">
+                                    {/* Benefit 1 */}
+                                    <div className="bg-gradient-to-br from-purple-900/20 to-purple-800/10 border-l-4 border-purple-500 rounded-xl p-4 sm:p-6">
+                                        <div className="flex justify-between items-center mb-4">
+                                            <h3 className="text-white font-bold text-lg sm:text-xl">📖 Mapa Xamânico Diagnóstico (Digital)</h3>
+                                            <span className="bg-yellow-900/30 text-[#FFD700] px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap">
+                                                R$ 197 GRÁTIS
+                                            </span>
+                                        </div>
+                                        <div className="space-y-3 text-slate-300 text-sm sm:text-base">
+                                            <p>
+                                                Leitura energética completa de <span className="text-white font-semibold">32 páginas</span> que identifica seus padrões hereditários e bloqueios invisíveis herdados dos seus ancestrais.
+                                            </p>
+                                            <p>
+                                                <span className="text-[#FFD700] font-semibold">O que você vai descobrir:</span>
+                                            </p>
+                                            <ul className="space-y-2 ml-4">
+                                                <li>• Qual o tipo de bloqueio ancestral você carrega</li>
+                                                <li>• De qual geração veio esse padrão</li>
+                                                <li>• Por que você SEMPRE trabalha mas o dinheiro nunca rende</li>
+                                                <li>• Como esse bloqueio está afetando sua vida agora</li>
+                                            </ul>
+                                            <div className="bg-yellow-900/20 border-l-3 border-[#FFD700] p-3 mt-4">
+                                                <p className="text-white font-semibold">
+                                                    💡 Impacto: Você finalmente entende POR QUÊ dinheiro nunca sobra... não importa quanto você ganhe.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Benefit 2 */}
+                                    <div className="bg-gradient-to-br from-purple-900/20 to-purple-800/10 border-l-4 border-purple-500 rounded-xl p-4 sm:p-6">
+                                        <div className="flex justify-between items-center mb-4">
+                                            <h3 className="text-white font-bold text-lg sm:text-xl">🎧 Áudio de Reprogramação Binaural (17 min)</h3>
+                                            <span className="bg-yellow-900/30 text-[#FFD700] px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap">
+                                                R$ 147 GRÁTIS
+                                            </span>
+                                        </div>
+                                        <div className="space-y-3 text-slate-300 text-sm sm:text-base">
+                                            <p>
+                                                Tecnologia de <span className="text-white font-semibold">ondas binaurais</span> que trabalha diretamente no seu subconsciente enquanto você dorme ou relaxa.
+                                            </p>
+                                            <p>
+                                                <span className="text-[#FFD700] font-semibold">Como funciona:</span>
+                                            </p>
+                                            <ul className="space-y-2 ml-4">
+                                                <li>• Coloque o áudio para tocar antes de dormir</li>
+                                                <li>• As frequências específicas (432Hz + 528Hz) dissolvem bloqueios energéticos</li>
+                                                <li>• Seu cérebro entra em modo receptivo theta (sono REM)</li>
+                                                <li>• Reprogramação acontece durante a noite</li>
+                                            </ul>
+                                            <div className="bg-green-900/20 border-l-3 border-green-500 p-3 mt-4">
+                                                <p className="text-green-400 font-semibold">
+                                                    ✅ Resultado: Pessoas relatam sensação de "peso saindo das costas" já nos primeiros 3-7 dias. Movimento financeiro inesperado em 14-21 dias.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Benefit 3 */}
+                                    <div className="bg-gradient-to-br from-purple-900/20 to-purple-800/10 border-l-4 border-purple-500 rounded-xl p-4 sm:p-6">
+                                        <div className="flex justify-between items-center mb-4">
+                                            <h3 className="text-white font-bold text-lg sm:text-xl">📋 Protocolo de 7 Dias (Passo a Passo)</h3>
+                                            <span className="bg-yellow-900/30 text-[#FFD700] px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap">
+                                                R$ 247 GRÁTIS
+                                            </span>
+                                        </div>
+                                        <div className="space-y-3 text-slate-300 text-sm sm:text-base">
+                                            <p>
+                                                Roteiro prático que desativa o "contrato de pobreza" ancestral em <span className="text-white font-semibold">apenas 7 dias</span>.
+                                            </p>
+                                            <p>
+                                                <span className="text-[#FFD700] font-semibold">Cronograma diário:</span>
+                                            </p>
+                                            <div className="space-y-2">
+                                                <div className="bg-white/5 p-3 rounded">
+                                                    <h4 className="text-white font-semibold text-sm mb-1">Dia 1-2: Identificação</h4>
+                                                    <p className="text-slate-400 text-xs">Leia seu mapa + identifique o padrão ancestral exato</p>
+                                                </div>
+                                                <div className="bg-white/5 p-3 rounded">
+                                                    <h4 className="text-white font-semibold text-sm mb-1">Dia 3-4: Limpeza</h4>
+                                                    <p className="text-slate-400 text-xs">Áudio binaural 2x/dia + ritual da carteira (5 min)</p>
+                                                </div>
+                                                <div className="bg-white/5 p-3 rounded">
+                                                    <h4 className="text-white font-semibold text-sm mb-1">Dia 5-7: Ancoragem</h4>
+                                                    <p className="text-slate-400 text-xs">Protocolo de abundância + visualização guiada (10 min)</p>
+                                                </div>
+                                            </div>
+                                            <div className="bg-green-900/20 border-l-3 border-green-500 p-3 mt-4">
+                                                <p className="text-green-400 font-semibold">
+                                                    ✅ Resultado: Sentimento de leveza emocional + sincronicidades financeiras (PIX inesperado, proposta nova, promoção).
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Benefit 4 */}
+                                    <div className="bg-gradient-to-br from-purple-900/20 to-purple-800/10 border-l-4 border-purple-500 rounded-xl p-4 sm:p-6">
+                                        <div className="flex justify-between items-center mb-4">
+                                            <h3 className="text-white font-bold text-lg sm:text-xl">📱 Acesso ao Portal Mobile</h3>
+                                            <span className="bg-yellow-900/30 text-[#FFD700] px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap">
+                                                INCLUSO
+                                            </span>
+                                        </div>
+                                        <div className="space-y-3 text-slate-300 text-sm sm:text-base">
+                                            <p>
+                                                Plataforma online estilo app que funciona em <span className="text-white font-semibold">qualquer celular</span> (iPhone ou Android) sem precisar baixar nada.
+                                            </p>
+                                            <ul className="space-y-2 ml-4">
+                                                <li>• Acesso vitalício 24/7</li>
+                                                <li>• Funciona offline (baixe os áudios)</li>
+                                                <li>• Interface intuitiva e fácil</li>
+                                                <li>• Suporte técnico incluso</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    {/* Total Value Box */}
+                                    <div className="bg-gradient-to-br from-yellow-900/20 to-yellow-800/10 border-2 border-[#FFD700]/30 rounded-xl p-6 text-center">
+                                        <p className="text-slate-300 text-sm mb-2">Valor Total do Pacote:</p>
+                                        <p className="text-slate-400 line-through text-xl mb-2">R$ 591,00</p>
+                                        <p className="text-white text-base mb-3">HOJE você paga apenas:</p>
+                                        <p className="text-[#FFD700] text-4xl sm:text-5xl font-black mb-3">R$ 27,90</p>
+                                        <p className="text-green-400 text-lg font-semibold">
+                                            💰 Você economiza R$ 563,10 (95% OFF)
+                                        </p>
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            {/* NEW SECTION: O QUE ACONTECE AGORA */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 1.0 }}
+                                className="mb-12 bg-gradient-to-br from-blue-900/20 to-blue-800/10 border-2 border-blue-500/30 rounded-2xl p-6 sm:p-8"
+                            >
+                                <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-center text-blue-400 mb-6">
+                                    ⏱️ O QUE ACONTECE DEPOIS QUE VOCÊ CLICAR NO BOTÃO?
+                                </h2>
+                                
+                                <div className="space-y-4 max-w-2xl mx-auto">
+                                    {/* Step 1 */}
+                                    <div className="flex gap-4 items-start">
+                                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
+                                            1
+                                        </div>
+                                        <div className="flex-1">
+                                            <h3 className="text-white font-bold text-base sm:text-lg mb-1">
+                                                Você vai para a página de pagamento seguro
+                                            </h3>
+                                            <p className="text-slate-300 text-sm">
+                                                Aceita PIX (aprovação em 5 seg) ou Cartão (até 12x). Ambiente 100% criptografado.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Step 2 */}
+                                    <div className="flex gap-4 items-start">
+                                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
+                                            2
+                                        </div>
+                                        <div className="flex-1">
+                                            <h3 className="text-white font-bold text-base sm:text-lg mb-1">
+                                                Pagamento confirmado = Acesso liberado na hora
+                                            </h3>
+                                            <p className="text-slate-300 text-sm">
+                                                Você recebe um e-mail com o link de acesso. Clica, entra na plataforma, e TUDO já está lá.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Step 3 */}
+                                    <div className="flex gap-4 items-start">
+                                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
+                                            3
+                                        </div>
+                                        <div className="flex-1">
+                                            <h3 className="text-white font-bold text-base sm:text-lg mb-1">
+                                                Primeira noite: Você ouve o áudio antes de dormir
+                                            </h3>
+                                            <p className="text-slate-300 text-sm">
+                                                17 minutos. Coloca fone ou deixa tocando baixinho. Seu cérebro começa a reprogramação.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Step 4 */}
+                                    <div className="flex gap-4 items-start">
+                                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
+                                            4
+                                        </div>
+                                        <div className="flex-1">
+                                            <h3 className="text-white font-bold text-base sm:text-lg mb-1">
+                                                Dias 1-7: Você segue o protocolo simples
+                                            </h3>
+                                            <p className="text-slate-300 text-sm">
+                                                Leitura do mapa (20 min) + áudios diários (17 min) + ritual rápido (5 min).
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Step 5 */}
+                                    <div className="flex gap-4 items-start">
+                                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white font-bold">
+                                            ✓
+                                        </div>
+                                        <div className="flex-1">
+                                            <h3 className="text-green-400 font-bold text-base sm:text-lg mb-1">
+                                                Resultado: Você sente a mudança
+                                            </h3>
+                                            <p className="text-slate-300 text-sm">
+                                                Peso emocional sai. Dinheiro que estava "preso" se move. Oportunidades aparecem. <span className="text-white font-semibold">Você finalmente respira.</span>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
 
-                                {/* Benefits Bullets */}
-                                <div className="space-y-4 max-w-2xl mx-auto">
-                                    {[
-                                        {
-                                            icon: Sparkles,
-                                            title: 'Acesso ao Portal Mobile (Estilo App)',
-                                            desc: 'Plataforma exclusiva que funciona em qualquer celular (Android ou iPhone) sem precisar baixar nada pesado nem ocupar memória. Acesse de qualquer lugar, a qualquer momento.'
-                                        },
-                                        {
-                                            icon: FileText,
-                                            title: 'Mapa Xamânico Diagnóstico (Digital)',
-                                            desc: 'Leitura energética completa que identifica seus padrões hereditários e bloqueios invisíveis. Você entende exatamente ONDE estão seus travamentos financeiros. Seu diagnóstico escrito completo para ler e consultar onde estiver.'
-                                        },
-                                        {
-                                            icon: Headphones,
-                                            title: 'Áudios de Reprogramação Binaural',
-                                            desc: 'Terapia sonora passiva com frequências específicas. Basta dar o play, fechar os olhos e deixar a frequência limpar sua mente. Áudio exclusivo (17 min) para reprogramar seu subconsciente durante o sono. Pessoas relatam mudanças em 21 dias.'
-                                        },
-                                        {
-                                            icon: Shield,
-                                            title: 'Protocolo Prático de 7 Dias para Desbloqueio',
-                                            desc: 'Passo a passo diário que desativa o "contrato de pobreza" dos seus ancestrais. Siga junto e veja resultados em tempo real. O roteiro guiado para quebrar o contrato de escassez em uma semana.'
-                                        }
-                                    ].map((item, idx) => (
-                                        <motion.div
-                                            key={idx}
-                                            initial={{ opacity: 0, x: -20 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ delay: 0.8 + idx * 0.1 }}
-                                            className="flex items-start gap-4 bg-white/5 border border-[#D4AF37]/30 rounded-xl p-3 sm:p-4"
-                                        >
-                                            <div className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-[#00FF41] to-[#00CC33] flex items-center justify-center">
-                                                <Check className="w-5 h-5 sm:w-6 sm:h-6 text-black" />
-                                            </div>
-                                            <div className="flex-1 min-w-0">
-                                                <p className="text-white font-bold text-base sm:text-lg mb-1">✅ {item.title}</p>
-                                                <p className="text-slate-300 text-xs sm:text-sm">{item.desc}</p>
-                                            </div>
-                                        </motion.div>
-                                    ))}
+                                {/* Time estimate */}
+                                <div className="mt-6 text-center">
+                                    <p className="text-slate-400 text-sm">
+                                        ⏰ Do clique até o primeiro áudio: <span className="text-white font-bold">menos de 5 minutos</span>
+                                    </p>
                                 </div>
                             </motion.div>
 
@@ -521,10 +708,10 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 <div className="mt-8 text-center">
                                     <button
                                         onClick={handleCheckout}
-                                        aria-label="Quero ser guiado por Anahí Solara agora"
+                                        aria-label="Quero desbloquear agora"
                                         className="w-full sm:w-auto bg-gradient-to-r from-[#D4AF37] to-[#FFD700] hover:from-[#FFD700] hover:to-[#D4AF37] text-black font-black text-base sm:text-lg py-4 px-8 rounded-xl shadow-[0_0_30px_rgba(212,175,55,0.5)] transition-all transform hover:scale-[1.02] active:scale-95 uppercase tracking-wide"
                                     >
-                                        QUERO SER GUIADO POR ANAHÍ AGORA
+                                        🔓 QUERO DESBLOQUEAR AGORA
                                     </button>
                                 </div>
                             </motion.div>
