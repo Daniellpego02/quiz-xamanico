@@ -420,7 +420,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                 <li>• Por que você SEMPRE trabalha mas o dinheiro nunca rende</li>
                                                 <li>• Como esse bloqueio está afetando sua vida agora</li>
                                             </ul>
-                                            <div className="bg-yellow-900/20 border-l-3 border-[#FFD700] p-3 mt-4">
+                                            <div className="bg-yellow-900/20 border-l-[3px] border-[#FFD700] p-3 mt-4">
                                                 <p className="text-white font-semibold">
                                                     💡 Impacto: Você finalmente entende POR QUÊ dinheiro nunca sobra... não importa quanto você ganhe.
                                                 </p>
@@ -449,7 +449,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                 <li>• Seu cérebro entra em modo receptivo theta (sono REM)</li>
                                                 <li>• Reprogramação acontece durante a noite</li>
                                             </ul>
-                                            <div className="bg-green-900/20 border-l-3 border-green-500 p-3 mt-4">
+                                            <div className="bg-green-900/20 border-l-[3px] border-green-500 p-3 mt-4">
                                                 <p className="text-green-400 font-semibold">
                                                     ✅ Resultado: Pessoas relatam sensação de "peso saindo das costas" já nos primeiros 3-7 dias. Movimento financeiro inesperado em 14-21 dias.
                                                 </p>
@@ -486,7 +486,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                     <p className="text-slate-400 text-xs">Protocolo de abundância + visualização guiada (10 min)</p>
                                                 </div>
                                             </div>
-                                            <div className="bg-green-900/20 border-l-3 border-green-500 p-3 mt-4">
+                                            <div className="bg-green-900/20 border-l-[3px] border-green-500 p-3 mt-4">
                                                 <p className="text-green-400 font-semibold">
                                                     ✅ Resultado: Sentimento de leveza emocional + sincronicidades financeiras (PIX inesperado, proposta nova, promoção).
                                                 </p>
