@@ -18,6 +18,7 @@ const COUNTDOWN_DURATION_SECONDS = 24 * 60 * 60; // 24 hours
 const OfferNew = ({ userName }: OfferProps) => {
     const [showOfferContent, setShowOfferContent] = useState(false);
     const [currentProofIndex, setCurrentProofIndex] = useState(0);
+    const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
     const [timeLeft, setTimeLeft] = useState(COUNTDOWN_DURATION_SECONDS);
     const [availableSlots, setAvailableSlots] = useState(12);
     const totalSlots = 50;
@@ -37,12 +38,39 @@ const OfferNew = ({ userName }: OfferProps) => {
         { src: '/prova7.png', alt: 'Depoimento WhatsApp de cliente satisfeito 7' }
     ];
     
+    // Video testimonials
+    const videoTestimonials = [
+        { 
+            id: '67801a38e9abf1da2b7e1dc8',
+            embedUrl: 'https://cdn.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/67801a38e9abf1da2b7e1dc8/embed.html',
+            name: 'Depoimento em Vídeo 1'
+        },
+        { 
+            id: '67801a6ee9abf1da2b7e1e1a',
+            embedUrl: 'https://cdn.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/67801a6ee9abf1da2b7e1e1a/embed.html',
+            name: 'Depoimento em Vídeo 2'
+        },
+        { 
+            id: '67801a86e9abf1da2b7e1e4a',
+            embedUrl: 'https://cdn.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/67801a86e9abf1da2b7e1e4a/embed.html',
+            name: 'Depoimento em Vídeo 3'
+        }
+    ];
+    
     const nextProof = () => {
         setCurrentProofIndex((prev) => (prev + 1) % socialProofImages.length);
     };
     
     const prevProof = () => {
         setCurrentProofIndex((prev) => (prev - 1 + socialProofImages.length) % socialProofImages.length);
+    };
+    
+    const nextVideo = () => {
+        setCurrentVideoIndex((prev) => (prev + 1) % videoTestimonials.length);
+    };
+    
+    const prevVideo = () => {
+        setCurrentVideoIndex((prev) => (prev - 1 + videoTestimonials.length) % videoTestimonials.length);
     };
     
     // Format time for display
@@ -724,61 +752,82 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 className="mb-12"
                             >
                                 <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#FFD700] text-center mb-6 sm:mb-8 px-2">
-                                    Veja o que acontece quando a Trava Ancestral é quebrada:
+                                    💬 Veja o que acontece quando a Trava Ancestral é quebrada:
                                 </h3>
 
-                                {/* WhatsApp Prints Carousel */}
+                                {/* WhatsApp Prints Carousel - Mobile Optimized */}
                                 <div className="relative max-w-2xl mx-auto px-4">
                                     {/* Main Image Display */}
                                     <div 
                                         className="relative overflow-hidden rounded-2xl border-2 border-[#D4AF37]/50 shadow-[0_0_40px_rgba(212,175,55,0.3)] bg-black/50"
                                     >
-                                        <motion.img
-                                            key={currentProofIndex}
-                                            initial={{ opacity: 0, x: 100 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            exit={{ opacity: 0, x: -100 }}
-                                            transition={{ duration: 0.3 }}
-                                            src={socialProofImages[currentProofIndex].src}
-                                            alt={socialProofImages[currentProofIndex].alt}
-                                            className="w-full h-auto"
-                                        />
+                                        <AnimatePresence mode="wait">
+                                            <motion.img
+                                                key={currentProofIndex}
+                                                initial={{ opacity: 0, x: 100 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                exit={{ opacity: 0, x: -100 }}
+                                                transition={{ duration: 0.3 }}
+                                                src={socialProofImages[currentProofIndex].src}
+                                                alt={socialProofImages[currentProofIndex].alt}
+                                                className="w-full h-auto object-contain"
+                                                loading="lazy"
+                                            />
+                                        </AnimatePresence>
                                         
-                                        {/* Navigation Buttons */}
+                                        {/* Navigation Buttons - Desktop */}
                                         <button 
                                             onClick={prevProof}
-                                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full transition-all"
+                                            className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-all items-center justify-center backdrop-blur-sm z-10"
                                             aria-label="Anterior"
                                         >
                                             <ChevronLeft className="w-6 h-6" />
                                         </button>
                                         <button 
                                             onClick={nextProof}
-                                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full transition-all"
+                                            className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-all items-center justify-center backdrop-blur-sm z-10"
                                             aria-label="Próximo"
                                         >
                                             <ChevronRight className="w-6 h-6" />
                                         </button>
                                     </div>
 
-                                    {/* Dots Indicator */}
-                                    <div className="flex justify-center gap-2 mt-4">
+                                    {/* Dots Indicator - All Devices */}
+                                    <div className="flex justify-center gap-2 mt-6">
                                         {socialProofImages.map((_, idx) => (
                                             <button
                                                 key={idx}
                                                 onClick={() => setCurrentProofIndex(idx)}
-                                                className={`w-2 h-2 rounded-full transition-all ${
+                                                className={`transition-all rounded-full ${
                                                     idx === currentProofIndex 
-                                                        ? 'bg-[#FFD700] w-4' 
-                                                        : 'bg-white/30 hover:bg-white/50'
+                                                        ? 'bg-[#FFD700] w-8 h-3' 
+                                                        : 'bg-white/30 hover:bg-white/50 w-3 h-3'
                                                 }`}
                                                 aria-label={`Ir para depoimento ${idx + 1}`}
                                             />
                                         ))}
                                     </div>
 
-                                    {/* Thumbnail Grid */}
-                                    <div className="grid grid-cols-7 gap-2 mt-4">
+                                    {/* Mobile Navigation Buttons */}
+                                    <div className="flex sm:hidden justify-center gap-4 mt-6">
+                                        <button 
+                                            onClick={prevProof}
+                                            className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] hover:from-[#FFD700] hover:to-[#D4AF37] text-black p-4 rounded-full transition-all shadow-lg"
+                                            aria-label="Anterior"
+                                        >
+                                            <ChevronLeft className="w-6 h-6" />
+                                        </button>
+                                        <button 
+                                            onClick={nextProof}
+                                            className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] hover:from-[#FFD700] hover:to-[#D4AF37] text-black p-4 rounded-full transition-all shadow-lg"
+                                            aria-label="Próximo"
+                                        >
+                                            <ChevronRight className="w-6 h-6" />
+                                        </button>
+                                    </div>
+
+                                    {/* Thumbnail Grid - Desktop Only */}
+                                    <div className="hidden md:grid grid-cols-7 gap-2 mt-6">
                                         {socialProofImages.map((img, idx) => (
                                             <button
                                                 key={idx}
@@ -792,10 +841,108 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                 <img 
                                                     src={img.src} 
                                                     alt={`Miniatura: ${img.alt}`}
-                                                    className="w-full h-auto"
+                                                    className="w-full h-auto object-cover"
+                                                    loading="lazy"
                                                 />
                                             </button>
                                         ))}
+                                    </div>
+
+                                    {/* Image Counter - Mobile */}
+                                    <div className="text-center mt-4">
+                                        <p className="text-slate-400 text-sm">
+                                            Depoimento {currentProofIndex + 1} de {socialProofImages.length}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Video Testimonials Carousel - Mobile Optimized */}
+                                <div className="mt-12 max-w-4xl mx-auto px-4">
+                                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#FFD700] text-center mb-6 sm:mb-8 px-2">
+                                        🎥 Veja Depoimentos Reais em Vídeo
+                                    </h3>
+                                    
+                                    <div className="relative">
+                                        {/* Video Container - Mobile First */}
+                                        <div className="relative rounded-2xl overflow-hidden border-2 border-[#D4AF37]/50 shadow-[0_0_40px_rgba(212,175,55,0.3)] bg-black">
+                                            <AnimatePresence mode="wait">
+                                                <motion.div
+                                                    key={currentVideoIndex}
+                                                    initial={{ opacity: 0, scale: 0.95 }}
+                                                    animate={{ opacity: 1, scale: 1 }}
+                                                    exit={{ opacity: 0, scale: 0.95 }}
+                                                    transition={{ duration: 0.3 }}
+                                                    className="w-full"
+                                                    style={{ aspectRatio: '16/9' }}
+                                                >
+                                                    <iframe
+                                                        src={videoTestimonials[currentVideoIndex].embedUrl}
+                                                        title={videoTestimonials[currentVideoIndex].name}
+                                                        className="w-full h-full"
+                                                        style={{ border: 'none', overflow: 'hidden' }}
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                        allowFullScreen
+                                                    />
+                                                </motion.div>
+                                            </AnimatePresence>
+                                            
+                                            {/* Navigation Buttons - Desktop */}
+                                            <button 
+                                                onClick={prevVideo}
+                                                className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-all items-center justify-center backdrop-blur-sm z-10"
+                                                aria-label="Vídeo anterior"
+                                            >
+                                                <ChevronLeft className="w-6 h-6" />
+                                            </button>
+                                            <button 
+                                                onClick={nextVideo}
+                                                className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-all items-center justify-center backdrop-blur-sm z-10"
+                                                aria-label="Próximo vídeo"
+                                            >
+                                                <ChevronRight className="w-6 h-6" />
+                                            </button>
+                                        </div>
+
+                                        {/* Dots Indicator - All Devices */}
+                                        <div className="flex justify-center gap-2 mt-6">
+                                            {videoTestimonials.map((_, idx) => (
+                                                <button
+                                                    key={idx}
+                                                    onClick={() => setCurrentVideoIndex(idx)}
+                                                    className={`transition-all rounded-full ${
+                                                        idx === currentVideoIndex 
+                                                            ? 'bg-[#FFD700] w-8 h-3' 
+                                                            : 'bg-white/30 hover:bg-white/50 w-3 h-3'
+                                                    }`}
+                                                    aria-label={`Ver depoimento em vídeo ${idx + 1}`}
+                                                />
+                                            ))}
+                                        </div>
+
+                                        {/* Mobile Navigation Buttons */}
+                                        <div className="flex sm:hidden justify-center gap-4 mt-6">
+                                            <button 
+                                                onClick={prevVideo}
+                                                className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] hover:from-[#FFD700] hover:to-[#D4AF37] text-black p-4 rounded-full transition-all shadow-lg"
+                                                aria-label="Vídeo anterior"
+                                            >
+                                                <ChevronLeft className="w-6 h-6" />
+                                            </button>
+                                            <button 
+                                                onClick={nextVideo}
+                                                className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] hover:from-[#FFD700] hover:to-[#D4AF37] text-black p-4 rounded-full transition-all shadow-lg"
+                                                aria-label="Próximo vídeo"
+                                            >
+                                                <ChevronRight className="w-6 h-6" />
+                                            </button>
+                                        </div>
+
+                                        {/* Video Counter */}
+                                        <div className="text-center mt-4">
+                                            <p className="text-slate-400 text-sm">
+                                                Vídeo {currentVideoIndex + 1} de {videoTestimonials.length}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </motion.div>
