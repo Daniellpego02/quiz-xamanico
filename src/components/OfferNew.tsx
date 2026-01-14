@@ -13,12 +13,14 @@ interface OfferProps {
  * Architecture: Dark Mode + Gold Accents + Psychological Conversion Triggers
  */
 // Configuration constants
-const COUNTDOWN_DURATION_SECONDS = 15 * 60; // 15 minutes
+const COUNTDOWN_DURATION_SECONDS = 24 * 60 * 60; // 24 hours
 
 const OfferNew = ({ userName }: OfferProps) => {
     const [showOfferContent, setShowOfferContent] = useState(false);
     const [currentProofIndex, setCurrentProofIndex] = useState(0);
     const [timeLeft, setTimeLeft] = useState(COUNTDOWN_DURATION_SECONDS);
+    const [availableSlots, setAvailableSlots] = useState(12);
+    const totalSlots = 50;
     
     // Price configuration - PIX ONLY (À VISTA)
     // Updated price anchoring: From R$ 497,00 (session value) to R$ 27,90
@@ -45,9 +47,10 @@ const OfferNew = ({ userName }: OfferProps) => {
     
     // Format time for display
     const formatTime = (seconds: number) => {
-        const mins = Math.floor(seconds / 60);
+        const hours = Math.floor(seconds / 3600);
+        const mins = Math.floor((seconds % 3600) / 60);
         const secs = seconds % 60;
-        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     };
     
     // Countdown timer effect
@@ -200,13 +203,15 @@ const OfferNew = ({ userName }: OfferProps) => {
                 >
                     <button
                         onClick={handleCheckout}
-                        className="w-full max-w-md mx-auto bg-gradient-to-r from-[#00FF41] to-[#00CC33] hover:from-[#00CC33] hover:to-[#00FF41] text-black font-black text-base sm:text-lg md:text-xl py-5 md:py-6 px-4 md:px-8 rounded-2xl shadow-[0_0_40px_rgba(0,255,65,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 uppercase tracking-wide"
+                        className="w-full max-w-md mx-auto bg-gradient-to-r from-[#00FF41] to-[#00CC33] hover:from-[#00CC33] hover:to-[#00FF41] text-black font-black text-base sm:text-lg md:text-xl py-5 md:py-6 px-4 md:px-8 rounded-2xl shadow-[0_0_40px_rgba(0,255,65,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 uppercase tracking-wide relative overflow-hidden group"
                     >
-                        QUERO BAIXAR MEU PROTOCOLO DE DESBLOQUEIO
+                        {/* Shine effect */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                        <span className="relative z-10">🔓 LIBERAR MEU PROTOCOLO DE DESBLOQUEIO</span>
                     </button>
                     <p className="text-center text-slate-400 text-sm mt-3 flex items-center justify-center gap-2">
                         <Lock className="w-4 h-4" />
-                        🔒 Acesso imediato e seguro
+                        🔒 Acesso imediato e seguro • R$ 27,90
                     </p>
                 </motion.div>
 
@@ -286,9 +291,13 @@ const OfferNew = ({ userName }: OfferProps) => {
                                     {/* CTA BUTTON - GERAR MEU ACESSO AGORA */}
                                     <button
                                         onClick={handleCheckout}
-                                        className="w-full bg-gradient-to-r from-[#00FF41] to-[#00CC33] hover:from-[#00CC33] hover:to-[#00FF41] text-black font-black text-base sm:text-lg md:text-xl py-5 md:py-6 px-4 md:px-8 rounded-2xl shadow-[0_0_40px_rgba(0,255,65,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 uppercase tracking-wide mb-3 flex items-center justify-center gap-2 md:gap-3"
+                                        className="w-full bg-gradient-to-r from-[#00FF41] to-[#00CC33] hover:from-[#00CC33] hover:to-[#00FF41] text-black font-black text-base sm:text-lg md:text-xl py-5 md:py-6 px-4 md:px-8 rounded-2xl shadow-[0_0_40px_rgba(0,255,65,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 uppercase tracking-wide mb-3 flex flex-col items-center justify-center gap-1 relative overflow-hidden group"
                                     >
-                                        <span className="leading-tight">GERAR MEU ACESSO AGORA (PIX OU CARTÃO)</span>
+                                        {/* Shine effect */}
+                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                                        
+                                        <span className="leading-tight relative z-10">🔓 SIM! LIBERAR MEU MAPA XAMÂNICO</span>
+                                        <small className="font-normal text-xs relative z-10">Acesso imediato após o pagamento • R$ 27,90</small>
                                     </button>
 
                                     {/* Subtexto do Botão */}
@@ -307,6 +316,57 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             <Lock className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 flex-shrink-0" />
                                             <span className="text-white font-bold whitespace-nowrap">Dados Protegidos</span>
                                         </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            {/* SCARCITY SECTION - Limited Slots Indicator */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.5 }}
+                                className="mb-8 bg-gradient-to-br from-red-950/40 to-orange-900/20 border-2 border-red-500/40 rounded-2xl p-4 sm:p-6"
+                            >
+                                <div className="flex items-start gap-3 mb-4">
+                                    <AlertTriangle className="w-6 h-6 sm:w-8 sm:h-8 text-red-500 flex-shrink-0 animate-pulse" />
+                                    <div className="flex-1 min-w-0">
+                                        <p className="text-red-400 font-bold text-base sm:text-lg mb-2">
+                                            ⚠️ APENAS {availableSlots} VAGAS DISPONÍVEIS
+                                        </p>
+                                        <p className="text-slate-300 text-sm">
+                                            {totalSlots - availableSlots} pessoas já acessaram hoje
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                {/* Progress Bar */}
+                                <div className="w-full h-3 bg-black/40 rounded-full overflow-hidden border border-red-500/30">
+                                    <div 
+                                        className="h-full bg-gradient-to-r from-red-500 to-orange-500 transition-all duration-1000"
+                                        style={{ width: `${((totalSlots - availableSlots) / totalSlots) * 100}%` }}
+                                    ></div>
+                                </div>
+                            </motion.div>
+
+                            {/* SOCIAL PROOF STATS */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.6 }}
+                                className="mb-12"
+                            >
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                    <div className="bg-gradient-to-br from-[#D4AF37]/10 to-[#FFD700]/5 border-2 border-[#D4AF37]/30 rounded-xl p-4 text-center">
+                                        <p className="text-3xl sm:text-4xl font-black text-[#FFD700] mb-2">12.847+</p>
+                                        <p className="text-slate-300 text-sm">Pessoas já desbloquearam</p>
+                                    </div>
+                                    <div className="bg-gradient-to-br from-[#D4AF37]/10 to-[#FFD700]/5 border-2 border-[#D4AF37]/30 rounded-xl p-4 text-center">
+                                        <p className="text-3xl sm:text-4xl font-black text-[#FFD700] mb-2">4.9⭐</p>
+                                        <p className="text-slate-300 text-sm">Avaliação média (2.140 reviews)</p>
+                                    </div>
+                                    <div className="bg-gradient-to-br from-[#D4AF37]/10 to-[#FFD700]/5 border-2 border-[#D4AF37]/30 rounded-xl p-4 text-center">
+                                        <p className="text-3xl sm:text-4xl font-black text-[#FFD700] mb-2">100%</p>
+                                        <p className="text-slate-300 text-sm">Satisfação garantida</p>
                                     </div>
                                 </div>
                             </motion.div>
@@ -340,22 +400,22 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         {
                                             icon: Sparkles,
                                             title: 'Acesso ao Portal Mobile (Estilo App)',
-                                            desc: 'Plataforma exclusiva que funciona em qualquer celular (Android ou iPhone) sem precisar baixar nada pesado nem ocupar memória.'
+                                            desc: 'Plataforma exclusiva que funciona em qualquer celular (Android ou iPhone) sem precisar baixar nada pesado nem ocupar memória. Acesse de qualquer lugar, a qualquer momento.'
                                         },
                                         {
                                             icon: FileText,
-                                            title: 'O Mapa Xamânico Digital (PDF)',
-                                            desc: 'Seu diagnóstico escrito completo para ler e consultar onde estiver.'
+                                            title: 'Mapa Xamânico Diagnóstico (Digital)',
+                                            desc: 'Leitura energética completa que identifica seus padrões hereditários e bloqueios invisíveis. Você entende exatamente ONDE estão seus travamentos financeiros. Seu diagnóstico escrito completo para ler e consultar onde estiver.'
                                         },
                                         {
                                             icon: Headphones,
                                             title: 'Áudios de Reprogramação Binaural',
-                                            desc: 'Terapia sonora passiva. Basta dar o play, fechar os olhos e deixar a frequência limpar sua mente.'
+                                            desc: 'Terapia sonora passiva com frequências específicas. Basta dar o play, fechar os olhos e deixar a frequência limpar sua mente. Áudio exclusivo (17 min) para reprogramar seu subconsciente durante o sono. Pessoas relatam mudanças em 21 dias.'
                                         },
                                         {
                                             icon: Shield,
-                                            title: 'Protocolo Prático de 7 Dias',
-                                            desc: 'O passo a passo guiado para quebrar o contrato de escassez em uma semana.'
+                                            title: 'Protocolo Prático de 7 Dias para Desbloqueio',
+                                            desc: 'Passo a passo diário que desativa o "contrato de pobreza" dos seus ancestrais. Siga junto e veja resultados em tempo real. O roteiro guiado para quebrar o contrato de escassez em uma semana.'
                                         }
                                     ].map((item, idx) => (
                                         <motion.div

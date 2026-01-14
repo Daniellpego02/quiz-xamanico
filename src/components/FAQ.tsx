@@ -16,12 +16,32 @@ const faqs = [
   {
     id: 3,
     question: 'Quanto tempo demora para ter resultado?',
-    answer: 'Muitos alunos, como o Carlos, relatam alívio imediato e destravamento financeiro nos primeiros 3 a 7 dias.',
+    answer: 'Muitos alunos, como o Carlos, relatam alívio imediato e destravamento financeiro nos primeiros 3 a 7 dias. O protocolo de 7 dias começa a trabalhar no seu inconsciente imediatamente. Resultados visíveis aparecem entre 14-21 dias, conforme a abertura energética de cada pessoa.',
   },
   {
     id: 4,
     question: 'E se eu não gostar?',
-    answer: 'Você tem 7 dias de garantia incondicional. Seu risco é zero.',
+    answer: 'Você tem 7 dias de garantia incondicional. Seu risco é zero. Se você não sentir um peso saindo das suas costas ou não ver movimentação financeira acontecer, eu devolvo 100% do seu dinheiro. Sem perguntas, sem burocracia.',
+  },
+  {
+    id: 5,
+    question: 'E se não conseguir acessar?',
+    answer: 'Você recebe um link de acesso imediato ao email assim que confirmar o pagamento. Se houver qualquer problema, nosso suporte responde em até 2 horas.',
+  },
+  {
+    id: 6,
+    question: 'Como funciona o pagamento?',
+    answer: 'Você pode pagar via PIX ou Cartão de Crédito. O acesso é liberado automaticamente após a confirmação do pagamento.',
+  },
+  {
+    id: 7,
+    question: 'É realmente só R$ 27,90?',
+    answer: 'Sim! Taxa única de contribuição energética. Sem mensalidades, sem taxas escondidas. Você paga uma única vez e tem acesso vitalício.',
+  },
+  {
+    id: 8,
+    question: 'Posso compartilhar com outras pessoas?',
+    answer: 'O mapa é personalizado para sua energia específica. Para funcionar em outras pessoas, elas precisam fazer o diagnóstico próprio.',
   },
 ];
 
