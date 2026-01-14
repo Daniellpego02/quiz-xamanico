@@ -14,6 +14,12 @@ interface OfferProps {
  * Architecture: Dark Mode + Purple/Gold + Ritual Decision Experience
  */
 
+// Configuration constants
+const VIDEO_PLAYER_ID = '6953144d84040898eb13007a';
+const VIDEO_PLAYER_SCRIPT_URL = `https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/${VIDEO_PLAYER_ID}/v4/player.js`;
+// Demo delay before showing offer content (in production, this should be triggered by video events)
+const OFFER_CONTENT_DELAY_MS = 5000;
+
 const OfferNew = ({ userName }: OfferProps) => {
     const [showOfferContent, setShowOfferContent] = useState(false);
     const [currentProofIndex, setCurrentProofIndex] = useState(0);
@@ -100,14 +106,14 @@ const OfferNew = ({ userName }: OfferProps) => {
         });
 
         const playerScript = document.createElement('script');
-        playerScript.src = 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6953144d84040898eb13007a/v4/player.js';
+        playerScript.src = VIDEO_PLAYER_SCRIPT_URL;
         playerScript.async = true;
         document.head.appendChild(playerScript);
 
-        // Show offer content after 5 seconds for demo
+        // Show offer content after delay (in production, trigger by video events)
         const timer = setTimeout(() => {
             setShowOfferContent(true);
-        }, 5000);
+        }, OFFER_CONTENT_DELAY_MS);
 
         return () => {
             clearTimeout(timer);
@@ -210,7 +216,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                         <div className="bg-black flex items-center justify-center relative">
                             <div className="w-full" style={{ aspectRatio: '9/16', maxWidth: '400px' }}>
                                 <vturb-smartplayer 
-                                    id="vid-6953144d84040898eb13007a" 
+                                    id={`vid-${VIDEO_PLAYER_ID}`}
                                     style={{ display: 'block', width: '100%', maxWidth: '400px', margin: '0 auto' }}
                                 ></vturb-smartplayer>
                             </div>
