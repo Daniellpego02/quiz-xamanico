@@ -5,43 +5,43 @@ import { useState } from 'react';
 const faqs = [
   {
     id: 1,
-    question: 'Preciso ter alguma religião?',
-    answer: 'Não. O protocolo é baseado em física quântica e ancestralidade, funciona independente da sua crença.',
+    question: 'Qual plano é o ideal pra mim?',
+    answer: 'Se você está começando agora no caminho da cura ancestral, o plano "O Chamado" (R$19) é perfeito para dar os primeiros passos. Se quer uma transformação mais profunda, "O Desbloqueio Completo" (R$29) é o mais escolhido. Já "A Ascensão" (R$49) é para quem deseja uma transformação completa e acesso ao grupo secreto de orientações.',
   },
   {
     id: 2,
-    question: 'Funciona no meu celular?',
-    answer: 'Sim. O acesso é enviado por e-mail e você pode abrir os áudios e o mapa em qualquer celular (Android ou iPhone).',
+    question: 'Posso comprar agora e fazer depois?',
+    answer: 'Sim! Após a compra, você tem acesso vitalício ao conteúdo. Pode começar quando sentir que é o momento certo. O ritual estará lá esperando por você.',
   },
   {
     id: 3,
-    question: 'Quanto tempo demora para ter resultado?',
-    answer: 'Muitos alunos, como o Carlos, relatam alívio imediato e destravamento financeiro nos primeiros 3 a 7 dias. O protocolo de 7 dias começa a trabalhar no seu inconsciente imediatamente. Resultados visíveis aparecem entre 14-21 dias, conforme a abertura energética de cada pessoa.',
+    question: 'Funciona mesmo se eu não for espiritualizado(a)?',
+    answer: 'Absolutamente! O protocolo é baseado em psicogenealogia, física quântica e técnicas ancestrais que funcionam independente da sua crença ou religião. É sobre libertar padrões energéticos, não sobre fé.',
   },
   {
     id: 4,
-    question: 'E se eu não gostar?',
-    answer: 'Você tem 7 dias de garantia incondicional. Seu risco é zero. Se você não sentir um peso saindo das suas costas ou não ver movimentação financeira acontecer, eu devolvo 100% do seu dinheiro. Sem perguntas, sem burocracia.',
+    question: 'Recebo tudo no e-mail?',
+    answer: 'Sim! Imediatamente após a confirmação do pagamento, você recebe um e-mail com o link de acesso ao portal. Lá estão todos os PDFs, áudios e instruções organizados de forma clara.',
   },
   {
     id: 5,
-    question: 'E se não conseguir acessar?',
-    answer: 'Você recebe um link de acesso imediato ao email assim que confirmar o pagamento. Se houver qualquer problema, nosso suporte responde em até 2 horas.',
+    question: 'Posso fazer upgrade depois?',
+    answer: 'Sim, você pode fazer upgrade a qualquer momento. Basta entrar em contato com nosso suporte e pagaremos apenas a diferença entre os planos.',
   },
   {
     id: 6,
-    question: 'Como funciona o pagamento?',
-    answer: 'Você pode pagar via PIX ou Cartão de Crédito. O acesso é liberado automaticamente após a confirmação do pagamento.',
+    question: 'Funciona no meu celular?',
+    answer: 'Sim. O acesso é enviado por e-mail e você pode abrir os áudios e o mapa em qualquer celular (Android ou iPhone). Também funciona no computador.',
   },
   {
     id: 7,
-    question: 'É realmente só R$ 27,90?',
-    answer: 'Sim! Taxa única de contribuição energética. Sem mensalidades, sem taxas escondidas. Você paga uma única vez e tem acesso vitalício.',
+    question: 'Quanto tempo demora para ver resultados?',
+    answer: 'Muitas pessoas relatam sensações de leveza e desbloqueio já nos primeiros 3 dias. Resultados mais tangíveis (sincronicidades financeiras, propostas inesperadas) costumam aparecer entre 7 e 21 dias, dependendo da abertura energética de cada pessoa.',
   },
   {
     id: 8,
-    question: 'Posso compartilhar com outras pessoas?',
-    answer: 'O mapa é personalizado para sua energia específica. Para funcionar em outras pessoas, elas precisam fazer o diagnóstico próprio.',
+    question: 'E se eu não sentir nada?',
+    answer: 'Você tem a garantia ritual de 7 dias. Se não sentir nenhum tipo de desbloqueio, clareza ou transformação sutil, devolvemos seu investimento sem perguntas. O risco é todo nosso.',
   },
 ];
 
