@@ -872,8 +872,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                     animate={{ opacity: 1, scale: 1 }}
                                                     exit={{ opacity: 0, scale: 0.95 }}
                                                     transition={{ duration: 0.3 }}
-                                                    className="w-full"
-                                                    style={{ aspectRatio: '16/9' }}
+                                                    className="w-full aspect-video"
                                                 >
                                                     <iframe
                                                         src={videoTestimonials[currentVideoIndex].embedUrl}
@@ -881,6 +880,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                         className="w-full h-full"
                                                         style={{ border: 'none', overflow: 'hidden' }}
                                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                        sandbox="allow-scripts allow-same-origin allow-presentation"
                                                         allowFullScreen
                                                     />
                                                 </motion.div>
