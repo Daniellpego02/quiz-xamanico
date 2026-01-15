@@ -203,16 +203,20 @@ const OfferNew = ({ userName }: OfferProps) => {
                         Sim, quero rastrear a origem invisível da minha escassez
                     </motion.button>
 
-                    {/* Microcopy below CTA */}
+                    {/* Microcopy below CTA - Improved */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.5 }}
-                        className="flex flex-wrap justify-center gap-4 mt-4 text-xs sm:text-sm text-slate-400"
+                        className="flex flex-col items-center gap-2 mt-4"
                     >
-                        <span>⚡ Leitura rápida + escolha do caminho (30s)</span>
-                        <span>🔒 Pix + acesso imediato</span>
-                        <span>🛡️ Garantia 7 dias</span>
+                        <span className="text-[#FFD700] text-sm font-medium">
+                            👇 Escolha o nível de profundidade do ritual
+                        </span>
+                        <div className="flex flex-wrap justify-center gap-3 text-xs sm:text-sm text-slate-400">
+                            <span>🔒 Pix + acesso imediato</span>
+                            <span>🛡️ Garantia 7 dias</span>
+                        </div>
                     </motion.div>
                 </motion.section>
 
@@ -356,16 +360,24 @@ const OfferNew = ({ userName }: OfferProps) => {
                                     O que é o Mapa Xamânico?
                                 </h2>
 
-                                {/* Mockup Image */}
-                                <div className="mb-8 flex justify-center">
-                                    <div className="relative p-4 bg-gradient-to-br from-purple-900/50 to-[#1a0b2e]/80 rounded-3xl">
-                                        <img 
-                                            src="/mockup.png" 
-                                            alt="Mockup do Mapa Xamânico" 
-                                            className="w-full max-w-sm rounded-2xl shadow-[0_0_40px_rgba(212,175,55,0.3)] border-2 border-[#D4AF37]/50 mix-blend-lighten"
-                                            loading="lazy"
-                                        />
-                                        <div className="absolute -inset-4 bg-gradient-to-br from-purple-500/20 to-[#D4AF37]/10 blur-2xl -z-10"></div>
+                                {/* Mockup Image - Enhanced and Centered - Represents Complete Plan */}
+                                <div className="mb-10 flex justify-center px-4">
+                                    <div className="relative">
+                                        {/* Glow effect behind mockup */}
+                                        <div className="absolute -inset-6 bg-gradient-to-br from-[#D4AF37]/30 via-purple-500/20 to-[#FFD700]/20 blur-3xl rounded-full animate-pulse" />
+                                        
+                                        <div className="relative p-6 bg-gradient-to-br from-purple-900/60 to-[#1a0b2e]/90 rounded-3xl border-2 border-[#D4AF37]/40 shadow-[0_0_60px_rgba(212,175,55,0.3)]">
+                                            <img 
+                                                src="/mockup.png" 
+                                                alt="Mapa Xamânico - O Desbloqueio Completo" 
+                                                className="w-48 sm:w-56 md:w-64 mx-auto rounded-2xl shadow-[0_0_40px_rgba(212,175,55,0.4)] border-2 border-[#D4AF37]/60"
+                                                loading="lazy"
+                                            />
+                                            {/* Label for mockup */}
+                                            <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black text-xs font-bold px-4 py-1.5 rounded-full shadow-lg">
+                                                O Desbloqueio Completo • R$29
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -681,8 +693,10 @@ const OfferNew = ({ userName }: OfferProps) => {
                                     <p className="font-semibold text-white">
                                         devolvemos seu investimento <span className="text-emerald-300">sem perguntas.</span>
                                     </p>
-                                    <p className="text-slate-400 italic">
-                                        Sua confiança vem primeiro. A energia do ritual só funciona com verdade.
+                                    {/* New copy - reduces rational resistance */}
+                                    <p className="text-emerald-400 font-bold text-lg mt-4 pt-4 border-t border-emerald-500/30">
+                                        "Você não precisa acreditar.<br />
+                                        <span className="text-white">Só precisa testar por 7 dias."</span>
                                     </p>
                                 </div>
                             </motion.section>
@@ -690,7 +704,47 @@ const OfferNew = ({ userName }: OfferProps) => {
                             {/* ========== SEÇÃO 8: FAQ ========== */}
                             <FAQ />
 
-                            {/* ========== SEÇÃO 9: ENCERRAMENTO + CTA FINAL ========== */}
+                            {/* ========== SEÇÃO 9: REFORÇO VISUAL + CTA FINAL ========== */}
+                            {/* Visual Reinforcement Block before Final CTA */}
+                            <motion.section
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.9 }}
+                                className="mb-10 text-center px-4"
+                            >
+                                <div className="bg-gradient-to-br from-purple-900/30 to-[#1a0b2e]/60 border border-[#D4AF37]/30 rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto">
+                                    <p className="text-white text-lg sm:text-xl font-semibold mb-2">
+                                        Você não está comprando um conceito.
+                                    </p>
+                                    <p className="text-[#FFD700] text-lg sm:text-xl font-bold mb-6">
+                                        Você está acessando um ritual estruturado.
+                                    </p>
+                                    
+                                    {/* Mini mockups side by side */}
+                                    <div className="flex items-center justify-center gap-3 sm:gap-6">
+                                        <div className="text-center">
+                                            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden border border-slate-600/40 mx-auto opacity-70">
+                                                <img src="/mockup.png" alt="O Chamado" className="w-full h-full object-cover" />
+                                            </div>
+                                            <p className="text-slate-400 text-[10px] sm:text-xs mt-1">R$19</p>
+                                        </div>
+                                        <div className="text-center">
+                                            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden border-2 border-[#FFD700] mx-auto shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+                                                <img src="/mockup.png" alt="O Desbloqueio Completo" className="w-full h-full object-cover" />
+                                            </div>
+                                            <p className="text-[#FFD700] text-xs sm:text-sm font-bold mt-1">R$29</p>
+                                        </div>
+                                        <div className="text-center">
+                                            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden border border-purple-500/50 mx-auto opacity-70">
+                                                <img src="/mockup.png" alt="A Ascensão" className="w-full h-full object-cover" />
+                                            </div>
+                                            <p className="text-slate-400 text-[10px] sm:text-xs mt-1">R$49</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.section>
+
+                            {/* Final CTA Section */}
                             <motion.section
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}

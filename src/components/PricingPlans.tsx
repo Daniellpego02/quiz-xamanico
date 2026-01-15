@@ -14,7 +14,8 @@ interface Plan {
   borderColor: string;
   glowColor: string;
   isPopular?: boolean;
-  mockupImage?: string;
+  mockupImage: string;
+  mockupLabel: string;
 }
 
 const plans: Plan[] = [
@@ -35,7 +36,8 @@ const plans: Plan[] = [
     borderColor: 'border-slate-600/40',
     glowColor: 'from-slate-700/20 to-slate-800/10',
     isPopular: false,
-    mockupImage: '/mockup.png'
+    mockupImage: '/mockup.png',
+    mockupLabel: 'Pacote Inicial'
   },
   {
     name: 'O Desbloqueio Completo',
@@ -54,7 +56,8 @@ const plans: Plan[] = [
     borderColor: 'border-[#D4AF37]',
     glowColor: 'from-[#D4AF37]/30 to-[#FFD700]/20',
     isPopular: true,
-    mockupImage: '/mockup.png'
+    mockupImage: '/mockup.png',
+    mockupLabel: 'Pacote Completo'
   },
   {
     name: 'A Ascensão',
@@ -74,7 +77,8 @@ const plans: Plan[] = [
     borderColor: 'border-purple-500/50',
     glowColor: 'from-purple-600/20 to-[#D4AF37]/15',
     isPopular: false,
-    mockupImage: '/mockup.png'
+    mockupImage: '/mockup.png',
+    mockupLabel: 'Pacote Premium'
   }
 ];
 
@@ -123,9 +127,19 @@ export const PricingPlans = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="text-slate-400 text-base max-w-md mx-auto"
+          className="text-slate-400 text-base max-w-md mx-auto mb-3"
         >
-          Escolha o nível de profundidade que faz sentido pra você <span className="text-white font-semibold">hoje</span>.
+          Escolha a profundidade do ritual que faz sentido pra você <span className="text-white font-semibold">hoje</span>.
+        </motion.p>
+
+        {/* Social Anchor - Most people choose plan 2 */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="text-[#FFD700]/80 text-sm font-medium"
+        >
+          💡 A maioria das pessoas começa pelo <span className="text-[#FFD700] font-bold">Desbloqueio Completo</span>
         </motion.p>
       </div>
 
@@ -152,48 +166,60 @@ export const PricingPlans = () => {
                 {plan.badge}
               </div>
 
-              {/* Plan Header */}
-              <div className="text-center mt-4 mb-4">
-                {/* Icon */}
-                <div className={`mx-auto mb-3 w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 ${plan.isPopular ? 'bg-gradient-to-br from-[#D4AF37] to-[#FFD700] text-black shadow-[0_4px_20px_rgba(212,175,55,0.4)]' : 'bg-white/10 text-[#FFD700]'}`}>
-                  {plan.icon}
-                </div>
-                
-                {/* Plan Name */}
-                <h3 className={`text-xl sm:text-2xl font-black mb-2 ${plan.isPopular ? 'text-[#FFD700]' : 'text-white'}`}>
+              {/* 1. Plan Name - Top of hierarchy */}
+              <div className="text-center mt-6 mb-3">
+                <h3 className={`text-xl sm:text-2xl font-black ${plan.isPopular ? 'text-[#FFD700]' : 'text-white'}`}>
                   {plan.name}
                 </h3>
-                
-                {/* Target Audience */}
-                <p className={`text-xs px-3 py-1.5 rounded-full inline-block ${plan.isPopular ? 'bg-[#FFD700]/20 text-[#FFD700] font-semibold' : 'bg-white/5 text-slate-400'}`}>
+                <p className={`text-xs mt-1 ${plan.isPopular ? 'text-[#FFD700]/80' : 'text-slate-400'}`}>
                   {plan.targetAudience}
                 </p>
               </div>
 
-              {/* Price - Big and Bold */}
-              <div className="text-center mb-5 py-4 bg-black/20 rounded-2xl border border-white/5">
+              {/* 2. Mockup Image - Visual element central */}
+              <div className={`relative mx-auto mb-4 ${plan.isPopular ? 'w-32 h-32 sm:w-40 sm:h-40' : 'w-24 h-24 sm:w-28 sm:h-28'}`}>
+                <div className={`relative w-full h-full rounded-2xl overflow-hidden ${plan.isPopular ? 'shadow-[0_0_30px_rgba(212,175,55,0.4)]' : 'shadow-lg'}`}>
+                  <img 
+                    src={plan.mockupImage}
+                    alt={`${plan.name} - ${plan.mockupLabel}`}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                  {/* Glow overlay for popular */}
+                  {plan.isPopular && (
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#FFD700]/20 to-transparent" />
+                  )}
+                </div>
+                {/* Mockup label */}
+                <div className={`absolute -bottom-2 left-1/2 -translate-x-1/2 text-[10px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap ${plan.isPopular ? 'bg-[#FFD700] text-black' : 'bg-slate-700 text-slate-300'}`}>
+                  {plan.mockupLabel}
+                </div>
+              </div>
+
+              {/* 3. Price - Big and Bold */}
+              <div className="text-center mb-4 py-3 bg-black/20 rounded-2xl border border-white/5">
                 <div className="flex items-baseline justify-center gap-1">
-                  <span className="text-slate-400 text-xl">R$</span>
-                  <span className={`font-black leading-none ${plan.isPopular ? 'text-7xl text-[#FFD700] drop-shadow-[0_0_40px_rgba(255,215,0,0.6)]' : 'text-6xl text-white'}`}>
+                  <span className="text-slate-400 text-lg">R$</span>
+                  <span className={`font-black leading-none ${plan.isPopular ? 'text-5xl sm:text-6xl text-[#FFD700] drop-shadow-[0_0_40px_rgba(255,215,0,0.6)]' : 'text-4xl sm:text-5xl text-white'}`}>
                     {plan.price}
                   </span>
                 </div>
-                <p className="text-slate-500 text-sm mt-2">pagamento único • acesso vitalício</p>
+                <p className="text-slate-500 text-xs mt-1.5">pagamento único • acesso vitalício</p>
               </div>
 
-              {/* Features - Enhanced */}
-              <ul className="space-y-3 mb-6 flex-grow">
+              {/* 4. Features - Enhanced */}
+              <ul className="space-y-2.5 mb-5 flex-grow">
                 {plan.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-start gap-3">
-                    <div className={`flex-shrink-0 w-6 h-6 rounded-lg flex items-center justify-center ${plan.isPopular ? 'bg-[#D4AF37]/30 text-[#FFD700]' : 'bg-emerald-500/20 text-emerald-400'}`}>
-                      <Check className="w-4 h-4" />
+                  <li key={featureIndex} className="flex items-start gap-2.5">
+                    <div className={`flex-shrink-0 w-5 h-5 rounded-md flex items-center justify-center ${plan.isPopular ? 'bg-[#D4AF37]/30 text-[#FFD700]' : 'bg-emerald-500/20 text-emerald-400'}`}>
+                      <Check className="w-3.5 h-3.5" />
                     </div>
                     <span className="text-slate-300 text-sm leading-relaxed">{feature}</span>
                   </li>
                 ))}
               </ul>
 
-              {/* CTA Button - Enhanced */}
+              {/* 5. CTA Button - Enhanced */}
               <button
                 onClick={() => handleCheckout(plan.checkoutLink)}
                 className={`w-full font-black py-4 px-6 rounded-2xl transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-2 ${
@@ -208,7 +234,7 @@ export const PricingPlans = () => {
               
               {/* Guarantee Badge */}
               {plan.isPopular && (
-                <div className="mt-4 flex items-center justify-center gap-2 text-emerald-400 text-xs">
+                <div className="mt-3 flex items-center justify-center gap-2 text-emerald-400 text-xs">
                   <Shield className="w-4 h-4" />
                   <span>Garantia de 7 dias</span>
                 </div>
