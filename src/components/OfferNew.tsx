@@ -20,6 +20,14 @@ const VIDEO_PLAYER_SCRIPT_URL = `https://scripts.converteai.net/c263b2f0-9566-42
 // Demo delay before showing offer content (in production, this should be triggered by video events)
 const OFFER_CONTENT_DELAY_MS = 5000;
 
+// Social proof and urgency constants - centralized for easy updates
+const SOCIAL_PROOF_CONFIG = {
+    diagnosticsCount: '4.300',
+    clientsUnblocked: '4.300',
+    monthlyMapLimit: 100,
+    mapsGeneratedThisMonth: 87,
+} as const;
+
 const OfferNew = ({ userName }: OfferProps) => {
     const [showOfferContent, setShowOfferContent] = useState(false);
     const [currentProofIndex, setCurrentProofIndex] = useState(0);
@@ -157,110 +165,141 @@ const OfferNew = ({ userName }: OfferProps) => {
                 }}></div>
             </div>
 
-            <div className="max-w-4xl mx-auto px-4 py-8">
+            <div className="max-w-4xl mx-auto px-4 py-6 sm:py-8">
 
-                {/* ========== SEÇÃO 1: HERO / TOPO ========== */}
+                {/* ========== SEÇÃO 1: HERO + VSL - CENTRO DE GRAVIDADE ========== */}
                 <motion.section
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-center mb-12"
+                    className="text-center mb-8"
                 >
-                    {/* Pre-headline Badge - Authority/Context */}
+                    {/* Diagnostic Result Badge - Creates urgency */}
                     <motion.div 
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.1 }}
+                        className="inline-flex items-center gap-2 bg-red-900/50 border-2 border-red-500/60 px-5 py-2.5 rounded-full mb-4"
+                    >
+                        <AlertTriangle className="w-5 h-5 text-red-400" />
+                        <span className="text-red-300 text-sm sm:text-base font-bold">DIAGNÓSTICO CONCLUÍDO</span>
+                    </motion.div>
+
+                    {/* Main Headline - Bold, Strong, Authority */}
+                    <motion.h1 
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="inline-flex items-center gap-2 bg-purple-900/40 border border-purple-500/50 px-4 py-2 rounded-full mb-4"
+                        className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 leading-tight px-2"
+                        style={{ fontFamily: "'Georgia', serif" }}
                     >
-                        <Sparkles className="w-4 h-4 text-purple-400" />
-                        <span className="text-purple-300 text-sm font-semibold">🔮 Com base em mais de 4.300 diagnósticos energéticos…</span>
-                    </motion.div>
+                        🔒 Seu diagnóstico revelou o padrão oculto<br />
+                        <span className="text-[#FFD700]">que trava sua vida financeira.</span>
+                    </motion.h1>
 
-                    {/* Secondary Pre-headline Badge */}
-                    <motion.div 
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.25 }}
-                        className="inline-flex items-center gap-2 bg-purple-900/30 border border-purple-500/30 px-3 py-1.5 rounded-full mb-6"
-                    >
-                        <span className="text-purple-200 text-xs font-medium">Ritual de Transformação Ancestral</span>
-                    </motion.div>
-
-                    {/* Main Headline */}
-                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white mb-6 leading-tight px-2">
-                        "Existe uma energia invisível que sabota sua prosperidade.
-                        <span className="block text-[#FFD700] mt-2">Ela não nasceu com você. Ela veio da sua linhagem."</span>
-                    </h1>
-
-                    {/* Subheadline */}
-                    <div className="max-w-3xl mx-auto space-y-4 mb-8">
-                        <p className="text-base sm:text-lg text-slate-300 leading-relaxed px-2">
-                            Por trás das suas dificuldades com dinheiro, pode haver <span className="text-[#FFD700] font-semibold">uma lealdade inconsciente aos traumas financeiros dos seus ancestrais.</span>
-                        </p>
-                        <p className="text-slate-400 text-sm sm:text-base px-2">
-                            Este não é mais um curso.<br />
-                            É um <span className="text-white font-bold">protocolo espiritual de 7 dias para limpar os bloqueios da sua linhagem</span> e reconectar você com a abundância natural.
-                        </p>
-                    </div>
-
-                    {/* Urgency/Scarcity Badge */}
+                    {/* Subheadline - Diagnostic Result */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.35 }}
-                        className="inline-flex items-center gap-2 bg-red-900/40 border border-red-500/50 px-4 py-2 rounded-full mb-4"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="max-w-2xl mx-auto mb-6"
                     >
-                        <AlertTriangle className="w-4 h-4 text-red-400" />
-                        <span className="text-red-300 text-sm font-semibold">⚠️ Apenas 100 mapas liberados por mês — 87 já foram gerados</span>
-                    </motion.div>
-
-                    {/* Primary CTA - Congruent with VSL */}
-                    <motion.button
-                        onClick={scrollToPricing}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] hover:from-[#FFD700] hover:via-[#D4AF37] hover:to-[#FFD700] text-black font-black text-base sm:text-lg py-4 px-8 rounded-2xl shadow-[0_0_40px_rgba(212,175,55,0.5)] transition-all border-2 border-[#FFD700]"
-                    >
-                        Ativar meu protocolo Xamânico
-                    </motion.button>
-
-                    {/* Security Microcopy below CTA */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.5 }}
-                        className="flex flex-col items-center gap-2 mt-4"
-                    >
-                        <div className="flex items-center gap-2 bg-emerald-900/30 border border-emerald-500/30 px-4 py-2 rounded-full">
-                            <Shield className="w-4 h-4 text-emerald-400" />
-                            <span className="text-emerald-400 text-sm font-medium">🔒 Garantia total de 7 dias. Sem julgamentos, sem riscos.</span>
-                        </div>
-                        <div className="flex flex-wrap justify-center gap-3 text-xs sm:text-sm text-slate-400">
-                            <span>🔒 Pix + acesso imediato</span>
-                            <span>🛡️ Pagamento 100% seguro</span>
-                        </div>
+                        <p className="text-lg sm:text-xl text-slate-300 leading-relaxed mb-2">
+                            O sistema apontou: <span className="text-red-400 font-black">Herdeiro da Escassez</span>
+                        </p>
+                        <p className="text-base sm:text-lg text-[#FFD700] font-semibold">
+                            Agora, a escolha é sua: <span className="text-white">romper</span> ou <span className="text-slate-400">repetir.</span>
+                        </p>
                     </motion.div>
                 </motion.section>
 
-                {/* ========== VIDEO SECTION ========== */}
+                {/* ========== VSL SECTION - CENTRO DE GRAVIDADE ========== */}
                 <motion.section
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4 }}
-                    className="mb-16"
+                    className="mb-8"
                 >
-                    <div className="relative rounded-2xl overflow-hidden border-2 border-[#D4AF37] shadow-[0_0_60px_rgba(212,175,55,0.3)] mx-auto max-w-md">
-                        <div className="bg-black flex items-center justify-center relative">
-                            <div className="w-full" style={{ aspectRatio: '9/16', maxWidth: '400px' }}>
-                                <vturb-smartplayer 
-                                    id={`vid-${VIDEO_PLAYER_ID}`}
-                                    style={{ display: 'block', width: '100%', maxWidth: '400px', margin: '0 auto' }}
-                                ></vturb-smartplayer>
+                    {/* Video Call-to-Watch */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.5 }}
+                        className="text-center mb-4"
+                    >
+                        <div className="inline-flex items-center gap-2 bg-purple-900/50 border border-purple-500/50 px-4 py-2 rounded-full mb-3">
+                            <span className="text-xl">🎥</span>
+                            <span className="text-purple-300 text-sm font-semibold">ASSISTA COM ATENÇÃO</span>
+                        </div>
+                        <p className="text-slate-300 text-sm sm:text-base max-w-md mx-auto">
+                            Esse vídeo não aparece para qualquer pessoa.<br />
+                            <span className="text-[#FFD700] font-semibold">Ele foi gerado exclusivamente para o seu padrão energético.</span>
+                        </p>
+                    </motion.div>
+
+                    {/* Video Player - Enhanced Visual Frame */}
+                    <div className="relative max-w-md mx-auto">
+                        {/* Outer Glow Effect */}
+                        <div className="absolute -inset-4 bg-gradient-to-r from-[#D4AF37]/30 via-purple-500/20 to-[#D4AF37]/30 blur-2xl rounded-3xl animate-pulse"></div>
+                        
+                        {/* Video Container with Premium Frame */}
+                        <div className="relative rounded-2xl overflow-hidden border-4 border-[#D4AF37] shadow-[0_0_80px_rgba(212,175,55,0.4)]">
+                            {/* Top Bar - Netflix Style */}
+                            <div className="bg-gradient-to-r from-[#1a0b2e] via-[#2d1b4e] to-[#1a0b2e] px-4 py-2 flex items-center justify-between border-b border-[#D4AF37]/30">
+                                <div className="flex items-center gap-2">
+                                    <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse"></div>
+                                    <span className="text-[#FFD700] text-xs font-bold uppercase tracking-wider">AO VIVO • Exclusivo</span>
+                                </div>
+                                <span className="text-slate-400 text-xs">+{SOCIAL_PROOF_CONFIG.diagnosticsCount} visualizações</span>
+                            </div>
+                            
+                            {/* Video Player */}
+                            <div className="bg-black flex items-center justify-center relative">
+                                <div className="w-full" style={{ aspectRatio: '9/16', maxWidth: '400px' }}>
+                                    <vturb-smartplayer 
+                                        id={`vid-${VIDEO_PLAYER_ID}`}
+                                        style={{ display: 'block', width: '100%', maxWidth: '400px', margin: '0 auto' }}
+                                    ></vturb-smartplayer>
+                                </div>
                             </div>
                         </div>
-                        <div className="absolute -inset-2 bg-[#D4AF37]/20 blur-xl -z-10"></div>
                     </div>
+
+                    {/* CTA Below Video */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.7 }}
+                        className="text-center mt-6"
+                    >
+                        <p className="text-[#FFD700] text-sm sm:text-base font-semibold mb-3 flex items-center justify-center gap-2">
+                            <span className="text-xl">⬇️</span>
+                            Assista agora antes de escolher seu nível de desbloqueio
+                        </p>
+                        <div className="flex flex-wrap justify-center gap-3 text-xs text-slate-500">
+                            <span className="flex items-center gap-1">
+                                <Lock className="w-3 h-3" />
+                                Conteúdo confidencial
+                            </span>
+                            <span className="flex items-center gap-1">
+                                <Shield className="w-3 h-3" />
+                                Diagnóstico personalizado
+                            </span>
+                        </div>
+                    </motion.div>
                 </motion.section>
+
+                {/* Scarcity Badge - After Video */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.8 }}
+                    className="text-center mb-8"
+                >
+                    <div className="inline-flex items-center gap-2 bg-red-900/40 border border-red-500/50 px-4 py-2 rounded-full">
+                        <AlertTriangle className="w-4 h-4 text-red-400" />
+                        <span className="text-red-300 text-sm font-semibold">⚠️ Apenas {SOCIAL_PROOF_CONFIG.monthlyMapLimit} mapas liberados por mês — {SOCIAL_PROOF_CONFIG.mapsGeneratedThisMonth} já foram gerados</span>
+                    </div>
+                </motion.div>
 
                 {/* Content shown after video timing */}
                 <AnimatePresence>
@@ -488,7 +527,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         className="inline-flex items-center gap-2 bg-gradient-to-r from-[#D4AF37]/20 to-[#FFD700]/10 border border-[#D4AF37]/40 px-4 py-2 rounded-full mb-4"
                                     >
                                         <Users className="w-4 h-4 text-[#FFD700]" />
-                                        <span className="text-[#FFD700] text-sm font-bold">+4.300 clientes desbloqueados</span>
+                                        <span className="text-[#FFD700] text-sm font-bold">+{SOCIAL_PROOF_CONFIG.clientsUnblocked} clientes desbloqueados</span>
                                     </motion.div>
                                     
                                     <motion.div 

@@ -150,7 +150,7 @@ export const PricingPlans = () => {
             key={plan.name}
             initial={{ opacity: 0, y: 30, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            whileHover={{ scale: plan.isPopular ? 1.02 : 1.03, y: -5 }}
+            whileHover={{ scale: plan.isPopular ? 1.04 : 1.02, y: plan.isPopular ? -8 : -4 }}
             transition={{ delay: 0.4 + index * 0.15, duration: 0.5 }}
             className={`relative cursor-pointer ${plan.isPopular ? 'md:-mt-4 md:mb-4 z-10' : 'z-0'}`}
           >
