@@ -129,7 +129,7 @@ export const PricingPlans = () => {
           transition={{ delay: 0.3 }}
           className="text-slate-400 text-base max-w-md mx-auto mb-3"
         >
-          Escolha o nível de profundidade do ritual que faz sentido pra você <span className="text-white font-semibold">hoje</span>.
+          Escolha a profundidade do ritual que faz sentido pra você <span className="text-white font-semibold">hoje</span>.
         </motion.p>
 
         {/* Social Anchor - Most people choose plan 2 */}
