@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { Check, Sparkles, Star, Crown, Shield, Lock, Zap, ArrowRight, Gift } from 'lucide-react';
+import { useState } from 'react';
+import { Check, Sparkles, Star, Crown, Shield, Lock, Zap, ArrowRight, Gift, Loader2 } from 'lucide-react';
 
 interface Plan {
   name: string;
@@ -92,8 +93,14 @@ const comparisonFeatures = [
 ];
 
 export const PricingPlans = () => {
-  const handleCheckout = (link: string) => {
-    window.location.href = link;
+  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
+
+  const handleCheckout = (link: string, planName: string) => {
+    setLoadingPlan(planName);
+    // Small delay to show loading state before redirect
+    setTimeout(() => {
+      window.location.href = link;
+    }, 300);
   };
 
   return (
@@ -154,21 +161,69 @@ export const PricingPlans = () => {
             transition={{ delay: 0.4 + index * 0.15, duration: 0.5 }}
             className={`relative cursor-pointer ${plan.isPopular ? 'md:-mt-4 md:mb-4 z-10' : 'z-0'}`}
           >
-            {/* Glow effect for popular plan */}
+            {/* 🟢 8. Enhanced glow effect for popular plan with pulse */}
             {plan.isPopular && (
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] rounded-3xl blur-lg opacity-50 animate-pulse" />
+              <motion.div 
+                className="absolute -inset-1 bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] rounded-3xl blur-lg opacity-50"
+                animate={{ 
+                  opacity: [0.4, 0.6, 0.4],
+                  scale: [1, 1.02, 1]
+                }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              />
             )}
 
             <div
               className={`relative h-full bg-gradient-to-br ${plan.glowColor} backdrop-blur-sm border-2 ${plan.borderColor} rounded-3xl p-5 sm:p-6 flex flex-col transition-all duration-300 active:scale-[0.98] ${plan.isPopular ? 'shadow-[0_0_50px_rgba(212,175,55,0.4)] border-[#FFD700]' : 'hover:border-[#FFD700]/40 hover:shadow-[0_0_30px_rgba(212,175,55,0.2)]'}`}
             >
-              {/* Badge - Enhanced */}
-              <div className={`absolute -top-4 left-1/2 transform -translate-x-1/2 ${plan.isPopular ? 'bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black shadow-[0_4px_20px_rgba(212,175,55,0.6)]' : 'bg-slate-800 text-slate-300 border border-slate-700'} px-5 py-2 rounded-full text-sm font-black whitespace-nowrap`}>
-                {plan.badge}
-              </div>
+              {/* ✨ 7. Badge - Enhanced with animation for popular */}
+              {plan.isPopular ? (
+                <motion.div 
+                  className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black shadow-[0_4px_20px_rgba(212,175,55,0.6)] px-5 py-2 rounded-full text-sm font-black whitespace-nowrap"
+                  animate={{ 
+                    boxShadow: [
+                      '0 4px 20px rgba(212,175,55,0.4)',
+                      '0 4px 30px rgba(212,175,55,0.8)',
+                      '0 4px 20px rgba(212,175,55,0.4)'
+                    ]
+                  }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  {plan.badge}
+                </motion.div>
+              ) : (
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-slate-800 text-slate-300 border border-slate-700 px-5 py-2 rounded-full text-sm font-black whitespace-nowrap">
+                  {plan.badge}
+                </div>
+              )}
+
+              {/* 🟢 8. Urgency badge for popular plan */}
+              {plan.isPopular && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.8 }}
+                  className="absolute -top-2 -right-2 bg-gradient-to-r from-emerald-500 to-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg"
+                >
+                  +324 escolheram hoje
+                </motion.div>
+              )}
 
               {/* 1. Plan Name - Top of hierarchy */}
               <div className="text-center mt-6 mb-3">
+                {/* ✨ 7. Animated icon */}
+                <motion.div
+                  className={`inline-flex items-center justify-center w-10 h-10 rounded-full mb-2 ${plan.isPopular ? 'bg-[#D4AF37]/30' : 'bg-white/10'}`}
+                  animate={plan.isPopular ? { 
+                    rotate: [0, 5, -5, 0],
+                    scale: [1, 1.1, 1]
+                  } : {}}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <span className={plan.isPopular ? 'text-[#FFD700]' : 'text-slate-300'}>
+                    {plan.icon}
+                  </span>
+                </motion.div>
                 <h3 className={`text-xl sm:text-2xl font-black ${plan.isPopular ? 'text-[#FFD700]' : 'text-white'}`}>
                   {plan.name}
                 </h3>
@@ -220,18 +275,30 @@ export const PricingPlans = () => {
                 ))}
               </ul>
 
-              {/* 5. CTA Button - Enhanced */}
-              <button
-                onClick={() => handleCheckout(plan.checkoutLink)}
-                className={`w-full font-black py-4 px-6 rounded-2xl transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-2 ${
+              {/* 🌀 4. CTA Button - Enhanced with microinteractions and loading state */}
+              <motion.button
+                onClick={() => handleCheckout(plan.checkoutLink, plan.name)}
+                disabled={loadingPlan === plan.name}
+                whileHover={{ scale: 1.02, boxShadow: plan.isPopular ? '0 4px 50px rgba(212,175,55,0.8)' : '0 4px 30px rgba(255,255,255,0.1)' }}
+                whileTap={{ scale: 0.95 }}
+                className={`w-full font-black py-4 px-6 rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-80 ${
                   plan.isPopular
-                    ? 'bg-gradient-to-r from-[#D4AF37] to-[#FFD700] hover:from-[#FFD700] hover:to-[#D4AF37] text-black text-lg shadow-[0_4px_30px_rgba(212,175,55,0.5)] hover:shadow-[0_4px_40px_rgba(212,175,55,0.7)]'
+                    ? 'bg-gradient-to-r from-[#D4AF37] to-[#FFD700] hover:from-[#FFD700] hover:to-[#D4AF37] text-black text-lg shadow-[0_4px_30px_rgba(212,175,55,0.5)]'
                     : 'bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-[#FFD700]/50'
                 }`}
               >
-                {plan.buttonText}
-                <ArrowRight className={`w-5 h-5 ${plan.isPopular ? '' : 'opacity-70'}`} />
-              </button>
+                {loadingPlan === plan.name ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    <span>Aguarde...</span>
+                  </>
+                ) : (
+                  <>
+                    {plan.buttonText}
+                    <ArrowRight className={`w-5 h-5 ${plan.isPopular ? '' : 'opacity-70'}`} />
+                  </>
+                )}
+              </motion.button>
               
               {/* Guarantee Badge */}
               {plan.isPopular && (
@@ -318,8 +385,17 @@ export const PricingPlans = () => {
   );
 };
 
-// Mini version for strategic repetition - Enhanced
+// Mini version for strategic repetition - Enhanced with microinteractions
 export const MiniPricingBar = () => {
+  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
+
+  const handleCheckout = (link: string, planName: string) => {
+    setLoadingPlan(planName);
+    setTimeout(() => {
+      window.location.href = link;
+    }, 300);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -332,29 +408,38 @@ export const MiniPricingBar = () => {
       </div>
       
       <div className="space-y-3">
-        <button
-          onClick={() => window.location.href = 'https://pay.lowify.com.br/checkout.php?product_id=manflx'}
-          className="w-full bg-white/10 hover:bg-white/15 text-white py-3 px-4 rounded-xl text-sm font-semibold transition-all border border-white/10 flex items-center justify-between active:scale-[0.98]"
+        <motion.button
+          onClick={() => handleCheckout('https://pay.lowify.com.br/checkout.php?product_id=manflx', 'iniciante')}
+          disabled={loadingPlan === 'iniciante'}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.97 }}
+          className="w-full bg-white/10 hover:bg-white/15 text-white py-3 px-4 rounded-xl text-sm font-semibold transition-all border border-white/10 flex items-center justify-between disabled:opacity-80"
         >
-          <span>✨ Iniciante</span>
+          <span>{loadingPlan === 'iniciante' ? <Loader2 className="w-4 h-4 animate-spin" /> : '✨ Iniciante'}</span>
           <span className="text-[#FFD700] font-black">R$19</span>
-        </button>
+        </motion.button>
         
-        <button
-          onClick={() => window.location.href = 'https://pay.lowify.com.br/go.php?offer=zsa1x42'}
-          className="w-full bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black py-4 px-4 rounded-xl text-sm font-black transition-all shadow-[0_4px_20px_rgba(212,175,55,0.4)] flex items-center justify-between active:scale-[0.98] hover:shadow-[0_4px_30px_rgba(212,175,55,0.6)]"
+        <motion.button
+          onClick={() => handleCheckout('https://pay.lowify.com.br/go.php?offer=zsa1x42', 'completo')}
+          disabled={loadingPlan === 'completo'}
+          whileHover={{ scale: 1.02, boxShadow: '0 4px 40px rgba(212,175,55,0.7)' }}
+          whileTap={{ scale: 0.97 }}
+          className="w-full bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black py-4 px-4 rounded-xl text-sm font-black transition-all shadow-[0_4px_20px_rgba(212,175,55,0.4)] flex items-center justify-between disabled:opacity-80"
         >
-          <span>🔥 Completo (mais escolhido)</span>
+          <span>{loadingPlan === 'completo' ? <Loader2 className="w-4 h-4 animate-spin" /> : '🔥 Completo (mais escolhido)'}</span>
           <span>R$29</span>
-        </button>
+        </motion.button>
         
-        <button
-          onClick={() => window.location.href = 'https://pay.lowify.com.br/go.php?offer=1hy3fg2'}
-          className="w-full bg-white/10 hover:bg-white/15 text-white py-3 px-4 rounded-xl text-sm font-semibold transition-all border border-purple-500/30 flex items-center justify-between active:scale-[0.98]"
+        <motion.button
+          onClick={() => handleCheckout('https://pay.lowify.com.br/go.php?offer=1hy3fg2', 'ascensao')}
+          disabled={loadingPlan === 'ascensao'}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.97 }}
+          className="w-full bg-white/10 hover:bg-white/15 text-white py-3 px-4 rounded-xl text-sm font-semibold transition-all border border-purple-500/30 flex items-center justify-between disabled:opacity-80"
         >
-          <span>👑 Ascensão</span>
+          <span>{loadingPlan === 'ascensao' ? <Loader2 className="w-4 h-4 animate-spin" /> : '👑 Ascensão'}</span>
           <span className="text-purple-400 font-black">R$49</span>
-        </button>
+        </motion.button>
       </div>
       
       <div className="mt-4 flex items-center justify-center gap-4 text-xs text-slate-400">
