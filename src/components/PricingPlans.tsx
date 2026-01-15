@@ -21,15 +21,15 @@ interface Plan {
 const plans: Plan[] = [
   {
     name: 'O Chamado',
-    subtitle: 'Para quem sente que algo precisa mudar…',
-    targetAudience: 'Pra quem quer começar e testar o ritual.',
+    subtitle: 'Para quem só quer testar',
+    targetAudience: 'Para quem está começando agora.',
     price: '19',
     features: [
       'Diagnóstico de Lealdade Invisível (PDF)',
       'Mapa Xamânico Básico com instruções iniciais',
       'Ritual de ativação de 3 dias (1 áudio)'
     ],
-    buttonText: 'Começar minha limpeza',
+    buttonText: 'Testar o ritual',
     badge: '✨ Iniciante',
     checkoutLink: 'https://pay.lowify.com.br/checkout.php?product_id=manflx',
     icon: <Sparkles className="w-6 h-6" />,
@@ -41,15 +41,15 @@ const plans: Plan[] = [
   },
   {
     name: 'O Desbloqueio Completo',
-    subtitle: 'Para quem está pronto para o desbloqueio completo',
-    targetAudience: 'Pra quem quer o protocolo completo de 7 dias.',
+    subtitle: 'Para quem está pronto',
+    targetAudience: 'O protocolo completo de 7 dias.',
     price: '29',
     features: [
       'Mapa Xamânico Personalizado + Diagnóstico completo',
       'Protocolo energético de 7 dias + 3 áudios rituais',
       'PDF bônus: Os 4 Bloqueios da Linhagem Ancestral'
     ],
-    buttonText: '🔓 DESBLOQUEAR AGORA',
+    buttonText: '🔓 ATIVAR MEU PROTOCOLO',
     badge: '🔥 MAIS ESCOLHIDO',
     checkoutLink: 'https://pay.lowify.com.br/go.php?offer=zsa1x42',
     icon: <Star className="w-6 h-6" />,
@@ -61,8 +61,8 @@ const plans: Plan[] = [
   },
   {
     name: 'A Ascensão',
-    subtitle: 'Para quem quer reescrever o destino da linhagem',
-    targetAudience: 'Pra quem quer encerrar o ciclo na família.',
+    subtitle: 'Para quem quer encerrar o ciclo',
+    targetAudience: 'Transformação completa da linhagem.',
     price: '49',
     features: [
       'Tudo do plano completo',
@@ -70,7 +70,7 @@ const plans: Plan[] = [
       'Acesso a grupo secreto por 30 dias',
       'PDF: Oração de Despedida Ancestral'
     ],
-    buttonText: 'Liberar o karma',
+    buttonText: 'Romper o ciclo agora',
     badge: '👑 Avançado',
     checkoutLink: 'https://pay.lowify.com.br/go.php?offer=1hy3fg2',
     icon: <Crown className="w-6 h-6" />,
@@ -101,14 +101,14 @@ export const PricingPlans = () => {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="py-8"
+      className="py-6"
     >
-      {/* Section Header - Enhanced */}
-      <div className="text-center mb-8 px-4">
+      {/* Section Header - Enhanced with reduced spacing */}
+      <div className="text-center mb-6 px-4">
         <motion.div 
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          className="inline-flex items-center gap-2 bg-gradient-to-r from-[#D4AF37]/20 to-[#FFD700]/10 border border-[#D4AF37]/40 px-4 py-2 rounded-full mb-4"
+          className="inline-flex items-center gap-2 bg-gradient-to-r from-[#D4AF37]/20 to-[#FFD700]/10 border border-[#D4AF37]/40 px-4 py-2 rounded-full mb-3"
         >
           <Gift className="w-4 h-4 text-[#FFD700]" />
           <span className="text-[#FFD700] text-sm font-bold uppercase tracking-wider">Escolha Seu Destino</span>
@@ -118,7 +118,7 @@ export const PricingPlans = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-4"
+          className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-3"
         >
           Qual <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37]">caminho</span> te escolhe?
         </motion.h2>
@@ -127,7 +127,7 @@ export const PricingPlans = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="text-slate-400 text-base max-w-md mx-auto mb-3"
+          className="text-slate-400 text-base max-w-md mx-auto mb-2"
         >
           Escolha a profundidade do ritual que faz sentido pra você <span className="text-white font-semibold">hoje</span>.
         </motion.p>
@@ -143,15 +143,16 @@ export const PricingPlans = () => {
         </motion.p>
       </div>
 
-      {/* Pricing Cards - Mobile First Stack */}
-      <div className="space-y-6 max-w-lg mx-auto px-4 md:max-w-6xl md:grid md:grid-cols-3 md:gap-6 md:space-y-0 md:items-stretch">
+      {/* Pricing Cards - Mobile First Stack - Reduced spacing */}
+      <div className="space-y-4 max-w-lg mx-auto px-4 md:max-w-6xl md:grid md:grid-cols-3 md:gap-5 md:space-y-0 md:items-stretch">
         {plans.map((plan, index) => (
           <motion.div
             key={plan.name}
             initial={{ opacity: 0, y: 30, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
+            whileHover={{ scale: plan.isPopular ? 1.04 : 1.02, y: plan.isPopular ? -8 : -4 }}
             transition={{ delay: 0.4 + index * 0.15, duration: 0.5 }}
-            className={`relative ${plan.isPopular ? 'md:-mt-4 md:mb-4 z-10' : 'z-0'}`}
+            className={`relative cursor-pointer ${plan.isPopular ? 'md:-mt-4 md:mb-4 z-10' : 'z-0'}`}
           >
             {/* Glow effect for popular plan */}
             {plan.isPopular && (
@@ -159,7 +160,7 @@ export const PricingPlans = () => {
             )}
 
             <div
-              className={`relative h-full bg-gradient-to-br ${plan.glowColor} backdrop-blur-sm border-2 ${plan.borderColor} rounded-3xl p-5 sm:p-6 flex flex-col transition-all duration-300 active:scale-[0.98] ${plan.isPopular ? 'shadow-[0_0_50px_rgba(212,175,55,0.4)] border-[#FFD700]' : 'hover:border-[#FFD700]/40'}`}
+              className={`relative h-full bg-gradient-to-br ${plan.glowColor} backdrop-blur-sm border-2 ${plan.borderColor} rounded-3xl p-5 sm:p-6 flex flex-col transition-all duration-300 active:scale-[0.98] ${plan.isPopular ? 'shadow-[0_0_50px_rgba(212,175,55,0.4)] border-[#FFD700]' : 'hover:border-[#FFD700]/40 hover:shadow-[0_0_30px_rgba(212,175,55,0.2)]'}`}
             >
               {/* Badge - Enhanced */}
               <div className={`absolute -top-4 left-1/2 transform -translate-x-1/2 ${plan.isPopular ? 'bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black shadow-[0_4px_20px_rgba(212,175,55,0.6)]' : 'bg-slate-800 text-slate-300 border border-slate-700'} px-5 py-2 rounded-full text-sm font-black whitespace-nowrap`}>

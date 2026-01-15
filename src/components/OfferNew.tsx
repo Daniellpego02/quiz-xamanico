@@ -20,6 +20,14 @@ const VIDEO_PLAYER_SCRIPT_URL = `https://scripts.converteai.net/c263b2f0-9566-42
 // Demo delay before showing offer content (in production, this should be triggered by video events)
 const OFFER_CONTENT_DELAY_MS = 5000;
 
+// Social proof and urgency constants - centralized for easy updates
+const SOCIAL_PROOF_CONFIG = {
+    diagnosticsCount: '4.300',
+    clientsUnblocked: '4.300',
+    monthlyMapLimit: 100,
+    mapsGeneratedThisMonth: 87,
+} as const;
+
 const OfferNew = ({ userName }: OfferProps) => {
     const [showOfferContent, setShowOfferContent] = useState(false);
     const [currentProofIndex, setCurrentProofIndex] = useState(0);
@@ -157,88 +165,141 @@ const OfferNew = ({ userName }: OfferProps) => {
                 }}></div>
             </div>
 
-            <div className="max-w-4xl mx-auto px-4 py-8">
+            <div className="max-w-4xl mx-auto px-4 py-6 sm:py-8">
 
-                {/* ========== SEÇÃO 1: HERO / TOPO ========== */}
+                {/* ========== SEÇÃO 1: HERO + VSL - CENTRO DE GRAVIDADE ========== */}
                 <motion.section
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-center mb-12"
+                    className="text-center mb-8"
                 >
-                    {/* Pre-headline Badge */}
+                    {/* Diagnostic Result Badge - Creates urgency */}
                     <motion.div 
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.2 }}
-                        className="inline-flex items-center gap-2 bg-purple-900/40 border border-purple-500/50 px-4 py-2 rounded-full mb-6"
+                        transition={{ delay: 0.1 }}
+                        className="inline-flex items-center gap-2 bg-red-900/50 border-2 border-red-500/60 px-5 py-2.5 rounded-full mb-4"
                     >
-                        <Sparkles className="w-4 h-4 text-purple-400" />
-                        <span className="text-purple-300 text-sm font-semibold">Ritual de Transformação Ancestral</span>
+                        <AlertTriangle className="w-5 h-5 text-red-400" />
+                        <span className="text-red-300 text-sm sm:text-base font-bold">DIAGNÓSTICO CONCLUÍDO</span>
                     </motion.div>
 
-                    {/* Main Headline */}
-                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white mb-6 leading-tight px-2">
-                        "Existe uma energia invisível que sabota sua prosperidade.
-                        <span className="block text-[#FFD700] mt-2">Ela não nasceu com você. Ela veio da sua linhagem."</span>
-                    </h1>
-
-                    {/* Subheadline */}
-                    <div className="max-w-3xl mx-auto space-y-4 mb-8">
-                        <p className="text-base sm:text-lg text-slate-300 leading-relaxed px-2">
-                            Por trás das suas dificuldades com dinheiro, pode haver <span className="text-[#FFD700] font-semibold">uma lealdade inconsciente aos traumas financeiros dos seus ancestrais.</span>
-                        </p>
-                        <p className="text-slate-400 text-sm sm:text-base px-2">
-                            Este não é mais um curso.<br />
-                            É um <span className="text-white font-bold">protocolo espiritual de 7 dias para limpar os bloqueios da sua linhagem</span> e reconectar você com a abundância natural.
-                        </p>
-                    </div>
-
-                    {/* Primary CTA */}
-                    <motion.button
-                        onClick={scrollToPricing}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="bg-gradient-to-r from-purple-600 via-purple-500 to-[#D4AF37] hover:from-purple-500 hover:via-purple-400 hover:to-[#FFD700] text-white font-bold text-base sm:text-lg py-4 px-8 rounded-2xl shadow-[0_0_40px_rgba(147,51,234,0.4)] transition-all border border-purple-400/30"
+                    {/* Main Headline - Bold, Strong, Authority */}
+                    <motion.h1 
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 leading-tight px-2"
+                        style={{ fontFamily: "'Georgia', serif" }}
                     >
-                        Sim, quero rastrear a origem invisível da minha escassez
-                    </motion.button>
+                        🔒 Seu diagnóstico revelou o padrão oculto<br />
+                        <span className="text-[#FFD700]">que trava sua vida financeira.</span>
+                    </motion.h1>
 
-                    {/* Microcopy below CTA - Improved */}
+                    {/* Subheadline - Diagnostic Result */}
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.5 }}
-                        className="flex flex-col items-center gap-2 mt-4"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="max-w-2xl mx-auto mb-6"
                     >
-                        <span className="text-[#FFD700] text-sm font-medium">
-                            👇 Escolha o nível de profundidade do ritual
-                        </span>
-                        <div className="flex flex-wrap justify-center gap-3 text-xs sm:text-sm text-slate-400">
-                            <span>🔒 Pix + acesso imediato</span>
-                            <span>🛡️ Garantia 7 dias</span>
-                        </div>
+                        <p className="text-lg sm:text-xl text-slate-300 leading-relaxed mb-2">
+                            O sistema apontou: <span className="text-red-400 font-black">Herdeiro da Escassez</span>
+                        </p>
+                        <p className="text-base sm:text-lg text-[#FFD700] font-semibold">
+                            Agora, a escolha é sua: <span className="text-white">romper</span> ou <span className="text-slate-400">repetir.</span>
+                        </p>
                     </motion.div>
                 </motion.section>
 
-                {/* ========== VIDEO SECTION ========== */}
+                {/* ========== VSL SECTION - CENTRO DE GRAVIDADE ========== */}
                 <motion.section
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4 }}
-                    className="mb-16"
+                    className="mb-8"
                 >
-                    <div className="relative rounded-2xl overflow-hidden border-2 border-[#D4AF37] shadow-[0_0_60px_rgba(212,175,55,0.3)] mx-auto max-w-md">
-                        <div className="bg-black flex items-center justify-center relative">
-                            <div className="w-full" style={{ aspectRatio: '9/16', maxWidth: '400px' }}>
-                                <vturb-smartplayer 
-                                    id={`vid-${VIDEO_PLAYER_ID}`}
-                                    style={{ display: 'block', width: '100%', maxWidth: '400px', margin: '0 auto' }}
-                                ></vturb-smartplayer>
+                    {/* Video Call-to-Watch */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.5 }}
+                        className="text-center mb-4"
+                    >
+                        <div className="inline-flex items-center gap-2 bg-purple-900/50 border border-purple-500/50 px-4 py-2 rounded-full mb-3">
+                            <span className="text-xl">🎥</span>
+                            <span className="text-purple-300 text-sm font-semibold">ASSISTA COM ATENÇÃO</span>
+                        </div>
+                        <p className="text-slate-300 text-sm sm:text-base max-w-md mx-auto">
+                            Esse vídeo não aparece para qualquer pessoa.<br />
+                            <span className="text-[#FFD700] font-semibold">Ele foi gerado exclusivamente para o seu padrão energético.</span>
+                        </p>
+                    </motion.div>
+
+                    {/* Video Player - Enhanced Visual Frame */}
+                    <div className="relative max-w-md mx-auto">
+                        {/* Outer Glow Effect */}
+                        <div className="absolute -inset-4 bg-gradient-to-r from-[#D4AF37]/30 via-purple-500/20 to-[#D4AF37]/30 blur-2xl rounded-3xl animate-pulse"></div>
+                        
+                        {/* Video Container with Premium Frame */}
+                        <div className="relative rounded-2xl overflow-hidden border-4 border-[#D4AF37] shadow-[0_0_80px_rgba(212,175,55,0.4)]">
+                            {/* Top Bar - Netflix Style */}
+                            <div className="bg-gradient-to-r from-[#1a0b2e] via-[#2d1b4e] to-[#1a0b2e] px-4 py-2 flex items-center justify-between border-b border-[#D4AF37]/30">
+                                <div className="flex items-center gap-2">
+                                    <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse"></div>
+                                    <span className="text-[#FFD700] text-xs font-bold uppercase tracking-wider">AO VIVO • Exclusivo</span>
+                                </div>
+                                <span className="text-slate-400 text-xs">+{SOCIAL_PROOF_CONFIG.diagnosticsCount} visualizações</span>
+                            </div>
+                            
+                            {/* Video Player */}
+                            <div className="bg-black flex items-center justify-center relative">
+                                <div className="w-full" style={{ aspectRatio: '9/16', maxWidth: '400px' }}>
+                                    <vturb-smartplayer 
+                                        id={`vid-${VIDEO_PLAYER_ID}`}
+                                        style={{ display: 'block', width: '100%', maxWidth: '400px', margin: '0 auto' }}
+                                    ></vturb-smartplayer>
+                                </div>
                             </div>
                         </div>
-                        <div className="absolute -inset-2 bg-[#D4AF37]/20 blur-xl -z-10"></div>
                     </div>
+
+                    {/* CTA Below Video */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.7 }}
+                        className="text-center mt-6"
+                    >
+                        <p className="text-[#FFD700] text-sm sm:text-base font-semibold mb-3 flex items-center justify-center gap-2">
+                            <span className="text-xl">⬇️</span>
+                            Assista agora antes de escolher seu nível de desbloqueio
+                        </p>
+                        <div className="flex flex-wrap justify-center gap-3 text-xs text-slate-500">
+                            <span className="flex items-center gap-1">
+                                <Lock className="w-3 h-3" />
+                                Conteúdo confidencial
+                            </span>
+                            <span className="flex items-center gap-1">
+                                <Shield className="w-3 h-3" />
+                                Diagnóstico personalizado
+                            </span>
+                        </div>
+                    </motion.div>
                 </motion.section>
+
+                {/* Scarcity Badge - After Video */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.8 }}
+                    className="text-center mb-8"
+                >
+                    <div className="inline-flex items-center gap-2 bg-red-900/40 border border-red-500/50 px-4 py-2 rounded-full">
+                        <AlertTriangle className="w-4 h-4 text-red-400" />
+                        <span className="text-red-300 text-sm font-semibold">⚠️ Apenas {SOCIAL_PROOF_CONFIG.monthlyMapLimit} mapas liberados por mês — {SOCIAL_PROOF_CONFIG.mapsGeneratedThisMonth} já foram gerados</span>
+                    </div>
+                </motion.div>
 
                 {/* Content shown after video timing */}
                 <AnimatePresence>
@@ -402,6 +463,26 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         ))}
                                     </div>
 
+                                    {/* Concrete Deliverables List - Enhanced */}
+                                    <div className="mt-8 bg-gradient-to-br from-emerald-950/40 to-green-900/20 border border-emerald-500/30 rounded-2xl p-6">
+                                        <h3 className="text-emerald-400 font-bold text-center mb-4 flex items-center justify-center gap-2">
+                                            <Check className="w-5 h-5" />
+                                            O que você recebe:
+                                        </h3>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                            {[
+                                                '✔ Mapa Xamânico personalizado em PDF',
+                                                '✔ Ritual guiado para desbloqueio de 7 dias',
+                                                '✔ Diagnóstico energético com leitura ancestral',
+                                                '✔ Suporte via canal exclusivo'
+                                            ].map((item, idx) => (
+                                                <div key={idx} className="flex items-center gap-2 text-slate-200 text-sm">
+                                                    <span>{item}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
                                     {/* Support Quote */}
                                     <div className="mt-8 text-center">
                                         <p className="text-slate-400 italic text-base sm:text-lg">
@@ -410,10 +491,23 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         </p>
                                     </div>
                                 </div>
+
+                                {/* MID-PAGE CTA - Second CTA Button - Congruent with VSL */}
+                                <div className="mt-8 text-center">
+                                    <motion.button
+                                        onClick={scrollToPricing}
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] hover:from-[#FFD700] hover:to-[#D4AF37] text-black font-black text-base py-4 px-8 rounded-2xl shadow-[0_0_30px_rgba(212,175,55,0.4)] transition-all border border-[#FFD700]"
+                                    >
+                                        Liberar meu desbloqueio agora
+                                    </motion.button>
+                                    <p className="text-slate-500 text-xs mt-2">🔒 Pagamento seguro • Acesso imediato</p>
+                                </div>
                             </motion.section>
 
                             {/* ========== SEÇÃO 5: TRÊS PLANOS (ESCOLHA SIMBÓLICA) ========== */}
-                            <section id="pricing-section" className="mb-16">
+                            <section id="pricing-section" className="mb-10">
                                 <PricingPlans />
                             </section>
 
@@ -422,14 +516,25 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.6 }}
-                                className="mb-16"
+                                className="mb-12"
                             >
                                 {/* Section Header with Glow Effect */}
                                 <div className="text-center mb-8">
+                                    {/* Customer Count Badge */}
                                     <motion.div 
                                         initial={{ scale: 0.9, opacity: 0 }}
                                         animate={{ scale: 1, opacity: 1 }}
-                                        className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-900/50 to-green-900/50 border border-emerald-500/40 px-4 py-2 rounded-full mb-4"
+                                        className="inline-flex items-center gap-2 bg-gradient-to-r from-[#D4AF37]/20 to-[#FFD700]/10 border border-[#D4AF37]/40 px-4 py-2 rounded-full mb-4"
+                                    >
+                                        <Users className="w-4 h-4 text-[#FFD700]" />
+                                        <span className="text-[#FFD700] text-sm font-bold">+{SOCIAL_PROOF_CONFIG.clientsUnblocked} clientes desbloqueados</span>
+                                    </motion.div>
+                                    
+                                    <motion.div 
+                                        initial={{ scale: 0.9, opacity: 0 }}
+                                        animate={{ scale: 1, opacity: 1 }}
+                                        transition={{ delay: 0.1 }}
+                                        className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-900/50 to-green-900/50 border border-emerald-500/40 px-4 py-2 rounded-full mb-4 ml-2"
                                     >
                                         <span className="text-2xl">💬</span>
                                         <span className="text-emerald-400 text-sm font-bold uppercase tracking-wider">Relatos Reais do WhatsApp</span>
@@ -668,36 +773,63 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 </div>
                             </motion.section>
 
-                            {/* ========== SEÇÃO 7: GARANTIA ========== */}
+                            {/* ========== SEÇÃO 7: GARANTIA - ENHANCED ========== */}
                             <motion.section
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.8 }}
-                                className="mb-16 bg-gradient-to-br from-emerald-950/40 to-green-900/20 border-2 border-emerald-500/40 rounded-2xl p-6 sm:p-8 text-center"
+                                className="mb-12 relative"
                             >
-                                <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-emerald-400 to-green-500 border-4 border-emerald-300 shadow-[0_0_30px_rgba(16,185,129,0.6)] mx-auto mb-4 sm:mb-6">
-                                    <div className="text-center">
-                                        <p className="text-white text-[10px] sm:text-xs font-black">GARANTIA</p>
-                                        <p className="text-white text-xl sm:text-2xl font-black leading-none">7</p>
-                                        <p className="text-white text-[10px] sm:text-xs font-black">DIAS</p>
+                                {/* Glow effect behind guarantee */}
+                                <div className="absolute -inset-2 bg-gradient-to-r from-emerald-500/20 via-green-500/10 to-emerald-500/20 blur-2xl rounded-3xl" />
+                                
+                                <div className="relative bg-gradient-to-br from-emerald-950/60 to-green-900/40 border-2 border-emerald-400/50 rounded-3xl p-6 sm:p-8 text-center shadow-[0_0_40px_rgba(16,185,129,0.3)]">
+                                    {/* Shield Icon + Badge */}
+                                    <div className="flex justify-center mb-4">
+                                        <div className="relative">
+                                            <div className="inline-flex items-center justify-center w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-emerald-400 to-green-500 border-4 border-emerald-300 shadow-[0_0_40px_rgba(16,185,129,0.6)]">
+                                                <div className="text-center">
+                                                    <Shield className="w-8 h-8 sm:w-10 sm:h-10 text-white mx-auto mb-1" />
+                                                    <p className="text-white text-lg sm:text-xl font-black leading-none">7 DIAS</p>
+                                                </div>
+                                            </div>
+                                            {/* Animated pulse ring */}
+                                            <div className="absolute -inset-2 rounded-full border-2 border-emerald-400/50 animate-pulse" />
+                                        </div>
                                     </div>
-                                </div>
 
-                                <h3 className="text-xl sm:text-2xl font-bold text-emerald-300 mb-4">
-                                    Garantia ritual de 7 dias
-                                </h3>
-                                <div className="text-slate-200 text-sm sm:text-base leading-relaxed space-y-3 max-w-2xl mx-auto px-2">
-                                    <p>
-                                        Se em até 7 dias você não sentir nenhum tipo de desbloqueio, clareza ou transformação sutil…
-                                    </p>
-                                    <p className="font-semibold text-white">
-                                        devolvemos seu investimento <span className="text-emerald-300">sem perguntas.</span>
-                                    </p>
-                                    {/* New copy - reduces rational resistance */}
-                                    <p className="text-emerald-400 font-bold text-lg mt-4 pt-4 border-t border-emerald-500/30">
-                                        "Você não precisa acreditar.<br />
-                                        <span className="text-white">Só precisa testar por 7 dias."</span>
-                                    </p>
+                                    <h3 className="text-xl sm:text-2xl font-black text-emerald-300 mb-4">
+                                        Garantia Incondicional de 7 Dias
+                                    </h3>
+                                    
+                                    {/* Enhanced guarantee copy */}
+                                    <div className="bg-black/20 border border-emerald-500/30 rounded-2xl p-5 max-w-xl mx-auto mb-4">
+                                        <p className="text-white text-base sm:text-lg leading-relaxed font-semibold">
+                                            Se você não sentir resultado, seu reembolso é imediato.
+                                        </p>
+                                        <p className="text-emerald-300 text-sm sm:text-base mt-2">
+                                            Simples assim. Sem perguntas, sem julgamentos.
+                                        </p>
+                                    </div>
+                                    
+                                    <div className="text-slate-200 text-sm sm:text-base leading-relaxed space-y-3 max-w-2xl mx-auto px-2">
+                                        <p className="text-emerald-400 font-bold text-lg">
+                                            "Você não precisa acreditar.<br />
+                                            <span className="text-white">Só precisa testar por 7 dias."</span>
+                                        </p>
+                                    </div>
+                                    
+                                    {/* Trust badges */}
+                                    <div className="flex flex-wrap justify-center gap-3 mt-6">
+                                        <div className="flex items-center gap-2 bg-emerald-500/20 px-3 py-1.5 rounded-full">
+                                            <Lock className="w-4 h-4 text-emerald-400" />
+                                            <span className="text-emerald-400 text-xs font-semibold">Pagamento Seguro</span>
+                                        </div>
+                                        <div className="flex items-center gap-2 bg-emerald-500/20 px-3 py-1.5 rounded-full">
+                                            <Check className="w-4 h-4 text-emerald-400" />
+                                            <span className="text-emerald-400 text-xs font-semibold">Reembolso Garantido</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </motion.section>
 
@@ -744,17 +876,46 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 </div>
                             </motion.section>
 
-                            {/* Final CTA Section */}
+                            {/* ========== SEÇÃO 9.5: FREEDOM OF CHOICE - WELCOMING BLOCK ========== */}
+                            <motion.section
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.95 }}
+                                className="mb-6 text-center px-4"
+                            >
+                                <div className="bg-gradient-to-br from-purple-900/20 to-[#1a0b2e]/40 border border-purple-500/20 rounded-2xl p-6 max-w-2xl mx-auto">
+                                    <Feather className="w-8 h-8 text-purple-400 mx-auto mb-4" />
+                                    <p className="text-slate-300 text-base sm:text-lg leading-relaxed mb-3">
+                                        Esse caminho é para quem sente o chamado.
+                                    </p>
+                                    <p className="text-slate-400 text-sm sm:text-base leading-relaxed mb-3">
+                                        Se ainda não for seu momento, leve consigo essa reflexão.
+                                    </p>
+                                    <p className="text-[#FFD700] text-base sm:text-lg font-semibold">
+                                        Mas se você está pronto, o desbloqueio começa agora.
+                                    </p>
+                                </div>
+                            </motion.section>
+
+                            {/* Final CTA Section - Direct and decisive copy aligned with VSL */}
                             <motion.section
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 1 }}
                                 className="mb-16 text-center"
                             >
-                                <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-6 leading-tight px-2">
-                                    Você está pronto para viver com o que é seu…<br />
-                                    <span className="text-[#FFD700]">ou vai continuar preso ao que foi deles?</span>
-                                </h2>
+                                {/* Updated Direct Copy - Congruent with VSL */}
+                                <div className="mb-6 px-2">
+                                    <p className="text-slate-400 text-sm sm:text-base mb-3">
+                                        Você viu seu diagnóstico. O que te trava tem nome.
+                                    </p>
+                                    <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white leading-tight mb-2">
+                                        A escolha é sua.
+                                    </h2>
+                                    <p className="text-[#FFD700] text-base sm:text-lg font-semibold">
+                                        O ciclo só continua se você permitir.
+                                    </p>
+                                </div>
 
                                 <motion.button
                                     onClick={scrollToPricing}
@@ -762,7 +923,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                     whileTap={{ scale: 0.98 }}
                                     className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] hover:from-[#FFD700] hover:to-[#D4AF37] text-black font-black text-base sm:text-lg py-5 px-10 rounded-2xl shadow-[0_0_40px_rgba(212,175,55,0.5)] transition-all border-2 border-[#FFD700]"
                                 >
-                                    Sim. Eu escolho romper o ciclo da escassez.
+                                    Romper o padrão agora
                                 </motion.button>
 
                                 <p className="text-slate-400 text-sm mt-4">
@@ -775,6 +936,34 @@ const OfferNew = ({ userName }: OfferProps) => {
                     )}
                 </AnimatePresence>
             </div>
+
+            {/* ========== MOBILE FLOATING CTA BUTTON ========== */}
+            <motion.div
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 1.5, duration: 0.5 }}
+                className="fixed bottom-0 left-0 right-0 z-50 md:hidden"
+            >
+                <div className="bg-gradient-to-t from-[#0a0118] via-[#0a0118]/95 to-transparent pt-6 pb-4 px-4">
+                    <button
+                        onClick={scrollToPricing}
+                        className="w-full bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black font-black text-base py-4 px-6 rounded-2xl shadow-[0_0_30px_rgba(212,175,55,0.5)] transition-all active:scale-95 flex items-center justify-center gap-2"
+                    >
+                        <Sparkles className="w-5 h-5" />
+                        Liberar meu Mapa agora
+                    </button>
+                    <div className="flex items-center justify-center gap-4 mt-2 text-xs text-slate-400">
+                        <span className="flex items-center gap-1">
+                            <Lock className="w-3 h-3 text-emerald-400" />
+                            Pix seguro
+                        </span>
+                        <span className="flex items-center gap-1">
+                            <Shield className="w-3 h-3 text-emerald-400" />
+                            7 dias garantia
+                        </span>
+                    </div>
+                </div>
+            </motion.div>
         </div>
     );
 };
