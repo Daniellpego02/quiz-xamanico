@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import { Check, Shield, AlertTriangle, Sparkles, Lock, ChevronLeft, ChevronRight, Briefcase, Layers, Users, Heart, Star, Feather } from 'lucide-react';
+import { useEffect, useState, useRef, useCallback } from 'react';
+import { Check, Shield, AlertTriangle, Sparkles, Lock, ChevronLeft, ChevronRight, Briefcase, Layers, Users, Heart, Star, Feather, Play, Loader2 } from 'lucide-react';
 import { FAQ } from './FAQ';
 import { PricingPlans, MiniPricingBar } from './PricingPlans';
 
@@ -32,6 +32,13 @@ const OfferNew = ({ userName }: OfferProps) => {
     const [showOfferContent, setShowOfferContent] = useState(false);
     const [currentProofIndex, setCurrentProofIndex] = useState(0);
     const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+    const [showVideoPlayer, setShowVideoPlayer] = useState(false);
+    const [showStickyBar, setShowStickyBar] = useState(false);
+    const [isCheckoutLoading, setIsCheckoutLoading] = useState<string | null>(null);
+    
+    // Refs for intersection observer
+    const videoSectionRef = useRef<HTMLDivElement>(null);
+    const pricingSectionRef = useRef<HTMLDivElement>(null);
     
     // Social proof images with descriptions
     const socialProofImages = [
@@ -88,8 +95,37 @@ const OfferNew = ({ userName }: OfferProps) => {
         setCurrentVideoIndex((prev) => (prev - 1 + videoTestimonials.length) % videoTestimonials.length);
     };
 
-    // Load video player script
+    // Handle video thumbnail click - load actual player
+    const handleVideoThumbnailClick = useCallback(() => {
+        setShowVideoPlayer(true);
+    }, []);
+
+    // IntersectionObserver for sticky bar visibility and lazy loading
     useEffect(() => {
+        // Only setup observer when offer content is shown and ref is available
+        if (!showOfferContent || !pricingSectionRef.current) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.target === pricingSectionRef.current) {
+                        // Show sticky bar when pricing section is not visible
+                        setShowStickyBar(!entry.isIntersecting);
+                    }
+                });
+            },
+            { threshold: 0.1 }
+        );
+
+        observer.observe(pricingSectionRef.current);
+
+        return () => observer.disconnect();
+    }, [showOfferContent]);
+
+    // Load video player script only when user clicks to watch
+    useEffect(() => {
+        if (!showVideoPlayer) return;
+
         const optimizationScript = document.createElement('script');
         optimizationScript.innerHTML = '!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);';
         document.head.appendChild(optimizationScript);
@@ -117,17 +153,20 @@ const OfferNew = ({ userName }: OfferProps) => {
         playerScript.async = true;
         document.head.appendChild(playerScript);
 
-        // Show offer content after delay (in production, trigger by video events)
-        const timer = setTimeout(() => {
-            setShowOfferContent(true);
-        }, OFFER_CONTENT_DELAY_MS);
-
         return () => {
-            clearTimeout(timer);
             optimizationScript.remove();
             playerScript.remove();
             preloadElements.forEach(el => el.remove());
         };
+    }, [showVideoPlayer]);
+
+    // Show offer content after delay (in production, trigger by video events)
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShowOfferContent(true);
+        }, OFFER_CONTENT_DELAY_MS);
+
+        return () => clearTimeout(timer);
     }, []);
 
     // Load video testimonial scripts only when offer content is shown
@@ -214,22 +253,49 @@ const OfferNew = ({ userName }: OfferProps) => {
 
                 {/* ========== VSL SECTION - CENTRO DE GRAVIDADE ========== */}
                 <motion.section
+                    ref={videoSectionRef}
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4 }}
                     className="mb-8"
                 >
-                    {/* Video Call-to-Watch */}
+                    {/* 🧲 1. Pulse Button to Watch VSL */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.5 }}
                         className="text-center mb-4"
                     >
-                        <div className="inline-flex items-center gap-2 bg-purple-900/50 border border-purple-500/50 px-4 py-2 rounded-full mb-3">
-                            <span className="text-xl">🎥</span>
-                            <span className="text-purple-300 text-sm font-semibold">ASSISTA COM ATENÇÃO</span>
-                        </div>
+                        {!showVideoPlayer && (
+                            <motion.button
+                                onClick={handleVideoThumbnailClick}
+                                whileHover={{ scale: 1.03 }}
+                                whileTap={{ scale: 0.97 }}
+                                className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-800/80 to-purple-900/80 border-2 border-purple-500/60 px-6 py-3 rounded-full mb-4 shadow-[0_0_30px_rgba(147,51,234,0.4)] hover:shadow-[0_0_40px_rgba(147,51,234,0.6)] transition-all"
+                                animate={{ 
+                                    boxShadow: [
+                                        '0 0 20px rgba(147,51,234,0.3)',
+                                        '0 0 40px rgba(147,51,234,0.6)',
+                                        '0 0 20px rgba(147,51,234,0.3)'
+                                    ]
+                                }}
+                                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                            >
+                                <span className="text-2xl">🎥</span>
+                                <span className="text-white font-bold text-sm sm:text-base">Assista agora seu diagnóstico exclusivo</span>
+                                <motion.div
+                                    animate={{ scale: [1, 1.2, 1] }}
+                                    transition={{ duration: 1.5, repeat: Infinity }}
+                                    className="w-3 h-3 rounded-full bg-red-500"
+                                />
+                            </motion.button>
+                        )}
+                        {showVideoPlayer && (
+                            <div className="inline-flex items-center gap-2 bg-purple-900/50 border border-purple-500/50 px-4 py-2 rounded-full mb-3">
+                                <span className="text-xl">🎥</span>
+                                <span className="text-purple-300 text-sm font-semibold">ASSISTA COM ATENÇÃO</span>
+                            </div>
+                        )}
                         <p className="text-slate-300 text-sm sm:text-base max-w-md mx-auto">
                             Esse vídeo não aparece para qualquer pessoa.<br />
                             <span className="text-[#FFD700] font-semibold">Ele foi gerado exclusivamente para o seu padrão energético.</span>
@@ -252,13 +318,61 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 <span className="text-slate-400 text-xs">+{SOCIAL_PROOF_CONFIG.diagnosticsCount} visualizações</span>
                             </div>
                             
-                            {/* Video Player */}
+                            {/* 🖼 6. Video Player with Thumbnail */}
                             <div className="bg-black flex items-center justify-center relative">
                                 <div className="w-full" style={{ aspectRatio: '9/16', maxWidth: '400px' }}>
-                                    <vturb-smartplayer 
-                                        id={`vid-${VIDEO_PLAYER_ID}`}
-                                        style={{ display: 'block', width: '100%', maxWidth: '400px', margin: '0 auto' }}
-                                    ></vturb-smartplayer>
+                                    {!showVideoPlayer ? (
+                                        /* Thumbnail before loading player */
+                                        <div 
+                                            onClick={handleVideoThumbnailClick}
+                                            className="relative w-full h-full cursor-pointer group"
+                                        >
+                                            <img 
+                                                src="/mockup.png" 
+                                                alt="Ver Diagnóstico Xamânico"
+                                                className="w-full h-full object-cover opacity-80"
+                                                onError={(e) => {
+                                                    // Fallback to gradient background if image fails to load
+                                                    e.currentTarget.style.display = 'none';
+                                                }}
+                                            />
+                                            {/* Dark overlay */}
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/60" />
+                                            
+                                            {/* Play button */}
+                                            <motion.div 
+                                                className="absolute inset-0 flex items-center justify-center"
+                                                whileHover={{ scale: 1.05 }}
+                                            >
+                                                <motion.div
+                                                    animate={{ 
+                                                        scale: [1, 1.1, 1],
+                                                        boxShadow: [
+                                                            '0 0 20px rgba(212,175,55,0.4)',
+                                                            '0 0 40px rgba(212,175,55,0.7)',
+                                                            '0 0 20px rgba(212,175,55,0.4)'
+                                                        ]
+                                                    }}
+                                                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                                                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#FFD700] flex items-center justify-center shadow-[0_0_40px_rgba(212,175,55,0.6)] group-hover:shadow-[0_0_60px_rgba(212,175,55,0.8)] transition-all"
+                                                >
+                                                    <Play className="w-10 h-10 sm:w-12 sm:h-12 text-black fill-black ml-1" />
+                                                </motion.div>
+                                            </motion.div>
+                                            
+                                            {/* Text below play button */}
+                                            <div className="absolute bottom-8 left-0 right-0 text-center">
+                                                <p className="text-[#FFD700] font-bold text-sm sm:text-base mb-1">▶ Ver Diagnóstico</p>
+                                                <p className="text-slate-300 text-xs">Clique para assistir</p>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        /* Actual video player */
+                                        <vturb-smartplayer 
+                                            id={`vid-${VIDEO_PLAYER_ID}`}
+                                            style={{ display: 'block', width: '100%', maxWidth: '400px', margin: '0 auto' }}
+                                        ></vturb-smartplayer>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -299,6 +413,18 @@ const OfferNew = ({ userName }: OfferProps) => {
                         <AlertTriangle className="w-4 h-4 text-red-400" />
                         <span className="text-red-300 text-sm font-semibold">⚠️ Apenas {SOCIAL_PROOF_CONFIG.monthlyMapLimit} mapas liberados por mês — {SOCIAL_PROOF_CONFIG.mapsGeneratedThisMonth} já foram gerados</span>
                     </div>
+                </motion.div>
+
+                {/* 🎯 2. Bloco emocional pós-vídeo (transição mais suave) */}
+                <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.9 }}
+                    className="text-center mb-8 px-4"
+                >
+                    <p className="text-lg text-center text-white italic mb-4">
+                        Se algo despertou em você durante o vídeo, isso não foi por acaso.
+                    </p>
                 </motion.div>
 
                 {/* Content shown after video timing */}
@@ -507,7 +633,13 @@ const OfferNew = ({ userName }: OfferProps) => {
                             </motion.section>
 
                             {/* ========== SEÇÃO 5: TRÊS PLANOS (ESCOLHA SIMBÓLICA) ========== */}
-                            <section id="pricing-section" className="mb-10">
+                            {/* 🛡 5. Ancoragem emocional antes dos planos */}
+                            <div className="text-center mb-6">
+                                <p className="text-[#FFD700] text-center text-lg mb-6">
+                                    Escolher seu plano não é comprar um produto. É honrar sua linhagem.
+                                </p>
+                            </div>
+                            <section id="pricing-section" ref={pricingSectionRef} className="mb-10">
                                 <PricingPlans />
                             </section>
 
@@ -947,7 +1079,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                 <div className="bg-gradient-to-t from-[#0a0118] via-[#0a0118]/95 to-transparent pt-6 pb-4 px-4">
                     <button
                         onClick={scrollToPricing}
-                        className="w-full bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black font-black text-base py-4 px-6 rounded-2xl shadow-[0_0_30px_rgba(212,175,55,0.5)] transition-all active:scale-95 flex items-center justify-center gap-2"
+                        className="w-full bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black font-black text-base py-4 px-6 rounded-2xl shadow-[0_0_30px_rgba(212,175,55,0.5)] transition-all active:scale-95 hover:shadow-[0_0_40px_rgba(212,175,55,0.7)] flex items-center justify-center gap-2"
                     >
                         <Sparkles className="w-5 h-5" />
                         Liberar meu Mapa agora
@@ -964,6 +1096,43 @@ const OfferNew = ({ userName }: OfferProps) => {
                     </div>
                 </div>
             </motion.div>
+
+            {/* 💡 3. DESKTOP STICKY CTA BAR - Shows when pricing section is not visible */}
+            <AnimatePresence>
+                {showStickyBar && showOfferContent && (
+                    <motion.div
+                        initial={{ y: 100, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: 100, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="fixed bottom-0 left-0 right-0 z-50 hidden md:block"
+                    >
+                        <div className="bg-gradient-to-t from-[#0a0118] via-[#0a0118]/98 to-[#0a0118]/90 border-t border-[#D4AF37]/30 py-4 px-6 backdrop-blur-sm">
+                            <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
+                                <div className="flex items-center gap-4">
+                                    <div className="text-white">
+                                        <p className="text-sm text-slate-400">Plano mais escolhido</p>
+                                        <p className="text-lg font-bold text-[#FFD700]">O Desbloqueio Completo • <span className="text-white">R$29</span></p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <div className="hidden lg:flex items-center gap-2 text-xs text-slate-400">
+                                        <Shield className="w-4 h-4 text-emerald-400" />
+                                        <span>7 dias garantia</span>
+                                    </div>
+                                    <button
+                                        onClick={scrollToPricing}
+                                        className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] hover:from-[#FFD700] hover:to-[#D4AF37] text-black font-black text-sm py-3 px-6 rounded-xl shadow-[0_0_20px_rgba(212,175,55,0.4)] hover:shadow-[0_0_30px_rgba(212,175,55,0.6)] transition-all active:scale-95 flex items-center gap-2"
+                                    >
+                                        <Sparkles className="w-4 h-4" />
+                                        Ver Planos
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 };
