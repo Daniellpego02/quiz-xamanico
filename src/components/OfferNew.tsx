@@ -102,6 +102,9 @@ const OfferNew = ({ userName }: OfferProps) => {
 
     // IntersectionObserver for sticky bar visibility and lazy loading
     useEffect(() => {
+        // Only setup observer when offer content is shown and ref is available
+        if (!showOfferContent || !pricingSectionRef.current) return;
+
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
@@ -114,9 +117,7 @@ const OfferNew = ({ userName }: OfferProps) => {
             { threshold: 0.1 }
         );
 
-        if (pricingSectionRef.current) {
-            observer.observe(pricingSectionRef.current);
-        }
+        observer.observe(pricingSectionRef.current);
 
         return () => observer.disconnect();
     }, [showOfferContent]);
@@ -330,6 +331,10 @@ const OfferNew = ({ userName }: OfferProps) => {
                                                 src="/mockup.png" 
                                                 alt="Ver Diagnóstico Xamânico"
                                                 className="w-full h-full object-cover opacity-80"
+                                                onError={(e) => {
+                                                    // Fallback to gradient background if image fails to load
+                                                    e.currentTarget.style.display = 'none';
+                                                }}
                                             />
                                             {/* Dark overlay */}
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/60" />

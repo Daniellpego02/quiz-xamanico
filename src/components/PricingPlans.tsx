@@ -1,6 +1,21 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { Check, Sparkles, Star, Crown, Shield, Lock, Zap, ArrowRight, Gift, Loader2 } from 'lucide-react';
+
+// Shared checkout handler utility
+const useCheckoutHandler = () => {
+  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
+  
+  const handleCheckout = useCallback((link: string, planName: string) => {
+    setLoadingPlan(planName);
+    // Small delay to show loading state before redirect
+    setTimeout(() => {
+      window.location.href = link;
+    }, 300);
+  }, []);
+
+  return { loadingPlan, handleCheckout };
+};
 
 interface Plan {
   name: string;
@@ -93,15 +108,7 @@ const comparisonFeatures = [
 ];
 
 export const PricingPlans = () => {
-  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
-
-  const handleCheckout = (link: string, planName: string) => {
-    setLoadingPlan(planName);
-    // Small delay to show loading state before redirect
-    setTimeout(() => {
-      window.location.href = link;
-    }, 300);
-  };
+  const { loadingPlan, handleCheckout } = useCheckoutHandler();
 
   return (
     <motion.div
@@ -387,14 +394,7 @@ export const PricingPlans = () => {
 
 // Mini version for strategic repetition - Enhanced with microinteractions
 export const MiniPricingBar = () => {
-  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
-
-  const handleCheckout = (link: string, planName: string) => {
-    setLoadingPlan(planName);
-    setTimeout(() => {
-      window.location.href = link;
-    }, 300);
-  };
+  const { loadingPlan, handleCheckout } = useCheckoutHandler();
 
   return (
     <motion.div
