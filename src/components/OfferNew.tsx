@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { Check, Shield, AlertTriangle, Sparkles, Lock, ChevronLeft, ChevronRight, Briefcase, Layers, Users, Heart, Star, Feather } from 'lucide-react';
 import { FAQ } from './FAQ';
-import { PricingPlans } from './PricingPlans';
+import { PricingPlans, MiniPricingBar } from './PricingPlans';
 
 interface OfferProps {
     userName: string;
@@ -15,7 +15,7 @@ interface OfferProps {
  */
 
 // Configuration constants
-const VIDEO_PLAYER_ID = '6953144d84040898eb13007a';
+const VIDEO_PLAYER_ID = '69684ba200d5e38957970446';
 const VIDEO_PLAYER_SCRIPT_URL = `https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/${VIDEO_PLAYER_ID}/v4/player.js`;
 // Demo delay before showing offer content (in production, this should be triggered by video events)
 const OFFER_CONTENT_DELAY_MS = 5000;
@@ -87,9 +87,8 @@ const OfferNew = ({ userName }: OfferProps) => {
         document.head.appendChild(optimizationScript);
 
         const preloadLinks = [
-            { href: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6953144d84040898eb13007a/v4/player.js', as: 'script' },
+            { href: `https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/${VIDEO_PLAYER_ID}/v4/player.js`, as: 'script' },
             { href: 'https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js', as: 'script' },
-            { href: 'https://cdn.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/6953140fba8707e946bf11ea/main.m3u8', as: 'fetch' }
         ];
 
         const preloadElements: HTMLLinkElement[] = [];
@@ -203,6 +202,18 @@ const OfferNew = ({ userName }: OfferProps) => {
                     >
                         Sim, quero rastrear a origem invisível da minha escassez
                     </motion.button>
+
+                    {/* Microcopy below CTA */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.5 }}
+                        className="flex flex-wrap justify-center gap-4 mt-4 text-xs sm:text-sm text-slate-400"
+                    >
+                        <span>⚡ Leitura rápida + escolha do caminho (30s)</span>
+                        <span>🔒 Pix + acesso imediato</span>
+                        <span>🛡️ Garantia 7 dias</span>
+                    </motion.div>
                 </motion.section>
 
                 {/* ========== VIDEO SECTION ========== */}
@@ -489,6 +500,11 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         </p>
                                         <p className="text-slate-400 text-sm mt-3">— Maria R., São Paulo</p>
                                     </div>
+                                </div>
+
+                                {/* Mini Pricing Bar - Strategic Repetition after Social Proof */}
+                                <div className="mt-8 max-w-2xl mx-auto px-4">
+                                    <MiniPricingBar />
                                 </div>
                             </motion.section>
 
