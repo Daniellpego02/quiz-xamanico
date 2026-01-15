@@ -15,8 +15,8 @@ const faqs = [
   },
   {
     id: 3,
-    question: 'Funciona mesmo se eu não for espiritualizado(a)?',
-    answer: 'Absolutamente! O protocolo é baseado em psicogenealogia, física quântica e técnicas ancestrais que funcionam independente da sua crença ou religião. É sobre libertar padrões energéticos, não sobre fé.',
+    question: 'Preciso ter experiência com espiritualidade para funcionar?',
+    answer: 'Não! O protocolo é baseado em psicogenealogia, física quântica e técnicas ancestrais que funcionam independente da sua crença, religião ou experiência prévia. É sobre libertar padrões energéticos, não sobre fé. Qualquer pessoa pode fazer o ritual.',
   },
   {
     id: 4,
@@ -42,6 +42,11 @@ const faqs = [
     id: 8,
     question: 'E se eu não sentir nada?',
     answer: 'Você tem a garantia ritual de 7 dias. Se não sentir nenhum tipo de desbloqueio, clareza ou transformação sutil, devolvemos seu investimento sem perguntas. O risco é todo nosso.',
+  },
+  {
+    id: 9,
+    question: 'É seguro pagar? Como recebo o mapa?',
+    answer: 'Totalmente seguro! O pagamento é processado via PIX com criptografia de ponta. Após a confirmação (geralmente instantânea), você recebe automaticamente um e-mail com o link de acesso ao seu Mapa Xamânico e todos os materiais do ritual. Não precisa se preocupar com nada.',
   },
 ];
 
