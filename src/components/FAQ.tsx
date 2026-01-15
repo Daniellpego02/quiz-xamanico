@@ -75,7 +75,7 @@ const faqs: FAQItem[] = [
   },
   {
     id: 8,
-    question: '🧭 Posso fazer upgrade depois?',
+    question: '⬆️ Posso fazer upgrade depois?',
     answer: (
       <>
         Sim, você pode fazer <span className="text-[#FFD700] font-semibold">upgrade a qualquer momento</span>. Basta entrar em contato com nosso suporte e pagaremos apenas a diferença entre os planos.
