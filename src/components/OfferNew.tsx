@@ -358,14 +358,14 @@ const OfferNew = ({ userName }: OfferProps) => {
 
                                 {/* Mockup Image */}
                                 <div className="mb-8 flex justify-center">
-                                    <div className="relative">
+                                    <div className="relative p-4 bg-gradient-to-br from-purple-900/50 to-[#1a0b2e]/80 rounded-3xl">
                                         <img 
                                             src="/mockup.png" 
                                             alt="Mockup do Mapa Xamânico" 
-                                            className="w-full max-w-md rounded-2xl shadow-[0_0_40px_rgba(212,175,55,0.3)] border-2 border-[#D4AF37]/50"
+                                            className="w-full max-w-sm rounded-2xl shadow-[0_0_40px_rgba(212,175,55,0.3)] border-2 border-[#D4AF37]/50 mix-blend-lighten"
                                             loading="lazy"
                                         />
-                                        <div className="absolute -inset-4 bg-[#D4AF37]/10 blur-2xl -z-10"></div>
+                                        <div className="absolute -inset-4 bg-gradient-to-br from-purple-500/20 to-[#D4AF37]/10 blur-2xl -z-10"></div>
                                     </div>
                                 </div>
 
@@ -553,16 +553,16 @@ const OfferNew = ({ userName }: OfferProps) => {
                                     <motion.div 
                                         initial={{ scale: 0.9, opacity: 0 }}
                                         animate={{ scale: 1, opacity: 1 }}
-                                        className="inline-flex items-center gap-2 bg-gradient-to-r from-red-900/50 to-orange-900/50 border border-red-500/40 px-4 py-2 rounded-full mb-4"
+                                        className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-900/50 to-[#D4AF37]/30 border border-[#D4AF37]/40 px-4 py-2 rounded-full mb-4"
                                     >
-                                        <span className="text-2xl">🎥</span>
-                                        <span className="text-red-400 text-sm font-bold uppercase tracking-wider">Depoimentos em Vídeo</span>
+                                        <span className="text-2xl">✨</span>
+                                        <span className="text-[#FFD700] text-sm font-bold uppercase tracking-wider">Histórias de Transformação</span>
                                     </motion.div>
                                     <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3 px-2">
-                                        Vídeos <span className="text-[#FFD700]">Reais</span>
+                                        Clientes que <span className="text-[#FFD700]">desbloquearam</span> sua prosperidade
                                     </h3>
                                     <p className="text-slate-400 text-sm sm:text-base max-w-md mx-auto">
-                                        {videoTestimonials.length} pessoas compartilham suas experiências
+                                        Veja quem já fez o ritual e está vivendo uma nova realidade financeira
                                     </p>
                                 </div>
                                 
@@ -575,11 +575,13 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         {/* Video Player Header */}
                                         <div className="flex items-center justify-between bg-gradient-to-r from-[#D4AF37]/20 to-[#FFD700]/10 rounded-t-xl px-4 py-3 mb-2 border-b border-[#D4AF37]/20">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-                                                <span className="text-[#FFD700] font-bold text-sm">AO VIVO</span>
+                                                <div className="w-8 h-8 bg-gradient-to-br from-[#D4AF37] to-[#FFD700] rounded-full flex items-center justify-center">
+                                                    <span className="text-black text-xs">🎬</span>
+                                                </div>
+                                                <span className="text-[#FFD700] font-bold text-sm">Depoimento #{currentVideoIndex + 1}</span>
                                             </div>
                                             <div className="flex items-center gap-2">
-                                                <span className="text-slate-400 text-xs">Vídeo {currentVideoIndex + 1} de {videoTestimonials.length}</span>
+                                                <span className="text-emerald-400 text-xs font-semibold">✓ Cliente verificado</span>
                                             </div>
                                         </div>
                                         
