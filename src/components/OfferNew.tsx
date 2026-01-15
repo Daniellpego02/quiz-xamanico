@@ -405,105 +405,138 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 <PricingPlans />
                             </section>
 
-                            {/* ========== SEÇÃO 6: PROVA SOCIAL (DEPOIMENTOS) ========== */}
+                            {/* ========== SEÇÃO 6: PROVA SOCIAL (DEPOIMENTOS WHATSAPP) ========== */}
                             <motion.section
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.6 }}
                                 className="mb-16"
                             >
-                                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#FFD700] text-center mb-8 px-2">
-                                    💬 Milhares já fizeram o ritual. Aqui estão alguns relatos reais:
-                                </h3>
+                                {/* Section Header with Glow Effect */}
+                                <div className="text-center mb-8">
+                                    <motion.div 
+                                        initial={{ scale: 0.9, opacity: 0 }}
+                                        animate={{ scale: 1, opacity: 1 }}
+                                        className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-900/50 to-green-900/50 border border-emerald-500/40 px-4 py-2 rounded-full mb-4"
+                                    >
+                                        <span className="text-2xl">💬</span>
+                                        <span className="text-emerald-400 text-sm font-bold uppercase tracking-wider">Relatos Reais do WhatsApp</span>
+                                    </motion.div>
+                                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3 px-2">
+                                        Veja o que estão <span className="text-[#FFD700]">dizendo</span>
+                                    </h3>
+                                    <p className="text-slate-400 text-sm sm:text-base max-w-md mx-auto">
+                                        Prints reais de pessoas que fizeram o ritual e tiveram resultados
+                                    </p>
+                                </div>
 
-                                {/* WhatsApp Prints Carousel */}
-                                <div className="relative max-w-2xl mx-auto px-4">
-                                    <div className="relative overflow-hidden rounded-2xl border-2 border-[#D4AF37]/50 shadow-[0_0_40px_rgba(212,175,55,0.3)] bg-black/50">
-                                        <AnimatePresence mode="wait">
-                                            <motion.img
-                                                key={currentProofIndex}
-                                                initial={{ opacity: 0, x: 100 }}
-                                                animate={{ opacity: 1, x: 0 }}
-                                                exit={{ opacity: 0, x: -100 }}
-                                                transition={{ duration: 0.3 }}
-                                                src={socialProofImages[currentProofIndex].src}
-                                                alt={socialProofImages[currentProofIndex].alt}
-                                                className="w-full h-auto object-contain"
-                                                loading="lazy"
-                                            />
-                                        </AnimatePresence>
+                                {/* WhatsApp Prints Carousel - Enhanced Mobile Design */}
+                                <div className="relative max-w-md mx-auto px-4">
+                                    {/* Decorative elements */}
+                                    <div className="absolute -top-4 -left-4 w-20 h-20 bg-emerald-500/20 rounded-full blur-2xl"></div>
+                                    <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-[#FFD700]/20 rounded-full blur-2xl"></div>
+                                    
+                                    {/* Main Carousel Container */}
+                                    <div className="relative bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] rounded-3xl p-3 sm:p-4 border-2 border-emerald-500/30 shadow-[0_0_60px_rgba(16,185,129,0.2)]">
+                                        {/* WhatsApp Header Mockup */}
+                                        <div className="flex items-center gap-3 bg-[#075e54] rounded-t-xl px-4 py-3 mb-2">
+                                            <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-green-500 rounded-full flex items-center justify-center">
+                                                <span className="text-white text-lg">✨</span>
+                                            </div>
+                                            <div>
+                                                <p className="text-white font-bold text-sm">Depoimentos Verificados</p>
+                                                <p className="text-emerald-200/70 text-xs">{socialProofImages.length} relatos reais</p>
+                                            </div>
+                                        </div>
                                         
-                                        {/* Navigation Buttons - Desktop */}
-                                        <button 
-                                            onClick={prevProof}
-                                            className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-all items-center justify-center backdrop-blur-sm z-10"
-                                            aria-label="Anterior"
-                                        >
-                                            <ChevronLeft className="w-6 h-6" />
-                                        </button>
-                                        <button 
-                                            onClick={nextProof}
-                                            className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-all items-center justify-center backdrop-blur-sm z-10"
-                                            aria-label="Próximo"
-                                        >
-                                            <ChevronRight className="w-6 h-6" />
-                                        </button>
-                                    </div>
-
-                                    {/* Dots Indicator */}
-                                    <div className="flex justify-center gap-2 mt-6">
-                                        {socialProofImages.map((_, idx) => (
-                                            <button
-                                                key={idx}
-                                                onClick={() => setCurrentProofIndex(idx)}
-                                                className={`transition-all rounded-full ${
-                                                    idx === currentProofIndex 
-                                                        ? 'bg-[#FFD700] w-8 h-3' 
-                                                        : 'bg-white/30 hover:bg-white/50 w-3 h-3'
-                                                }`}
-                                                aria-label={`Ir para depoimento ${idx + 1}`}
-                                            />
-                                        ))}
-                                    </div>
-
-                                    {/* Mobile Navigation Buttons */}
-                                    <div className="flex sm:hidden justify-center gap-4 mt-6">
-                                        <button 
-                                            onClick={prevProof}
-                                            className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black p-4 rounded-full transition-all shadow-lg"
-                                            aria-label="Anterior"
-                                        >
-                                            <ChevronLeft className="w-6 h-6" />
-                                        </button>
-                                        <button 
-                                            onClick={nextProof}
-                                            className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black p-4 rounded-full transition-all shadow-lg"
-                                            aria-label="Próximo"
-                                        >
-                                            <ChevronRight className="w-6 h-6" />
-                                        </button>
-                                    </div>
-
-                                    {/* Image Counter */}
-                                    <div className="text-center mt-4">
-                                        <p className="text-slate-400 text-sm">
-                                            Depoimento {currentProofIndex + 1} de {socialProofImages.length}
-                                        </p>
+                                        {/* Image Container */}
+                                        <div className="relative overflow-hidden rounded-2xl bg-[#0b141a]">
+                                            <AnimatePresence mode="wait">
+                                                <motion.img
+                                                    key={currentProofIndex}
+                                                    initial={{ opacity: 0, scale: 0.95 }}
+                                                    animate={{ opacity: 1, scale: 1 }}
+                                                    exit={{ opacity: 0, scale: 0.95 }}
+                                                    transition={{ duration: 0.3 }}
+                                                    src={socialProofImages[currentProofIndex].src}
+                                                    alt={socialProofImages[currentProofIndex].alt}
+                                                    className="w-full h-auto object-contain max-h-[500px]"
+                                                    loading="lazy"
+                                                />
+                                            </AnimatePresence>
+                                            
+                                            {/* Swipe indicator for mobile */}
+                                            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-2 sm:hidden">
+                                                <ChevronLeft className="w-4 h-4 text-white/50" />
+                                                <span className="text-white/70 text-xs">Deslize para ver mais</span>
+                                                <ChevronRight className="w-4 h-4 text-white/50" />
+                                            </div>
+                                        </div>
+                                        
+                                        {/* Navigation Controls */}
+                                        <div className="flex items-center justify-between mt-4 px-2">
+                                            <button 
+                                                onClick={prevProof}
+                                                className="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white p-3 rounded-full transition-all shadow-lg active:scale-95"
+                                                aria-label="Anterior"
+                                            >
+                                                <ChevronLeft className="w-5 h-5" />
+                                            </button>
+                                            
+                                            {/* Progress Dots */}
+                                            <div className="flex items-center gap-1.5">
+                                                {socialProofImages.map((_, idx) => (
+                                                    <button
+                                                        key={idx}
+                                                        onClick={() => setCurrentProofIndex(idx)}
+                                                        className={`transition-all rounded-full ${
+                                                            idx === currentProofIndex 
+                                                                ? 'bg-gradient-to-r from-emerald-400 to-[#FFD700] w-6 h-2.5 shadow-[0_0_10px_rgba(16,185,129,0.5)]' 
+                                                                : 'bg-white/20 hover:bg-white/40 w-2.5 h-2.5'
+                                                        }`}
+                                                        aria-label={`Depoimento ${idx + 1}`}
+                                                    />
+                                                ))}
+                                            </div>
+                                            
+                                            <button 
+                                                onClick={nextProof}
+                                                className="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white p-3 rounded-full transition-all shadow-lg active:scale-95"
+                                                aria-label="Próximo"
+                                            >
+                                                <ChevronRight className="w-5 h-5" />
+                                            </button>
+                                        </div>
+                                        
+                                        {/* Counter Badge */}
+                                        <div className="text-center mt-3">
+                                            <span className="inline-flex items-center gap-2 bg-emerald-500/20 border border-emerald-500/30 rounded-full px-4 py-1.5">
+                                                <span className="text-emerald-400 text-sm font-bold">{currentProofIndex + 1}</span>
+                                                <span className="text-slate-500 text-sm">de</span>
+                                                <span className="text-emerald-400 text-sm font-bold">{socialProofImages.length}</span>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
 
-                                {/* Sample Quote */}
-                                <div className="mt-8 max-w-2xl mx-auto px-4">
-                                    <div className="bg-gradient-to-br from-emerald-900/30 to-emerald-800/20 border border-emerald-500/30 rounded-2xl p-6 text-center">
-                                        <p className="text-emerald-300 italic text-base sm:text-lg leading-relaxed">
-                                            "Eu não acreditava, mas no 4º dia, minha dívida foi perdoada por um parente que eu nem falava há anos."
-                                        </p>
-                                        <p className="text-slate-400 text-sm mt-3">— Maria R., São Paulo</p>
+                                {/* Trust Badges */}
+                                <div className="flex flex-wrap justify-center gap-3 mt-8 px-4">
+                                    <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-2">
+                                        <Check className="w-4 h-4 text-emerald-400" />
+                                        <span className="text-slate-300 text-xs">Verificados</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-2">
+                                        <span className="text-lg">📱</span>
+                                        <span className="text-slate-300 text-xs">WhatsApp Real</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-2">
+                                        <span className="text-lg">🇧🇷</span>
+                                        <span className="text-slate-300 text-xs">Brasil</span>
                                     </div>
                                 </div>
 
                                 {/* Mini Pricing Bar - Strategic Repetition after Social Proof */}
-                                <div className="mt-8 max-w-2xl mx-auto px-4">
+                                <div className="mt-10 max-w-lg mx-auto px-4">
                                     <MiniPricingBar />
                                 </div>
                             </motion.section>
@@ -515,89 +548,107 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 transition={{ delay: 0.7 }}
                                 className="mb-16"
                             >
-                                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#FFD700] text-center mb-8 px-2">
-                                    🎥 Veja Depoimentos Reais em Vídeo
-                                </h3>
+                                {/* Section Header */}
+                                <div className="text-center mb-8">
+                                    <motion.div 
+                                        initial={{ scale: 0.9, opacity: 0 }}
+                                        animate={{ scale: 1, opacity: 1 }}
+                                        className="inline-flex items-center gap-2 bg-gradient-to-r from-red-900/50 to-orange-900/50 border border-red-500/40 px-4 py-2 rounded-full mb-4"
+                                    >
+                                        <span className="text-2xl">🎥</span>
+                                        <span className="text-red-400 text-sm font-bold uppercase tracking-wider">Depoimentos em Vídeo</span>
+                                    </motion.div>
+                                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3 px-2">
+                                        Vídeos <span className="text-[#FFD700]">Reais</span>
+                                    </h3>
+                                    <p className="text-slate-400 text-sm sm:text-base max-w-md mx-auto">
+                                        {videoTestimonials.length} pessoas compartilham suas experiências
+                                    </p>
+                                </div>
                                 
-                                <div className="relative bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] rounded-3xl p-4 sm:p-6 md:p-8 border-2 border-[#D4AF37]/30 max-w-[500px] mx-auto">
-                                    <div className="relative rounded-2xl overflow-hidden border-2 border-[#D4AF37]/50 shadow-[0_0_40px_rgba(212,175,55,0.3)] bg-black">
-                                        <div className="relative w-full aspect-[9/16] max-h-[600px]">
+                                {/* Video Carousel Container */}
+                                <div className="relative max-w-md mx-auto px-4">
+                                    {/* Decorative Glow */}
+                                    <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-32 h-32 bg-[#FFD700]/20 rounded-full blur-3xl"></div>
+                                    
+                                    <div className="relative bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] rounded-3xl p-3 sm:p-4 border-2 border-[#D4AF37]/40 shadow-[0_0_60px_rgba(212,175,55,0.2)]">
+                                        {/* Video Player Header */}
+                                        <div className="flex items-center justify-between bg-gradient-to-r from-[#D4AF37]/20 to-[#FFD700]/10 rounded-t-xl px-4 py-3 mb-2 border-b border-[#D4AF37]/20">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+                                                <span className="text-[#FFD700] font-bold text-sm">AO VIVO</span>
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-slate-400 text-xs">Vídeo {currentVideoIndex + 1} de {videoTestimonials.length}</span>
+                                            </div>
+                                        </div>
+                                        
+                                        {/* Video Player */}
+                                        <div className="relative rounded-2xl overflow-hidden border-2 border-[#D4AF37]/30 bg-black">
+                                            <div className="relative w-full aspect-[9/16] max-h-[500px]">
+                                                {videoTestimonials.map((video, idx) => (
+                                                    <div
+                                                        key={video.id}
+                                                        className={`absolute inset-0 transition-opacity duration-300 ${idx === currentVideoIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                                                    >
+                                                        <vturb-smartplayer 
+                                                            id={video.playerId}
+                                                            className="block w-full h-full"
+                                                        ></vturb-smartplayer>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                        
+                                        {/* Video Selection Thumbnails */}
+                                        <div className="mt-4 grid grid-cols-4 gap-2">
                                             {videoTestimonials.map((video, idx) => (
-                                                <div
+                                                <button
                                                     key={video.id}
-                                                    className={`absolute inset-0 transition-opacity duration-300 ${idx === currentVideoIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                                                    onClick={() => setCurrentVideoIndex(idx)}
+                                                    className={`relative aspect-square rounded-xl overflow-hidden transition-all duration-300 ${
+                                                        idx === currentVideoIndex 
+                                                            ? 'ring-2 ring-[#FFD700] ring-offset-2 ring-offset-black scale-105 shadow-[0_0_20px_rgba(212,175,55,0.5)]' 
+                                                            : 'opacity-60 hover:opacity-100 hover:scale-102'
+                                                    }`}
                                                 >
-                                                    <vturb-smartplayer 
-                                                        id={video.playerId}
-                                                        className="block w-full h-full"
-                                                    ></vturb-smartplayer>
-                                                </div>
+                                                    <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/30 to-[#FFD700]/10 flex items-center justify-center">
+                                                        <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                                                            <span className="text-white text-sm font-bold">{idx + 1}</span>
+                                                        </div>
+                                                    </div>
+                                                    {idx === currentVideoIndex && (
+                                                        <div className="absolute bottom-1 left-1/2 -translate-x-1/2">
+                                                            <span className="text-[8px] bg-[#FFD700] text-black px-1.5 py-0.5 rounded-full font-bold">ATIVO</span>
+                                                        </div>
+                                                    )}
+                                                </button>
                                             ))}
                                         </div>
                                         
-                                        {/* Navigation Buttons - Desktop */}
-                                        <button 
-                                            onClick={prevVideo}
-                                            className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-all items-center justify-center backdrop-blur-sm z-20 border border-[#D4AF37]/30"
-                                            aria-label="Vídeo anterior"
-                                        >
-                                            <ChevronLeft className="w-6 h-6" />
-                                        </button>
-                                        <button 
-                                            onClick={nextVideo}
-                                            className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-all items-center justify-center backdrop-blur-sm z-20 border border-[#D4AF37]/30"
-                                            aria-label="Próximo vídeo"
-                                        >
-                                            <ChevronRight className="w-6 h-6" />
-                                        </button>
-                                    </div>
-
-                                    {/* Dots Indicator */}
-                                    <div className="flex justify-center gap-2 mt-6">
-                                        {videoTestimonials.map((_, idx) => (
-                                            <button
-                                                key={idx}
-                                                onClick={() => setCurrentVideoIndex(idx)}
-                                                className={`transition-all rounded-full ${
-                                                    idx === currentVideoIndex 
-                                                        ? 'bg-[#FFD700] w-8 h-3 shadow-[0_0_10px_rgba(255,215,0,0.5)]' 
-                                                        : 'bg-white/30 hover:bg-white/50 w-3 h-3'
-                                                }`}
-                                                aria-label={`Ver depoimento em vídeo ${idx + 1}`}
-                                            />
-                                        ))}
-                                    </div>
-
-                                    {/* Mobile Navigation Buttons */}
-                                    <div className="flex sm:hidden justify-center gap-4 mt-6">
-                                        <button 
-                                            onClick={prevVideo}
-                                            className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black p-4 rounded-full transition-all shadow-lg"
-                                            aria-label="Vídeo anterior"
-                                        >
-                                            <ChevronLeft className="w-6 h-6" />
-                                        </button>
-                                        <button 
-                                            onClick={nextVideo}
-                                            className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black p-4 rounded-full transition-all shadow-lg"
-                                            aria-label="Próximo vídeo"
-                                        >
-                                            <ChevronRight className="w-6 h-6" />
-                                        </button>
-                                    </div>
-
-                                    {/* Video Counter */}
-                                    <div className="text-center mt-4">
-                                        <p className="text-slate-400 text-sm">
-                                            Vídeo {currentVideoIndex + 1} de {videoTestimonials.length}
-                                        </p>
-                                    </div>
-
-                                    {/* Trust indicator */}
-                                    <div className="mt-6 text-center">
-                                        <div className="inline-flex items-center gap-2 bg-emerald-500/20 border border-emerald-500/40 rounded-full px-4 py-2">
-                                            <Check className="w-4 h-4 text-emerald-400" />
-                                            <span className="text-emerald-400 text-xs sm:text-sm font-semibold">Depoimentos Reais Verificados</span>
+                                        {/* Navigation Controls */}
+                                        <div className="flex items-center justify-between mt-4 px-2">
+                                            <button 
+                                                onClick={prevVideo}
+                                                className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black p-3 rounded-full transition-all shadow-lg active:scale-95 hover:shadow-[0_0_20px_rgba(212,175,55,0.5)]"
+                                                aria-label="Vídeo anterior"
+                                            >
+                                                <ChevronLeft className="w-5 h-5" />
+                                            </button>
+                                            
+                                            {/* Trust indicator */}
+                                            <div className="flex items-center gap-2 bg-emerald-500/20 border border-emerald-500/30 rounded-full px-3 py-1.5">
+                                                <Check className="w-4 h-4 text-emerald-400" />
+                                                <span className="text-emerald-400 text-xs font-semibold">Verificado</span>
+                                            </div>
+                                            
+                                            <button 
+                                                onClick={nextVideo}
+                                                className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black p-3 rounded-full transition-all shadow-lg active:scale-95 hover:shadow-[0_0_20px_rgba(212,175,55,0.5)]"
+                                                aria-label="Próximo vídeo"
+                                            >
+                                                <ChevronRight className="w-5 h-5" />
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
