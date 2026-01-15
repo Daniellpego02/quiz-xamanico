@@ -291,10 +291,6 @@ export const PricingPlans = () => {
 
 // Mini version for strategic repetition
 export const MiniPricingBar = () => {
-  const scrollToPricing = () => {
-    document.getElementById('pricing-section')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
