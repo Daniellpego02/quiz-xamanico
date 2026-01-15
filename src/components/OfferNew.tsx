@@ -17,6 +17,17 @@ interface OfferProps {
  * Fonts: Cinzel (titles) + Montserrat (body)
  */
 
+// ============ CONFIGURATION CONSTANTS ============
+// Checkout URLs - Update these for different environments
+const CHECKOUT_URLS = {
+    basic: 'https://pay.lowify.com.br/checkout.php?product_id=manflx',
+    complete: 'https://pay.lowify.com.br/go.php?offer=zsa1x42',
+    vip: 'https://pay.lowify.com.br/go.php?offer=1hy3fg2',
+} as const;
+
+// Timer configuration (in seconds)
+const COUNTDOWN_DURATION_SECONDS = 14 * 60; // 14 minutes
+
 // Social proof notifications for toast
 const socialProofToasts = [
     { name: 'Daniel de Souza', value: 'R$ 1.900' },
@@ -71,7 +82,7 @@ const OfferNew = ({ userName }: OfferProps) => {
     const [activeOrbital, setActiveOrbital] = useState<number | null>(null);
     const [openFaq, setOpenFaq] = useState<number | null>(null);
     const [showStickyBar, setShowStickyBar] = useState(false);
-    const [timeLeft, setTimeLeft] = useState(14 * 60); // 14 minutes
+    const [timeLeft, setTimeLeft] = useState(COUNTDOWN_DURATION_SECONDS);
     
     const journeyRef = useRef<HTMLDivElement>(null);
     const journeyInView = useInView(journeyRef, { once: true, margin: "-100px" });
@@ -130,12 +141,7 @@ const OfferNew = ({ userName }: OfferProps) => {
     };
     
     const handleCheckout = (plan: string) => {
-        const links: Record<string, string> = {
-            basic: 'https://pay.lowify.com.br/checkout.php?product_id=manflx',
-            complete: 'https://pay.lowify.com.br/go.php?offer=zsa1x42',
-            vip: 'https://pay.lowify.com.br/go.php?offer=1hy3fg2',
-        };
-        window.location.href = links[plan] || links.complete;
+        window.location.href = CHECKOUT_URLS[plan as keyof typeof CHECKOUT_URLS] || CHECKOUT_URLS.complete;
     };
 
     return (
@@ -389,6 +395,9 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             src="/mockup.png" 
                                             alt="Mapa Xamânico App"
                                             className="w-full h-auto"
+                                            onError={(e) => {
+                                                e.currentTarget.src = "https://via.placeholder.com/300x500/1a1a1a/FFD700?text=Mapa+Xamanico";
+                                            }}
                                         />
                                     </div>
                                 </div>
@@ -673,6 +682,9 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         src="/expert.jpg" 
                                         alt="Anahí Solara"
                                         className="w-full h-full object-cover"
+                                        onError={(e) => {
+                                            e.currentTarget.src = "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=388&auto=format&fit=crop";
+                                        }}
                                     />
                                 </div>
                                 <div className="absolute -inset-2 bg-[#FFD700]/20 blur-2xl -z-10 rounded-full" />
