@@ -1,780 +1,841 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import { Check, Shield, AlertTriangle, Sparkles, Lock, ChevronLeft, ChevronRight, Briefcase, Layers, Users, Heart, Star, Feather } from 'lucide-react';
-import { FAQ } from './FAQ';
-import { PricingPlans, MiniPricingBar } from './PricingPlans';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { useEffect, useState, useRef } from 'react';
+import { 
+    Check, Shield, Lock, ChevronLeft, ChevronRight, 
+    Headphones, FileText, Calendar, Compass, ChevronDown,
+    Dna, Key, Eye, Sparkles, Award, Globe, Users
+} from 'lucide-react';
 
 interface OfferProps {
     userName: string;
 }
 
 /**
- * OFFER PAGE - RITUAL TRANSFORMATION DESIGN
- * Complete restructure following the new Mapa Xamânico narrative
- * Architecture: Dark Mode + Purple/Gold + Ritual Decision Experience
+ * OFFER PAGE - MYSTIC TECH PROTOCOL
+ * Premium "Temple" experience with high-conversion design
+ * Architecture: Deep Dark Mode (#0a0a0a) + Gold (#FFD700) + Glassmorphism
+ * Fonts: Cinzel (titles) + Montserrat (body)
  */
 
-// Configuration constants
-const VIDEO_PLAYER_ID = '69684ba200d5e38957970446';
-const VIDEO_PLAYER_SCRIPT_URL = `https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/${VIDEO_PLAYER_ID}/v4/player.js`;
-// Demo delay before showing offer content (in production, this should be triggered by video events)
-const OFFER_CONTENT_DELAY_MS = 5000;
+// Social proof notifications for toast
+const socialProofToasts = [
+    { name: 'Daniel de Souza', value: 'R$ 1.900' },
+    { name: 'Maria Clara S.', value: 'R$ 2.400' },
+    { name: 'João Pedro M.', value: 'R$ 890' },
+    { name: 'Ana Beatriz L.', value: 'R$ 3.200' },
+    { name: 'Carlos Eduardo', value: 'R$ 1.450' },
+];
+
+// Social proof images
+const socialProofImages = [
+    { src: '/prova1.png', alt: 'Depoimento WhatsApp 1', featured: true },
+    { src: '/prova2.png', alt: 'Depoimento WhatsApp 2', featured: true },
+    { src: '/prova3.png', alt: 'Depoimento WhatsApp 3', featured: false },
+    { src: '/prova4.png', alt: 'Depoimento WhatsApp 4', featured: false },
+    { src: '/prova5.png', alt: 'Depoimento WhatsApp 5', featured: false },
+    { src: '/prova6.png', alt: 'Depoimento WhatsApp 6', featured: false },
+    { src: '/prova7.png', alt: 'Depoimento WhatsApp 7', featured: false },
+];
+
+// FAQ data
+const faqItems = [
+    {
+        question: 'Funciona no meu celular?',
+        answer: 'Sim, é um Portal Mobile compatível com Android e iPhone. Você acessa pelo navegador do seu celular, sem precisar baixar nenhum aplicativo.',
+    },
+    {
+        question: 'Quanto tempo demora para ver resultados?',
+        answer: 'Muitas pessoas relatam sensações de leveza e desbloqueio já nos primeiros 3 dias. Resultados mais tangíveis costumam aparecer entre 7 e 21 dias.',
+    },
+    {
+        question: 'Posso fazer se não tiver tempo?',
+        answer: 'São apenas 12 minutos por dia. Os áudios binaurais podem ser ouvidos enquanto você dorme ou descansa.',
+    },
+    {
+        question: 'E se não funcionar?',
+        answer: 'Você tem 7 dias de garantia incondicional. Se não sentir diferença, devolvemos cada centavo sem perguntas.',
+    },
+];
+
+// Orbital Icons for product reveal
+const orbitalFeatures = [
+    { icon: Headphones, label: 'Áudios Binaurais', desc: 'Reprogramação passiva enquanto você dorme.' },
+    { icon: FileText, label: 'O Mapa PDF', desc: 'Diagnóstico da sua linhagem.' },
+    { icon: Shield, label: 'Ritual de Blindagem', desc: 'Proteção contra inveja e perdas.' },
+    { icon: Calendar, label: 'Protocolo 7 Dias', desc: 'O passo a passo da liberação.' },
+];
 
 const OfferNew = ({ userName }: OfferProps) => {
-    const [showOfferContent, setShowOfferContent] = useState(false);
-    const [currentProofIndex, setCurrentProofIndex] = useState(0);
-    const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+    const [showToast, setShowToast] = useState(false);
+    const [currentToast, setCurrentToast] = useState(0);
+    const [activeOrbital, setActiveOrbital] = useState<number | null>(null);
+    const [openFaq, setOpenFaq] = useState<number | null>(null);
+    const [showStickyBar, setShowStickyBar] = useState(false);
+    const [timeLeft, setTimeLeft] = useState(14 * 60); // 14 minutes
     
-    // Social proof images with descriptions
-    const socialProofImages = [
-        { src: '/prova1.png', alt: 'Depoimento WhatsApp de cliente satisfeito 1' },
-        { src: '/prova2.png', alt: 'Depoimento WhatsApp de cliente satisfeito 2' },
-        { src: '/prova3.png', alt: 'Depoimento WhatsApp de cliente satisfeito 3' },
-        { src: '/prova4.png', alt: 'Depoimento WhatsApp de cliente satisfeito 4' },
-        { src: '/prova5.png', alt: 'Depoimento WhatsApp de cliente satisfeito 5' },
-        { src: '/prova6.png', alt: 'Depoimento WhatsApp de cliente satisfeito 6' },
-        { src: '/prova7.png', alt: 'Depoimento WhatsApp de cliente satisfeito 7' }
-    ];
+    const journeyRef = useRef<HTMLDivElement>(null);
+    const journeyInView = useInView(journeyRef, { once: true, margin: "-100px" });
+    const pricingRef = useRef<HTMLDivElement>(null);
     
-    // Video testimonials - Updated with new VTURB smartplayer IDs
-    const videoTestimonials = [
-        { 
-            id: '6966f78072fa6d1f6fe3580b',
-            playerId: 'vid-6966f78072fa6d1f6fe3580b',
-            scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f78072fa6d1f6fe3580b/v4/player.js',
-            name: 'Depoimento em Vídeo 1'
-        },
-        { 
-            id: '6966f6bc1fad4f3937c2eac9',
-            playerId: 'vid-6966f6bc1fad4f3937c2eac9',
-            scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f6bc1fad4f3937c2eac9/v4/player.js',
-            name: 'Depoimento em Vídeo 2'
-        },
-        { 
-            id: '6966f6b835a1be1be44c9daf',
-            playerId: 'vid-6966f6b835a1be1be44c9daf',
-            scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f6b835a1be1be44c9daf/v4/player.js',
-            name: 'Depoimento em Vídeo 3'
-        },
-        { 
-            id: '6966f8a76af1a10bf01e6dc4',
-            playerId: 'vid-6966f8a76af1a10bf01e6dc4',
-            scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f8a76af1a10bf01e6dc4/v4/player.js',
-            name: 'Depoimento em Vídeo 4'
-        }
-    ];
-    
-    const nextProof = () => {
-        setCurrentProofIndex((prev) => (prev + 1) % socialProofImages.length);
-    };
-    
-    const prevProof = () => {
-        setCurrentProofIndex((prev) => (prev - 1 + socialProofImages.length) % socialProofImages.length);
-    };
-    
-    const nextVideo = () => {
-        setCurrentVideoIndex((prev) => (prev + 1) % videoTestimonials.length);
-    };
-    
-    const prevVideo = () => {
-        setCurrentVideoIndex((prev) => (prev - 1 + videoTestimonials.length) % videoTestimonials.length);
-    };
-
-    // Load video player script
+    // Toast notification rotation
     useEffect(() => {
-        const optimizationScript = document.createElement('script');
-        optimizationScript.innerHTML = '!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);';
-        document.head.appendChild(optimizationScript);
-
-        const preloadLinks = [
-            { href: `https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/${VIDEO_PLAYER_ID}/v4/player.js`, as: 'script' },
-            { href: 'https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js', as: 'script' },
-        ];
-
-        const preloadElements: HTMLLinkElement[] = [];
-        preloadLinks.forEach(link => {
-            const preloadLink = document.createElement('link');
-            preloadLink.rel = 'preload';
-            preloadLink.href = link.href;
-            preloadLink.as = link.as;
-            if (link.as === 'fetch') {
-                preloadLink.setAttribute('crossorigin', 'anonymous');
-            }
-            document.head.appendChild(preloadLink);
-            preloadElements.push(preloadLink);
-        });
-
-        const playerScript = document.createElement('script');
-        playerScript.src = VIDEO_PLAYER_SCRIPT_URL;
-        playerScript.async = true;
-        document.head.appendChild(playerScript);
-
-        // Show offer content after delay (in production, trigger by video events)
-        const timer = setTimeout(() => {
-            setShowOfferContent(true);
-        }, OFFER_CONTENT_DELAY_MS);
-
+        const toastInterval = setInterval(() => {
+            setShowToast(true);
+            setCurrentToast(prev => (prev + 1) % socialProofToasts.length);
+            setTimeout(() => setShowToast(false), 4000);
+        }, 8000);
+        
+        // Show first toast after 2 seconds
+        const initialTimer = setTimeout(() => {
+            setShowToast(true);
+            setTimeout(() => setShowToast(false), 4000);
+        }, 2000);
+        
         return () => {
-            clearTimeout(timer);
-            optimizationScript.remove();
-            playerScript.remove();
-            preloadElements.forEach(el => el.remove());
+            clearInterval(toastInterval);
+            clearTimeout(initialTimer);
         };
     }, []);
-
-    // Load video testimonial scripts only when offer content is shown
+    
+    // Sticky bar visibility
     useEffect(() => {
-        if (!showOfferContent) return;
-
-        const testimonialScripts: HTMLScriptElement[] = [];
-        videoTestimonials.forEach(video => {
-            const script = document.createElement('script');
-            script.src = video.scriptUrl;
-            script.async = true;
-            document.head.appendChild(script);
-            testimonialScripts.push(script);
-        });
-
-        return () => {
-            testimonialScripts.forEach(el => el.remove());
+        const handleScroll = () => {
+            const journeySection = journeyRef.current;
+            if (journeySection) {
+                const rect = journeySection.getBoundingClientRect();
+                setShowStickyBar(rect.bottom < 0);
+            }
         };
-    }, [showOfferContent]);
-
+        
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+    
+    // Countdown timer
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTimeLeft(prev => (prev > 0 ? prev - 1 : 0));
+        }, 1000);
+        return () => clearInterval(timer);
+    }, []);
+    
+    const formatTime = (seconds: number) => {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    };
+    
     const scrollToPricing = () => {
-        document.getElementById('pricing-section')?.scrollIntoView({ behavior: 'smooth' });
+        pricingRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
+    
+    const handleCheckout = (plan: string) => {
+        const links: Record<string, string> = {
+            basic: 'https://pay.lowify.com.br/checkout.php?product_id=manflx',
+            complete: 'https://pay.lowify.com.br/go.php?offer=zsa1x42',
+            vip: 'https://pay.lowify.com.br/go.php?offer=1hy3fg2',
+        };
+        window.location.href = links[plan] || links.complete;
     };
 
     return (
-        <div className="min-h-screen relative overflow-hidden text-white bg-gradient-to-b from-[#0a0118] via-[#1a0b2e] to-[#0a0118]">
+        <div className="min-h-screen relative overflow-hidden text-white bg-[#0a0a0a]">
             
-            {/* Mystical Background Effects */}
+            {/* ========== BACKGROUND: Golden Particles Video Effect ========== */}
             <div className="fixed inset-0 -z-10">
-                <div className="absolute inset-0 bg-gradient-to-b from-[#0a0118] via-[#1a0b2e] to-[#0a0118]"></div>
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-purple-500/5 rounded-full blur-[150px] animate-pulse"></div>
-                <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-[#D4AF37]/5 rounded-full blur-[150px]"></div>
+                {/* Deep dark base */}
+                <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#120918] to-[#0a0a0a]" />
+                
+                {/* Golden particle glow effects */}
+                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#FFD700]/5 rounded-full blur-[150px] animate-pulse" />
+                <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-[#FFD700]/3 rounded-full blur-[120px]" />
+                
+                {/* Floating particles simulation */}
+                <div className="absolute inset-0 opacity-20" style={{
+                    backgroundImage: `radial-gradient(2px 2px at 20% 30%, #FFD700, transparent),
+                                      radial-gradient(2px 2px at 60% 70%, #FFD700, transparent),
+                                      radial-gradient(1px 1px at 80% 20%, #FFD700, transparent),
+                                      radial-gradient(1px 1px at 40% 80%, #FFD700, transparent)`,
+                    backgroundSize: '200% 200%',
+                    animation: 'mysticalStars 20s ease-in-out infinite'
+                }} />
+                
+                {/* Subtle noise texture */}
                 <div className="absolute inset-0 opacity-[0.02]" style={{
                     backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
-                }}></div>
+                }} />
             </div>
-
-            <div className="max-w-4xl mx-auto px-4 py-8">
-
-                {/* ========== SEÇÃO 1: HERO / TOPO ========== */}
-                <motion.section
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-center mb-12"
-                >
-                    {/* Pre-headline Badge */}
-                    <motion.div 
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.2 }}
-                        className="inline-flex items-center gap-2 bg-purple-900/40 border border-purple-500/50 px-4 py-2 rounded-full mb-6"
-                    >
-                        <Sparkles className="w-4 h-4 text-purple-400" />
-                        <span className="text-purple-300 text-sm font-semibold">Ritual de Transformação Ancestral</span>
-                    </motion.div>
-
-                    {/* Main Headline */}
-                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white mb-6 leading-tight px-2">
-                        "Existe uma energia invisível que sabota sua prosperidade.
-                        <span className="block text-[#FFD700] mt-2">Ela não nasceu com você. Ela veio da sua linhagem."</span>
-                    </h1>
-
-                    {/* Subheadline */}
-                    <div className="max-w-3xl mx-auto space-y-4 mb-8">
-                        <p className="text-base sm:text-lg text-slate-300 leading-relaxed px-2">
-                            Por trás das suas dificuldades com dinheiro, pode haver <span className="text-[#FFD700] font-semibold">uma lealdade inconsciente aos traumas financeiros dos seus ancestrais.</span>
-                        </p>
-                        <p className="text-slate-400 text-sm sm:text-base px-2">
-                            Este não é mais um curso.<br />
-                            É um <span className="text-white font-bold">protocolo espiritual de 7 dias para limpar os bloqueios da sua linhagem</span> e reconectar você com a abundância natural.
-                        </p>
-                    </div>
-
-                    {/* Primary CTA */}
-                    <motion.button
-                        onClick={scrollToPricing}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="bg-gradient-to-r from-purple-600 via-purple-500 to-[#D4AF37] hover:from-purple-500 hover:via-purple-400 hover:to-[#FFD700] text-white font-bold text-base sm:text-lg py-4 px-8 rounded-2xl shadow-[0_0_40px_rgba(147,51,234,0.4)] transition-all border border-purple-400/30"
-                    >
-                        Sim, quero rastrear a origem invisível da minha escassez
-                    </motion.button>
-
-                    {/* Microcopy below CTA - Improved */}
+            
+            {/* ========== TOAST: Social Proof Notification ========== */}
+            <AnimatePresence>
+                {showToast && (
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.5 }}
-                        className="flex flex-col items-center gap-2 mt-4"
+                        initial={{ x: 100, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        exit={{ x: 100, opacity: 0 }}
+                        transition={{ duration: 0.4, ease: "easeOut" }}
+                        className="fixed top-4 right-4 z-50 glass-gold rounded-xl px-4 py-3 shadow-xl max-w-[280px]"
                     >
-                        <span className="text-[#FFD700] text-sm font-medium">
-                            👇 Escolha o nível de profundidade do ritual
-                        </span>
-                        <div className="flex flex-wrap justify-center gap-3 text-xs sm:text-sm text-slate-400">
-                            <span>🔒 Pix + acesso imediato</span>
-                            <span>🛡️ Garantia 7 dias</span>
-                        </div>
-                    </motion.div>
-                </motion.section>
-
-                {/* ========== VIDEO SECTION ========== */}
-                <motion.section
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.4 }}
-                    className="mb-16"
-                >
-                    <div className="relative rounded-2xl overflow-hidden border-2 border-[#D4AF37] shadow-[0_0_60px_rgba(212,175,55,0.3)] mx-auto max-w-md">
-                        <div className="bg-black flex items-center justify-center relative">
-                            <div className="w-full" style={{ aspectRatio: '9/16', maxWidth: '400px' }}>
-                                <vturb-smartplayer 
-                                    id={`vid-${VIDEO_PLAYER_ID}`}
-                                    style={{ display: 'block', width: '100%', maxWidth: '400px', margin: '0 auto' }}
-                                ></vturb-smartplayer>
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FFD700] to-[#D4AF37] flex items-center justify-center">
+                                <Eye className="w-5 h-5 text-black" />
+                            </div>
+                            <div>
+                                <p className="text-white text-sm font-semibold">
+                                    {socialProofToasts[currentToast].name}
+                                </p>
+                                <p className="text-[#FFD700] text-xs">
+                                    acabou de desbloquear <span className="font-bold">{socialProofToasts[currentToast].value}</span>
+                                </p>
                             </div>
                         </div>
-                        <div className="absolute -inset-2 bg-[#D4AF37]/20 blur-xl -z-10"></div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            <div className="max-w-5xl mx-auto px-4 py-8 pb-32">
+                
+                {/* ========== BLOCO 1: HERO SECTION ========== */}
+                <motion.section
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="text-center mb-16 pt-8"
+                >
+                    {/* Central Mystic Symbol */}
+                    <motion.div 
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        className="relative w-32 h-32 mx-auto mb-8"
+                    >
+                        {/* Glow ring */}
+                        <div className="absolute inset-0 rounded-full bg-[#FFD700]/20 animate-ping" style={{ animationDuration: '3s' }} />
+                        <div className="absolute inset-2 rounded-full bg-[#FFD700]/10 animate-pulse" />
+                        
+                        {/* Compass symbol */}
+                        <div className="relative w-full h-full rounded-full glass-gold flex items-center justify-center animate-spin-slow" style={{ animationDuration: '30s' }}>
+                            <Compass className="w-16 h-16 text-[#FFD700] drop-shadow-[0_0_20px_rgba(255,215,0,0.6)]" />
+                        </div>
+                    </motion.div>
+                    
+                    {/* Pre-headline */}
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="text-[#FFD700] text-sm md:text-base font-semibold uppercase tracking-[0.3em] mb-4"
+                    >
+                        O Ritual Digital de 7 Dias
+                    </motion.p>
+                    
+                    {/* Main Headline */}
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.5 }}
+                        className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight px-2"
+                    >
+                        Quebre o Contrato de Pobreza<br />
+                        <span className="text-[#FFD700] text-glow-gold">da Sua Família</span>
+                        <span className="block text-2xl sm:text-3xl md:text-4xl mt-2 font-normal text-white/90">sem sair de casa.</span>
+                    </motion.h1>
+                    
+                    {/* Sub-headline */}
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.7 }}
+                        className="text-slate-400 text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed px-4"
+                    >
+                        Você não precisa trabalhar mais. Você precisa desligar a frequência de escassez 
+                        que herdou dos seus pais.
+                    </motion.p>
+                    
+                    {/* CTA Button */}
+                    <motion.button
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.9 }}
+                        onClick={scrollToPricing}
+                        className="relative bg-gradient-to-r from-[#FFD700] via-[#FFC000] to-[#FFD700] text-black font-bold text-lg md:text-xl py-4 px-8 md:px-12 rounded-2xl shadow-[0_0_40px_rgba(255,215,0,0.4)] hover:shadow-[0_0_60px_rgba(255,215,0,0.6)] transition-all transform hover:scale-105 active:scale-95 btn-pulse"
+                    >
+                        <span className="relative z-10 flex items-center gap-2">
+                            QUERO ATIVAR O PROTOCOLO AGORA
+                            <span className="text-2xl">➝</span>
+                        </span>
+                    </motion.button>
+                </motion.section>
+                
+                {/* ========== BLOCO 2: A JORNADA (Timeline) ========== */}
+                <motion.section
+                    ref={journeyRef}
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={journeyInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.6 }}
+                    className="mb-20 relative"
+                >
+                    <h2 className="font-display text-2xl md:text-3xl font-bold text-center text-white mb-12">
+                        A Jornada do <span className="text-[#FFD700]">Desbloqueio</span>
+                    </h2>
+                    
+                    <div className="relative max-w-2xl mx-auto">
+                        {/* Golden Timeline Line */}
+                        <div className="absolute left-8 md:left-12 top-0 bottom-0 w-0.5">
+                            <motion.div 
+                                initial={{ height: 0 }}
+                                animate={journeyInView ? { height: '100%' } : {}}
+                                transition={{ duration: 1.5, ease: "easeOut" }}
+                                className="timeline-line w-full"
+                            />
+                        </div>
+                        
+                        {/* Timeline Items */}
+                        <div className="space-y-8">
+                            {/* Item 1: O Problema */}
+                            <motion.div
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={journeyInView ? { opacity: 1, x: 0 } : {}}
+                                transition={{ delay: 0.3 }}
+                                className="flex gap-6 items-start"
+                            >
+                                <div className="relative z-10 w-16 h-16 md:w-24 md:h-24 rounded-full glass-gold flex items-center justify-center flex-shrink-0 glow-gold">
+                                    <Lock className="w-8 h-8 md:w-10 md:h-10 text-[#FFD700]" />
+                                </div>
+                                <div className="pt-2 md:pt-4">
+                                    <h3 className="font-display text-lg md:text-xl font-bold text-[#FFD700] mb-2">
+                                        O Problema Oculto
+                                    </h3>
+                                    <p className="text-slate-300 text-sm md:text-base leading-relaxed">
+                                        Você sente que existe um teto de vidro. O dinheiro entra e some. 
+                                        Dívidas antigas voltam.
+                                    </p>
+                                </div>
+                            </motion.div>
+                            
+                            {/* Item 2: A Causa */}
+                            <motion.div
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={journeyInView ? { opacity: 1, x: 0 } : {}}
+                                transition={{ delay: 0.6 }}
+                                className="flex gap-6 items-start"
+                            >
+                                <div className="relative z-10 w-16 h-16 md:w-24 md:h-24 rounded-full glass-gold flex items-center justify-center flex-shrink-0 glow-gold">
+                                    <Dna className="w-8 h-8 md:w-10 md:h-10 text-[#FFD700]" />
+                                </div>
+                                <div className="pt-2 md:pt-4">
+                                    <h3 className="font-display text-lg md:text-xl font-bold text-[#FFD700] mb-2">
+                                        A Causa Real
+                                    </h3>
+                                    <p className="text-slate-300 text-sm md:text-base leading-relaxed">
+                                        Não é sua culpa. É uma <span className="text-white font-semibold">Lealdade Invisível</span>. 
+                                        Você está repetindo inconscientemente a dor financeira dos seus antepassados por "amor cego".
+                                    </p>
+                                </div>
+                            </motion.div>
+                            
+                            {/* Item 3: A Solução */}
+                            <motion.div
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={journeyInView ? { opacity: 1, x: 0 } : {}}
+                                transition={{ delay: 0.9 }}
+                                className="flex gap-6 items-start"
+                            >
+                                <div className="relative z-10 w-16 h-16 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-[#FFD700] to-[#D4AF37] flex items-center justify-center flex-shrink-0 shadow-[0_0_30px_rgba(255,215,0,0.5)]">
+                                    <Key className="w-8 h-8 md:w-10 md:h-10 text-black" />
+                                </div>
+                                <div className="pt-2 md:pt-4">
+                                    <h3 className="font-display text-lg md:text-xl font-bold text-[#FFD700] mb-2">
+                                        A Solução
+                                    </h3>
+                                    <p className="text-slate-300 text-sm md:text-base leading-relaxed">
+                                        O <span className="text-white font-semibold">Mapa Xamânico</span>. Uma tecnologia sonora capaz de 
+                                        reescrever essa frequência em 7 dias.
+                                    </p>
+                                </div>
+                            </motion.div>
+                        </div>
                     </div>
                 </motion.section>
-
-                {/* Content shown after video timing */}
-                <AnimatePresence>
-                    {showOfferContent && (
+                
+                {/* ========== BLOCO 3: A REVELAÇÃO (Product Showcase) ========== */}
+                <motion.section
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    className="mb-20 relative"
+                >
+                    {/* Spotlight effect */}
+                    <div className="absolute inset-0 spotlight pointer-events-none" />
+                    
+                    <div className="relative text-center">
+                        <h2 className="font-display text-2xl md:text-3xl font-bold text-white mb-4">
+                            O <span className="text-[#FFD700]">Portal</span> de Cura
+                        </h2>
+                        <p className="text-slate-400 mb-12 max-w-md mx-auto">
+                            Tecnologia ancestral adaptada para a era digital
+                        </p>
+                        
+                        {/* Floating Phone Mockup with Orbital Icons */}
+                        <div className="relative w-64 md:w-80 mx-auto">
+                            {/* Phone Mockup */}
+                            <motion.div
+                                animate={{ y: [0, -10, 0] }}
+                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                                className="relative z-10"
+                            >
+                                <div className="relative bg-gradient-to-b from-slate-800 to-slate-900 rounded-[40px] p-2 shadow-[0_0_60px_rgba(255,215,0,0.3)]">
+                                    <div className="bg-black rounded-[36px] overflow-hidden">
+                                        <img 
+                                            src="/mockup.png" 
+                                            alt="Mapa Xamânico App"
+                                            className="w-full h-auto"
+                                        />
+                                    </div>
+                                </div>
+                                {/* Glow effect */}
+                                <div className="absolute -inset-4 bg-[#FFD700]/20 blur-3xl -z-10 rounded-full" />
+                            </motion.div>
+                            
+                            {/* Orbital Feature Icons */}
+                            {orbitalFeatures.map((feature, index) => {
+                                const positions = [
+                                    { top: '-10%', left: '-30%' },
+                                    { top: '-10%', right: '-30%' },
+                                    { bottom: '10%', left: '-35%' },
+                                    { bottom: '10%', right: '-35%' },
+                                ];
+                                const pos = positions[index];
+                                
+                                return (
+                                    <motion.button
+                                        key={index}
+                                        initial={{ opacity: 0, scale: 0 }}
+                                        whileInView={{ opacity: 1, scale: 1 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: 0.5 + index * 0.15 }}
+                                        onClick={() => setActiveOrbital(activeOrbital === index ? null : index)}
+                                        className={`absolute w-14 h-14 md:w-16 md:h-16 rounded-full glass-gold flex items-center justify-center transition-all hover:scale-110 cursor-pointer ${activeOrbital === index ? 'ring-2 ring-[#FFD700] shadow-[0_0_20px_rgba(255,215,0,0.5)]' : ''}`}
+                                        style={pos}
+                                    >
+                                        <feature.icon className="w-6 h-6 md:w-7 md:h-7 text-[#FFD700]" />
+                                    </motion.button>
+                                );
+                            })}
+                        </div>
+                        
+                        {/* Feature Description Box */}
+                        <AnimatePresence>
+                            {activeOrbital !== null && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: 20 }}
+                                    className="mt-8 max-w-sm mx-auto glass-gold rounded-2xl p-5"
+                                >
+                                    <div className="flex items-center gap-3 mb-2">
+                                        {(() => {
+                                            const Feature = orbitalFeatures[activeOrbital];
+                                            return <Feature.icon className="w-6 h-6 text-[#FFD700]" />;
+                                        })()}
+                                        <h4 className="font-display text-lg font-bold text-[#FFD700]">
+                                            {orbitalFeatures[activeOrbital].label}
+                                        </h4>
+                                    </div>
+                                    <p className="text-slate-300 text-sm">
+                                        {orbitalFeatures[activeOrbital].desc}
+                                    </p>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>
+                </motion.section>
+                
+                {/* ========== BLOCO 4: A ESCOLHA (3 Tarot Cards) ========== */}
+                <section ref={pricingRef} id="pricing" className="mb-20 scroll-mt-8">
+                    <div className="text-center mb-10">
+                        <h2 className="font-display text-2xl md:text-3xl font-bold text-white mb-3">
+                            Escolha o Seu <span className="text-[#FFD700]">Caminho</span>
+                        </h2>
+                        <p className="text-slate-400 text-sm md:text-base">
+                            Três níveis de profundidade para a sua jornada
+                        </p>
+                    </div>
+                    
+                    {/* Cards Container - Horizontal scroll on mobile */}
+                    <div className="flex flex-col md:flex-row gap-6 md:gap-4 items-stretch justify-center overflow-x-auto pb-4 px-2">
+                        
+                        {/* CARD 1: O Curioso */}
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.1 }}
+                            className="flex-shrink-0 w-full md:w-72 bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 rounded-3xl p-6 opacity-80"
                         >
-
-                            {/* ========== SEÇÃO 2: AUTORIDADE / GUIA DA JORNADA ========== */}
-                            <motion.section
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.2 }}
-                                className="mb-16 bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 border-2 border-[#D4AF37]/40 rounded-3xl p-6 sm:p-8"
+                            <div className="text-center mb-4">
+                                <span className="inline-block bg-slate-800 text-slate-400 text-xs font-semibold px-3 py-1 rounded-full mb-3">
+                                    ✨ Iniciante
+                                </span>
+                                <h3 className="font-display text-xl font-bold text-slate-300">O Curioso</h3>
+                                <p className="text-slate-500 text-sm mt-1">Para quem quer apenas espiar.</p>
+                            </div>
+                            
+                            <div className="text-center my-6">
+                                <span className="text-4xl font-bold text-slate-300">R$ 19</span>
+                            </div>
+                            
+                            <ul className="space-y-3 mb-6">
+                                <li className="flex items-start gap-2 text-sm text-slate-400">
+                                    <Check className="w-4 h-4 text-slate-500 mt-0.5 flex-shrink-0" />
+                                    Apenas o Mapa PDF
+                                </li>
+                            </ul>
+                            
+                            <button
+                                onClick={() => handleCheckout('basic')}
+                                className="w-full py-3 px-4 rounded-xl border border-slate-600 text-slate-400 font-semibold hover:bg-slate-800/50 transition-all"
                             >
-                                <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-[#FFD700] text-center mb-8">
-                                    Quem guia esse ritual?
-                                </h2>
-
-                                <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
-                                    {/* Expert Photo */}
-                                    <div className="relative flex-shrink-0">
-                                        <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-[#D4AF37] shadow-[0_0_30px_rgba(212,175,55,0.4)]">
-                                            <img 
-                                                src="/expert.jpg" 
-                                                alt="Anahí Solara"
-                                                className="w-full h-full object-cover"
-                                                onError={(e) => {
-                                                    e.currentTarget.src = "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=388&auto=format&fit=crop";
-                                                }}
-                                            />
-                                        </div>
-                                        <div className="absolute -inset-2 bg-[#D4AF37]/20 blur-xl -z-10"></div>
-                                    </div>
-
-                                    {/* Expert Bio */}
-                                    <div className="flex-1 text-center md:text-left space-y-4">
-                                        <p className="text-[#FFD700] font-bold text-xl md:text-2xl">
-                                            Anahí Solara
-                                        </p>
-                                        <p className="text-slate-300 leading-relaxed">
-                                            Anahí Solara é terapeuta ancestral, xamã de linhagem peruana e condutora de mais de <span className="text-[#FFD700] font-semibold">12 mil pessoas</span> em rituais de limpeza espiritual.
-                                        </p>
-                                        <p className="text-slate-400 leading-relaxed">
-                                            Seu dom é traduzir bloqueios invisíveis em curas reais. Seu trabalho não é sobre prometer milagres — é sobre <span className="text-white font-semibold">ativar a verdade que dorme em você há gerações.</span>
-                                        </p>
-                                    </div>
-                                </div>
-
-                                {/* Authority Badges */}
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
-                                    <div className="flex items-center gap-3 bg-white/5 border border-[#D4AF37]/30 rounded-xl p-4 justify-center sm:justify-start">
-                                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#FFD700] flex items-center justify-center">
-                                            <Briefcase className="w-5 h-5 text-black" />
-                                        </div>
-                                        <span className="text-slate-200 text-sm font-medium">Terapeuta Holística há 10+ anos</span>
-                                    </div>
-                                    <div className="flex items-center gap-3 bg-white/5 border border-[#D4AF37]/30 rounded-xl p-4 justify-center sm:justify-start">
-                                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#FFD700] flex items-center justify-center">
-                                            <Feather className="w-5 h-5 text-black" />
-                                        </div>
-                                        <span className="text-slate-200 text-sm font-medium">Xamã de Linhagem Peruana</span>
-                                    </div>
-                                    <div className="flex items-center gap-3 bg-white/5 border border-[#D4AF37]/30 rounded-xl p-4 justify-center sm:justify-start">
-                                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#FFD700] flex items-center justify-center">
-                                            <Users className="w-5 h-5 text-black" />
-                                        </div>
-                                        <span className="text-slate-200 text-sm font-medium">+12.000 pessoas transformadas</span>
-                                    </div>
-                                </div>
-                            </motion.section>
-
-                            {/* ========== SEÇÃO 3: QUEBRA DE CRENÇA ========== */}
-                            <motion.section
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.3 }}
-                                className="mb-16"
-                            >
-                                <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-center mb-8">
-                                    <span className="text-white">O problema</span> <span className="text-[#FFD700]">não é só dinheiro.</span><br />
-                                    <span className="text-slate-300 text-lg sm:text-xl font-normal">É um padrão energético herdado.</span>
-                                </h2>
-
-                                <div className="space-y-6 max-w-3xl mx-auto">
-                                    <div className="bg-gradient-to-br from-purple-900/30 to-purple-800/20 border border-purple-500/30 rounded-2xl p-6">
-                                        <p className="text-slate-300 leading-relaxed mb-4">
-                                            Você já percebeu que vive situações repetitivas com escassez?<br />
-                                            Já se perguntou por que, mesmo estudando, tentando, orando… parece que <span className="text-purple-300 font-semibold italic">algo te puxa pra baixo?</span>
-                                        </p>
-                                        <p className="text-slate-400 leading-relaxed">
-                                            Segundo a psicogenealogia e o xamanismo, você pode estar <span className="text-white font-semibold">repetindo inconscientemente dores, crenças e traumas não resolvidos dos seus antepassados.</span>
-                                        </p>
-                                    </div>
-
-                                    {/* Impact Quote */}
-                                    <div className="relative bg-gradient-to-r from-red-900/30 to-orange-900/20 border-l-4 border-[#FFD700] rounded-r-2xl p-6">
-                                        <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-[#FFD700] rounded-full flex items-center justify-center">
-                                            <Heart className="w-3 h-3 text-black" />
-                                        </div>
-                                        <p className="text-xl sm:text-2xl font-serif italic text-[#FFD700] leading-relaxed text-center">
-                                            "Lealdade à dor da sua família não é amor.<br />
-                                            <span className="text-white">É aprisionamento."</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </motion.section>
-
-                            {/* ========== SEÇÃO 4: APRESENTAÇÃO DO PRODUTO ========== */}
-                            <motion.section
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.4 }}
-                                className="mb-16"
-                            >
-                                <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-[#FFD700] text-center mb-8">
-                                    O que é o Mapa Xamânico?
-                                </h2>
-
-                                {/* Mockup Image - Enhanced and Centered - Represents Complete Plan */}
-                                <div className="mb-10 flex justify-center px-4">
-                                    <div className="relative">
-                                        {/* Glow effect behind mockup */}
-                                        <div className="absolute -inset-6 bg-gradient-to-br from-[#D4AF37]/30 via-purple-500/20 to-[#FFD700]/20 blur-3xl rounded-full animate-pulse" />
-                                        
-                                        <div className="relative p-6 bg-gradient-to-br from-purple-900/60 to-[#1a0b2e]/90 rounded-3xl border-2 border-[#D4AF37]/40 shadow-[0_0_60px_rgba(212,175,55,0.3)]">
-                                            <img 
-                                                src="/mockup.png" 
-                                                alt="Mapa Xamânico - O Desbloqueio Completo" 
-                                                className="w-48 sm:w-56 md:w-64 mx-auto rounded-2xl shadow-[0_0_40px_rgba(212,175,55,0.4)] border-2 border-[#D4AF37]/60"
-                                                loading="lazy"
-                                            />
-                                            {/* Label for mockup */}
-                                            <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black text-xs font-bold px-4 py-1.5 rounded-full shadow-lg">
-                                                O Desbloqueio Completo • R$29
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="max-w-3xl mx-auto">
-                                    <p className="text-slate-300 text-center leading-relaxed mb-8 text-lg">
-                                        É um <span className="text-white font-semibold">ritual digital de 7 dias</span> que combina:
-                                    </p>
-
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                        {[
-                                            { icon: Star, text: 'Diagnóstico simbólico da sua linhagem' },
-                                            { icon: Sparkles, text: 'Mapa de ativação energética personalizado' },
-                                            { icon: Heart, text: 'Áudios rituais guiados' },
-                                            { icon: Check, text: 'Roteiro de práticas para realinhar sua frequência com a prosperidade' }
-                                        ].map((item, index) => (
-                                            <div key={index} className="flex items-start gap-4 bg-white/5 border border-white/10 rounded-xl p-4">
-                                                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-[#D4AF37] flex items-center justify-center">
-                                                    <item.icon className="w-5 h-5 text-white" />
-                                                </div>
-                                                <p className="text-slate-300 text-sm sm:text-base leading-relaxed pt-2">{item.text}</p>
-                                            </div>
-                                        ))}
-                                    </div>
-
-                                    {/* Support Quote */}
-                                    <div className="mt-8 text-center">
-                                        <p className="text-slate-400 italic text-base sm:text-lg">
-                                            "Não é sobre manifestar riqueza.<br />
-                                            É sobre <span className="text-[#FFD700] font-semibold">remover o que bloqueia o fluxo que já é seu por direito ancestral.</span>"
-                                        </p>
-                                    </div>
-                                </div>
-                            </motion.section>
-
-                            {/* ========== SEÇÃO 5: TRÊS PLANOS (ESCOLHA SIMBÓLICA) ========== */}
-                            <section id="pricing-section" className="mb-16">
-                                <PricingPlans />
-                            </section>
-
-                            {/* ========== SEÇÃO 6: PROVA SOCIAL (DEPOIMENTOS WHATSAPP) ========== */}
-                            <motion.section
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.6 }}
-                                className="mb-16"
-                            >
-                                {/* Section Header with Glow Effect */}
-                                <div className="text-center mb-8">
-                                    <motion.div 
-                                        initial={{ scale: 0.9, opacity: 0 }}
-                                        animate={{ scale: 1, opacity: 1 }}
-                                        className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-900/50 to-green-900/50 border border-emerald-500/40 px-4 py-2 rounded-full mb-4"
-                                    >
-                                        <span className="text-2xl">💬</span>
-                                        <span className="text-emerald-400 text-sm font-bold uppercase tracking-wider">Relatos Reais do WhatsApp</span>
-                                    </motion.div>
-                                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3 px-2">
-                                        Veja o que estão <span className="text-[#FFD700]">dizendo</span>
-                                    </h3>
-                                    <p className="text-slate-400 text-sm sm:text-base max-w-md mx-auto">
-                                        Prints reais de pessoas que fizeram o ritual e tiveram resultados
-                                    </p>
-                                </div>
-
-                                {/* WhatsApp Prints Carousel - Enhanced Mobile Design */}
-                                <div className="relative max-w-md mx-auto px-4">
-                                    {/* Decorative elements */}
-                                    <div className="absolute -top-4 -left-4 w-20 h-20 bg-emerald-500/20 rounded-full blur-2xl"></div>
-                                    <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-[#FFD700]/20 rounded-full blur-2xl"></div>
-                                    
-                                    {/* Main Carousel Container */}
-                                    <div className="relative bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] rounded-3xl p-3 sm:p-4 border-2 border-emerald-500/30 shadow-[0_0_60px_rgba(16,185,129,0.2)]">
-                                        {/* WhatsApp Header Mockup */}
-                                        <div className="flex items-center gap-3 bg-[#075e54] rounded-t-xl px-4 py-3 mb-2">
-                                            <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-green-500 rounded-full flex items-center justify-center">
-                                                <span className="text-white text-lg">✨</span>
-                                            </div>
-                                            <div>
-                                                <p className="text-white font-bold text-sm">Depoimentos Verificados</p>
-                                                <p className="text-emerald-200/70 text-xs">{socialProofImages.length} relatos reais</p>
-                                            </div>
-                                        </div>
-                                        
-                                        {/* Image Container */}
-                                        <div className="relative overflow-hidden rounded-2xl bg-[#0b141a]">
-                                            <AnimatePresence mode="wait">
-                                                <motion.img
-                                                    key={currentProofIndex}
-                                                    initial={{ opacity: 0, scale: 0.95 }}
-                                                    animate={{ opacity: 1, scale: 1 }}
-                                                    exit={{ opacity: 0, scale: 0.95 }}
-                                                    transition={{ duration: 0.3 }}
-                                                    src={socialProofImages[currentProofIndex].src}
-                                                    alt={socialProofImages[currentProofIndex].alt}
-                                                    className="w-full h-auto object-contain max-h-[500px]"
-                                                    loading="lazy"
-                                                />
-                                            </AnimatePresence>
-                                            
-                                            {/* Swipe indicator for mobile */}
-                                            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-2 sm:hidden">
-                                                <ChevronLeft className="w-4 h-4 text-white/50" />
-                                                <span className="text-white/70 text-xs">Deslize para ver mais</span>
-                                                <ChevronRight className="w-4 h-4 text-white/50" />
-                                            </div>
-                                        </div>
-                                        
-                                        {/* Navigation Controls */}
-                                        <div className="flex items-center justify-between mt-4 px-2">
-                                            <button 
-                                                onClick={prevProof}
-                                                className="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white p-3 rounded-full transition-all shadow-lg active:scale-95"
-                                                aria-label="Anterior"
-                                            >
-                                                <ChevronLeft className="w-5 h-5" />
-                                            </button>
-                                            
-                                            {/* Progress Dots */}
-                                            <div className="flex items-center gap-1.5">
-                                                {socialProofImages.map((_, idx) => (
-                                                    <button
-                                                        key={idx}
-                                                        onClick={() => setCurrentProofIndex(idx)}
-                                                        className={`transition-all rounded-full ${
-                                                            idx === currentProofIndex 
-                                                                ? 'bg-gradient-to-r from-emerald-400 to-[#FFD700] w-6 h-2.5 shadow-[0_0_10px_rgba(16,185,129,0.5)]' 
-                                                                : 'bg-white/20 hover:bg-white/40 w-2.5 h-2.5'
-                                                        }`}
-                                                        aria-label={`Depoimento ${idx + 1}`}
-                                                    />
-                                                ))}
-                                            </div>
-                                            
-                                            <button 
-                                                onClick={nextProof}
-                                                className="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white p-3 rounded-full transition-all shadow-lg active:scale-95"
-                                                aria-label="Próximo"
-                                            >
-                                                <ChevronRight className="w-5 h-5" />
-                                            </button>
-                                        </div>
-                                        
-                                        {/* Counter Badge */}
-                                        <div className="text-center mt-3">
-                                            <span className="inline-flex items-center gap-2 bg-emerald-500/20 border border-emerald-500/30 rounded-full px-4 py-1.5">
-                                                <span className="text-emerald-400 text-sm font-bold">{currentProofIndex + 1}</span>
-                                                <span className="text-slate-500 text-sm">de</span>
-                                                <span className="text-emerald-400 text-sm font-bold">{socialProofImages.length}</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Trust Badges */}
-                                <div className="flex flex-wrap justify-center gap-3 mt-8 px-4">
-                                    <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-2">
-                                        <Check className="w-4 h-4 text-emerald-400" />
-                                        <span className="text-slate-300 text-xs">Verificados</span>
-                                    </div>
-                                    <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-2">
-                                        <span className="text-lg">📱</span>
-                                        <span className="text-slate-300 text-xs">WhatsApp Real</span>
-                                    </div>
-                                    <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-2">
-                                        <span className="text-lg">🇧🇷</span>
-                                        <span className="text-slate-300 text-xs">Brasil</span>
-                                    </div>
-                                </div>
-
-                                {/* Mini Pricing Bar - Strategic Repetition after Social Proof */}
-                                <div className="mt-10 max-w-lg mx-auto px-4">
-                                    <MiniPricingBar />
-                                </div>
-                            </motion.section>
-
-                            {/* ========== SEÇÃO 6.5: VIDEO TESTIMONIALS ========== */}
-                            <motion.section
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.7 }}
-                                className="mb-16"
-                            >
-                                {/* Section Header */}
-                                <div className="text-center mb-8">
-                                    <motion.div 
-                                        initial={{ scale: 0.9, opacity: 0 }}
-                                        animate={{ scale: 1, opacity: 1 }}
-                                        className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-900/50 to-[#D4AF37]/30 border border-[#D4AF37]/40 px-4 py-2 rounded-full mb-4"
-                                    >
-                                        <span className="text-2xl">✨</span>
-                                        <span className="text-[#FFD700] text-sm font-bold uppercase tracking-wider">Histórias de Transformação</span>
-                                    </motion.div>
-                                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3 px-2">
-                                        Clientes que <span className="text-[#FFD700]">desbloquearam</span> sua prosperidade
-                                    </h3>
-                                    <p className="text-slate-400 text-sm sm:text-base max-w-md mx-auto">
-                                        Veja quem já fez o ritual e está vivendo uma nova realidade financeira
-                                    </p>
+                                Escolher Básico
+                            </button>
+                        </motion.div>
+                        
+                        {/* CARD 2: O Desperto (DESTACADO) */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.2 }}
+                            className="flex-shrink-0 w-full md:w-80 relative md:-mt-4 md:mb-4 z-10"
+                        >
+                            {/* Glow effect */}
+                            <div className="absolute -inset-1 bg-gradient-to-r from-[#FFD700] via-[#FFC000] to-[#FFD700] rounded-3xl blur-lg opacity-40 animate-pulse" />
+                            
+                            <div className="relative bg-gradient-to-br from-[#1a1508] via-[#0f0a02] to-[#1a1508] border-2 border-[#FFD700] rounded-3xl p-6 shadow-[0_0_60px_rgba(255,215,0,0.3)]">
+                                {/* Tag */}
+                                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                                    <span className="inline-block bg-gradient-to-r from-[#FFD700] to-[#FFC000] text-black text-xs font-bold px-4 py-2 rounded-full shadow-lg">
+                                        🔥 ESCOLHA DO ORÁCULO (MAIS VENDIDO)
+                                    </span>
                                 </div>
                                 
-                                {/* Video Carousel Container */}
-                                <div className="relative max-w-md mx-auto px-4">
-                                    {/* Decorative Glow */}
-                                    <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-32 h-32 bg-[#FFD700]/20 rounded-full blur-3xl"></div>
-                                    
-                                    <div className="relative bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] rounded-3xl p-3 sm:p-4 border-2 border-[#D4AF37]/40 shadow-[0_0_60px_rgba(212,175,55,0.2)]">
-                                        {/* Video Player Header */}
-                                        <div className="flex items-center justify-between bg-gradient-to-r from-[#D4AF37]/20 to-[#FFD700]/10 rounded-t-xl px-4 py-3 mb-2 border-b border-[#D4AF37]/20">
-                                            <div className="flex items-center gap-3">
-                                                <div className="w-8 h-8 bg-gradient-to-br from-[#D4AF37] to-[#FFD700] rounded-full flex items-center justify-center">
-                                                    <span className="text-black text-xs">🎬</span>
-                                                </div>
-                                                <span className="text-[#FFD700] font-bold text-sm">Depoimento #{currentVideoIndex + 1}</span>
-                                            </div>
-                                            <div className="flex items-center gap-2">
-                                                <span className="text-emerald-400 text-xs font-semibold">✓ Cliente verificado</span>
-                                            </div>
-                                        </div>
-                                        
-                                        {/* Video Player */}
-                                        <div className="relative rounded-2xl overflow-hidden border-2 border-[#D4AF37]/30 bg-black">
-                                            <div className="relative w-full aspect-[9/16] max-h-[500px]">
-                                                {videoTestimonials.map((video, idx) => (
-                                                    <div
-                                                        key={video.id}
-                                                        className={`absolute inset-0 transition-opacity duration-300 ${idx === currentVideoIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
-                                                    >
-                                                        <vturb-smartplayer 
-                                                            id={video.playerId}
-                                                            className="block w-full h-full"
-                                                        ></vturb-smartplayer>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                        
-                                        {/* Video Selection Thumbnails */}
-                                        <div className="mt-4 grid grid-cols-4 gap-2">
-                                            {videoTestimonials.map((video, idx) => (
-                                                <button
-                                                    key={video.id}
-                                                    onClick={() => setCurrentVideoIndex(idx)}
-                                                    className={`relative aspect-square rounded-xl overflow-hidden transition-all duration-300 ${
-                                                        idx === currentVideoIndex 
-                                                            ? 'ring-2 ring-[#FFD700] ring-offset-2 ring-offset-black scale-105 shadow-[0_0_20px_rgba(212,175,55,0.5)]' 
-                                                            : 'opacity-60 hover:opacity-100 hover:scale-102'
-                                                    }`}
-                                                >
-                                                    <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/30 to-[#FFD700]/10 flex items-center justify-center">
-                                                        <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                                                            <span className="text-white text-sm font-bold">{idx + 1}</span>
-                                                        </div>
-                                                    </div>
-                                                    {idx === currentVideoIndex && (
-                                                        <div className="absolute bottom-1 left-1/2 -translate-x-1/2">
-                                                            <span className="text-[8px] bg-[#FFD700] text-black px-1.5 py-0.5 rounded-full font-bold">ATIVO</span>
-                                                        </div>
-                                                    )}
-                                                </button>
-                                            ))}
-                                        </div>
-                                        
-                                        {/* Navigation Controls */}
-                                        <div className="flex items-center justify-between mt-4 px-2">
-                                            <button 
-                                                onClick={prevVideo}
-                                                className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black p-3 rounded-full transition-all shadow-lg active:scale-95 hover:shadow-[0_0_20px_rgba(212,175,55,0.5)]"
-                                                aria-label="Vídeo anterior"
-                                            >
-                                                <ChevronLeft className="w-5 h-5" />
-                                            </button>
-                                            
-                                            {/* Trust indicator */}
-                                            <div className="flex items-center gap-2 bg-emerald-500/20 border border-emerald-500/30 rounded-full px-3 py-1.5">
-                                                <Check className="w-4 h-4 text-emerald-400" />
-                                                <span className="text-emerald-400 text-xs font-semibold">Verificado</span>
-                                            </div>
-                                            
-                                            <button 
-                                                onClick={nextVideo}
-                                                className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black p-3 rounded-full transition-all shadow-lg active:scale-95 hover:shadow-[0_0_20px_rgba(212,175,55,0.5)]"
-                                                aria-label="Próximo vídeo"
-                                            >
-                                                <ChevronRight className="w-5 h-5" />
-                                            </button>
-                                        </div>
+                                <div className="text-center mb-4 mt-4">
+                                    <h3 className="font-display text-2xl font-bold text-[#FFD700]">O Desperto</h3>
+                                    <p className="text-[#FFD700]/80 text-sm mt-1">O Protocolo Completo de 7 Dias.</p>
+                                </div>
+                                
+                                <div className="text-center my-6">
+                                    <p className="text-slate-500 text-lg line-through mb-1">R$ 97</p>
+                                    <div className="flex items-baseline justify-center gap-1">
+                                        <span className="text-2xl text-white">por</span>
+                                        <span className="text-5xl md:text-6xl font-black text-[#FFD700] text-glow-gold">R$ 29</span>
+                                        <span className="text-2xl text-white">,00</span>
                                     </div>
                                 </div>
-                            </motion.section>
-
-                            {/* ========== SEÇÃO 7: GARANTIA ========== */}
-                            <motion.section
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.8 }}
-                                className="mb-16 bg-gradient-to-br from-emerald-950/40 to-green-900/20 border-2 border-emerald-500/40 rounded-2xl p-6 sm:p-8 text-center"
-                            >
-                                <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-emerald-400 to-green-500 border-4 border-emerald-300 shadow-[0_0_30px_rgba(16,185,129,0.6)] mx-auto mb-4 sm:mb-6">
-                                    <div className="text-center">
-                                        <p className="text-white text-[10px] sm:text-xs font-black">GARANTIA</p>
-                                        <p className="text-white text-xl sm:text-2xl font-black leading-none">7</p>
-                                        <p className="text-white text-[10px] sm:text-xs font-black">DIAS</p>
-                                    </div>
-                                </div>
-
-                                <h3 className="text-xl sm:text-2xl font-bold text-emerald-300 mb-4">
-                                    Garantia ritual de 7 dias
-                                </h3>
-                                <div className="text-slate-200 text-sm sm:text-base leading-relaxed space-y-3 max-w-2xl mx-auto px-2">
-                                    <p>
-                                        Se em até 7 dias você não sentir nenhum tipo de desbloqueio, clareza ou transformação sutil…
-                                    </p>
-                                    <p className="font-semibold text-white">
-                                        devolvemos seu investimento <span className="text-emerald-300">sem perguntas.</span>
-                                    </p>
-                                    {/* New copy - reduces rational resistance */}
-                                    <p className="text-emerald-400 font-bold text-lg mt-4 pt-4 border-t border-emerald-500/30">
-                                        "Você não precisa acreditar.<br />
-                                        <span className="text-white">Só precisa testar por 7 dias."</span>
-                                    </p>
-                                </div>
-                            </motion.section>
-
-                            {/* ========== SEÇÃO 8: FAQ ========== */}
-                            <FAQ />
-
-                            {/* ========== SEÇÃO 9: REFORÇO VISUAL + CTA FINAL ========== */}
-                            {/* Visual Reinforcement Block before Final CTA */}
-                            <motion.section
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.9 }}
-                                className="mb-10 text-center px-4"
-                            >
-                                <div className="bg-gradient-to-br from-purple-900/30 to-[#1a0b2e]/60 border border-[#D4AF37]/30 rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto">
-                                    <p className="text-white text-lg sm:text-xl font-semibold mb-2">
-                                        Você não está comprando um conceito.
-                                    </p>
-                                    <p className="text-[#FFD700] text-lg sm:text-xl font-bold mb-6">
-                                        Você está acessando um ritual estruturado.
-                                    </p>
-                                    
-                                    {/* Mini mockups side by side */}
-                                    <div className="flex items-center justify-center gap-3 sm:gap-6">
-                                        <div className="text-center">
-                                            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden border border-slate-600/40 mx-auto opacity-70">
-                                                <img src="/mockup.png" alt="O Chamado" className="w-full h-full object-cover" />
+                                
+                                <ul className="space-y-3 mb-6">
+                                    {[
+                                        'Mapa Xamânico Completo',
+                                        'Áudios Binaurais (3)',
+                                        'Ritual de Blindagem',
+                                        'Protocolo de 7 Dias',
+                                    ].map((item, i) => (
+                                        <li key={i} className="flex items-start gap-2 text-sm text-white">
+                                            <div className="w-5 h-5 rounded-full bg-[#39FF14]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                                <Check className="w-3 h-3 text-[#39FF14]" />
                                             </div>
-                                            <p className="text-slate-400 text-[10px] sm:text-xs mt-1">R$19</p>
-                                        </div>
-                                        <div className="text-center">
-                                            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden border-2 border-[#FFD700] mx-auto shadow-[0_0_20px_rgba(212,175,55,0.4)]">
-                                                <img src="/mockup.png" alt="O Desbloqueio Completo" className="w-full h-full object-cover" />
-                                            </div>
-                                            <p className="text-[#FFD700] text-xs sm:text-sm font-bold mt-1">R$29</p>
-                                        </div>
-                                        <div className="text-center">
-                                            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden border border-purple-500/50 mx-auto opacity-70">
-                                                <img src="/mockup.png" alt="A Ascensão" className="w-full h-full object-cover" />
-                                            </div>
-                                            <p className="text-slate-400 text-[10px] sm:text-xs mt-1">R$49</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </motion.section>
-
-                            {/* Final CTA Section */}
-                            <motion.section
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 1 }}
-                                className="mb-16 text-center"
-                            >
-                                <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-6 leading-tight px-2">
-                                    Você está pronto para viver com o que é seu…<br />
-                                    <span className="text-[#FFD700]">ou vai continuar preso ao que foi deles?</span>
-                                </h2>
-
-                                <motion.button
-                                    onClick={scrollToPricing}
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] hover:from-[#FFD700] hover:to-[#D4AF37] text-black font-black text-base sm:text-lg py-5 px-10 rounded-2xl shadow-[0_0_40px_rgba(212,175,55,0.5)] transition-all border-2 border-[#FFD700]"
+                                            {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                                
+                                <button
+                                    onClick={() => handleCheckout('complete')}
+                                    className="w-full py-4 px-6 rounded-xl bg-[#39FF14] hover:bg-[#4AFF25] text-black font-bold text-lg transition-all transform hover:scale-105 active:scale-95 btn-pulse glow-neon-green"
                                 >
-                                    Sim. Eu escolho romper o ciclo da escassez.
-                                </motion.button>
-
-                                <p className="text-slate-400 text-sm mt-4">
-                                    <Lock className="w-4 h-4 inline mr-1" />
-                                    Pagamento 100% seguro • Acesso imediato • Garantia de 7 dias
+                                    DESTRAVAR PROSPERIDADE AGORA
+                                </button>
+                                
+                                <p className="text-center text-[#FFD700]/60 text-xs mt-3">
+                                    Pagamento único • Acesso vitalício
                                 </p>
-                            </motion.section>
-
+                            </div>
                         </motion.div>
-                    )}
-                </AnimatePresence>
+                        
+                        {/* CARD 3: O Mestre */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.3 }}
+                            className="flex-shrink-0 w-full md:w-72 bg-gradient-to-br from-[#0d0d0d] to-[#1a1a1a] border border-[#FFD700]/30 rounded-3xl p-6"
+                        >
+                            <div className="text-center mb-4">
+                                <span className="inline-block bg-gradient-to-r from-[#FFD700]/20 to-[#D4AF37]/20 text-[#FFD700] text-xs font-semibold px-3 py-1 rounded-full mb-3 border border-[#FFD700]/30">
+                                    ✨ VIP / ACESSO VITALÍCIO
+                                </span>
+                                <h3 className="font-display text-xl font-bold text-white">O Mestre</h3>
+                                <p className="text-slate-400 text-sm mt-1">Para quem quer reescrever o destino.</p>
+                            </div>
+                            
+                            <div className="text-center my-6">
+                                <span className="text-4xl font-bold text-[#FFD700]">R$ 49</span>
+                            </div>
+                            
+                            <ul className="space-y-3 mb-6">
+                                <li className="flex items-start gap-2 text-sm text-slate-300">
+                                    <Check className="w-4 h-4 text-[#FFD700] mt-0.5 flex-shrink-0" />
+                                    Tudo do Completo +
+                                </li>
+                                <li className="flex items-start gap-2 text-sm text-slate-300">
+                                    <Check className="w-4 h-4 text-[#FFD700] mt-0.5 flex-shrink-0" />
+                                    Grupo Secreto por 30 dias
+                                </li>
+                                <li className="flex items-start gap-2 text-sm text-slate-300">
+                                    <Check className="w-4 h-4 text-[#FFD700] mt-0.5 flex-shrink-0" />
+                                    Ritual Extra Exclusivo
+                                </li>
+                            </ul>
+                            
+                            <button
+                                onClick={() => handleCheckout('vip')}
+                                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[#FFD700] to-[#D4AF37] text-black font-semibold hover:from-[#FFC000] hover:to-[#FFD700] transition-all"
+                            >
+                                Quero Experiência VIP
+                            </button>
+                        </motion.div>
+                    </div>
+                </section>
+                
+                {/* ========== BLOCO 5: O MURAL DA VERDADE (Social Proof) ========== */}
+                <motion.section
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    className="mb-20"
+                >
+                    <h2 className="font-display text-2xl md:text-3xl font-bold text-center text-white mb-3">
+                        Veja o que acontece na <span className="text-[#FFD700]">conta bancária</span>
+                    </h2>
+                    <p className="text-center text-slate-400 mb-10 text-sm md:text-base">
+                        de quem quebra o contrato:
+                    </p>
+                    
+                    {/* Masonry Grid */}
+                    <div className="masonry-grid px-2">
+                        {socialProofImages.map((img, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.1 }}
+                                className={`masonry-item ${img.featured ? 'md:col-span-1' : ''}`}
+                            >
+                                <div className={`glass rounded-2xl overflow-hidden border ${img.featured ? 'border-[#FFD700]/40 shadow-[0_0_20px_rgba(255,215,0,0.2)]' : 'border-white/10'}`}>
+                                    <img 
+                                        src={img.src} 
+                                        alt={img.alt}
+                                        className="w-full h-auto"
+                                        loading="lazy"
+                                    />
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                    
+                    {/* Stats Bar */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="mt-10 flex flex-wrap justify-center gap-4"
+                    >
+                        <div className="glass-gold rounded-full px-6 py-3 flex items-center gap-2">
+                            <Users className="w-5 h-5 text-[#FFD700]" />
+                            <span className="text-white font-semibold">+4.000 alunos transformados</span>
+                        </div>
+                    </motion.div>
+                </motion.section>
+                
+                {/* ========== BLOCO 6: AUTORIDADE (Storytelling) ========== */}
+                <motion.section
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    className="mb-20"
+                >
+                    <div className="glass rounded-3xl border border-[#FFD700]/30 p-6 md:p-10 max-w-3xl mx-auto">
+                        <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
+                            {/* Photo */}
+                            <div className="relative flex-shrink-0">
+                                <div className="w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-4 border-[#FFD700] shadow-[0_0_30px_rgba(255,215,0,0.4)]">
+                                    <img 
+                                        src="/expert.jpg" 
+                                        alt="Anahí Solara"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
+                                <div className="absolute -inset-2 bg-[#FFD700]/20 blur-2xl -z-10 rounded-full" />
+                            </div>
+                            
+                            {/* Content */}
+                            <div className="text-center md:text-left">
+                                <h3 className="font-display text-xl md:text-2xl font-bold text-[#FFD700] mb-2">
+                                    Anahí Solara
+                                </h3>
+                                <p className="text-slate-300 text-sm md:text-base leading-relaxed mb-4">
+                                    Por <strong className="text-white">12 anos</strong>, eu fui exatamente como você: 
+                                    trabalhava 14h por dia, mas o dinheiro sempre fugia. Eu achava que era azar.
+                                    Até que, em uma <strong className="text-[#FFD700]">imersão com Xamãs nos Andes</strong>, 
+                                    descobri a verdade: a pobreza não é falta de esforço. É uma Herança Vibracional.
+                                </p>
+                                
+                                {/* Authority Badges */}
+                                <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+                                    <span className="inline-flex items-center gap-1 bg-[#FFD700]/10 border border-[#FFD700]/30 rounded-full px-3 py-1 text-xs text-[#FFD700]">
+                                        <Award className="w-3 h-3" /> 12 Anos
+                                    </span>
+                                    <span className="inline-flex items-center gap-1 bg-[#FFD700]/10 border border-[#FFD700]/30 rounded-full px-3 py-1 text-xs text-[#FFD700]">
+                                        <Globe className="w-3 h-3" /> 15 Países
+                                    </span>
+                                    <span className="inline-flex items-center gap-1 bg-[#FFD700]/10 border border-[#FFD700]/30 rounded-full px-3 py-1 text-xs text-[#FFD700]">
+                                        <Users className="w-3 h-3" /> +4.000 Alunos
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </motion.section>
+                
+                {/* ========== BLOCO 7: GARANTIA & FAQ ========== */}
+                <motion.section
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    className="mb-20"
+                >
+                    {/* Guarantee */}
+                    <div className="text-center mb-12">
+                        <motion.div
+                            animate={{ rotate: [0, 5, -5, 0] }}
+                            transition={{ duration: 4, repeat: Infinity }}
+                            className="inline-flex items-center justify-center w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-[#FFD700] to-[#D4AF37] border-4 border-[#FFD700] shadow-[0_0_40px_rgba(255,215,0,0.5)] mx-auto mb-4"
+                        >
+                            <div className="text-center">
+                                <p className="text-black text-xs font-bold">GARANTIA</p>
+                                <p className="text-black text-2xl font-black">7</p>
+                                <p className="text-black text-xs font-bold">DIAS</p>
+                            </div>
+                        </motion.div>
+                        
+                        <h3 className="font-display text-xl md:text-2xl font-bold text-[#FFD700] mb-3">
+                            Risco Zero
+                        </h3>
+                        <p className="text-slate-300 text-sm md:text-base max-w-lg mx-auto leading-relaxed">
+                            Teste por 7 dias. Se não sentir o peso saindo das costas, 
+                            eu devolvo cada centavo. <span className="text-white font-semibold">Sem letras miúdas.</span>
+                        </p>
+                    </div>
+                    
+                    {/* FAQ Accordion */}
+                    <div className="max-w-2xl mx-auto">
+                        <h3 className="font-display text-xl md:text-2xl font-bold text-center text-white mb-6">
+                            Perguntas <span className="text-[#FFD700]">Frequentes</span>
+                        </h3>
+                        
+                        <div className="space-y-3">
+                            {faqItems.map((faq, index) => (
+                                <div 
+                                    key={index}
+                                    className="glass rounded-xl border border-[#FFD700]/20 overflow-hidden"
+                                >
+                                    <button
+                                        onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                                        className="w-full flex items-center justify-between p-4 text-left"
+                                    >
+                                        <span className="font-semibold text-white text-sm md:text-base pr-4">
+                                            {faq.question}
+                                        </span>
+                                        <ChevronDown 
+                                            className={`w-5 h-5 text-[#FFD700] transition-transform ${openFaq === index ? 'rotate-180' : ''}`} 
+                                        />
+                                    </button>
+                                    
+                                    <AnimatePresence>
+                                        {openFaq === index && (
+                                            <motion.div
+                                                initial={{ height: 0, opacity: 0 }}
+                                                animate={{ height: 'auto', opacity: 1 }}
+                                                exit={{ height: 0, opacity: 0 }}
+                                                transition={{ duration: 0.2 }}
+                                            >
+                                                <div className="px-4 pb-4 border-t border-[#FFD700]/10 pt-3">
+                                                    <p className="text-slate-300 text-sm leading-relaxed">
+                                                        {faq.answer}
+                                                    </p>
+                                                </div>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </motion.section>
+                
+                {/* Final CTA */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-center"
+                >
+                    <button
+                        onClick={() => handleCheckout('complete')}
+                        className="bg-gradient-to-r from-[#39FF14] to-[#32CD32] text-black font-bold text-lg md:text-xl py-4 px-10 rounded-2xl shadow-[0_0_40px_rgba(57,255,20,0.4)] hover:shadow-[0_0_60px_rgba(57,255,20,0.6)] transition-all transform hover:scale-105 active:scale-95 btn-pulse"
+                    >
+                        QUERO DESTRAVAR MINHA PROSPERIDADE
+                    </button>
+                    
+                    <p className="text-slate-500 text-sm mt-4 flex items-center justify-center gap-4">
+                        <span className="flex items-center gap-1">
+                            <Lock className="w-4 h-4" /> Pix Seguro
+                        </span>
+                        <span className="flex items-center gap-1">
+                            <Sparkles className="w-4 h-4" /> Acesso Imediato
+                        </span>
+                        <span className="flex items-center gap-1">
+                            <Shield className="w-4 h-4" /> 7 Dias Garantia
+                        </span>
+                    </p>
+                </motion.div>
             </div>
+            
+            {/* ========== STICKY FOOTER (Mobile) ========== */}
+            <AnimatePresence>
+                {showStickyBar && (
+                    <motion.div
+                        initial={{ y: 100 }}
+                        animate={{ y: 0 }}
+                        exit={{ y: 100 }}
+                        transition={{ duration: 0.3 }}
+                        className="fixed bottom-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-md border-t border-[#FFD700]/30 p-4 md:hidden"
+                    >
+                        <div className="flex items-center justify-between gap-3">
+                            <div>
+                                <p className="text-white text-sm font-semibold">Oferta expira em</p>
+                                <p className="text-[#FFD700] text-lg font-bold font-mono">{formatTime(timeLeft)}</p>
+                            </div>
+                            <button
+                                onClick={() => handleCheckout('complete')}
+                                className="bg-[#39FF14] text-black font-bold py-3 px-6 rounded-xl text-sm whitespace-nowrap glow-neon-green"
+                            >
+                                LIBERAR ACESSO
+                            </button>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 };
