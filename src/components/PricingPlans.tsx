@@ -1,11 +1,13 @@
 import { motion } from 'framer-motion';
 import { Check, Sparkles, Star, Crown, Shield, Lock, Zap, ArrowRight, Gift } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 interface Plan {
   name: string;
   subtitle: string;
   targetAudience: string;
   price: string;
+  originalPrice: string;
   features: string[];
   buttonText: string;
   badge: string;
@@ -16,6 +18,7 @@ interface Plan {
   isPopular?: boolean;
   mockupImage: string;
   mockupLabel: string;
+  ritualQuote: string;
 }
 
 const plans: Plan[] = [
@@ -24,6 +27,7 @@ const plans: Plan[] = [
     subtitle: 'Para quem só quer testar',
     targetAudience: 'Para quem está começando agora.',
     price: '19',
+    originalPrice: '47',
     features: [
       'Diagnóstico de Lealdade Invisível (PDF)',
       'Mapa Xamânico Básico com instruções iniciais',
@@ -37,13 +41,15 @@ const plans: Plan[] = [
     glowColor: 'from-slate-700/20 to-slate-800/10',
     isPopular: false,
     mockupImage: '/mockup.png',
-    mockupLabel: 'Pacote Inicial'
+    mockupLabel: 'Pacote Inicial',
+    ritualQuote: 'A jornada começa com o primeiro chamado.'
   },
   {
     name: 'O Desbloqueio Completo',
     subtitle: 'Para quem está pronto',
     targetAudience: 'O protocolo completo de 7 dias.',
     price: '29',
+    originalPrice: '97',
     features: [
       'Mapa Xamânico Personalizado + Diagnóstico completo',
       'Protocolo energético de 7 dias + 3 áudios rituais',
@@ -57,13 +63,15 @@ const plans: Plan[] = [
     glowColor: 'from-[#D4AF37]/30 to-[#FFD700]/20',
     isPopular: true,
     mockupImage: '/mockup.png',
-    mockupLabel: 'Pacote Completo'
+    mockupLabel: 'Pacote Completo',
+    ritualQuote: 'O verdadeiro desbloqueio exige coragem.'
   },
   {
     name: 'A Ascensão',
     subtitle: 'Para quem quer encerrar o ciclo',
     targetAudience: 'Transformação completa da linhagem.',
     price: '49',
+    originalPrice: '147',
     features: [
       'Tudo do plano completo',
       'Ritual extra: "Elemento Oculto" (áudio + PDF)',
@@ -78,7 +86,8 @@ const plans: Plan[] = [
     glowColor: 'from-purple-600/20 to-[#D4AF37]/15',
     isPopular: false,
     mockupImage: '/mockup.png',
-    mockupLabel: 'Pacote Premium'
+    mockupLabel: 'Pacote Premium',
+    ritualQuote: 'Você é o elo que encerra o ciclo da escassez.'
   }
 ];
 
@@ -92,6 +101,22 @@ const comparisonFeatures = [
 ];
 
 export const PricingPlans = () => {
+  const [scarcityCount, setScarcityCount] = useState(13);
+
+  useEffect(() => {
+    // Generate pseudo-random scarcity count per session (between 7 and 19)
+    const sessionKey = 'scarcity_session_count';
+    const storedCount = sessionStorage.getItem(sessionKey);
+    
+    if (storedCount) {
+      setScarcityCount(parseInt(storedCount, 10));
+    } else {
+      const randomCount = Math.floor(Math.random() * 13) + 7; // 7 to 19
+      sessionStorage.setItem(sessionKey, randomCount.toString());
+      setScarcityCount(randomCount);
+    }
+  }, []);
+
   const handleCheckout = (link: string) => {
     window.location.href = link;
   };
@@ -159,6 +184,13 @@ export const PricingPlans = () => {
               <div className="absolute -inset-1 bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] rounded-3xl blur-lg opacity-50 animate-pulse" />
             )}
 
+            {/* Visual anchor for popular plan - "recomendado para você" */}
+            {plan.isPopular && (
+              <span className="absolute -top-10 right-3 text-xs text-emerald-400">
+                🔮 Compatível com seu diagnóstico
+              </span>
+            )}
+
             <div
               className={`relative h-full bg-gradient-to-br ${plan.glowColor} backdrop-blur-sm border-2 ${plan.borderColor} rounded-3xl p-5 sm:p-6 flex flex-col transition-all duration-300 active:scale-[0.98] ${plan.isPopular ? 'shadow-[0_0_50px_rgba(212,175,55,0.4)] border-[#FFD700]' : 'hover:border-[#FFD700]/40 hover:shadow-[0_0_30px_rgba(212,175,55,0.2)]'}`}
             >
@@ -199,6 +231,14 @@ export const PricingPlans = () => {
 
               {/* 3. Price - Big and Bold */}
               <div className="text-center mb-4 py-3 bg-black/20 rounded-2xl border border-white/5">
+                {/* Original price with strikethrough */}
+                <p className="text-center text-xs text-slate-400 mb-1 line-through">
+                  Valor real: R${plan.originalPrice}
+                </p>
+                {/* Discounted price */}
+                <p className="text-center text-sm text-[#FFD700] font-bold mb-2">
+                  Hoje por R${plan.price}
+                </p>
                 <div className="flex items-baseline justify-center gap-1">
                   <span className="text-slate-400 text-lg">R$</span>
                   <span className={`font-black leading-none ${plan.isPopular ? 'text-5xl sm:text-6xl text-[#FFD700] drop-shadow-[0_0_40px_rgba(255,215,0,0.6)]' : 'text-4xl sm:text-5xl text-white'}`}>
@@ -232,6 +272,13 @@ export const PricingPlans = () => {
                 {plan.buttonText}
                 <ArrowRight className={`w-5 h-5 ${plan.isPopular ? '' : 'opacity-70'}`} />
               </button>
+
+              {/* Scarcity Counter - Only for popular plan */}
+              {plan.isPopular && (
+                <div className="text-center mt-2 text-xs text-[#FFD700]/80">
+                  ⚠️ Apenas <span className="font-bold">{scarcityCount} mapas</span> restantes para este ciclo
+                </div>
+              )}
               
               {/* Guarantee Badge */}
               {plan.isPopular && (
@@ -240,6 +287,11 @@ export const PricingPlans = () => {
                   <span>Garantia de 7 dias</span>
                 </div>
               )}
+
+              {/* Ritual Quote per Plan */}
+              <p className={`text-center text-xs mt-4 italic ${plan.isPopular ? 'text-[#FFD700]/70' : 'text-slate-500'}`}>
+                "{plan.ritualQuote}"
+              </p>
             </div>
           </motion.div>
         ))}
@@ -255,42 +307,47 @@ export const PricingPlans = () => {
         <h4 className="text-center text-lg font-bold text-[#FFD700] mb-4 flex items-center justify-center gap-2">
           <span className="text-2xl">📊</span> Comparativo Rápido
         </h4>
-        <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] border border-[#D4AF37]/20 rounded-2xl overflow-hidden shadow-xl">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-[#D4AF37]/20 bg-[#D4AF37]/5">
-                <th className="text-left py-4 px-4 text-slate-400 font-medium">Recurso</th>
-                <th className="text-center py-4 px-2 text-slate-300 font-bold text-xs">R$19</th>
-                <th className="text-center py-4 px-2 text-[#FFD700] font-black text-xs bg-[#FFD700]/10">R$29</th>
-                <th className="text-center py-4 px-2 text-slate-300 font-bold text-xs">R$49</th>
-              </tr>
-            </thead>
-            <tbody>
-              {comparisonFeatures.map((feature, idx) => (
-                <tr key={idx} className="border-b border-white/5 last:border-b-0">
-                  <td className="py-3 px-4 text-slate-300 text-xs">{feature.name}</td>
-                  <td className="text-center py-3 px-2">
-                    {typeof feature.plan1 === 'boolean' 
-                      ? (feature.plan1 ? <Check className="w-4 h-4 text-emerald-400 mx-auto" /> : <span className="text-slate-600">—</span>)
-                      : <span className="text-slate-300 font-semibold">{feature.plan1}</span>
-                    }
-                  </td>
-                  <td className="text-center py-3 px-2 bg-[#FFD700]/5">
-                    {typeof feature.plan2 === 'boolean' 
-                      ? (feature.plan2 ? <Check className="w-5 h-5 text-[#FFD700] mx-auto" /> : <span className="text-slate-600">—</span>)
-                      : <span className="text-[#FFD700] font-black">{feature.plan2}</span>
-                    }
-                  </td>
-                  <td className="text-center py-3 px-2">
-                    {typeof feature.plan3 === 'boolean' 
-                      ? (feature.plan3 ? <Check className="w-4 h-4 text-purple-400 mx-auto" /> : <span className="text-slate-600">—</span>)
-                      : <span className="text-purple-300 font-semibold">{feature.plan3}</span>
-                    }
-                  </td>
+        {/* Enhanced mobile scroll container with shadow indicators */}
+        <div className="relative">
+          <div className="absolute left-0 top-0 bottom-0 w-4 bg-gradient-to-r from-[#0d0d0d] to-transparent z-10 pointer-events-none md:hidden" />
+          <div className="absolute right-0 top-0 bottom-0 w-4 bg-gradient-to-l from-[#0d0d0d] to-transparent z-10 pointer-events-none md:hidden" />
+          <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] border border-[#D4AF37]/20 rounded-2xl overflow-hidden shadow-xl overflow-x-auto">
+            <table className="w-full text-sm min-w-[320px]">
+              <thead>
+                <tr className="border-b border-[#D4AF37]/20 bg-[#D4AF37]/5">
+                  <th className="text-left py-4 px-4 text-slate-400 font-medium sticky left-0 bg-[#1a1a1a] z-10">Recurso</th>
+                  <th className="text-center py-4 px-2 text-slate-300 font-bold text-xs">R$19</th>
+                  <th className="text-center py-4 px-2 text-[#FFD700] font-black text-xs bg-[#FFD700]/10">R$29</th>
+                  <th className="text-center py-4 px-2 text-slate-300 font-bold text-xs">R$49</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {comparisonFeatures.map((feature, idx) => (
+                  <tr key={idx} className={`border-b border-white/5 last:border-b-0 ${idx % 2 === 1 ? 'bg-white/[0.02]' : ''}`}>
+                    <td className={`py-3 px-4 text-slate-300 text-xs sticky left-0 z-10 ${idx % 2 === 1 ? 'bg-[#1a1a1a]/95' : 'bg-[#1a1a1a]'}`}>{feature.name}</td>
+                    <td className="text-center py-3 px-2">
+                      {typeof feature.plan1 === 'boolean' 
+                        ? (feature.plan1 ? <Check className="w-4 h-4 text-emerald-400 mx-auto" /> : <span className="text-slate-600">—</span>)
+                        : <span className="text-slate-300 font-semibold">{feature.plan1}</span>
+                      }
+                    </td>
+                    <td className="text-center py-3 px-2 bg-[#FFD700]/5">
+                      {typeof feature.plan2 === 'boolean' 
+                        ? (feature.plan2 ? <Check className="w-5 h-5 text-[#FFD700] mx-auto" /> : <span className="text-slate-600">—</span>)
+                        : <span className="text-[#FFD700] font-black">{feature.plan2}</span>
+                      }
+                    </td>
+                    <td className="text-center py-3 px-2">
+                      {typeof feature.plan3 === 'boolean' 
+                        ? (feature.plan3 ? <Check className="w-4 h-4 text-purple-400 mx-auto" /> : <span className="text-slate-600">—</span>)
+                        : <span className="text-purple-300 font-semibold">{feature.plan3}</span>
+                      }
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </motion.div>
 
@@ -314,6 +371,11 @@ export const PricingPlans = () => {
           <span className="text-emerald-400 text-xs font-semibold">Garantia 7 Dias</span>
         </div>
       </motion.div>
+
+      {/* Microcopy de Energia de Escolha */}
+      <p className="text-center text-slate-400 italic text-sm mt-6">
+        O caminho só continua se você permitir. ✨
+      </p>
     </motion.div>
   );
 };
