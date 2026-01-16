@@ -33,6 +33,24 @@ const PROTOCOL_EXPIRATION_MS = PROTOCOL_EXPIRATION_MINUTES * 60 * 1000;
 // Checkout URL - Single option R$27,90 (O Desbloqueio Completo)
 const CHECKOUT_URL = 'https://pay.lowify.com.br/checkout.php?product_id=manflx';
 
+// Social proof configuration
+const SOCIAL_PROOF_CONFIG = {
+    viewingCountMin: 25,
+    viewingCountMax: 50,
+    activatedCountMin: 8,
+    activatedCountMax: 15,
+    updateIntervalMs: 20000, // 20 seconds
+    viewingIncreaseProbability: 0.5,
+    activatedIncreaseProbability: 0.7,
+};
+
+// VTurb/ConverteAI allowed origins for message validation
+const VTURB_ALLOWED_ORIGINS = [
+    'https://scripts.converteai.net',
+    'https://cdn.converteai.net',
+    'https://player.converteai.net',
+];
+
 // Value Stack items with individual prices for anchoring
 const VALUE_STACK_ITEMS = [
     {
@@ -231,19 +249,22 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
 
     // Initialize dynamic social proof
     useEffect(() => {
-        // Initialize with random values
-        setViewingCount(Math.floor(Math.random() * 25) + 25); // 25-50
-        setActivatedCount(Math.floor(Math.random() * 7) + 8); // 8-15
+        // Initialize with random values using config constants
+        const viewingRange = SOCIAL_PROOF_CONFIG.viewingCountMax - SOCIAL_PROOF_CONFIG.viewingCountMin;
+        const activatedRange = SOCIAL_PROOF_CONFIG.activatedCountMax - SOCIAL_PROOF_CONFIG.activatedCountMin;
+        
+        setViewingCount(Math.floor(Math.random() * viewingRange) + SOCIAL_PROOF_CONFIG.viewingCountMin);
+        setActivatedCount(Math.floor(Math.random() * activatedRange) + SOCIAL_PROOF_CONFIG.activatedCountMin);
         
         // Update periodically (always increase)
         const socialProofInterval = setInterval(() => {
-            if (Math.random() > 0.5) {
+            if (Math.random() > (1 - SOCIAL_PROOF_CONFIG.viewingIncreaseProbability)) {
                 setViewingCount(prev => prev + 1);
             }
-            if (Math.random() > 0.7) {
+            if (Math.random() > (1 - SOCIAL_PROOF_CONFIG.activatedIncreaseProbability)) {
                 setActivatedCount(prev => prev + 1);
             }
-        }, 20000); // Every 20s
+        }, SOCIAL_PROOF_CONFIG.updateIntervalMs);
         
         return () => clearInterval(socialProofInterval);
     }, []);
@@ -309,15 +330,9 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
     // ============================================================================
     useEffect(() => {
         const handleMessage = (event: MessageEvent) => {
-            // Verify message is from VTurb/ConverteAI domains
-            const allowedOrigins = [
-                'https://scripts.converteai.net',
-                'https://cdn.converteai.net',
-                'https://player.converteai.net',
-            ];
-            
-            const isAllowed = allowedOrigins.some(origin => 
-                event.origin === origin || event.origin.startsWith(origin)
+            // Verify message is from VTurb/ConverteAI domains using constant
+            const isAllowed = VTURB_ALLOWED_ORIGINS.some(origin => 
+                event.origin === origin
             );
             
             if (!isAllowed) return;
