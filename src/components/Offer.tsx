@@ -6,6 +6,7 @@ import { FrequencyRoom } from './FrequencyRoom';
 import { SocialProofTestimonials } from './SocialProofTestimonials';
 import { MentorAuthority } from './MentorAuthority';
 import { FAQ } from './FAQ';
+import { MAIN_OFFER_PRICING } from '../constants/pricing';
 
 interface OfferProps {
     userName: string;
@@ -14,11 +15,11 @@ interface OfferProps {
 /**
  * Main Offer Component
  * Displays the product offer page after quiz completion with mystical purple/golden theme
- * Price: Updated from R$97,00 to R$27,90
+ * Price: R$27,90 (PIX discount)
  */
 const Offer = ({ userName }: OfferProps) => {
-    const priceOld = "497,00";  // Original total value
-    const priceNew = "27,90";   // PIX discount price
+    const priceOld = String(MAIN_OFFER_PRICING.totalValue) + ',00';  // R$497,00
+    const priceNew = MAIN_OFFER_PRICING.formattedPixPrice;           // R$27,90
 
     // Load video player script only when Offer component is mounted
     useEffect(() => {

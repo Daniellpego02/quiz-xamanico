@@ -3,6 +3,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { Check, Shield, AlertTriangle, Sparkles, Lock, ChevronLeft, ChevronRight, Briefcase, Layers, Users, Heart, Star, Feather, Play, Loader2 } from 'lucide-react';
 import { FAQ } from './FAQ';
 import { PricingPlans, MiniPricingBar } from './PricingPlans';
+import { MAIN_OFFER_PRICING } from '../constants/pricing';
 
 interface OfferProps {
     userName: string;
@@ -1122,7 +1123,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                 <div className="flex items-center gap-4">
                                     <div className="text-white">
                                         <p className="text-sm text-slate-400">💰 Oferta PIX especial</p>
-                                        <p className="text-lg font-bold text-emerald-400">O Desbloqueio Completo • <span className="text-white">R$27,90</span></p>
+                                        <p className="text-lg font-bold text-emerald-400">O Desbloqueio Completo • <span className="text-white">R${MAIN_OFFER_PRICING.formattedPixPrice}</span></p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-3">

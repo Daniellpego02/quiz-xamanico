@@ -1,3 +1,12 @@
+// Main Offer Pricing Constants (VSL Page, Offer, OfferNew, PricingPlans)
+export const MAIN_OFFER_PRICING = {
+  totalValue: 497,           // Total stack value
+  standardPrice: 97,         // Standard price (no PIX discount)
+  pixPrice: 27.90,          // PIX discount price
+  discountPercent: 94,       // Discount percentage
+  formattedPixPrice: '27,90', // Formatted for display
+} as const;
+
 // Pricing constants for Upsell and Downsell pages
 export const PRICING = {
   oferta1: {

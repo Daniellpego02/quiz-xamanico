@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState, useCallback } from 'react';
 import { Check, Sparkles, Star, Crown, Shield, Lock, Zap, ArrowRight, Gift, Loader2 } from 'lucide-react';
+import { MAIN_OFFER_PRICING } from '../constants/pricing';
 
 // Shared checkout handler utility
 const useCheckoutHandler = () => {
@@ -427,7 +428,7 @@ export const MiniPricingBar = () => {
           className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white py-4 px-4 rounded-xl text-sm font-black transition-all shadow-[0_4px_20px_rgba(16,185,129,0.4)] flex items-center justify-between disabled:opacity-80"
         >
           <span>{loadingPlan === 'completo' ? <Loader2 className="w-4 h-4 animate-spin" /> : '💰 Completo (PIX)'}</span>
-          <span>R$27,90</span>
+          <span>R${MAIN_OFFER_PRICING.formattedPixPrice}</span>
         </motion.button>
         
         <motion.button
