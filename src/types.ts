@@ -4,6 +4,7 @@ export enum AppStep {
   AUTHORITY = 'AUTHORITY',
   SOCIAL_PROOF = 'SOCIAL_PROOF',
   LOADING = 'LOADING',
+  VSL = 'VSL',
   OFFER = 'OFFER',
 }
 
