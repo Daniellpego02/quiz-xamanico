@@ -7,6 +7,7 @@ import { Quiz } from './components/Quiz';
 import { Authority } from './components/Authority';
 import { SocialProof } from './components/SocialProof';
 import { AnalysisLoading } from './components/AnalysisLoading';
+import VSLPage from './components/VSLPage';
 import OfferNew from './components/OfferNew';
 import Obrigado from './Obrigado';
 import Oferta1 from './Oferta1';
@@ -49,6 +50,10 @@ function App() {
   };
 
   const handleLoadingComplete = () => {
+    goToStep(AppStep.VSL);
+  };
+
+  const handleVSLCheckout = () => {
     goToStep(AppStep.OFFER);
   };
 
@@ -64,6 +69,8 @@ function App() {
         return <SocialProof onNext={handleSocialProofNext} quizPath={quizPath} />;
       case AppStep.LOADING:
         return <AnalysisLoading onComplete={handleLoadingComplete} quizPath={quizPath} userName={userName} />;
+      case AppStep.VSL:
+        return <VSLPage userName={userName} onCheckout={handleVSLCheckout} />;
       case AppStep.OFFER:
         return <OfferNew userName={userName} />;
       default:

@@ -52,7 +52,7 @@ const plans: Plan[] = [
     borderColor: 'border-slate-600/40',
     glowColor: 'from-slate-700/20 to-slate-800/10',
     isPopular: false,
-    mockupImage: '/mockup.png',
+    mockupImage: '/mockup.webp',
     mockupLabel: 'Pacote Inicial'
   },
   {
@@ -72,7 +72,7 @@ const plans: Plan[] = [
     borderColor: 'border-[#D4AF37]',
     glowColor: 'from-[#D4AF37]/30 to-[#FFD700]/20',
     isPopular: true,
-    mockupImage: '/mockup.png',
+    mockupImage: '/mockup.webp',
     mockupLabel: 'Pacote Completo'
   },
   {
@@ -93,7 +93,7 @@ const plans: Plan[] = [
     borderColor: 'border-purple-500/50',
     glowColor: 'from-purple-600/20 to-[#D4AF37]/15',
     isPopular: false,
-    mockupImage: '/mockup.png',
+    mockupImage: '/mockup.webp',
     mockupLabel: 'Pacote Premium'
   }
 ];

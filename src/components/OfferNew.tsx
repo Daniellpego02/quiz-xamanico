@@ -40,15 +40,15 @@ const OfferNew = ({ userName }: OfferProps) => {
     const videoSectionRef = useRef<HTMLDivElement>(null);
     const pricingSectionRef = useRef<HTMLDivElement>(null);
     
-    // Social proof images with descriptions
+    // Social proof images with descriptions - Using WebP for better performance
     const socialProofImages = [
-        { src: '/prova1.png', alt: 'Depoimento WhatsApp de cliente satisfeito 1' },
-        { src: '/prova2.png', alt: 'Depoimento WhatsApp de cliente satisfeito 2' },
-        { src: '/prova3.png', alt: 'Depoimento WhatsApp de cliente satisfeito 3' },
-        { src: '/prova4.png', alt: 'Depoimento WhatsApp de cliente satisfeito 4' },
-        { src: '/prova5.png', alt: 'Depoimento WhatsApp de cliente satisfeito 5' },
-        { src: '/prova6.png', alt: 'Depoimento WhatsApp de cliente satisfeito 6' },
-        { src: '/prova7.png', alt: 'Depoimento WhatsApp de cliente satisfeito 7' }
+        { src: '/prova1.webp', alt: 'Depoimento WhatsApp de cliente satisfeito 1' },
+        { src: '/prova2.webp', alt: 'Depoimento WhatsApp de cliente satisfeito 2' },
+        { src: '/prova3.webp', alt: 'Depoimento WhatsApp de cliente satisfeito 3' },
+        { src: '/prova4.webp', alt: 'Depoimento WhatsApp de cliente satisfeito 4' },
+        { src: '/prova5.webp', alt: 'Depoimento WhatsApp de cliente satisfeito 5' },
+        { src: '/prova6.webp', alt: 'Depoimento WhatsApp de cliente satisfeito 6' },
+        { src: '/prova7.webp', alt: 'Depoimento WhatsApp de cliente satisfeito 7' }
     ];
     
     // Video testimonials - Updated with new VTURB smartplayer IDs
@@ -328,7 +328,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                             className="relative w-full h-full cursor-pointer group"
                                         >
                                             <img 
-                                                src="/mockup.png" 
+                                                src="/mockup.webp" 
                                                 alt="Ver Diagnóstico Xamânico"
                                                 className="w-full h-full object-cover opacity-80"
                                                 onError={(e) => {
@@ -452,7 +452,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                     <div className="relative flex-shrink-0">
                                         <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-[#D4AF37] shadow-[0_0_30px_rgba(212,175,55,0.4)]">
                                             <img 
-                                                src="/expert.jpg" 
+                                                src="/expert.webp" 
                                                 alt="Anahí Solara"
                                                 className="w-full h-full object-cover"
                                                 onError={(e) => {
@@ -555,7 +555,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                                         
                                         <div className="relative p-6 bg-gradient-to-br from-purple-900/60 to-[#1a0b2e]/90 rounded-3xl border-2 border-[#D4AF37]/40 shadow-[0_0_60px_rgba(212,175,55,0.3)]">
                                             <img 
-                                                src="/mockup.png" 
+                                                src="/mockup.webp" 
                                                 alt="Mapa Xamânico - O Desbloqueio Completo" 
                                                 className="w-48 sm:w-56 md:w-64 mx-auto rounded-2xl shadow-[0_0_40px_rgba(212,175,55,0.4)] border-2 border-[#D4AF37]/60"
                                                 loading="lazy"
@@ -988,19 +988,19 @@ const OfferNew = ({ userName }: OfferProps) => {
                                     <div className="flex items-center justify-center gap-3 sm:gap-6">
                                         <div className="text-center">
                                             <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden border border-slate-600/40 mx-auto opacity-70">
-                                                <img src="/mockup.png" alt="O Chamado" className="w-full h-full object-cover" />
+                                                <img src="/mockup.webp" alt="O Chamado" className="w-full h-full object-cover" loading="lazy" />
                                             </div>
                                             <p className="text-slate-400 text-[10px] sm:text-xs mt-1">R$19</p>
                                         </div>
                                         <div className="text-center">
                                             <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden border-2 border-[#FFD700] mx-auto shadow-[0_0_20px_rgba(212,175,55,0.4)]">
-                                                <img src="/mockup.png" alt="O Desbloqueio Completo" className="w-full h-full object-cover" />
+                                                <img src="/mockup.webp" alt="O Desbloqueio Completo" className="w-full h-full object-cover" loading="lazy" />
                                             </div>
                                             <p className="text-[#FFD700] text-xs sm:text-sm font-bold mt-1">R$29</p>
                                         </div>
                                         <div className="text-center">
                                             <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden border border-purple-500/50 mx-auto opacity-70">
-                                                <img src="/mockup.png" alt="A Ascensão" className="w-full h-full object-cover" />
+                                                <img src="/mockup.webp" alt="A Ascensão" className="w-full h-full object-cover" loading="lazy" />
                                             </div>
                                             <p className="text-slate-400 text-[10px] sm:text-xs mt-1">R$49</p>
                                         </div>

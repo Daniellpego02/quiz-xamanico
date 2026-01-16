@@ -46,9 +46,9 @@ export const Authority: React.FC<AuthorityProps> = ({ onNext, quizPath = 'financ
           
           <div className="w-44 h-44 mx-auto rounded-full border-2 border-[#FF9500]/50 p-1 shadow-2xl relative z-10 bg-black/20 backdrop-blur-sm">
              <div className="w-full h-full rounded-full overflow-hidden border border-white/10">
-               {/* 👇 AQUI ESTÁ A MUDANÇA: Usando a foto local expert.jpg */}
+               {/* 👇 AQUI ESTÁ A MUDANÇA: Usando a foto local expert.webp */}
                <img 
-                 src="/expert.jpg" 
+                 src="/expert.webp" 
                  alt="Anahí Solara" 
                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" 
                  onError={(e) => {

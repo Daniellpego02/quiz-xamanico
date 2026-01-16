@@ -298,7 +298,7 @@ const Offer = ({ userName }: OfferProps) => {
                             <div className="relative w-full max-w-xs sm:max-w-sm mx-auto px-4">
                                 {/* Mockup Image */}
                                 <img 
-                                    src="/mockup.png" 
+                                    src="/mockup.webp" 
                                     alt="Mapa Xamânico - Protocolo de 7 Dias"
                                     className="w-full h-auto rounded-lg shadow-[0_20px_60px_rgba(0,0,0,0.8)]"
                                 />

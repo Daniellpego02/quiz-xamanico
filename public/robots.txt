@@ -1,0 +1,13 @@
+# Robots.txt for Mapa Xamânico
+# Allows all search engines to crawl all pages
+
+User-agent: *
+Allow: /
+
+# Allow Facebook bot for proper OG tag reading
+User-agent: facebookexternalhit
+Allow: /
+
+# Allow Twitter bot
+User-agent: Twitterbot
+Allow: /

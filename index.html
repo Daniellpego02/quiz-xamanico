@@ -4,90 +4,68 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Quiz Completo – Mapa Xamânico</title>
+    <meta name="description" content="Descubra seu Mapa Xamânico e desbloqueie sua prosperidade. Diagnóstico gratuito baseado em princípios milenares." />
+    <meta name="facebook-domain-verification" content="hgkuo5jv7pixmnkr62d4dq95qkdrry" />
     
-    <!-- Anti-Plagiarism Protection -->
-    <script>
+    <!-- Critical: Preconnect to important third-party origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://connect.facebook.net" />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://cdn.utmify.com.br" />
+    
+    <!-- Critical CSS: Inline minimal styles for above-the-fold content -->
+    <style>
+      body{background-color:#050505;color:#f1f5f9;margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif}
+      #root{min-height:100vh}
+      .loading-skeleton{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#050505}
+    </style>
+    
+    <!-- Fonts: Load with display=swap for better performance -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body class="text-slate-100 antialiased selection:bg-orange-500 selection:text-white bg-[#050505]">
+    <!-- Meta Pixel NoScript - Keep for tracking fallback -->
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1908080873443730&ev=PageView&noscript=1" alt="" /></noscript>
+    
+    <!-- App Root -->
+    <div id="root"></div>
+    
+    <!-- Main Application Script - Load first for LCP -->
+    <script type="module" src="/src/index.tsx"></script>
+    
+    <!-- Anti-Plagiarism Protection - Deferred to not block render -->
+    <script defer>
     !function(){window.__tkn=crypto.randomUUID();const a=['mapaxamanicooficial.online','localhost'],b=()=>{const h=location.hostname,d='localhost'===h||'127.0.0.1'===h;if(!d&&!a.some(e=>h===e||h.endsWith('.'+e)))throw document.documentElement.innerHTML='',Error('Unauthorized')},c=()=>{['contextmenu','keydown','keyup'].forEach(e=>addEventListener(e,t=>{'contextmenu'===e&&(t.preventDefault(),!1),t.ctrlKey&&[73,74,85,83,67,123].includes(t.keyCode)||123===t.keyCode?(t.preventDefault(),!1):void 0},!1))},d=()=>{const e=document.createElement('style');e.textContent='body::after{content:"ID:"attr(data-tkn);position:fixed;bottom:2px;right:2px;opacity:.2;font-size:10px;color:#888;pointer-events:none;z-index:999999}',document.head.appendChild(e),window.__tkn&&document.body.setAttribute('data-tkn',window.__tkn.substring(0,8))},f=()=>{setInterval(()=>{160<window.outerWidth-window.innerWidth||160<window.outerHeight-window.innerHeight},1e3)};try{b(),c(),'loading'===document.readyState?document.addEventListener('DOMContentLoaded',()=>{d(),f()}):(d(),f())}catch(e){console.error('[AC]',e)}}();
     </script>
     
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 
+      TRACKING SCRIPTS - Loaded AFTER main content renders
+      All scripts below use async/defer to prevent render blocking
+    -->
     
-    <!-- UTM Tracking Script -->
-    <script
-      src="https://cdn.utmify.com.br/scripts/utms/latest.js"
-      data-utmify-prevent-xcod-sck
-      data-utmify-prevent-subids
-      async
-      defer
-    ></script>
-
-    <!-- UTMFY Pixel -->
-    <script>
-      window.pixelId = "69346cfb70f1cd636eb5e31c";
-      var a = document.createElement("script");
-      a.setAttribute("async", "");
-      a.setAttribute("defer", "");
-      a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
-      document.head.appendChild(a);
+    <!-- Meta Pixel Code - Async -->
+    <script async>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1908080873443730');fbq('track','PageView');
     </script>
 
-    <!-- Meta Pixel Code -->
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1908080873443730');
-    fbq('track', 'PageView');
-    </script>
-    <!-- End Meta Pixel Code -->
-
-    <!-- Google Analytics (GA4) -->
+    <!-- Google Analytics (GA4) - Async -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-M78M3RH56H"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-M78M3RH56H');
+    <script async>
+      window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-M78M3RH56H');
     </script>
 
-    <!-- Microsoft Clarity -->
-    <script type="text/javascript">
-      (function(c,l,a,r,i,t,y){
-          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-      })(window, document, "clarity", "script", "uq1qfi7fwi");
+    <!-- UTM Tracking Script - Async Defer -->
+    <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+
+    <!-- UTMFY Pixel - Deferred -->
+    <script defer>
+      window.pixelId="69346cfb70f1cd636eb5e31c";var a=document.createElement("script");a.async=true;a.defer=true;a.src="https://cdn.utmify.com.br/scripts/pixel/pixel.js";document.head.appendChild(a);
     </script>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.1",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
-    "react/": "https://aistudiocdn.com/react@^19.2.1/",
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.556.0",
-    "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.25",
-    "vite": "https://aistudiocdn.com/vite@^7.2.6",
-    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1"
-  }
-}
-</script>
-</head>
-  <body class="text-slate-100 antialiased selection:bg-orange-500 selection:text-white bg-[#050505]">
-    <!-- Meta Pixel NoScript -->
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1908080873443730&ev=PageView&noscript=1"
-    /></noscript>
-    
-    <div id="root"></div>
-    <script type="module" src="/src/index.tsx"></script>
-<meta name="facebook-domain-verification" content="hgkuo5jv7pixmnkr62d4dq95qkdrry" />
+
+    <!-- Microsoft Clarity - Loaded after page is interactive -->
+    <script defer>
+      (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","uq1qfi7fwi");
+    </script>
   </body>
 </html>

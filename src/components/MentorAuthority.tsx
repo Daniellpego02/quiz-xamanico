@@ -40,7 +40,7 @@ export const MentorAuthority = () => {
                 <div className="absolute -inset-2 bg-gradient-to-br from-[#D4AF37] to-[#FFD700] rounded-full blur-xl opacity-40 animate-pulse" />
                 <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-[#D4AF37] shadow-[0_0_30px_rgba(212,175,55,0.4)]">
                   <img
-                    src="/expert.jpg"
+                    src="/expert.webp"
                     alt="Anahí Solara - Mentora Espiritual"
                     className="w-full h-full object-cover"
                   />
