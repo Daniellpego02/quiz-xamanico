@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState, useCallback, useRef } from 'react';
-import { Shield, Lock, Sparkles, AlertTriangle, Check, Star, Clock, CreditCard, Smartphone, FileText, Flame, Users } from 'lucide-react';
+import { Shield, Lock, Sparkles, AlertTriangle, Check, Star, Users, ChevronDown, ChevronUp } from 'lucide-react';
 import { tracking } from '../utils/tracking';
 
 interface VSLPageProps {
@@ -44,11 +44,95 @@ const SOCIAL_PROOF_CONFIG = {
     activatedIncreaseProbability: 0.7,
 };
 
+// Scarcity/slots configuration (PIX urgency)
+const SCARCITY_CONFIG = {
+    totalSlots: 80,
+    initialOccupiedMin: 70,
+    initialOccupiedMax: 75,
+    updateIntervalMs: 25000, // 25 seconds
+    increaseProbability: 0.7,
+};
+
+// FAQ items for PIX objections
+const PIX_FAQ_ITEMS = [
+    {
+        question: 'Por que só aceita PIX?',
+        answer: 'Para manter o preço baixo (R$ 27,90). Taxas de cartão aumentariam para R$ 97. Repassamos a economia para você!'
+    },
+    {
+        question: 'Quando recebo acesso?',
+        answer: 'Assim que o PIX for confirmado (até 3h). Você recebe email + WhatsApp com todos os acessos.'
+    },
+    {
+        question: 'E se eu não tiver PIX?',
+        answer: 'Todo banco tem PIX gratuito. Ative no app do seu banco em 2 minutos. É rápido e fácil!'
+    },
+    {
+        question: 'Posso pedir reembolso?',
+        answer: 'Sim! 7 dias de garantia incondicional. Devolução via PIX em até 48h, sem perguntas.'
+    },
+    {
+        question: 'É seguro?',
+        answer: '100% seguro. PIX é o sistema oficial do Banco Central. Seus dados são criptografados.'
+    }
+];
+
+// Price comparison items (to show value)
+const PRICE_COMPARISONS = [
+    { emoji: '🍕', item: '1 pizza delivery', price: 'R$ 45-60' },
+    { emoji: '🎬', item: '1 cinema + pipoca', price: 'R$ 50' },
+    { emoji: '🚗', item: '1 tanque de gasolina', price: 'R$ 150+' },
+    { emoji: '☕', item: '8 cafés Starbucks', price: 'R$ 35' },
+];
+
 // VTurb/ConverteAI allowed origins for message validation
 const VTURB_ALLOWED_ORIGINS = [
     'https://scripts.converteai.net',
     'https://cdn.converteai.net',
     'https://player.converteai.net',
+];
+
+// Video testimonials configuration (VTurb)
+const VIDEO_TESTIMONIALS = [
+    {
+        id: '6966f78072fa6d1f6fe3580b',
+        scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f78072fa6d1f6fe3580b/v4/player.js',
+        quote: '"Depois de 3 dias fazendo o protocolo, recebi uma proposta inesperada de R$ 8 mil"',
+        author: 'Mariana, 41 anos',
+        location: 'São Paulo, SP'
+    },
+    {
+        id: '6966f8a76af1a10bf01e6dc4',
+        scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f8a76af1a10bf01e6dc4/v4/player.js',
+        quote: '"Minha mãe parou de me cobrar dinheiro do nada. Coincidência? Acho que não."',
+        author: 'Rafael, 28 anos',
+        location: 'Curitiba, PR'
+    },
+    {
+        id: '6966f6bc1fad4f3937c2eac9',
+        scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f6bc1fad4f3937c2eac9/v4/player.js',
+        quote: '"Consegui sair das dívidas em 10 dias. Inacreditável."',
+        author: 'Paula, 38 anos',
+        location: 'Rio de Janeiro, RJ'
+    },
+    {
+        id: '6966f6b835a1be1be44c9daf',
+        scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f6b835a1be1be44c9daf/v4/player.js',
+        quote: '"Minha vida financeira mudou em menos de uma semana"',
+        author: 'Juliana, 33 anos',
+        location: 'Belo Horizonte, MG'
+    }
+];
+
+// Image testimonials configuration
+const IMAGE_TESTIMONIALS = [
+    { src: '/prova1.webp', author: 'Camila, 34 anos', day: '4º dia do protocolo' },
+    { src: '/prova2.webp', author: 'Lucas, 29 anos', day: '6º dia' },
+    { src: '/prova3.webp', author: 'Fernanda, 37 anos', day: '5º dia' },
+    { src: '/prova4.webp', author: 'João, 44 anos', day: '8º dia' },
+    { src: '/prova5.webp', author: 'Ana, 31 anos', day: '7º dia' },
+    { src: '/prova6.webp', author: 'Carlos, 42 anos', day: '9º dia' },
+    { src: '/prova7.webp', author: 'Beatriz, 36 anos', day: '5º dia' }
 ];
 
 // Value Stack items with individual prices for anchoring
@@ -93,6 +177,16 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
     // Dynamic social proof state
     const [viewingCount, setViewingCount] = useState(0);
     const [activatedCount, setActivatedCount] = useState(0);
+    
+    // Social proof section state
+    const [showExtraTestimonials, setShowExtraTestimonials] = useState(false);
+    const [loadedTestimonialScripts, setLoadedTestimonialScripts] = useState<Set<string>>(new Set());
+    
+    // Scarcity state (PIX slots)
+    const [slotsOccupied, setSlotsOccupied] = useState(0);
+    
+    // FAQ state
+    const [expandedFaqIndex, setExpandedFaqIndex] = useState<number | null>(null);
     
     // Refs for video timing
     const videoTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -268,6 +362,58 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
         
         return () => clearInterval(socialProofInterval);
     }, []);
+
+    // Initialize scarcity slots counter
+    useEffect(() => {
+        // Initialize with random value
+        const range = SCARCITY_CONFIG.initialOccupiedMax - SCARCITY_CONFIG.initialOccupiedMin;
+        setSlotsOccupied(Math.floor(Math.random() * range) + SCARCITY_CONFIG.initialOccupiedMin);
+        
+        // Update periodically (always increase, never decrease)
+        const scarcityInterval = setInterval(() => {
+            setSlotsOccupied(prev => {
+                if (prev < SCARCITY_CONFIG.totalSlots - 1 && Math.random() < SCARCITY_CONFIG.increaseProbability) {
+                    return prev + 1;
+                }
+                return prev;
+            });
+        }, SCARCITY_CONFIG.updateIntervalMs);
+        
+        return () => clearInterval(scarcityInterval);
+    }, []);
+
+    // Load testimonial video scripts dynamically
+    const loadTestimonialScript = useCallback((videoId: string, scriptUrl: string) => {
+        if (loadedTestimonialScripts.has(videoId)) return;
+        
+        const script = document.createElement('script');
+        script.src = scriptUrl;
+        script.async = true;
+        script.onload = () => {
+            setLoadedTestimonialScripts(prev => new Set([...prev, videoId]));
+        };
+        document.head.appendChild(script);
+    }, [loadedTestimonialScripts]);
+
+    // Load initial testimonial scripts when CTA is shown
+    useEffect(() => {
+        if (showCTA) {
+            // Load first 2 video testimonials initially (visible ones)
+            VIDEO_TESTIMONIALS.slice(0, 2).forEach(video => {
+                loadTestimonialScript(video.id, video.scriptUrl);
+            });
+        }
+    }, [showCTA, loadTestimonialScript]);
+
+    // Load extra testimonial scripts when expanded
+    useEffect(() => {
+        if (showExtraTestimonials) {
+            // Load remaining video testimonials
+            VIDEO_TESTIMONIALS.slice(2).forEach(video => {
+                loadTestimonialScript(video.id, video.scriptUrl);
+            });
+        }
+    }, [showExtraTestimonials, loadTestimonialScript]);
 
     // Load video player script with optimized preloading
     useEffect(() => {
@@ -655,22 +801,74 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                             </p>
                         </div>
 
-                        {/* Price Display */}
-                        <div className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 border-2 border-[#D4AF37]/60 rounded-2xl p-6 mb-4">
-                            <div className="text-center mb-4">
-                                <p className="text-slate-400 text-sm line-through mb-1">De R$ {TOTAL_VALUE},00</p>
-                                <div className="flex items-center justify-center gap-2">
-                                    <span className="text-4xl sm:text-5xl font-black text-[#FFD700]">R$ 27</span>
-                                    <span className="text-2xl sm:text-3xl font-bold text-[#FFD700]">,90</span>
-                                </div>
-                                <p className="text-slate-400 text-sm mt-1">💳 Menos que uma pizza • Parcelado em 3x sem juros</p>
-                                <p className="text-emerald-400 text-sm font-semibold mt-2">
-                                    ✓ Acesso Imediato • ✓ Garantia de 7 dias
-                                </p>
+                        {/* ============== PIX SCARCITY ALERT ============== */}
+                        <div className="bg-gradient-to-r from-red-900/40 to-orange-900/30 border-2 border-red-500/50 rounded-xl p-4 mb-4">
+                            <p className="text-red-300 font-bold text-center mb-3">
+                                🔥 ATENÇÃO: Apenas <span className="text-[#FFD700] text-xl">{SCARCITY_CONFIG.totalSlots - slotsOccupied}</span> vagas restantes hoje
+                            </p>
+                            <div className="w-full h-4 bg-black/30 rounded-full overflow-hidden mb-2">
+                                <motion.div 
+                                    className="h-full bg-gradient-to-r from-red-500 via-orange-500 to-[#FFD700]"
+                                    initial={{ width: 0 }}
+                                    animate={{ width: `${(slotsOccupied / SCARCITY_CONFIG.totalSlots) * 100}%` }}
+                                    transition={{ duration: 1 }}
+                                />
                             </div>
+                            <p className="text-slate-400 text-xs text-center">
+                                {slotsOccupied}/{SCARCITY_CONFIG.totalSlots} protocolos ativados hoje
+                            </p>
+                        </div>
 
-                            {/* What's included - Compact */}
-                            <div className="space-y-2 mb-4">
+                        {/* ============== PIX EXCLUSIVE DISCOUNT BOX ============== */}
+                        <div className="bg-gradient-to-br from-purple-900/30 to-emerald-900/20 border-2 border-[#FFD700]/50 rounded-2xl p-6 mb-4">
+                            <h3 className="text-[#FFD700] text-xl font-bold text-center mb-4">
+                                💸 DESCONTO EXCLUSIVO PIX
+                            </h3>
+                            
+                            <div className="text-center space-y-2 mb-4">
+                                <p className="text-slate-500 text-sm">
+                                    De: <span className="line-through">R$ {TOTAL_VALUE},00</span>
+                                    <span className="text-xs ml-1 italic">(valor total)</span>
+                                </p>
+                                <p className="text-slate-400 text-sm">
+                                    Por: <span className="line-through">R$ 97,00</span>
+                                    <span className="text-xs ml-1 italic">(desconto padrão)</span>
+                                </p>
+                                <div className="pt-2">
+                                    <p className="text-emerald-400 text-lg font-bold">
+                                        🔥 HOJE COM PIX:
+                                    </p>
+                                    <div className="flex items-center justify-center gap-1">
+                                        <span className="text-5xl sm:text-6xl font-black text-[#FFD700]">R$ 27</span>
+                                        <span className="text-3xl font-bold text-[#FFD700]">,90</span>
+                                    </div>
+                                    <p className="text-emerald-400 text-sm mt-1">
+                                        (72% de desconto adicional)
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <p className="text-amber-400 text-sm text-center font-semibold">
+                                ⏰ Desconto válido apenas nos próximos 15 minutos
+                            </p>
+                        </div>
+
+                        {/* ============== "WHY SO CHEAP?" EXPLANATION ============== */}
+                        <div className="bg-[#FFD700]/10 border-l-4 border-[#FFD700] rounded-r-xl p-4 mb-4">
+                            <p className="text-[#FFD700] font-bold mb-2">💡 Por que tão barato?</p>
+                            <p className="text-slate-300 text-sm leading-relaxed mb-2">
+                                Pagamento via PIX = sem taxas de cartão para nós.<br/>
+                                <span className="text-white font-semibold">Repassamos a economia para você!</span>
+                            </p>
+                            <p className="text-slate-500 text-xs italic">
+                                (Se fosse cartão, seria R$ 97 parcelado)
+                            </p>
+                        </div>
+
+                        {/* What's included - Compact */}
+                        <div className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 border border-emerald-500/30 rounded-2xl p-4 mb-4">
+                            <p className="text-emerald-400 font-bold text-sm mb-3 text-center">✅ O que você recebe:</p>
+                            <div className="space-y-2">
                                 {[
                                     'Mapa Xamânico Personalizado em PDF',
                                     'Protocolo de Desbloqueio de 7 dias',
@@ -683,86 +881,138 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                     </div>
                                 ))}
                             </div>
+                        </div>
 
-                            {/* ============== IRRESISTIBLE CTA BUTTON (#4) ============== */}
-                            <div className="relative group">
-                                <div className="absolute -inset-1 bg-gradient-to-r from-[#D4AF37] to-[#FFD700] rounded-xl blur opacity-60 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
-                                <motion.button
-                                    onClick={handleCheckoutClick}
-                                    animate={{ 
-                                        scale: [1, 1.02, 1],
-                                    }}
-                                    transition={{ 
-                                        duration: 1.5, 
-                                        repeat: Infinity, 
-                                        ease: "easeInOut" 
-                                    }}
-                                    className="relative w-full bg-gradient-to-r from-[#D4AF37] to-[#FFD700] hover:from-[#FFD700] hover:to-[#D4AF37] text-black font-black text-base sm:text-lg py-5 px-6 rounded-xl shadow-[0_0_30px_rgba(212,175,55,0.5)] transition-all active:scale-95 min-h-[60px]"
-                                >
-                                    <div className="flex flex-col items-center justify-center gap-1">
-                                        <div className="flex items-center gap-2">
-                                            <Flame className="w-5 h-5" />
-                                            <span>SIM! QUERO ROMPER MINHA LEALDADE INVISÍVEL AGORA</span>
-                                        </div>
-                                        <span className="text-xs font-semibold opacity-80">
-                                            Acesso imediato • R$ 27,90 ou 3x R$ 9,30
-                                        </span>
+                        {/* ============== PIX CTA BUTTON (GREEN) ============== */}
+                        <div className="relative group">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-green-400 rounded-xl blur opacity-60 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
+                            <motion.button
+                                onClick={handleCheckoutClick}
+                                animate={{ 
+                                    scale: [1, 1.02, 1],
+                                }}
+                                transition={{ 
+                                    duration: 1.5, 
+                                    repeat: Infinity, 
+                                    ease: "easeInOut" 
+                                }}
+                                className="relative w-full bg-gradient-to-r from-emerald-500 to-green-500 hover:from-green-400 hover:to-emerald-400 text-white font-black text-base sm:text-lg py-5 px-6 rounded-xl shadow-[0_0_30px_rgba(16,185,129,0.5)] transition-all active:scale-95 min-h-[60px]"
+                            >
+                                <div className="flex flex-col items-center justify-center gap-1">
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-2xl">💰</span>
+                                        <span>SIM! QUERO PAGAR R$ 27,90 NO PIX</span>
                                     </div>
-                                </motion.button>
-                            </div>
+                                    <span className="text-xs font-semibold opacity-90">
+                                        Aprovação instantânea • Acesso em 3h
+                                    </span>
+                                </div>
+                            </motion.button>
+                        </div>
 
-                            {/* Security bullets below CTA */}
-                            <div className="flex flex-wrap items-center justify-center gap-3 mt-4 text-xs text-slate-400">
-                                <div className="flex items-center gap-1">
-                                    <Lock className="w-3 h-3 text-emerald-400" />
-                                    <span>Pagamento 100% seguro e criptografado</span>
-                                </div>
+                        {/* PIX Security/Guarantee badges */}
+                        <div className="grid grid-cols-2 gap-3 mt-4">
+                            <div className="bg-white/5 border border-emerald-500/30 rounded-lg p-3 text-center">
+                                <span className="text-xl">💰</span>
+                                <p className="text-white text-xs font-bold mt-1">APENAS R$ 27,90</p>
+                                <p className="text-slate-400 text-[10px]">Pagamento único via PIX</p>
                             </div>
-                            <div className="flex flex-wrap items-center justify-center gap-3 mt-2 text-xs text-slate-400">
-                                <span>⚡ Acesso liberado em até 3 horas</span>
-                                <span>•</span>
-                                <span>✓ Garantia incondicional de 7 dias</span>
+                            <div className="bg-white/5 border border-emerald-500/30 rounded-lg p-3 text-center">
+                                <span className="text-xl">⚡</span>
+                                <p className="text-white text-xs font-bold mt-1">INSTANTÂNEO</p>
+                                <p className="text-slate-400 text-[10px]">Não precisa esperar boleto</p>
                             </div>
-                            <div className="text-center mt-2">
-                                <span className="text-amber-400 text-xs font-semibold">⏰ Oferta válida por apenas 15 minutos</span>
+                            <div className="bg-white/5 border border-emerald-500/30 rounded-lg p-3 text-center">
+                                <span className="text-xl">✓</span>
+                                <p className="text-white text-xs font-bold mt-1">GARANTIA 7 DIAS</p>
+                                <p className="text-slate-400 text-[10px]">Devolvemos tudo se não funcionar</p>
                             </div>
-
-                            {/* Payment Methods */}
-                            <div className="flex flex-wrap items-center justify-center gap-4 mt-4 text-xs text-slate-400">
-                                <div className="flex items-center gap-1">
-                                    <Smartphone className="w-4 h-4 text-emerald-400" />
-                                    <span>Pix (aprovação instantânea)</span>
-                                </div>
-                                <div className="flex items-center gap-1">
-                                    <CreditCard className="w-4 h-4 text-emerald-400" />
-                                    <span>Cartão</span>
-                                </div>
-                                <div className="flex items-center gap-1">
-                                    <FileText className="w-4 h-4 text-emerald-400" />
-                                    <span>Boleto</span>
-                                </div>
+                            <div className="bg-white/5 border border-emerald-500/30 rounded-lg p-3 text-center">
+                                <span className="text-xl">🔒</span>
+                                <p className="text-white text-xs font-bold mt-1">100% SEGURO</p>
+                                <p className="text-slate-400 text-[10px]">QR Code ou Copia e Cola</p>
                             </div>
                         </div>
 
-                        {/* ============== DYNAMIC SOCIAL PROOF (#9) ============== */}
-                        <div className="space-y-3">
-                            {/* Testimonial */}
-                            <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                                <div className="flex items-start gap-3">
-                                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold flex-shrink-0">
-                                        C
+                        {/* ============== PRICE COMPARISONS ============== */}
+                        <div className="bg-white/5 border border-white/10 rounded-xl p-4 mt-4">
+                            <h4 className="text-[#FFD700] font-bold text-center mb-3">
+                                R$ 27,90 é MENOS QUE:
+                            </h4>
+                            <div className="space-y-2">
+                                {PRICE_COMPARISONS.map((item, idx) => (
+                                    <div key={idx} className="flex items-center justify-between text-sm border-b border-white/5 pb-2 last:border-0">
+                                        <span className="text-slate-300">
+                                            {item.emoji} {item.item}
+                                        </span>
+                                        <span className="text-slate-500 text-xs">{item.price}</span>
                                     </div>
-                                    <div>
-                                        <p className="text-slate-300 text-sm italic">
-                                            "Depois que ouvi os áudios, parei de me sentir sugado pela minha família. Durmo em paz pela 1ª vez em anos."
-                                        </p>
-                                        <p className="text-slate-500 text-xs mt-1">— Camila, 34 anos</p>
+                                ))}
+                            </div>
+                            <p className="text-[#FFD700] text-sm text-center mt-3 font-semibold">
+                                E pode mudar sua vida financeira <span className="text-white">PARA SEMPRE</span>
+                            </p>
+                        </div>
+
+                        {/* ============== PIX FAQ SECTION ============== */}
+                        <div className="mt-6">
+                            <h3 className="text-white font-bold text-lg text-center mb-4">
+                                ❓ PERGUNTAS FREQUENTES
+                            </h3>
+                            <div className="space-y-2">
+                                {PIX_FAQ_ITEMS.map((faq, idx) => (
+                                    <div key={idx} className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
+                                        <button
+                                            onClick={() => setExpandedFaqIndex(expandedFaqIndex === idx ? null : idx)}
+                                            className="w-full flex items-center justify-between p-4 text-left hover:bg-white/5 transition-colors"
+                                        >
+                                            <span className="text-slate-200 text-sm font-medium">{faq.question}</span>
+                                            <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${expandedFaqIndex === idx ? 'rotate-180' : ''}`} />
+                                        </button>
+                                        <AnimatePresence>
+                                            {expandedFaqIndex === idx && (
+                                                <motion.div
+                                                    initial={{ height: 0, opacity: 0 }}
+                                                    animate={{ height: 'auto', opacity: 1 }}
+                                                    exit={{ height: 0, opacity: 0 }}
+                                                    transition={{ duration: 0.2 }}
+                                                    className="overflow-hidden"
+                                                >
+                                                    <p className="px-4 pb-4 text-slate-400 text-sm">
+                                                        → {faq.answer}
+                                                    </p>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
                                     </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* ============== COMPLETE SOCIAL PROOF SECTION ============== */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3 }}
+                            className="mt-8"
+                        >
+                            {/* Section Header */}
+                            <div className="text-center mb-6">
+                                <h2 className="text-xl sm:text-2xl font-black text-white mb-2">
+                                    O QUE OUTRAS PESSOAS ESTÃO DIZENDO:
+                                </h2>
+                                <div className="inline-flex items-center gap-2 bg-[#FFD700]/10 border border-[#FFD700]/30 px-4 py-2 rounded-full">
+                                    <div className="flex">
+                                        {[...Array(5)].map((_, i) => (
+                                            <Star key={i} className="w-4 h-4 text-[#FFD700] fill-[#FFD700]" />
+                                        ))}
+                                    </div>
+                                    <span className="text-[#FFD700] text-sm font-bold">+4.300 protocolos ativados</span>
                                 </div>
                             </div>
 
-                            {/* Live Activity */}
-                            <div className="flex flex-wrap justify-center gap-3">
+                            {/* Live Activity Badges */}
+                            <div className="flex flex-wrap justify-center gap-3 mb-6">
                                 <div className="flex items-center gap-2 bg-emerald-900/30 border border-emerald-500/30 px-3 py-2 rounded-full">
                                     <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
                                     <Users className="w-4 h-4 text-emerald-400" />
@@ -779,16 +1029,252 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                 </div>
                             </div>
 
-                            {/* Trust indicator */}
-                            <div className="text-center">
-                                <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full">
-                                    <Star className="w-4 h-4 text-[#FFD700] fill-[#FFD700]" />
-                                    <span className="text-slate-300 text-xs">
-                                        +4.300 pessoas já desbloquearam sua prosperidade
-                                    </span>
+                            {/* Separator */}
+                            <div className="w-full h-px bg-gradient-to-r from-transparent via-[#FFD700]/50 to-transparent mb-6"></div>
+
+                            {/* Testimonials Grid */}
+                            <div className="space-y-6">
+                                {/* PROVA #1 - Video Testimonial 1 */}
+                                <div className="bg-gradient-to-br from-[#1a0b2e]/60 to-[#2d1b4e]/40 border border-[#D4AF37]/30 rounded-2xl p-4 overflow-hidden">
+                                    <div className="relative rounded-xl overflow-hidden bg-black mb-3" style={{ aspectRatio: '16/9', maxHeight: '300px' }}>
+                                        <vturb-smartplayer 
+                                            id={`vid-${VIDEO_TESTIMONIALS[0].id}`}
+                                            style={{ display: 'block', width: '100%', height: '100%' }}
+                                        ></vturb-smartplayer>
+                                    </div>
+                                    <blockquote className="text-slate-300 text-sm italic mb-2">
+                                        {VIDEO_TESTIMONIALS[0].quote}
+                                    </blockquote>
+                                    <p className="text-[#FFD700] text-xs font-semibold">
+                                        — {VIDEO_TESTIMONIALS[0].author} • {VIDEO_TESTIMONIALS[0].location}
+                                    </p>
+                                </div>
+
+                                {/* PROVA #2 - Image Testimonial 1 */}
+                                <div className="bg-gradient-to-br from-[#1a0b2e]/60 to-[#2d1b4e]/40 border border-emerald-500/30 rounded-2xl p-4">
+                                    <div className="rounded-xl overflow-hidden mb-3 bg-[#0b141a]">
+                                        <img 
+                                            src={IMAGE_TESTIMONIALS[0].src} 
+                                            alt="Depoimento WhatsApp" 
+                                            className="w-full h-auto object-contain"
+                                            loading="lazy"
+                                        />
+                                    </div>
+                                    <p className="text-emerald-400 text-xs font-semibold">
+                                        — {IMAGE_TESTIMONIALS[0].author} • {IMAGE_TESTIMONIALS[0].day}
+                                    </p>
+                                </div>
+
+                                {/* PROVA #3 - Video Testimonial 2 */}
+                                <div className="bg-gradient-to-br from-[#1a0b2e]/60 to-[#2d1b4e]/40 border border-[#D4AF37]/30 rounded-2xl p-4 overflow-hidden">
+                                    <div className="relative rounded-xl overflow-hidden bg-black mb-3" style={{ aspectRatio: '16/9', maxHeight: '300px' }}>
+                                        <vturb-smartplayer 
+                                            id={`vid-${VIDEO_TESTIMONIALS[1].id}`}
+                                            style={{ display: 'block', width: '100%', height: '100%' }}
+                                        ></vturb-smartplayer>
+                                    </div>
+                                    <blockquote className="text-slate-300 text-sm italic mb-2">
+                                        {VIDEO_TESTIMONIALS[1].quote}
+                                    </blockquote>
+                                    <p className="text-[#FFD700] text-xs font-semibold">
+                                        — {VIDEO_TESTIMONIALS[1].author} • {VIDEO_TESTIMONIALS[1].location}
+                                    </p>
+                                </div>
+
+                                {/* PROVA #4 - Image Testimonial 2 */}
+                                <div className="bg-gradient-to-br from-[#1a0b2e]/60 to-[#2d1b4e]/40 border border-emerald-500/30 rounded-2xl p-4">
+                                    <div className="rounded-xl overflow-hidden mb-3 bg-[#0b141a]">
+                                        <img 
+                                            src={IMAGE_TESTIMONIALS[1].src} 
+                                            alt="Depoimento WhatsApp" 
+                                            className="w-full h-auto object-contain"
+                                            loading="lazy"
+                                        />
+                                    </div>
+                                    <p className="text-emerald-400 text-xs font-semibold">
+                                        — {IMAGE_TESTIMONIALS[1].author} • {IMAGE_TESTIMONIALS[1].day}
+                                    </p>
+                                </div>
+
+                                {/* PROVA #5 - Image Testimonial 3 */}
+                                <div className="bg-gradient-to-br from-[#1a0b2e]/60 to-[#2d1b4e]/40 border border-emerald-500/30 rounded-2xl p-4">
+                                    <div className="rounded-xl overflow-hidden mb-3 bg-[#0b141a]">
+                                        <img 
+                                            src={IMAGE_TESTIMONIALS[2].src} 
+                                            alt="Depoimento WhatsApp" 
+                                            className="w-full h-auto object-contain"
+                                            loading="lazy"
+                                        />
+                                    </div>
+                                    <p className="text-emerald-400 text-xs font-semibold">
+                                        — {IMAGE_TESTIMONIALS[2].author} • {IMAGE_TESTIMONIALS[2].day}
+                                    </p>
+                                </div>
+
+                                {/* EXPAND BUTTON */}
+                                {!showExtraTestimonials && (
+                                    <motion.button
+                                        onClick={() => setShowExtraTestimonials(true)}
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        className="w-full bg-gradient-to-r from-purple-900/50 to-[#1a0b2e]/70 border border-purple-500/40 text-purple-300 font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-2 hover:border-purple-400/60 transition-all"
+                                    >
+                                        <span>VER MAIS DEPOIMENTOS (6 NOVOS)</span>
+                                        <ChevronDown className="w-5 h-5" />
+                                    </motion.button>
+                                )}
+
+                                {/* EXTRA TESTIMONIALS - Hidden by default */}
+                                <AnimatePresence>
+                                    {showExtraTestimonials && (
+                                        <motion.div
+                                            initial={{ opacity: 0, height: 0 }}
+                                            animate={{ opacity: 1, height: 'auto' }}
+                                            exit={{ opacity: 0, height: 0 }}
+                                            transition={{ duration: 0.3 }}
+                                            className="space-y-6"
+                                        >
+                                            {/* PROVA #6 - Video Testimonial 3 */}
+                                            <div className="bg-gradient-to-br from-[#1a0b2e]/60 to-[#2d1b4e]/40 border border-[#D4AF37]/30 rounded-2xl p-4 overflow-hidden">
+                                                <div className="relative rounded-xl overflow-hidden bg-black mb-3" style={{ aspectRatio: '16/9', maxHeight: '300px' }}>
+                                                    <vturb-smartplayer 
+                                                        id={`vid-${VIDEO_TESTIMONIALS[2].id}`}
+                                                        style={{ display: 'block', width: '100%', height: '100%' }}
+                                                    ></vturb-smartplayer>
+                                                </div>
+                                                <blockquote className="text-slate-300 text-sm italic mb-2">
+                                                    {VIDEO_TESTIMONIALS[2].quote}
+                                                </blockquote>
+                                                <p className="text-[#FFD700] text-xs font-semibold">
+                                                    — {VIDEO_TESTIMONIALS[2].author} • {VIDEO_TESTIMONIALS[2].location}
+                                                </p>
+                                            </div>
+
+                                            {/* PROVA #7 - Image Testimonial 4 */}
+                                            <div className="bg-gradient-to-br from-[#1a0b2e]/60 to-[#2d1b4e]/40 border border-emerald-500/30 rounded-2xl p-4">
+                                                <div className="rounded-xl overflow-hidden mb-3 bg-[#0b141a]">
+                                                    <img 
+                                                        src={IMAGE_TESTIMONIALS[3].src} 
+                                                        alt="Depoimento WhatsApp" 
+                                                        className="w-full h-auto object-contain"
+                                                        loading="lazy"
+                                                    />
+                                                </div>
+                                                <p className="text-emerald-400 text-xs font-semibold">
+                                                    — {IMAGE_TESTIMONIALS[3].author} • {IMAGE_TESTIMONIALS[3].day}
+                                                </p>
+                                            </div>
+
+                                            {/* PROVA #8 - Video Testimonial 4 */}
+                                            <div className="bg-gradient-to-br from-[#1a0b2e]/60 to-[#2d1b4e]/40 border border-[#D4AF37]/30 rounded-2xl p-4 overflow-hidden">
+                                                <div className="relative rounded-xl overflow-hidden bg-black mb-3" style={{ aspectRatio: '16/9', maxHeight: '300px' }}>
+                                                    <vturb-smartplayer 
+                                                        id={`vid-${VIDEO_TESTIMONIALS[3].id}`}
+                                                        style={{ display: 'block', width: '100%', height: '100%' }}
+                                                    ></vturb-smartplayer>
+                                                </div>
+                                                <blockquote className="text-slate-300 text-sm italic mb-2">
+                                                    {VIDEO_TESTIMONIALS[3].quote}
+                                                </blockquote>
+                                                <p className="text-[#FFD700] text-xs font-semibold">
+                                                    — {VIDEO_TESTIMONIALS[3].author} • {VIDEO_TESTIMONIALS[3].location}
+                                                </p>
+                                            </div>
+
+                                            {/* PROVA #9 - Image Testimonial 5 */}
+                                            <div className="bg-gradient-to-br from-[#1a0b2e]/60 to-[#2d1b4e]/40 border border-emerald-500/30 rounded-2xl p-4">
+                                                <div className="rounded-xl overflow-hidden mb-3 bg-[#0b141a]">
+                                                    <img 
+                                                        src={IMAGE_TESTIMONIALS[4].src} 
+                                                        alt="Depoimento WhatsApp" 
+                                                        className="w-full h-auto object-contain"
+                                                        loading="lazy"
+                                                    />
+                                                </div>
+                                                <p className="text-emerald-400 text-xs font-semibold">
+                                                    — {IMAGE_TESTIMONIALS[4].author} • {IMAGE_TESTIMONIALS[4].day}
+                                                </p>
+                                            </div>
+
+                                            {/* PROVA #10 - Image Testimonial 6 */}
+                                            <div className="bg-gradient-to-br from-[#1a0b2e]/60 to-[#2d1b4e]/40 border border-emerald-500/30 rounded-2xl p-4">
+                                                <div className="rounded-xl overflow-hidden mb-3 bg-[#0b141a]">
+                                                    <img 
+                                                        src={IMAGE_TESTIMONIALS[5].src} 
+                                                        alt="Depoimento WhatsApp" 
+                                                        className="w-full h-auto object-contain"
+                                                        loading="lazy"
+                                                    />
+                                                </div>
+                                                <p className="text-emerald-400 text-xs font-semibold">
+                                                    — {IMAGE_TESTIMONIALS[5].author} • {IMAGE_TESTIMONIALS[5].day}
+                                                </p>
+                                            </div>
+
+                                            {/* PROVA #11 - Image Testimonial 7 */}
+                                            <div className="bg-gradient-to-br from-[#1a0b2e]/60 to-[#2d1b4e]/40 border border-emerald-500/30 rounded-2xl p-4">
+                                                <div className="rounded-xl overflow-hidden mb-3 bg-[#0b141a]">
+                                                    <img 
+                                                        src={IMAGE_TESTIMONIALS[6].src} 
+                                                        alt="Depoimento WhatsApp" 
+                                                        className="w-full h-auto object-contain"
+                                                        loading="lazy"
+                                                    />
+                                                </div>
+                                                <p className="text-emerald-400 text-xs font-semibold">
+                                                    — {IMAGE_TESTIMONIALS[6].author} • {IMAGE_TESTIMONIALS[6].day}
+                                                </p>
+                                            </div>
+
+                                            {/* Collapse Button */}
+                                            <motion.button
+                                                onClick={() => setShowExtraTestimonials(false)}
+                                                whileHover={{ scale: 1.02 }}
+                                                whileTap={{ scale: 0.98 }}
+                                                className="w-full bg-gradient-to-r from-purple-900/30 to-[#1a0b2e]/50 border border-purple-500/30 text-purple-300 font-medium py-3 px-6 rounded-xl flex items-center justify-center gap-2 hover:border-purple-400/50 transition-all"
+                                            >
+                                                <span>Mostrar menos</span>
+                                                <ChevronUp className="w-5 h-5" />
+                                            </motion.button>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+
+                            {/* REPEATED CTA BUTTON (PIX GREEN) */}
+                            <div className="mt-8">
+                                <div className="relative group">
+                                    <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-green-400 rounded-xl blur opacity-60 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
+                                    <motion.button
+                                        onClick={handleCheckoutClick}
+                                        animate={{ 
+                                            scale: [1, 1.02, 1],
+                                        }}
+                                        transition={{ 
+                                            duration: 1.5, 
+                                            repeat: Infinity, 
+                                            ease: "easeInOut" 
+                                        }}
+                                        className="relative w-full bg-gradient-to-r from-emerald-500 to-green-500 hover:from-green-400 hover:to-emerald-400 text-white font-black text-base sm:text-lg py-5 px-6 rounded-xl shadow-[0_0_30px_rgba(16,185,129,0.5)] transition-all active:scale-95 min-h-[60px]"
+                                    >
+                                        <div className="flex flex-col items-center justify-center gap-1">
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-2xl">💰</span>
+                                                <span>SIM! QUERO PAGAR R$ 27,90 NO PIX</span>
+                                            </div>
+                                            <span className="text-xs font-semibold opacity-90">
+                                                Aprovação instantânea • Acesso em 3h
+                                            </span>
+                                        </div>
+                                    </motion.button>
                                 </div>
                             </div>
-                        </div>
+
+                            {/* Disclaimer */}
+                            <p className="text-slate-500 text-xs text-center mt-4 px-4">
+                                *Resultados individuais podem variar. Os depoimentos são de clientes reais que utilizaram o protocolo.
+                            </p>
+                        </motion.div>
                     </motion.section>
                 )}
 
@@ -817,7 +1303,7 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
 
             </div>
 
-            {/* ============== MOBILE STICKY CTA (appears when CTA is shown) ============== */}
+            {/* ============== MOBILE STICKY CTA (PIX GREEN) ============== */}
             {showCTA && (
                 <motion.div
                     initial={{ y: 100, opacity: 0 }}
@@ -836,12 +1322,16 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                 repeat: Infinity, 
                                 ease: "easeInOut" 
                             }}
-                            className="w-full bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black font-black text-base py-4 px-6 rounded-xl shadow-[0_0_30px_rgba(212,175,55,0.5)] transition-all active:scale-95 min-h-[60px] flex items-center justify-center gap-2"
+                            className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white font-black text-base py-4 px-6 rounded-xl shadow-[0_0_30px_rgba(16,185,129,0.5)] transition-all active:scale-95 min-h-[60px] flex items-center justify-center gap-2"
                         >
-                            <Flame className="w-5 h-5" />
-                            <span>QUERO ROMPER AGORA • R$27,90</span>
+                            <span className="text-xl">💰</span>
+                            <span>PAGAR R$27,90 VIA PIX</span>
                         </motion.button>
                         <div className="flex items-center justify-center gap-4 mt-2 text-xs text-slate-400">
+                            <span className="flex items-center gap-1">
+                                <span>⚡</span>
+                                Instantâneo
+                            </span>
                             <span className="flex items-center gap-1">
                                 <Lock className="w-3 h-3 text-emerald-400" />
                                 Seguro
