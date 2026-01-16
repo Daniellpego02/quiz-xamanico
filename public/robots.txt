@@ -11,6 +11,3 @@ Allow: /
 # Allow Twitter bot
 User-agent: Twitterbot
 Allow: /
-
-# Sitemap (if you have one, uncomment and update)
-# Sitemap: https://mapaxamanicooficial.online/sitemap.xml
