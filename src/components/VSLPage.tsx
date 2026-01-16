@@ -25,7 +25,7 @@ const FALLBACK_TIME_SECONDS = 30; // Fallback if user skips video
 const VIDEO_DURATION_SECONDS = 119; // 1min59s total
 
 // Checkout URL - Single option R$27,90 (O Desbloqueio Completo)
-const CHECKOUT_URL = 'https://pay.lowify.com.br/go.php?offer=zsa1x42';
+const CHECKOUT_URL = 'https://pay.lowify.com.br/checkout.php?product_id=manflx';
 
 const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
     const [showCTA, setShowCTA] = useState(false);
