@@ -3,6 +3,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { Check, Shield, AlertTriangle, Sparkles, Lock, ChevronLeft, ChevronRight, Briefcase, Layers, Users, Heart, Star, Feather, Play, Loader2 } from 'lucide-react';
 import { FAQ } from './FAQ';
 import { PricingPlans, MiniPricingBar } from './PricingPlans';
+import { MAIN_OFFER_PRICING } from '../constants/pricing';
 
 interface OfferProps {
     userName: string;
@@ -618,17 +619,20 @@ const OfferNew = ({ userName }: OfferProps) => {
                                     </div>
                                 </div>
 
-                                {/* MID-PAGE CTA - Second CTA Button - Congruent with VSL */}
+                                {/* MID-PAGE CTA - Second CTA Button - GREEN PIX */}
                                 <div className="mt-8 text-center">
-                                    <motion.button
-                                        onClick={scrollToPricing}
-                                        whileHover={{ scale: 1.02 }}
-                                        whileTap={{ scale: 0.98 }}
-                                        className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] hover:from-[#FFD700] hover:to-[#D4AF37] text-black font-black text-base py-4 px-8 rounded-2xl shadow-[0_0_30px_rgba(212,175,55,0.4)] transition-all border border-[#FFD700]"
-                                    >
-                                        Liberar meu desbloqueio agora
-                                    </motion.button>
-                                    <p className="text-slate-500 text-xs mt-2">🔒 Pagamento seguro • Acesso imediato</p>
+                                    <div className="relative group inline-block">
+                                        <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-green-400 rounded-2xl blur opacity-60 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
+                                        <motion.button
+                                            onClick={scrollToPricing}
+                                            whileHover={{ scale: 1.02 }}
+                                            whileTap={{ scale: 0.98 }}
+                                            className="relative bg-gradient-to-r from-emerald-500 to-green-500 hover:from-green-400 hover:to-emerald-400 text-white font-black text-base py-4 px-8 rounded-2xl shadow-[0_0_30px_rgba(16,185,129,0.5)] transition-all border border-emerald-400"
+                                        >
+                                            💰 LIBERAR MEU DESBLOQUEIO POR R$ 27,90
+                                        </motion.button>
+                                    </div>
+                                    <p className="text-slate-500 text-xs mt-2">⚡ Pagamento PIX • Acesso imediato</p>
                                 </div>
                             </motion.section>
 
@@ -1044,23 +1048,26 @@ const OfferNew = ({ userName }: OfferProps) => {
                                     <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white leading-tight mb-2">
                                         A escolha é sua.
                                     </h2>
-                                    <p className="text-[#FFD700] text-base sm:text-lg font-semibold">
+                                    <p className="text-emerald-400 text-base sm:text-lg font-semibold">
                                         O ciclo só continua se você permitir.
                                     </p>
                                 </div>
 
-                                <motion.button
-                                    onClick={scrollToPricing}
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] hover:from-[#FFD700] hover:to-[#D4AF37] text-black font-black text-base sm:text-lg py-5 px-10 rounded-2xl shadow-[0_0_40px_rgba(212,175,55,0.5)] transition-all border-2 border-[#FFD700]"
-                                >
-                                    Romper o padrão agora
-                                </motion.button>
+                                <div className="relative group inline-block">
+                                    <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-green-400 rounded-2xl blur opacity-60 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
+                                    <motion.button
+                                        onClick={scrollToPricing}
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        className="relative bg-gradient-to-r from-emerald-500 to-green-500 hover:from-green-400 hover:to-emerald-400 text-white font-black text-base sm:text-lg py-5 px-10 rounded-2xl shadow-[0_0_40px_rgba(16,185,129,0.5)] transition-all border-2 border-emerald-400"
+                                    >
+                                        💰 ROMPER O PADRÃO POR R$ 27,90 NO PIX
+                                    </motion.button>
+                                </div>
 
                                 <p className="text-slate-400 text-sm mt-4">
                                     <Lock className="w-4 h-4 inline mr-1" />
-                                    Pagamento 100% seguro • Acesso imediato • Garantia de 7 dias
+                                    Pagamento PIX 100% seguro • Acesso imediato • Garantia de 7 dias
                                 </p>
                             </motion.section>
 
@@ -1069,7 +1076,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                 </AnimatePresence>
             </div>
 
-            {/* ========== MOBILE FLOATING CTA BUTTON ========== */}
+            {/* ========== MOBILE FLOATING CTA BUTTON - GREEN PIX ========== */}
             <motion.div
                 initial={{ y: 100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -1079,15 +1086,19 @@ const OfferNew = ({ userName }: OfferProps) => {
                 <div className="bg-gradient-to-t from-[#0a0118] via-[#0a0118]/95 to-transparent pt-6 pb-4 px-4">
                     <button
                         onClick={scrollToPricing}
-                        className="w-full bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black font-black text-base py-4 px-6 rounded-2xl shadow-[0_0_30px_rgba(212,175,55,0.5)] transition-all active:scale-95 hover:shadow-[0_0_40px_rgba(212,175,55,0.7)] flex items-center justify-center gap-2"
+                        className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white font-black text-base py-4 px-6 rounded-2xl shadow-[0_0_30px_rgba(16,185,129,0.5)] transition-all active:scale-95 hover:shadow-[0_0_40px_rgba(16,185,129,0.7)] flex items-center justify-center gap-2"
                     >
-                        <Sparkles className="w-5 h-5" />
-                        Liberar meu Mapa agora
+                        <span className="text-xl">💰</span>
+                        PAGAR R$27,90 VIA PIX
                     </button>
                     <div className="flex items-center justify-center gap-4 mt-2 text-xs text-slate-400">
                         <span className="flex items-center gap-1">
+                            <span>⚡</span>
+                            Instantâneo
+                        </span>
+                        <span className="flex items-center gap-1">
                             <Lock className="w-3 h-3 text-emerald-400" />
-                            Pix seguro
+                            Seguro
                         </span>
                         <span className="flex items-center gap-1">
                             <Shield className="w-3 h-3 text-emerald-400" />
@@ -1097,7 +1108,7 @@ const OfferNew = ({ userName }: OfferProps) => {
                 </div>
             </motion.div>
 
-            {/* 💡 3. DESKTOP STICKY CTA BAR - Shows when pricing section is not visible */}
+            {/* 💡 3. DESKTOP STICKY CTA BAR - Shows when pricing section is not visible - GREEN PIX */}
             <AnimatePresence>
                 {showStickyBar && showOfferContent && (
                     <motion.div
@@ -1107,25 +1118,26 @@ const OfferNew = ({ userName }: OfferProps) => {
                         transition={{ duration: 0.3 }}
                         className="fixed bottom-0 left-0 right-0 z-50 hidden md:block"
                     >
-                        <div className="bg-gradient-to-t from-[#0a0118] via-[#0a0118]/98 to-[#0a0118]/90 border-t border-[#D4AF37]/30 py-4 px-6 backdrop-blur-sm">
+                        <div className="bg-gradient-to-t from-[#0a0118] via-[#0a0118]/98 to-[#0a0118]/90 border-t border-emerald-500/30 py-4 px-6 backdrop-blur-sm">
                             <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
                                 <div className="flex items-center gap-4">
                                     <div className="text-white">
-                                        <p className="text-sm text-slate-400">Plano mais escolhido</p>
-                                        <p className="text-lg font-bold text-[#FFD700]">O Desbloqueio Completo • <span className="text-white">R$29</span></p>
+                                        <p className="text-sm text-slate-400">💰 Oferta PIX especial</p>
+                                        <p className="text-lg font-bold text-emerald-400">O Desbloqueio Completo • <span className="text-white">R${MAIN_OFFER_PRICING.formattedPixPrice}</span></p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <div className="hidden lg:flex items-center gap-2 text-xs text-slate-400">
+                                        <span>⚡ Instantâneo</span>
                                         <Shield className="w-4 h-4 text-emerald-400" />
                                         <span>7 dias garantia</span>
                                     </div>
                                     <button
                                         onClick={scrollToPricing}
-                                        className="bg-gradient-to-r from-[#D4AF37] to-[#FFD700] hover:from-[#FFD700] hover:to-[#D4AF37] text-black font-black text-sm py-3 px-6 rounded-xl shadow-[0_0_20px_rgba(212,175,55,0.4)] hover:shadow-[0_0_30px_rgba(212,175,55,0.6)] transition-all active:scale-95 flex items-center gap-2"
+                                        className="bg-gradient-to-r from-emerald-500 to-green-500 hover:from-green-400 hover:to-emerald-400 text-white font-black text-sm py-3 px-6 rounded-xl shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:shadow-[0_0_30px_rgba(16,185,129,0.6)] transition-all active:scale-95 flex items-center gap-2"
                                     >
-                                        <Sparkles className="w-4 h-4" />
-                                        Ver Planos
+                                        <span>💰</span>
+                                        PAGAR VIA PIX
                                     </button>
                                 </div>
                             </div>

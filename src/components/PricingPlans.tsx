@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState, useCallback } from 'react';
 import { Check, Sparkles, Star, Crown, Shield, Lock, Zap, ArrowRight, Gift, Loader2 } from 'lucide-react';
+import { MAIN_OFFER_PRICING } from '../constants/pricing';
 
 // Shared checkout handler utility
 const useCheckoutHandler = () => {
@@ -65,12 +66,12 @@ const plans: Plan[] = [
       'Protocolo energético de 7 dias + 3 áudios rituais',
       'PDF bônus: Os 4 Bloqueios da Linhagem Ancestral'
     ],
-    buttonText: '🔓 ATIVAR MEU PROTOCOLO',
+    buttonText: '💰 PAGAR R$27,90 VIA PIX',
     badge: '🔥 MAIS ESCOLHIDO',
     checkoutLink: 'https://pay.lowify.com.br/go.php?offer=zsa1x42',
     icon: <Star className="w-6 h-6" />,
-    borderColor: 'border-[#D4AF37]',
-    glowColor: 'from-[#D4AF37]/30 to-[#FFD700]/20',
+    borderColor: 'border-emerald-500',
+    glowColor: 'from-emerald-500/30 to-green-400/20',
     isPopular: true,
     mockupImage: '/mockup.webp',
     mockupLabel: 'Pacote Completo'
@@ -290,8 +291,8 @@ export const PricingPlans = () => {
                 whileTap={{ scale: 0.95 }}
                 className={`w-full font-black py-4 px-6 rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-80 ${
                   plan.isPopular
-                    ? 'bg-gradient-to-r from-[#D4AF37] to-[#FFD700] hover:from-[#FFD700] hover:to-[#D4AF37] text-black text-lg shadow-[0_4px_30px_rgba(212,175,55,0.5)]'
-                    : 'bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-[#FFD700]/50'
+                    ? 'bg-gradient-to-r from-emerald-500 to-green-500 hover:from-green-400 hover:to-emerald-400 text-white text-lg shadow-[0_4px_30px_rgba(16,185,129,0.5)]'
+                    : 'bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-emerald-500/50'
                 }`}
               >
                 {loadingPlan === plan.name ? (
@@ -400,11 +401,11 @@ export const MiniPricingBar = () => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-gradient-to-br from-[#1a0b2e]/95 to-[#2d1b4e]/95 border-2 border-[#D4AF37]/40 rounded-3xl p-5 shadow-[0_0_40px_rgba(212,175,55,0.15)]"
+      className="bg-gradient-to-br from-[#1a0b2e]/95 to-[#2d1b4e]/95 border-2 border-emerald-500/40 rounded-3xl p-5 shadow-[0_0_40px_rgba(16,185,129,0.15)]"
     >
       <div className="text-center mb-4">
-        <p className="text-[#FFD700] font-bold text-sm mb-1">🎁 Escolha seu caminho agora</p>
-        <p className="text-slate-400 text-xs">Acesso imediato após pagamento</p>
+        <p className="text-emerald-400 font-bold text-sm mb-1">💰 Escolha seu caminho agora</p>
+        <p className="text-slate-400 text-xs">Acesso imediato após pagamento PIX</p>
       </div>
       
       <div className="space-y-3">
@@ -416,18 +417,18 @@ export const MiniPricingBar = () => {
           className="w-full bg-white/10 hover:bg-white/15 text-white py-3 px-4 rounded-xl text-sm font-semibold transition-all border border-white/10 flex items-center justify-between disabled:opacity-80"
         >
           <span>{loadingPlan === 'iniciante' ? <Loader2 className="w-4 h-4 animate-spin" /> : '✨ Iniciante'}</span>
-          <span className="text-[#FFD700] font-black">R$19</span>
+          <span className="text-slate-300 font-black">R$19</span>
         </motion.button>
         
         <motion.button
           onClick={() => handleCheckout('https://pay.lowify.com.br/go.php?offer=zsa1x42', 'completo')}
           disabled={loadingPlan === 'completo'}
-          whileHover={{ scale: 1.02, boxShadow: '0 4px 40px rgba(212,175,55,0.7)' }}
+          whileHover={{ scale: 1.02, boxShadow: '0 4px 40px rgba(16,185,129,0.7)' }}
           whileTap={{ scale: 0.97 }}
-          className="w-full bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black py-4 px-4 rounded-xl text-sm font-black transition-all shadow-[0_4px_20px_rgba(212,175,55,0.4)] flex items-center justify-between disabled:opacity-80"
+          className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white py-4 px-4 rounded-xl text-sm font-black transition-all shadow-[0_4px_20px_rgba(16,185,129,0.4)] flex items-center justify-between disabled:opacity-80"
         >
-          <span>{loadingPlan === 'completo' ? <Loader2 className="w-4 h-4 animate-spin" /> : '🔥 Completo (mais escolhido)'}</span>
-          <span>R$29</span>
+          <span>{loadingPlan === 'completo' ? <Loader2 className="w-4 h-4 animate-spin" /> : '💰 Completo (PIX)'}</span>
+          <span>R${MAIN_OFFER_PRICING.formattedPixPrice}</span>
         </motion.button>
         
         <motion.button
@@ -443,8 +444,9 @@ export const MiniPricingBar = () => {
       </div>
       
       <div className="mt-4 flex items-center justify-center gap-4 text-xs text-slate-400">
-        <span className="flex items-center gap-1"><Lock className="w-3 h-3 text-emerald-400" /> Pix seguro</span>
-        <span className="flex items-center gap-1"><Shield className="w-3 h-3 text-emerald-400" /> 7 dias garantia</span>
+        <span className="flex items-center gap-1"><span>⚡</span> Instantâneo</span>
+        <span className="flex items-center gap-1"><Lock className="w-3 h-3 text-emerald-400" /> Seguro</span>
+        <span className="flex items-center gap-1"><Shield className="w-3 h-3 text-emerald-400" /> 7 dias</span>
       </div>
     </motion.div>
   );

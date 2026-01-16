@@ -677,17 +677,17 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                     ))}
                                 </div>
 
-                                {/* Price Summary */}
+                                {/* Price Summary - Enhanced with PIX anchoring */}
                                 <div className="mt-4 pt-4 border-t border-[#D4AF37]/30">
                                     <div className="flex justify-between items-center">
-                                        <span className="text-slate-400 text-sm">VALOR TOTAL:</span>
-                                        <span className="text-slate-400 text-sm line-through">R$ {TOTAL_VALUE}</span>
+                                        <span className="text-slate-400 text-sm">De:</span>
+                                        <span className="text-slate-500 text-lg line-through">R$ {TOTAL_VALUE},00</span>
                                     </div>
-                                    <div className="flex justify-between items-center mt-1">
-                                        <span className="text-[#FFD700] font-bold">INVESTIMENTO HOJE:</span>
+                                    <div className="flex justify-between items-center mt-2">
+                                        <span className="text-emerald-400 font-bold text-sm">💰 HOJE COM PIX:</span>
                                         <div className="text-right">
-                                            <span className="text-[#FFD700] text-2xl font-black">R$ {OFFER_PRICE.toFixed(2).replace('.', ',')}</span>
-                                            <p className="text-emerald-400 text-xs font-semibold">({DISCOUNT_PERCENT}% de desconto - Oferta única)</p>
+                                            <span className="text-emerald-400 text-2xl font-black">R$ {OFFER_PRICE.toFixed(2).replace('.', ',')}</span>
+                                            <p className="text-emerald-300 text-xs font-semibold">({DISCOUNT_PERCENT}% de desconto via PIX)</p>
                                         </div>
                                     </div>
                                 </div>
