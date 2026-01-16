@@ -63,7 +63,7 @@ function App() {
       case AppStep.SOCIAL_PROOF:
         return <SocialProof onNext={handleSocialProofNext} quizPath={quizPath} />;
       case AppStep.LOADING:
-        return <AnalysisLoading onComplete={handleLoadingComplete} quizPath={quizPath} />;
+        return <AnalysisLoading onComplete={handleLoadingComplete} quizPath={quizPath} userName={userName} />;
       case AppStep.OFFER:
         return <OfferNew userName={userName} />;
       default:
