@@ -77,7 +77,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     {
       id: 4,
       title: "PASSO 4 DE 4",
-      text: "Detectamos sinais claros de <strong class='text-[#FFD700]'>Lealdade Invisível</strong> e padrão de autopunição energética na sua frequência. Se existir um Protocolo de 7 dias para limpar isso de vez, você está disposto(a) a seguir?",
+      text: "Detectamos sinais claros de <strong class=\"text-[#FFD700]\">Lealdade Invisível</strong> e padrão de autopunição energética na sua frequência. Se existir um Protocolo de 7 dias para limpar isso de vez, você está disposto(a) a seguir?",
       singleButton: true,
       options: [
         { label: "SIM, eu aceito receber meu Mapa e romper esse ciclo agora.", value: "ready", icon: "🔥" },
