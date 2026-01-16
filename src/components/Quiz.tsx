@@ -477,11 +477,11 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                     disabled={isNavigating}
                     className={`w-full text-left p-4 md:p-5 rounded-2xl transition-all active:scale-[0.98] group relative overflow-hidden ${isNavigating ? 'cursor-not-allowed opacity-80' : 'cursor-pointer'} ${
                       currentQuestion.singleButton 
-                        ? 'bg-gradient-to-br from-[#D4AF37] via-[#FFD700] to-[#D4AF37] text-white font-bold shadow-lg shadow-[#D4AF37]/30 hover:shadow-[#D4AF37]/50 hover:brightness-110 border-t border-white/20' 
+                        ? 'bg-gradient-to-r from-emerald-500 to-green-500 text-white font-bold shadow-[0_0_30px_rgba(16,185,129,0.5)] hover:shadow-[0_0_40px_rgba(16,185,129,0.7)] hover:from-green-400 hover:to-emerald-400 border-t border-white/20' 
                         : 'bg-white/5 backdrop-blur-md border border-white/10 hover:border-[#D4AF37]/50 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(212,175,55,0.15)]'
                     }`}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/0 via-[#D4AF37]/5 to-[#D4AF37]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -translate-x-full group-hover:translate-x-full"></div>
+                    <div className={`absolute inset-0 ${currentQuestion.singleButton ? 'bg-gradient-to-r from-emerald-500/0 via-white/10 to-emerald-500/0' : 'bg-gradient-to-r from-[#D4AF37]/0 via-[#D4AF37]/5 to-[#D4AF37]/0'} opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -translate-x-full group-hover:translate-x-full`}></div>
                     <div className="flex items-center gap-3 md:gap-4 relative z-10">
                       <span className="text-2xl md:text-3xl filter drop-shadow-md" aria-hidden="true">{option.icon}</span>
                       <div className="flex-1">

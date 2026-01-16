@@ -17,8 +17,8 @@ interface OfferProps {
  * Price: Updated from R$97,00 to R$27,90
  */
 const Offer = ({ userName }: OfferProps) => {
-    const priceOld = "97,00";
-    const priceNew = "27,90";
+    const priceOld = "497,00";  // Original total value
+    const priceNew = "27,90";   // PIX discount price
 
     // Load video player script only when Offer component is mounted
     useEffect(() => {
@@ -307,33 +307,39 @@ const Offer = ({ userName }: OfferProps) => {
                             </div>
                         </motion.div>
 
-                        {/* Price Display - Enhanced with WHITE price for better contrast */}
+                        {/* Price Display - Enhanced PIX pricing with anchoring */}
                         <div className="text-center mb-8">
                             <p className="text-slate-400 text-sm mb-2">De:</p>
-                            <p className="text-2xl text-slate-500 line-through mb-4">R$ {priceOld}</p>
-                            <p className="text-[#FFD700] text-lg font-bold mb-2">Por apenas:</p>
+                            <p className="text-2xl text-slate-500 line-through mb-2">R$ {priceOld}</p>
+                            <p className="text-emerald-400 text-lg font-bold mb-2">💰 HOJE COM PIX:</p>
                             <div className="flex items-center justify-center gap-2 mb-4">
-                                <span className="text-7xl md:text-8xl font-black text-white">
+                                <span className="text-7xl md:text-8xl font-black text-emerald-400">
                                     R${priceNew}
                                 </span>
                             </div>
                             <p className="text-emerald-400 text-sm font-semibold flex items-center justify-center gap-2">
                                 <Shield className="w-4 h-4" />
-                                ✨ Acesso vitalício + Atualizações gratuitas
+                                (94% de desconto via PIX) • Acesso vitalício
                             </p>
                         </div>
 
-                        {/* CTA Button - Changed to Vibrant Orange/Yellow */}
-                        <button
-                            onClick={handleCheckout}
-                            className="w-full bg-gradient-to-r from-[#FF8C00] via-[#FFA500] to-[#FFB700] hover:from-[#FFA500] hover:via-[#FFB700] hover:to-[#FFD700] text-white font-black text-xl py-6 px-8 rounded-2xl shadow-[0_8px_40px_rgba(255,140,0,0.6)] transition-all transform hover:scale-105 active:scale-95 border-2 border-[#FFD700] uppercase tracking-wide"
-                        >
-                            <span className="drop-shadow-lg">✨ SIM, QUERO DESTRAVAR MINHA PROSPERIDADE</span>
-                        </button>
+                        {/* CTA Button - GREEN PIX BUTTON */}
+                        <div className="relative group">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-green-400 rounded-2xl blur opacity-60 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
+                            <button
+                                onClick={handleCheckout}
+                                className="relative w-full bg-gradient-to-r from-emerald-500 to-green-500 hover:from-green-400 hover:to-emerald-400 text-white font-black text-xl py-6 px-8 rounded-2xl shadow-[0_0_40px_rgba(16,185,129,0.5)] transition-all transform hover:scale-105 active:scale-95 border-2 border-emerald-400 uppercase tracking-wide"
+                            >
+                                <div className="flex flex-col items-center gap-1">
+                                    <span className="drop-shadow-lg">💰 SIM! QUERO PAGAR R$ 27,90 NO PIX</span>
+                                    <span className="text-xs font-semibold opacity-90 normal-case">Aprovação instantânea • Acesso em 3h</span>
+                                </div>
+                            </button>
+                        </div>
 
                         {/* Micro-copy below CTA */}
-                        <p className="text-center text-[#FFD700] text-sm mt-3 font-semibold">
-                            🚀 Acesso imediato enviado para o seu e-mail
+                        <p className="text-center text-emerald-400 text-sm mt-3 font-semibold">
+                            ⚡ Acesso imediato após confirmação do PIX
                         </p>
 
                         {/* Trust Badges */}

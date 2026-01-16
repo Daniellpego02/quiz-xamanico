@@ -165,13 +165,13 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
                   transition={{ delay: 0.2 }}
                 >
                   <div className="relative group">
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-[#D4AF37] to-[#FFD700] rounded-xl blur opacity-50 group-hover:opacity-80 transition duration-500 animate-pulse"></div>
+                    <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-green-400 rounded-xl blur opacity-60 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
                     <button
                       onClick={handleContinue}
-                      className="relative w-full bg-gradient-to-br from-[#D4AF37] via-[#FFD700] to-[#D4AF37] text-white font-bold py-4 px-8 rounded-xl shadow-lg shadow-[#D4AF37]/30 hover:shadow-[#D4AF37]/50 hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2 border-t border-white/20 text-lg"
+                      className="relative w-full bg-gradient-to-r from-emerald-500 to-green-500 hover:from-green-400 hover:to-emerald-400 text-white font-bold py-4 px-8 rounded-xl shadow-[0_0_30px_rgba(16,185,129,0.5)] hover:shadow-[0_0_40px_rgba(16,185,129,0.7)] active:scale-95 transition-all flex items-center justify-center gap-2 border-t border-white/20 text-lg"
                     >
                       <Sparkles className="w-5 h-5" />
-                      Ver meu diagnóstico completo →
+                      💰 VER MEU DIAGNÓSTICO E DESBLOQUEAR →
                     </button>
                   </div>
                   
