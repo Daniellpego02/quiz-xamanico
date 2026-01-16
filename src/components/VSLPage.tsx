@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
-import { useEffect, useState, useCallback } from 'react';
-import { Shield, Lock, Sparkles, Play, AlertTriangle, Check, Star, Clock } from 'lucide-react';
+import { useEffect, useState, useCallback, useRef } from 'react';
+import { Shield, Lock, Sparkles, AlertTriangle, Check, Star, Clock, CreditCard, Smartphone, FileText } from 'lucide-react';
+import { tracking } from '../utils/tracking';
 
 interface VSLPageProps {
     userName: string;
@@ -10,28 +11,41 @@ interface VSLPageProps {
 /**
  * VSL PAGE - Video Sales Letter
  * Shows after quiz result, before checkout
- * Video duration: ~2 minutes
- * CTA appears after video ends (or after 119 seconds)
+ * Video duration: ~2 minutes (1min59s)
+ * CTA appears after 1min50s (110 seconds) or fallback at 30s on page
  */
 
 // VSL Video Configuration - New video player
 const VSL_VIDEO_PLAYER_ID = '6953144d84040898eb13007a';
 const VSL_VIDEO_SCRIPT_URL = `https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/${VSL_VIDEO_PLAYER_ID}/v4/player.js`;
 
-// Time in seconds before CTA appears (1min59s = 119 seconds)
-const CTA_REVEAL_TIME_SECONDS = 119;
+// Time configurations
+const CTA_REVEAL_TIME_SECONDS = 110; // 1min50s - show CTA
+const FALLBACK_TIME_SECONDS = 30; // Fallback if user skips video
+const VIDEO_DURATION_SECONDS = 119; // 1min59s total
 
-// Checkout URL - Single option R$27,90 with Order Bump
+// Checkout URL - Single option R$27,90 (O Desbloqueio Completo)
 const CHECKOUT_URL = 'https://pay.lowify.com.br/go.php?offer=zsa1x42';
 
 const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
     const [showCTA, setShowCTA] = useState(false);
     const [videoStarted, setVideoStarted] = useState(false);
-    const [timeWatched, setTimeWatched] = useState(0);
+    const [timeOnPage, setTimeOnPage] = useState(0);
     const [scriptLoaded, setScriptLoaded] = useState(false);
+    const [trackedMilestones, setTrackedMilestones] = useState<Set<number>>(new Set());
+    const pageLoadTime = useRef(Date.now());
 
     // Get first name for personalization
     const firstName = userName ? userName.split(' ')[0] : '';
+
+    // Track VSL page view on mount
+    useEffect(() => {
+        // Track page view
+        tracking.meta.trackEvent('vsl_page_view', {
+            content_name: 'VSL Protocol Page',
+            user_name: userName
+        });
+    }, [userName]);
 
     // Load video player script with optimized preloading
     useEffect(() => {
@@ -93,43 +107,76 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
         };
     }, []);
 
-    // Timer to show CTA after video time
+    // Timer for page time and CTA reveal
     useEffect(() => {
-        if (!videoStarted) return;
-
         const timer = setInterval(() => {
-            setTimeWatched(prev => {
+            setTimeOnPage(prev => {
                 const newTime = prev + 1;
-                if (newTime >= CTA_REVEAL_TIME_SECONDS) {
+                
+                // Track video progress milestones (25%, 50%, 75%, 100%)
+                const milestones = [
+                    { percent: 25, time: Math.floor(VIDEO_DURATION_SECONDS * 0.25) },
+                    { percent: 50, time: Math.floor(VIDEO_DURATION_SECONDS * 0.50) },
+                    { percent: 75, time: Math.floor(VIDEO_DURATION_SECONDS * 0.75) },
+                    { percent: 100, time: VIDEO_DURATION_SECONDS },
+                ];
+                
+                milestones.forEach(milestone => {
+                    if (newTime >= milestone.time && !trackedMilestones.has(milestone.percent)) {
+                        tracking.meta.trackEvent(`vsl_${milestone.percent}_percent`, {
+                            content_name: 'VSL Protocol',
+                            time_watched: newTime
+                        });
+                        setTrackedMilestones(prev => new Set([...prev, milestone.percent]));
+                    }
+                });
+                
+                // Show CTA after video time OR fallback time
+                if (newTime >= CTA_REVEAL_TIME_SECONDS && !showCTA) {
                     setShowCTA(true);
-                    clearInterval(timer);
+                    tracking.meta.trackEvent('vsl_cta_revealed', {
+                        content_name: 'VSL Protocol',
+                        reveal_time: newTime
+                    });
                 }
+                
                 return newTime;
             });
         }, 1000);
 
-        return () => clearInterval(timer);
-    }, [videoStarted]);
-
-    // Auto-start video tracking when component mounts
-    useEffect(() => {
-        // Start tracking after a brief delay to allow video to load
+        // Auto-start video tracking
         const startTimer = setTimeout(() => {
             setVideoStarted(true);
         }, 2000);
 
-        return () => clearTimeout(startTimer);
-    }, []);
+        return () => {
+            clearInterval(timer);
+            clearTimeout(startTimer);
+        };
+    }, [showCTA, trackedMilestones]);
+
+    // Fallback: Show CTA after 30 seconds on page (if user skips video)
+    useEffect(() => {
+        const fallbackTimer = setTimeout(() => {
+            if (!showCTA) {
+                setShowCTA(true);
+                tracking.meta.trackEvent('vsl_cta_fallback', {
+                    content_name: 'VSL Protocol',
+                    fallback_time: FALLBACK_TIME_SECONDS
+                });
+            }
+        }, FALLBACK_TIME_SECONDS * 1000);
+
+        return () => clearTimeout(fallbackTimer);
+    }, [showCTA]);
 
     const handleCheckoutClick = useCallback(() => {
         // Track conversion event
-        if (typeof window !== 'undefined' && (window as any).fbq) {
-            (window as any).fbq('track', 'InitiateCheckout', {
-                content_name: 'Mapa Xamânico',
-                value: 27.90,
-                currency: 'BRL'
-            });
-        }
+        tracking.meta.initiateCheckout({
+            content_name: 'Mapa Xamânico - Desbloqueio Completo',
+            value: 27.90,
+            currency: 'BRL'
+        });
         
         // Redirect to checkout
         window.location.href = CHECKOUT_URL;
@@ -208,7 +255,10 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                     <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse"></div>
                                     <span className="text-[#FFD700] text-xs font-bold uppercase tracking-wider">AO VIVO • Exclusivo</span>
                                 </div>
-                                <span className="text-slate-400 text-xs">Duração: 1:59</span>
+                                <div className="flex items-center gap-2 text-slate-400 text-xs">
+                                    <Lock className="w-3 h-3" />
+                                    <span>Diagnóstico confidencial</span>
+                                </div>
                             </div>
                             
                             {/* Video Player */}
@@ -233,13 +283,13 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                         <div className="inline-flex items-center gap-2 bg-amber-900/30 border border-amber-500/30 px-4 py-2 rounded-full">
                             <Clock className="w-4 h-4 text-amber-400" />
                             <span className="text-amber-300 text-xs font-medium">
-                                Assista até o final para liberar seu protocolo
+                                ⏱ 2 minutos • Assista até o final
                             </span>
                         </div>
                     </motion.div>
                 </motion.section>
 
-                {/* CTA Section - Appears after video */}
+                {/* CTA Section - Appears after video time or fallback */}
                 {showCTA && (
                     <motion.section
                         initial={{ opacity: 0, y: 30, scale: 0.95 }}
@@ -251,7 +301,7 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                         <div className="bg-red-900/40 border border-red-500/50 rounded-xl p-4 mb-4 text-center">
                             <div className="flex items-center justify-center gap-2 mb-2">
                                 <AlertTriangle className="w-5 h-5 text-red-400" />
-                                <span className="text-red-300 font-bold text-sm">OFERTA POR TEMPO LIMITADO</span>
+                                <span className="text-red-300 font-bold text-sm">⚠️ PROTOCOLO VÁLIDO POR 15 MINUTOS</span>
                             </div>
                             <p className="text-slate-300 text-sm">
                                 Seu protocolo está disponível agora por apenas:
@@ -266,6 +316,7 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                     <span className="text-4xl sm:text-5xl font-black text-[#FFD700]">R$ 27</span>
                                     <span className="text-2xl sm:text-3xl font-bold text-[#FFD700]">,90</span>
                                 </div>
+                                <p className="text-slate-400 text-sm mt-1">ou 3x R$ 9,30 no cartão</p>
                                 <p className="text-emerald-400 text-sm font-semibold mt-2">
                                     ✓ Acesso Imediato • ✓ Garantia de 7 dias
                                 </p>
@@ -276,7 +327,7 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                 {[
                                     'Mapa Xamânico Personalizado em PDF',
                                     'Protocolo de Desbloqueio de 7 dias',
-                                    'Áudios Rituais Guiados',
+                                    'Áudios Rituais Guiados (3 áudios)',
                                     'Suporte via WhatsApp'
                                 ].map((item, idx) => (
                                     <div key={idx} className="flex items-center gap-2 text-slate-200 text-sm">
@@ -294,20 +345,46 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                     className="relative w-full bg-gradient-to-r from-[#D4AF37] to-[#FFD700] hover:from-[#FFD700] hover:to-[#D4AF37] text-black font-black text-base sm:text-lg py-4 px-6 rounded-xl shadow-[0_0_30px_rgba(212,175,55,0.5)] transition-all active:scale-95 flex items-center justify-center gap-2"
                                 >
                                     <Sparkles className="w-5 h-5" />
-                                    QUERO MEU PROTOCOLO AGORA
+                                    ATIVAR MEU PROTOCOLO AGORA
                                 </button>
+                            </div>
+
+                            {/* Payment Methods */}
+                            <div className="flex flex-wrap items-center justify-center gap-4 mt-4 text-xs text-slate-400">
+                                <div className="flex items-center gap-1">
+                                    <Smartphone className="w-4 h-4 text-emerald-400" />
+                                    <span>Pix</span>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                    <CreditCard className="w-4 h-4 text-emerald-400" />
+                                    <span>Cartão</span>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                    <FileText className="w-4 h-4 text-emerald-400" />
+                                    <span>Boleto</span>
+                                </div>
                             </div>
 
                             {/* Security badges */}
                             <div className="flex flex-wrap items-center justify-center gap-3 mt-4 text-xs text-slate-400">
                                 <div className="flex items-center gap-1">
                                     <Lock className="w-3 h-3 text-emerald-400" />
-                                    <span>Pagamento Seguro</span>
+                                    <span>Pagamento 100% Seguro</span>
                                 </div>
                                 <div className="flex items-center gap-1">
                                     <Shield className="w-3 h-3 text-emerald-400" />
                                     <span>Garantia de 7 dias</span>
                                 </div>
+                            </div>
+                        </div>
+
+                        {/* Urgency - Access time */}
+                        <div className="text-center mb-4">
+                            <div className="inline-flex items-center gap-2 bg-amber-900/30 border border-amber-500/30 px-4 py-2 rounded-full">
+                                <Clock className="w-4 h-4 text-amber-400" />
+                                <span className="text-amber-300 text-xs font-medium">
+                                    ⏰ Acesso liberado em até 3 horas
+                                </span>
                             </div>
                         </div>
 

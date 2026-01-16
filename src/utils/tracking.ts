@@ -124,8 +124,15 @@ const tracking = {
     /**
      * Track "Add to Cart" equivalent event
      */
-    initiateCheckout(params?: { content_name?: string; value?: number }): void {
+    initiateCheckout(params?: { content_name?: string; value?: number; currency?: string }): void {
       trackMetaPixelEvent('InitiateCheckout', params);
+    },
+
+    /**
+     * Track custom event with any name and params
+     */
+    trackEvent(eventName: string, params?: MetaPixelEventParams): void {
+      trackMetaPixelEvent(eventName, params, true);
     },
   },
 
