@@ -1165,7 +1165,7 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                         className="w-full bg-gradient-to-r from-purple-900/60 to-[#1a0b2e]/80 border-2 border-purple-500/50 text-purple-200 font-bold py-5 px-6 rounded-2xl flex items-center justify-center gap-3 hover:border-purple-400/70 transition-all shadow-[0_0_20px_rgba(168,85,247,0.2)]"
                                     >
                                         <span className="text-lg">👀</span>
-                                        <span>VER MAIS DEPOIMENTOS (+6)</span>
+                                        <span>VER MAIS DEPOIMENTOS (+7)</span>
                                         <ChevronDown className="w-5 h-5 animate-bounce" />
                                     </motion.button>
                                 )}
@@ -1271,6 +1271,22 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                                 <div className="p-3 sm:p-4">
                                                     <img 
                                                         src={IMAGE_TESTIMONIALS[5].src} 
+                                                        alt="Depoimento WhatsApp" 
+                                                        className="w-full h-auto object-contain rounded-xl"
+                                                        loading="lazy"
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            {/* PROVA #11 - Image Testimonial 7 */}
+                                            <div className="bg-gradient-to-br from-[#0b141a] to-[#0d1a1f] border-2 border-emerald-500/40 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.1)]">
+                                                <div className="flex items-center justify-between bg-gradient-to-r from-[#075e54] to-[#128c7e] px-4 py-3">
+                                                    <span className="text-white text-xs font-semibold">💬 Print do WhatsApp</span>
+                                                    <span className="text-emerald-300 text-xs bg-emerald-500/30 px-2 py-1 rounded-full">✓ Verificado</span>
+                                                </div>
+                                                <div className="p-3 sm:p-4">
+                                                    <img 
+                                                        src={IMAGE_TESTIMONIALS[6].src} 
                                                         alt="Depoimento WhatsApp" 
                                                         className="w-full h-auto object-contain rounded-xl"
                                                         loading="lazy"
