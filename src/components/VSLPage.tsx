@@ -778,7 +778,7 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                         <span className="text-3xl font-bold text-[#FFD700]">,90</span>
                                     </div>
                                     <p className="text-emerald-400 text-sm mt-1">
-                                        ({DISCOUNT_PERCENT}% de desconto via PIX – 72% adicional hoje)
+                                        ({DISCOUNT_PERCENT}% de desconto via PIX)
                                     </p>
                                 </div>
                             </div>
@@ -1168,7 +1168,7 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                                 <span>SIM! QUERO PAGAR R$ 27,90 NO PIX</span>
                                             </div>
                                             <span className="text-xs font-semibold opacity-90">
-                                                Aprovação instantânea • Acesso em 3h
+                                                Aprovação instantânea • Acesso enviado em até 3h
                                             </span>
                                         </div>
                                     </motion.button>
