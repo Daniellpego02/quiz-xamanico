@@ -58,3 +58,95 @@ html {
 .animate-mystical-stars {
   animation: mysticalStars 20s ease-in-out infinite;
 }
+
+/* ========== MOBILE OPTIMIZATION ENHANCEMENTS ========== */
+
+/* Consistent mobile spacing - 16px lateral padding */
+@layer utilities {
+  .mobile-container {
+    @apply px-4 mx-auto max-w-md;
+  }
+  
+  .section-spacing {
+    @apply mb-10 md:mb-16;
+  }
+}
+
+/* 9:16 Video Container - Proper object-fit for vertical videos */
+.video-9-16 {
+  aspect-ratio: 9/16;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.video-9-16 video,
+.video-9-16 iframe,
+.video-9-16 vturb-smartplayer {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* WhatsApp testimonial images - Full width with proper sizing */
+.whatsapp-screenshot {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: contain;
+}
+
+/* Sticky CTA button enhancement for mobile */
+.sticky-cta-mobile {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding: 12px 16px 16px;
+  background: linear-gradient(to top, rgba(10, 1, 24, 1), rgba(10, 1, 24, 0.98), rgba(10, 1, 24, 0.8));
+  border-top: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* Green neon glow effect for CTA buttons */
+.cta-glow-green {
+  box-shadow: 0 0 40px rgba(16, 185, 129, 0.6);
+  transition: box-shadow 0.3s ease;
+}
+
+.cta-glow-green:hover {
+  box-shadow: 0 0 60px rgba(16, 185, 129, 0.8);
+}
+
+/* Gold glow effect for premium elements */
+.glow-gold {
+  box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+}
+
+.glow-gold-strong {
+  box-shadow: 0 0 60px rgba(212, 175, 55, 0.6);
+}
+
+/* Mobile-first typography adjustments */
+@media (max-width: 640px) {
+  .headline-mobile {
+    font-size: 1.5rem;
+    line-height: 1.15;
+  }
+  
+  .subheadline-mobile {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+}
+
+/* Guarantee badge styling */
+.guarantee-badge {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(34, 197, 94, 0.1));
+  border: 2px solid rgba(16, 185, 129, 0.5);
+  border-radius: 16px;
+  padding: 20px;
+}
