@@ -346,8 +346,9 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
             const remaining = expiration - Date.now();
             if (remaining <= 0) {
                 localStorage.removeItem(storageKey);
-                // Redirect to start if expired
-                window.location.href = '/?expired=true';
+                // Timer expired - just set to 0 and keep user on VSL page
+                // Do NOT redirect back to home, as this causes an infinite loop
+                setCountdownMs(0);
             } else {
                 setCountdownMs(remaining);
             }
@@ -585,9 +586,10 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
         return { minutes, seconds, milliseconds };
     };
 
-    const countdown = countdownMs ? formatCountdown(countdownMs) : { minutes: 15, seconds: 0, milliseconds: 0 };
-    const isUrgent = countdownMs && countdownMs < 5 * 60 * 1000; // Less than 5 minutes
-    const isWarning = countdownMs && countdownMs >= 5 * 60 * 1000 && countdownMs < 10 * 60 * 1000; // 5-10 minutes
+    const countdown = countdownMs !== null ? formatCountdown(countdownMs) : { minutes: 15, seconds: 0, milliseconds: 0 };
+    const isExpired = countdownMs !== null && countdownMs <= 0;
+    const isUrgent = countdownMs !== null && countdownMs > 0 && countdownMs < 5 * 60 * 1000; // Less than 5 minutes
+    const isWarning = countdownMs !== null && countdownMs >= 5 * 60 * 1000 && countdownMs < 10 * 60 * 1000; // 5-10 minutes
 
     return (
         <div className="min-h-screen relative overflow-hidden text-white bg-gradient-to-b from-[#0a0118] via-[#1a0b2e] to-[#0a0118]">
@@ -1265,33 +1267,35 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                             
                             {/* Timer 15min */}
                             <div className={`rounded-xl p-4 mt-4 text-center border ${
-                                isUrgent 
-                                    ? 'bg-red-900/50 border-red-500/60' 
-                                    : isWarning 
-                                        ? 'bg-orange-900/40 border-orange-500/50' 
-                                        : 'bg-amber-900/30 border-amber-500/40'
+                                isExpired
+                                    ? 'bg-slate-900/50 border-slate-500/60'
+                                    : isUrgent 
+                                        ? 'bg-red-900/50 border-red-500/60' 
+                                        : isWarning 
+                                            ? 'bg-orange-900/40 border-orange-500/50' 
+                                            : 'bg-amber-900/30 border-amber-500/40'
                             }`}>
                                 <div className="flex items-center justify-center gap-2 mb-2">
-                                    <AlertTriangle className={`w-5 h-5 ${isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`} />
-                                    <span className={`font-bold text-sm ${isUrgent ? 'text-red-300' : isWarning ? 'text-orange-300' : 'text-amber-300'}`}>
-                                        ⏰ DESCONTO EXPIRA EM:
+                                    <AlertTriangle className={`w-5 h-5 ${isExpired ? 'text-slate-400' : isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`} />
+                                    <span className={`font-bold text-sm ${isExpired ? 'text-slate-300' : isUrgent ? 'text-red-300' : isWarning ? 'text-orange-300' : 'text-amber-300'}`}>
+                                        {isExpired ? '⏰ DESCONTO EXPIROU' : '⏰ DESCONTO EXPIRA EM:'}
                                     </span>
                                 </div>
                                 
                                 {/* Timer Display */}
                                 <div className="flex items-center justify-center gap-2">
-                                    <div className={`px-3 py-2 rounded-lg ${isUrgent ? 'bg-red-800/60' : isWarning ? 'bg-orange-800/50' : 'bg-amber-800/40'}`}>
-                                        <span className={`text-2xl sm:text-3xl font-mono font-black ${isUrgent ? 'text-red-300' : isWarning ? 'text-orange-300' : 'text-amber-300'}`}>
+                                    <div className={`px-3 py-2 rounded-lg ${isExpired ? 'bg-slate-800/60' : isUrgent ? 'bg-red-800/60' : isWarning ? 'bg-orange-800/50' : 'bg-amber-800/40'}`}>
+                                        <span className={`text-2xl sm:text-3xl font-mono font-black ${isExpired ? 'text-slate-300' : isUrgent ? 'text-red-300' : isWarning ? 'text-orange-300' : 'text-amber-300'}`}>
                                             {String(countdown.minutes).padStart(2, '0')}
                                         </span>
-                                        <span className={`text-xs block ${isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`}>MIN</span>
+                                        <span className={`text-xs block ${isExpired ? 'text-slate-400' : isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`}>MIN</span>
                                     </div>
-                                    <span className={`text-2xl font-bold ${isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`}>:</span>
-                                    <div className={`px-3 py-2 rounded-lg ${isUrgent ? 'bg-red-800/60' : isWarning ? 'bg-orange-800/50' : 'bg-amber-800/40'}`}>
-                                        <span className={`text-2xl sm:text-3xl font-mono font-black ${isUrgent ? 'text-red-300' : isWarning ? 'text-orange-300' : 'text-amber-300'}`}>
+                                    <span className={`text-2xl font-bold ${isExpired ? 'text-slate-400' : isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`}>:</span>
+                                    <div className={`px-3 py-2 rounded-lg ${isExpired ? 'bg-slate-800/60' : isUrgent ? 'bg-red-800/60' : isWarning ? 'bg-orange-800/50' : 'bg-amber-800/40'}`}>
+                                        <span className={`text-2xl sm:text-3xl font-mono font-black ${isExpired ? 'text-slate-300' : isUrgent ? 'text-red-300' : isWarning ? 'text-orange-300' : 'text-amber-300'}`}>
                                             {String(countdown.seconds).padStart(2, '0')}
                                         </span>
-                                        <span className={`text-xs block ${isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`}>SEG</span>
+                                        <span className={`text-xs block ${isExpired ? 'text-slate-400' : isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`}>SEG</span>
                                     </div>
                                 </div>
                             </div>
