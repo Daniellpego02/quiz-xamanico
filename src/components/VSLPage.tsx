@@ -676,7 +676,7 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                         style={{ fontFamily: "'Georgia', serif" }}
                     >
                         {firstName ? `${firstName}, ` : ''}Descobrimos Por Que Seu Dinheiro{' '}
-                        <span className="text-[#FFD700] bg-gradient-to-r from-yellow-500/20 to-orange-500/20 px-2 rounded">DESAPARECE</span>{' '}
+                        <span className="text-[#FFD700] font-black bg-gradient-to-r from-yellow-500/20 to-orange-500/20 px-2 rounded" aria-label="destacado: DESAPARECE">DESAPARECE</span>{' '}
                         Antes do Dia 30
                     </motion.h1>
 
@@ -739,15 +739,7 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                             <div className="bg-black w-full relative" style={{ aspectRatio: '9/16' }}>
                                 <vturb-smartplayer 
                                     id={`vid-${VSL_VIDEO_PLAYER_ID}`}
-                                    style={{ 
-                                        display: 'block', 
-                                        width: '100%', 
-                                        height: '100%',
-                                        objectFit: 'cover',
-                                        position: 'absolute',
-                                        top: 0,
-                                        left: 0,
-                                    }}
+                                    className="block w-full h-full absolute inset-0"
                                     autoplay="true"
                                 ></vturb-smartplayer>
                             </div>
@@ -944,8 +936,8 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
 
                         {/* Comparações de preço - CONCORRENTES (mais eficaz) */}
                         <div className="bg-white/5 border border-white/10 rounded-xl p-4 mb-4">
-                            <h4 className="text-[#FFD700] font-bold text-center mb-3 text-base">
-                                📊 COMPARE:
+                            <h4 className="text-[#FFD700] font-bold text-center mb-3 text-base" aria-label="Compare os preços">
+                                <span aria-hidden="true">📊</span> COMPARE:
                             </h4>
                             <div className="space-y-2.5">
                                 {PRICE_COMPARISONS_COMPETITORS.map((item, idx) => (
@@ -1031,20 +1023,29 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
 
                             {/* Testimonials Grid */}
                             <div className="space-y-6">
-                                {/* PROVA #1 - Video Testimonial 1 */}
+                                {/* PROVA #1 - Video Testimonial 1 - FORMATO 9:16 VERTICAL */}
                                 <div className="bg-gradient-to-br from-[#1a0b2e]/60 to-[#2d1b4e]/40 border border-[#D4AF37]/30 rounded-2xl p-4 overflow-hidden">
-                                    <div className="relative rounded-xl overflow-hidden bg-black mb-3" style={{ aspectRatio: '16/9', maxHeight: '300px' }}>
+                                    {/* Header com nome e localização */}
+                                    <div className="flex items-center gap-3 mb-3">
+                                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#FFD700] flex items-center justify-center text-black text-sm font-bold">
+                                            {VIDEO_TESTIMONIALS[0].author.charAt(0)}
+                                        </div>
+                                        <div className="flex-1">
+                                            <p className="text-white text-sm font-semibold">{VIDEO_TESTIMONIALS[0].author}</p>
+                                            <p className="text-slate-400 text-xs">{VIDEO_TESTIMONIALS[0].location}</p>
+                                        </div>
+                                        <span className="text-emerald-400 text-xs bg-emerald-500/20 px-2 py-1 rounded-full">✓ Verificado</span>
+                                    </div>
+                                    {/* Video container - 9:16 vertical format */}
+                                    <div className="relative rounded-xl overflow-hidden bg-black max-w-[280px] mx-auto" style={{ aspectRatio: '9/16' }}>
                                         <vturb-smartplayer 
                                             id={`vid-${VIDEO_TESTIMONIALS[0].id}`}
-                                            style={{ display: 'block', width: '100%', height: '100%' }}
+                                            className="block w-full h-full"
                                         ></vturb-smartplayer>
                                     </div>
-                                    <blockquote className="text-slate-300 text-sm italic mb-2">
+                                    <blockquote className="text-slate-300 text-sm italic mt-3 text-center">
                                         {VIDEO_TESTIMONIALS[0].quote}
                                     </blockquote>
-                                    <p className="text-[#FFD700] text-xs font-semibold">
-                                        — {VIDEO_TESTIMONIALS[0].author} • {VIDEO_TESTIMONIALS[0].location}
-                                    </p>
                                 </div>
 
                                 {/* PROVA #2 - Image Testimonial 1 - WhatsApp Screenshot with proper mobile sizing */}
@@ -1063,27 +1064,35 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                         <img 
                                             src={IMAGE_TESTIMONIALS[0].src} 
                                             alt="Depoimento WhatsApp" 
-                                            className="w-full max-w-full h-auto object-contain rounded-lg"
-                                            style={{ maxHeight: '500px' }}
+                                            className="w-full max-w-full h-auto object-contain rounded-lg max-h-[500px]"
                                             loading="lazy"
                                         />
                                     </div>
                                 </div>
 
-                                {/* PROVA #3 - Video Testimonial 2 */}
+                                {/* PROVA #3 - Video Testimonial 2 - FORMATO 9:16 VERTICAL */}
                                 <div className="bg-gradient-to-br from-[#1a0b2e]/60 to-[#2d1b4e]/40 border border-[#D4AF37]/30 rounded-2xl p-4 overflow-hidden">
-                                    <div className="relative rounded-xl overflow-hidden bg-black mb-3" style={{ aspectRatio: '16/9', maxHeight: '300px' }}>
+                                    {/* Header com nome e localização */}
+                                    <div className="flex items-center gap-3 mb-3">
+                                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#FFD700] flex items-center justify-center text-black text-sm font-bold">
+                                            {VIDEO_TESTIMONIALS[1].author.charAt(0)}
+                                        </div>
+                                        <div className="flex-1">
+                                            <p className="text-white text-sm font-semibold">{VIDEO_TESTIMONIALS[1].author}</p>
+                                            <p className="text-slate-400 text-xs">{VIDEO_TESTIMONIALS[1].location}</p>
+                                        </div>
+                                        <span className="text-emerald-400 text-xs bg-emerald-500/20 px-2 py-1 rounded-full">✓ Verificado</span>
+                                    </div>
+                                    {/* Video container - 9:16 vertical format */}
+                                    <div className="relative rounded-xl overflow-hidden bg-black max-w-[280px] mx-auto" style={{ aspectRatio: '9/16' }}>
                                         <vturb-smartplayer 
                                             id={`vid-${VIDEO_TESTIMONIALS[1].id}`}
-                                            style={{ display: 'block', width: '100%', height: '100%' }}
+                                            className="block w-full h-full"
                                         ></vturb-smartplayer>
                                     </div>
-                                    <blockquote className="text-slate-300 text-sm italic mb-2">
+                                    <blockquote className="text-slate-300 text-sm italic mt-3 text-center">
                                         {VIDEO_TESTIMONIALS[1].quote}
                                     </blockquote>
-                                    <p className="text-[#FFD700] text-xs font-semibold">
-                                        — {VIDEO_TESTIMONIALS[1].author} • {VIDEO_TESTIMONIALS[1].location}
-                                    </p>
                                 </div>
 
                                 {/* PROVA #4 - Image Testimonial 2 - WhatsApp Screenshot */}
@@ -1100,8 +1109,7 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                         <img 
                                             src={IMAGE_TESTIMONIALS[1].src} 
                                             alt="Depoimento WhatsApp" 
-                                            className="w-full max-w-full h-auto object-contain rounded-lg"
-                                            style={{ maxHeight: '500px' }}
+                                            className="w-full max-w-full h-auto object-contain rounded-lg max-h-[500px]"
                                             loading="lazy"
                                         />
                                     </div>
@@ -1121,8 +1129,7 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                         <img 
                                             src={IMAGE_TESTIMONIALS[2].src} 
                                             alt="Depoimento WhatsApp" 
-                                            className="w-full max-w-full h-auto object-contain rounded-lg"
-                                            style={{ maxHeight: '500px' }}
+                                            className="w-full max-w-full h-auto object-contain rounded-lg max-h-[500px]"
                                             loading="lazy"
                                         />
                                     </div>
@@ -1151,20 +1158,29 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                             transition={{ duration: 0.3 }}
                                             className="space-y-6"
                                         >
-                                            {/* PROVA #6 - Video Testimonial 3 */}
+                                            {/* PROVA #6 - Video Testimonial 3 - FORMATO 9:16 VERTICAL */}
                                             <div className="bg-gradient-to-br from-[#1a0b2e]/60 to-[#2d1b4e]/40 border border-[#D4AF37]/30 rounded-2xl p-4 overflow-hidden">
-                                                <div className="relative rounded-xl overflow-hidden bg-black mb-3" style={{ aspectRatio: '16/9', maxHeight: '300px' }}>
+                                                {/* Header com nome e localização */}
+                                                <div className="flex items-center gap-3 mb-3">
+                                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#FFD700] flex items-center justify-center text-black text-sm font-bold">
+                                                        {VIDEO_TESTIMONIALS[2].author.charAt(0)}
+                                                    </div>
+                                                    <div className="flex-1">
+                                                        <p className="text-white text-sm font-semibold">{VIDEO_TESTIMONIALS[2].author}</p>
+                                                        <p className="text-slate-400 text-xs">{VIDEO_TESTIMONIALS[2].location}</p>
+                                                    </div>
+                                                    <span className="text-emerald-400 text-xs bg-emerald-500/20 px-2 py-1 rounded-full">✓ Verificado</span>
+                                                </div>
+                                                {/* Video container - 9:16 vertical format */}
+                                                <div className="relative rounded-xl overflow-hidden bg-black max-w-[280px] mx-auto" style={{ aspectRatio: '9/16' }}>
                                                     <vturb-smartplayer 
                                                         id={`vid-${VIDEO_TESTIMONIALS[2].id}`}
-                                                        style={{ display: 'block', width: '100%', height: '100%' }}
+                                                        className="block w-full h-full"
                                                     ></vturb-smartplayer>
                                                 </div>
-                                                <blockquote className="text-slate-300 text-sm italic mb-2">
+                                                <blockquote className="text-slate-300 text-sm italic mt-3 text-center">
                                                     {VIDEO_TESTIMONIALS[2].quote}
                                                 </blockquote>
-                                                <p className="text-[#FFD700] text-xs font-semibold">
-                                                    — {VIDEO_TESTIMONIALS[2].author} • {VIDEO_TESTIMONIALS[2].location}
-                                                </p>
                                             </div>
 
                                             {/* PROVA #7 - Image Testimonial 4 */}
@@ -1182,20 +1198,29 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                                 </p>
                                             </div>
 
-                                            {/* PROVA #8 - Video Testimonial 4 */}
+                                            {/* PROVA #8 - Video Testimonial 4 - FORMATO 9:16 VERTICAL */}
                                             <div className="bg-gradient-to-br from-[#1a0b2e]/60 to-[#2d1b4e]/40 border border-[#D4AF37]/30 rounded-2xl p-4 overflow-hidden">
-                                                <div className="relative rounded-xl overflow-hidden bg-black mb-3" style={{ aspectRatio: '16/9', maxHeight: '300px' }}>
+                                                {/* Header com nome e localização */}
+                                                <div className="flex items-center gap-3 mb-3">
+                                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#FFD700] flex items-center justify-center text-black text-sm font-bold">
+                                                        {VIDEO_TESTIMONIALS[3].author.charAt(0)}
+                                                    </div>
+                                                    <div className="flex-1">
+                                                        <p className="text-white text-sm font-semibold">{VIDEO_TESTIMONIALS[3].author}</p>
+                                                        <p className="text-slate-400 text-xs">{VIDEO_TESTIMONIALS[3].location}</p>
+                                                    </div>
+                                                    <span className="text-emerald-400 text-xs bg-emerald-500/20 px-2 py-1 rounded-full">✓ Verificado</span>
+                                                </div>
+                                                {/* Video container - 9:16 vertical format */}
+                                                <div className="relative rounded-xl overflow-hidden bg-black max-w-[280px] mx-auto" style={{ aspectRatio: '9/16' }}>
                                                     <vturb-smartplayer 
                                                         id={`vid-${VIDEO_TESTIMONIALS[3].id}`}
-                                                        style={{ display: 'block', width: '100%', height: '100%' }}
+                                                        className="block w-full h-full"
                                                     ></vturb-smartplayer>
                                                 </div>
-                                                <blockquote className="text-slate-300 text-sm italic mb-2">
+                                                <blockquote className="text-slate-300 text-sm italic mt-3 text-center">
                                                     {VIDEO_TESTIMONIALS[3].quote}
                                                 </blockquote>
-                                                <p className="text-[#FFD700] text-xs font-semibold">
-                                                    — {VIDEO_TESTIMONIALS[3].author} • {VIDEO_TESTIMONIALS[3].location}
-                                                </p>
                                             </div>
 
                                             {/* PROVA #9 - Image Testimonial 5 */}
@@ -1533,7 +1558,7 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                     </div>
                     
                     {/* Copyright */}
-                    <div className="text-center pb-24 md:pb-8">
+                    <div className="text-center pb-8">
                         <p className="text-slate-600 text-[10px]">
                             © 2024 Mapa Xamânico. Todos os direitos reservados.
                         </p>
@@ -1541,56 +1566,6 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                 </footer>
 
             </div>
-
-            {/* ============== MOBILE STICKY CTA (GREEN NEON - IMPROVED) ============== */}
-            {showCTA && (
-                <motion.div
-                    initial={{ y: 100, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.5 }}
-                    className="fixed bottom-0 left-0 right-0 z-50 md:hidden"
-                >
-                    {/* Enhanced glow effect behind sticky */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-emerald-500/20 to-transparent blur-xl"></div>
-                    
-                    <div className="relative bg-gradient-to-t from-[#0a0118] via-[#0a0118]/98 to-[#0a0118]/80 pt-3 pb-4 px-4 border-t border-emerald-500/30">
-                        <motion.button
-                            onClick={handleCheckoutClick}
-                            animate={{ 
-                                scale: [1, 1.02, 1],
-                                boxShadow: [
-                                    '0 0 30px rgba(16,185,129,0.5)',
-                                    '0 0 50px rgba(16,185,129,0.7)',
-                                    '0 0 30px rgba(16,185,129,0.5)'
-                                ]
-                            }}
-                            transition={{ 
-                                duration: 1.5, 
-                                repeat: Infinity, 
-                                ease: "easeInOut" 
-                            }}
-                            className="w-full bg-gradient-to-r from-emerald-400 to-green-500 text-white font-black text-lg py-4 px-6 rounded-2xl shadow-[0_0_40px_rgba(16,185,129,0.6)] transition-all active:scale-95 min-h-[60px] flex items-center justify-center gap-2"
-                        >
-                            <span className="text-xl">💰</span>
-                            <span>QUERO MEU MAPA R$27,90</span>
-                        </motion.button>
-                        <div className="flex items-center justify-center gap-4 mt-2 text-[10px] text-slate-400">
-                            <span className="flex items-center gap-1">
-                                <span>⚡</span>
-                                Imediato
-                            </span>
-                            <span className="flex items-center gap-1">
-                                <Lock className="w-3 h-3 text-emerald-400" />
-                                Seguro
-                            </span>
-                            <span className="flex items-center gap-1">
-                                <Shield className="w-3 h-3 text-emerald-400" />
-                                7 dias garantia
-                            </span>
-                        </div>
-                    </div>
-                </motion.div>
-            )}
         </div>
     );
 };
