@@ -182,12 +182,13 @@ const OFFER_PRICE = 27.90;
 const DISCOUNT_PERCENT = Math.round((1 - OFFER_PRICE / TOTAL_VALUE) * 100); // 94%
 
 const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
-    const [showCTA, setShowCTA] = useState(false);
+    // Show offer section immediately when page loads (no longer waiting for video playback)
+    const [showCTA, setShowCTA] = useState(true);
     const [videoPlaying, setVideoPlaying] = useState(false);
     const [videoPlayTime, setVideoPlayTime] = useState(0); // Time since video PLAY
     const [scriptLoaded, setScriptLoaded] = useState(false);
     const [trackedMilestones, setTrackedMilestones] = useState<Set<number>>(new Set());
-    const [buttonShown, setButtonShown] = useState(false);
+    const [buttonShown, setButtonShown] = useState(true);
     
     // Countdown timer state (15 minutes)
     const [countdownMs, setCountdownMs] = useState<number | null>(null);
@@ -209,7 +210,7 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
     // Refs for video timing
     const videoTimerRef = useRef<NodeJS.Timeout | null>(null);
     const pauseTimerRef = useRef<NodeJS.Timeout | null>(null);
-    const ctaShownRef = useRef(false);
+    const ctaShownRef = useRef(true); // CTA shown immediately on page load
 
     // Get first name for personalization
     const firstName = userName ? userName.split(' ')[0] : '';
@@ -486,9 +487,10 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
             // Try to autoplay after script loads with a small delay for player initialization
             setTimeout(() => {
                 try {
-                    const player = document.getElementById(`vid-${VSL_VIDEO_PLAYER_ID}`) as HTMLElement & { play?: () => void };
-                    if (player && typeof player.play === 'function') {
-                        player.play();
+                    const player = document.getElementById(`vid-${VSL_VIDEO_PLAYER_ID}`);
+                    // VTurb smartplayer is a custom web component - check if play method exists before calling
+                    if (player && 'play' in player && typeof (player as { play: () => void }).play === 'function') {
+                        (player as { play: () => void }).play();
                     }
                 } catch (e) {
                     // Autoplay may be blocked by browser policy - user will need to click play
@@ -609,6 +611,35 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
     return (
         <div className="min-h-screen relative overflow-hidden text-white bg-gradient-to-b from-[#0a0118] via-[#1a0b2e] to-[#0a0118]">
             
+            {/* Hide VTurb default blue buttons */}
+            <style>{`
+                /* Hide any blue CTA buttons injected by VTurb player */
+                vturb-smartplayer button[style*="background-color: rgb(0, 123, 255)"],
+                vturb-smartplayer button[style*="background: rgb(0, 123, 255)"],
+                vturb-smartplayer button[style*="background-color: #007bff"],
+                vturb-smartplayer button[style*="background: #007bff"],
+                vturb-smartplayer .smartplayer-cta-button,
+                vturb-smartplayer [class*="cta-button"],
+                vturb-smartplayer [class*="button-cta"],
+                vturb-smartplayer button.btn-primary,
+                vturb-smartplayer .btn-primary,
+                .smartplayer-cta-container,
+                [id*="smartplayer"] button[style*="blue"],
+                [id*="smartplayer"] button[style*="#007"],
+                [id*="smartplayer"] button[style*="rgb(0, 123"],
+                [id*="vid-"] + button,
+                [id*="vid-"] ~ button,
+                vturb-smartplayer + button,
+                vturb-smartplayer ~ button:not([class*="bg-gradient"]) {
+                    display: none !important;
+                    visibility: hidden !important;
+                    opacity: 0 !important;
+                    pointer-events: none !important;
+                    height: 0 !important;
+                    overflow: hidden !important;
+                }
+            `}</style>
+
             {/* Mystical Background Effects */}
             <div className="fixed inset-0 -z-10">
                 <div className="absolute inset-0 bg-gradient-to-b from-[#0a0118] via-[#1a0b2e] to-[#0a0118]"></div>

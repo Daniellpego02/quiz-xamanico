@@ -190,7 +190,8 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const getCompletedSteps = () => {
     if (currentIndex < 0) return 0;
     if (currentIndex === 0) return 1; // Welcome screen completed
-    return currentIndex; // Return currentIndex (not +1) since we're showing progress BEFORE answering
+    // Return currentIndex to show completed questions only, not including the current unanswered question
+    return currentIndex;
   };
 
   const progressPercent = Math.min(((getCompletedSteps()) / TOTAL_STEPS) * 100, 100);
