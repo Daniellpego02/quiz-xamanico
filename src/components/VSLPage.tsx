@@ -9,12 +9,30 @@ interface VSLPageProps {
 }
 
 /**
- * VSL PAGE - Video Sales Letter
- * Shows after quiz result, before checkout
- * Video duration: ~2 minutes (1min54s)
+ * VSL PAGE - Video Sales Letter (PIX-ONLY)
+ * Estrutura otimizada mobile-first, funil PIX-only
  * 
- * CRITICAL FIX: CTA timer starts on VIDEO PLAY, not page load
- * This ensures maximum conversion by showing CTA at peak persuasion moment
+ * REGRAS QUE NÃO PODEM SER QUEBRADAS:
+ * - Nunca mostrar: "3x", "parcelado", "cartão", "boleto"
+ * - Primeira dobra = VSL em foco, sem preço/CTA/stack em cima
+ * - Timer e urgência só entram DEPOIS da VSL
+ * - Prova social vem ANTES do FAQ e do rodapé
+ * 
+ * ORDEM DOS BLOCOS:
+ * 1. Barra verde (protocolo gerado)
+ * 2. Headline (bloqueio identificado)
+ * 3. Caixa vermelha (alerta crítico)
+ * 4. Subheadline (assista ao vídeo)
+ * 5. VSL em destaque (9:16)
+ * 6. [APÓS VÍDEO] Stack + desconto PIX
+ * 7. CTA principal PIX
+ * 8. "Por que tão barato?" + comparações
+ * 9. Prova social
+ * 10. FAQ PIX
+ * 11. Escassez/urgência
+ * 12. Badges + garantia
+ * 13. Rodapé
+ * 14. Sticky CTA mobile
  */
 
 // VSL Video Configuration - New video player
@@ -60,7 +78,7 @@ const PIX_FAQ_ITEMS = [
         answer: 'Para manter o preço baixo (R$ 27,90). Taxas de cartão aumentariam para R$ 97. Repassamos a economia para você!'
     },
     {
-        question: 'Quando recebo acesso?',
+        question: 'Quando recebo acesso ao meu Mapa?',
         answer: 'Assim que o PIX for confirmado (até 3h). Você recebe email + WhatsApp com todos os acessos.'
     },
     {
@@ -68,12 +86,12 @@ const PIX_FAQ_ITEMS = [
         answer: 'Todo banco tem PIX gratuito. Ative no app do seu banco em 2 minutos. É rápido e fácil!'
     },
     {
-        question: 'Posso pedir reembolso?',
+        question: 'Posso pedir reembolso se não gostar?',
         answer: 'Sim! 7 dias de garantia incondicional. Devolução via PIX em até 48h, sem perguntas.'
     },
     {
-        question: 'É seguro?',
-        answer: '100% seguro. PIX é o sistema oficial do Banco Central. Seus dados são criptografados.'
+        question: 'É seguro pagar por aqui?',
+        answer: '100% seguro. PIX é o sistema oficial do Banco Central. Seus dados são criptografados e protegidos.'
     }
 ];
 
@@ -82,7 +100,7 @@ const PRICE_COMPARISONS = [
     { emoji: '🍕', item: '1 pizza delivery', price: 'R$ 45-60' },
     { emoji: '🎬', item: '1 cinema + pipoca', price: 'R$ 50' },
     { emoji: '🚗', item: '1 tanque de gasolina', price: 'R$ 150+' },
-    { emoji: '☕', item: '8 cafés Starbucks', price: 'R$ 35' },
+    { emoji: '☕', item: '8 cafés na padaria', price: 'R$ 32' },
 ];
 
 // VTurb/ConverteAI allowed origins for message validation
@@ -92,7 +110,7 @@ const VTURB_ALLOWED_ORIGINS = [
     'https://player.converteai.net',
 ];
 
-// Video testimonials configuration (VTurb)
+// Video testimonials configuration (VTurb) - ORDEM ESPECIFICADA
 const VIDEO_TESTIMONIALS = [
     {
         id: '6966f78072fa6d1f6fe3580b',
@@ -637,66 +655,8 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                     </motion.p>
                 </motion.section>
 
-                {/* ============== VALUE STACK WITH MOCKUP (#2) ============== */}
-                <motion.section
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.35 }}
-                    className="mb-6"
-                >
-                    <div className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 border border-[#D4AF37]/40 rounded-2xl p-4 sm:p-6">
-                        <div className="flex flex-col md:flex-row gap-6 items-center">
-                            {/* Mockup Image - Left side on desktop */}
-                            <div className="w-full md:w-2/5 flex justify-center">
-                                <div className="relative">
-                                    <div className="absolute -inset-4 bg-gradient-to-br from-[#D4AF37]/30 via-purple-500/20 to-[#FFD700]/20 blur-2xl rounded-full animate-pulse"></div>
-                                    <img 
-                                        src="/mockup.webp" 
-                                        alt="Mapa Xamânico - Mapa + App" 
-                                        className="relative w-40 sm:w-48 md:w-56 rounded-2xl shadow-[0_0_40px_rgba(212,175,55,0.4)] border-2 border-[#D4AF37]/60"
-                                    />
-                                </div>
-                            </div>
-
-                            {/* Value Stack - Right side on desktop */}
-                            <div className="w-full md:w-3/5">
-                                <h3 className="text-[#FFD700] text-sm font-bold uppercase tracking-wider mb-4 text-center md:text-left">
-                                    O QUE VOCÊ VAI RECEBER HOJE:
-                                </h3>
-
-                                <div className="space-y-3">
-                                    {VALUE_STACK_ITEMS.map((item, idx) => (
-                                        <div key={idx} className="flex gap-3">
-                                            <Check className="w-5 h-5 text-[#FFD700] flex-shrink-0 mt-0.5" />
-                                            <div className="flex-1">
-                                                <p className="text-white text-sm font-semibold">{item.title}</p>
-                                                <p className="text-slate-400 text-xs">→ {item.description}</p>
-                                                <p className="text-[#FFD700]/70 text-xs font-medium">Valor: R$ {item.value}</p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                {/* Price Summary - Enhanced with PIX anchoring */}
-                                <div className="mt-4 pt-4 border-t border-[#D4AF37]/30">
-                                    <div className="flex justify-between items-center">
-                                        <span className="text-slate-400 text-sm">De:</span>
-                                        <span className="text-slate-500 text-lg line-through">R$ {TOTAL_VALUE},00</span>
-                                    </div>
-                                    <div className="flex justify-between items-center mt-2">
-                                        <span className="text-emerald-400 font-bold text-sm">💰 HOJE COM PIX:</span>
-                                        <div className="text-right">
-                                            <span className="text-emerald-400 text-2xl font-black">R$ {OFFER_PRICE.toFixed(2).replace('.', ',')}</span>
-                                            <p className="text-emerald-300 text-xs font-semibold">({DISCOUNT_PERCENT}% de desconto via PIX)</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </motion.section>
-
-                {/* ============== VIDEO SECTION ============== */}
+                {/* ============== VIDEO SECTION (VSL EM DESTAQUE) ============== */}
+                {/* REGRA: Nada de preço, stack, CTA ou timer ANTES do player */}
                 <motion.section
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -749,7 +709,8 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                     </motion.div>
                 </motion.section>
 
-                {/* ============== CTA SECTION - Appears after video time (#1, #4, #8) ============== */}
+                {/* ============== CTA SECTION - Appears after video time ============== */}
+                {/* NOVA ORDEM: Stack → Desconto PIX → CTA → "Por que barato?" + Comparações → CTA → Prova Social → CTA → FAQ → CTA → Escassez → Badges → CTA */}
                 {showCTA && (
                     <motion.section
                         initial={{ opacity: 0, y: 30, scale: 0.95 }}
@@ -757,69 +718,45 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                         transition={{ duration: 0.5 }}
                         className="mb-8"
                     >
-                        {/* ============== COUNTDOWN TIMER (#8) ============== */}
-                        <div className={`rounded-xl p-4 mb-4 text-center border ${
-                            isUrgent 
-                                ? 'bg-red-900/50 border-red-500/60' 
-                                : isWarning 
-                                    ? 'bg-orange-900/40 border-orange-500/50' 
-                                    : 'bg-amber-900/30 border-amber-500/40'
-                        }`}>
-                            <div className="flex items-center justify-center gap-2 mb-2">
-                                <AlertTriangle className={`w-5 h-5 ${isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`} />
-                                <span className={`font-bold text-sm ${isUrgent ? 'text-red-300' : isWarning ? 'text-orange-300' : 'text-amber-300'}`}>
-                                    ⚠️ SEU PROTOCOLO EXPIRA EM:
-                                </span>
-                            </div>
-                            
-                            {/* Timer Display */}
-                            <div className="flex items-center justify-center gap-2 mb-2">
-                                <div className={`px-3 py-2 rounded-lg ${isUrgent ? 'bg-red-800/60' : isWarning ? 'bg-orange-800/50' : 'bg-amber-800/40'}`}>
-                                    <span className={`text-2xl sm:text-3xl font-mono font-black ${isUrgent ? 'text-red-300' : isWarning ? 'text-orange-300' : 'text-amber-300'}`}>
-                                        {String(countdown.minutes).padStart(2, '0')}
-                                    </span>
-                                    <span className={`text-xs block ${isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`}>MIN</span>
-                                </div>
-                                <span className={`text-2xl font-bold ${isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`}>:</span>
-                                <div className={`px-3 py-2 rounded-lg ${isUrgent ? 'bg-red-800/60' : isWarning ? 'bg-orange-800/50' : 'bg-amber-800/40'}`}>
-                                    <span className={`text-2xl sm:text-3xl font-mono font-black ${isUrgent ? 'text-red-300' : isWarning ? 'text-orange-300' : 'text-amber-300'}`}>
-                                        {String(countdown.seconds).padStart(2, '0')}
-                                    </span>
-                                    <span className={`text-xs block ${isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`}>SEG</span>
-                                </div>
-                                <span className={`text-2xl font-bold ${isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`}>:</span>
-                                <div className={`px-3 py-2 rounded-lg ${isUrgent ? 'bg-red-800/60' : isWarning ? 'bg-orange-800/50' : 'bg-amber-800/40'}`}>
-                                    <span className={`text-2xl sm:text-3xl font-mono font-black ${isUrgent ? 'text-red-300' : isWarning ? 'text-orange-300' : 'text-amber-300'}`}>
-                                        {String(countdown.milliseconds).padStart(2, '0')}
-                                    </span>
-                                    <span className={`text-xs block ${isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`}>MS</span>
+                        {/* ============== 1. STACK + MOCKUP (O QUE VOCÊ VAI RECEBER HOJE) ============== */}
+                        <div className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 border border-[#D4AF37]/40 rounded-2xl p-4 sm:p-6 mb-6">
+                            <h3 className="text-[#FFD700] text-lg font-bold uppercase tracking-wider mb-4 text-center">
+                                O QUE VOCÊ VAI RECEBER HOJE:
+                            </h3>
+
+                            {/* Mockup Image */}
+                            <div className="flex justify-center mb-4">
+                                <div className="relative">
+                                    <div className="absolute -inset-4 bg-gradient-to-br from-[#D4AF37]/30 via-purple-500/20 to-[#FFD700]/20 blur-2xl rounded-full animate-pulse"></div>
+                                    <img 
+                                        src="/mockup.webp" 
+                                        alt="Mapa Xamânico - Mapa + App" 
+                                        className="relative w-36 sm:w-44 rounded-2xl shadow-[0_0_40px_rgba(212,175,55,0.4)] border-2 border-[#D4AF37]/60"
+                                    />
                                 </div>
                             </div>
-                            
-                            <p className="text-slate-400 text-xs">
-                                Após expirar, você precisará fazer um novo diagnóstico completo.
-                            </p>
+
+                            {/* Value Stack Items */}
+                            <div className="space-y-3">
+                                {VALUE_STACK_ITEMS.map((item, idx) => (
+                                    <div key={idx} className="flex gap-3">
+                                        <Check className="w-5 h-5 text-[#FFD700] flex-shrink-0 mt-0.5" />
+                                        <div className="flex-1">
+                                            <p className="text-white text-sm font-semibold">{item.title} – <span className="text-[#FFD700]">Valor: R$ {item.value}</span></p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* De: (riscado) */}
+                            <div className="mt-4 pt-4 border-t border-[#D4AF37]/30 text-center">
+                                <p className="text-slate-400 text-sm">
+                                    De: <span className="line-through text-slate-500">R$ {TOTAL_VALUE},00</span>
+                                </p>
+                            </div>
                         </div>
 
-                        {/* ============== PIX SCARCITY ALERT ============== */}
-                        <div className="bg-gradient-to-r from-red-900/40 to-orange-900/30 border-2 border-red-500/50 rounded-xl p-4 mb-4">
-                            <p className="text-red-300 font-bold text-center mb-3">
-                                🔥 ATENÇÃO: Apenas <span className="text-[#FFD700] text-xl">{SCARCITY_CONFIG.totalSlots - slotsOccupied}</span> vagas restantes hoje
-                            </p>
-                            <div className="w-full h-4 bg-black/30 rounded-full overflow-hidden mb-2">
-                                <motion.div 
-                                    className="h-full bg-gradient-to-r from-red-500 via-orange-500 to-[#FFD700]"
-                                    initial={{ width: 0 }}
-                                    animate={{ width: `${(slotsOccupied / SCARCITY_CONFIG.totalSlots) * 100}%` }}
-                                    transition={{ duration: 1 }}
-                                />
-                            </div>
-                            <p className="text-slate-400 text-xs text-center">
-                                {slotsOccupied}/{SCARCITY_CONFIG.totalSlots} protocolos ativados hoje
-                            </p>
-                        </div>
-
-                        {/* ============== PIX EXCLUSIVE DISCOUNT BOX ============== */}
+                        {/* ============== 2. CAIXA DESCONTO EXCLUSIVO PIX ============== */}
                         <div className="bg-gradient-to-br from-purple-900/30 to-emerald-900/20 border-2 border-[#FFD700]/50 rounded-2xl p-6 mb-4">
                             <h3 className="text-[#FFD700] text-xl font-bold text-center mb-4">
                                 💸 DESCONTO EXCLUSIVO PIX
@@ -828,11 +765,9 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                             <div className="text-center space-y-2 mb-4">
                                 <p className="text-slate-500 text-sm">
                                     De: <span className="line-through">R$ {TOTAL_VALUE},00</span>
-                                    <span className="text-xs ml-1 italic">(valor total)</span>
                                 </p>
                                 <p className="text-slate-400 text-sm">
                                     Por: <span className="line-through">R$ 97,00</span>
-                                    <span className="text-xs ml-1 italic">(desconto padrão)</span>
                                 </p>
                                 <div className="pt-2">
                                     <p className="text-emerald-400 text-lg font-bold">
@@ -843,48 +778,18 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                         <span className="text-3xl font-bold text-[#FFD700]">,90</span>
                                     </div>
                                     <p className="text-emerald-400 text-sm mt-1">
-                                        (72% de desconto adicional)
+                                        ({DISCOUNT_PERCENT}% de desconto via PIX – 72% adicional hoje)
                                     </p>
                                 </div>
                             </div>
                             
                             <p className="text-amber-400 text-sm text-center font-semibold">
-                                ⏰ Desconto válido apenas nos próximos 15 minutos
+                                ⏰ Desconto válido apenas pelos próximos 15 minutos
                             </p>
                         </div>
 
-                        {/* ============== "WHY SO CHEAP?" EXPLANATION ============== */}
-                        <div className="bg-[#FFD700]/10 border-l-4 border-[#FFD700] rounded-r-xl p-4 mb-4">
-                            <p className="text-[#FFD700] font-bold mb-2">💡 Por que tão barato?</p>
-                            <p className="text-slate-300 text-sm leading-relaxed mb-2">
-                                Pagamento via PIX = sem taxas de cartão para nós.<br/>
-                                <span className="text-white font-semibold">Repassamos a economia para você!</span>
-                            </p>
-                            <p className="text-slate-500 text-xs italic">
-                                (Se fosse cartão, seria R$ 97 parcelado)
-                            </p>
-                        </div>
-
-                        {/* What's included - Compact */}
-                        <div className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 border border-emerald-500/30 rounded-2xl p-4 mb-4">
-                            <p className="text-emerald-400 font-bold text-sm mb-3 text-center">✅ O que você recebe:</p>
-                            <div className="space-y-2">
-                                {[
-                                    'Mapa Xamânico Personalizado em PDF',
-                                    'Protocolo de Desbloqueio de 7 dias',
-                                    'Áudios Rituais Guiados (3 áudios)',
-                                    'Suporte via WhatsApp'
-                                ].map((item, idx) => (
-                                    <div key={idx} className="flex items-center gap-2 text-slate-200 text-sm">
-                                        <Check className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                                        <span>{item}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* ============== PIX CTA BUTTON (GREEN) ============== */}
-                        <div className="relative group">
+                        {/* ============== 3. CTA PRINCIPAL PIX (GREEN) ============== */}
+                        <div className="relative group mb-4">
                             <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-green-400 rounded-xl blur opacity-60 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
                             <motion.button
                                 onClick={handleCheckoutClick}
@@ -904,38 +809,46 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                         <span>SIM! QUERO PAGAR R$ 27,90 NO PIX</span>
                                     </div>
                                     <span className="text-xs font-semibold opacity-90">
-                                        Aprovação instantânea • Acesso em 3h
+                                        Aprovação instantânea • Acesso enviado em até 3h
                                     </span>
                                 </div>
                             </motion.button>
                         </div>
 
-                        {/* PIX Security/Guarantee badges */}
-                        <div className="grid grid-cols-2 gap-3 mt-4">
-                            <div className="bg-white/5 border border-emerald-500/30 rounded-lg p-3 text-center">
-                                <span className="text-xl">💰</span>
-                                <p className="text-white text-xs font-bold mt-1">APENAS R$ 27,90</p>
-                                <p className="text-slate-400 text-[10px]">Pagamento único via PIX</p>
+                        {/* Badges abaixo do CTA */}
+                        <div className="space-y-2 mb-6">
+                            <div className="flex items-center gap-2 justify-center text-sm">
+                                <span className="text-lg">💰</span>
+                                <span className="text-slate-300">Pagamento único via PIX (sem mensalidade)</span>
                             </div>
-                            <div className="bg-white/5 border border-emerald-500/30 rounded-lg p-3 text-center">
-                                <span className="text-xl">⚡</span>
-                                <p className="text-white text-xs font-bold mt-1">INSTANTÂNEO</p>
-                                <p className="text-slate-400 text-[10px]">Não precisa esperar boleto</p>
+                            <div className="flex items-center gap-2 justify-center text-sm">
+                                <span className="text-lg">⚡</span>
+                                <span className="text-slate-300">Acesso imediato ao protocolo</span>
                             </div>
-                            <div className="bg-white/5 border border-emerald-500/30 rounded-lg p-3 text-center">
-                                <span className="text-xl">✓</span>
-                                <p className="text-white text-xs font-bold mt-1">GARANTIA 7 DIAS</p>
-                                <p className="text-slate-400 text-[10px]">Devolvemos tudo se não funcionar</p>
+                            <div className="flex items-center gap-2 justify-center text-sm">
+                                <span className="text-lg">🔒</span>
+                                <span className="text-slate-300">Ambiente 100% seguro</span>
                             </div>
-                            <div className="bg-white/5 border border-emerald-500/30 rounded-lg p-3 text-center">
-                                <span className="text-xl">🔒</span>
-                                <p className="text-white text-xs font-bold mt-1">100% SEGURO</p>
-                                <p className="text-slate-400 text-[10px]">QR Code ou Copia e Cola</p>
+                            <div className="flex items-center gap-2 justify-center text-sm">
+                                <span className="text-lg">✓</span>
+                                <span className="text-slate-300">Garantia incondicional de 7 dias</span>
                             </div>
                         </div>
 
-                        {/* ============== PRICE COMPARISONS ============== */}
-                        <div className="bg-white/5 border border-white/10 rounded-xl p-4 mt-4">
+                        {/* ============== 4. "POR QUE TÃO BARATO?" + COMPARAÇÕES ============== */}
+                        <div className="bg-[#FFD700]/10 border-l-4 border-[#FFD700] rounded-r-xl p-4 mb-4">
+                            <p className="text-[#FFD700] font-bold mb-2">💡 Por que tão barato?</p>
+                            <p className="text-slate-300 text-sm leading-relaxed mb-2">
+                                Pagamento via PIX = sem taxas de cartão para nós.<br/>
+                                <span className="text-white font-semibold">Repassamos a economia para você!</span>
+                            </p>
+                            <p className="text-slate-500 text-xs italic">
+                                (No cartão seria R$ 97 parcelado)
+                            </p>
+                        </div>
+
+                        {/* Comparações de preço */}
+                        <div className="bg-white/5 border border-white/10 rounded-xl p-4 mb-4">
                             <h4 className="text-[#FFD700] font-bold text-center mb-3">
                                 R$ 27,90 é MENOS QUE:
                             </h4>
@@ -950,46 +863,38 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                 ))}
                             </div>
                             <p className="text-[#FFD700] text-sm text-center mt-3 font-semibold">
-                                E pode mudar sua vida financeira <span className="text-white">PARA SEMPRE</span>
+                                E pode mudar sua vida financeira <span className="text-white">para sempre.</span>
                             </p>
                         </div>
 
-                        {/* ============== PIX FAQ SECTION ============== */}
-                        <div className="mt-6">
-                            <h3 className="text-white font-bold text-lg text-center mb-4">
-                                ❓ PERGUNTAS FREQUENTES
-                            </h3>
-                            <div className="space-y-2">
-                                {PIX_FAQ_ITEMS.map((faq, idx) => (
-                                    <div key={idx} className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
-                                        <button
-                                            onClick={() => setExpandedFaqIndex(expandedFaqIndex === idx ? null : idx)}
-                                            className="w-full flex items-center justify-between p-4 text-left hover:bg-white/5 transition-colors"
-                                        >
-                                            <span className="text-slate-200 text-sm font-medium">{faq.question}</span>
-                                            <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${expandedFaqIndex === idx ? 'rotate-180' : ''}`} />
-                                        </button>
-                                        <AnimatePresence>
-                                            {expandedFaqIndex === idx && (
-                                                <motion.div
-                                                    initial={{ height: 0, opacity: 0 }}
-                                                    animate={{ height: 'auto', opacity: 1 }}
-                                                    exit={{ height: 0, opacity: 0 }}
-                                                    transition={{ duration: 0.2 }}
-                                                    className="overflow-hidden"
-                                                >
-                                                    <p className="px-4 pb-4 text-slate-400 text-sm">
-                                                        → {faq.answer}
-                                                    </p>
-                                                </motion.div>
-                                            )}
-                                        </AnimatePresence>
+                        {/* CTA repetido após comparações */}
+                        <div className="relative group mb-8">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-green-400 rounded-xl blur opacity-60 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
+                            <motion.button
+                                onClick={handleCheckoutClick}
+                                animate={{ 
+                                    scale: [1, 1.02, 1],
+                                }}
+                                transition={{ 
+                                    duration: 1.5, 
+                                    repeat: Infinity, 
+                                    ease: "easeInOut" 
+                                }}
+                                className="relative w-full bg-gradient-to-r from-emerald-500 to-green-500 hover:from-green-400 hover:to-emerald-400 text-white font-black text-base sm:text-lg py-5 px-6 rounded-xl shadow-[0_0_30px_rgba(16,185,129,0.5)] transition-all active:scale-95 min-h-[60px]"
+                            >
+                                <div className="flex flex-col items-center justify-center gap-1">
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-2xl">💰</span>
+                                        <span>SIM! QUERO PAGAR R$ 27,90 NO PIX</span>
                                     </div>
-                                ))}
-                            </div>
+                                    <span className="text-xs font-semibold opacity-90">
+                                        Aprovação instantânea • Acesso enviado em até 3h
+                                    </span>
+                                </div>
+                            </motion.button>
                         </div>
 
-                        {/* ============== COMPLETE SOCIAL PROOF SECTION ============== */}
+                        {/* ============== 5. PROVA SOCIAL (ANTES DO FAQ) ============== */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -1007,7 +912,7 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                             <Star key={i} className="w-4 h-4 text-[#FFD700] fill-[#FFD700]" />
                                         ))}
                                     </div>
-                                    <span className="text-[#FFD700] text-sm font-bold">+4.300 protocolos ativados</span>
+                                    <span className="text-[#FFD700] text-sm font-bold">+4.300 protocolos ativados em todo o Brasil</span>
                                 </div>
                             </div>
 
@@ -1275,31 +1180,230 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                 *Resultados individuais podem variar. Os depoimentos são de clientes reais que utilizaram o protocolo.
                             </p>
                         </motion.div>
+
+                        {/* ============== 7. PIX FAQ SECTION (APÓS PROVA SOCIAL) ============== */}
+                        <div className="mt-8 mb-6">
+                            <h3 className="text-white font-bold text-lg text-center mb-4">
+                                ❓ PERGUNTAS FREQUENTES
+                            </h3>
+                            <div className="space-y-2">
+                                {PIX_FAQ_ITEMS.map((faq, idx) => (
+                                    <div key={idx} className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
+                                        <button
+                                            onClick={() => setExpandedFaqIndex(expandedFaqIndex === idx ? null : idx)}
+                                            className="w-full flex items-center justify-between p-4 text-left hover:bg-white/5 transition-colors"
+                                        >
+                                            <span className="text-slate-200 text-sm font-medium">{faq.question}</span>
+                                            <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${expandedFaqIndex === idx ? 'rotate-180' : ''}`} />
+                                        </button>
+                                        <AnimatePresence>
+                                            {expandedFaqIndex === idx && (
+                                                <motion.div
+                                                    initial={{ height: 0, opacity: 0 }}
+                                                    animate={{ height: 'auto', opacity: 1 }}
+                                                    exit={{ height: 0, opacity: 0 }}
+                                                    transition={{ duration: 0.2 }}
+                                                    className="overflow-hidden"
+                                                >
+                                                    <p className="px-4 pb-4 text-slate-400 text-sm">
+                                                        → {faq.answer}
+                                                    </p>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* CTA após FAQ */}
+                        <div className="relative group mb-8">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-green-400 rounded-xl blur opacity-60 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
+                            <motion.button
+                                onClick={handleCheckoutClick}
+                                animate={{ 
+                                    scale: [1, 1.02, 1],
+                                }}
+                                transition={{ 
+                                    duration: 1.5, 
+                                    repeat: Infinity, 
+                                    ease: "easeInOut" 
+                                }}
+                                className="relative w-full bg-gradient-to-r from-emerald-500 to-green-500 hover:from-green-400 hover:to-emerald-400 text-white font-black text-base sm:text-lg py-5 px-6 rounded-xl shadow-[0_0_30px_rgba(16,185,129,0.5)] transition-all active:scale-95 min-h-[60px]"
+                            >
+                                <div className="flex flex-col items-center justify-center gap-1">
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-2xl">💰</span>
+                                        <span>SIM! QUERO PAGAR R$ 27,90 NO PIX</span>
+                                    </div>
+                                    <span className="text-xs font-semibold opacity-90">
+                                        Aprovação instantânea • Acesso enviado em até 3h
+                                    </span>
+                                </div>
+                            </motion.button>
+                        </div>
+
+                        {/* ============== 8. ESCASSEZ / URGÊNCIA ============== */}
+                        <div className="bg-gradient-to-r from-red-900/40 to-orange-900/30 border-2 border-red-500/50 rounded-xl p-4 mb-4">
+                            <p className="text-white font-bold text-center mb-3">
+                                🔥 Atenção: poucas ativações com desconto hoje
+                            </p>
+                            <div className="w-full h-4 bg-black/30 rounded-full overflow-hidden mb-2">
+                                <motion.div 
+                                    className="h-full bg-gradient-to-r from-red-500 via-orange-500 to-[#FFD700]"
+                                    initial={{ width: 0 }}
+                                    animate={{ width: `${(slotsOccupied / SCARCITY_CONFIG.totalSlots) * 100}%` }}
+                                    transition={{ duration: 1 }}
+                                />
+                            </div>
+                            <p className="text-slate-300 text-sm text-center">
+                                {slotsOccupied}/{SCARCITY_CONFIG.totalSlots} protocolos ativados hoje
+                            </p>
+                            <p className="text-slate-400 text-xs text-center mt-2">
+                                Após atingir o limite diário, o valor volta para R$ 97.
+                            </p>
+                            
+                            {/* Timer 15min */}
+                            <div className={`rounded-xl p-4 mt-4 text-center border ${
+                                isUrgent 
+                                    ? 'bg-red-900/50 border-red-500/60' 
+                                    : isWarning 
+                                        ? 'bg-orange-900/40 border-orange-500/50' 
+                                        : 'bg-amber-900/30 border-amber-500/40'
+                            }`}>
+                                <div className="flex items-center justify-center gap-2 mb-2">
+                                    <AlertTriangle className={`w-5 h-5 ${isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`} />
+                                    <span className={`font-bold text-sm ${isUrgent ? 'text-red-300' : isWarning ? 'text-orange-300' : 'text-amber-300'}`}>
+                                        ⏰ DESCONTO EXPIRA EM:
+                                    </span>
+                                </div>
+                                
+                                {/* Timer Display */}
+                                <div className="flex items-center justify-center gap-2">
+                                    <div className={`px-3 py-2 rounded-lg ${isUrgent ? 'bg-red-800/60' : isWarning ? 'bg-orange-800/50' : 'bg-amber-800/40'}`}>
+                                        <span className={`text-2xl sm:text-3xl font-mono font-black ${isUrgent ? 'text-red-300' : isWarning ? 'text-orange-300' : 'text-amber-300'}`}>
+                                            {String(countdown.minutes).padStart(2, '0')}
+                                        </span>
+                                        <span className={`text-xs block ${isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`}>MIN</span>
+                                    </div>
+                                    <span className={`text-2xl font-bold ${isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`}>:</span>
+                                    <div className={`px-3 py-2 rounded-lg ${isUrgent ? 'bg-red-800/60' : isWarning ? 'bg-orange-800/50' : 'bg-amber-800/40'}`}>
+                                        <span className={`text-2xl sm:text-3xl font-mono font-black ${isUrgent ? 'text-red-300' : isWarning ? 'text-orange-300' : 'text-amber-300'}`}>
+                                            {String(countdown.seconds).padStart(2, '0')}
+                                        </span>
+                                        <span className={`text-xs block ${isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`}>SEG</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* CTA após Escassez */}
+                        <div className="relative group mb-6">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-green-400 rounded-xl blur opacity-60 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
+                            <motion.button
+                                onClick={handleCheckoutClick}
+                                animate={{ 
+                                    scale: [1, 1.02, 1],
+                                }}
+                                transition={{ 
+                                    duration: 1.5, 
+                                    repeat: Infinity, 
+                                    ease: "easeInOut" 
+                                }}
+                                className="relative w-full bg-gradient-to-r from-emerald-500 to-green-500 hover:from-green-400 hover:to-emerald-400 text-white font-black text-base sm:text-lg py-5 px-6 rounded-xl shadow-[0_0_30px_rgba(16,185,129,0.5)] transition-all active:scale-95 min-h-[60px]"
+                            >
+                                <div className="flex flex-col items-center justify-center gap-1">
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-2xl">💰</span>
+                                        <span>SIM! QUERO PAGAR R$ 27,90 NO PIX</span>
+                                    </div>
+                                    <span className="text-xs font-semibold opacity-90">
+                                        Aprovação instantânea • Acesso enviado em até 3h
+                                    </span>
+                                </div>
+                            </motion.button>
+                        </div>
+
+                        {/* ============== 9. BADGES + GARANTIA (GRID 2x2) ============== */}
+                        <div className="grid grid-cols-2 gap-3 mb-6">
+                            <div className="bg-white/5 border border-emerald-500/30 rounded-lg p-3 text-center">
+                                <span className="text-xl">💰</span>
+                                <p className="text-white text-xs font-bold mt-1">APENAS R$ 27,90</p>
+                            </div>
+                            <div className="bg-white/5 border border-emerald-500/30 rounded-lg p-3 text-center">
+                                <span className="text-xl">⚡</span>
+                                <p className="text-white text-xs font-bold mt-1">INSTANTÂNEO</p>
+                            </div>
+                            <div className="bg-white/5 border border-emerald-500/30 rounded-lg p-3 text-center">
+                                <span className="text-xl">✓</span>
+                                <p className="text-white text-xs font-bold mt-1">GARANTIA 7 DIAS</p>
+                            </div>
+                            <div className="bg-white/5 border border-emerald-500/30 rounded-lg p-3 text-center">
+                                <span className="text-xl">🔒</span>
+                                <p className="text-white text-xs font-bold mt-1">100% SEGURO</p>
+                            </div>
+                        </div>
+
+                        {/* CTA Final */}
+                        <div className="relative group">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-green-400 rounded-xl blur opacity-60 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
+                            <motion.button
+                                onClick={handleCheckoutClick}
+                                animate={{ 
+                                    scale: [1, 1.02, 1],
+                                }}
+                                transition={{ 
+                                    duration: 1.5, 
+                                    repeat: Infinity, 
+                                    ease: "easeInOut" 
+                                }}
+                                className="relative w-full bg-gradient-to-r from-emerald-500 to-green-500 hover:from-green-400 hover:to-emerald-400 text-white font-black text-base sm:text-lg py-5 px-6 rounded-xl shadow-[0_0_30px_rgba(16,185,129,0.5)] transition-all active:scale-95 min-h-[60px]"
+                            >
+                                <div className="flex flex-col items-center justify-center gap-1">
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-2xl">💰</span>
+                                        <span>SIM! QUERO PAGAR R$ 27,90 NO PIX</span>
+                                    </div>
+                                    <span className="text-xs font-semibold opacity-90">
+                                        Aprovação instantânea • Acesso enviado em até 3h
+                                    </span>
+                                </div>
+                            </motion.button>
+                        </div>
                     </motion.section>
                 )}
 
-                {/* Pre-CTA loading state */}
-                {!showCTA && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="text-center py-8"
-                    >
-                        <div className="inline-flex items-center gap-2 bg-purple-900/30 border border-purple-500/30 px-4 py-2 rounded-full">
-                            <div className="w-3 h-3 rounded-full bg-purple-400 animate-pulse"></div>
-                            <span className="text-purple-300 text-sm">
-                                ✨ Aguarde... Dê play no vídeo para liberar seu protocolo
-                            </span>
-                        </div>
-                    </motion.div>
-                )}
-
-                {/* Footer Micro-copy */}
-                <div className="text-center mt-8 pb-8">
-                    <p className="text-slate-500 text-xs">
-                        🔐 Seus dados estão protegidos. Não compartilhamos com terceiros.
-                    </p>
-                </div>
+                {/* ============== RODAPÉ COMPLETO ============== */}
+                <footer className="mt-12 pt-8 border-t border-white/10">
+                    {/* Links */}
+                    <div className="flex flex-wrap justify-center gap-4 mb-4">
+                        <a href="#" className="text-slate-500 text-xs hover:text-slate-400 transition-colors">
+                            Política de Privacidade
+                        </a>
+                        <span className="text-slate-700">•</span>
+                        <a href="#" className="text-slate-500 text-xs hover:text-slate-400 transition-colors">
+                            Termos de Uso
+                        </a>
+                        <span className="text-slate-700">•</span>
+                        <a href="#" className="text-slate-500 text-xs hover:text-slate-400 transition-colors">
+                            Contato
+                        </a>
+                    </div>
+                    
+                    {/* LGPD Notice */}
+                    <div className="text-center mb-4">
+                        <p className="text-slate-500 text-xs">
+                            🔐 Seus dados estão protegidos conforme LGPD. Não compartilhamos com terceiros.
+                        </p>
+                    </div>
+                    
+                    {/* Copyright */}
+                    <div className="text-center pb-24 md:pb-8">
+                        <p className="text-slate-600 text-[10px]">
+                            © 2024 Mapa Xamânico. Todos os direitos reservados.
+                        </p>
+                    </div>
+                </footer>
 
             </div>
 
