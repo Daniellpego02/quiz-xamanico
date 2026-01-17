@@ -185,13 +185,16 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   };
 
   // Calculate progress for step indicator
-  const getCurrentStep = () => {
-    if (currentIndex < 0) return 0;
-    if (currentIndex === 0) return 1;
-    return currentIndex + 1;
+  // Progress reflects how many steps are COMPLETE (not the current step being viewed)
+  // Steps: welcome(0) -> name input(1) -> q1(2) -> q2(3) -> q3(4) -> q4(5)
+  const getCompletedSteps = () => {
+    if (currentIndex < 0) return 0; // At welcome screen, nothing completed
+    if (currentIndex === 0) return 1; // At name input, welcome completed (20%)
+    // At question N (currentIndex 1-4), previous steps completed (name + questions 1 to N-1)
+    return currentIndex;
   };
 
-  const progressPercent = Math.min(((getCurrentStep()) / TOTAL_STEPS) * 100, 100);
+  const progressPercent = Math.min(((getCompletedSteps()) / TOTAL_STEPS) * 100, 100);
 
   // ==================== WELCOME SCREEN ====================
   if (currentIndex === -1) {
@@ -440,7 +443,8 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder={currentQuestion.placeholder}
-                  className="w-full bg-white/10 border border-white/20 rounded-xl p-5 text-lg text-white placeholder-slate-400 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all text-center"
+                  className="w-full bg-white/10 border border-white/20 rounded-xl p-5 text-lg placeholder-slate-400 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all text-center"
+                  style={{ color: '#ffffff', caretColor: '#FFD700' }}
                   autoFocus
                 />
                 <Sparkles className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#D4AF37] animate-pulse" />
