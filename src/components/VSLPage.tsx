@@ -480,7 +480,22 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
         const playerScript = document.createElement('script');
         playerScript.src = VSL_VIDEO_SCRIPT_URL;
         playerScript.async = true;
-        playerScript.onload = () => setScriptLoaded(true);
+        playerScript.onload = () => {
+            setScriptLoaded(true);
+            
+            // Try to autoplay after script loads with a small delay for player initialization
+            setTimeout(() => {
+                try {
+                    const player = document.getElementById(`vid-${VSL_VIDEO_PLAYER_ID}`) as HTMLElement & { play?: () => void };
+                    if (player && typeof player.play === 'function') {
+                        player.play();
+                    }
+                } catch (e) {
+                    // Autoplay may be blocked by browser policy - user will need to click play
+                    console.log('Autoplay blocked by browser policy');
+                }
+            }, 1000);
+        };
         document.head.appendChild(playerScript);
 
         return () => {
@@ -689,6 +704,7 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                     <vturb-smartplayer 
                                         id={`vid-${VSL_VIDEO_PLAYER_ID}`}
                                         style={{ display: 'block', width: '100%', maxWidth: '400px', margin: '0 auto' }}
+                                        autoplay="true"
                                     ></vturb-smartplayer>
                                 </div>
                             </div>
