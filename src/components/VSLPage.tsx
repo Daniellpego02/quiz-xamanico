@@ -111,47 +111,51 @@ const VTURB_ALLOWED_ORIGINS = [
     'https://player.converteai.net',
 ];
 
-// Video testimonials configuration (VTurb) - ORDEM ESPECIFICADA
+// Video testimonials configuration (VTurb) - ORDEM ESPECIFICADA - Com avatares
 const VIDEO_TESTIMONIALS = [
     {
         id: '6966f78072fa6d1f6fe3580b',
         scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f78072fa6d1f6fe3580b/v4/player.js',
         quote: '"Depois de 3 dias fazendo o protocolo, recebi uma proposta inesperada de R$ 8 mil"',
         author: 'Mariana, 41 anos',
-        location: 'São Paulo, SP'
+        location: 'São Paulo, SP',
+        avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces'
     },
     {
         id: '6966f8a76af1a10bf01e6dc4',
         scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f8a76af1a10bf01e6dc4/v4/player.js',
         quote: '"Minha mãe parou de me cobrar dinheiro do nada. Coincidência? Acho que não."',
         author: 'Rafael, 28 anos',
-        location: 'Curitiba, PR'
+        location: 'Curitiba, PR',
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=faces'
     },
     {
         id: '6966f6bc1fad4f3937c2eac9',
         scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f6bc1fad4f3937c2eac9/v4/player.js',
         quote: '"Consegui sair das dívidas em 10 dias. Inacreditável."',
         author: 'Paula, 38 anos',
-        location: 'Rio de Janeiro, RJ'
+        location: 'Rio de Janeiro, RJ',
+        avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=faces'
     },
     {
         id: '6966f6b835a1be1be44c9daf',
         scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f6b835a1be1be44c9daf/v4/player.js',
         quote: '"Minha vida financeira mudou em menos de uma semana"',
         author: 'Juliana, 33 anos',
-        location: 'Belo Horizonte, MG'
+        location: 'Belo Horizonte, MG',
+        avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=faces'
     }
 ];
 
-// Image testimonials configuration
+// Image testimonials configuration - Com avatares
 const IMAGE_TESTIMONIALS = [
-    { src: '/prova1.webp', author: 'Camila, 34 anos', day: '4º dia do protocolo' },
-    { src: '/prova2.webp', author: 'Lucas, 29 anos', day: '6º dia' },
-    { src: '/prova3.webp', author: 'Fernanda, 37 anos', day: '5º dia' },
-    { src: '/prova4.webp', author: 'João, 44 anos', day: '8º dia' },
-    { src: '/prova5.webp', author: 'Ana, 31 anos', day: '7º dia' },
-    { src: '/prova6.webp', author: 'Carlos, 42 anos', day: '9º dia' },
-    { src: '/prova7.webp', author: 'Beatriz, 36 anos', day: '5º dia' }
+    { src: '/prova1.webp', author: 'Camila, 34 anos', day: '4º dia do protocolo', avatar: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=100&h=100&fit=crop&crop=faces' },
+    { src: '/prova2.webp', author: 'Lucas, 29 anos', day: '6º dia', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=faces' },
+    { src: '/prova3.webp', author: 'Fernanda, 37 anos', day: '5º dia', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=faces' },
+    { src: '/prova4.webp', author: 'João, 44 anos', day: '8º dia', avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=faces' },
+    { src: '/prova5.webp', author: 'Ana, 31 anos', day: '7º dia', avatar: 'https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=100&h=100&fit=crop&crop=faces' },
+    { src: '/prova6.webp', author: 'Carlos, 42 anos', day: '9º dia', avatar: 'https://images.unsplash.com/photo-1463453091185-61582044d556?w=100&h=100&fit=crop&crop=faces' },
+    { src: '/prova7.webp', author: 'Beatriz, 36 anos', day: '5º dia', avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&h=100&fit=crop&crop=faces' }
 ];
 
 // Value Stack items with individual prices for anchoring
@@ -772,24 +776,34 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                         className="mb-8"
                     >
                         {/* ============== 1. STACK + MOCKUP (O QUE VOCÊ VAI RECEBER HOJE) ============== */}
-                        <div className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 border border-[#D4AF37]/40 rounded-2xl p-4 sm:p-6 mb-6">
-                            <h3 className="text-[#FFD700] text-lg font-bold uppercase tracking-wider mb-4 text-center">
-                                O QUE VOCÊ VAI RECEBER HOJE:
+                        <div className="bg-gradient-to-br from-[#1a0b2e]/80 to-[#2d1b4e]/60 border-2 border-[#D4AF37]/50 rounded-3xl p-5 sm:p-8 mb-8">
+                            <h3 className="text-[#FFD700] text-xl sm:text-2xl font-black uppercase tracking-wider mb-6 text-center">
+                                ✨ O QUE VOCÊ VAI RECEBER HOJE:
                             </h3>
 
-                            {/* Mockup Image */}
-                            <div className="flex justify-center mb-4">
+                            {/* Mockup Image - ENHANCED 3D STYLE */}
+                            <div className="flex justify-center mb-6">
                                 <div className="relative">
-                                    <div className="absolute -inset-4 bg-gradient-to-br from-[#D4AF37]/30 via-purple-500/20 to-[#FFD700]/20 blur-2xl rounded-full animate-pulse"></div>
-                                    <img 
-                                        src="/mockup.webp" 
-                                        alt="Mapa Xamânico - Mapa + App" 
-                                        className="relative w-36 sm:w-44 rounded-2xl shadow-[0_0_40px_rgba(212,175,55,0.4)] border-2 border-[#D4AF37]/60"
-                                    />
+                                    {/* Multi-layer glow effect */}
+                                    <div className="absolute -inset-8 bg-gradient-to-br from-[#D4AF37]/50 via-purple-500/30 to-[#FFD700]/40 blur-3xl rounded-full animate-pulse"></div>
+                                    <div className="absolute -inset-4 bg-gradient-to-r from-[#FFD700]/40 to-[#D4AF37]/40 blur-xl rounded-3xl"></div>
+                                    
+                                    {/* 3D Container effect */}
+                                    <div className="relative bg-gradient-to-br from-purple-900/80 to-[#1a0b2e] p-4 rounded-3xl border-2 border-[#D4AF37]/60 shadow-[0_20px_60px_rgba(212,175,55,0.4),0_0_100px_rgba(212,175,55,0.2)]">
+                                        <img 
+                                            src="/mockup.webp" 
+                                            alt="Mapa Xamânico - Mapa + App" 
+                                            className="relative w-48 sm:w-56 md:w-64 rounded-2xl shadow-[0_0_50px_rgba(212,175,55,0.5)] border-2 border-[#D4AF37]/70 transform hover:scale-105 transition-transform duration-300"
+                                        />
+                                        {/* Floating badge */}
+                                        <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-emerald-500 to-green-500 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-[0_0_20px_rgba(16,185,129,0.5)] whitespace-nowrap">
+                                            📱 Acesso Imediato
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            {/* Value Stack Items */}
+                            {/* Value Stack Items - Enhanced */}
                             <div className="space-y-3">
                                 {VALUE_STACK_ITEMS.map((item, idx) => (
                                     <div key={idx} className="flex gap-3">
@@ -996,71 +1010,114 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                             <Star key={i} className="w-4 h-4 text-[#FFD700] fill-[#FFD700]" />
                                         ))}
                                     </div>
-                                    <span className="text-[#FFD700] text-sm font-bold">+{SOCIAL_PROOF_CONFIG.totalActivated.toLocaleString('pt-BR')} protocolos ativados em todo o Brasil</span>
+                                    <span className="text-[#FFD700] text-sm font-bold flex items-center gap-1">
+                                        <motion.span 
+                                            animate={{ scale: [1, 1.2, 1] }}
+                                            transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 1 }}
+                                        >
+                                            🔥
+                                        </motion.span>
+                                        +{SOCIAL_PROOF_CONFIG.totalActivated.toLocaleString('pt-BR')} protocolos ativados em todo o Brasil
+                                    </span>
                                 </div>
                             </div>
 
-                            {/* Live Activity Badges */}
-                            <div className="flex flex-wrap justify-center gap-3 mb-6">
-                                <div className="flex items-center gap-2 bg-emerald-900/30 border border-emerald-500/30 px-3 py-2 rounded-full">
-                                    <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
+                            {/* Live Activity Badges - Enhanced with animations */}
+                            <div className="flex flex-wrap justify-center gap-3 mb-8">
+                                <motion.div 
+                                    className="flex items-center gap-2 bg-emerald-900/40 border-2 border-emerald-500/40 px-4 py-2.5 rounded-full shadow-[0_0_15px_rgba(16,185,129,0.2)]"
+                                    animate={{ boxShadow: ['0 0 15px rgba(16,185,129,0.2)', '0 0 25px rgba(16,185,129,0.4)', '0 0 15px rgba(16,185,129,0.2)'] }}
+                                    transition={{ duration: 2, repeat: Infinity }}
+                                >
+                                    <motion.div 
+                                        className="w-2.5 h-2.5 rounded-full bg-emerald-400"
+                                        animate={{ scale: [1, 1.3, 1], opacity: [1, 0.7, 1] }}
+                                        transition={{ duration: 1, repeat: Infinity }}
+                                    />
                                     <Users className="w-4 h-4 text-emerald-400" />
-                                    <span className="text-emerald-300 text-xs font-semibold">
+                                    <span className="text-emerald-300 text-sm font-bold">
                                         {viewingCount} pessoas assistindo agora
                                     </span>
-                                </div>
-                                <div className="flex items-center gap-2 bg-purple-900/30 border border-purple-500/30 px-3 py-2 rounded-full">
-                                    <div className="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></div>
-                                    <Sparkles className="w-4 h-4 text-purple-400" />
-                                    <span className="text-purple-300 text-xs font-semibold">
+                                </motion.div>
+                                <motion.div 
+                                    className="flex items-center gap-2 bg-orange-900/40 border-2 border-orange-500/40 px-4 py-2.5 rounded-full shadow-[0_0_15px_rgba(249,115,22,0.2)]"
+                                    animate={{ boxShadow: ['0 0 15px rgba(249,115,22,0.2)', '0 0 25px rgba(249,115,22,0.4)', '0 0 15px rgba(249,115,22,0.2)'] }}
+                                    transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                                >
+                                    <motion.span 
+                                        animate={{ scale: [1, 1.2, 1], rotate: [0, 5, -5, 0] }}
+                                        transition={{ duration: 0.6, repeat: Infinity }}
+                                        className="text-lg"
+                                    >
+                                        🔥
+                                    </motion.span>
+                                    <span className="text-orange-300 text-sm font-bold">
                                         {activatedCount} protocolos ativados na última hora
                                     </span>
-                                </div>
+                                </motion.div>
                             </div>
 
-                            {/* Separator */}
-                            <div className="w-full h-px bg-gradient-to-r from-transparent via-[#FFD700]/50 to-transparent mb-6"></div>
+                            {/* Separator - Enhanced */}
+                            <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-[#FFD700]/60 to-transparent mb-8"></div>
 
                             {/* Testimonials Grid */}
-                            <div className="space-y-6">
+                            <div className="space-y-8">
                                 {/* PROVA #1 - Video Testimonial 1 - FORMATO 9:16 VERTICAL */}
-                                <div className="bg-gradient-to-br from-[#1a0b2e]/60 to-[#2d1b4e]/40 border border-[#D4AF37]/30 rounded-2xl p-4 overflow-hidden">
-                                    {/* Header com nome e localização */}
-                                    <div className="flex items-center gap-3 mb-3">
-                                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#FFD700] flex items-center justify-center text-black text-sm font-bold">
-                                            {VIDEO_TESTIMONIALS[0].author.charAt(0)}
-                                        </div>
+                                <div className="bg-gradient-to-br from-[#1a0b2e]/70 to-[#2d1b4e]/50 border-2 border-[#D4AF37]/40 rounded-3xl p-5 overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.15)]">
+                                    {/* Header com foto real e localização */}
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <img 
+                                            src={VIDEO_TESTIMONIALS[0].avatar} 
+                                            alt={VIDEO_TESTIMONIALS[0].author}
+                                            className="w-12 h-12 rounded-full object-cover border-2 border-[#D4AF37]/60 shadow-lg"
+                                        />
                                         <div className="flex-1">
-                                            <p className="text-white text-sm font-semibold">{VIDEO_TESTIMONIALS[0].author}</p>
-                                            <p className="text-slate-400 text-xs">{VIDEO_TESTIMONIALS[0].location}</p>
+                                            <p className="text-white text-sm font-bold">{VIDEO_TESTIMONIALS[0].author}</p>
+                                            <p className="text-slate-400 text-xs flex items-center gap-1">
+                                                <span>📍</span> {VIDEO_TESTIMONIALS[0].location}
+                                            </p>
                                         </div>
-                                        <span className="text-emerald-400 text-xs bg-emerald-500/20 px-2 py-1 rounded-full">✓ Verificado</span>
+                                        <span className="text-emerald-400 text-xs bg-emerald-500/20 px-3 py-1.5 rounded-full font-semibold border border-emerald-500/30">✓ Verificado</span>
                                     </div>
-                                    {/* Video container - 9:16 vertical format */}
-                                    <div className="relative rounded-xl overflow-hidden bg-black max-w-[280px] mx-auto" style={{ aspectRatio: '9/16' }}>
+                                    {/* Video container - 9:16 vertical format with loading skeleton */}
+                                    <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800 max-w-[280px] mx-auto border border-white/10" style={{ aspectRatio: '9/16' }}>
+                                        {/* Loading skeleton */}
+                                        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-purple-900/50 to-slate-900/80">
+                                            <div className="w-16 h-16 rounded-full bg-[#D4AF37]/20 flex items-center justify-center animate-pulse">
+                                                <span className="text-3xl">▶️</span>
+                                            </div>
+                                        </div>
                                         <vturb-smartplayer 
                                             id={`vid-${VIDEO_TESTIMONIALS[0].id}`}
-                                            className="block w-full h-full"
+                                            className="block w-full h-full relative z-10"
                                         ></vturb-smartplayer>
                                     </div>
-                                    <blockquote className="text-slate-300 text-sm italic mt-3 text-center">
+                                    <blockquote className="text-slate-200 text-sm italic mt-4 text-center bg-white/5 rounded-xl p-3 border border-white/10">
                                         {VIDEO_TESTIMONIALS[0].quote}
                                     </blockquote>
+                                    {/* Footer badge */}
+                                    <div className="flex justify-center mt-3">
+                                        <span className="text-[#FFD700] text-xs bg-[#FFD700]/10 px-3 py-1 rounded-full">✓ Protocolo comprovado</span>
+                                    </div>
                                 </div>
 
                                 {/* PROVA #2 - Image Testimonial 1 - WhatsApp Screenshot with proper mobile sizing */}
-                                <div className="bg-gradient-to-br from-[#0b141a] to-[#0d1a1f] border border-emerald-500/30 rounded-2xl overflow-hidden">
-                                    {/* WhatsApp-style header */}
-                                    <div className="flex items-center gap-2 bg-[#075e54] px-4 py-2">
-                                        <div className="w-8 h-8 rounded-full bg-emerald-400 flex items-center justify-center text-white text-sm">✓</div>
+                                <div className="bg-gradient-to-br from-[#0b141a] to-[#0d1a1f] border-2 border-emerald-500/40 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.1)]">
+                                    {/* WhatsApp-style header with real photo */}
+                                    <div className="flex items-center gap-3 bg-gradient-to-r from-[#075e54] to-[#128c7e] px-4 py-3">
+                                        <img 
+                                            src={IMAGE_TESTIMONIALS[0].avatar} 
+                                            alt={IMAGE_TESTIMONIALS[0].author}
+                                            className="w-10 h-10 rounded-full object-cover border-2 border-white/30"
+                                        />
                                         <div className="flex-1">
-                                            <p className="text-white text-sm font-semibold">{IMAGE_TESTIMONIALS[0].author}</p>
-                                            <p className="text-emerald-200/60 text-xs">{IMAGE_TESTIMONIALS[0].day}</p>
+                                            <p className="text-white text-sm font-bold">{IMAGE_TESTIMONIALS[0].author}</p>
+                                            <p className="text-emerald-200/70 text-xs">{IMAGE_TESTIMONIALS[0].day}</p>
                                         </div>
-                                        <span className="text-emerald-400 text-xs">Verificado</span>
+                                        <span className="text-emerald-300 text-xs bg-emerald-500/30 px-2 py-1 rounded-full">✓ Verificado</span>
                                     </div>
                                     {/* Image container - full width with padding */}
-                                    <div className="p-2 sm:p-4">
+                                    <div className="p-3 sm:p-4">
                                         <img 
                                             src={IMAGE_TESTIMONIALS[0].src} 
                                             alt="Depoimento WhatsApp" 
@@ -1071,80 +1128,101 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                 </div>
 
                                 {/* PROVA #3 - Video Testimonial 2 - FORMATO 9:16 VERTICAL */}
-                                <div className="bg-gradient-to-br from-[#1a0b2e]/60 to-[#2d1b4e]/40 border border-[#D4AF37]/30 rounded-2xl p-4 overflow-hidden">
-                                    {/* Header com nome e localização */}
-                                    <div className="flex items-center gap-3 mb-3">
-                                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#FFD700] flex items-center justify-center text-black text-sm font-bold">
-                                            {VIDEO_TESTIMONIALS[1].author.charAt(0)}
-                                        </div>
+                                <div className="bg-gradient-to-br from-[#1a0b2e]/70 to-[#2d1b4e]/50 border-2 border-[#D4AF37]/40 rounded-3xl p-5 overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.15)]">
+                                    {/* Header com foto real */}
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <img 
+                                            src={VIDEO_TESTIMONIALS[1].avatar} 
+                                            alt={VIDEO_TESTIMONIALS[1].author}
+                                            className="w-12 h-12 rounded-full object-cover border-2 border-[#D4AF37]/60 shadow-lg"
+                                        />
                                         <div className="flex-1">
-                                            <p className="text-white text-sm font-semibold">{VIDEO_TESTIMONIALS[1].author}</p>
-                                            <p className="text-slate-400 text-xs">{VIDEO_TESTIMONIALS[1].location}</p>
+                                            <p className="text-white text-sm font-bold">{VIDEO_TESTIMONIALS[1].author}</p>
+                                            <p className="text-slate-400 text-xs flex items-center gap-1">
+                                                <span>📍</span> {VIDEO_TESTIMONIALS[1].location}
+                                            </p>
                                         </div>
-                                        <span className="text-emerald-400 text-xs bg-emerald-500/20 px-2 py-1 rounded-full">✓ Verificado</span>
+                                        <span className="text-emerald-400 text-xs bg-emerald-500/20 px-3 py-1.5 rounded-full font-semibold border border-emerald-500/30">✓ Verificado</span>
                                     </div>
-                                    {/* Video container - 9:16 vertical format */}
-                                    <div className="relative rounded-xl overflow-hidden bg-black max-w-[280px] mx-auto" style={{ aspectRatio: '9/16' }}>
+                                    {/* Video container - 9:16 vertical format with loading skeleton */}
+                                    <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800 max-w-[280px] mx-auto border border-white/10" style={{ aspectRatio: '9/16' }}>
+                                        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-purple-900/50 to-slate-900/80">
+                                            <div className="w-16 h-16 rounded-full bg-[#D4AF37]/20 flex items-center justify-center animate-pulse">
+                                                <span className="text-3xl">▶️</span>
+                                            </div>
+                                        </div>
                                         <vturb-smartplayer 
                                             id={`vid-${VIDEO_TESTIMONIALS[1].id}`}
-                                            className="block w-full h-full"
+                                            className="block w-full h-full relative z-10"
                                         ></vturb-smartplayer>
                                     </div>
-                                    <blockquote className="text-slate-300 text-sm italic mt-3 text-center">
+                                    <blockquote className="text-slate-200 text-sm italic mt-4 text-center bg-white/5 rounded-xl p-3 border border-white/10">
                                         {VIDEO_TESTIMONIALS[1].quote}
                                     </blockquote>
+                                    <div className="flex justify-center mt-3">
+                                        <span className="text-[#FFD700] text-xs bg-[#FFD700]/10 px-3 py-1 rounded-full">✓ Protocolo comprovado</span>
+                                    </div>
                                 </div>
 
                                 {/* PROVA #4 - Image Testimonial 2 - WhatsApp Screenshot */}
-                                <div className="bg-gradient-to-br from-[#0b141a] to-[#0d1a1f] border border-emerald-500/30 rounded-2xl overflow-hidden">
-                                    <div className="flex items-center gap-2 bg-[#075e54] px-4 py-2">
-                                        <div className="w-8 h-8 rounded-full bg-emerald-400 flex items-center justify-center text-white text-sm">✓</div>
+                                <div className="bg-gradient-to-br from-[#0b141a] to-[#0d1a1f] border-2 border-emerald-500/40 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.1)]">
+                                    <div className="flex items-center gap-3 bg-gradient-to-r from-[#075e54] to-[#128c7e] px-4 py-3">
+                                        <img 
+                                            src={IMAGE_TESTIMONIALS[1].avatar} 
+                                            alt={IMAGE_TESTIMONIALS[1].author}
+                                            className="w-10 h-10 rounded-full object-cover border-2 border-white/30"
+                                        />
                                         <div className="flex-1">
-                                            <p className="text-white text-sm font-semibold">{IMAGE_TESTIMONIALS[1].author}</p>
-                                            <p className="text-emerald-200/60 text-xs">{IMAGE_TESTIMONIALS[1].day}</p>
+                                            <p className="text-white text-sm font-bold">{IMAGE_TESTIMONIALS[1].author}</p>
+                                            <p className="text-emerald-200/70 text-xs">{IMAGE_TESTIMONIALS[1].day}</p>
                                         </div>
-                                        <span className="text-emerald-400 text-xs">Verificado</span>
+                                        <span className="text-emerald-300 text-xs bg-emerald-500/30 px-2 py-1 rounded-full">✓ Verificado</span>
                                     </div>
-                                    <div className="p-2 sm:p-4">
+                                    <div className="p-3 sm:p-4">
                                         <img 
                                             src={IMAGE_TESTIMONIALS[1].src} 
                                             alt="Depoimento WhatsApp" 
-                                            className="w-full max-w-full h-auto object-contain rounded-lg max-h-[500px]"
+                                            className="w-full max-w-full h-auto object-contain rounded-xl max-h-[500px]"
                                             loading="lazy"
                                         />
                                     </div>
                                 </div>
 
                                 {/* PROVA #5 - Image Testimonial 3 - WhatsApp Screenshot */}
-                                <div className="bg-gradient-to-br from-[#0b141a] to-[#0d1a1f] border border-emerald-500/30 rounded-2xl overflow-hidden">
-                                    <div className="flex items-center gap-2 bg-[#075e54] px-4 py-2">
-                                        <div className="w-8 h-8 rounded-full bg-emerald-400 flex items-center justify-center text-white text-sm">✓</div>
+                                <div className="bg-gradient-to-br from-[#0b141a] to-[#0d1a1f] border-2 border-emerald-500/40 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.1)]">
+                                    <div className="flex items-center gap-3 bg-gradient-to-r from-[#075e54] to-[#128c7e] px-4 py-3">
+                                        <img 
+                                            src={IMAGE_TESTIMONIALS[2].avatar} 
+                                            alt={IMAGE_TESTIMONIALS[2].author}
+                                            className="w-10 h-10 rounded-full object-cover border-2 border-white/30"
+                                        />
                                         <div className="flex-1">
-                                            <p className="text-white text-sm font-semibold">{IMAGE_TESTIMONIALS[2].author}</p>
-                                            <p className="text-emerald-200/60 text-xs">{IMAGE_TESTIMONIALS[2].day}</p>
+                                            <p className="text-white text-sm font-bold">{IMAGE_TESTIMONIALS[2].author}</p>
+                                            <p className="text-emerald-200/70 text-xs">{IMAGE_TESTIMONIALS[2].day}</p>
                                         </div>
-                                        <span className="text-emerald-400 text-xs">Verificado</span>
+                                        <span className="text-emerald-300 text-xs bg-emerald-500/30 px-2 py-1 rounded-full">✓ Verificado</span>
                                     </div>
-                                    <div className="p-2 sm:p-4">
+                                    <div className="p-3 sm:p-4">
                                         <img 
                                             src={IMAGE_TESTIMONIALS[2].src} 
                                             alt="Depoimento WhatsApp" 
-                                            className="w-full max-w-full h-auto object-contain rounded-lg max-h-[500px]"
+                                            className="w-full max-w-full h-auto object-contain rounded-xl max-h-[500px]"
                                             loading="lazy"
                                         />
                                     </div>
                                 </div>
 
-                                {/* EXPAND BUTTON */}
+                                {/* EXPAND BUTTON - Enhanced */}
                                 {!showExtraTestimonials && (
                                     <motion.button
                                         onClick={() => setShowExtraTestimonials(true)}
-                                        whileHover={{ scale: 1.02 }}
+                                        whileHover={{ scale: 1.02, boxShadow: '0 0 30px rgba(168, 85, 247, 0.4)' }}
                                         whileTap={{ scale: 0.98 }}
-                                        className="w-full bg-gradient-to-r from-purple-900/50 to-[#1a0b2e]/70 border border-purple-500/40 text-purple-300 font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-2 hover:border-purple-400/60 transition-all"
+                                        className="w-full bg-gradient-to-r from-purple-900/60 to-[#1a0b2e]/80 border-2 border-purple-500/50 text-purple-200 font-bold py-5 px-6 rounded-2xl flex items-center justify-center gap-3 hover:border-purple-400/70 transition-all shadow-[0_0_20px_rgba(168,85,247,0.2)]"
                                     >
-                                        <span>VER MAIS DEPOIMENTOS (6 NOVOS)</span>
-                                        <ChevronDown className="w-5 h-5" />
+                                        <span className="text-lg">👀</span>
+                                        <span>VER MAIS DEPOIMENTOS (+6)</span>
+                                        <ChevronDown className="w-5 h-5 animate-bounce" />
                                     </motion.button>
                                 )}
 
@@ -1156,128 +1234,149 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                             animate={{ opacity: 1, height: 'auto' }}
                                             exit={{ opacity: 0, height: 0 }}
                                             transition={{ duration: 0.3 }}
-                                            className="space-y-6"
+                                            className="space-y-8"
                                         >
                                             {/* PROVA #6 - Video Testimonial 3 - FORMATO 9:16 VERTICAL */}
-                                            <div className="bg-gradient-to-br from-[#1a0b2e]/60 to-[#2d1b4e]/40 border border-[#D4AF37]/30 rounded-2xl p-4 overflow-hidden">
-                                                {/* Header com nome e localização */}
-                                                <div className="flex items-center gap-3 mb-3">
-                                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#FFD700] flex items-center justify-center text-black text-sm font-bold">
-                                                        {VIDEO_TESTIMONIALS[2].author.charAt(0)}
-                                                    </div>
+                                            <div className="bg-gradient-to-br from-[#1a0b2e]/70 to-[#2d1b4e]/50 border-2 border-[#D4AF37]/40 rounded-3xl p-5 overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.15)]">
+                                                <div className="flex items-center gap-3 mb-4">
+                                                    <img 
+                                                        src={VIDEO_TESTIMONIALS[2].avatar} 
+                                                        alt={VIDEO_TESTIMONIALS[2].author}
+                                                        className="w-12 h-12 rounded-full object-cover border-2 border-[#D4AF37]/60 shadow-lg"
+                                                    />
                                                     <div className="flex-1">
-                                                        <p className="text-white text-sm font-semibold">{VIDEO_TESTIMONIALS[2].author}</p>
-                                                        <p className="text-slate-400 text-xs">{VIDEO_TESTIMONIALS[2].location}</p>
+                                                        <p className="text-white text-sm font-bold">{VIDEO_TESTIMONIALS[2].author}</p>
+                                                        <p className="text-slate-400 text-xs flex items-center gap-1">
+                                                            <span>📍</span> {VIDEO_TESTIMONIALS[2].location}
+                                                        </p>
                                                     </div>
-                                                    <span className="text-emerald-400 text-xs bg-emerald-500/20 px-2 py-1 rounded-full">✓ Verificado</span>
+                                                    <span className="text-emerald-400 text-xs bg-emerald-500/20 px-3 py-1.5 rounded-full font-semibold border border-emerald-500/30">✓ Verificado</span>
                                                 </div>
-                                                {/* Video container - 9:16 vertical format */}
-                                                <div className="relative rounded-xl overflow-hidden bg-black max-w-[280px] mx-auto" style={{ aspectRatio: '9/16' }}>
+                                                <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800 max-w-[280px] mx-auto border border-white/10" style={{ aspectRatio: '9/16' }}>
+                                                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-purple-900/50 to-slate-900/80">
+                                                        <div className="w-16 h-16 rounded-full bg-[#D4AF37]/20 flex items-center justify-center animate-pulse">
+                                                            <span className="text-3xl">▶️</span>
+                                                        </div>
+                                                    </div>
                                                     <vturb-smartplayer 
                                                         id={`vid-${VIDEO_TESTIMONIALS[2].id}`}
-                                                        className="block w-full h-full"
+                                                        className="block w-full h-full relative z-10"
                                                     ></vturb-smartplayer>
                                                 </div>
-                                                <blockquote className="text-slate-300 text-sm italic mt-3 text-center">
+                                                <blockquote className="text-slate-200 text-sm italic mt-4 text-center bg-white/5 rounded-xl p-3 border border-white/10">
                                                     {VIDEO_TESTIMONIALS[2].quote}
                                                 </blockquote>
+                                                <div className="flex justify-center mt-3">
+                                                    <span className="text-[#FFD700] text-xs bg-[#FFD700]/10 px-3 py-1 rounded-full">✓ Protocolo comprovado</span>
+                                                </div>
                                             </div>
 
                                             {/* PROVA #7 - Image Testimonial 4 */}
-                                            <div className="bg-gradient-to-br from-[#1a0b2e]/60 to-[#2d1b4e]/40 border border-emerald-500/30 rounded-2xl p-4">
-                                                <div className="rounded-xl overflow-hidden mb-3 bg-[#0b141a]">
+                                            <div className="bg-gradient-to-br from-[#0b141a] to-[#0d1a1f] border-2 border-emerald-500/40 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.1)]">
+                                                <div className="flex items-center gap-3 bg-gradient-to-r from-[#075e54] to-[#128c7e] px-4 py-3">
+                                                    <img 
+                                                        src={IMAGE_TESTIMONIALS[3].avatar} 
+                                                        alt={IMAGE_TESTIMONIALS[3].author}
+                                                        className="w-10 h-10 rounded-full object-cover border-2 border-white/30"
+                                                    />
+                                                    <div className="flex-1">
+                                                        <p className="text-white text-sm font-bold">{IMAGE_TESTIMONIALS[3].author}</p>
+                                                        <p className="text-emerald-200/70 text-xs">{IMAGE_TESTIMONIALS[3].day}</p>
+                                                    </div>
+                                                    <span className="text-emerald-300 text-xs bg-emerald-500/30 px-2 py-1 rounded-full">✓ Verificado</span>
+                                                </div>
+                                                <div className="p-3 sm:p-4">
                                                     <img 
                                                         src={IMAGE_TESTIMONIALS[3].src} 
                                                         alt="Depoimento WhatsApp" 
-                                                        className="w-full h-auto object-contain"
+                                                        className="w-full h-auto object-contain rounded-xl"
                                                         loading="lazy"
                                                     />
                                                 </div>
-                                                <p className="text-emerald-400 text-xs font-semibold">
-                                                    — {IMAGE_TESTIMONIALS[3].author} • {IMAGE_TESTIMONIALS[3].day}
-                                                </p>
                                             </div>
 
                                             {/* PROVA #8 - Video Testimonial 4 - FORMATO 9:16 VERTICAL */}
-                                            <div className="bg-gradient-to-br from-[#1a0b2e]/60 to-[#2d1b4e]/40 border border-[#D4AF37]/30 rounded-2xl p-4 overflow-hidden">
-                                                {/* Header com nome e localização */}
-                                                <div className="flex items-center gap-3 mb-3">
-                                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#FFD700] flex items-center justify-center text-black text-sm font-bold">
-                                                        {VIDEO_TESTIMONIALS[3].author.charAt(0)}
-                                                    </div>
+                                            <div className="bg-gradient-to-br from-[#1a0b2e]/70 to-[#2d1b4e]/50 border-2 border-[#D4AF37]/40 rounded-3xl p-5 overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.15)]">
+                                                <div className="flex items-center gap-3 mb-4">
+                                                    <img 
+                                                        src={VIDEO_TESTIMONIALS[3].avatar} 
+                                                        alt={VIDEO_TESTIMONIALS[3].author}
+                                                        className="w-12 h-12 rounded-full object-cover border-2 border-[#D4AF37]/60 shadow-lg"
+                                                    />
                                                     <div className="flex-1">
-                                                        <p className="text-white text-sm font-semibold">{VIDEO_TESTIMONIALS[3].author}</p>
-                                                        <p className="text-slate-400 text-xs">{VIDEO_TESTIMONIALS[3].location}</p>
+                                                        <p className="text-white text-sm font-bold">{VIDEO_TESTIMONIALS[3].author}</p>
+                                                        <p className="text-slate-400 text-xs flex items-center gap-1">
+                                                            <span>📍</span> {VIDEO_TESTIMONIALS[3].location}
+                                                        </p>
                                                     </div>
-                                                    <span className="text-emerald-400 text-xs bg-emerald-500/20 px-2 py-1 rounded-full">✓ Verificado</span>
+                                                    <span className="text-emerald-400 text-xs bg-emerald-500/20 px-3 py-1.5 rounded-full font-semibold border border-emerald-500/30">✓ Verificado</span>
                                                 </div>
-                                                {/* Video container - 9:16 vertical format */}
-                                                <div className="relative rounded-xl overflow-hidden bg-black max-w-[280px] mx-auto" style={{ aspectRatio: '9/16' }}>
+                                                <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800 max-w-[280px] mx-auto border border-white/10" style={{ aspectRatio: '9/16' }}>
+                                                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-purple-900/50 to-slate-900/80">
+                                                        <div className="w-16 h-16 rounded-full bg-[#D4AF37]/20 flex items-center justify-center animate-pulse">
+                                                            <span className="text-3xl">▶️</span>
+                                                        </div>
+                                                    </div>
                                                     <vturb-smartplayer 
                                                         id={`vid-${VIDEO_TESTIMONIALS[3].id}`}
-                                                        className="block w-full h-full"
+                                                        className="block w-full h-full relative z-10"
                                                     ></vturb-smartplayer>
                                                 </div>
-                                                <blockquote className="text-slate-300 text-sm italic mt-3 text-center">
+                                                <blockquote className="text-slate-200 text-sm italic mt-4 text-center bg-white/5 rounded-xl p-3 border border-white/10">
                                                     {VIDEO_TESTIMONIALS[3].quote}
                                                 </blockquote>
+                                                <div className="flex justify-center mt-3">
+                                                    <span className="text-[#FFD700] text-xs bg-[#FFD700]/10 px-3 py-1 rounded-full">✓ Protocolo comprovado</span>
+                                                </div>
                                             </div>
 
                                             {/* PROVA #9 - Image Testimonial 5 */}
-                                            <div className="bg-gradient-to-br from-[#1a0b2e]/60 to-[#2d1b4e]/40 border border-emerald-500/30 rounded-2xl p-4">
-                                                <div className="rounded-xl overflow-hidden mb-3 bg-[#0b141a]">
+                                            <div className="bg-gradient-to-br from-[#0b141a] to-[#0d1a1f] border-2 border-emerald-500/40 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.1)]">
+                                                <div className="flex items-center gap-3 bg-gradient-to-r from-[#075e54] to-[#128c7e] px-4 py-3">
+                                                    <img 
+                                                        src={IMAGE_TESTIMONIALS[4].avatar} 
+                                                        alt={IMAGE_TESTIMONIALS[4].author}
+                                                        className="w-10 h-10 rounded-full object-cover border-2 border-white/30"
+                                                    />
+                                                    <div className="flex-1">
+                                                        <p className="text-white text-sm font-bold">{IMAGE_TESTIMONIALS[4].author}</p>
+                                                        <p className="text-emerald-200/70 text-xs">{IMAGE_TESTIMONIALS[4].day}</p>
+                                                    </div>
+                                                    <span className="text-emerald-300 text-xs bg-emerald-500/30 px-2 py-1 rounded-full">✓ Verificado</span>
+                                                </div>
+                                                <div className="p-3 sm:p-4">
                                                     <img 
                                                         src={IMAGE_TESTIMONIALS[4].src} 
                                                         alt="Depoimento WhatsApp" 
-                                                        className="w-full h-auto object-contain"
+                                                        className="w-full h-auto object-contain rounded-xl"
                                                         loading="lazy"
                                                     />
                                                 </div>
-                                                <p className="text-emerald-400 text-xs font-semibold">
-                                                    — {IMAGE_TESTIMONIALS[4].author} • {IMAGE_TESTIMONIALS[4].day}
-                                                </p>
                                             </div>
 
                                             {/* PROVA #10 - Image Testimonial 6 */}
-                                            <div className="bg-gradient-to-br from-[#1a0b2e]/60 to-[#2d1b4e]/40 border border-emerald-500/30 rounded-2xl p-4">
-                                                <div className="rounded-xl overflow-hidden mb-3 bg-[#0b141a]">
+                                            <div className="bg-gradient-to-br from-[#0b141a] to-[#0d1a1f] border-2 border-emerald-500/40 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.1)]">
+                                                <div className="flex items-center gap-3 bg-gradient-to-r from-[#075e54] to-[#128c7e] px-4 py-3">
+                                                    <img 
+                                                        src={IMAGE_TESTIMONIALS[5].avatar} 
+                                                        alt={IMAGE_TESTIMONIALS[5].author}
+                                                        className="w-10 h-10 rounded-full object-cover border-2 border-white/30"
+                                                    />
+                                                    <div className="flex-1">
+                                                        <p className="text-white text-sm font-bold">{IMAGE_TESTIMONIALS[5].author}</p>
+                                                        <p className="text-emerald-200/70 text-xs">{IMAGE_TESTIMONIALS[5].day}</p>
+                                                    </div>
+                                                    <span className="text-emerald-300 text-xs bg-emerald-500/30 px-2 py-1 rounded-full">✓ Verificado</span>
+                                                </div>
+                                                <div className="p-3 sm:p-4">
                                                     <img 
                                                         src={IMAGE_TESTIMONIALS[5].src} 
                                                         alt="Depoimento WhatsApp" 
-                                                        className="w-full h-auto object-contain"
+                                                        className="w-full h-auto object-contain rounded-xl"
                                                         loading="lazy"
                                                     />
                                                 </div>
-                                                <p className="text-emerald-400 text-xs font-semibold">
-                                                    — {IMAGE_TESTIMONIALS[5].author} • {IMAGE_TESTIMONIALS[5].day}
-                                                </p>
                                             </div>
-
-                                            {/* PROVA #11 - Image Testimonial 7 */}
-                                            <div className="bg-gradient-to-br from-[#1a0b2e]/60 to-[#2d1b4e]/40 border border-emerald-500/30 rounded-2xl p-4">
-                                                <div className="rounded-xl overflow-hidden mb-3 bg-[#0b141a]">
-                                                    <img 
-                                                        src={IMAGE_TESTIMONIALS[6].src} 
-                                                        alt="Depoimento WhatsApp" 
-                                                        className="w-full h-auto object-contain"
-                                                        loading="lazy"
-                                                    />
-                                                </div>
-                                                <p className="text-emerald-400 text-xs font-semibold">
-                                                    — {IMAGE_TESTIMONIALS[6].author} • {IMAGE_TESTIMONIALS[6].day}
-                                                </p>
-                                            </div>
-
-                                            {/* Collapse Button */}
-                                            <motion.button
-                                                onClick={() => setShowExtraTestimonials(false)}
-                                                whileHover={{ scale: 1.02 }}
-                                                whileTap={{ scale: 0.98 }}
-                                                className="w-full bg-gradient-to-r from-purple-900/30 to-[#1a0b2e]/50 border border-purple-500/30 text-purple-300 font-medium py-3 px-6 rounded-xl flex items-center justify-center gap-2 hover:border-purple-400/50 transition-all"
-                                            >
-                                                <span>Mostrar menos</span>
-                                                <ChevronUp className="w-5 h-5" />
-                                            </motion.button>
                                         </motion.div>
                                     )}
                                 </AnimatePresence>
@@ -1319,19 +1418,30 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                         </motion.div>
 
                         {/* ============== 7. PIX FAQ SECTION (APÓS PROVA SOCIAL) ============== */}
-                        <div className="mt-8 mb-6">
-                            <h3 className="text-white font-bold text-lg text-center mb-4">
-                                ❓ PERGUNTAS FREQUENTES
+                        {/* FAQ Section - Enhanced */}
+                        <div className="mt-10 mb-8">
+                            <h3 className="text-white font-black text-xl text-center mb-6 flex items-center justify-center gap-2">
+                                <span className="text-2xl">❓</span> PERGUNTAS FREQUENTES
                             </h3>
-                            <div className="space-y-2">
+                            <div className="space-y-3">
                                 {PIX_FAQ_ITEMS.map((faq, idx) => (
-                                    <div key={idx} className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
+                                    <motion.div 
+                                        key={idx} 
+                                        className="bg-gradient-to-br from-white/5 to-white/[0.02] border-2 border-white/10 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all"
+                                        whileHover={{ scale: 1.01 }}
+                                    >
                                         <button
                                             onClick={() => setExpandedFaqIndex(expandedFaqIndex === idx ? null : idx)}
-                                            className="w-full flex items-center justify-between p-4 text-left hover:bg-white/5 transition-colors"
+                                            className="w-full flex items-center justify-between p-5 text-left hover:bg-white/5 transition-colors"
                                         >
-                                            <span className="text-slate-200 text-sm font-medium">{faq.question}</span>
-                                            <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${expandedFaqIndex === idx ? 'rotate-180' : ''}`} />
+                                            <span className="text-slate-100 text-sm font-semibold pr-4">{faq.question}</span>
+                                            <motion.div
+                                                animate={{ rotate: expandedFaqIndex === idx ? 180 : 0 }}
+                                                transition={{ duration: 0.2 }}
+                                                className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${expandedFaqIndex === idx ? 'bg-purple-500/30' : 'bg-white/10'}`}
+                                            >
+                                                <ChevronDown className={`w-5 h-5 ${expandedFaqIndex === idx ? 'text-purple-300' : 'text-slate-400'}`} />
+                                            </motion.div>
                                         </button>
                                         <AnimatePresence>
                                             {expandedFaqIndex === idx && (
@@ -1342,13 +1452,13 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                                     transition={{ duration: 0.2 }}
                                                     className="overflow-hidden"
                                                 >
-                                                    <p className="px-4 pb-4 text-slate-400 text-sm">
-                                                        → {faq.answer}
+                                                    <p className="px-5 pb-5 text-slate-300 text-sm leading-relaxed border-t border-white/10 pt-4 mx-4">
+                                                        <span className="text-emerald-400">→</span> {faq.answer}
                                                     </p>
                                                 </motion.div>
                                             )}
                                         </AnimatePresence>
-                                    </div>
+                                    </motion.div>
                                 ))}
                             </div>
                         </div>
@@ -1400,40 +1510,65 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                 Após atingir o limite diário, o valor volta para R$ 97.
                             </p>
                             
-                            {/* Timer 15min */}
-                            <div className={`rounded-xl p-4 mt-4 text-center border ${
-                                isExpired
-                                    ? 'bg-slate-900/50 border-slate-500/60'
-                                    : isUrgent 
-                                        ? 'bg-red-900/50 border-red-500/60' 
-                                        : isWarning 
-                                            ? 'bg-orange-900/40 border-orange-500/50' 
-                                            : 'bg-amber-900/30 border-amber-500/40'
-                            }`}>
-                                <div className="flex items-center justify-center gap-2 mb-2">
-                                    <AlertTriangle className={`w-5 h-5 ${isExpired ? 'text-slate-400' : isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`} />
-                                    <span className={`font-bold text-sm ${isExpired ? 'text-slate-300' : isUrgent ? 'text-red-300' : isWarning ? 'text-orange-300' : 'text-amber-300'}`}>
-                                        {isExpired ? '⏰ DESCONTO EXPIROU' : '⏰ DESCONTO EXPIRA EM:'}
+                            {/* Timer 15min - Enhanced with animations */}
+                            <motion.div 
+                                className={`rounded-2xl p-5 mt-4 text-center border-2 ${
+                                    isExpired
+                                        ? 'bg-slate-900/50 border-slate-500/60'
+                                        : isUrgent 
+                                            ? 'bg-red-900/60 border-red-500/70' 
+                                            : isWarning 
+                                                ? 'bg-orange-900/50 border-orange-500/60' 
+                                                : 'bg-amber-900/40 border-amber-500/50'
+                                }`}
+                                animate={isUrgent && !isExpired ? { 
+                                    boxShadow: ['0 0 20px rgba(239,68,68,0.3)', '0 0 40px rgba(239,68,68,0.6)', '0 0 20px rgba(239,68,68,0.3)'],
+                                    scale: [1, 1.01, 1]
+                                } : {}}
+                                transition={{ duration: 0.8, repeat: Infinity }}
+                            >
+                                <div className="flex items-center justify-center gap-2 mb-3">
+                                    <motion.div
+                                        animate={isUrgent && !isExpired ? { rotate: [0, -10, 10, -10, 0] } : {}}
+                                        transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 1 }}
+                                    >
+                                        <AlertTriangle className={`w-6 h-6 ${isExpired ? 'text-slate-400' : isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`} />
+                                    </motion.div>
+                                    <span className={`font-black text-base ${isExpired ? 'text-slate-300' : isUrgent ? 'text-red-300' : isWarning ? 'text-orange-300' : 'text-amber-300'}`}>
+                                        {isExpired ? '⏰ DESCONTO EXPIROU' : isUrgent ? '🚨 ÚLTIMOS MINUTOS!' : '⏰ DESCONTO EXPIRA EM:'}
                                     </span>
                                 </div>
                                 
-                                {/* Timer Display */}
-                                <div className="flex items-center justify-center gap-2">
-                                    <div className={`px-3 py-2 rounded-lg ${isExpired ? 'bg-slate-800/60' : isUrgent ? 'bg-red-800/60' : isWarning ? 'bg-orange-800/50' : 'bg-amber-800/40'}`}>
-                                        <span className={`text-2xl sm:text-3xl font-mono font-black ${isExpired ? 'text-slate-300' : isUrgent ? 'text-red-300' : isWarning ? 'text-orange-300' : 'text-amber-300'}`}>
+                                {/* Timer Display - Enhanced */}
+                                <div className="flex items-center justify-center gap-3">
+                                    <motion.div 
+                                        className={`px-4 py-3 rounded-xl ${isExpired ? 'bg-slate-800/60' : isUrgent ? 'bg-red-800/70' : isWarning ? 'bg-orange-800/60' : 'bg-amber-800/50'}`}
+                                        animate={isUrgent && !isExpired ? { scale: [1, 1.05, 1] } : {}}
+                                        transition={{ duration: 0.5, repeat: Infinity }}
+                                    >
+                                        <span className={`text-3xl sm:text-4xl font-mono font-black ${isExpired ? 'text-slate-300' : isUrgent ? 'text-red-300' : isWarning ? 'text-orange-300' : 'text-amber-300'}`}>
                                             {String(countdown.minutes).padStart(2, '0')}
                                         </span>
-                                        <span className={`text-xs block ${isExpired ? 'text-slate-400' : isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`}>MIN</span>
-                                    </div>
-                                    <span className={`text-2xl font-bold ${isExpired ? 'text-slate-400' : isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`}>:</span>
-                                    <div className={`px-3 py-2 rounded-lg ${isExpired ? 'bg-slate-800/60' : isUrgent ? 'bg-red-800/60' : isWarning ? 'bg-orange-800/50' : 'bg-amber-800/40'}`}>
-                                        <span className={`text-2xl sm:text-3xl font-mono font-black ${isExpired ? 'text-slate-300' : isUrgent ? 'text-red-300' : isWarning ? 'text-orange-300' : 'text-amber-300'}`}>
+                                        <span className={`text-xs block font-bold ${isExpired ? 'text-slate-400' : isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`}>MIN</span>
+                                    </motion.div>
+                                    <span className={`text-3xl font-black ${isExpired ? 'text-slate-400' : isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`}>:</span>
+                                    <motion.div 
+                                        className={`px-4 py-3 rounded-xl ${isExpired ? 'bg-slate-800/60' : isUrgent ? 'bg-red-800/70' : isWarning ? 'bg-orange-800/60' : 'bg-amber-800/50'}`}
+                                        animate={isUrgent && !isExpired ? { scale: [1, 1.05, 1] } : {}}
+                                        transition={{ duration: 0.5, repeat: Infinity, delay: 0.25 }}
+                                    >
+                                        <span className={`text-3xl sm:text-4xl font-mono font-black ${isExpired ? 'text-slate-300' : isUrgent ? 'text-red-300' : isWarning ? 'text-orange-300' : 'text-amber-300'}`}>
                                             {String(countdown.seconds).padStart(2, '0')}
                                         </span>
-                                        <span className={`text-xs block ${isExpired ? 'text-slate-400' : isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`}>SEG</span>
-                                    </div>
+                                        <span className={`text-xs block font-bold ${isExpired ? 'text-slate-400' : isUrgent ? 'text-red-400' : isWarning ? 'text-orange-400' : 'text-amber-400'}`}>SEG</span>
+                                    </motion.div>
                                 </div>
-                            </div>
+                                {isUrgent && !isExpired && (
+                                    <p className="text-red-300 text-xs mt-3 font-semibold animate-pulse">
+                                        ⚠️ Corra! Poucos minutos restantes para garantir o desconto!
+                                    </p>
+                                )}
+                            </motion.div>
                         </div>
 
                         {/* CTA após Escassez */}
