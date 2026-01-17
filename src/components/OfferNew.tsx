@@ -21,12 +21,12 @@ const VIDEO_PLAYER_SCRIPT_URL = `https://scripts.converteai.net/c263b2f0-9566-42
 // Demo delay before showing offer content (in production, this should be triggered by video events)
 const OFFER_CONTENT_DELAY_MS = 5000;
 
-// Social proof and urgency constants - centralized for easy updates
+// Social proof and urgency constants - centralized for easy updates with "broken numbers"
 const SOCIAL_PROOF_CONFIG = {
-    diagnosticsCount: '4.300',
-    clientsUnblocked: '4.300',
+    diagnosticsCount: '4.327',
+    clientsUnblocked: '4.327',
     monthlyMapLimit: 100,
-    mapsGeneratedThisMonth: 87,
+    mapsGeneratedThisMonth: 89,
 } as const;
 
 const OfferNew = ({ userName }: OfferProps) => {
@@ -303,78 +303,83 @@ const OfferNew = ({ userName }: OfferProps) => {
                         </p>
                     </motion.div>
 
-                    {/* Video Player - Enhanced Visual Frame */}
-                    <div className="relative max-w-md mx-auto">
-                        {/* Outer Glow Effect */}
-                        <div className="absolute -inset-4 bg-gradient-to-r from-[#D4AF37]/30 via-purple-500/20 to-[#D4AF37]/30 blur-2xl rounded-3xl animate-pulse"></div>
+                    {/* Video Player - Enhanced Visual Frame - Optimized 9:16 for Mobile */}
+                    <div className="relative w-full max-w-[400px] mx-auto px-0 sm:px-4">
+                        {/* Outer Glow Effect - Gold glow */}
+                        <div className="absolute -inset-2 sm:-inset-4 bg-gradient-to-r from-[#D4AF37]/40 via-purple-500/25 to-[#D4AF37]/40 blur-2xl rounded-2xl sm:rounded-3xl animate-pulse"></div>
                         
                         {/* Video Container with Premium Frame */}
-                        <div className="relative rounded-2xl overflow-hidden border-4 border-[#D4AF37] shadow-[0_0_80px_rgba(212,175,55,0.4)]">
+                        <div className="relative rounded-xl sm:rounded-2xl overflow-hidden border-2 sm:border-4 border-[#D4AF37] shadow-[0_0_60px_rgba(212,175,55,0.5)]">
                             {/* Top Bar - Netflix Style */}
-                            <div className="bg-gradient-to-r from-[#1a0b2e] via-[#2d1b4e] to-[#1a0b2e] px-4 py-2 flex items-center justify-between border-b border-[#D4AF37]/30">
+                            <div className="bg-gradient-to-r from-[#1a0b2e] via-[#2d1b4e] to-[#1a0b2e] px-3 sm:px-4 py-2 flex items-center justify-between border-b border-[#D4AF37]/30">
                                 <div className="flex items-center gap-2">
-                                    <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse"></div>
-                                    <span className="text-[#FFD700] text-xs font-bold uppercase tracking-wider">AO VIVO • Exclusivo</span>
+                                    <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500 animate-pulse"></div>
+                                    <span className="text-[#FFD700] text-[10px] sm:text-xs font-bold uppercase tracking-wider">AO VIVO • Exclusivo</span>
                                 </div>
-                                <span className="text-slate-400 text-xs">+{SOCIAL_PROOF_CONFIG.diagnosticsCount} visualizações</span>
+                                <span className="text-slate-400 text-[10px] sm:text-xs">+{SOCIAL_PROOF_CONFIG.diagnosticsCount} visualizações</span>
                             </div>
                             
-                            {/* 🖼 6. Video Player with Thumbnail */}
-                            <div className="bg-black flex items-center justify-center relative">
-                                <div className="w-full" style={{ aspectRatio: '9/16', maxWidth: '400px' }}>
-                                    {!showVideoPlayer ? (
-                                        /* Thumbnail before loading player */
-                                        <div 
-                                            onClick={handleVideoThumbnailClick}
-                                            className="relative w-full h-full cursor-pointer group"
+                            {/* 🖼 Video Player with Thumbnail - Full width 9:16 */}
+                            <div className="bg-black w-full relative" style={{ aspectRatio: '9/16' }}>
+                                {!showVideoPlayer ? (
+                                    /* Thumbnail before loading player */
+                                    <div 
+                                        onClick={handleVideoThumbnailClick}
+                                        className="absolute inset-0 cursor-pointer group"
+                                    >
+                                        <img 
+                                            src="/mockup.webp" 
+                                            alt="Ver Diagnóstico Xamânico"
+                                            className="w-full h-full object-cover opacity-80"
+                                            onError={(e) => {
+                                                e.currentTarget.style.display = 'none';
+                                            }}
+                                        />
+                                        {/* Dark overlay */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/60" />
+                                        
+                                        {/* Play button */}
+                                        <motion.div 
+                                            className="absolute inset-0 flex items-center justify-center"
+                                            whileHover={{ scale: 1.05 }}
                                         >
-                                            <img 
-                                                src="/mockup.webp" 
-                                                alt="Ver Diagnóstico Xamânico"
-                                                className="w-full h-full object-cover opacity-80"
-                                                onError={(e) => {
-                                                    // Fallback to gradient background if image fails to load
-                                                    e.currentTarget.style.display = 'none';
+                                            <motion.div
+                                                animate={{ 
+                                                    scale: [1, 1.1, 1],
+                                                    boxShadow: [
+                                                        '0 0 20px rgba(212,175,55,0.4)',
+                                                        '0 0 40px rgba(212,175,55,0.7)',
+                                                        '0 0 20px rgba(212,175,55,0.4)'
+                                                    ]
                                                 }}
-                                            />
-                                            {/* Dark overlay */}
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/60" />
-                                            
-                                            {/* Play button */}
-                                            <motion.div 
-                                                className="absolute inset-0 flex items-center justify-center"
-                                                whileHover={{ scale: 1.05 }}
+                                                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                                                className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#FFD700] flex items-center justify-center shadow-[0_0_40px_rgba(212,175,55,0.6)] group-hover:shadow-[0_0_60px_rgba(212,175,55,0.8)] transition-all"
                                             >
-                                                <motion.div
-                                                    animate={{ 
-                                                        scale: [1, 1.1, 1],
-                                                        boxShadow: [
-                                                            '0 0 20px rgba(212,175,55,0.4)',
-                                                            '0 0 40px rgba(212,175,55,0.7)',
-                                                            '0 0 20px rgba(212,175,55,0.4)'
-                                                        ]
-                                                    }}
-                                                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                                                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#FFD700] flex items-center justify-center shadow-[0_0_40px_rgba(212,175,55,0.6)] group-hover:shadow-[0_0_60px_rgba(212,175,55,0.8)] transition-all"
-                                                >
-                                                    <Play className="w-10 h-10 sm:w-12 sm:h-12 text-black fill-black ml-1" />
-                                                </motion.div>
+                                                <Play className="w-8 h-8 sm:w-12 sm:h-12 text-black fill-black ml-1" />
                                             </motion.div>
-                                            
-                                            {/* Text below play button */}
-                                            <div className="absolute bottom-8 left-0 right-0 text-center">
-                                                <p className="text-[#FFD700] font-bold text-sm sm:text-base mb-1">▶ Ver Diagnóstico</p>
-                                                <p className="text-slate-300 text-xs">Clique para assistir</p>
-                                            </div>
+                                        </motion.div>
+                                        
+                                        {/* Text below play button */}
+                                        <div className="absolute bottom-6 sm:bottom-8 left-0 right-0 text-center">
+                                            <p className="text-[#FFD700] font-bold text-sm sm:text-base mb-1">▶ Ver Diagnóstico</p>
+                                            <p className="text-slate-300 text-xs">Clique para assistir</p>
                                         </div>
-                                    ) : (
-                                        /* Actual video player */
-                                        <vturb-smartplayer 
-                                            id={`vid-${VIDEO_PLAYER_ID}`}
-                                            style={{ display: 'block', width: '100%', maxWidth: '400px', margin: '0 auto' }}
-                                        ></vturb-smartplayer>
-                                    )}
-                                </div>
+                                    </div>
+                                ) : (
+                                    /* Actual video player */
+                                    <vturb-smartplayer 
+                                        id={`vid-${VIDEO_PLAYER_ID}`}
+                                        style={{ 
+                                            display: 'block', 
+                                            width: '100%', 
+                                            height: '100%',
+                                            objectFit: 'cover',
+                                            position: 'absolute',
+                                            top: 0,
+                                            left: 0,
+                                        }}
+                                    ></vturb-smartplayer>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -548,22 +553,22 @@ const OfferNew = ({ userName }: OfferProps) => {
                                     O que é o Mapa Xamânico?
                                 </h2>
 
-                                {/* Mockup Image - Enhanced and Centered - Represents Complete Plan */}
+                                {/* Mockup Image - Larger with Enhanced Glow (40-50% bigger) */}
                                 <div className="mb-10 flex justify-center px-4">
                                     <div className="relative">
-                                        {/* Glow effect behind mockup */}
-                                        <div className="absolute -inset-6 bg-gradient-to-br from-[#D4AF37]/30 via-purple-500/20 to-[#FFD700]/20 blur-3xl rounded-full animate-pulse" />
+                                        {/* Stronger glow effect behind mockup */}
+                                        <div className="absolute -inset-8 bg-gradient-to-br from-[#D4AF37]/40 via-purple-500/30 to-[#FFD700]/30 blur-3xl rounded-full animate-pulse" />
                                         
-                                        <div className="relative p-6 bg-gradient-to-br from-purple-900/60 to-[#1a0b2e]/90 rounded-3xl border-2 border-[#D4AF37]/40 shadow-[0_0_60px_rgba(212,175,55,0.3)]">
+                                        <div className="relative p-6 sm:p-8 bg-gradient-to-br from-purple-900/60 to-[#1a0b2e]/90 rounded-3xl border-2 border-[#D4AF37]/50 shadow-[0_0_80px_rgba(212,175,55,0.4)]">
                                             <img 
                                                 src="/mockup.webp" 
                                                 alt="Mapa Xamânico - O Desbloqueio Completo" 
-                                                className="w-48 sm:w-56 md:w-64 mx-auto rounded-2xl shadow-[0_0_40px_rgba(212,175,55,0.4)] border-2 border-[#D4AF37]/60"
+                                                className="w-64 sm:w-72 md:w-80 mx-auto rounded-2xl shadow-[0_0_50px_rgba(212,175,55,0.5)] border-2 border-[#D4AF37]/70"
                                                 loading="lazy"
                                             />
-                                            {/* Label for mockup */}
-                                            <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black text-xs font-bold px-4 py-1.5 rounded-full shadow-lg">
-                                                O Desbloqueio Completo • R$29
+                                            {/* Label for mockup - enhanced */}
+                                            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black text-sm font-bold px-5 py-2 rounded-full shadow-[0_0_20px_rgba(212,175,55,0.6)]">
+                                                ✨ O Desbloqueio Completo • R$27,90
                                             </div>
                                         </div>
                                     </div>
