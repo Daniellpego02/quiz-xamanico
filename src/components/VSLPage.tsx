@@ -111,51 +111,39 @@ const VTURB_ALLOWED_ORIGINS = [
     'https://player.converteai.net',
 ];
 
-// Video testimonials configuration (VTurb) - ORDEM ESPECIFICADA - Sem avatares (para credibilidade)
+// Video testimonials configuration (VTurb) - ORDEM ESPECIFICADA - Apenas dados necessários
 const VIDEO_TESTIMONIALS = [
     {
         id: '6966f78072fa6d1f6fe3580b',
         scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f78072fa6d1f6fe3580b/v4/player.js',
-        quote: '"Depois de 3 dias fazendo o protocolo, recebi uma proposta inesperada de R$ 8 mil"',
-        author: 'Neide, 63 anos',
-        location: 'São Paulo, SP',
-        avatar: ''
+        quote: '"Depois de 3 dias fazendo o protocolo, recebi uma proposta inesperada de R$ 8 mil"'
     },
     {
         id: '6966f8a76af1a10bf01e6dc4',
         scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f8a76af1a10bf01e6dc4/v4/player.js',
-        quote: '"Minha mãe parou de me cobrar dinheiro do nada. Coincidência? Acho que não."',
-        author: 'Roberto Oliveira, 37 anos',
-        location: 'Curitiba, PR',
-        avatar: ''
+        quote: '"Minha mãe parou de me cobrar dinheiro do nada. Coincidência? Acho que não."'
     },
     {
         id: '6966f6bc1fad4f3937c2eac9',
         scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f6bc1fad4f3937c2eac9/v4/player.js',
-        quote: '"Consegui sair das dívidas em 10 dias. Inacreditável."',
-        author: 'Paula, 38 anos',
-        location: 'Rio de Janeiro, RJ',
-        avatar: ''
+        quote: '"Consegui sair das dívidas em 10 dias. Inacreditável."'
     },
     {
         id: '6966f6b835a1be1be44c9daf',
         scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f6b835a1be1be44c9daf/v4/player.js',
-        quote: '"Minha vida financeira mudou em menos de uma semana"',
-        author: 'Juliana, 33 anos',
-        location: 'Belo Horizonte, MG',
-        avatar: ''
+        quote: '"Minha vida financeira mudou em menos de uma semana"'
     }
 ];
 
-// Image testimonials configuration - Sem avatares (para credibilidade)
+// Image testimonials configuration - Apenas src necessário
 const IMAGE_TESTIMONIALS = [
-    { src: '/prova1.webp', author: 'Patricia Santos, 34 anos', day: '4º dia do protocolo', avatar: '' },
-    { src: '/prova2.webp', author: 'Carlos Mendes, 29 anos', day: '6º dia', avatar: '' },
-    { src: '/prova3.webp', author: 'Fernanda, 37 anos', day: '5º dia', avatar: '' },
-    { src: '/prova4.webp', author: 'João, 44 anos', day: '8º dia', avatar: '' },
-    { src: '/prova5.webp', author: 'Ana, 31 anos', day: '7º dia', avatar: '' },
-    { src: '/prova6.webp', author: 'Carlos, 42 anos', day: '9º dia', avatar: '' },
-    { src: '/prova7.webp', author: 'Beatriz, 36 anos', day: '5º dia', avatar: '' }
+    { src: '/prova1.webp' },
+    { src: '/prova2.webp' },
+    { src: '/prova3.webp' },
+    { src: '/prova4.webp' },
+    { src: '/prova5.webp' },
+    { src: '/prova6.webp' },
+    { src: '/prova7.webp' }
 ];
 
 // Value Stack items with individual prices for anchoring
