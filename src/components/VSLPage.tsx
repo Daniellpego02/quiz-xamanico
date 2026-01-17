@@ -111,51 +111,39 @@ const VTURB_ALLOWED_ORIGINS = [
     'https://player.converteai.net',
 ];
 
-// Video testimonials configuration (VTurb) - ORDEM ESPECIFICADA - Com avatares
+// Video testimonials configuration (VTurb) - ORDEM ESPECIFICADA - Apenas dados necessários
 const VIDEO_TESTIMONIALS = [
     {
         id: '6966f78072fa6d1f6fe3580b',
         scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f78072fa6d1f6fe3580b/v4/player.js',
-        quote: '"Depois de 3 dias fazendo o protocolo, recebi uma proposta inesperada de R$ 8 mil"',
-        author: 'Mariana, 41 anos',
-        location: 'São Paulo, SP',
-        avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces'
+        quote: '"Depois de 3 dias fazendo o protocolo, recebi uma proposta inesperada de R$ 8 mil"'
     },
     {
         id: '6966f8a76af1a10bf01e6dc4',
         scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f8a76af1a10bf01e6dc4/v4/player.js',
-        quote: '"Minha mãe parou de me cobrar dinheiro do nada. Coincidência? Acho que não."',
-        author: 'Rafael, 28 anos',
-        location: 'Curitiba, PR',
-        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=faces'
+        quote: '"Minha mãe parou de me cobrar dinheiro do nada. Coincidência? Acho que não."'
     },
     {
         id: '6966f6bc1fad4f3937c2eac9',
         scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f6bc1fad4f3937c2eac9/v4/player.js',
-        quote: '"Consegui sair das dívidas em 10 dias. Inacreditável."',
-        author: 'Paula, 38 anos',
-        location: 'Rio de Janeiro, RJ',
-        avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=faces'
+        quote: '"Consegui sair das dívidas em 10 dias. Inacreditável."'
     },
     {
         id: '6966f6b835a1be1be44c9daf',
         scriptUrl: 'https://scripts.converteai.net/c263b2f0-9566-42be-97d8-7f5920037741/players/6966f6b835a1be1be44c9daf/v4/player.js',
-        quote: '"Minha vida financeira mudou em menos de uma semana"',
-        author: 'Juliana, 33 anos',
-        location: 'Belo Horizonte, MG',
-        avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=faces'
+        quote: '"Minha vida financeira mudou em menos de uma semana"'
     }
 ];
 
-// Image testimonials configuration - Com avatares
+// Image testimonials configuration - Apenas src necessário
 const IMAGE_TESTIMONIALS = [
-    { src: '/prova1.webp', author: 'Camila, 34 anos', day: '4º dia do protocolo', avatar: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=100&h=100&fit=crop&crop=faces' },
-    { src: '/prova2.webp', author: 'Lucas, 29 anos', day: '6º dia', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=faces' },
-    { src: '/prova3.webp', author: 'Fernanda, 37 anos', day: '5º dia', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=faces' },
-    { src: '/prova4.webp', author: 'João, 44 anos', day: '8º dia', avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=faces' },
-    { src: '/prova5.webp', author: 'Ana, 31 anos', day: '7º dia', avatar: 'https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=100&h=100&fit=crop&crop=faces' },
-    { src: '/prova6.webp', author: 'Carlos, 42 anos', day: '9º dia', avatar: 'https://images.unsplash.com/photo-1463453091185-61582044d556?w=100&h=100&fit=crop&crop=faces' },
-    { src: '/prova7.webp', author: 'Beatriz, 36 anos', day: '5º dia', avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&h=100&fit=crop&crop=faces' }
+    { src: '/prova1.webp' },
+    { src: '/prova2.webp' },
+    { src: '/prova3.webp' },
+    { src: '/prova4.webp' },
+    { src: '/prova5.webp' },
+    { src: '/prova6.webp' },
+    { src: '/prova7.webp' }
 ];
 
 // Value Stack items with individual prices for anchoring
@@ -1064,19 +1052,9 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                             <div className="space-y-8">
                                 {/* PROVA #1 - Video Testimonial 1 - FORMATO 9:16 VERTICAL */}
                                 <div className="bg-gradient-to-br from-[#1a0b2e]/70 to-[#2d1b4e]/50 border-2 border-[#D4AF37]/40 rounded-3xl p-5 overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.15)]">
-                                    {/* Header com foto real e localização */}
-                                    <div className="flex items-center gap-3 mb-4">
-                                        <img 
-                                            src={VIDEO_TESTIMONIALS[0].avatar} 
-                                            alt={VIDEO_TESTIMONIALS[0].author}
-                                            className="w-12 h-12 rounded-full object-cover border-2 border-[#D4AF37]/60 shadow-lg"
-                                        />
-                                        <div className="flex-1">
-                                            <p className="text-white text-sm font-bold">{VIDEO_TESTIMONIALS[0].author}</p>
-                                            <p className="text-slate-400 text-xs flex items-center gap-1">
-                                                <span>📍</span> {VIDEO_TESTIMONIALS[0].location}
-                                            </p>
-                                        </div>
+                                    {/* Header badge simples */}
+                                    <div className="flex items-center justify-between mb-4">
+                                        <span className="text-[#FFD700] text-xs font-semibold">📹 Depoimento em vídeo</span>
                                         <span className="text-emerald-400 text-xs bg-emerald-500/20 px-3 py-1.5 rounded-full font-semibold border border-emerald-500/30">✓ Verificado</span>
                                     </div>
                                     {/* Video container - 9:16 vertical format with loading skeleton */}
@@ -1103,17 +1081,9 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
 
                                 {/* PROVA #2 - Image Testimonial 1 - WhatsApp Screenshot with proper mobile sizing */}
                                 <div className="bg-gradient-to-br from-[#0b141a] to-[#0d1a1f] border-2 border-emerald-500/40 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.1)]">
-                                    {/* WhatsApp-style header with real photo */}
-                                    <div className="flex items-center gap-3 bg-gradient-to-r from-[#075e54] to-[#128c7e] px-4 py-3">
-                                        <img 
-                                            src={IMAGE_TESTIMONIALS[0].avatar} 
-                                            alt={IMAGE_TESTIMONIALS[0].author}
-                                            className="w-10 h-10 rounded-full object-cover border-2 border-white/30"
-                                        />
-                                        <div className="flex-1">
-                                            <p className="text-white text-sm font-bold">{IMAGE_TESTIMONIALS[0].author}</p>
-                                            <p className="text-emerald-200/70 text-xs">{IMAGE_TESTIMONIALS[0].day}</p>
-                                        </div>
+                                    {/* Header badge simples */}
+                                    <div className="flex items-center justify-between bg-gradient-to-r from-[#075e54] to-[#128c7e] px-4 py-3">
+                                        <span className="text-white text-xs font-semibold">💬 Print do WhatsApp</span>
                                         <span className="text-emerald-300 text-xs bg-emerald-500/30 px-2 py-1 rounded-full">✓ Verificado</span>
                                     </div>
                                     {/* Image container - full width with padding */}
@@ -1129,19 +1099,9 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
 
                                 {/* PROVA #3 - Video Testimonial 2 - FORMATO 9:16 VERTICAL */}
                                 <div className="bg-gradient-to-br from-[#1a0b2e]/70 to-[#2d1b4e]/50 border-2 border-[#D4AF37]/40 rounded-3xl p-5 overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.15)]">
-                                    {/* Header com foto real */}
-                                    <div className="flex items-center gap-3 mb-4">
-                                        <img 
-                                            src={VIDEO_TESTIMONIALS[1].avatar} 
-                                            alt={VIDEO_TESTIMONIALS[1].author}
-                                            className="w-12 h-12 rounded-full object-cover border-2 border-[#D4AF37]/60 shadow-lg"
-                                        />
-                                        <div className="flex-1">
-                                            <p className="text-white text-sm font-bold">{VIDEO_TESTIMONIALS[1].author}</p>
-                                            <p className="text-slate-400 text-xs flex items-center gap-1">
-                                                <span>📍</span> {VIDEO_TESTIMONIALS[1].location}
-                                            </p>
-                                        </div>
+                                    {/* Header badge simples */}
+                                    <div className="flex items-center justify-between mb-4">
+                                        <span className="text-[#FFD700] text-xs font-semibold">📹 Depoimento em vídeo</span>
                                         <span className="text-emerald-400 text-xs bg-emerald-500/20 px-3 py-1.5 rounded-full font-semibold border border-emerald-500/30">✓ Verificado</span>
                                     </div>
                                     {/* Video container - 9:16 vertical format with loading skeleton */}
@@ -1166,16 +1126,8 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
 
                                 {/* PROVA #4 - Image Testimonial 2 - WhatsApp Screenshot */}
                                 <div className="bg-gradient-to-br from-[#0b141a] to-[#0d1a1f] border-2 border-emerald-500/40 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.1)]">
-                                    <div className="flex items-center gap-3 bg-gradient-to-r from-[#075e54] to-[#128c7e] px-4 py-3">
-                                        <img 
-                                            src={IMAGE_TESTIMONIALS[1].avatar} 
-                                            alt={IMAGE_TESTIMONIALS[1].author}
-                                            className="w-10 h-10 rounded-full object-cover border-2 border-white/30"
-                                        />
-                                        <div className="flex-1">
-                                            <p className="text-white text-sm font-bold">{IMAGE_TESTIMONIALS[1].author}</p>
-                                            <p className="text-emerald-200/70 text-xs">{IMAGE_TESTIMONIALS[1].day}</p>
-                                        </div>
+                                    <div className="flex items-center justify-between bg-gradient-to-r from-[#075e54] to-[#128c7e] px-4 py-3">
+                                        <span className="text-white text-xs font-semibold">💬 Print do WhatsApp</span>
                                         <span className="text-emerald-300 text-xs bg-emerald-500/30 px-2 py-1 rounded-full">✓ Verificado</span>
                                     </div>
                                     <div className="p-3 sm:p-4">
@@ -1190,16 +1142,8 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
 
                                 {/* PROVA #5 - Image Testimonial 3 - WhatsApp Screenshot */}
                                 <div className="bg-gradient-to-br from-[#0b141a] to-[#0d1a1f] border-2 border-emerald-500/40 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.1)]">
-                                    <div className="flex items-center gap-3 bg-gradient-to-r from-[#075e54] to-[#128c7e] px-4 py-3">
-                                        <img 
-                                            src={IMAGE_TESTIMONIALS[2].avatar} 
-                                            alt={IMAGE_TESTIMONIALS[2].author}
-                                            className="w-10 h-10 rounded-full object-cover border-2 border-white/30"
-                                        />
-                                        <div className="flex-1">
-                                            <p className="text-white text-sm font-bold">{IMAGE_TESTIMONIALS[2].author}</p>
-                                            <p className="text-emerald-200/70 text-xs">{IMAGE_TESTIMONIALS[2].day}</p>
-                                        </div>
+                                    <div className="flex items-center justify-between bg-gradient-to-r from-[#075e54] to-[#128c7e] px-4 py-3">
+                                        <span className="text-white text-xs font-semibold">💬 Print do WhatsApp</span>
                                         <span className="text-emerald-300 text-xs bg-emerald-500/30 px-2 py-1 rounded-full">✓ Verificado</span>
                                     </div>
                                     <div className="p-3 sm:p-4">
@@ -1238,18 +1182,8 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                                         >
                                             {/* PROVA #6 - Video Testimonial 3 - FORMATO 9:16 VERTICAL */}
                                             <div className="bg-gradient-to-br from-[#1a0b2e]/70 to-[#2d1b4e]/50 border-2 border-[#D4AF37]/40 rounded-3xl p-5 overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.15)]">
-                                                <div className="flex items-center gap-3 mb-4">
-                                                    <img 
-                                                        src={VIDEO_TESTIMONIALS[2].avatar} 
-                                                        alt={VIDEO_TESTIMONIALS[2].author}
-                                                        className="w-12 h-12 rounded-full object-cover border-2 border-[#D4AF37]/60 shadow-lg"
-                                                    />
-                                                    <div className="flex-1">
-                                                        <p className="text-white text-sm font-bold">{VIDEO_TESTIMONIALS[2].author}</p>
-                                                        <p className="text-slate-400 text-xs flex items-center gap-1">
-                                                            <span>📍</span> {VIDEO_TESTIMONIALS[2].location}
-                                                        </p>
-                                                    </div>
+                                                <div className="flex items-center justify-between mb-4">
+                                                    <span className="text-[#FFD700] text-xs font-semibold">📹 Depoimento em vídeo</span>
                                                     <span className="text-emerald-400 text-xs bg-emerald-500/20 px-3 py-1.5 rounded-full font-semibold border border-emerald-500/30">✓ Verificado</span>
                                                 </div>
                                                 <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800 max-w-[280px] mx-auto border border-white/10" style={{ aspectRatio: '9/16' }}>
@@ -1273,16 +1207,8 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
 
                                             {/* PROVA #7 - Image Testimonial 4 */}
                                             <div className="bg-gradient-to-br from-[#0b141a] to-[#0d1a1f] border-2 border-emerald-500/40 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.1)]">
-                                                <div className="flex items-center gap-3 bg-gradient-to-r from-[#075e54] to-[#128c7e] px-4 py-3">
-                                                    <img 
-                                                        src={IMAGE_TESTIMONIALS[3].avatar} 
-                                                        alt={IMAGE_TESTIMONIALS[3].author}
-                                                        className="w-10 h-10 rounded-full object-cover border-2 border-white/30"
-                                                    />
-                                                    <div className="flex-1">
-                                                        <p className="text-white text-sm font-bold">{IMAGE_TESTIMONIALS[3].author}</p>
-                                                        <p className="text-emerald-200/70 text-xs">{IMAGE_TESTIMONIALS[3].day}</p>
-                                                    </div>
+                                                <div className="flex items-center justify-between bg-gradient-to-r from-[#075e54] to-[#128c7e] px-4 py-3">
+                                                    <span className="text-white text-xs font-semibold">💬 Print do WhatsApp</span>
                                                     <span className="text-emerald-300 text-xs bg-emerald-500/30 px-2 py-1 rounded-full">✓ Verificado</span>
                                                 </div>
                                                 <div className="p-3 sm:p-4">
@@ -1297,18 +1223,8 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
 
                                             {/* PROVA #8 - Video Testimonial 4 - FORMATO 9:16 VERTICAL */}
                                             <div className="bg-gradient-to-br from-[#1a0b2e]/70 to-[#2d1b4e]/50 border-2 border-[#D4AF37]/40 rounded-3xl p-5 overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.15)]">
-                                                <div className="flex items-center gap-3 mb-4">
-                                                    <img 
-                                                        src={VIDEO_TESTIMONIALS[3].avatar} 
-                                                        alt={VIDEO_TESTIMONIALS[3].author}
-                                                        className="w-12 h-12 rounded-full object-cover border-2 border-[#D4AF37]/60 shadow-lg"
-                                                    />
-                                                    <div className="flex-1">
-                                                        <p className="text-white text-sm font-bold">{VIDEO_TESTIMONIALS[3].author}</p>
-                                                        <p className="text-slate-400 text-xs flex items-center gap-1">
-                                                            <span>📍</span> {VIDEO_TESTIMONIALS[3].location}
-                                                        </p>
-                                                    </div>
+                                                <div className="flex items-center justify-between mb-4">
+                                                    <span className="text-[#FFD700] text-xs font-semibold">📹 Depoimento em vídeo</span>
                                                     <span className="text-emerald-400 text-xs bg-emerald-500/20 px-3 py-1.5 rounded-full font-semibold border border-emerald-500/30">✓ Verificado</span>
                                                 </div>
                                                 <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800 max-w-[280px] mx-auto border border-white/10" style={{ aspectRatio: '9/16' }}>
@@ -1332,16 +1248,8 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
 
                                             {/* PROVA #9 - Image Testimonial 5 */}
                                             <div className="bg-gradient-to-br from-[#0b141a] to-[#0d1a1f] border-2 border-emerald-500/40 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.1)]">
-                                                <div className="flex items-center gap-3 bg-gradient-to-r from-[#075e54] to-[#128c7e] px-4 py-3">
-                                                    <img 
-                                                        src={IMAGE_TESTIMONIALS[4].avatar} 
-                                                        alt={IMAGE_TESTIMONIALS[4].author}
-                                                        className="w-10 h-10 rounded-full object-cover border-2 border-white/30"
-                                                    />
-                                                    <div className="flex-1">
-                                                        <p className="text-white text-sm font-bold">{IMAGE_TESTIMONIALS[4].author}</p>
-                                                        <p className="text-emerald-200/70 text-xs">{IMAGE_TESTIMONIALS[4].day}</p>
-                                                    </div>
+                                                <div className="flex items-center justify-between bg-gradient-to-r from-[#075e54] to-[#128c7e] px-4 py-3">
+                                                    <span className="text-white text-xs font-semibold">💬 Print do WhatsApp</span>
                                                     <span className="text-emerald-300 text-xs bg-emerald-500/30 px-2 py-1 rounded-full">✓ Verificado</span>
                                                 </div>
                                                 <div className="p-3 sm:p-4">
@@ -1356,16 +1264,8 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
 
                                             {/* PROVA #10 - Image Testimonial 6 */}
                                             <div className="bg-gradient-to-br from-[#0b141a] to-[#0d1a1f] border-2 border-emerald-500/40 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.1)]">
-                                                <div className="flex items-center gap-3 bg-gradient-to-r from-[#075e54] to-[#128c7e] px-4 py-3">
-                                                    <img 
-                                                        src={IMAGE_TESTIMONIALS[5].avatar} 
-                                                        alt={IMAGE_TESTIMONIALS[5].author}
-                                                        className="w-10 h-10 rounded-full object-cover border-2 border-white/30"
-                                                    />
-                                                    <div className="flex-1">
-                                                        <p className="text-white text-sm font-bold">{IMAGE_TESTIMONIALS[5].author}</p>
-                                                        <p className="text-emerald-200/70 text-xs">{IMAGE_TESTIMONIALS[5].day}</p>
-                                                    </div>
+                                                <div className="flex items-center justify-between bg-gradient-to-r from-[#075e54] to-[#128c7e] px-4 py-3">
+                                                    <span className="text-white text-xs font-semibold">💬 Print do WhatsApp</span>
                                                     <span className="text-emerald-300 text-xs bg-emerald-500/30 px-2 py-1 rounded-full">✓ Verificado</span>
                                                 </div>
                                                 <div className="p-3 sm:p-4">
