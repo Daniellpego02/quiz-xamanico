@@ -185,12 +185,12 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   };
 
   // Calculate progress for step indicator
-  // Progress should reflect completed steps, not current step
-  // When viewing a question, the step before it is "complete"
+  // Progress reflects how many steps are COMPLETE (not the current step being viewed)
+  // Steps: welcome(0) -> name input(1) -> q1(2) -> q2(3) -> q3(4) -> q4(5)
   const getCompletedSteps = () => {
-    if (currentIndex < 0) return 0;
-    if (currentIndex === 0) return 1; // Welcome screen completed
-    // Return currentIndex to show completed questions only, not including the current unanswered question
+    if (currentIndex < 0) return 0; // At welcome screen, nothing completed
+    if (currentIndex === 0) return 1; // At name input, welcome completed (20%)
+    // At question N (currentIndex 1-4), previous steps completed (name + questions 1 to N-1)
     return currentIndex;
   };
 

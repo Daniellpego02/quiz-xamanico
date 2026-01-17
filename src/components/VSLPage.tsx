@@ -489,8 +489,11 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                 try {
                     const player = document.getElementById(`vid-${VSL_VIDEO_PLAYER_ID}`);
                     // VTurb smartplayer is a custom web component - check if play method exists before calling
-                    if (player && 'play' in player && typeof (player as { play: () => void }).play === 'function') {
-                        (player as { play: () => void }).play();
+                    if (player && 'play' in player) {
+                        const playablePlayer = player as { play: () => void };
+                        if (typeof playablePlayer.play === 'function') {
+                            playablePlayer.play();
+                        }
                     }
                 } catch (e) {
                     // Autoplay may be blocked by browser policy - user will need to click play
@@ -611,9 +614,9 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
     return (
         <div className="min-h-screen relative overflow-hidden text-white bg-gradient-to-b from-[#0a0118] via-[#1a0b2e] to-[#0a0118]">
             
-            {/* Hide VTurb default blue buttons */}
+            {/* Hide VTurb default blue buttons - targets only VTurb-injected elements */}
             <style>{`
-                /* Hide any blue CTA buttons injected by VTurb player */
+                /* Hide blue CTA buttons injected inside VTurb player component */
                 vturb-smartplayer button[style*="background-color: rgb(0, 123, 255)"],
                 vturb-smartplayer button[style*="background: rgb(0, 123, 255)"],
                 vturb-smartplayer button[style*="background-color: #007bff"],
@@ -623,14 +626,11 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
                 vturb-smartplayer [class*="button-cta"],
                 vturb-smartplayer button.btn-primary,
                 vturb-smartplayer .btn-primary,
+                /* Hide VTurb CTA container elements */
                 .smartplayer-cta-container,
                 [id*="smartplayer"] button[style*="blue"],
                 [id*="smartplayer"] button[style*="#007"],
-                [id*="smartplayer"] button[style*="rgb(0, 123"],
-                [id*="vid-"] + button,
-                [id*="vid-"] ~ button,
-                vturb-smartplayer + button,
-                vturb-smartplayer ~ button:not([class*="bg-gradient"]) {
+                [id*="smartplayer"] button[style*="rgb(0, 123"] {
                     display: none !important;
                     visibility: hidden !important;
                     opacity: 0 !important;
