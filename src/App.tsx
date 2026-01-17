@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { AppStep, QuizPath } from './types';
@@ -7,14 +7,23 @@ import { Quiz } from './components/Quiz';
 import { Authority } from './components/Authority';
 import { SocialProof } from './components/SocialProof';
 import { AnalysisLoading } from './components/AnalysisLoading';
-import VSLPage from './components/VSLPage';
-import OfferNew from './components/OfferNew';
-import Obrigado from './Obrigado';
-import Oferta1 from './Oferta1';
-import Oferta2 from './Oferta2';
-import Upsell1 from './Upsell1';
-import Downsell1 from './Downsell1';
 import { AntiPlagiarismProtection } from './components/AntiPlagiarismProtection';
+
+// Lazy load heavy components for better initial load performance
+const VSLPage = lazy(() => import('./components/VSLPage'));
+const OfferNew = lazy(() => import('./components/OfferNew'));
+const Obrigado = lazy(() => import('./Obrigado'));
+const Oferta1 = lazy(() => import('./Oferta1'));
+const Oferta2 = lazy(() => import('./Oferta2'));
+const Upsell1 = lazy(() => import('./Upsell1'));
+const Downsell1 = lazy(() => import('./Downsell1'));
+
+// Simple loading spinner for lazy components
+const LoadingFallback = () => (
+  <div className="min-h-screen flex items-center justify-center bg-[#050505]">
+    <div className="w-8 h-8 border-2 border-[#D4AF37] border-t-transparent rounded-full animate-spin"></div>
+  </div>
+);
 
 function App() {
   const [currentStep, setCurrentStep] = useState<AppStep>(AppStep.HERO);
@@ -70,9 +79,17 @@ function App() {
       case AppStep.LOADING:
         return <AnalysisLoading onComplete={handleLoadingComplete} quizPath={quizPath} userName={userName} />;
       case AppStep.VSL:
-        return <VSLPage userName={userName} onCheckout={handleVSLCheckout} />;
+        return (
+          <Suspense fallback={<LoadingFallback />}>
+            <VSLPage userName={userName} onCheckout={handleVSLCheckout} />
+          </Suspense>
+        );
       case AppStep.OFFER:
-        return <OfferNew userName={userName} />;
+        return (
+          <Suspense fallback={<LoadingFallback />}>
+            <OfferNew userName={userName} />
+          </Suspense>
+        );
       default:
         return <Hero onStart={handleStartQuiz} />;
     }
@@ -97,11 +114,11 @@ function App() {
       
       <Routes>
         <Route path="/" element={<MainQuizFlow />} />
-        <Route path="/obrigado" element={<Obrigado />} />
-        <Route path="/oferta1" element={<Oferta1 userName={userName} />} />
-        <Route path="/oferta2" element={<Oferta2 userName={userName} />} />
-        <Route path="/up1" element={<Upsell1 userName={userName} />} />
-        <Route path="/down1" element={<Downsell1 userName={userName} />} />
+        <Route path="/obrigado" element={<Suspense fallback={<LoadingFallback />}><Obrigado /></Suspense>} />
+        <Route path="/oferta1" element={<Suspense fallback={<LoadingFallback />}><Oferta1 userName={userName} /></Suspense>} />
+        <Route path="/oferta2" element={<Suspense fallback={<LoadingFallback />}><Oferta2 userName={userName} /></Suspense>} />
+        <Route path="/up1" element={<Suspense fallback={<LoadingFallback />}><Upsell1 userName={userName} /></Suspense>} />
+        <Route path="/down1" element={<Suspense fallback={<LoadingFallback />}><Downsell1 userName={userName} /></Suspense>} />
       </Routes>
     </>
   );

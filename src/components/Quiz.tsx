@@ -101,9 +101,10 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     if (showTuningScreen) {
       const loadingStages = getLoadingStages();
       
+      // Reduced from 800ms to 400ms for faster loading experience
       const interval = setInterval(() => {
         setLoadingStage(prev => (prev + 1) % loadingStages.length);
-      }, 800);
+      }, 400);
       return () => clearInterval(interval);
     } else {
       setLoadingStage(0);
@@ -116,9 +117,10 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     if (transitionMessage && currentIndex > 0) {
       setEmotionalTransitionText(transitionMessage);
       setShowEmotionalTransition(true);
+      // Reduced from 2500ms to 1800ms for faster transitions
       const timer = setTimeout(() => {
         setShowEmotionalTransition(false);
-      }, 2500);
+      }, 1800);
       return () => clearTimeout(timer);
     }
   }, [currentIndex]);
@@ -141,12 +143,13 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     
     tracking.quiz.started(inputValue.trim());
 
+    // Reduced from 3500ms to 2000ms for faster flow
     setTimeout(() => {
         setShowTuningScreen(false);
         const mergedQuestions = [...activeQuestions, ...financeQuestions];
         setActiveQuestions(mergedQuestions);
         setCurrentIndex(prev => prev + 1);
-    }, 3500);
+    }, 2000);
   };
 
   const handleOptionClick = (option: QuestionOption) => {
@@ -172,6 +175,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       tracking.quiz.halfway();
     }
 
+    // Reduced from 250ms to 150ms for faster question transitions
     setTimeout(() => {
       const length = activeQuestions.length;
       if (currentIndex < length - 1) {
@@ -181,7 +185,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
         tracking.meta.completeRegistration({ content_name: 'Quiz Completo', path: QUIZ_PATH });
         onComplete(QUIZ_PATH, userName);
       }
-    }, 250);
+    }, 150);
   };
 
   // Calculate progress for step indicator
@@ -314,16 +318,17 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
         <AnimatePresence mode='wait'>
           <motion.p
             key={loadingStage}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
             className="text-slate-300 text-lg min-h-[3rem] flex items-center justify-center"
           >
             <strong className="text-[#D4AF37]">{loadingStages[loadingStage]}</strong>
           </motion.p>
         </AnimatePresence>
         <div className="w-64 h-1 bg-white/10 rounded-full mt-8 overflow-hidden mx-auto">
-            <motion.div className="h-full bg-[#D4AF37]" initial={{ width: "0%" }} animate={{ width: "100%" }} transition={{ duration: 3, ease: "easeInOut" }} />
+            <motion.div className="h-full bg-[#D4AF37]" initial={{ width: "0%" }} animate={{ width: "100%" }} transition={{ duration: 1.8, ease: "easeOut" }} />
         </div>
       </div>
     );

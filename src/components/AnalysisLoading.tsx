@@ -47,14 +47,15 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
         if (prev >= 100) {
           clearInterval(timer);
           setAnalysisComplete(true);
-          // Show continue button after a brief delay
-          setTimeout(() => setShowContinueButton(true), 800);
+          // Reduced from 800ms to 400ms for faster button reveal
+          setTimeout(() => setShowContinueButton(true), 400);
           return 100;
         }
-        const increment = Math.random() * 3 + 0.5;
+        // Increased increment for faster progress (was 0.5-3.5, now 1-5)
+        const increment = Math.random() * 4 + 1;
         return Math.min(prev + increment, 100);
       });
-    }, 100);
+    }, 80); // Reduced from 100ms to 80ms for faster progress
 
     return () => clearInterval(timer);
   }, []);
@@ -93,10 +94,10 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
         </motion.div>
       )}
 
-      {/* Spinning Loader */}
+      {/* Spinning Loader - Optimized for faster animation */}
       <motion.div
         animate={analysisComplete ? {} : { rotate: 360 }}
-        transition={{ duration: 4, repeat: analysisComplete ? 0 : Infinity, ease: "linear" }}
+        transition={{ duration: 2, repeat: analysisComplete ? 0 : Infinity, ease: "linear" }}
         className={`w-24 h-24 rounded-full border-4 border-white/5 ${quizPath === 'relationship' ? 'border-t-purple-500 shadow-[0_0_50px_rgba(168,85,247,0.4)]' : 'border-t-[#D4AF37] shadow-[0_0_50px_rgba(212,175,55,0.4)]'} relative`}
       >
         <div className={`absolute inset-0 ${quizPath === 'relationship' ? 'bg-purple-500/10' : 'bg-[#D4AF37]/10'} rounded-full blur-xl`}></div>
@@ -104,6 +105,7 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
+            transition={{ duration: 0.2 }}
             className="absolute inset-0 flex items-center justify-center"
           >
             <CheckCircle2 className="w-12 h-12 text-green-400" />
