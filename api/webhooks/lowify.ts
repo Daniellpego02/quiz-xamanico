@@ -140,17 +140,17 @@ export const config = {
 export default async function handler(request: Request) {
   // Only accept POST requests
   if (request.method !== 'POST') {
-    return new Response('OK', { status: 200 });
+    return new Response('Method not allowed', { status: 405 });
   }
 
   try {
     // Parse webhook payload
     const payload: LowifyWebhookPayload = await request.json();
 
-    console.log('[Lowify] Venda recebida:', {
-      pedido: payload.order_id,
+    console.log('[Lowify] Sale received:', {
+      order: payload.order_id,
       email: payload.customer_email,
-      valor: payload.total_amount,
+      amount: payload.total_amount,
     });
 
     // Validate required fields
