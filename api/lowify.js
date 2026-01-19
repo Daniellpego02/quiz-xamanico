@@ -1,4 +1,4 @@
-module.exports = async (req, res) => {
+export default async (req, res) => {
   console.log('[Lowify] Request received:', { method: req.method, url: req.url });
   console.log('[Lowify] Request body:', req.body);
   
