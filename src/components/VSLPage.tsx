@@ -315,14 +315,11 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
         }
     }, [showCTAButton]);
 
-    // Track VSL page view on mount
+    // Track VSL page view on mount - Use ViewContent instead of deprecated vsl_page_view
     useEffect(() => {
-        // Track page view
-        tracking.meta.trackEvent('vsl_page_view', {
-            content_name: 'VSL Protocol Page',
-            user_name: userName
-        });
-    }, [userName]);
+        // Track ViewContent when VSL loads (deduplicated in tracking.ts)
+        tracking.funnel.viewOffer('VSL Protocol Page');
+    }, []);
 
     // Initialize countdown timer with localStorage persistence
     useEffect(() => {
@@ -575,11 +572,7 @@ const VSLPage = ({ userName, onCheckout }: VSLPageProps) => {
     }, [handleVideoPlay, handleVideoPause, handleVideoTimeUpdate, showCTAButton]);
 
     const handleCheckoutClick = useCallback(() => {
-        // Track conversion event
-        tracking.meta.trackEvent('button_clicked', {
-            content_name: 'VSL CTA Button'
-        });
-        
+        // Track InitiateCheckout (deduplicated - only fires once per session)
         tracking.meta.initiateCheckout({
             content_name: 'Mapa Xamânico - Desbloqueio Completo',
             value: OFFER_PRICE,
