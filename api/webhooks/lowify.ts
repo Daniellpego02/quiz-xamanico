@@ -5,8 +5,7 @@ import { eventIdGenerator } from '../src/utils/eventIdGenerator';
 
 /**
  * Lowify Webhook Handler
- * Validates webhook signature (HMAC-SHA256) and processes Lowify events
- * Sends conversion data to Meta CAPI (Conversions API)
+ * Processes Lowify sale.paid events and sends to Meta CAPI
  */
 
 interface LowifyWebhookPayload {
@@ -26,22 +25,6 @@ interface LowifyWebhookPayload {
   };
 }
 
-function verifyLowifySignature(
-  payload: string,
-  signature: string,
-  secret: string
-): boolean {
-  const hash = crypto
-    .createHmac('sha256', secret)
-    .update(payload)
-    .digest('hex');
-  
-  return crypto.timingSafeEqual(
-    Buffer.from(hash),
-    Buffer.from(signature)
-  );
-}
-
 export default async function handler(
   req: VercelRequest,
   res: VercelResponse
@@ -52,27 +35,6 @@ export default async function handler(
   }
 
   try {
-    // Get signature from headers
-    const signature = req.headers['x-lowify-signature'] as string;
-    const rawBody = JSON.stringify(req.body);
-
-    // Validate signature
-    const webhookSecret = process.env.LOWIFY_WEBHOOK_SECRET;
-    if (!webhookSecret) {
-      console.error('LOWIFY_WEBHOOK_SECRET not configured');
-      return res.status(500).json({ error: 'Webhook secret not configured' });
-    }
-
-    if (!signature) {
-      console.error('Missing webhook signature header');
-      return res.status(401).json({ error: 'Missing signature' });
-    }
-
-    if (!verifyLowifySignature(rawBody, signature, webhookSecret)) {
-      console.error('Invalid webhook signature');
-      return res.status(401).json({ error: 'Invalid signature' });
-    }
-
     const payload: LowifyWebhookPayload = req.body;
 
     // Only process paid sales
