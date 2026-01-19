@@ -298,6 +298,31 @@ export function buildViewContentCustomData(params: {
   };
 }
 
+/**
+ * Build custom data for AddPaymentInfo event
+ * Used when user initiates payment (e.g., PIX generated)
+ * 
+ * @param params - AddPaymentInfo parameters
+ * @returns Custom data object for AddPaymentInfo event
+ */
+export function buildAddPaymentInfoCustomData(params: {
+  value?: number;
+  currency?: string;
+  contentIds?: string[];
+  contentName?: string;
+  contentType?: string;
+  orderId?: string;
+}): CAPICustomData {
+  return {
+    value: params.value,
+    currency: params.currency || 'BRL',
+    content_ids: params.contentIds,
+    content_name: params.contentName,
+    content_type: params.contentType || 'product',
+    order_id: params.orderId,
+  };
+}
+
 // ============================================================================
 // API FUNCTIONS (Server-Side Only)
 // ============================================================================
@@ -505,6 +530,7 @@ export const capi = {
   buildLeadCustomData,
   buildInitiateCheckoutCustomData,
   buildViewContentCustomData,
+  buildAddPaymentInfoCustomData,
   
   // API functions (server-side only)
   sendEvent: sendCAPIEvent,

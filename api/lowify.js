@@ -1,47 +1,75 @@
+/**
+ * Lowify Webhook Handler (Legacy Node.js API Route)
+ * 
+ * This is a fallback handler for Vercel's Node.js runtime.
+ * The main implementation is in /api/webhooks/lowify.ts (Edge Function).
+ * 
+ * Endpoint: POST /api/lowify
+ */
+
 export default async (req, res) => {
-  console.log('[Lowify] Request received:', { method: req.method, url: req.url });
-  console.log('[Lowify] Request body:', req.body);
+  console.log('[Lowify Legacy] Request received:', { method: req.method, url: req.url });
   
   if (req.method !== 'POST') {
-    console.log('[Lowify] Method not POST:', req.method);
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
     let payload = req.body;
     
-    // If body is a string, parse it
+    // If body is a string, try to parse as JSON
     if (typeof payload === 'string') {
-      payload = JSON.parse(payload);
+      try {
+        payload = JSON.parse(payload);
+      } catch {
+        // Try form-urlencoded
+        const params = new URLSearchParams(payload);
+        payload = Object.fromEntries(params.entries());
+      }
     }
     
-    if (!payload) {
-      console.log('[Lowify] Payload is empty');
-      return res.status(400).json({ error: 'Empty payload' });
+    if (!payload || Object.keys(payload).length === 0) {
+      console.log('[Lowify Legacy] Payload is empty');
+      return res.status(200).json({ success: true, message: 'Empty payload received' });
     }
     
-    console.log('[Lowify] Payload:', payload);
+    // Log sanitized payload info (not full PII)
+    const hasEmail = !!(payload.email || payload.customer_email || payload.buyer_email);
+    const hasPhone = !!(payload.phone || payload.customer_phone || payload.buyer_phone);
+    const orderId = payload.order_id || payload.orderId || payload.transaction_id || payload.id;
     
-    // Check if it's a sale.paid event
-    if (payload.event !== 'sale.paid') {
-      console.log('[Lowify] Ignoring event:', payload.event);
-      return res.status(200).json({ success: true, skipped: true, reason: `Event ${payload.event} not tracked` });
-    }
+    console.log('[Lowify Legacy] Payload info:', {
+      hasEmail,
+      hasPhone,
+      orderId,
+      keys: Object.keys(payload),
+    });
     
-    console.log('[Lowify] Processing sale.paid event');
-    const eventData = payload.data;
+    // Detect event type heuristically
+    const status = String(payload.status || payload.event || payload.type || '').toLowerCase();
+    const isPending = ['pending', 'waiting', 'pix_generated', 'aguardando', 'pendente', 'created'].some(p => status.includes(p));
+    const isApproved = ['approved', 'paid', 'completed', 'aprovada', 'pago', 'sale.paid'].some(p => status.includes(p));
     
-    // Return success without calling capi yet (to test basic webhook)
-    console.log('[Lowify] Sale processed:', eventData?.order_id);
+    let eventType = 'UNKNOWN';
+    if (isPending) eventType = 'PIX_GENERATED';
+    if (isApproved) eventType = 'APPROVED';
+    
+    console.log('[Lowify Legacy] Detected event type:', eventType);
+    
+    // For now, just acknowledge - main tracking happens in Edge function
     return res.status(200).json({ 
       success: true,
-      message: 'Sale event received and processed',
-      orderId: eventData?.order_id
+      message: 'Event received (legacy handler)',
+      eventType,
+      orderId,
+      note: 'Use /api/webhooks/lowify for full CAPI integration'
     });
     
   } catch (error) {
-    console.error('[Lowify] Webhook error:', error);
-    return res.status(500).json({ 
+    console.error('[Lowify Legacy] Webhook error:', error);
+    // Always return 200 to prevent retries
+    return res.status(200).json({ 
+      success: false,
       error: 'Internal server error',
       message: error.message
     });
