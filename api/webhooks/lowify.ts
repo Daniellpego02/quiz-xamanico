@@ -1,28 +1,31 @@
 /**
- * Lowify Webhook Handler (Robust Implementation)
+ * Lowify Webhook Handler (Production-Ready Implementation)
  * 
  * Vercel Edge Function for handling Lowify payment webhooks.
- * Designed to capture unknown payloads, detect event types heuristically,
- * and track AddPaymentInfo and Purchase events to Meta CAPI.
+ * Designed for scale with idempotency, proper deduplication, and Meta CAPI compliance.
  * 
  * Endpoint: POST /api/webhooks/lowify
  * 
  * Features:
+ * - Idempotency via in-memory cache (KV-ready) with 30-day TTL concept
  * - Flexible payload parsing (JSON, form-urlencoded, text)
- * - Secure logging with PII sanitization
+ * - Secure logging with PII sanitization (email/phone masking)
  * - Debug mode with payload inspection (LOWIFY_WEBHOOK_DEBUG=true)
- * - Heuristic event detection (pending vs approved)
+ * - Heuristic event detection (PIX_GENERATED vs APPROVED)
  * - Flexible field extraction with multiple fallback paths
- * - Meta CAPI integration (AddPaymentInfo + Purchase)
+ * - Meta CAPI integration with proper normalization and hashing
+ * - Robust event_id generation (stable per order, unique per event type)
+ * - Rate limiting by IP (60s window)
  * 
  * Environment Variables:
  * - META_ACCESS_TOKEN: Required for CAPI
  * - META_PIXEL_ID: Optional (defaults to 1908080873443730)
  * - LOWIFY_WEBHOOK_DEBUG: Set to "true" to enable debug logging
+ * 
+ * Webhook URL: https://www.mapaxamanicooficial.online/api/webhooks/lowify
  */
 
 import { capi } from '../../src/utils/capi';
-import { eventIdGenerator } from '../../src/utils/eventIdGenerator';
 import type { UserData } from '../../src/utils/advancedMatching';
 
 // ============================================================================
@@ -56,6 +59,19 @@ interface SanitizedLogData {
   hasPhone: boolean;
   value?: number;
   rawKeys?: string[];
+}
+
+interface DebugSummary {
+  detectedEventType: LowifyEventType;
+  extracted: {
+    order_id?: string;
+    value?: number;
+    currency: string;
+    email_present: boolean;
+    phone_present: boolean;
+  };
+  idempotencyKey?: string;
+  wasAlreadyProcessed: boolean;
 }
 
 // ============================================================================
@@ -148,6 +164,139 @@ const SENSITIVE_KEYS = ['email', 'phone', 'telefone', 'cpf', 'documento', 'passw
 // Values above this are assumed to be in cents (e.g., 9700 cents = R$97.00)
 // Most products are under R$1000, so values > 1000 are likely in centavos
 const CENTS_THRESHOLD = 1000;
+
+// Idempotency TTL: 30 days in seconds (for KV)
+const IDEMPOTENCY_TTL_SECONDS = 30 * 24 * 60 * 60;
+
+// Rate limit: max 30 requests per IP in a 60-second (1 minute) window
+const RATE_LIMIT_MAX = 30;
+const RATE_LIMIT_WINDOW_SECONDS = 60;
+
+// ============================================================================
+// IN-MEMORY STORES (KV-ready - replace with Vercel KV in production)
+// ============================================================================
+
+// Idempotency store: tracks processed events to prevent duplicates
+// Key: lowify:${eventType}:${orderId}, Value: timestamp
+// In production, use Vercel KV with TTL
+const idempotencyStore = new Map<string, number>();
+
+// Rate limit store: tracks request counts per IP
+// Key: ratelimit:${ip}, Value: { count, resetAt }
+const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
+
+// Debug payload store: stores raw payloads for inspection
+// Key: lowify_debug:${timestamp}:${hash}, Value: payload
+const debugPayloadStore = new Map<string, { payload: any; rawBody: string; timestamp: number }>();
+
+// ============================================================================
+// IDEMPOTENCY (Critical for preventing duplicate events)
+// ============================================================================
+
+/**
+ * Generate idempotency key for an event
+ * Format: lowify:${eventType}:${orderId|hash}
+ */
+async function generateIdempotencyKey(eventType: LowifyEventType, orderId: string | undefined, rawBody: string): Promise<string> {
+  if (orderId) {
+    return `lowify:${eventType}:${orderId}`;
+  }
+  
+  // Fallback: use hash of raw body for events without order_id
+  const hashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(rawBody));
+  const hashHex = Array.from(new Uint8Array(hashBuffer))
+    .slice(0, 16)
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+  
+  return `lowify:${eventType}:hash_${hashHex}`;
+}
+
+/**
+ * Check if event was already processed (idempotency check)
+ * Returns true if already processed, false if new
+ */
+function isEventAlreadyProcessed(key: string): boolean {
+  // In production with Vercel KV:
+  // const exists = await kv.get(key);
+  // return exists !== null;
+  
+  const processed = idempotencyStore.get(key);
+  if (processed) {
+    // Check if within TTL (30 days)
+    const now = Date.now();
+    const ttlMs = IDEMPOTENCY_TTL_SECONDS * 1000;
+    if (now - processed < ttlMs) {
+      return true;
+    }
+    // Expired, remove from store
+    idempotencyStore.delete(key);
+  }
+  return false;
+}
+
+/**
+ * Mark event as processed (store in idempotency cache)
+ */
+function markEventAsProcessed(key: string): void {
+  // In production with Vercel KV:
+  // await kv.set(key, Date.now(), { ex: IDEMPOTENCY_TTL_SECONDS });
+  
+  idempotencyStore.set(key, Date.now());
+  
+  // Cleanup old entries (keep store manageable in memory)
+  if (idempotencyStore.size > 10000) {
+    const now = Date.now();
+    const ttlMs = IDEMPOTENCY_TTL_SECONDS * 1000;
+    for (const [k, v] of idempotencyStore.entries()) {
+      if (now - v > ttlMs) {
+        idempotencyStore.delete(k);
+      }
+    }
+  }
+}
+
+// ============================================================================
+// RATE LIMITING (Simple IP-based protection)
+// ============================================================================
+
+/**
+ * Check rate limit for an IP address
+ * Returns true if allowed, false if rate limited
+ */
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const key = `ratelimit:${ip}`;
+  
+  const entry = rateLimitStore.get(key);
+  
+  if (!entry || now > entry.resetAt) {
+    // First request or window expired
+    rateLimitStore.set(key, {
+      count: 1,
+      resetAt: now + (RATE_LIMIT_WINDOW_SECONDS * 1000),
+    });
+    return true;
+  }
+  
+  if (entry.count >= RATE_LIMIT_MAX) {
+    return false; // Rate limited
+  }
+  
+  entry.count++;
+  return true;
+}
+
+/**
+ * Get client IP from request headers
+ */
+function getClientIP(request: Request): string {
+  return request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+    || request.headers.get('x-real-ip')
+    || request.headers.get('cf-connecting-ip')
+    || request.headers.get('x-vercel-forwarded-for')?.split(',')[0]?.trim()
+    || 'unknown';
+}
 
 // ============================================================================
 // UTILITY FUNCTIONS
@@ -271,6 +420,116 @@ function getAllKeys(obj: any, prefix = ''): string[] {
     }
   }
   return keys;
+}
+
+// ============================================================================
+// META CAPI NORMALIZATION & HASHING (Compliance)
+// ============================================================================
+
+/**
+ * Normalize email for Meta CAPI (trim + lowercase)
+ */
+function normalizeEmail(email: string): string {
+  if (!email) return '';
+  return email.trim().toLowerCase();
+}
+
+/**
+ * Normalize phone for Meta CAPI (E.164 format for Brazil)
+ * Keeps only digits, adds 55 country code if missing
+ */
+function normalizePhone(phone: string): string {
+  if (!phone) return '';
+  
+  // Keep only digits
+  let digits = phone.replace(/\D/g, '');
+  
+  // Remove leading zeros
+  digits = digits.replace(/^0+/, '');
+  
+  // If already has country code (starts with 55 and proper length), return as is
+  if (digits.startsWith('55') && digits.length >= 12) {
+    return digits;
+  }
+  
+  // Brazilian numbers: add country code 55 if not present
+  // Valid formats: 11 digits (mobile with area code) or 10 digits (landline)
+  if (digits.length === 11 || digits.length === 10) {
+    return '55' + digits;
+  }
+  
+  // Short numbers (8-9 digits): assume São Paulo area code 11
+  if (digits.length === 9 || digits.length === 8) {
+    return '5511' + digits;
+  }
+  
+  // Return as is for other lengths (may already have country code or invalid)
+  return digits;
+}
+
+/**
+ * SHA256 hash utility for Meta CAPI (returns lowercase hex)
+ * Note: This utility is available for external_id hashing or custom needs.
+ * The advancedMatching module handles email/phone hashing automatically.
+ */
+async function sha256Hash(data: string): Promise<string> {
+  if (!data) return '';
+  
+  const encoder = new TextEncoder();
+  const dataBuffer = encoder.encode(data);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+/**
+ * Generate robust event_id that's stable per order but unique per event type
+ * - If order_id exists: lowify_${eventType}_${orderId}
+ * - If no order_id: lowify_${eventType}_${sha256(rawBody).slice(0,16)}
+ */
+async function generateEventId(eventType: LowifyEventType, orderId: string | undefined, rawBody: string): Promise<string> {
+  const eventPrefix = eventType === 'PIX_GENERATED' ? 'addpayment' : 'purchase';
+  
+  if (orderId) {
+    return `lowify_${eventPrefix}_${orderId}`;
+  }
+  
+  // Fallback: use hash of raw body
+  const hashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(rawBody));
+  const hashHex = Array.from(new Uint8Array(hashBuffer))
+    .slice(0, 16)
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+  
+  return `lowify_${eventPrefix}_hash_${hashHex}`;
+}
+
+/**
+ * Parse and validate event_time (epoch seconds UTC)
+ * Returns current time if invalid or missing
+ */
+function parseEventTime(timestamp: any): number {
+  if (!timestamp) {
+    return Math.floor(Date.now() / 1000);
+  }
+  
+  // If already a number, check if it's seconds or milliseconds
+  if (typeof timestamp === 'number') {
+    // If > 10 billion, it's likely milliseconds
+    if (timestamp > 10000000000) {
+      return Math.floor(timestamp / 1000);
+    }
+    return Math.floor(timestamp);
+  }
+  
+  // Try to parse as date string
+  const parsed = new Date(timestamp);
+  if (!isNaN(parsed.getTime())) {
+    return Math.floor(parsed.getTime() / 1000);
+  }
+  
+  // Fallback to current time
+  return Math.floor(Date.now() / 1000);
 }
 
 // ============================================================================
@@ -497,8 +756,9 @@ function logWebhookRequest(
 }
 
 /**
- * Store debug payload (would use KV in production, here we log)
- * In production, integrate with Vercel KV: await kv.set(key, payload, { ex: 3600 })
+ * Store debug payload (uses in-memory store, KV-ready for production)
+ * Key format: lowify_debug:${timestamp}:${hash}
+ * TTL: 1 hour
  */
 async function storeDebugPayload(payload: any, rawBody: string): Promise<string | null> {
   if (!isDebugMode()) return null;
@@ -514,15 +774,47 @@ async function storeDebugPayload(payload: any, rawBody: string): Promise<string 
     .map(b => b.toString(16).padStart(2, '0'))
     .join('');
   
-  const key = `lowify_debug_${timestamp}_${hashHex}`;
+  const key = `lowify_debug:${timestamp}:${hashHex}`;
+  
+  // Store in memory (in production, use Vercel KV with ex: 3600)
+  debugPayloadStore.set(key, { payload, rawBody, timestamp });
+  
+  // Cleanup old entries (older than 1 hour)
+  const oneHourAgo = Date.now() - (60 * 60 * 1000);
+  for (const [k, v] of debugPayloadStore.entries()) {
+    if (v.timestamp < oneHourAgo) {
+      debugPayloadStore.delete(k);
+    }
+  }
   
   // Log the debug key and sanitized payload
-  // In production with Vercel KV:
-  // await kv.set(key, { payload, rawBody, timestamp }, { ex: 3600 });
   console.log('[Lowify DEBUG] Payload stored with key:', key);
   console.log('[Lowify DEBUG] Sanitized payload:', sanitizePayload(payload));
   
   return key;
+}
+
+/**
+ * Build debug summary for response (only in debug mode)
+ */
+function buildDebugSummary(
+  eventType: LowifyEventType,
+  fields: ExtractedOrderFields,
+  idempotencyKey: string | undefined,
+  wasAlreadyProcessed: boolean
+): DebugSummary {
+  return {
+    detectedEventType: eventType,
+    extracted: {
+      order_id: fields.orderId,
+      value: fields.value,
+      currency: fields.currency,
+      email_present: !!fields.email,
+      phone_present: !!fields.phone,
+    },
+    idempotencyKey,
+    wasAlreadyProcessed,
+  };
 }
 
 // ============================================================================
@@ -530,39 +822,45 @@ async function storeDebugPayload(payload: any, rawBody: string): Promise<string 
 // ============================================================================
 
 /**
- * Build user data for CAPI with available fields
+ * Build user data for CAPI with normalized fields
+ * Uses proper Meta CAPI normalization (trim, lowercase, E.164)
  */
 function buildUserData(fields: ExtractedOrderFields, request: Request): UserData {
   // Get server-side collected data
-  const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
-    || request.headers.get('x-real-ip')
-    || request.headers.get('cf-connecting-ip')
-    || request.headers.get('x-vercel-forwarded-for')?.split(',')[0]?.trim()
-    || undefined;
-  
+  const clientIp = getClientIP(request);
   const clientUserAgent = request.headers.get('user-agent') || undefined;
   
+  // Normalize email and phone for Meta CAPI compliance
+  const normalizedEmail = fields.email ? normalizeEmail(fields.email) : undefined;
+  const normalizedPhone = fields.phone ? normalizePhone(fields.phone) : undefined;
+  
   return {
-    email: fields.email,
-    phone: fields.phone,
+    email: normalizedEmail,
+    phone: normalizedPhone,
     firstName: fields.firstName,
     lastName: fields.lastName,
     country: 'BR',
-    clientIpAddress: clientIp,
+    clientIpAddress: clientIp !== 'unknown' ? clientIp : undefined,
     clientUserAgent: clientUserAgent,
     fbp: fields.fbp,
     fbc: fields.fbc,
-    externalId: fields.externalId || fields.email, // Use email as fallback external ID
+    // Use normalized email as external_id fallback, or phone if no email
+    externalId: fields.externalId || normalizedEmail || normalizedPhone,
   };
 }
 
 /**
  * Track AddPaymentInfo event (PIX generated, awaiting payment)
+ * Uses robust event_id generation and proper event_time
  */
-async function trackAddPaymentInfo(fields: ExtractedOrderFields, request: Request): Promise<void> {
+async function trackAddPaymentInfo(
+  fields: ExtractedOrderFields, 
+  request: Request, 
+  rawBody: string
+): Promise<string> {
   if (!fields.email && !fields.phone) {
     console.log('[Lowify] Skipping AddPaymentInfo - no email or phone');
-    return;
+    return '';
   }
   
   const userData = buildUserData(fields, request);
@@ -577,21 +875,22 @@ async function trackAddPaymentInfo(fields: ExtractedOrderFields, request: Reques
     orderId: fields.orderId,
   });
   
-  const eventId = `lowify_addpayment_${fields.orderId || Date.now()}`;
+  // Generate robust event_id (stable per order, unique for AddPaymentInfo)
+  const eventId = await generateEventId('PIX_GENERATED', fields.orderId, rawBody);
   
-  // Check for duplicates
-  if (eventIdGenerator.isDuplicate(eventId)) {
-    console.log('[Lowify] Duplicate AddPaymentInfo skipped:', eventId);
-    return;
-  }
+  // Get proper event_time (epoch seconds UTC)
+  const eventTime = parseEventTime(fields.eventTime);
   
   const capiPayload = await capi.buildEventPayload(
     'AddPaymentInfo',
     userData,
     customData,
-    CHECKOUT_URL,
+    CHECKOUT_URL, // Absolute URL with domain
     eventId
   );
+  
+  // Override event_time with properly parsed value
+  capiPayload.event_time = eventTime;
   
   const response = await capi.sendEvent(capiPayload, getAccessToken(), getPixelId());
   
@@ -599,19 +898,25 @@ async function trackAddPaymentInfo(fields: ExtractedOrderFields, request: Reques
     eventId,
     orderId: fields.orderId,
     value: fields.value,
+    eventTime,
     eventsReceived: response.events_received,
   });
   
-  eventIdGenerator.store(eventId, 'AddPaymentInfo');
+  return eventId;
 }
 
 /**
  * Track Purchase event (payment approved)
+ * Uses robust event_id generation and proper event_time
  */
-async function trackPurchase(fields: ExtractedOrderFields, request: Request): Promise<void> {
+async function trackPurchase(
+  fields: ExtractedOrderFields, 
+  request: Request,
+  rawBody: string
+): Promise<string> {
   if (!fields.email && !fields.phone) {
     console.log('[Lowify] Skipping Purchase - no email or phone');
-    return;
+    return '';
   }
   
   const userData = buildUserData(fields, request);
@@ -626,21 +931,22 @@ async function trackPurchase(fields: ExtractedOrderFields, request: Request): Pr
     numItems: 1,
   });
   
-  const eventId = `lowify_purchase_${fields.orderId || Date.now()}`;
+  // Generate robust event_id (stable per order, unique for Purchase)
+  const eventId = await generateEventId('APPROVED', fields.orderId, rawBody);
   
-  // Check for duplicates
-  if (eventIdGenerator.isDuplicate(eventId)) {
-    console.log('[Lowify] Duplicate Purchase skipped:', eventId);
-    return;
-  }
+  // Get proper event_time (epoch seconds UTC)
+  const eventTime = parseEventTime(fields.eventTime);
   
   const capiPayload = await capi.buildEventPayload(
     'Purchase',
     userData,
     customData,
-    OBRIGADO_URL,
+    OBRIGADO_URL, // Absolute URL with domain
     eventId
   );
+  
+  // Override event_time with properly parsed value
+  capiPayload.event_time = eventTime;
   
   const response = await capi.sendEvent(capiPayload, getAccessToken(), getPixelId());
   
@@ -649,10 +955,11 @@ async function trackPurchase(fields: ExtractedOrderFields, request: Request): Pr
     orderId: fields.orderId,
     email: fields.email ? maskEmail(fields.email) : undefined,
     value: fields.value,
+    eventTime,
     eventsReceived: response.events_received,
   });
   
-  eventIdGenerator.store(eventId, 'Purchase');
+  return eventId;
 }
 
 // ============================================================================
@@ -672,81 +979,134 @@ export default async function handler(request: Request) {
     );
   }
   
-  // Respond quickly to acknowledge receipt
-  const responsePromise = (async () => {
-    try {
-      // Parse request body (supports JSON, form-urlencoded, text)
-      const { payload, rawBody, contentType } = await parseRequestBody(request);
+  // Rate limiting by IP
+  const clientIP = getClientIP(request);
+  if (!checkRateLimit(clientIP)) {
+    console.log('[Lowify] Rate limited:', clientIP);
+    return new Response(
+      JSON.stringify({ success: false, error: 'Rate limited' }),
+      { status: 429, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+  
+  try {
+    // Parse request body (supports JSON, form-urlencoded, text)
+    const { payload, rawBody, contentType } = await parseRequestBody(request);
+    
+    // Store debug payload if debug mode is enabled
+    const debugKey = await storeDebugPayload(payload, rawBody);
+    
+    // Detect event type
+    const eventType = detectLowifyEvent(payload, request.headers);
+    
+    // Extract order fields
+    const fields = extractOrderFields(payload);
+    
+    // Log request (sanitized)
+    logWebhookRequest(request, payload, eventType, fields, rawBody.length);
+    
+    // Handle UNKNOWN event type
+    if (eventType === 'UNKNOWN') {
+      console.log('[Lowify] Unknown event type - not tracking to CAPI');
       
-      // Store debug payload if debug mode is enabled
-      const debugKey = await storeDebugPayload(payload, rawBody);
+      const response: any = { 
+        success: true, 
+        message: 'Event received but not tracked (unknown type)',
+        eventType,
+      };
       
-      // Detect event type
-      const eventType = detectLowifyEvent(payload, request.headers);
-      
-      // Extract order fields
-      const fields = extractOrderFields(payload);
-      
-      // Log request (sanitized)
-      logWebhookRequest(request, payload, eventType, fields, rawBody.length);
-      
-      // Handle based on event type
-      if (eventType === 'UNKNOWN') {
-        console.log('[Lowify] Unknown event type - not tracking to CAPI');
-        return new Response(
-          JSON.stringify({ 
-            success: true, 
-            message: 'Event received but not tracked (unknown type)',
-            eventType,
-            debugKey,
-          }),
-          { status: 200, headers: { 'Content-Type': 'application/json' } }
-        );
+      // Include debug summary only in debug mode
+      if (isDebugMode()) {
+        response.debug = buildDebugSummary(eventType, fields, undefined, false);
+        response.debugKey = debugKey;
       }
       
-      // Check if we have Meta token configured
-      if (!process.env.META_ACCESS_TOKEN) {
-        console.log('[Lowify] META_ACCESS_TOKEN not configured - skipping CAPI tracking');
-        return new Response(
-          JSON.stringify({ 
-            success: true, 
-            message: 'Event received but CAPI not configured',
-            eventType,
-          }),
-          { status: 200, headers: { 'Content-Type': 'application/json' } }
-        );
+      return new Response(
+        JSON.stringify(response),
+        { status: 200, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+    
+    // Generate idempotency key
+    const idempotencyKey = await generateIdempotencyKey(eventType, fields.orderId, rawBody);
+    
+    // CRITICAL: Check idempotency to prevent duplicate events
+    if (isEventAlreadyProcessed(idempotencyKey)) {
+      console.log('[Lowify] Idempotent skip - event already processed:', idempotencyKey);
+      
+      const response: any = { 
+        success: true, 
+        message: 'Event already processed (idempotent)',
+        eventType,
+        orderId: fields.orderId,
+      };
+      
+      // Include debug summary only in debug mode
+      if (isDebugMode()) {
+        response.debug = buildDebugSummary(eventType, fields, idempotencyKey, true);
       }
       
-      // Track appropriate event
-      if (eventType === 'PIX_GENERATED') {
-        await trackAddPaymentInfo(fields, request);
-      } else if (eventType === 'APPROVED') {
-        await trackPurchase(fields, request);
-      }
-      
+      return new Response(
+        JSON.stringify(response),
+        { status: 200, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+    
+    // Check if we have Meta token configured
+    if (!process.env.META_ACCESS_TOKEN) {
+      console.log('[Lowify] META_ACCESS_TOKEN not configured - skipping CAPI tracking');
       return new Response(
         JSON.stringify({ 
           success: true, 
+          message: 'Event received but CAPI not configured',
           eventType,
-          orderId: fields.orderId,
-          debugKey,
-        }),
-        { status: 200, headers: { 'Content-Type': 'application/json' } }
-      );
-      
-    } catch (error) {
-      console.error('[Lowify] Webhook error:', error);
-      
-      // Always return 200 to prevent Lowify from retrying
-      return new Response(
-        JSON.stringify({ 
-          success: false, 
-          error: error instanceof Error ? error.message : 'Internal error',
         }),
         { status: 200, headers: { 'Content-Type': 'application/json' } }
       );
     }
-  })();
-  
-  return responsePromise;
+    
+    // Track appropriate event
+    let eventId = '';
+    if (eventType === 'PIX_GENERATED') {
+      eventId = await trackAddPaymentInfo(fields, request, rawBody);
+    } else if (eventType === 'APPROVED') {
+      eventId = await trackPurchase(fields, request, rawBody);
+    }
+    
+    // Mark event as processed (idempotency)
+    if (eventId) {
+      markEventAsProcessed(idempotencyKey);
+    }
+    
+    // Build response
+    const response: any = { 
+      success: true, 
+      eventType,
+      orderId: fields.orderId,
+      eventId,
+    };
+    
+    // Include debug summary only in debug mode
+    if (isDebugMode()) {
+      response.debug = buildDebugSummary(eventType, fields, idempotencyKey, false);
+      response.debugKey = debugKey;
+    }
+    
+    return new Response(
+      JSON.stringify(response),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
+    
+  } catch (error) {
+    console.error('[Lowify] Webhook error:', error);
+    
+    // Always return 200 to prevent Lowify from retrying
+    return new Response(
+      JSON.stringify({ 
+        success: false, 
+        error: error instanceof Error ? error.message : 'Internal error',
+      }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
 }

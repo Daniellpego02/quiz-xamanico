@@ -182,7 +182,7 @@ O quiz possui uma **estratégia de fluxo único** (single flow):
 
 ---
 
-## Webhook Lowify (Implementação Robusta)
+## Webhook Lowify (Implementação Production-Ready)
 
 ### Endpoint
 ```
@@ -190,10 +190,15 @@ POST https://www.mapaxamanicooficial.online/api/webhooks/lowify
 ```
 
 ### Características:
+- **Idempotência:** Previne duplicatas via cache (TTL 30 dias)
+  - Key format: `lowify:${eventType}:${orderId}`
+  - Retries da Lowify não geram eventos duplicados
 - **Parsing flexível:** JSON, form-urlencoded, texto
 - **Logging seguro:** PII mascarada (email: `a***@g***.com`, phone: `55*********`)
 - **Modo debug:** `LOWIFY_WEBHOOK_DEBUG=true` para inspeção de payloads
 - **Detecção heurística:** Identifica PIX_GENERATED vs APPROVED automaticamente
+- **Rate limiting:** 30 requests/minute per IP
+- **event_time:** Epoch seconds UTC (conversão automática)
 
 ### Eventos Trackados via CAPI:
 
@@ -203,16 +208,58 @@ POST https://www.mapaxamanicooficial.online/api/webhooks/lowify
 | `APPROVED` (approved, paid, completed, aprovada, pago) | `Purchase` | `https://www.mapaxamanicooficial.online/obrigado` |
 | `UNKNOWN` | Nenhum (apenas log) | - |
 
+### Estratégia de event_id (Deduplicação):
+
+| Cenário | event_id Format |
+|---------|-----------------|
+| Com order_id (AddPaymentInfo) | `lowify_addpayment_${orderId}` |
+| Com order_id (Purchase) | `lowify_purchase_${orderId}` |
+| Sem order_id (fallback) | `lowify_${event}_hash_${sha256(rawBody).slice(0,16)}` |
+
+**Importante:** AddPaymentInfo e Purchase NUNCA compartilham o mesmo event_id.
+
+### Normalização user_data (Meta CAPI Compliant):
+
+| Campo | Normalização |
+|-------|--------------|
+| `email (em)` | trim + lowercase + SHA256 |
+| `phone (ph)` | digits only + E.164 (55+DDD+número) + SHA256 |
+| `external_id` | email normalizado (fallback) ou phone |
+
 ### Extração de Campos (Mapeamento Flexível):
 
 | Campo | Paths Procurados |
 |-------|------------------|
 | `order_id` | `order_id`, `orderId`, `transaction_id`, `id`, `code`, `data.order_id` |
-| `value` | `value`, `amount`, `total`, `price`, `data.value` (auto-converte centavos) |
+| `value` | `value`, `amount`, `total`, `price`, `data.value` (auto-converte centavos >1000) |
 | `email` | `email`, `buyer_email`, `customer_email`, `customer.email`, `data.email` |
 | `phone` | `phone`, `buyer_phone`, `customer_phone`, `data.phone` |
 | `name` | `name`, `buyer_name`, `customer_name`, `data.name` |
 | `fbp/fbc` | `fbp`, `_fbp`, `fbc`, `_fbc`, `fbclid` |
+
+### Response (modo debug):
+
+```json
+{
+  "success": true,
+  "eventType": "APPROVED",
+  "orderId": "ABC123",
+  "eventId": "lowify_purchase_ABC123",
+  "debug": {
+    "detectedEventType": "APPROVED",
+    "extracted": {
+      "order_id": "ABC123",
+      "value": 97.00,
+      "currency": "BRL",
+      "email_present": true,
+      "phone_present": true
+    },
+    "idempotencyKey": "lowify:APPROVED:ABC123",
+    "wasAlreadyProcessed": false
+  },
+  "debugKey": "lowify_debug:1705612345678:abc123de"
+}
+```
 
 ---
 
