@@ -1,5 +1,19 @@
 # Tracking Brief (Quiz + Meta Ads)
 
+## 🚀 FUNIL OFICIAL OTIMIZADO
+
+```
+PageView → Lead → QuizComplete → ViewContent → InitiateCheckout → AddPaymentInfo → Purchase
+```
+
+### Objetivo da Otimização
+- Reduzir ruído algorítmico
+- Aumentar qualidade de sinal para Meta
+- Melhorar aprendizado da máquina
+- Baixar CPA em escala
+
+---
+
 ## 1) Stack
 
 | Componente | Tecnologia |
@@ -38,7 +52,7 @@ Hero (/)
                 → Obrigado (/obrigado)
 ```
 
-## 3) Eventos Meta (atual)
+## 3) Eventos Meta (OTIMIZADO)
 
 | Item | Valor/Status |
 |------|--------------|
@@ -47,31 +61,53 @@ Hero (/)
 | **Onde o pixel é inicializado** | `index.html` (linha 49) e `public/obrigado.html` (linha 38-49) |
 | **Onde eventos disparam** | Utilitário centralizado: `src/utils/tracking.ts` |
 | **Deduplicação (event_id)?** | ✅ Sim - `src/utils/eventIdGenerator.ts` gera IDs únicos para client e server |
+| **Deduplicação por sessão?** | ✅ Sim - sessionStorage guards para InitiateCheckout, ViewContent, QuizHalfway |
 | **Advanced Matching?** | ✅ Sim - 12+ parâmetros via `src/utils/advancedMatching.ts` |
 
-### Eventos Trackados:
+### Eventos Trackados (Funil Limpo):
 
 #### Eventos Standard Meta Pixel:
-| Evento | Quando Dispara | Localização |
-|--------|----------------|-------------|
-| `PageView` | Carregamento de todas as páginas | `index.html`, `public/obrigado.html` |
-| `Lead` | Usuário clica para iniciar o quiz | `Hero.tsx` → `tracking.meta.lead()` |
-| `CompleteRegistration` | Quiz completo | `Quiz.tsx` → `tracking.meta.completeRegistration()` |
-| `ViewContent` | Visualização da oferta | `tracking.funnel.viewOffer()` |
-| `InitiateCheckout` | Click no botão de compra | `tracking.meta.initiateCheckout()` |
-| `Purchase` | Compra confirmada | Webhook BuckPay → `/api/webhooks/buckpay` → CAPI |
+| Evento | Quando Dispara | Deduplicação | Localização |
+|--------|----------------|--------------|-------------|
+| `PageView` | Carregamento de todas as páginas | Automática | `index.html`, `public/obrigado.html` |
+| `Lead` | Usuário clica para iniciar o quiz | Não | `Hero.tsx` → `tracking.meta.lead()` |
+| `CompleteRegistration` | Quiz completo | Não | `Quiz.tsx` → `tracking.meta.completeRegistration()` |
+| `ViewContent` | VSL ou oferta visível | ✅ 1x/sessão | `tracking.funnel.viewOffer()` |
+| `InitiateCheckout` | Click REAL no botão de checkout | ✅ 1x/sessão | `tracking.meta.initiateCheckout()` |
+| `AddPaymentInfo` | PIX gerado no checkout | Via CAPI/Webhook | Webhook Lowify → `/api/webhooks/lowify` |
+| `Purchase` | Compra confirmada | Via CAPI/Webhook | Webhook Lowify → `/api/webhooks/lowify` |
 
-#### Eventos Custom (trackCustom):
-| Evento | Quando Dispara | Dados Enviados |
-|--------|----------------|----------------|
-| `QuizStarted` | Usuário digita nome e inicia | `name_provided`, `user_name` |
-| `QuizAnswer` | Cada resposta do quiz | `question_step`, `answer_value`, `answer_label`, `quiz_path` |
-| `QuizProgress` | Após cada resposta | `percentage`, `step` |
-| `QuizHalfway` | 50% do quiz completo | - |
-| `QuizComplete` | Quiz finalizado | `content_name`, `path` |
-| `CTAClick` | Click em CTAs | `content_name` |
-| `ViewUpsell` | Visualização de upsell | `content_name` |
-| `ViewDownsell` | Visualização de downsell | `content_name` |
+#### Eventos Custom (trackCustom) - Ativos:
+| Evento | Quando Dispara | Deduplicação | Dados Enviados |
+|--------|----------------|--------------|----------------|
+| `QuizStarted` | Usuário digita nome e inicia | Não | `name_provided`, `user_name` |
+| `QuizHalfway` | 50% do quiz completo (opcional) | ✅ 1x/sessão | - |
+| `QuizComplete` | Quiz finalizado | Não | `content_name`, `path`, `quiz_score`, `quiz_segment`, `time_to_complete` |
+| `CTAClick` | Click em CTAs | Não | `content_name` |
+| `ViewUpsell` | Visualização de upsell | Não | `content_name` |
+| `ViewDownsell` | Visualização de downsell | Não | `content_name` |
+
+---
+
+## ⚠️ EVENTOS DEPRECATED (NÃO USAR)
+
+Os seguintes eventos foram **removidos/desativados** para reduzir ruído algorítmico:
+
+| Evento | Status | Motivo |
+|--------|--------|--------|
+| `QuizAnswer` | ❌ DEPRECATED | Redundante - agregado em QuizComplete |
+| `QuizProgress` | ❌ DEPRECATED | Redundante - agregado em QuizComplete |
+| `SubscribedButtonClick` | ❌ DEPRECATED | Tóxico - duplicação de InitiateCheckout |
+| `button_clicked` | ❌ DEPRECATED | Tóxico - duplicação de InitiateCheckout |
+| `vsl_page_view` | ❌ DEPRECATED | Redundante - substituído por ViewContent |
+
+### Regras de Deduplicação por Sessão:
+
+1. **InitiateCheckout**: Dispara APENAS 1x por sessão via `sessionStorage.ic_fired`
+2. **ViewContent**: Dispara APENAS 1x por sessão via `sessionStorage.vc_fired`
+3. **QuizHalfway**: Dispara APENAS 1x por sessão via `sessionStorage.qh_fired`
+
+---
 
 ### Configuração CAPI (Conversions API):
 

@@ -72,6 +72,22 @@ declare global {
 const STORAGE_KEY = 'advanced_tracking_state';
 const SESSION_DURATION_MS = 30 * 60 * 1000; // 30 minutes
 
+// Session storage keys for deduplication (same as tracking.ts)
+const SESSION_KEYS = {
+  INITIATE_CHECKOUT_FIRED: 'ic_fired',
+  VIEW_CONTENT_FIRED: 'vc_fired',
+  QUIZ_HALFWAY_FIRED: 'qh_fired',
+} as const;
+
+// Deprecated events that should NOT be tracked
+const DEPRECATED_EVENTS = [
+  'SubscribedButtonClick',
+  'button_clicked',
+  'vsl_page_view',
+  'QuizAnswer',
+  'QuizProgress',
+] as const;
+
 // Lead Score Configuration based on quiz answers
 // Higher scores = Higher intent/value leads
 const LEAD_SCORE_CONFIG: LeadScoreConfig = {
@@ -108,6 +124,33 @@ const VIDEO_MILESTONES: VideoMilestone[] = [
   { percentage: 75, eventName: 'VideoProgress75', triggered: false },
   { percentage: 95, eventName: 'VideoProgress95', triggered: false },
 ];
+
+// ============================================================================
+// SESSION DEDUPLICATION UTILITIES
+// ============================================================================
+
+/**
+ * Check if an event has already been fired in this session
+ */
+function hasEventFiredInSession(key: string): boolean {
+  if (typeof sessionStorage === 'undefined') return false;
+  return sessionStorage.getItem(key) === 'true';
+}
+
+/**
+ * Mark an event as fired in this session
+ */
+function markEventAsFiredInSession(key: string): void {
+  if (typeof sessionStorage === 'undefined') return;
+  sessionStorage.setItem(key, 'true');
+}
+
+/**
+ * Check if an event is deprecated and should be blocked
+ */
+function isDeprecatedEvent(eventName: string): boolean {
+  return DEPRECATED_EVENTS.includes(eventName as typeof DEPRECATED_EVENTS[number]);
+}
 
 // ============================================================================
 // UTILITY FUNCTIONS
@@ -380,12 +423,21 @@ export function initializeTrackingState(): TrackingState {
 
 /**
  * Track Meta Pixel event with deduplication
+ * Includes deprecated event blocking
  */
 export function trackMetaEvent(
   eventName: string,
   params: Record<string, unknown> = {},
   state: TrackingState
 ): string {
+  // Block deprecated events
+  if (isDeprecatedEvent(eventName)) {
+    if (import.meta.env?.DEV) {
+      console.warn('[AdvancedTracking] Blocked deprecated event:', eventName);
+    }
+    return '';
+  }
+
   const eventId = generateEventId();
   
   try {
@@ -417,12 +469,21 @@ export function trackMetaEvent(
 
 /**
  * Track Meta Pixel custom event with deduplication
+ * Includes deprecated event blocking
  */
 export function trackMetaCustomEvent(
   eventName: string,
   params: Record<string, unknown> = {},
   state: TrackingState
 ): string {
+  // Block deprecated events
+  if (isDeprecatedEvent(eventName)) {
+    if (import.meta.env?.DEV) {
+      console.warn('[AdvancedTracking] Blocked deprecated custom event:', eventName);
+    }
+    return '';
+  }
+
   const eventId = generateEventId();
   
   try {
@@ -494,6 +555,8 @@ export function setClarityTag(key: string, value: string): void {
 
 /**
  * Track quiz answer with lead scoring
+ * @deprecated - QuizAnswer event is deprecated. Only updates internal lead score.
+ * Answers are now aggregated in QuizComplete event instead.
  */
 export function trackQuizAnswerWithScore(
   data: {
@@ -507,7 +570,7 @@ export function trackQuizAnswerWithScore(
 ): void {
   const scoreContribution = getAnswerScore(data.answerValue);
   
-  // Create answer record
+  // Create answer record (for internal lead scoring)
   const answerData: QuizAnswerData = {
     questionId: data.questionId,
     questionTitle: data.questionTitle,
@@ -517,22 +580,14 @@ export function trackQuizAnswerWithScore(
     timestamp: Date.now(),
   };
   
-  // Update state
+  // Update state (internal lead scoring still works)
   state.quizAnswers.push(answerData);
   state.leadScore = calculateLeadScore(state.quizAnswers);
   
-  // Track the answer event
-  trackMetaCustomEvent('QuizAnswer', {
-    content_name: data.questionTitle,
-    question_id: data.questionId,
-    answer_value: data.answerValue,
-    answer_label: data.answerLabel,
-    quiz_path: data.quizPath,
-    score_contribution: scoreContribution,
-    running_score: state.leadScore,
-  }, state);
+  // DEPRECATED: QuizAnswer event is no longer sent to Meta
+  // trackMetaCustomEvent('QuizAnswer', ...) is blocked by deprecated event filter
   
-  // Track in GA4
+  // Track in GA4 only (internal analytics, not for Meta optimization)
   trackGtagEvent('quiz_answer', {
     question_title: data.questionTitle,
     question_id: data.questionId,
@@ -541,7 +596,7 @@ export function trackQuizAnswerWithScore(
     running_score: state.leadScore,
   });
   
-  // Update Clarity tags
+  // Update Clarity tags (internal analytics)
   setClarityTag('quiz_progress', `q${data.questionId}`);
   setClarityTag('lead_score', state.leadScore.toString());
   
@@ -740,14 +795,25 @@ export function trackPageView(pageName: string, state: TrackingState): void {
 
 /**
  * Track offer view
+ * DEDUPLICATED: Only fires once per session
  */
 export function trackOfferView(offerName: string, offerValue: number, state: TrackingState): string {
+  // Deduplicate: only fire once per session
+  if (hasEventFiredInSession(SESSION_KEYS.VIEW_CONTENT_FIRED)) {
+    if (import.meta.env?.DEV) {
+      console.log('[AdvancedTracking] ViewContent already fired this session, skipping');
+    }
+    return '';
+  }
+
   const eventId = trackMetaEvent('ViewContent', {
     content_name: offerName,
     value: offerValue,
     currency: 'BRL',
     content_type: 'product',
   }, state);
+  
+  markEventAsFiredInSession(SESSION_KEYS.VIEW_CONTENT_FIRED);
   
   trackGtagEvent('view_item', {
     items: [{
@@ -762,11 +828,20 @@ export function trackOfferView(offerName: string, offerValue: number, state: Tra
 
 /**
  * Track initiate checkout
+ * DEDUPLICATED: Only fires once per session
  */
 export function trackInitiateCheckout(
   params: { content_name: string; value: number },
   state: TrackingState
 ): string {
+  // Deduplicate: only fire once per session
+  if (hasEventFiredInSession(SESSION_KEYS.INITIATE_CHECKOUT_FIRED)) {
+    if (import.meta.env?.DEV) {
+      console.log('[AdvancedTracking] InitiateCheckout already fired this session, skipping');
+    }
+    return '';
+  }
+
   const eventId = trackMetaEvent('InitiateCheckout', {
     content_name: params.content_name,
     value: params.value,
@@ -774,6 +849,8 @@ export function trackInitiateCheckout(
     content_type: 'product',
     lead_score: state.leadScore,
   }, state);
+  
+  markEventAsFiredInSession(SESSION_KEYS.INITIATE_CHECKOUT_FIRED);
   
   trackGtagEvent('begin_checkout', {
     value: params.value,

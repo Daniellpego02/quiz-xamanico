@@ -3,6 +3,16 @@
  * 
  * This module provides a unified interface for all tracking operations
  * including Meta Pixel (Facebook), UTMFY, and UTM parameters.
+ * 
+ * OPTIMIZED FUNNEL (Clean Event Flow):
+ * PageView → Lead → QuizComplete → ViewContent → InitiateCheckout → AddPaymentInfo → Purchase
+ * 
+ * DEPRECATED EVENTS (DO NOT USE):
+ * - SubscribedButtonClick (redundant)
+ * - button_clicked (redundant)
+ * - vsl_page_view (replaced by ViewContent)
+ * - QuizAnswer (aggregated into QuizComplete)
+ * - QuizProgress (aggregated into QuizComplete)
  */
 
 /// <reference types="vite/client" />
@@ -40,6 +50,22 @@ declare global {
 // Note: Pixel IDs are configured directly in HTML files (index.html, public/obrigado.html)
 // This ensures they load before the application code and are available immediately
 
+// Session storage keys for deduplication
+const SESSION_KEYS = {
+  INITIATE_CHECKOUT_FIRED: 'ic_fired',
+  VIEW_CONTENT_FIRED: 'vc_fired',
+  QUIZ_HALFWAY_FIRED: 'qh_fired',
+} as const;
+
+// Deprecated events that should NOT be tracked
+const DEPRECATED_EVENTS = [
+  'SubscribedButtonClick',
+  'button_clicked',
+  'vsl_page_view',
+  'QuizAnswer',
+  'QuizProgress',
+] as const;
+
 // ============================================================================
 // UTILITY FUNCTIONS
 // ============================================================================
@@ -52,8 +78,31 @@ function isMetaPixelLoaded(): boolean {
 }
 
 /**
+ * Check if an event has already been fired in this session
+ */
+function hasEventFiredInSession(key: string): boolean {
+  if (typeof sessionStorage === 'undefined') return false;
+  return sessionStorage.getItem(key) === 'true';
+}
+
+/**
+ * Mark an event as fired in this session
+ */
+function markEventAsFiredInSession(key: string): void {
+  if (typeof sessionStorage === 'undefined') return;
+  sessionStorage.setItem(key, 'true');
+}
+
+/**
+ * Check if an event is deprecated and should be blocked
+ */
+function isDeprecatedEvent(eventName: string): boolean {
+  return DEPRECATED_EVENTS.includes(eventName as typeof DEPRECATED_EVENTS[number]);
+}
+
+/**
  * Safe wrapper for Meta Pixel tracking events
- * Includes error handling and logging
+ * Includes error handling, logging, and deprecated event blocking
  */
 function trackMetaPixelEvent(
   eventName: string,
@@ -61,6 +110,14 @@ function trackMetaPixelEvent(
   isCustom: boolean = false
 ): void {
   try {
+    // Block deprecated events
+    if (isDeprecatedEvent(eventName)) {
+      if (import.meta.env?.DEV) {
+        console.warn('[Tracking] Blocked deprecated event:', eventName);
+      }
+      return;
+    }
+
     if (!isMetaPixelLoaded()) {
       console.warn('[Tracking] Meta Pixel not loaded, skipping event:', eventName);
       return;
@@ -123,9 +180,19 @@ const tracking = {
 
     /**
      * Track "Add to Cart" equivalent event
+     * DEDUPLICATED: Only fires once per session
      */
     initiateCheckout(params?: { content_name?: string; value?: number; currency?: string }): void {
+      // Deduplicate: only fire once per session
+      if (hasEventFiredInSession(SESSION_KEYS.INITIATE_CHECKOUT_FIRED)) {
+        if (import.meta.env?.DEV) {
+          console.log('[Tracking] InitiateCheckout already fired this session, skipping');
+        }
+        return;
+      }
+      
       trackMetaPixelEvent('InitiateCheckout', params);
+      markEventAsFiredInSession(SESSION_KEYS.INITIATE_CHECKOUT_FIRED);
     },
 
     /**
@@ -138,6 +205,9 @@ const tracking = {
 
   /**
    * Custom Quiz-specific Events
+   * 
+   * OPTIMIZED: QuizAnswer and QuizProgress are now DEPRECATED
+   * Only Lead, QuizStarted, QuizHalfway (optional), and QuizComplete are tracked
    */
   quiz: {
     /**
@@ -155,58 +225,66 @@ const tracking = {
     },
 
     /**
-     * Track individual quiz answer
+     * @deprecated - No longer tracked to reduce algorithmic noise
+     * Quiz answers are now aggregated in QuizComplete event
      */
-    answer(data: {
+    answer(_data: {
       questionTitle: string;
       questionStep: number;
       answerValue: string;
       answerLabel: string;
       quizPath: string;
     }): void {
-      trackMetaPixelEvent(
-        'QuizAnswer',
-        {
-          content_name: data.questionTitle,
-          question_step: data.questionStep,
-          answer_value: data.answerValue,
-          answer_label: data.answerLabel,
-          quiz_path: data.quizPath,
-        },
-        true
-      );
+      // DEPRECATED: Do not track individual quiz answers
+      // Answers are aggregated in QuizComplete event
+      if (import.meta.env?.DEV) {
+        console.log('[Tracking] QuizAnswer is deprecated and not tracked');
+      }
     },
 
     /**
-     * Track quiz progress percentage
+     * @deprecated - No longer tracked to reduce algorithmic noise
+     * Progress is now implied by QuizComplete event
      */
-    progress(percentage: number, step: number): void {
-      trackMetaPixelEvent(
-        'QuizProgress',
-        {
-          percentage,
-          step,
-        },
-        true
-      );
+    progress(_percentage: number, _step: number): void {
+      // DEPRECATED: Do not track quiz progress
+      if (import.meta.env?.DEV) {
+        console.log('[Tracking] QuizProgress is deprecated and not tracked');
+      }
     },
 
     /**
      * Track quiz halfway completion
+     * DEDUPLICATED: Only fires once per session (optional event)
      */
     halfway(): void {
+      // Deduplicate: only fire once per session
+      if (hasEventFiredInSession(SESSION_KEYS.QUIZ_HALFWAY_FIRED)) {
+        if (import.meta.env?.DEV) {
+          console.log('[Tracking] QuizHalfway already fired this session, skipping');
+        }
+        return;
+      }
+      
       trackMetaPixelEvent('QuizHalfway', {}, true);
+      markEventAsFiredInSession(SESSION_KEYS.QUIZ_HALFWAY_FIRED);
     },
 
     /**
-     * Track quiz completion
+     * Track quiz completion with aggregated data
+     * This is the main quiz funnel event to send to Meta
      */
-    complete(path: string): void {
+    complete(path: string, aggregatedData?: {
+      quiz_score?: number;
+      quiz_segment?: string;
+      time_to_complete?: number;
+    }): void {
       trackMetaPixelEvent(
         'QuizComplete',
         {
           content_name: 'Quiz Completo',
           path,
+          ...(aggregatedData || {}),
         },
         true
       );
@@ -218,10 +296,20 @@ const tracking = {
    */
   funnel: {
     /**
-     * Track offer page view
+     * Track offer page view (ViewContent)
+     * DEDUPLICATED: Only fires once per session
      */
     viewOffer(offerName: string): void {
+      // Deduplicate: only fire once per session
+      if (hasEventFiredInSession(SESSION_KEYS.VIEW_CONTENT_FIRED)) {
+        if (import.meta.env?.DEV) {
+          console.log('[Tracking] ViewContent already fired this session, skipping');
+        }
+        return;
+      }
+      
       trackMetaPixelEvent('ViewContent', { content_name: offerName });
+      markEventAsFiredInSession(SESSION_KEYS.VIEW_CONTENT_FIRED);
     },
 
     /**
