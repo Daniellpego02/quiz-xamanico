@@ -17,6 +17,13 @@
 
 /// <reference types="vite/client" />
 
+import {
+  SESSION_KEYS,
+  hasEventFiredInSession,
+  markEventAsFiredInSession,
+  isDeprecatedEvent,
+} from './trackingConstants';
+
 // ============================================================================
 // TYPE DEFINITIONS
 // ============================================================================
@@ -50,22 +57,6 @@ declare global {
 // Note: Pixel IDs are configured directly in HTML files (index.html, public/obrigado.html)
 // This ensures they load before the application code and are available immediately
 
-// Session storage keys for deduplication
-const SESSION_KEYS = {
-  INITIATE_CHECKOUT_FIRED: 'ic_fired',
-  VIEW_CONTENT_FIRED: 'vc_fired',
-  QUIZ_HALFWAY_FIRED: 'qh_fired',
-} as const;
-
-// Deprecated events that should NOT be tracked
-const DEPRECATED_EVENTS = [
-  'SubscribedButtonClick',
-  'button_clicked',
-  'vsl_page_view',
-  'QuizAnswer',
-  'QuizProgress',
-] as const;
-
 // ============================================================================
 // UTILITY FUNCTIONS
 // ============================================================================
@@ -75,29 +66,6 @@ const DEPRECATED_EVENTS = [
  */
 function isMetaPixelLoaded(): boolean {
   return typeof window !== 'undefined' && typeof window.fbq === 'function';
-}
-
-/**
- * Check if an event has already been fired in this session
- */
-function hasEventFiredInSession(key: string): boolean {
-  if (typeof sessionStorage === 'undefined') return false;
-  return sessionStorage.getItem(key) === 'true';
-}
-
-/**
- * Mark an event as fired in this session
- */
-function markEventAsFiredInSession(key: string): void {
-  if (typeof sessionStorage === 'undefined') return;
-  sessionStorage.setItem(key, 'true');
-}
-
-/**
- * Check if an event is deprecated and should be blocked
- */
-function isDeprecatedEvent(eventName: string): boolean {
-  return DEPRECATED_EVENTS.includes(eventName as typeof DEPRECATED_EVENTS[number]);
 }
 
 /**

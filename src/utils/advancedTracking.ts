@@ -14,6 +14,13 @@
 
 /// <reference types="vite/client" />
 
+import {
+  SESSION_KEYS,
+  hasEventFiredInSession,
+  markEventAsFiredInSession,
+  isDeprecatedEvent,
+} from './trackingConstants';
+
 // ============================================================================
 // TYPE DEFINITIONS
 // ============================================================================
@@ -72,22 +79,6 @@ declare global {
 const STORAGE_KEY = 'advanced_tracking_state';
 const SESSION_DURATION_MS = 30 * 60 * 1000; // 30 minutes
 
-// Session storage keys for deduplication (same as tracking.ts)
-const SESSION_KEYS = {
-  INITIATE_CHECKOUT_FIRED: 'ic_fired',
-  VIEW_CONTENT_FIRED: 'vc_fired',
-  QUIZ_HALFWAY_FIRED: 'qh_fired',
-} as const;
-
-// Deprecated events that should NOT be tracked
-const DEPRECATED_EVENTS = [
-  'SubscribedButtonClick',
-  'button_clicked',
-  'vsl_page_view',
-  'QuizAnswer',
-  'QuizProgress',
-] as const;
-
 // Lead Score Configuration based on quiz answers
 // Higher scores = Higher intent/value leads
 const LEAD_SCORE_CONFIG: LeadScoreConfig = {
@@ -124,33 +115,6 @@ const VIDEO_MILESTONES: VideoMilestone[] = [
   { percentage: 75, eventName: 'VideoProgress75', triggered: false },
   { percentage: 95, eventName: 'VideoProgress95', triggered: false },
 ];
-
-// ============================================================================
-// SESSION DEDUPLICATION UTILITIES
-// ============================================================================
-
-/**
- * Check if an event has already been fired in this session
- */
-function hasEventFiredInSession(key: string): boolean {
-  if (typeof sessionStorage === 'undefined') return false;
-  return sessionStorage.getItem(key) === 'true';
-}
-
-/**
- * Mark an event as fired in this session
- */
-function markEventAsFiredInSession(key: string): void {
-  if (typeof sessionStorage === 'undefined') return;
-  sessionStorage.setItem(key, 'true');
-}
-
-/**
- * Check if an event is deprecated and should be blocked
- */
-function isDeprecatedEvent(eventName: string): boolean {
-  return DEPRECATED_EVENTS.includes(eventName as typeof DEPRECATED_EVENTS[number]);
-}
 
 // ============================================================================
 // UTILITY FUNCTIONS
