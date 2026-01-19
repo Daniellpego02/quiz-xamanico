@@ -7,7 +7,7 @@
 | **Framework** | React 18 + TypeScript + Vite 5 |
 | **Hosting** | Vercel (Static Build + Edge Functions) |
 | **Backend/Functions** | Vercel Edge Functions (`/api/*`) |
-| **Checkout** | BuckPay (PerfectPay) - PIX e Cartão |
+| **Checkout** | Lowify (`https://pay.lowify.com.br/checkout.php?product_id=manflx`) |
 | **Tag Manager** | Não utiliza GTM - Scripts diretos no HTML |
 
 ## 2) URLs / Rotas do Funil
@@ -18,7 +18,7 @@
 | **Steps** | Não mudam URL (SPA - Single Page Application) |
 | **Resultado do Quiz** | `/` (tela de loading → VSL na mesma página) |
 | **VSL** | `/` (componente `VSLPage` após loading) |
-| **Checkout** | Externo - `https://go.perfectpay.com.br/PPU38CQ4OE0` |
+| **Checkout** | Externo - `https://pay.lowify.com.br/checkout.php?product_id=manflx` |
 | **Oferta Principal** | `/oferta1` |
 | **Oferta Alternativa** | `/oferta2` |
 | **Upsell 1** | `/up1` |
@@ -32,7 +32,7 @@ Hero (/)
     → Loading/Análise
       → VSL Page
         → Offer Page
-          → Checkout (PerfectPay/BuckPay)
+          → Checkout (Lowify)
             → Upsell 1 (/up1)
               → Downsell 1 (/down1) [se recusar]
                 → Obrigado (/obrigado)
@@ -43,7 +43,7 @@ Hero (/)
 | Item | Valor/Status |
 |------|--------------|
 | **Pixel ID** | `1908080873443730` |
-| **CAPI ativo?** | ✅ Sim - via `/api/track-event` (Vercel Edge Function) |
+| **CAPI ativo?** | ✅ Sim - via `/api/track-event` e `/api/webhooks/lowify` (Vercel Edge Functions) |
 | **Onde o pixel é inicializado** | `index.html` (linha 49) e `public/obrigado.html` (linha 38-49) |
 | **Onde eventos disparam** | Utilitário centralizado: `src/utils/tracking.ts` |
 | **Deduplicação (event_id)?** | ✅ Sim - `src/utils/eventIdGenerator.ts` gera IDs únicos para client e server |
@@ -175,9 +175,46 @@ O quiz possui uma **estratégia de fluxo único** (single flow):
 | `src/utils/capi.ts` | Cliente CAPI com builders de payload |
 | `src/config/tracking.config.ts` | Configurações centralizadas (Pixel ID, etc.) |
 | `api/track-event.ts` | Endpoint CAPI (Vercel Edge Function) |
-| `api/webhooks/buckpay.ts` | Webhook handler para Purchase events |
+| `api/webhooks/lowify.ts` | **Webhook Lowify - AddPaymentInfo + Purchase** |
+| `api/webhooks/buckpay.ts` | Webhook handler BuckPay (legado) |
 | `index.html` | Scripts de tracking (Meta Pixel, GA4, Clarity, UTMFY) |
 | `public/obrigado.html` | Página de obrigado com tracking |
+
+---
+
+## Webhook Lowify (Implementação Robusta)
+
+### Endpoint
+```
+POST https://www.mapaxamanicooficial.online/api/webhooks/lowify
+```
+
+### Características:
+- **Parsing flexível:** JSON, form-urlencoded, texto
+- **Logging seguro:** PII mascarada (email: `a***@g***.com`, phone: `55*********`)
+- **Modo debug:** `LOWIFY_WEBHOOK_DEBUG=true` para inspeção de payloads
+- **Detecção heurística:** Identifica PIX_GENERATED vs APPROVED automaticamente
+
+### Eventos Trackados via CAPI:
+
+| Status Detectado | Evento Meta | event_source_url |
+|------------------|-------------|------------------|
+| `PIX_GENERATED` (pending, waiting, pix_generated, aguardando) | `AddPaymentInfo` | `https://www.mapaxamanicooficial.online/checkout` |
+| `APPROVED` (approved, paid, completed, aprovada, pago) | `Purchase` | `https://www.mapaxamanicooficial.online/obrigado` |
+| `UNKNOWN` | Nenhum (apenas log) | - |
+
+### Extração de Campos (Mapeamento Flexível):
+
+| Campo | Paths Procurados |
+|-------|------------------|
+| `order_id` | `order_id`, `orderId`, `transaction_id`, `id`, `code`, `data.order_id` |
+| `value` | `value`, `amount`, `total`, `price`, `data.value` (auto-converte centavos) |
+| `email` | `email`, `buyer_email`, `customer_email`, `customer.email`, `data.email` |
+| `phone` | `phone`, `buyer_phone`, `customer_phone`, `data.phone` |
+| `name` | `name`, `buyer_name`, `customer_name`, `data.name` |
+| `fbp/fbc` | `fbp`, `_fbp`, `fbc`, `_fbc`, `fbclid` |
+
+---
 
 ### Outros Sistemas de Tracking Integrados:
 
@@ -199,9 +236,8 @@ META_PIXEL_ID=1908080873443730
 # Meta Test Events (desenvolvimento)
 VITE_META_TEST_EVENT_CODE=TEST12345
 
-# BuckPay (pagamentos)
-VITE_BUCKPAY_SECRET_KEY=sua_chave_secreta
-VITE_BUCKPAY_USER_AGENT=seu_user_agent
+# Lowify Webhook (opcional)
+LOWIFY_WEBHOOK_DEBUG=true  # Habilita logs detalhados
 
 # VTurb (opcional, para VSL)
 VITE_VTURB_API_TOKEN=seu_token_vturb
