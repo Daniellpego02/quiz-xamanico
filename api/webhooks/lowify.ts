@@ -55,9 +55,17 @@ interface LowifyWebhookPayload {
 async function validateLowifySignature(request: Request, rawBody: string): Promise<boolean> {
   const secret = process.env.LOWIFY_WEBHOOK_SECRET;
   
-  // If no secret configured, skip validation (with warning)
+  // If no secret configured, reject in production for security
   if (!secret) {
-    console.warn('[Lowify] LOWIFY_WEBHOOK_SECRET not configured - signature validation skipped');
+    const isProduction = process.env.NODE_ENV === 'production' || process.env.VERCEL_ENV === 'production';
+    
+    if (isProduction) {
+      console.error('[Lowify] LOWIFY_WEBHOOK_SECRET not configured - rejecting webhook in production');
+      return false;
+    }
+    
+    // In development/preview, allow but warn
+    console.warn('[Lowify] LOWIFY_WEBHOOK_SECRET not configured - allowing in dev mode (configure for production!)');
     return true;
   }
   
