@@ -44,13 +44,13 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           className="space-y-4"
         >
           <h1 className="text-2xl md:text-3xl font-serif font-black text-white leading-[1.15] drop-shadow-2xl">
-            Por que você trabalha tanto, mas o dinheiro parece <span className="text-[#D4AF37]">"evaporar"</span> da sua mão antes do dia 30?
+            Seu dinheiro some antes do dia 30 por uma razão que <span className="text-[#D4AF37]">ninguém te contou.</span>
           </h1>
           <h2 className="text-base md:text-lg text-slate-200 leading-relaxed max-w-md mx-auto font-normal">
-            Não é má gestão, nem azar. O Xamanismo revela que você pode estar carregando uma <strong className="text-[#D4AF37]">"Lealdade Invisível"</strong> à pobreza dos seus antepassados.
+            Não é falta de esforço. Não é azar. É uma <strong className="text-[#D4AF37]">"Lealdade Invisível"</strong> que você absorveu antes de aprender a falar.
           </h2>
           <p className="text-sm md:text-base text-slate-300 leading-relaxed max-w-md mx-auto">
-            Responda a <strong className="text-white">4 perguntas simples</strong> para rastrear sua Lealdade Invisível e descobrir como desbloquear seu fluxo de prosperidade em <strong className="text-white">7 dias</strong>.
+            Descubra em <strong className="text-white">2 minutos</strong> se você está sabotado — e como romper isso em <strong className="text-white">7 dias</strong>.
           </p>
         </motion.div>
 
@@ -62,10 +62,10 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
         >
           <div className="absolute -inset-0.5 bg-gradient-to-r from-[#D4AF37] to-[#FFD700] rounded-xl blur opacity-40 group-hover:opacity-70 transition duration-1000 animate-pulse"></div>
           <Button onClick={handleStartClick} pulse className="relative text-base md:text-lg py-4 w-full shadow-[0_0_30px_rgba(212,175,55,0.3)] border-t border-white/20">
-            QUERO RASTREAR MINHA LEALDADE INVISÍVEL AGORA
+            QUERO DESCOBRIR SE ESTOU SABOTADO
           </Button>
           <p className="text-[10px] text-slate-400 mt-2 uppercase tracking-widest flex items-center justify-center gap-1">
-            <Lock className="w-3 h-3" /> 🔒 Análise confidencial e baseada em princípios milenares. Mais de 4.300 mapas gerados.
+            <Lock className="w-3 h-3" /> 🔒 100% confidencial • 4.327 diagnósticos realizados • Leva 2 minutos
           </p>
         </motion.div>
 

@@ -22,9 +22,9 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
   const financeStages = [
     { pct: 15, text: "🔮 Conectando sua frequência ancestral...", icon: <Search className="w-6 h-6 text-[#D4AF37]" /> },
     { pct: 35, text: "Lendo registros vibracionais herdados...", icon: <Brain className="w-6 h-6 text-[#D4AF37]" /> },
-    { pct: 60, text: "Padrão de Escassez Hereditária Detectado: Nível Alto...", icon: <AlertTriangle className="w-6 h-6 text-red-400" /> },
-    { pct: 85, text: "Gerando Protocolo de Solução personalizado...", icon: <Wallet className="w-6 h-6 text-[#D4AF37]" /> },
-    { pct: 100, text: "✨ DIAGNÓSTICO CONCLUÍDO", icon: <CheckCircle2 className="w-6 h-6 text-green-400" /> }
+    { pct: 60, text: "LEALDADE INVISÍVEL + PROGRAMAÇÃO DE ESCASSEZ detectadas...", icon: <AlertTriangle className="w-6 h-6 text-red-400" /> },
+    { pct: 85, text: "Gerando Protocolo de Desbloqueio personalizado...", icon: <Wallet className="w-6 h-6 text-[#D4AF37]" /> },
+    { pct: 100, text: "✨ SEU PROTOCOLO PERSONALIZADO FOI GERADO", icon: <CheckCircle2 className="w-6 h-6 text-green-400" /> }
   ];
 
   const relationshipStages = [
@@ -39,7 +39,7 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
 
   const testimonial = quizPath === 'relationship' 
     ? { text: "\"Descobri porque sempre escolho errado. Libertador!\"", author: "Fernanda C.", age: 28 }
-    : { text: "\"Cara, eu achava que era papo furado. Fiz o ritual de limpeza na segunda-feira. Na quarta, recebi um PIX de uma dívida que eu dava como perdida há 2 anos. Chega arrepiei.\"", author: "Marcos V.", age: 35 };
+    : { text: "\"Achava que era papo furado. Fiz o ritual na segunda-feira. Na quarta, recebi um PIX de uma dívida que eu dava como perdida há 2 anos. Chega arrepiei.\"", author: "Marcos V.", age: 35 };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -116,7 +116,7 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
       <div className="space-y-6 w-full">
         <h2 className="text-xl font-serif text-white tracking-wide">
           {analysisComplete ? (
-            <span className="text-[#FFD700]">✨ Seu Bloqueio foi Identificado</span>
+            <span className="text-[#FFD700]">✨ Seu Protocolo Personalizado foi Gerado</span>
           ) : (
             "🔮 Processando sua Frequência Ancestral..."
           )}
@@ -151,11 +151,12 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
               {/* Result summary */}
               <div className="bg-gradient-to-br from-red-900/30 to-orange-900/20 border border-red-500/30 rounded-xl p-4">
                 <p className="text-white text-base leading-relaxed">
-                  Sinais claros de <span className="text-red-400 font-bold">Lealdade Invisível</span> e{' '}
-                  <span className="text-[#FFD700] font-bold">escassez herdada</span> foram detectados no seu campo energético.
+                  Descobrimos EXATAMENTE por que seu dinheiro some antes do dia 30:<br/>
+                  <span className="text-red-400 font-bold">LEALDADE INVISÍVEL</span> +{' '}
+                  <span className="text-[#FFD700] font-bold">PROGRAMAÇÃO DE ESCASSEZ HERDADA</span>
                 </p>
                 <p className="text-slate-300 text-sm mt-2">
-                  Seu Mapa Xamânico já está pronto para desbloqueio.
+                  Não é culpa sua. Você não escolheu isso. Mas agora que sabemos, podemos consertar em 7 dias.
                 </p>
               </div>
 
@@ -173,14 +174,14 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
                       className="relative w-full bg-gradient-to-r from-emerald-500 to-green-500 hover:from-green-400 hover:to-emerald-400 text-white font-bold py-4 px-8 rounded-xl shadow-[0_0_30px_rgba(16,185,129,0.5)] hover:shadow-[0_0_40px_rgba(16,185,129,0.7)] active:scale-95 transition-all flex items-center justify-center gap-2 border-t border-white/20 text-lg"
                     >
                       <Sparkles className="w-5 h-5" />
-                      💰 VER MEU DIAGNÓSTICO E DESBLOQUEAR →
+                      QUERO RECEBER MEU PROTOCOLO AGORA →
                     </button>
                   </div>
                   
                   {/* Urgency text */}
                   <p className="text-slate-400 text-xs mt-3 flex items-center justify-center gap-1">
                     <Lock className="w-3 h-3" />
-                    Ativação disponível pelas próximas 3 horas
+                    Protocolo disponível pelas próximas 3 horas
                   </p>
                 </motion.div>
               )}
@@ -214,11 +215,11 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
       >
         <div className="flex items-center gap-1">
           <Shield className="w-3 h-3 text-emerald-400" />
-          <span>Diagnóstico confidencial</span>
+          <span>100% confidencial</span>
         </div>
         <div className="flex items-center gap-1">
           <Star className="w-3 h-3 text-[#D4AF37]" />
-          <span>+4.300 mapas gerados</span>
+          <span>4.327 protocolos em 127 cidades</span>
         </div>
       </motion.div>
     </div>

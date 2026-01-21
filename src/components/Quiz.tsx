@@ -27,8 +27,8 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
 
   // Emotional transition messages shown between specific questions
   const emotionalTransitions: Record<number, string> = {
-    2: "Você está acessando memórias que não são racionais, e sim ancestrais. Continue — sua frequência já está se movendo.",
-    3: "Estamos chegando ao centro do padrão. Respire fundo e permita que a verdade emerja..."
+    2: "Você está acessando memórias que não são racionais, e sim ancestrais. A culpa não é sua. Continue — sua frequência já está se movendo.",
+    3: "Estamos chegando ao centro do padrão. Respire fundo. Agora que sabemos, podemos consertar."
   };
 
   // Name input question
@@ -36,51 +36,51 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     {
       id: 0,
       title: "CONEXÃO ENERGÉTICA",
-      text: "Para acessar os registros da sua linhagem energética, eu preciso me conectar à sua frequência. Digite seu Nome de Batismo abaixo:",
+      text: "Vou precisar acessar os registros da sua linhagem energética. Digite seu nome de batismo (como aparece na certidão) para conectar com a frequência correta:",
       type: "input",
       placeholder: "Digite seu nome de batismo..."
     }
   ];
 
-  // Finance questions - Rewritten with deeper emotional tone
+  // Finance questions - Rewritten with Yes-Set micro-selling and psychological triggers
   const financeQuestions: QuizQuestion[] = [
     {
       id: 1,
       title: "PASSO 1 DE 4",
-      text: "{NAME}, você sente que é o responsável pela estabilidade emocional ou financeira da sua família?",
+      text: "{NAME}, quantas vezes por MÊS você se pega pensando: 'Se eu não ajudar, quem vai?' — mesmo quando você NÃO TEM condições?",
       options: [
-        { label: "Sim, carrego um peso que não escolhi mas sinto que é meu dever.", sublabel: "A responsabilidade invisível que te esgota", value: "leak", icon: "🎢" },
-        { label: "Sim, tenho vergonha de cobrar pelo meu trabalho e sinto culpa quando recebo.", sublabel: "O bloqueio do merecimento", value: "tired", icon: "😔" },
-        { label: "Sim, parece que existe um teto invisível que me impede de crescer.", sublabel: "O limite que não é seu mas você herdou", value: "fear", icon: "🔒" },
+        { label: "Todo mês, independente da situação.", sublabel: "O peso que não escolhi mas sinto que é meu dever", value: "leak", icon: "🎢" },
+        { label: "Só quando a situação é crítica.", sublabel: "Sinto que devo, mesmo sem poder", value: "tired", icon: "😔" },
+        { label: "Raramente, mas sinto culpa quando não ajudo.", sublabel: "O bloqueio do merecimento", value: "fear", icon: "🔒" },
       ]
     },
     {
       id: 2,
       title: "PASSO 2 DE 4",
-      text: "Na sua família, a prosperidade era vista como algo negativo, pecaminoso ou motivo de conflitos?",
+      text: "{NAME}, quando você era criança, OUVIA alguma dessas frases com frequência? 'Dinheiro não nasce em árvore', 'rico é ganancioso', 'quem tem dinheiro roubou'?",
       options: [
-        { label: "Sim, cresci ouvindo que rico é ganancioso e que dinheiro corrompe.", sublabel: "Programação de escassez herdada", value: "heavy", icon: "💔" },
-        { label: "Sim, meus pais brigavam muito por falta de dinheiro.", sublabel: "Trauma financeiro transmitido", value: "honest", icon: "😢" },
-        { label: "Não, mas eles trabalhavam até a exaustão e nunca descansavam.", sublabel: "O padrão de sacrifício sem recompensa", value: "conflict", icon: "😰" },
+        { label: "Sim, era o que mais ouvia.", sublabel: "Programação de escassez herdada", value: "heavy", icon: "💔" },
+        { label: "Não diretamente, mas sentia que dinheiro causava briga.", sublabel: "Trauma financeiro transmitido", value: "honest", icon: "😢" },
+        { label: "Não, mas meus pais trabalhavam até morrer.", sublabel: "O padrão de sacrifício sem recompensa", value: "conflict", icon: "😰" },
       ]
     },
     {
       id: 3,
       title: "PASSO 3 DE 4",
-      text: "Se nada mudar nos próximos 6 meses, qual é o seu maior medo, {NAME}?",
+      text: "{NAME}, imagine-se daqui a 6 meses. Se NADA mudar — se você continuar exatamente onde está — qual será a SENSAÇÃO que vai dominar seus dias?",
       options: [
-        { label: "Continuar dependendo dos outros ou contando cada centavo.", sublabel: "A angústia da escassez constante", value: "dependency", icon: "😔" },
-        { label: "Envelhecer sem construir nenhuma estabilidade.", sublabel: "O tempo passando sem mudanças reais", value: "aging", icon: "⏰" },
-        { label: "Ver minha família passar dificuldades por minha causa.", sublabel: "A culpa que corrói por dentro", value: "family", icon: "💔" },
+        { label: "Angústia de contar cada centavo.", sublabel: "A escassez constante que corrói por dentro", value: "dependency", icon: "😔" },
+        { label: "Vergonha de não ter construído nada.", sublabel: "O tempo passando sem mudanças reais", value: "aging", icon: "⏰" },
+        { label: "Peso de ver minha família sofrer.", sublabel: "A culpa que não é sua, mas você carrega", value: "family", icon: "💔" },
       ]
     },
     {
       id: 4,
       title: "PASSO 4 DE 4",
-      text: "Detectamos sinais claros de <strong class=\"text-[#FFD700]\">Lealdade Invisível</strong> e padrão de autopunição energética na sua frequência. Se existir um Protocolo de 7 dias para limpar isso de vez, você está disposto(a) a seguir?",
+      text: "{NAME}, descobrimos que <strong class=\"text-[#FFD700]\">87% das pessoas com seu perfil</strong> rompem esse ciclo quando atacam a causa RAIZ — não os sintomas. Se eu te mostrar COMO fazer isso em 7 dias, você se compromete a seguir?",
       singleButton: true,
       options: [
-        { label: "SIM, eu aceito receber meu Mapa e romper esse ciclo agora.", value: "ready", icon: "🔥" },
+        { label: "SIM, estou disposto(a) a seguir um protocolo comprovado.", value: "ready", icon: "🔥" },
       ]
     }
   ];
@@ -90,11 +90,11 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   }, []);
 
   const getLoadingStages = () => [
-    `Iniciando conexão com a frequência de ${userName}...`,
-    "Lendo registros da sua linhagem energética...",
+    `Conectando com a frequência de ${userName}...`,
+    "Acessando registros da sua linhagem energética...",
     "Padrão de Escassez Hereditária Detectado: Nível Alto...",
-    "Gerando Protocolo de Solução...",
-    "LEITURA CONCLUÍDA."
+    "Mapeando Lealdade Invisível...",
+    "DIAGNÓSTICO CONCLUÍDO — Protocolo de Solução Gerado."
   ];
 
   useEffect(() => {
@@ -232,7 +232,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           transition={{ delay: 0.3 }}
           className="text-2xl md:text-3xl font-serif font-black text-white mb-4 leading-tight"
         >
-          🔍 Rastreando sua Frequência Financeira…
+          🔍 Antes de revelar o que encontrei nos seus registros...
         </motion.h1>
 
         {/* Description */}
@@ -242,7 +242,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           transition={{ delay: 0.4 }}
           className="text-slate-300 text-base md:text-lg leading-relaxed mb-6 max-w-md"
         >
-          Este diagnóstico rápido vai identificar o <span className="text-[#FFD700] font-semibold">padrão energético herdado</span> que está travando sua prosperidade.
+          Preciso confirmar alguns sinais. Responda com sinceridade — <span className="text-[#FFD700] font-semibold">não há respostas certas ou erradas.</span>
         </motion.p>
 
         <motion.p
@@ -251,7 +251,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           transition={{ delay: 0.5 }}
           className="text-slate-400 text-sm mb-8"
         >
-          ⏱️ Leva menos de 1 minuto e revela o que está oculto nos seus ciclos financeiros.
+          ⏱️ Leva 2 minutos e revela a causa raiz do seu bloqueio financeiro.
         </motion.p>
 
         {/* CTA Button */}
@@ -267,7 +267,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               onClick={handleStartQuiz}
               className="relative w-full bg-gradient-to-br from-[#D4AF37] via-[#FFD700] to-[#D4AF37] text-white font-bold py-4 px-8 rounded-xl shadow-lg shadow-[#D4AF37]/30 hover:shadow-[#D4AF37]/50 hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2 border-t border-white/20 text-lg"
             >
-              Começar meu rastreamento
+              Confirmar meus sinais agora
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
@@ -282,7 +282,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
         >
           <div className="flex items-center gap-1 text-slate-400 text-xs">
             <Lock className="w-3 h-3" />
-            <span>Confidencial</span>
+            <span>100% confidencial</span>
           </div>
           <div className="flex items-center gap-1 text-slate-400 text-xs">
             <Shield className="w-3 h-3" />
@@ -290,7 +290,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           </div>
           <div className="flex items-center gap-1 text-slate-400 text-xs">
             <Users className="w-3 h-3" />
-            <span>+4.300 diagnósticos</span>
+            <span>+4.327 diagnósticos</span>
           </div>
         </motion.div>
       </motion.div>
@@ -465,11 +465,11 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   disabled={!inputValue.trim()}
                   className="w-full bg-gradient-to-br from-[#D4AF37] via-[#FFD700] to-[#D4AF37] text-white font-bold py-4 rounded-xl shadow-lg shadow-[#D4AF37]/30 hover:shadow-[#D4AF37]/50 hover:brightness-110 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 border-t border-white/20"
                 >
-                  INICIAR CONEXÃO ENERGÉTICA
+                  CONECTAR COM MINHA FREQUÊNCIA
                   <ChevronRight className="w-5 h-5" />
                 </button>
                 <p className="text-xs text-slate-400 text-center mt-2 flex items-center justify-center gap-1">
-                  🔒 Ambiente Seguro e Sigiloso
+                  🔒 Seus dados são 100% confidenciais
                 </p>
               </div>
             </form>
@@ -523,9 +523,9 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                       <span className="text-2xl">💬</span>
                       <div>
                         <p className="text-slate-300 text-sm italic leading-relaxed">
-                          "Depois que ouvi os áudios, parei de me sentir sugado pela minha família. Dormi em paz pela 1ª vez em meses."
+                          "Achava que era papo furado. Fiz o protocolo na segunda. Na quarta, recebi um PIX de uma dívida que eu dava como perdida há 2 anos. Chega arrepiei."
                         </p>
-                        <p className="text-[#D4AF37] text-xs mt-2 font-semibold">— Camila, 34 anos</p>
+                        <p className="text-[#D4AF37] text-xs mt-2 font-semibold">— Marcos V., 35 anos</p>
                       </div>
                     </div>
                   </div>
@@ -534,11 +534,11 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                   <div className="flex flex-wrap items-center justify-center gap-3 text-xs">
                     <div className="flex items-center gap-1 text-emerald-400">
                       <Star className="w-3 h-3 fill-emerald-400" />
-                      <span>🔓 +1.327 desbloqueios na última semana</span>
+                      <span>🔓 87% relatam mudanças nos primeiros 7 dias</span>
                     </div>
                   </div>
                   <p className="text-slate-500 text-xs text-center mt-2">
-                    Método validado em mais de 4.000 diagnósticos energéticos
+                    Protocolo aplicado em 4.327 pessoas em 127 cidades brasileiras
                   </p>
                 </motion.div>
               )}
