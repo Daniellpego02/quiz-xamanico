@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Brain, Heart, Wallet, CheckCircle2, Star, Sparkles, Lock, Shield, AlertTriangle } from 'lucide-react';
+import { Search, Brain, Heart, Wallet, CheckCircle2, Star, Sparkles, Lock, Shield } from 'lucide-react';
 import { QuizPath } from '../types';
 
 interface AnalysisLoadingProps {
@@ -18,13 +18,13 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
   // Personalize with first name
   const firstName = userName ? userName.split(' ')[0] : 'Você';
 
-  // Stages adapted by quiz path - updated with new copy
+  // Stages adapted by quiz path - updated with credible loading steps
   const financeStages = [
-    { pct: 15, text: "✓ Analisando suas 3 respostas", icon: <Search className="w-6 h-6 text-[#D4AF37]" /> },
-    { pct: 35, text: "✓ Cruzando com banco de 4.300 diagnósticos", icon: <Brain className="w-6 h-6 text-[#D4AF37]" /> },
-    { pct: 60, text: "✓ Identificando seu arquétipo de bloqueio", icon: <AlertTriangle className="w-6 h-6 text-red-400" /> },
-    { pct: 85, text: "✓ Gerando protocolo personalizado de desbloqueio", icon: <Wallet className="w-6 h-6 text-[#D4AF37]" /> },
-    { pct: 100, text: "✨ DIAGNÓSTICO CONCLUÍDO", icon: <CheckCircle2 className="w-6 h-6 text-green-400" /> }
+    { pct: 15, text: "✅ Perfil predominante", icon: <Search className="w-6 h-6 text-[#D4AF37]" /> },
+    { pct: 35, text: "✅ 2 padrões secundários", icon: <Brain className="w-6 h-6 text-[#D4AF37]" /> },
+    { pct: 60, text: "✅ Plano do Dia 1 (com base nas suas respostas)", icon: <Wallet className="w-6 h-6 text-[#D4AF37]" /> },
+    { pct: 85, text: "✅ Acesso no app liberado após confirmação", icon: <Lock className="w-6 h-6 text-[#D4AF37]" /> },
+    { pct: 100, text: "✨ RELATÓRIO GERADO", icon: <CheckCircle2 className="w-6 h-6 text-green-400" /> }
   ];
 
   const relationshipStages = [
@@ -39,7 +39,7 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
 
   const testimonial = quizPath === 'relationship' 
     ? { text: "\"Descobri porque sempre escolho errado. Libertador!\"", author: "Fernanda C.", age: 28 }
-    : { text: "\"Cara, eu achava que era papo furado. Fiz o ritual de limpeza na segunda-feira. Na quarta, recebi um PIX de uma dívida que eu dava como perdida há 2 anos. Chega arrepiei.\"", author: "Marcos V.", age: 35 };
+    : { text: "\"Descobri meu perfil e em 5 dias já estava cobrando o que eu merecia nos meus serviços. Valeu cada minuto.\"", author: "Marcos V.", age: 35 };
 
   // Progress animation for loading bar (approx 8-12 seconds total)
   useEffect(() => {
@@ -116,9 +116,9 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
       <div className="space-y-6 w-full">
         <h2 className="text-xl font-serif text-white tracking-wide">
           {analysisComplete ? (
-            <span className="text-[#FFD700]">✨ Seu Bloqueio foi Identificado</span>
+            <span className="text-[#FFD700]">✨ Seu Perfil foi Identificado</span>
           ) : (
-            "🔍 Rastreando Seu Padrão Energético..."
+            "📊 Gerando seu relatório..."
           )}
         </h2>
         
@@ -148,24 +148,52 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
               transition={{ delay: 0.3 }}
               className="space-y-4"
             >
-              {/* Result summary - Updated with aggressive copy */}
-              <div className="bg-gradient-to-br from-red-900/40 to-orange-900/30 border border-red-500/40 rounded-xl p-5">
+              {/* Result summary - Updated with evidence + 7-day plan */}
+              <div className="bg-gradient-to-br from-[#1a1a2e]/80 to-[#16213e]/60 border border-[#D4AF37]/40 rounded-xl p-5">
                 <div className="flex items-center gap-2 mb-3">
-                  <AlertTriangle className="w-5 h-5 text-red-400" />
-                  <span className="text-red-400 font-bold text-sm uppercase tracking-wider">BLOQUEIO CRÍTICO DETECTADO</span>
+                  <CheckCircle2 className="w-5 h-5 text-[#D4AF37]" />
+                  <span className="text-[#D4AF37] font-bold text-sm uppercase tracking-wider">SEU PERFIL PREDOMINANTE</span>
                 </div>
-                <p className="text-white text-base leading-relaxed mb-3">
-                  Seu campo energético está operando em <span className="text-red-400 font-bold">MODO REJEIÇÃO</span>.
+                
+                {/* Profile name - example based on answers */}
+                <p className="text-white text-lg font-bold mb-3">
+                  O Guardião que se Drena
                 </p>
-                <p className="text-slate-300 text-sm leading-relaxed">
-                  Enquanto esse padrão estiver ativo, você vai <span className="text-[#FFD700] font-semibold">SABOTAR</span> qualquer resultado financeiro que conquistar.
-                </p>
-                <p className="text-slate-400 text-xs mt-3 italic">
-                  Não é falta de esforço. É um vírus energético rodando em segundo plano.
-                </p>
+                
+                {/* Evidence - why this result */}
+                <div className="bg-white/5 rounded-lg p-3 mb-4">
+                  <p className="text-slate-400 text-xs uppercase tracking-wider mb-2">Por que deu isso:</p>
+                  <p className="text-slate-300 text-sm">
+                    Você marcou <span className="text-[#D4AF37] font-semibold">responsabilidade</span> + <span className="text-[#D4AF37] font-semibold">dificuldade ao receber</span>.
+                  </p>
+                </div>
+                
+                {/* How this affects money - 3 bullets */}
+                <div className="mb-4">
+                  <p className="text-slate-400 text-xs uppercase tracking-wider mb-2">Como isso te afeta no dinheiro:</p>
+                  <ul className="text-slate-300 text-sm space-y-2">
+                    <li className="flex items-start gap-2">
+                      <span className="text-red-400">•</span>
+                      <span>Você vira "seguro emocional" de todo mundo e sobra zero pra você</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-red-400">•</span>
+                      <span>Você evita cobrar/negociar e aceita menos do que merece</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-red-400">•</span>
+                      <span>Você entra em ciclos de "alívio" e volta pra escassez</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                {/* 7-day plan preview */}
                 <div className="mt-4 pt-3 border-t border-white/10">
-                  <p className="text-[#D4AF37] text-sm font-medium">
-                    Seu Mapa Xamânico personalizado foi gerado com o protocolo exato para desbloquear isso em 7 dias.
+                  <p className="text-[#D4AF37] text-sm font-medium mb-2">
+                    📱 Plano de 7 dias no app:
+                  </p>
+                  <p className="text-slate-300 text-sm">
+                    10 min/dia pra quebrar o padrão (Dia 1 libera agora).
                   </p>
                 </div>
               </div>
@@ -184,14 +212,14 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
                       className="relative w-full bg-gradient-to-r from-emerald-500 to-green-500 hover:from-green-400 hover:to-emerald-400 text-white font-bold py-4 px-6 rounded-xl shadow-[0_0_30px_rgba(16,185,129,0.5)] hover:shadow-[0_0_40px_rgba(16,185,129,0.7)] active:scale-95 transition-all flex items-center justify-center gap-2 border-t border-white/20 text-base md:text-lg"
                     >
                       <Sparkles className="w-5 h-5" />
-                      🔓 VER MEU DIAGNÓSTICO COMPLETO E DESBLOQUEAR AGORA
+                      ✅ Quero desbloquear meu Dia 1
                     </button>
                   </div>
                   
-                  {/* Urgency text */}
+                  {/* Urgency text - credible/operational */}
                   <p className="text-slate-400 text-xs mt-3 flex items-center justify-center gap-1">
                     <Lock className="w-3 h-3" />
-                    ⏰ Disponível pelas próximas 3 horas (Sistema fecha automaticamente)
+                    Seu diagnóstico ficou reservado por 3 horas por segurança do acesso (dados sensíveis).
                   </p>
                   
                   {/* Social proof footer */}

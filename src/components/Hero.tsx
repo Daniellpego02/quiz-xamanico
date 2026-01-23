@@ -44,16 +44,13 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           className="space-y-4"
         >
           <h1 className="text-2xl md:text-3xl font-serif font-black text-white leading-[1.15] drop-shadow-2xl">
-            Por Que Você Trabalha Tanto Mas o Dinheiro <span className="text-[#D4AF37]">EVAPORA</span> Antes do Dia 20?
+            Por que você trabalha tanto… e o dinheiro <span className="text-[#D4AF37]">some antes do dia 30</span>?
           </h1>
           <h2 className="text-base md:text-lg text-slate-200 leading-relaxed max-w-md mx-auto font-normal">
-            Não é má gestão. Não é azar. É um <strong className="text-[#D4AF37]">PADRÃO ENERGÉTICO</strong> travando seu fluxo de prosperidade.
+            Não é azar. Na maioria dos casos é um <strong className="text-[#D4AF37]">padrão de escassez aprendido</strong> (culpa, obrigação e medo) que te faz repetir decisões que drenam sua grana — sem você perceber.
           </h2>
           <p className="text-sm md:text-base text-slate-300 leading-relaxed max-w-md mx-auto">
-            O Xamanismo revela que você pode estar carregando uma <strong className="text-[#D4AF37]">"Lealdade Invisível"</strong> à pobreza dos seus antepassados.
-          </p>
-          <p className="text-sm md:text-base text-slate-300 leading-relaxed max-w-md mx-auto">
-            Responda a <strong className="text-white">3 perguntas simples</strong> para rastrear sua Lealdade Invisível e descobrir como desbloquear seu fluxo em <strong className="text-white">7 dias</strong>.
+            Responda <strong className="text-white">8 perguntas</strong> e descubra seu <strong className="text-[#D4AF37]">Perfil de Travamento Financeiro</strong> + o <strong className="text-white">Plano de 7 dias</strong> (libera no app).
           </p>
         </motion.div>
 
@@ -65,13 +62,13 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
         >
           <div className="absolute -inset-0.5 bg-gradient-to-r from-[#D4AF37] to-[#FFD700] rounded-xl blur opacity-40 group-hover:opacity-70 transition duration-1000 animate-pulse"></div>
           <Button onClick={handleStartClick} pulse className="relative text-base md:text-lg py-4 w-full shadow-[0_0_30px_rgba(212,175,55,0.3)] border-t border-white/20">
-            🔥 DESCOBRIR MEU BLOQUEIO AGORA (LEVA 1 MIN)
+            ✅ Quero meu diagnóstico e o plano de 7 dias
           </Button>
           <div className="mt-3 flex flex-col items-center gap-1 text-[10px] text-slate-400 uppercase tracking-widest">
             <p className="flex items-center gap-1">
-              <Lock className="w-3 h-3" /> ✅ Diagnóstico confidencial e gratuito
+              <Lock className="w-3 h-3" /> Diagnóstico confidencial e gratuito
             </p>
-            <p>⚡ +4.300 mapas já gerados</p>
+            <p>⚡ +4.300 diagnósticos já realizados</p>
             <p>📊 Método validado em milhares de casos reais</p>
           </div>
         </motion.div>
