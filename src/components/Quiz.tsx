@@ -21,44 +21,47 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   // Quiz path is now hardcoded to finance only (single flow strategy)
   const QUIZ_PATH: QuizPath = 'finance';
 
-  // Loading stages for initial loading screen
+  // Loading stages for initial loading screen - Updated for clarity
   const loadingStages = [
-    "→ Conectando ao sistema de diagnóstico",
-    "→ Preparando mapeamento energético",
-    "→ Carregando protocolo de análise"
+    "→ Preparando seu diagnóstico financeiro",
+    "→ Carregando perguntas personalizadas",
+    "→ Sistema pronto para análise"
   ];
 
-  // Finance questions - Restructured to 3 questions with new copy
+  // Finance questions - Restructured with new diagnostic-style copy
   const financeQuestions: QuizQuestion[] = [
     {
       id: 1,
       title: "PASSO 1 DE 3",
-      text: "Qual dessas frases mais descreve SUA relação com dinheiro?",
+      text: "Quando o assunto é dinheiro, qual te descreve melhor?",
       options: [
-        { label: "\"Trabalho muito, mas o dinheiro evapora antes do dia 20\"", sublabel: "→ O padrão do vazamento constante", value: "leak", icon: "🔥" },
-        { label: "\"Vejo os outros prosperando enquanto eu fico estagnado\"", sublabel: "→ O bloqueio do teto invisível", value: "stagnant", icon: "⏰" },
-        { label: "\"Consigo ganhar, mas PERCO de formas inesperadas\"", sublabel: "→ O sabotador interno ativo", value: "sabotage", icon: "💔" },
+        { label: "\"Eu seguro tudo sozinho(a), porque se eu soltar… desanda\"", sublabel: "→ Perfil: responsabilidade excessiva", value: "guardian", icon: "🛡️" },
+        { label: "\"Eu travo pra cobrar/receber — fico desconfortável\"", sublabel: "→ Perfil: dificuldade de receber", value: "blocked", icon: "🚫" },
+        { label: "\"Eu ganho, mas sempre acontece algo e volto pro mesmo lugar\"", sublabel: "→ Perfil: ciclo de escassez", value: "cycle", icon: "🔄" },
+        { label: "\"Nenhuma dessas (quero ver meu diagnóstico mesmo assim)\"", sublabel: "→ Vamos identificar seu perfil", value: "other", icon: "🔍" },
       ]
     },
     {
       id: 2,
       title: "PASSO 2 DE 3",
-      text: "Se nada mudar nos próximos 6 meses, o que te assusta MAIS?",
+      text: "Na sua casa, dinheiro era…",
       options: [
-        { label: "\"Ver minha vida passar sem construir NADA de concreto\"", sublabel: "→ O medo da irrelevância", value: "irrelevance", icon: "😰" },
-        { label: "\"Repetir os mesmos erros financeiros que meus pais cometeram\"", sublabel: "→ A maldição que se repete", value: "curse", icon: "🔄" },
-        { label: "\"Perder o pouco que tenho e ficar em situação pior ainda\"", sublabel: "→ O medo do colapso total", value: "collapse", icon: "🚨" },
+        { label: "Briga e tensão", sublabel: "→ Ambiente de conflito financeiro", value: "conflict", icon: "⚡" },
+        { label: "Assunto proibido", sublabel: "→ Tabu familiar", value: "taboo", icon: "🤫" },
+        { label: "Sempre faltava e era \"se virar\"", sublabel: "→ Escassez constante", value: "scarcity", icon: "📉" },
+        { label: "Tinha, mas vinha com culpa/medo", sublabel: "→ Dinheiro = peso emocional", value: "guilt", icon: "😰" },
       ]
     },
     {
       id: 3,
       title: "PASSO 3 DE 3",
-      text: "Quando pensa nessa área travada, qual SENSAÇÃO é mais forte?",
+      text: "Quando você recebe dinheiro, o que acontece primeiro?",
       singleButton: false,
       options: [
-        { label: "\"Teto invisível — chego perto e algo me puxa de volta\"", sublabel: "→ Padrão de autossabotagem", value: "ceiling", icon: "🔒" },
-        { label: "\"Peso energético — carrego algo que não é meu\"", sublabel: "→ Herança de escassez ativa", value: "burden", icon: "👻" },
-        { label: "\"Loop vicioso — mesma história se repete sem parar\"", sublabel: "→ Ciclo energético travado", value: "loop", icon: "🌀" },
+        { label: "\"Pago todo mundo e eu fico por último\"", sublabel: "→ Padrão de auto-negligência", value: "last", icon: "👥" },
+        { label: "\"Gasto pra aliviar ansiedade\"", sublabel: "→ Consumo emocional", value: "anxiety", icon: "💸" },
+        { label: "\"Guardo, mas vivo com medo de perder\"", sublabel: "→ Mentalidade de escassez", value: "fear", icon: "😨" },
+        { label: "\"Travo e procrastino decisões (cobrar, investir, negociar)\"", sublabel: "→ Paralisia financeira", value: "paralysis", icon: "🧊" },
       ]
     }
   ];
@@ -155,10 +158,31 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-xl md:text-2xl font-serif text-white mb-6"
+          className="text-xl md:text-2xl font-serif text-white mb-4"
         >
-          Processando sua frequência energética...
+          Seu diagnóstico financeiro em 60 segundos
         </motion.h2>
+        
+        <motion.p
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="text-slate-300 text-sm mb-6 max-w-xs text-center"
+        >
+          Vamos identificar qual padrão está drenando seu dinheiro e te entregar um plano prático de 7 dias.
+        </motion.p>
+        
+        {/* Deliverable bullets */}
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.35 }}
+          className="text-left text-sm text-slate-300 mb-6 space-y-2 max-w-xs"
+        >
+          <p>✅ Seu perfil predominante</p>
+          <p>✅ O que te trava (com base nas respostas)</p>
+          <p>✅ O que fazer no Dia 1–7</p>
+        </motion.div>
         
         {/* Animated loading stages */}
         <div className="space-y-3 mb-6 w-full max-w-xs">
@@ -294,7 +318,7 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                     <span className="text-2xl">💬</span>
                     <div>
                       <p className="text-slate-300 text-sm italic leading-relaxed">
-                        "Depois que ouvi os áudios, parei de me sentir sugado pela minha família. Dormi em paz pela 1ª vez em meses."
+                        "Identifiquei meu padrão no primeiro dia. Em 7 dias, parei de aceitar menos do que mereço."
                       </p>
                       <p className="text-[#D4AF37] text-xs mt-2 font-semibold">— Camila, 34 anos</p>
                     </div>
@@ -305,11 +329,11 @@ export const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                 <div className="flex flex-wrap items-center justify-center gap-3 text-xs">
                   <div className="flex items-center gap-1 text-emerald-400">
                     <Star className="w-3 h-3 fill-emerald-400" />
-                    <span>🔓 +1.327 desbloqueios na última semana</span>
+                    <span>+1.327 diagnósticos na última semana</span>
                   </div>
                 </div>
                 <p className="text-slate-500 text-xs text-center mt-2">
-                  Método validado em mais de 4.000 diagnósticos energéticos
+                  Método validado em mais de 4.000 diagnósticos
                 </p>
               </motion.div>
             )}
