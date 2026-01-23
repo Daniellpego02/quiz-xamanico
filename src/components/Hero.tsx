@@ -50,7 +50,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             Não é azar. Na maioria dos casos é um <strong className="text-[#D4AF37]">padrão de escassez aprendido</strong> (culpa, obrigação e medo) que te faz repetir decisões que drenam sua grana — sem você perceber.
           </h2>
           <p className="text-sm md:text-base text-slate-300 leading-relaxed max-w-md mx-auto">
-            Responda <strong className="text-white">8 perguntas</strong> e descubra seu <strong className="text-[#D4AF37]">Perfil de Travamento Financeiro</strong> + o <strong className="text-white">Plano de 7 dias</strong> (libera no app).
+            Responda <strong className="text-white">3 perguntas</strong> e descubra seu <strong className="text-[#D4AF37]">Perfil de Travamento Financeiro</strong> + o <strong className="text-white">Plano de 7 dias</strong> (libera no app).
           </p>
         </motion.div>
 
