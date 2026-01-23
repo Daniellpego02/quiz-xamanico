@@ -18,12 +18,12 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
   // Personalize with first name
   const firstName = userName ? userName.split(' ')[0] : 'Você';
 
-  // Stages adapted by quiz path
+  // Stages adapted by quiz path - updated with new copy
   const financeStages = [
-    { pct: 15, text: "🔮 Conectando sua frequência ancestral...", icon: <Search className="w-6 h-6 text-[#D4AF37]" /> },
-    { pct: 35, text: "Lendo registros vibracionais herdados...", icon: <Brain className="w-6 h-6 text-[#D4AF37]" /> },
-    { pct: 60, text: "Padrão de Escassez Hereditária Detectado: Nível Alto...", icon: <AlertTriangle className="w-6 h-6 text-red-400" /> },
-    { pct: 85, text: "Gerando Protocolo de Solução personalizado...", icon: <Wallet className="w-6 h-6 text-[#D4AF37]" /> },
+    { pct: 15, text: "✓ Analisando suas 3 respostas", icon: <Search className="w-6 h-6 text-[#D4AF37]" /> },
+    { pct: 35, text: "✓ Cruzando com banco de 4.300 diagnósticos", icon: <Brain className="w-6 h-6 text-[#D4AF37]" /> },
+    { pct: 60, text: "✓ Identificando seu arquétipo de bloqueio", icon: <AlertTriangle className="w-6 h-6 text-red-400" /> },
+    { pct: 85, text: "✓ Gerando protocolo personalizado de desbloqueio", icon: <Wallet className="w-6 h-6 text-[#D4AF37]" /> },
     { pct: 100, text: "✨ DIAGNÓSTICO CONCLUÍDO", icon: <CheckCircle2 className="w-6 h-6 text-green-400" /> }
   ];
 
@@ -41,21 +41,21 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
     ? { text: "\"Descobri porque sempre escolho errado. Libertador!\"", author: "Fernanda C.", age: 28 }
     : { text: "\"Cara, eu achava que era papo furado. Fiz o ritual de limpeza na segunda-feira. Na quarta, recebi um PIX de uma dívida que eu dava como perdida há 2 anos. Chega arrepiei.\"", author: "Marcos V.", age: 35 };
 
+  // Progress animation for loading bar (approx 8-12 seconds total)
   useEffect(() => {
     const timer = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(timer);
           setAnalysisComplete(true);
-          // Reduced from 800ms to 400ms for faster button reveal
           setTimeout(() => setShowContinueButton(true), 400);
           return 100;
         }
-        // Increased increment for faster progress (was 0.5-3.5, now 1-5)
-        const increment = Math.random() * 4 + 1;
+        // Increment of 2-8 every 100ms completes in ~8-12 seconds
+        const increment = Math.random() * 6 + 2;
         return Math.min(prev + increment, 100);
       });
-    }, 80); // Reduced from 100ms to 80ms for faster progress
+    }, 100);
 
     return () => clearInterval(timer);
   }, []);
@@ -118,7 +118,7 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
           {analysisComplete ? (
             <span className="text-[#FFD700]">✨ Seu Bloqueio foi Identificado</span>
           ) : (
-            "🔮 Processando sua Frequência Ancestral..."
+            "🔍 Rastreando Seu Padrão Energético..."
           )}
         </h2>
         
@@ -148,18 +148,29 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
               transition={{ delay: 0.3 }}
               className="space-y-4"
             >
-              {/* Result summary */}
-              <div className="bg-gradient-to-br from-red-900/30 to-orange-900/20 border border-red-500/30 rounded-xl p-4">
-                <p className="text-white text-base leading-relaxed">
-                  Sinais claros de <span className="text-red-400 font-bold">Lealdade Invisível</span> e{' '}
-                  <span className="text-[#FFD700] font-bold">escassez herdada</span> foram detectados no seu campo energético.
+              {/* Result summary - Updated with aggressive copy */}
+              <div className="bg-gradient-to-br from-red-900/40 to-orange-900/30 border border-red-500/40 rounded-xl p-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <AlertTriangle className="w-5 h-5 text-red-400" />
+                  <span className="text-red-400 font-bold text-sm uppercase tracking-wider">BLOQUEIO CRÍTICO DETECTADO</span>
+                </div>
+                <p className="text-white text-base leading-relaxed mb-3">
+                  Seu campo energético está operando em <span className="text-red-400 font-bold">MODO REJEIÇÃO</span>.
                 </p>
-                <p className="text-slate-300 text-sm mt-2">
-                  Seu Mapa Xamânico já está pronto para desbloqueio.
+                <p className="text-slate-300 text-sm leading-relaxed">
+                  Enquanto esse padrão estiver ativo, você vai <span className="text-[#FFD700] font-semibold">SABOTAR</span> qualquer resultado financeiro que conquistar.
                 </p>
+                <p className="text-slate-400 text-xs mt-3 italic">
+                  Não é falta de esforço. É um vírus energético rodando em segundo plano.
+                </p>
+                <div className="mt-4 pt-3 border-t border-white/10">
+                  <p className="text-[#D4AF37] text-sm font-medium">
+                    Seu Mapa Xamânico personalizado foi gerado com o protocolo exato para desbloquear isso em 7 dias.
+                  </p>
+                </div>
               </div>
 
-              {/* Continue button */}
+              {/* Continue button - Updated CTA */}
               {showContinueButton && (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -170,18 +181,24 @@ export const AnalysisLoading: React.FC<AnalysisLoadingProps> = ({ onComplete, qu
                     <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-green-400 rounded-xl blur opacity-60 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
                     <button
                       onClick={handleContinue}
-                      className="relative w-full bg-gradient-to-r from-emerald-500 to-green-500 hover:from-green-400 hover:to-emerald-400 text-white font-bold py-4 px-8 rounded-xl shadow-[0_0_30px_rgba(16,185,129,0.5)] hover:shadow-[0_0_40px_rgba(16,185,129,0.7)] active:scale-95 transition-all flex items-center justify-center gap-2 border-t border-white/20 text-lg"
+                      className="relative w-full bg-gradient-to-r from-emerald-500 to-green-500 hover:from-green-400 hover:to-emerald-400 text-white font-bold py-4 px-6 rounded-xl shadow-[0_0_30px_rgba(16,185,129,0.5)] hover:shadow-[0_0_40px_rgba(16,185,129,0.7)] active:scale-95 transition-all flex items-center justify-center gap-2 border-t border-white/20 text-base md:text-lg"
                     >
                       <Sparkles className="w-5 h-5" />
-                      💰 VER MEU DIAGNÓSTICO E DESBLOQUEAR →
+                      🔓 VER MEU DIAGNÓSTICO COMPLETO E DESBLOQUEAR AGORA
                     </button>
                   </div>
                   
                   {/* Urgency text */}
                   <p className="text-slate-400 text-xs mt-3 flex items-center justify-center gap-1">
                     <Lock className="w-3 h-3" />
-                    Ativação disponível pelas próximas 3 horas
+                    ⏰ Disponível pelas próximas 3 horas (Sistema fecha automaticamente)
                   </p>
+                  
+                  {/* Social proof footer */}
+                  <div className="flex items-center justify-center gap-4 mt-3 text-xs text-slate-400">
+                    <span>✅ +4.300 mapas gerados</span>
+                    <span>🔒 Diagnóstico confidencial</span>
+                  </div>
                 </motion.div>
               )}
             </motion.div>
